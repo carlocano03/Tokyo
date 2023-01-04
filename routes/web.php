@@ -24,4 +24,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
+Route::get('admin', [
+    'as' => 'admin',
+    'uses' => 'Auth\LoginController@showLoginForm'
+  ]);
+
 Route::get('/home', [HomeController::class, 'index'])->name('home');
