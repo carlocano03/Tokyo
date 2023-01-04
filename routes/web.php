@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +24,9 @@ Route::get('/', function () {
     return redirect()->route('login');
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('admin', [
+    'as' => 'admin',
+    'uses' => 'Auth\LoginController@showLoginForm'
+  ]);
+
+Route::get('/home', [HomeController::class, 'index'])->name('home');
