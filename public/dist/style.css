@@ -2326,7 +2326,7 @@ ul {
 
 .mp-split-pane {
     width: 100%;
-    height: 100%;
+    height: calc(100% - 30px);
     display: flex;
     align-items: stretch
 }
@@ -4933,4 +4933,74 @@ tfoot {
 
 .bottom-0 {
     bottom: -3px;
+}
+.bg-responsive{
+    background-repeat: no-repeat;
+    background-size: cover;
+} 
+
+
+.opacity-1{
+    opacity: 0.5;
+}
+
+.opacity-10 {
+    opacity: 1;
+}
+
+.h-register {
+    /* height: calc(100% - 200px); */
+    height: 100%;
+
+}
+
+
+.card {
+    background-color: #fff;
+    background-color: var(--c-white);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 3px 0 var(--c-shadow);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 20px;
+}
+
+.footer {
+    background-color: var(--c-accent-80);
+    color: var(--c-accent-10);
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.gap-10 {
+    gap: 10px;
+}
+
+.gap-5 {
+    gap: 5px;
+}
+
+.min-h-100 {
+    min-height: 100%;
+}
+
+.sticky {
+    position: sticky
+}
+
+.top-0 {
+    top:0;
+}
+
+.bg-white {
+    background-color: white;
+}
+
+.up-button {
+    background-color: var(--c-accent) !important;
+    color: white !important;
 }

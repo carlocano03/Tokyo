@@ -69,8 +69,10 @@
         <img id="loading-image" src="{{ asset('/img/logo_gif_blue.gif') }}" alt="Loading..." />
     </div>
     @section('content')
+    @extends('layouts/footer')
     @show
     @yield('scripts')
+   
 </body>
 
 </html>
