@@ -88,6 +88,7 @@
       $(this).attr('value', 'step-end')
     } else if (nextValue == 'step-end') {
       alert('end')
+      $("#btn-submit").click()
     }
 
   })

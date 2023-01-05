@@ -270,6 +270,7 @@
             <label for="" class="mp-input-group__label"><input class="" type="checkbox" required /> By checking this box, I hearby certify that all information provided is true, acurate, and complete.</label>
         </div>
     </div>
+    <button type="submit" class="d-none" id="btn-submit">Submit</button>
 </form>
 @endsection
 
