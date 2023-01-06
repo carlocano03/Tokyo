@@ -5002,15 +5002,17 @@ tfoot {
     background-color: white;
 }
 
+.btn-md{
+    padding: 4px 20px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
 .up-button {
     background-color: var(--c-accent) !important;
     color: white !important;
+
 }
-
-
-
-
-
 .transition-background {
     /* padding: 100%; */
 
@@ -5035,4 +5037,39 @@ tfoot {
     100% {
         width: 0%;
     }
+   
+}
+
+.bottom-0 {
+    bottom: 0;
+}
+
+
+.mw-600{    
+    max-width: 600px;
+}
+
+.w-600 {
+    width: 600px;
+}
+
+.mw-200{    
+    max-width: 200px;
+}
+
+.transition-all {
+    transition: all 1s;
+}
+
+.pv-3 {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+.self-end{
+    align-self: end !important;
+}
+
+.mt-auto {
+    margin-top: auto;
 }
