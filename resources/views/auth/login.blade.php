@@ -297,6 +297,46 @@
 </form>
 @endsection
 
+@section('reset-password-form')
+    <button class="up-button btn-md mp-mt3" id="fp_back" value="">
+                Back
+    </button>
+    <div class="mp-pb4  mp-text-center">
+        <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+    </div>
+    <div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
+     Reset Your Password
+    </div>
+    
+  
+    <form id="resetPassword" method="post" action="{{ url('/register') }}">
+    {{ csrf_field() }}
+    <div class="mp-pt3 d-flex gap-10 flex-column mp-pb5" id="step-1">
+      
+        <label class="mp-text-fs-medium">
+            Submit your email address and we'll send you a "Reset your Password" email. If you cannot find the email in your Inbox, wait a few minutes then refresh your Inbox or, alternatively, look for it in your Spam or Junk folder. If you do not remember your email address, please 
+            <a href="https://www.upprovidentfund.com/contact-us/" target="_blank">contact us</a> us so we can assist you in resetting your password.
+        </label>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Email</label>
+            <input class="mp-input-group__input mp-text-field" type="email" required />
+        </div>
+        
+      
+
+        
+    </div>
+     <div class="col col-auto">
+            <div class="row" style ="float:right;" >
+                <button class="up-button btn-md"  type="submit"  id="btn-submit">Send Email</button>
+            </div>
+    </div>
+  
+    
+</form>
+@endsection
+
+
 @section('right')
 <div class="mp-bg {{ Request::route()->getName() == 'admin' ? 'mp-bg--admin' : 'mp-bg--member' }}" style="background-image:url({{ Request::route()->getName() == 'admin' ? 'assets/images/bg-admin.svg' : 'assets/images/bg-member.svg'}})">
     <div class="mp-mhauto mp-pv5">
