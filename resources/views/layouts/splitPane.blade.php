@@ -1,5 +1,10 @@
 @extends('layouts/index')
 @section('content')
+
+       <div class="transition-background">
+
+        </div>
+
     <div class="mp-split-pane">
         <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
             <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
@@ -30,6 +35,8 @@
     </div>
 </div>
 <script>
+
+
     // $("#loginform").attr("hidden", true);
     // // var $ids = $('[id="loginForm"]');
 
