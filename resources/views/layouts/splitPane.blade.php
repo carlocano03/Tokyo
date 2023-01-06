@@ -113,7 +113,9 @@
     $(document).on('click', '#status_trail', function(e) {
         $("#loginform").attr("hidden", true);
         $("#statusTrailForm").removeAttr("hidden");
+        $("#leftsection").removeClass("transition-all").addClass("transition-all-cubic");
         $("#leftsection").addClass("mw-600").addClass("w-600");
+
         // $("#control").removeClass("d-none").addClass("d-flex");
     })
 
@@ -121,16 +123,20 @@
     $(document).on('click', '#forgot_password', function(e) {
         $("#loginform").attr("hidden", true);
         $("#resetPasswordForm").removeAttr("hidden");
+        $("#leftsection").removeClass("transition-all").addClass("transition-all-cubic");
         $("#leftsection").addClass("mw-600").addClass("w-600");
         // $("#control").removeClass("d-none").addClass("d-flex");
 
     })
 
-     $(document).on('click', '#fp_back', function(e) {
-       $("#resetPasswordForm").attr("hidden", true);
-       $("#statusTrailForm").attr("hidden", true);
-       $("#loginform").removeAttr("hidden");
-       $("#leftsection").removeClass("mw-600").removeClass("w-600");
+    $(document).on('click', '#fp_back', function(e) {
+        $("#resetPasswordForm").attr("hidden", true);
+        $("#statusTrailForm").attr("hidden", true);
+        $("#loginform").removeAttr("hidden");
+        $("#leftsection").removeClass("mw-600").removeClass("w-600");
+        setTimeout(function timout() {
+            $("#leftsection").removeClass("transition-all-cubic").addClass("transition-all");
+        }, 400)
     })
 
     $(document).on('click', '#register', function(e) {
