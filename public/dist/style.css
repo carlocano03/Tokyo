@@ -5002,7 +5002,7 @@ tfoot {
     background-color: white;
 }
 
-.btn-md{
+.btn-md {
     padding: 4px 20px;
     border-radius: 15px;
     cursor: pointer;
@@ -5013,6 +5013,7 @@ tfoot {
     color: white !important;
 
 }
+
 .transition-background {
     /* padding: 100%; */
 
@@ -5037,7 +5038,7 @@ tfoot {
     100% {
         width: 0%;
     }
-   
+
 }
 
 .bottom-0 {
@@ -5045,20 +5046,23 @@ tfoot {
 }
 
 
-.mw-600{    
+.mw-600 {
     max-width: 600px;
 }
 
 .w-600 {
+    /* -webkit-transform: translateX(600px);
+    transform: translateX(600px); */
     width: 600px;
 }
 
-.mw-200{    
+.mw-200 {
     max-width: 200px;
 }
 
 .transition-all {
-    transition: all 1s;
+    -webkit-transition: all 0.4s cubic-bezier(0.86, 0.08, 0.88, 0.08);
+    transition: all 0.4s cubic-bezier(0.86, 0.08, 0.88, 0.08);
 }
 
 .pv-3 {
@@ -5066,10 +5070,19 @@ tfoot {
     padding-right: 3rem;
 }
 
-.self-end{
+.self-end {
     align-self: end !important;
 }
 
 .mt-auto {
     margin-top: auto;
+}
+
+.link_style {
+    cursor: pointer;
+}
+
+.link_style:hover {
+    text-decoration: underline;
+    color: var(--c-active-hover-bg);
 }
