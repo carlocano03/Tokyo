@@ -51,7 +51,8 @@
     var my_handlers = {
 
         fill_provinces: function() {
-            var region_code = $(this).val();
+          var region = $(this).val().split('|');
+          var region_code = region[0];
             $('#province').ph_locations('fetch_list', [{
                 "region_code": region_code
             }]);
@@ -59,14 +60,16 @@
         },
 
         fill_cities: function() {
-            var province_code = $(this).val();
+          var prov = $(this).val().split('|');
+          var province_code = prov[0];
             $('#city').ph_locations('fetch_list', [{
                 "province_code": province_code
             }]);
         },
 
         fill_barangays: function() {
-            var city_code = $(this).val();
+          var city = $(this).val().split('|');
+          var city_code = city[0];
             $('#barangay').ph_locations('fetch_list', [{
                 "city_code": city_code
             }]);

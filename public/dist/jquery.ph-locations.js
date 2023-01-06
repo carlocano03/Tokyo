@@ -66,7 +66,9 @@
 
 			build_options(params){
 				var shtml = "";
-
+				shtml += '<option value="">';
+				shtml +=  'Please select';
+				shtml += '</option>';
 				for(var i=0; i<params.data.length;i++){
 					shtml += '<option value="' + params.data[i].id + '|' + params.data[i].name + '">';
 					shtml +=  params.data[i].name ;
