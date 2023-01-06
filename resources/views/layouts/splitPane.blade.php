@@ -1,9 +1,9 @@
 @extends('layouts/index')
 @section('content')
 
-       <div class="transition-background">
+    <div class="transition-background">
 
-        </div>
+    </div>
 
     <div class="mp-split-pane">
         <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
@@ -18,6 +18,11 @@
         </div>
         <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3">
             @section('registration-personal-form')
+            @show
+        </div>
+
+        <div id="resetPasswordForm" hidden="hidden" class="container-fluid relative pv-3">
+            @section('reset-password-form')
             @show
         </div>
         <div class="sticky bottom-0 mp-pv5 mp-ph1 items-between mp-pb2 bg-white mt-auto d-none" id="control">
@@ -99,6 +104,22 @@
 
         $('#province').ph_locations('fetch_list');
     });
+
+    //forgot password
+    $(document).on('click', '#forgot_password', function(e) {
+        $("#loginform").attr("hidden", true);
+        $("#resetPasswordForm").removeAttr("hidden");
+        $("#leftsection").addClass("mw-600").addClass("w-600");
+        // $("#control").removeClass("d-none").addClass("d-flex");
+
+    })
+
+     $(document).on('click', '#fp_back', function(e) {
+       $("#resetPasswordForm").attr("hidden", true);
+       $("#loginform").removeAttr("hidden");
+       $("#leftsection").removeClass("mw-600").removeClass("w-600");
+  
+    })
 
     $(document).on('click', '#register', function(e) {
         $("#loginform").attr("hidden", true);
