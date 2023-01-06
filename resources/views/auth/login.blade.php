@@ -58,87 +58,219 @@
 </form>
 @endsection
 
-@section('registrationform')
+@section('registration-personal-form')
 <div class="d-flex gap-10 sticky mp-ph3 top-0 bg-white">
-    <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+    <div>
+        <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+    </div>
     <div class="d-flex flex-column justify-content-center">
         <span>University of the Philippines Provident Fund Inc.</span>
         <span>Online Membership Application</span>
     </div>
 </div>
-<form id="loginForm" class="mp-pt3 d-flex gap-10 flex-column mp-pb3" method="post" action="{{ url('/login') }}">
+<form id="loginForm" method="post" action="{{ url('/register') }}">
     {{ csrf_field() }}
-    <label class="mp-text-fs-medium">Personal Information</label>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Last Name</label>
-        <input class="mp-input-group__input mp-text-field" type="text" required />
+    <div class="mp-pt3 d-flex gap-10 flex-column mp-pb5" id="step-1">
+        <label class="mp-text-fs-medium">Personal Information</label>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Last Name</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">First Name</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Middle Name</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Suffix</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Date of Birth</label>
+            <input class="mp-input-group__input mp-text-field" type="date" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Gender</label>
+            <select class="mp-input-group__input mp-text-field">
+                <option>Select Gender</option>
+                <option>Male</option>
+                <option>Female</option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Civil Status</label>
+            <select class="mp-input-group__input mp-text-field">
+                <option>Single</option>
+                <option>Married</option>
+                <option>Widowed</option>
+                <option>Divorced</option>
+                <option>Registered Ppartnership</option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Address</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Permanent Address</label>
+            <div class="d-flex gap-5">
+                <input type="checkbox" />
+                <label class="mp-input-group__label" style="margin-top: 5px;">(Same as above)</label>
+
+            </div>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Cellphone Number</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Landline Number</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Email Address</label>
+            <input class="mp-input-group__input mp-text-field" type="email" required />
+        </div>
     </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">First Name</label>
-        <input class="mp-input-group__input mp-text-field" type="text" required />
+    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5" id="step-2">
+        <label class="mp-text-fs-medium">Employment Details</label>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Campus</label>
+            <select class="mp-input-group__input mp-text-field">
+                <option>Select Campus</option>
+                <option>Campus </option>
+                <option>Campus </option>
+                <option>Campus </option>
+                <option>Campus </option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Employee Classification</label>
+            <select class="mp-input-group__input mp-text-field">
+                <option>Select Classification</option>
+                <option>Class A </option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Other Classification (Please Specify)</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Employee Number</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">College Unit</label>
+            <select class="mp-input-group__input mp-text-field">
+                <option>Select Unit</option>
+                <option>Unit </option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Department</label>
+            <select class="mp-input-group__input mp-text-field">
+                <option>Select Department</option>
+                <option>DEPED </option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Academic Rank/ Position</label>
+            <select class="mp-input-group__input mp-text-field">
+                <option>Select Unit</option>
+                <option>Top Global Layla </option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Date of Appointment</label>
+            <input class="mp-input-group__input mp-text-field" type="date" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Appointment Status</label>
+            <select class="mp-input-group__input mp-text-field">
+                <option>Select Status</option>
+                <option>Regular Employee</option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Other Status (Please Specify)</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Monthly Salary</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Salary Grade</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Salary Grade Category</label>
+            <select class="mp-input-group__input mp-text-field">
+                <option>Select Category</option>
+                <option>Yayamanin</option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Taxpayer Identification Number (TIN)</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
     </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Middle Name</label>
-        <input class="mp-input-group__input mp-text-field" type="text" required />
+    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5" id="step-3">
+        <label class="mp-text-fs-medium">Membership Details</label>
+        <div class="mp-input-group">
+            <div class="d-flex gap-5">
+                <input type="checkbox" />
+                <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1% - 100%)</label>
+            </div>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group">
+            <div class="d-flex gap-5">
+                <input type="checkbox" />
+                <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso )</label>
+            </div>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+        <div class="mp-input-group d-flex gap-5 flex-column">
+            <label class="mp-input-group__label">Dependents</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Name" />
+            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Birthday" />
+            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Relationship" />
+            <a class="up-button mw-200 btn-md self-end mp-mt2">Add Dependent</a>
+        </div>
+        <table class="mp-table mp-text-fs-small table_style mp-mh2" id="campusTable" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Birthday</th>
+                    <th>Relationship</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Samplee D. Luffy</td>
+                    <td>January-1-2000</td>
+                    <td>Son</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Supporting Document</label>
+            <input class="mp-input-group__input mp-mt3" type="file" required />
+        </div>
+        <div class="mp-input-group mp-mt2">
+            <label for="" class="mp-input-group__label"><input class="" type="checkbox" required /> By checking this box, I hearby certify that all information provided is true, acurate, and complete.</label>
+        </div>
     </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Suffix</label>
-        <input class="mp-input-group__input mp-text-field" type="text" required />
-    </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Date of Birth</label>
-        <input class="mp-input-group__input mp-text-field" type="date" required />
-    </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Gender</label>
-        <select class="mp-input-group__input mp-text-field">
-            <option>Select Gender</option>
-            <option>Male</option>
-            <option>Female</option>
-        </select>
-    </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Civil Status</label>
-        <select class="mp-input-group__input mp-text-field">
-            <option>Single</option>
-            <option>Married</option>
-            <option>Widowed</option>
-            <option>Divorced</option>
-            <option>Registered Ppartnership</option>
-        </select>
-    </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
-        <input class="mp-input-group__input mp-text-field" type="text" required />
-    </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Address</label>
-        <input class="mp-input-group__input mp-text-field" type="text" required />
-    </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Permanent Address</label>
-        <input class="mp-input-group__input mp-text-field" type="text" required />
-    </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Cellphone Number</label>
-        <input class="mp-input-group__input mp-text-field" type="text" required />
-    </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Landline Number</label>
-        <input class="mp-input-group__input mp-text-field" type="text" required />
-    </div>
-    <div class="mp-input-group">
-        <label class="mp-input-group__label">Email Address</label>
-        <input class="mp-input-group__input mp-text-field" type="text" required />
-    </div>
-    <div class="d-flex">
-        <a class="up-button" id="back">
-            Back
-        </a>
-        <a class="up-button">
-            Next
-        </a>
-    </div>
+    <button type="submit" class="d-none" id="btn-submit">Submit</button>
 </form>
 @endsection
 
