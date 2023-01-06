@@ -31,13 +31,13 @@
     </div>
     <div class="mp-pb4 mp-input-group">
         <label class="mp-input-group__label" for="password">Password</label>
-        <input class="mp-input-group__input mp-text-field" type="text" id="password" name="password" required />
+        <input class="mp-input-group__input mp-text-field" type="password" id="password" name="password" required />
     </div>
     <div class="mp-pt3 row justify-content-between grid mp-pv-1">
 
         <div class="col">
             <div class="row flex-column">
-                <a class="mp-text-fs-small mp-link" href="{{ url('/password/reset') }}{{ Request::route()->getName() == 'admin' ? '?admin=true' : '' }}">
+                <a class="mp-text-fs-small mp-link" id="forgot_password">
                     Forgot password?
                 </a>
                 <br />
