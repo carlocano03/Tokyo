@@ -115,9 +115,32 @@
             <input class="mp-input-group__input mp-text-field" type="text" required />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Address</label>
+            <label class="mp-input-group__label">Province</label>
+            <select class="mp-input-group__input mp-text-field" id="province">
+                <option></option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Municipality</label>
+            <select class="mp-input-group__input mp-text-field" id="city">
+                <option></option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Barangay</label>
+            <select class="mp-input-group__input mp-text-field" id="barangay">
+                <option></option>
+            </select>
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Bldg No. St. No.</label>
             <input class="mp-input-group__input mp-text-field" type="text" required />
         </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Zipcode</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+        </div>
+
         <div class="mp-input-group">
             <label class="mp-input-group__label">Permanent Address</label>
             <div class="d-flex gap-5">
