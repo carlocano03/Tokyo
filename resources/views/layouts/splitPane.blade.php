@@ -133,7 +133,6 @@
         $("#resetPasswordForm").attr("hidden", true);
         $("#statusTrailForm").attr("hidden", true);
         $("#loginform").removeAttr("hidden");
-
         $("#leftsection").removeClass("mw-600").removeClass("w-600");
         setTimeout(function timout() {
             $("#leftsection").removeClass("transition-all-cubic").addClass("transition-all");
