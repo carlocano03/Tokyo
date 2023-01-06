@@ -5065,9 +5065,15 @@ tfoot {
 }
 
 .transition-all {
+    -webkit-transition: all 1s;
+    transition: all 1s;
+}
+
+.transition-all-cubic {
     -webkit-transition: all 0.4s cubic-bezier(0.86, 0.08, 0.88, 0.08);
     transition: all 0.4s cubic-bezier(0.86, 0.08, 0.88, 0.08);
 }
+
 
 .pv-3 {
     padding-left: 3rem;
