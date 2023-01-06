@@ -5056,6 +5056,10 @@ tfoot {
     width: 600px;
 }
 
+.w-90 {
+    width: 90%;
+}
+
 .mw-200 {
     max-width: 200px;
 }
@@ -5074,8 +5078,61 @@ tfoot {
     align-self: end !important;
 }
 
+.line {
+    height: 2px;
+    position: absolute;
+    width: 100%;
+    z-index: 0;
+    bottom: 14px;
+}
+
+.step-1 {
+    background-color: var(--c-base-50);
+}
+
+.step-2 {
+    background-color: white;
+    background-image: linear-gradient(to right, var(--c-accent-80) 50%, var(--c-base-50) 50%);
+    
+}
+
+.step-3 {
+    background-color: var(--c-accent-80);
+    background-image: linear-gradient(to right, var(--c-accent-80) 100%, var(--c-base-50) 0%);
+}
+
+.circle {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--c-accent-80);
+    color: var(--c-base-10);
+    color: white;
+    text-align: center;
+    padding-top: 4px;
+    z-index: 1;
+}
+
 .mt-auto {
     margin-top: auto;
+}
+
+.up-color {
+    color: maroon;
+    color: var(--c-accent);
+}
+
+.reg-title {
+    font-size: 1.17rem;
+    font-size: var(--fs-large)
+}
+
+.ml-auto{
+    margin-left: auto;
+}
+
+.mr-auto{
+    margin-right: auto;
 }
 
 .link_style {
