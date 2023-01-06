@@ -111,6 +111,7 @@
         $('#province').ph_locations('fetch_list');
     });
 
+
     $(document).on('click', '#status_trail', function(e) {
         $("#loginform").attr("hidden", true);
         $("#statusTrailForm").removeAttr("hidden");
