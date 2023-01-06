@@ -37,14 +37,17 @@
 
         <div class="col">
             <div class="row flex-column">
-                <a class="mp-text-fs-small mp-link" id="forgot_password">
+                <a class="mp-text-fs-small mp-link link_style" id="forgot_password">
                     Forgot password?
                 </a>
                 <br />
-                <a class="mp-text-fs-small mp-link" id="register">
+                <label class="mp-text-fs-small mp-link link_style"  id="register">
                     Register here
-                </a>
-                <a class="mp-text-fs-small mp-link" href="https://www.upprovidentfund.com/">
+                </label>
+                <label class="mp-text-fs-small mp-link link_style"  id="status_trail">
+                    Check Application Status
+                </label>
+                <a class="mp-text-fs-small mp-link link_style" href="https://www.upprovidentfund.com/">
                     Back to www.upprovidentfund.com
                 </a>
             </div>
@@ -54,8 +57,40 @@
                 <button type="submit" class="mp-button mp-button--accent">Login</button>
             </div>
         </div>
+
+       
     </div>
+     
 </form>
+@endsection
+
+@section('status-trail-form')
+  <button class="up-button btn-md mp-mt3" id="fp_back" value="">
+                Back
+    </button>
+    <div class="mp-pb4  mp-text-center">
+        <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+    </div>
+    <div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
+     Application Status Trail
+    </div>
+
+    <label class="mp-text-fs-medium">
+       Abutin ang pangarap kasama ang 
+       <a href="https://www.upprovidentfund.com/" target="_blank">
+                    UP PROVIDENT FUND INC.
+       </a>
+    </label>
+    <div class="mp-input-group mp-mt5">
+            <label class="mp-input-group__label">Application Number</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+    </div>
+
+    <div class="col col-auto">
+            <div class="row" style ="float:right;" >
+                <button class="up-button btn-md mp-mt3"  type="submit"  id="btn-submit">Search</button>
+            </div>
+    </div>
 @endsection
 
 @section('registration-personal-form')
@@ -312,7 +347,7 @@
     <form id="resetPassword" method="post" action="{{ url('/register') }}">
     {{ csrf_field() }}
     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb5" id="step-1">
-      
+
         <label class="mp-text-fs-medium">
             Submit your email address and we'll send you a "Reset your Password" email. If you cannot find the email in your Inbox, wait a few minutes then refresh your Inbox or, alternatively, look for it in your Spam or Junk folder. If you do not remember your email address, please 
             <a href="https://www.upprovidentfund.com/contact-us/" target="_blank">contact us</a> us so we can assist you in resetting your password.
@@ -321,10 +356,7 @@
             <label class="mp-input-group__label">Email</label>
             <input class="mp-input-group__input mp-text-field" type="email" required />
         </div>
-        
-      
 
-        
     </div>
      <div class="col col-auto">
             <div class="row" style ="float:right;" >

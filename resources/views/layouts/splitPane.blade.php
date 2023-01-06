@@ -16,6 +16,12 @@
                 </div>
             </div>
         </div>
+
+        <div id="statusTrailForm" hidden="hidden" class="container-fluid relative pv-3">
+            @section('status-trail-form')
+            @show
+        </div>
+
         <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3">
             @section('registration-personal-form')
             @show
@@ -105,6 +111,14 @@
         $('#province').ph_locations('fetch_list');
     });
 
+
+    $(document).on('click', '#status_trail', function(e) {
+        $("#loginform").attr("hidden", true);
+        $("#statusTrailForm").removeAttr("hidden");
+        $("#leftsection").addClass("mw-600").addClass("w-600");
+        // $("#control").removeClass("d-none").addClass("d-flex");
+    })
+
     //forgot password
     $(document).on('click', '#forgot_password', function(e) {
         $("#loginform").attr("hidden", true);
@@ -116,6 +130,7 @@
 
      $(document).on('click', '#fp_back', function(e) {
        $("#resetPasswordForm").attr("hidden", true);
+       $("#statusTrailForm").attr("hidden", true);
        $("#loginform").removeAttr("hidden");
        $("#leftsection").removeClass("mw-600").removeClass("w-600");
   
@@ -142,6 +157,7 @@
             $("#next-btn").attr('value', 'step-3')
         } else {
             $("#registrationform").attr("hidden", true);
+            $("#statusTrailForm").attr("hidden", true);
             $("#loginform").removeAttr("hidden");
             $("#next-btn").attr('value', 'step-2');
             $("#leftsection").removeClass("mw-600").removeClass("w-600");
