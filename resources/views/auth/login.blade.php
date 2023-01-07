@@ -90,14 +90,15 @@
             <br>
             <img src="{!! asset('assets/icons/qr-icon.svg') !!}" alt="UPPFI">
     </div>
-    <div class="mp-input-group mp-mt5">
+
+    <div class="mp-input-group mp-mt2">
             <label class="mp-input-group__label">Application Number</label>
             <input class="mp-input-group__input mp-text-field" type="text" required />
     </div>
 
     <div class="col col-auto">
             <div class="row" style ="float:right;" >
-                <button class="up-button btn-md mp-mt3"  type="submit"  id="btn-submit">Search</button>
+                <button class="up-button btn-md mp-mt3 mp-mb3"  type="submit"  id="btn-submit">Search</button>
             </div>
     </div>
 
