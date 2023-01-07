@@ -5337,3 +5337,13 @@ tfoot {
     opacity: 1;
     right: 0;
 }
+
+.ph-20-p {
+    padding-right: 15%;
+    padding-left: 15%;
+} 
+
+.pv-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
