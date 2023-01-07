@@ -1,10 +1,20 @@
 @extends('layouts/index')
 @section('content')
 
-    <div class="transition-background">
-
-    </div>
-
+    <!-- mobile transition
+    <div class="mobile-header">
+        <div class="logo-title">
+            <div class="mp-pb4  mp-text-center logo-text">
+                    <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
+                    <br>
+                    <label for="">
+                           UP Provident Fund
+                    </label>
+                  
+            </div>  
+        </div> 
+    </div> -->
+    
     <div class="mp-split-pane">
         <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
             <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">

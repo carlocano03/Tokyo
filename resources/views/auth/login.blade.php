@@ -2,12 +2,16 @@
 
 @section('loginForm')
 
-<div class="mp-pb4 mp-text-center">
-    <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
-</div>
-<div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
-    {{ (Request::route()->getName() == 'admin' ? 'Admin' : 'Member')}} Login
-</div>
+
+<div class="logo-title">
+    <div class="mp-pb4 mp-text-center">
+             <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+    </div>
+    <div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
+                {{ (Request::route()->getName() == 'admin' ? 'Admin' : 'Member')}} Login
+    </div>
+</div>  
+
 <div class="mp-text-fs-small">
     @if(Session::get('error'))
     <div class='mp-flash mp-flash--danger'>
@@ -65,8 +69,8 @@
 @endsection
 
 @section('status-trail-form')
-  <button class="up-button btn-md mp-mt3" id="fp_back" value="">
-                Back
+  <button class="up-button btn-md mp-mt3 button-animate-left" id="fp_back" value="">
+               <span>Back</span>
     </button>
     <div class="mp-pb4  mp-text-center">
         <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
@@ -81,6 +85,11 @@
                     UP PROVIDENT FUND INC.
        </a>
     </label>
+     <div class="mp-input-group mp-mt3 mp-text-center qr">
+            <label class="mp-input-group__label">Scan QR</label>
+            <br>
+            <img src="{!! asset('assets/icons/qr-icon.svg') !!}" alt="UPPFI">
+    </div>
     <div class="mp-input-group mp-mt5">
             <label class="mp-input-group__label">Application Number</label>
             <input class="mp-input-group__input mp-text-field" type="text" required />
@@ -91,6 +100,9 @@
                 <button class="up-button btn-md mp-mt3"  type="submit"  id="btn-submit">Search</button>
             </div>
     </div>
+ 
+
+     
 @endsection
 
 @section('registration-personal-form')
@@ -302,7 +314,8 @@
             <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Name" />
             <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Birthday" />
             <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Relationship" />
-            <a class="up-button mw-200 btn-md self-end mp-mt2">Add Dependent</a>
+            <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
+                <span>Add Dependent</span> </a>
         </div>
         <table class="mp-table mp-text-fs-small table_style mp-mh2" id="campusTable" cellspacing="0" width="100%">
             <thead>
@@ -333,8 +346,8 @@
 @endsection
 
 @section('reset-password-form')
-    <button class="up-button btn-md mp-mt3" id="fp_back" value="">
-                Back
+    <button class="up-button btn-md mp-mt3 button-animate-left" id="fp_back" value="">
+              <span>Back</span>  
     </button>
     <div class="mp-pb4  mp-text-center">
         <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
@@ -360,7 +373,8 @@
     </div>
      <div class="col col-auto">
             <div class="row" style ="float:right;" >
-                <button class="up-button btn-md"  type="submit"  id="btn-submit">Send Email</button>
+                <button class="up-button btn-md button-animate-right"  type="submit"  id="btn-submit">
+                    <span>Send Email</span> </button>
             </div>
     </div>
   
