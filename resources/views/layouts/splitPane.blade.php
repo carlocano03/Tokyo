@@ -1,9 +1,23 @@
 @extends('layouts/index')
 @section('content')
 
-<div class="transition-background">
 
-</div>
+<!-- mobile transition
+    <div class="mobile-header">
+        <div class="logo-title">
+            <div class="mp-pb4  mp-text-center logo-text">
+                    <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
+                    <br>
+                    <label for="">
+                           UP Provident Fund
+                    </label>
+                  
+            </div>  
+        </div> 
+    </div> -->
+<!-- <div class="transition-background">
+
+</div> -->
 
 <div class="mp-split-pane">
     <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
@@ -26,11 +40,6 @@
             @section('registration-personal-form')
             @show
         </div>
-
-        <div id="resetPasswordForm" hidden="hidden" class="container-fluid relative pv-3">
-            @section('reset-password-form')
-            @show
-        </div>
         <div class="sticky bottom-0 mp-pv5 mp-ph1 items-between mp-pb2 bg-white mt-auto d-none" id="control">
             <a class="up-button btn-md" id="back" value="">
                 Back
@@ -39,11 +48,18 @@
                 Next
             </a>
         </div>
+
+        <div id="resetPasswordForm" hidden="hidden" class="container-fluid relative pv-3">
+            @section('reset-password-form')
+            @show
+        </div>
+        
+        <div class="mp-split-pane__right">
+            @section('right')
+            @show
+         </div>
     </div>
-    <div class="mp-split-pane__right">
-        @section('right')
-        @show
-    </div>
+    
 </div>
 <script>
     // $("#loginform").attr("hidden", true);
