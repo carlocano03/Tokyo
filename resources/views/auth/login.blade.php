@@ -69,7 +69,7 @@
 @endsection
 
 @section('status-trail-form')
-  <button class="up-button btn-md mp-mt3 button-animate-left" id="fp_back" value="">
+  <button class="up-button btn-md mp-mt3 button-animate-left  hover-back" id="fp_back" value="">
                <span>Back</span>
     </button>
     <div class="mp-pb4  mp-text-center">
@@ -356,7 +356,7 @@
 @endsection
 
 @section('reset-password-form')
- <button class="up-button btn-md mp-mt3 button-animate-left" id="fp_back" value="">
+ <button class="up-button btn-md mp-mt3 button-animate-left  hover-back" id="fp_back" value="">
               <span>Back</span>  
     </button>
 <div class="mp-pb4  mp-text-center">

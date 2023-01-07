@@ -478,6 +478,11 @@ html {
     text-align: center;
 }
 
+.hover-back:hover {
+    background-color: rgb(113, 113, 113) !important;
+    color: white !important;
+}
+
 .qr {
     display: block;
 }

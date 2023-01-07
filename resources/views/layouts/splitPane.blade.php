@@ -2,8 +2,8 @@
 @section('content')
 
 
-<!-- mobile transition
-    <div class="mobile-header">
+<!-- mobile transition -->
+    <!-- <div class="mobile-header">
         <div class="logo-title">
             <div class="mp-pb4  mp-text-center logo-text">
                     <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
@@ -41,11 +41,11 @@
             @show
         </div>
         <div class="sticky bottom-0 mp-pv5 mp-ph1 items-between mp-pb2 bg-white mt-auto d-none" id="control">
-            <a class="up-button btn-md" id="back" value="">
-                Back
+            <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
+               <span>Back</span> 
             </a>
-            <a class="up-button btn-md" type="submit" value="step-2" id="next-btn">
-                Next
+            <a class="up-button btn-md button-animate-right " type="submit" value="step-2" id="next-btn">
+              <span>Next</span> 
             </a>
         </div>
 
