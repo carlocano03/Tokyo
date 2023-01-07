@@ -216,12 +216,8 @@
     })
 
     function scrollToTop() {
-
-        // console.log($('#leftsection').scrollTop())
-        // $('#leftsection').scrollTop(0)
-        console.log($('#leftsection').offset().top - 20)
         $('html, body, div').animate({
-            scrollTop: $('#leftsection').offset().top - 20 //#DIV_ID is an example. Use the id of your destination on the page
+            scrollTop: $('#leftsection').offset().top - 20 
         }, 300);
     }
 </script>
