@@ -100,19 +100,27 @@
                 <button class="up-button btn-md mp-mt3"  type="submit"  id="btn-submit">Search</button>
             </div>
     </div>
- 
 
-     
 @endsection
 
 @section('registration-personal-form')
-<div class="d-flex gap-10 sticky mp-ph3 top-0 bg-white">
-    <div>
-        <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+<div class="d-flex gap-10 sticky mp-ph3 top-0 bg-white flex-column">
+    <div style="width: 100%;" class="d-flex gap-10">
+        <div class="ml-auto">
+            <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+        </div>
+        <div class="d-flex flex-column justify-content-center mr-auto">
+            <div class="mp-mt2 up-color reg-title">University of the Philippines <br/> Provident Fund Inc.</div>
+            <span>Online Membership Application</span>
+        </div>
     </div>
-    <div class="d-flex flex-column justify-content-center">
-        <span>University of the Philippines Provident Fund Inc.</span>
-        <span>Online Membership Application</span>
+    <div class="relative mp-mt3 w-90 d-flex ml-auto mr-auto">
+        <ul class="d-flex flex-row items-between w-100">
+            <li class="circle">1</li>
+            <li class="circle">2</li>
+            <li class="circle">3</li>
+        </ul>
+        <div class="line step-1" id="line"></div>
     </div>
 </div>
 <form id="loginForm" method="post" action="{{ url('/register') }}">
@@ -209,6 +217,7 @@
             <label class="mp-input-group__label">Email Address</label>
             <input class="mp-input-group__input mp-text-field" type="email" required />
         </div>
+        
     </div>
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5" id="step-2">
         <label class="mp-text-fs-medium">Employment Details</label>
@@ -346,39 +355,39 @@
 @endsection
 
 @section('reset-password-form')
-    <button class="up-button btn-md mp-mt3 button-animate-left" id="fp_back" value="">
+ <button class="up-button btn-md mp-mt3 button-animate-left" id="fp_back" value="">
               <span>Back</span>  
     </button>
-    <div class="mp-pb4  mp-text-center">
-        <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
-    </div>
-    <div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
-     Reset Your Password
-    </div>
-    
-  
-    <form id="resetPassword" method="post" action="{{ url('/register') }}">
+<div class="mp-pb4  mp-text-center">
+    <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+</div>
+<div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
+    Reset Your Password
+</div>
+
+
+<form id="resetPassword" method="post" action="{{ url('/register') }}">
     {{ csrf_field() }}
     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb5" id="step-1">
 
         <label class="mp-text-fs-medium">
-            Submit your email address and we'll send you a "Reset your Password" email. If you cannot find the email in your Inbox, wait a few minutes then refresh your Inbox or, alternatively, look for it in your Spam or Junk folder. If you do not remember your email address, please 
+            Submit your email address and we'll send you a "Reset your Password" email. If you cannot find the email in your Inbox, wait a few minutes then refresh your Inbox or, alternatively, look for it in your Spam or Junk folder. If you do not remember your email address, please
             <a href="https://www.upprovidentfund.com/contact-us/" target="_blank">contact us</a> us so we can assist you in resetting your password.
         </label>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Email</label>
             <input class="mp-input-group__input mp-text-field" type="email" required />
         </div>
+    </div>
+    <div class="col col-auto">
+        <div class="row" style="float:right;">
+            <button class="up-button btn-md" type="submit" id="btn-submit">Send Email</button>
+        </div>
+    </div>
+
 
     </div>
-     <div class="col col-auto">
-            <div class="row" style ="float:right;" >
-                <button class="up-button btn-md button-animate-right"  type="submit"  id="btn-submit">
-                    <span>Send Email</span> </button>
-            </div>
-    </div>
   
-    
 </form>
 @endsection
 
