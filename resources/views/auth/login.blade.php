@@ -69,9 +69,7 @@
 @endsection
 
 @section('status-trail-form')
-  <button class="up-button btn-md mp-mt3 button-animate-left  hover-back" id="fp_back" value="">
-               <span>Back</span>
-    </button>
+  
     <div class="mp-pb4  mp-text-center">
         <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
     </div>
@@ -97,10 +95,157 @@
     </div>
 
     <div class="col col-auto">
+            <div class="row" style ="float:left;" >
+                <button class="up-button btn-md mp-mt3 button-animate-left  hover-back" id="fp_back" value="">
+                        <span>Back</span>
+                </button>
+            </div>
+            
             <div class="row" style ="float:right;" >
                 <button class="up-button btn-md mp-mt3 mp-mb3"  type="submit"  id="btn-submit">Search</button>
             </div>
     </div>
+
+    <div class="status-result">
+        <div class="status-title">
+            Online Membership Application Status
+            <br>
+            <div class="status-icon">
+                 <i class="fa fa-frown-o" aria-hidden="true"></i>
+            </div>
+            <div class="status-text">
+                 Not Found
+            </div>   
+        </div>
+
+         <div class="status-title">
+            Online Membership Application Status
+            <br>
+        </div>
+        <div class="status-info">
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+             <div class="row">
+                <div class="col-12 status-title" style = "margin-bottom: -20px;">
+                    <Label>Status : </Label>
+                    <label class="status-text">PROCESSING</label>
+                </div>
+                <div class="col-12 status-title">
+                    <Label>Remarks : </Label>
+                    <label class="status-text">Mama mo Remarks</label>
+                </div>
+             </div>
+
+
+            <div class="container" style="text-align:center;" >
+                <div class="row">
+                    <div class="col-6" >
+                     <button class="up-button btn-md mp-mt3  hover-back" id="fp_back"
+                        value="" style = "float:right;">
+                                <span>Back</span>
+                     </button>
+                    </div>
+
+                    <div class="col-6">
+                        <button class="up-button btn-md mp-mt3 mp-mb3"  style = "float:left;"  type="submit" 
+                        id="">Print</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+
+    </div>
+    
+
 
 @endsection
 
