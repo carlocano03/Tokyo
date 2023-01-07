@@ -479,12 +479,43 @@ html {
 }
 
 .hover-back:hover {
-    background-color: rgb(113, 113, 113) !important;
+    background-color: rgb(136, 136, 136) !important;
     color: white !important;
 }
 
 .qr {
     display: block;
+}
+
+.status-title {
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+}
+
+.status-result {
+    margin-top: 100px;
+}
+
+.status-text {
+    font-size: 20px;
+    color: var(--c-accent-80);
+    font-weight: 100;
+}
+
+.status-icon {
+    margin-top: 20px;
+}
+
+.status-info {
+    color: #5E5E5E;
+    font-weight: 500;
+}
+
+.status-icon i {
+    font-size: 100px;
+    color: var(--c-accent-80);
+    font-weight: 100;
 }
 
 .qr img {
