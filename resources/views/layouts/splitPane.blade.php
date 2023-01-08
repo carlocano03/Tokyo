@@ -3,7 +3,7 @@
 
 
 <!-- mobile transition -->
-    <!-- <div class="mobile-header">
+<!-- <div class="mobile-header">
         <div class="logo-title">
             <div class="mp-pb4  mp-text-center logo-text">
                     <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
@@ -40,12 +40,12 @@
             @section('registration-personal-form')
             @show
         </div>
-        <div class="sticky bottom-0 mp-pv5 mp-ph1 items-between mp-pb2 bg-white mt-auto d-none" id="control">
+        <div class="sticky bottom-0 mp-pv5 items-between mp-pb2 bg-white mt-auto d-none mp-pt3" id="control">
             <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
-               <span>Back</span> 
+                <span>Back</span>
             </a>
             <a class="up-button btn-md button-animate-right " type="submit" value="step-2" id="next-btn">
-              <span>Next</span> 
+                <span>Next</span>
             </a>
         </div>
 
@@ -53,13 +53,13 @@
             @section('reset-password-form')
             @show
         </div>
-        
+
         <div class="mp-split-pane__right">
             @section('right')
             @show
-         </div>
+        </div>
     </div>
-    
+
 </div>
 <script>
     // $("#loginform").attr("hidden", true);
@@ -79,6 +79,8 @@
     // // $ids.each(function(i, e) {
     // //     $(e).removeAttr("hidden");
     // // });
+
+    var stepTitle = ["Personal Information", "Employment Details", "Membership Details"]
 
     var my_handlers = {
 
@@ -170,12 +172,16 @@
             $("#back").attr('value', "")
             $("#next-btn").attr('value', 'step-2')
             $("#line").removeClass('step-2').addClass('step-1')
+            $("#registration-title").text(stepTitle[0])
+
+
         } else if (backValue == 'step-2') {
             $("#step-2").removeClass('d-none').addClass("d-flex");
             $("#step-3").removeClass('d-flex').addClass("d-none");
             $("#back").attr('value', "step-1")
             $("#next-btn").attr('value', 'step-3')
             $("#line").removeClass('step-3').addClass('step-2')
+            $("#registration-title").text(stepTitle[1])
         } else {
             $("#registrationform").attr("hidden", true);
             $("#statusTrailForm").attr("hidden", true);
@@ -184,6 +190,7 @@
             $("#leftsection").removeClass("mw-600").removeClass("w-600");
             $("#control").removeClass("d-flex").addClass("d-none");
         }
+        scrollToTop()
     })
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value')
@@ -193,16 +200,25 @@
             $("#back").attr('value', 'step-1')
             $(this).attr('value', 'step-3')
             $("#line").removeClass('step-1').addClass('step-2')
+            $("#registration-title").text(stepTitle[1])
         } else if (nextValue == 'step-3') {
             $("#step-2").removeClass('d-flex').addClass("d-none");
             $("#step-3").removeClass('d-none').addClass("d-flex");
             $("#back").attr('value', 'step-2')
             $(this).attr('value', 'step-end')
             $("#line").removeClass('step-2').addClass('step-3')
+            $("#registration-title").text(stepTitle[2])
         } else if (nextValue == 'step-end') {
             alert('end')
             $("#btn-submit").click()
         }
+        scrollToTop()
     })
+
+    function scrollToTop() {
+        $('html, body, div').animate({
+            scrollTop: $('#leftsection').offset().top - 20 
+        }, 300);
+    }
 </script>
 @endsection

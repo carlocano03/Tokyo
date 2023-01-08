@@ -41,12 +41,13 @@
 
         <div class="col">
             <div class="row flex-column">
-                <a class="mp-text-fs-small mp-link link_style" id="forgot_password">
+                <label class="mp-text-fs-small mp-link link_style" id="forgot_password">
                     Forgot password?
-                </a>
+                </label>
                 <br />
-                <label class="mp-text-fs-small mp-link link_style"  id="register">
-                    Register here
+                <br />
+                <label class="mp-text-fs-small">
+                    <span>Not a member yet? </span><span class="mp-link link_style" id="register">Click here</span>
                 </label>
                 <label class="mp-text-fs-small mp-link link_style"  id="status_trail">
                     Check Application Status
@@ -250,7 +251,7 @@
 @endsection
 
 @section('registration-personal-form')
-<div class="d-flex gap-10 sticky mp-ph3 top-0 bg-white flex-column">
+<div class="d-flex gap-10 sticky mp-ph2 top-0 bg-white flex-column">
     <div style="width: 100%;" class="d-flex gap-10">
         <div class="ml-auto">
             <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
@@ -268,11 +269,12 @@
         </ul>
         <div class="line step-1" id="line"></div>
     </div>
+    <label class="mp-text-fs-medium mp-mt2 mp-split-pane__title mp-text-c-primary" id="registration-title">Personal Information</label>
 </div>
 <form id="loginForm" method="post" action="{{ url('/register') }}">
     {{ csrf_field() }}
     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb5" id="step-1">
-        <label class="mp-text-fs-medium">Personal Information</label>
+        <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
         <div class="mp-input-group">
             <label class="mp-input-group__label">Last Name</label>
             <input class="mp-input-group__input mp-text-field" type="text" required />
@@ -366,7 +368,7 @@
         
     </div>
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5" id="step-2">
-        <label class="mp-text-fs-medium">Employment Details</label>
+        <!-- <label class="mp-text-fs-medium">Employment Details</label> -->
         <div class="mp-input-group">
             <label class="mp-input-group__label">Campus</label>
             <select class="mp-input-group__input mp-text-field">
@@ -449,7 +451,7 @@
         </div>
     </div>
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5" id="step-3">
-        <label class="mp-text-fs-medium">Membership Details</label>
+        <!-- <label class="mp-text-fs-medium">Membership Details</label> -->
         <div class="mp-input-group">
             <div class="d-flex gap-5">
                 <input type="checkbox" />
@@ -491,6 +493,9 @@
         <div class="mp-input-group">
             <label class="mp-input-group__label">Supporting Document</label>
             <input class="mp-input-group__input mp-mt3" type="file" required />
+        </div>
+        <div class="mp-input-group mp-mt2">
+            <label for="" class="mp-input-group__label"><input class="" type="checkbox" required /> Wachacallit form.</label>
         </div>
         <div class="mp-input-group mp-mt2">
             <label for="" class="mp-input-group__label"><input class="" type="checkbox" required /> By checking this box, I hearby certify that all information provided is true, acurate, and complete.</label>
