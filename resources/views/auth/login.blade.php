@@ -501,10 +501,8 @@
 @endsection
 
 @section('reset-password-form')
- <button class="up-button btn-md mp-mt3 button-animate-left  hover-back" id="fp_back" value="">
-              <span>Back</span>  
-    </button>
-<div class="mp-pb4  mp-text-center">
+
+<div class="mp-pb4  mp-mt5 mp-text-center">
     <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
 </div>
 <div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
@@ -526,6 +524,9 @@
         </div>
     </div>
     <div class="col col-auto">
+         <button class="up-button btn-md button-animate-left  hover-back" id="fp_back" value="">
+              <span>Back</span>  
+         </button>
         <div class="row" style="float:right;">
             <button class="up-button btn-md" type="submit" id="btn-submit">Send Email</button>
         </div>
