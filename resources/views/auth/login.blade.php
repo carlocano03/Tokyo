@@ -271,33 +271,34 @@
     </div>
     <label class="mp-text-fs-medium mp-mt2 mp-split-pane__title mp-text-c-primary" id="registration-title">Personal Information</label>
 </div>
-<form id="loginForm" method="post" action="{{ url('/register') }}">
+<form id="loginForm" action="{{ route('add_member') }}" method="POST" enctype="multipart/form-data">
+
     {{ csrf_field() }}
     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb5" id="step-1">
         <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
         <div class="mp-input-group">
             <label class="mp-input-group__label">Last Name</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">First Name</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Middle Name</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Suffix</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="suffix"  />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Date of Birth</label>
-            <input class="mp-input-group__input mp-text-field" type="date" required />
+            <input class="mp-input-group__input mp-text-field" type="date" name="date_birth" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Gender</label>
-            <select class="mp-input-group__input mp-text-field">
+            <select class="mp-input-group__input mp-text-field" name="gender" required>
                 <option>Select Gender</option>
                 <option>Male</option>
                 <option>Female</option>
@@ -305,7 +306,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Civil Status</label>
-            <select class="mp-input-group__input mp-text-field">
+            <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
                 <option>Single</option>
                 <option>Married</option>
                 <option>Widowed</option>
@@ -315,33 +316,33 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="citizenship" />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Province</label>
-            <select class="mp-input-group__input mp-text-field" id="province">
+            <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Municipality</label>
-            <select class="mp-input-group__input mp-text-field" id="city">
+            <select class="mp-input-group__input mp-text-field" id="city" name="city" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Barangay</label>
-            <select class="mp-input-group__input mp-text-field" id="barangay">
+            <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Bldg No. St. No.</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text"  name="bldg_street"/>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Zipcode</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text"  name="zipcode"/>
         </div>
 
         <div class="mp-input-group">
@@ -351,23 +352,25 @@
                 <label class="mp-input-group__label" style="margin-top: 5px;">(Same as above)</label>
 
             </div>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text"  />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Cellphone Number</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Landline Number</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="landline_no" />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Email Address</label>
-            <input class="mp-input-group__input mp-text-field" type="email" required />
+            <input class="mp-input-group__input mp-text-field" type="email" name="email" required />
         </div>
-        
+        <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
     </div>
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5" id="step-2">
+ 
         <!-- <label class="mp-text-fs-medium">Employment Details</label> -->
         <div class="mp-input-group">
             <label class="mp-input-group__label">Campus</label>
@@ -552,4 +555,15 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script src="{{ asset('/dist/dashboard.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        console.log('sdsds');
+        $('#step-2').on('click', function(e) {
+            console.log('sdsds');
+        });
+    });
+</script>
 @endsection

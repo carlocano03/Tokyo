@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-
+// use App\Http\Controllers\Member_registration;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +26,9 @@ Route::get('/', function () {
 
 Route::get('admin', [
     'as' => 'admin',
-    'uses' => 'Auth\LoginController@showLoginForm'
+    // 'uses' => 'Auth\LoginController@showLoginForm'
   ]);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/login/add_member', [HomeController::class, 'add_member'])->name('add_member');
+
