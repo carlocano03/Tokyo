@@ -2,12 +2,16 @@
 
 @section('loginForm')
 
-<div class="mp-pb4 mp-text-center">
-    <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
-</div>
-<div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
-    {{ (Request::route()->getName() == 'admin' ? 'Admin' : 'Member')}} Login
-</div>
+
+<div class="logo-title">
+    <div class="mp-pb4 mp-text-center">
+             <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+    </div>
+    <div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
+                {{ (Request::route()->getName() == 'admin' ? 'Admin' : 'Member')}} Login
+    </div>
+</div>  
+
 <div class="mp-text-fs-small">
     @if(Session::get('error'))
     <div class='mp-flash mp-flash--danger'>
@@ -37,14 +41,18 @@
 
         <div class="col">
             <div class="row flex-column">
-                <a class="mp-text-fs-small mp-link" id="forgot_password">
+                <label class="mp-text-fs-small mp-link link_style" id="forgot_password">
                     Forgot password?
-                </a>
+                </label>
                 <br />
-                <a class="mp-text-fs-small mp-link" id="register">
-                    Register here
-                </a>
-                <a class="mp-text-fs-small mp-link" href="https://www.upprovidentfund.com/">
+                <br />
+                <label class="mp-text-fs-small">
+                    <span>Not a member yet? </span><span class="mp-link link_style" id="register">Click here</span>
+                </label>
+                <label class="mp-text-fs-small mp-link link_style"  id="status_trail">
+                    Check Application Status
+                </label>
+                <a class="mp-text-fs-small mp-link link_style" href="https://www.upprovidentfund.com/">
                     Back to www.upprovidentfund.com
                 </a>
             </div>
@@ -54,47 +62,243 @@
                 <button type="submit" class="mp-button mp-button--accent">Login</button>
             </div>
         </div>
+
+       
     </div>
+     
 </form>
 @endsection
 
-@section('registration-personal-form')
-<div class="d-flex gap-10 sticky mp-ph3 top-0 bg-white">
-    <div>
+@section('status-trail-form')
+  
+    <div class="mp-pb4  mp-text-center">
         <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
     </div>
-    <div class="d-flex flex-column justify-content-center">
-        <span>University of the Philippines Provident Fund Inc.</span>
-        <span>Online Membership Application</span>
+    <div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
+     Application Status Trail
     </div>
+
+    <label class="mp-text-fs-medium">
+       Abutin ang pangarap kasama ang 
+       <a href="https://www.upprovidentfund.com/" target="_blank">
+                    UP PROVIDENT FUND INC.
+       </a>
+    </label>
+     <div class="mp-input-group mp-mt3 mp-text-center qr">
+            <label class="mp-input-group__label">Scan QR</label>
+            <br>
+            <img src="{!! asset('assets/icons/qr-icon.svg') !!}" alt="UPPFI">
+    </div>
+
+    <div class="mp-input-group mp-mt2">
+            <label class="mp-input-group__label">Application Number</label>
+            <input class="mp-input-group__input mp-text-field" type="text" required />
+    </div>
+
+    <div class="col col-auto">
+            <div class="row" style ="float:left;" >
+                <button class="up-button btn-md mp-mt3 button-animate-left  hover-back" id="fp_back" value="">
+                        <span>Back</span>
+                </button>
+            </div>
+            
+            <div class="row" style ="float:right;" >
+                <button class="up-button btn-md mp-mt3 mp-mb3"  type="submit"  id="btn-submit">Search</button>
+            </div>
+    </div>
+
+    <div class="status-result">
+        <div class="status-title">
+            Online Membership Application Status
+            <br>
+            <div class="status-icon">
+                 <i class="fa fa-frown-o" aria-hidden="true"></i>
+            </div>
+            <div class="status-text">
+                 Not Found
+            </div>   
+        </div>
+
+         <div class="status-title">
+            Online Membership Application Status
+            <br>
+        </div>
+        <div class="status-info">
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label>info : </label>
+                    </div>
+                    <div class="col">
+                         <label>asdasdasdadas</label>
+                    </div>
+                </div>
+
+             <div class="row">
+                <div class="col-12 status-title" style = "margin-bottom: -20px;">
+                    <Label>Status : </Label>
+                    <label class="status-text">PROCESSING</label>
+                </div>
+                <div class="col-12 status-title">
+                    <Label>Remarks : </Label>
+                    <label class="status-text">Mama mo Remarks</label>
+                </div>
+             </div>
+
+
+            <div class="container" style="text-align:center;" >
+                <div class="row">
+                    <div class="col-6" >
+                     <button class="up-button btn-md mp-mt3  hover-back" id="fp_back"
+                        value="" style = "float:right;">
+                                <span>Back</span>
+                     </button>
+                    </div>
+
+                    <div class="col-6">
+                        <button class="up-button btn-md mp-mt3 mp-mb3"  style = "float:left;"  type="submit" 
+                        id="">Print</button>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+
+    </div>
+    
+
+
+@endsection
+
+@section('registration-personal-form')
+<div class="d-flex gap-10 sticky mp-ph2 top-0 bg-white flex-column">
+    <div style="width: 100%;" class="d-flex gap-10">
+        <div class="ml-auto">
+            <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+        </div>
+        <div class="d-flex flex-column justify-content-center mr-auto">
+            <div class="mp-mt2 up-color reg-title">University of the Philippines <br/> Provident Fund Inc.</div>
+            <span>Online Membership Application</span>
+        </div>
+    </div>
+    <div class="relative mp-mt3 w-90 d-flex ml-auto mr-auto">
+        <ul class="d-flex flex-row items-between w-100">
+            <li class="circle">1</li>
+            <li class="circle">2</li>
+            <li class="circle">3</li>
+        </ul>
+        <div class="line step-1" id="line"></div>
+    </div>
+    <label class="mp-text-fs-medium mp-mt2 mp-split-pane__title mp-text-c-primary" id="registration-title">Personal Information</label>
 </div>
-<form id="loginForm" method="post" action="{{ url('/register') }}">
+<form id="loginForm" action="{{ route('add_member') }}" method="POST" enctype="multipart/form-data">
+
     {{ csrf_field() }}
     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb5" id="step-1">
-        <label class="mp-text-fs-medium">Personal Information</label>
+        <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
         <div class="mp-input-group">
             <label class="mp-input-group__label">Last Name</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">First Name</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Middle Name</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Suffix</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="suffix"  />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Date of Birth</label>
-            <input class="mp-input-group__input mp-text-field" type="date" required />
+            <input class="mp-input-group__input mp-text-field" type="date" name="date_birth" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Gender</label>
-            <select class="mp-input-group__input mp-text-field">
+            <select class="mp-input-group__input mp-text-field" name="gender" required>
                 <option>Select Gender</option>
                 <option>Male</option>
                 <option>Female</option>
@@ -102,7 +306,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Civil Status</label>
-            <select class="mp-input-group__input mp-text-field">
+            <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
                 <option>Single</option>
                 <option>Married</option>
                 <option>Widowed</option>
@@ -112,33 +316,33 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="citizenship" />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Province</label>
-            <select class="mp-input-group__input mp-text-field" id="province">
+            <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Municipality</label>
-            <select class="mp-input-group__input mp-text-field" id="city">
+            <select class="mp-input-group__input mp-text-field" id="city" name="city" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Barangay</label>
-            <select class="mp-input-group__input mp-text-field" id="barangay">
+            <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Bldg No. St. No.</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text"  name="bldg_street"/>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Zipcode</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text"  name="zipcode"/>
         </div>
 
         <div class="mp-input-group">
@@ -148,23 +352,26 @@
                 <label class="mp-input-group__label" style="margin-top: 5px;">(Same as above)</label>
 
             </div>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text"  />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Cellphone Number</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Landline Number</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="landline_no" />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Email Address</label>
-            <input class="mp-input-group__input mp-text-field" type="email" required />
+            <input class="mp-input-group__input mp-text-field" type="email" name="email" required />
         </div>
+        <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
     </div>
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5" id="step-2">
-        <label class="mp-text-fs-medium">Employment Details</label>
+ 
+        <!-- <label class="mp-text-fs-medium">Employment Details</label> -->
         <div class="mp-input-group">
             <label class="mp-input-group__label">Campus</label>
             <select class="mp-input-group__input mp-text-field">
@@ -247,7 +454,7 @@
         </div>
     </div>
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5" id="step-3">
-        <label class="mp-text-fs-medium">Membership Details</label>
+        <!-- <label class="mp-text-fs-medium">Membership Details</label> -->
         <div class="mp-input-group">
             <div class="d-flex gap-5">
                 <input type="checkbox" />
@@ -267,7 +474,8 @@
             <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Name" />
             <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Birthday" />
             <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Relationship" />
-            <a class="up-button mw-200 btn-md self-end mp-mt2">Add Dependent</a>
+            <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
+                <span>Add Dependent</span> </a>
         </div>
         <table class="mp-table mp-text-fs-small table_style mp-mh2" id="campusTable" cellspacing="0" width="100%">
             <thead>
@@ -290,6 +498,9 @@
             <input class="mp-input-group__input mp-mt3" type="file" required />
         </div>
         <div class="mp-input-group mp-mt2">
+            <label for="" class="mp-input-group__label"><input class="" type="checkbox" required /> Wachacallit form.</label>
+        </div>
+        <div class="mp-input-group mp-mt2">
             <label for="" class="mp-input-group__label"><input class="" type="checkbox" required /> By checking this box, I hearby certify that all information provided is true, acurate, and complete.</label>
         </div>
     </div>
@@ -298,41 +509,40 @@
 @endsection
 
 @section('reset-password-form')
-    <button class="up-button btn-md mp-mt3" id="fp_back" value="">
-                Back
-    </button>
-    <div class="mp-pb4  mp-text-center">
-        <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
-    </div>
-    <div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
-     Reset Your Password
-    </div>
-    
-  
-    <form id="resetPassword" method="post" action="{{ url('/register') }}">
+
+<div class="mp-pb4  mp-mt5 mp-text-center">
+    <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+</div>
+<div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
+    Reset Your Password
+</div>
+
+
+<form id="resetPassword" method="post" action="{{ url('/register') }}">
     {{ csrf_field() }}
     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb5" id="step-1">
-      
+
         <label class="mp-text-fs-medium">
-            Submit your email address and we'll send you a "Reset your Password" email. If you cannot find the email in your Inbox, wait a few minutes then refresh your Inbox or, alternatively, look for it in your Spam or Junk folder. If you do not remember your email address, please 
+            Submit your email address and we'll send you a "Reset your Password" email. If you cannot find the email in your Inbox, wait a few minutes then refresh your Inbox or, alternatively, look for it in your Spam or Junk folder. If you do not remember your email address, please
             <a href="https://www.upprovidentfund.com/contact-us/" target="_blank">contact us</a> us so we can assist you in resetting your password.
         </label>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Email</label>
             <input class="mp-input-group__input mp-text-field" type="email" required />
         </div>
-        
-      
-
-        
     </div>
-     <div class="col col-auto">
-            <div class="row" style ="float:right;" >
-                <button class="up-button btn-md"  type="submit"  id="btn-submit">Send Email</button>
-            </div>
+    <div class="col col-auto">
+         <button class="up-button btn-md button-animate-left  hover-back" id="fp_back" value="">
+              <span>Back</span>  
+         </button>
+        <div class="row" style="float:right;">
+            <button class="up-button btn-md" type="submit" id="btn-submit">Send Email</button>
+        </div>
+    </div>
+
+
     </div>
   
-    
 </form>
 @endsection
 
@@ -345,4 +555,15 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script src="{{ asset('/dist/dashboard.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        console.log('sdsds');
+        $('#step-2').on('click', function(e) {
+            console.log('sdsds');
+        });
+    });
+</script>
 @endsection
