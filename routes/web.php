@@ -31,4 +31,5 @@ Route::get('admin', [
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/login/add_member', [HomeController::class, 'add_member'])->name('add_member');
+Route::post('/login/add_member_con', [HomeController::class, 'add_member_p2'])->name('add_member_con');
 
