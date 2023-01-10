@@ -103,7 +103,9 @@
             </div>
             
             <div class="row" style ="float:right;" >
-                <button class="up-button btn-md mp-mt3 mp-mb3"  type="submit"  id="btn-submit">Search</button>
+                <button class="up-button btn-md mp-mt3 mp-mb3 button-animate-right "  type="submit"  id="btn-submit">
+                    <span>Search</span> 
+                </button>
             </div>
     </div>
 
@@ -533,7 +535,9 @@
               <span>Back</span>  
          </button>
         <div class="row" style="float:right;">
-            <button class="up-button btn-md" type="submit" id="btn-submit">Send Email</button>
+            <button class="up-button btn-md button-animate-right " type="submit" id="btn-submit">
+                <span>Send Email</span>    
+            </button>
         </div>
     </div>
 
