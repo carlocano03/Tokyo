@@ -18,7 +18,6 @@
 <!-- <div class="transition-background">
 
 </div> -->
-
 <div class="mp-split-pane">
     <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
         <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
@@ -164,6 +163,7 @@
         $("#control").removeClass("d-none").addClass("d-flex");
 
     })
+    var reference_code;
     $(document).on('click', '#back', function(e) {
         var backValue = $(this).attr('value')
         if (backValue == 'step-1') {
@@ -173,8 +173,6 @@
             $("#next-btn").attr('value', 'step-2')
             $("#line").removeClass('step-2').addClass('step-1')
             $("#registration-title").text(stepTitle[0])
-
-
         } else if (backValue == 'step-2') {
             $("#step-2").removeClass('d-none').addClass("d-flex");
             $("#step-3").removeClass('d-flex').addClass("d-none");
@@ -192,9 +190,31 @@
         }
         scrollToTop()
     })
+    var reference_no;
+    var mem_id;
+    var con_id;
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value')
         if (nextValue == 'step-2') {
+            if
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+            });
+            $.ajax({
+            type:'POST',
+            url:"{{ route('add_member') }}",
+            data:$('#member_forms').serialize(),
+            success:function(data){
+                if(data.success != ''){
+                    reference_no = data.randomnum;
+                    mem_id = data.mem_id;
+                    con_id = data.con_id;
+                    alert(reference_no);
+                }
+            }
+            });
             $("#step-1").removeClass('d-flex').addClass("d-none");
             $("#step-2").removeClass('d-none').addClass("d-flex");
             $("#back").attr('value', 'step-1')
@@ -202,6 +222,26 @@
             $("#line").removeClass('step-1').addClass('step-2')
             $("#registration-title").text(stepTitle[1])
         } else if (nextValue == 'step-3') {
+            var formData = $("#member_forms_con").serialize();
+            var additionalData = {
+                'mem_id': mem_id,
+            };
+            formData += '&' + $.param(additionalData);
+            $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+            });
+            $.ajax({
+            type:'POST',
+            url:"{{ route('add_member_con') }}",
+            data:formData,
+            success:function(data){
+                if(data.success != ''){
+                    alert('pwede na matulog');
+                }
+            }
+            });
             $("#step-2").removeClass('d-flex').addClass("d-none");
             $("#step-3").removeClass('d-none').addClass("d-flex");
             $("#back").attr('value', 'step-2')
@@ -209,7 +249,7 @@
             $("#line").removeClass('step-2').addClass('step-3')
             $("#registration-title").text(stepTitle[2])
         } else if (nextValue == 'step-end') {
-            alert('end')
+            // alert('end')
             $("#btn-submit").click()
         }
         scrollToTop()
