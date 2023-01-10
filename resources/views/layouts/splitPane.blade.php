@@ -192,11 +192,9 @@
     })
     var reference_no;
     var mem_id;
-    var con_id;
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value')
         if (nextValue == 'step-2') {
-            if
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -210,7 +208,6 @@
                 if(data.success != ''){
                     reference_no = data.randomnum;
                     mem_id = data.mem_id;
-                    con_id = data.con_id;
                     alert(reference_no);
                 }
             }
