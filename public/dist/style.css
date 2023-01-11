@@ -4983,6 +4983,10 @@ tfoot {
     margin-bottom: 1rem;
 }
 
+.mb-0 {
+    margin-bottom: 0;
+}
+
 .mh-1 {
     margin-left: .5rem;
     margin-right: .5rem;
@@ -5231,6 +5235,11 @@ tfoot {
 }
 
 
+.bottom-2 {
+    bottom: .5rem;
+}
+
+
 .mw-600 {
     max-width: 600px;
     /* transform: scaleX(600px); */
@@ -5298,12 +5307,17 @@ tfoot {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    background-color: var(--c-accent-80);
+    background-color: var(--c-base-50);
     color: var(--c-base-10);
     color: white;
     text-align: center;
     padding-top: 4px;
     z-index: 1;
+    transition: all .2s;
+}
+
+.active {
+    background-color: var(--c-accent-80);
 }
 
 .mt-auto {
@@ -5330,6 +5344,7 @@ tfoot {
 
 .link_style {
     cursor: pointer;
+    color: var(--c-active-hover-bg);
 }
 
 .link_style:hover {
@@ -5446,3 +5461,82 @@ tfoot {
     height: 100%;
     margin: 10px;
 } */
+
+#registration-title {
+    background-color: #1a8981;
+    background-color: var(--c-active-hover-bg);
+    color: white !important;
+}
+
+.br-top-2 {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.br-bottom-2 {
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.member-form{
+    border: 1px solid var(--c-active-hover-bg) !important;
+
+}
+
+.bg-cyan-50 {
+    background-color: var(--c-primary-50);
+}
+
+.divider-white {
+    height: 5px;
+    background-color: white;
+}
+
+.fill-block {
+    min-height: 70vh;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #dfe6e9;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #b2bec3;
+    /* border-radius: 10px; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #bdc3c7;
+}
+
+/* #support_docu td {
+    width: 100%;
+    border: 1px solid red;
+} */
+
+.support_docu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.label_file {
+    padding: 5px;
+    background: var(--c-primary); 
+    display: table;
+    color: #fff;
+    font-size: 12px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+
