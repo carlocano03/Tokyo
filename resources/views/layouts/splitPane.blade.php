@@ -276,6 +276,7 @@
     var personnel_id;
     var employee_no;
     var employee_details_ID;
+
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value')
         if (nextValue == 'step-2') {
@@ -489,7 +490,8 @@
         }else{
             $('.same_div').show();
         }
-    }) 
+    }); 
+
 
     function scrollToTop() {
         $('html, body, div').animate({
