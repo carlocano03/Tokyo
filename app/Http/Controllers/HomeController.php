@@ -1,33 +1,72 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use DB;
 use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Beneficiaries;
+use DataTables;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        // $this->middleware('auth');
-    }
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    // $this->middleware('auth');
+  }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        return view('home');
-    }
+  /**
+   * Show the application dashboard.
+   *
+   * @return \Illuminate\Contracts\Support\Renderable
+   */
+  public function index()
+  {
+    return view('home');
+  }
 
+  public function add_benefeciaries(Request $request)
+  {
+    $datadb = DB::transaction(function () use ($request) {
+      $addBeneficiaries = array(
+        'fullname' => $request->input('name'),
+        'date_birth' => $request->input('bday'),
+        'relationship' => $request->input('relation'),
+      );
+      $dependent = Beneficiaries::where('fullname', $request->input('name'));
+      if ($dependent->first()) {
+        $message = 'Exists';
+      } else {
+        DB::table('beneficiaries')->insert($addBeneficiaries);
+        $message = 'Success';
+      }
+      return [
+        'error' => $message,
+      ];
+    });
+    return response()->json(['success' => $datadb['error']]);
+  }
+
+  public function get_beneficiary(Request $request)
+  {
+    if ($request->ajax()) {
+      $data = Beneficiaries::select('*');
+      return Datatables::of($data)
+        ->addIndexColumn()
+        ->addColumn('action', function ($row) {
+          $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm delete" id="'.$row->ben_ID.'">Remove</a>';
+          return $btn;
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+      }
+  }
     public function add_member(Request $request)
     {
         $datadb = DB::transaction(function () use ($request){
@@ -231,4 +270,10 @@ class HomeController extends Controller
         });
           return response()->json(['success' => $datadb['last_id'] , 'emp_no' => $datadb['emp_no']]);
     }
+
+  public function delete_beneficiary(Request $request) {
+    $benID = $request->input('ben_ID');
+    Beneficiaries::where('ben_ID', $benID)->delete();
+    return response()->json(['success' => 1]);
+  }
 }
