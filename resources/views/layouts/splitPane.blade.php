@@ -286,7 +286,6 @@
                 }
             });
             if(!personnel_id){
-                console.log(personnel_id);
                 $.ajax({
                 type: 'POST',
                 url: "{{ route('add_member') }}",
@@ -355,7 +354,7 @@
                 success: function(data) {
                     if (data.success != '') {
                         employee_no = data.emp_no;
-                        employee_details_ID = success;
+                        employee_details_ID = data.success;
                     }
                 }
             });
