@@ -39,4 +39,7 @@ Route::post('/login/add_member', [HomeController::class, 'add_member'])->name('a
 Route::post('/login/add_member_con', [HomeController::class, 'add_member_p2'])->name('add_member_con');
 Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciaries'])->name('add_benefeciaries');
 
+Route::post('/login/add_member_con_up', [HomeController::class, 'add_member_up_p2'])->name('add_member_con_up');
+Route::post('/login/add_member_update', [HomeController::class, 'add_member_update1'])->name('add_member_update');
+
 

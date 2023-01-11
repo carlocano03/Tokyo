@@ -137,6 +137,31 @@
             $('#barangay').ph_locations('fetch_list', [{
                 "city_code": city_code
             }]);
+        },
+
+        fill_present_provinces: function() {
+            var region = $(this).val().split('|');
+            var region_code = region[0];
+            $('#present_province').ph_locations('fetch_list', [{
+                "region_code": region_code
+            }]);
+
+        },
+
+        fill_present_cities: function() {
+            var prov = $(this).val().split('|');
+            var province_code = prov[0];
+            $('#present_city').ph_locations('fetch_list', [{
+                "province_code": province_code
+            }]);
+        },
+
+        fill_present_barangays: function() {
+            var city = $(this).val().split('|');
+            var city_code = city[0];
+            $('#present_barangay').ph_locations('fetch_list', [{
+                "city_code": city_code
+            }]);
         }
     };
 
@@ -155,6 +180,21 @@
         });
 
         $('#province').ph_locations('fetch_list');
+
+        $('#present_province').on('change', my_handlers.fill_present_cities);
+        $('#present_city').on('change', my_handlers.fill_present_barangays);
+
+        $('#present_province').ph_locations({
+            'location_type': 'provinces'
+        });
+        $('#present_city').ph_locations({
+            'location_type': 'cities'
+        });
+        $('#present_barangay').ph_locations({
+            'location_type': 'barangays'
+        });
+
+        $('#present_province').ph_locations('fetch_list');
     });
 
     $(document).on('click', '#modal_name_pop', function(e) {
@@ -233,7 +273,9 @@
     })
     var reference_no;
     var mem_id;
-    $('#mem_id').val(mem_id);
+    var personnel_id;
+    var employee_no;
+    var employee_details_ID;
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value')
         if (nextValue == 'step-2') {
@@ -242,7 +284,9 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            $.ajax({
+            if(!personnel_id){
+                console.log(personnel_id);
+                $.ajax({
                 type: 'POST',
                 url: "{{ route('add_member') }}",
                 data: $('#member_forms').serialize(),
@@ -250,10 +294,41 @@
                     if (data.success != '') {
                         reference_no = data.randomnum;
                         mem_id = data.mem_id;
-                        alert(reference_no);
+                        personnel_id = data.success;
+                        Swal.fire({
+                            title: 'This is your reference code:'+ reference_no,
+                            icon: 'success'
+                            });
                     }
                 }
             });
+            }else{
+                $("#member_forms").on("change","input",function(){
+                    alert("Data in the form has been changed!");
+                });
+            //     var formDatas = $("#member_forms").serialize();
+            //     var additionalData = {
+            //         'mem_id': mem_id,
+            //         'personnel_id': personnel_id,
+            //     };
+            //     formDatas += '&' + $.param(additionalData);
+            //     $.ajax({
+            //     type: 'POST',
+            //     url: "{{ route('add_member_update') }}",
+            //     data: formDatas,
+            //     success: function(data) {
+            //         if (data.success != '') {
+            //             reference_no = data.randomnum;
+            //             mem_id = data.mem_id;
+            //             personnel_id = data.success;
+            //             Swal.fire({
+            //                 title: 'This is your reference code:'+ reference_no,
+            //                 icon: 'success'
+            //                 });
+            //         }
+            //     }
+            // });
+            }
             $("#step-1").removeClass('d-flex').addClass("d-none");
             $("#step-2").removeClass('d-none').addClass("d-flex");
             $("#back").attr('value', 'step-1')
@@ -262,23 +337,24 @@
             $("#registration-title").text(stepTitle[1])
             $("#stepper-2").addClass("active")
         } else if (nextValue == 'step-3') {
-            var formData = $("#member_forms_con").serialize();
-            var additionalData = {
-                'mem_id': mem_id,
-            };
-            formData += '&' + $.param(additionalData);
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            var formData = $("#member_forms_con").serialize();
+            var additionalData = {
+                'mem_id': mem_id,
+            };
+            formData += '&' + $.param(additionalData);
             $.ajax({
                 type: 'POST',
                 url: "{{ route('add_member_con') }}",
                 data: formData,
                 success: function(data) {
                     if (data.success != '') {
-                        alert('pwede na matulog');
+                        employee_no = data.emp_no;
+                        employee_details_ID = success;
                     }
                 }
             });
@@ -388,6 +464,34 @@
         });
     });
 
+    })
+    $(document).on('click', '#perm_add_check', function(e) {
+        if($(this).prop("checked"))
+        {
+            var myString = $('#present_province').val();
+            var myString1 = $('#present_city').val();
+            var myString2 = $('#present_barangay').val();
+            var myString3 = $('#present_bldg_street').val();
+            var myString4 = $('#present_zipcode').val();
+            var targetChar = '|';
+            var index = myString.indexOf(targetChar);
+            var index1 = myString1.indexOf(targetChar);
+            var index2 = myString2.indexOf(targetChar);
+            if (index !== -1) {
+                var valueAfterTargetChar = myString4 + ' ' + myString3 + ' ' + myString2.split(targetChar)[1] + ' ' + myString1.split(targetChar)[1] + ' ' + myString.split(targetChar)[1];
+                $('#same_add').val(valueAfterTargetChar);
+                $('.same_div').hide();
+            }else{
+                Swal.fire({
+                title: 'Please complete your Present Address',
+                text: 'Thank you!',
+                icon: 'error'
+                });
+            }
+        }else{
+            $('.same_div').show();
+        }
+    }) 
 
     function scrollToTop() {
         $('html, body, div').animate({
