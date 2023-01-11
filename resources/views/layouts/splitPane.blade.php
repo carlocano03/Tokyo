@@ -285,7 +285,6 @@
                 }
             });
             if(!personnel_id){
-                console.log(personnel_id);
                 $.ajax({
                 type: 'POST',
                 url: "{{ route('add_member') }}",
