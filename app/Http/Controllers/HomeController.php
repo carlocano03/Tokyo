@@ -68,10 +68,40 @@ class HomeController extends Controller
         ->make(true);
     }
   }
+  public function dashboard()
+    {
+        return view('admin.dashboard');
+    }
+    
   public function add_member(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
       if ($request->input('perm_add_check') != 1) {
+        $inserts = array(
+          'lastname' => $request->input('lastname'),
+          'middlename' => $request->input('middlename'),
+          'firstname' => $request->input('firstname'),
+          'date_birth' => $request->input('date_birth'),
+          'suffix' => $request->input('suffix'),
+          'gender' => $request->input('gender'),
+          'civilstatus' => $request->input('civilstatus'),
+          'citizenship' => $request->input('citizenship'),
+          'dual_citizenship' => $request->input('dual_citizenship'),
+          'province' => $request->input('province'),
+          'municipality' => $request->input('municipality'),
+          'barangay' => $request->input('barangay'),
+          'bldg_street' => $request->input('bldg_street'),
+          'zipcode' => $request->input('zipcode'),
+          'present_province' => $request->input('present_province'),
+          'present_municipality' => $request->input('present_municipality'),
+          'present_barangay' => $request->input('present_barangay'),
+          'present_bldg_street' => $request->input('present_bldg_street'),
+          'present_zipcode' => $request->input('present_zipcode'),
+          'contact_no' => $request->input('contact_no'),
+          'landline_no' => $request->input('landline_no'),
+          'email' => $request->input('email'),
+        );
+      } else {
         $inserts = array(
           'lastname' => $request->input('lastname'),
           'middlename' => $request->input('middlename'),
