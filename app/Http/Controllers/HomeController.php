@@ -68,6 +68,12 @@ class HomeController extends Controller
         ->make(true);
     }
   }
+  
+  public function dashboard()
+    {
+        return view('admin.dashboard');
+    }
+    
   public function add_member(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
