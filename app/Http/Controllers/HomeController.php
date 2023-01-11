@@ -65,7 +65,8 @@ class HomeController extends Controller
         })
         ->rawColumns(['action'])
         ->make(true);
-
+      }
+  }
     public function add_member(Request $request)
     {
         $datadb = DB::transaction(function () use ($request){
@@ -269,7 +270,6 @@ class HomeController extends Controller
         });
           return response()->json(['success' => $datadb['last_id'] , 'emp_no' => $datadb['emp_no']]);
     }
-  }
 
   public function delete_beneficiary(Request $request) {
     $benID = $request->input('ben_ID');
