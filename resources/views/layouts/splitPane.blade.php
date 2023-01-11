@@ -2,53 +2,55 @@
 @section('content')
 
 
-<!-- mobile transition -->
-<!-- <div class="mobile-header">
-        <div class="logo-title">
-            <div class="mp-pb4  mp-text-center logo-text">
-                    <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
-                    <br>
-                    <label for="">
-                           UP Provident Fund
-                    </label>
-                  
-            </div>  
-        </div> 
-    </div> -->
-<!-- <div class="transition-background">
-
-</div> -->
-<div class="custom-modal not-visible" id="modal_name">
-    <div class="modal-container">
-        <div class="modal-content">
-            <div class="modal-header">
-                MODAL HEADER
-            </div>
-            <div class="modal-body">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic maiores ut consectetur qui animi corporis rem eveniet dolorem quia, esse velit iure, suscipit accusamus dignissimos natus dolorum deleniti iusto delectus?
-            </div>
-
-            <div class="modal-footer">
-                <div class="mp-container">
-                    <div class="row">
-                        <button class="up-button btn-md " id="modal_name_close" value="">
-                            <span>Close</span>
-                        </button>
-                        <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
-                            <span>Ok</span>
-                        </button>
+    <!-- mobile transition -->
+    <!-- <div class="mobile-header">
+                    <div class="logo-title">
+                        <div class="mp-pb4  mp-text-center logo-text">
+                                <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
+                                <br>
+                                <label for="">
+                                       UP Provident Fund
+                                </label>
+                              
+                        </div>
                     </div>
+                </div> -->
+    <!-- <div class="transition-background">
+
+            </div> -->
+    <div class="custom-modal not-visible" id="modal_name">
+        <div class="modal-container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    MODAL HEADER
+                </div>
+                <div class="modal-body">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic maiores ut consectetur qui animi corporis
+                    rem eveniet dolorem quia, esse velit iure, suscipit accusamus dignissimos natus dolorum deleniti iusto
+                    delectus?
                 </div>
 
+                <div class="modal-footer">
+                    <div class="mp-container">
+                        <div class="row">
+                            <button class="up-button btn-md " id="modal_name_close" value="">
+                                <span>Close</span>
+                            </button>
+                            <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
+                                <span>Ok</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="mp-split-pane">
-    <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
-        <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-12 col-sm-10">
+    <div class="mp-split-pane">
+        <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
+            <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-12 col-sm-10">
                     @section('loginForm')
                     @show
 
@@ -368,6 +370,100 @@
             $("#btn-submit").click()
         }
         scrollToTop()
+    });
+
+    $(document).on('click', '#add_dependent', function() {
+        var name = $('#dependent_name').val();
+        var bday = $('#dependent_bday').val();
+        var relation = $('#dependent_relation').val();
+        // var member_id = mem_id
+
+        if (name != '' && bday != '' && relation != '') {
+            $.ajax({
+                url: "{{ route('add_benefeciaries') }}",
+                data: {
+                    name: name,
+                    bday: bday,
+                    relation: relation
+                },
+                method: "POST",
+                success: function(data) {
+                    if (data.success == 'Exists') {
+                        Swal.fire('Error!', 'Benefeciary already exists.', 'error');
+                    } else {
+                        var table = $('#dependentTable').DataTable();
+                        table.draw();
+                        $('#dependent_name').val('');
+                        $('#dependent_bday').val('');
+                        $('#dependent_relation').val('');
+                    }
+                }
+            });
+        } else {
+            Swal.fire('Warning!', 'Please filled up dependent fields.', 'warning');
+        }
+    });
+
+    $(document).ready(function() {
+        var tableDependent = $('#dependentTable').DataTable({
+            ordering: false,
+            info: false,
+            searching: false,
+            paging: false,
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('getBeneficiary') }}",
+            columns: [{
+                    data: 'fullname',
+                    name: 'fullname'
+                },
+                {
+                    data: 'date_birth',
+                    name: 'date_birth'
+                },
+                {
+                    data: 'relationship',
+                    name: 'relationship'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
+        });
+
+        $(document).on('click', '.delete', function() {
+            var ben_ID = $(this).attr('id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to remove this beneficiary.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, remove it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('remove_benefeciaries') }}",
+                        data: {
+                            ben_ID: ben_ID
+                        },
+                        method: "POST",
+                        success: function(data) {
+                            if (data.success != '') {
+                                var table = $('#dependentTable').DataTable();
+                                table.draw();
+                            }
+                        }
+                    });
+                }
+            })
+        });
+    });
+
     })
     $(document).on('click', '#perm_add_check', function(e) {
         if($(this).prop("checked"))

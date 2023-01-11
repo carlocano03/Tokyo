@@ -511,31 +511,56 @@
         </div>
         <div class="mp-input-group d-flex gap-5 flex-column">
             <label class="mp-input-group__label">Dependents</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Name" />
-            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Birthday" />
-            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Relationship" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" required placeholder="Name" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_bday" onfocus="(this.type='date')" required placeholder="Birthday" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" required placeholder="Relationship" />
+            {{-- <input type="text" id="mem_id"> --}}
             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
-                <span>Add Dependent</span> </a>
+                <span id="add_dependent">Add Dependent</span> </a>
         </div>
-        <table class="mp-table mp-text-fs-small table_style mp-mh2" id="campusTable" cellspacing="0" width="100%">
+        <table class="mp-table mp-text-fs-small table_style mp-mh2" id="dependentTable" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Birthday</th>
                     <th>Relationship</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Samplee D. Luffy</td>
-                    <td>January-1-2000</td>
-                    <td>Son</td>
-                </tr>
+
             </tbody>
         </table>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Supporting Document</label>
-            <input class="mp-input-group__input mp-mt3" type="file" required />
+            {{-- <table id="support_docu">
+                <tr>
+                    <td>Cocolife form</td>
+                    <td>
+                        <label class="label_file"> Enter Your File
+                            <input type="file" size="60" >
+                        </label> 
+                    </td>
+                </tr>
+            </table> --}}
+            <hr>
+            <div class="support_docu">
+                
+                <a href="">Cocolife Form</a>
+                <label class="label_file"> Upload Cocolife Form
+                    <input type="file" size="60" >
+                </label> 
+            </div>
+            <hr>
+            <div class="support_docu">
+                
+                <a href="">Cocolife Form</a>
+                <label class="label_file"> Upload Cocolife Form
+                    <input type="file" size="60" >
+                </label> 
+            </div>
+            <hr>
+            
         </div>
         <div class="mp-input-group mp-mt2">
             <label for="" class="mp-input-group__label"><input class="" type="checkbox" required /> Coco life form.</label>
