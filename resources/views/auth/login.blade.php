@@ -24,6 +24,7 @@
     </div>
     @endif
 </div>
+    <button id="modal_name_pop">Show Modal</button>
 <form id="loginForm" class="mp-pt4 mp-mb5" method="post" action="{{ url('/login') }}">
     {{ csrf_field() }}
     <div class="mp-pb4 mp-input-group">
@@ -37,6 +38,7 @@
         <label class="mp-input-group__label" for="password">Password</label>
         <input class="mp-input-group__input mp-text-field" type="password" id="password" name="password" required />
     </div>
+
     <div class="mp-pt3 row justify-content-between grid mp-pv-1">
 
         <div class="col">
@@ -103,7 +105,9 @@
             </div>
             
             <div class="row" style ="float:right;" >
-                <button class="up-button btn-md mp-mt3 mp-mb3"  type="submit"  id="btn-submit">Search</button>
+                <button class="up-button btn-md mp-mt3 mp-mb3 button-animate-right "  type="submit"  id="btn-submit">
+                    <span>Search</span> 
+                </button>
             </div>
     </div>
 
@@ -537,7 +541,9 @@
               <span>Back</span>  
          </button>
         <div class="row" style="float:right;">
-            <button class="up-button btn-md" type="submit" id="btn-submit">Send Email</button>
+            <button class="up-button btn-md button-animate-right " type="submit" id="btn-submit">
+                <span>Send Email</span>    
+            </button>
         </div>
     </div>
 

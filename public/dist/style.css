@@ -527,15 +527,81 @@ html {
     display: none;
 }
 
-@media (min-width:576px) {
+.custom-modal {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+}
+
+.modal-container {
+    position: relative;
+    margin: auto;
+    width: 90%;
+    height: 60%;
+    background-color: white;
+    border-radius: 20px;
+}
+
+.modal-content {
+    display: grid;
+    grid-template-rows: auto auto auto;
+
+}
+
+.modal-header {
+    background-color: var(--c-accent);
+    color: white;
+    padding: 20px;
+    font-size: 25px;
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.modal-body {
+    height: 100%;
+    padding: 5px;
+    max-height: 400px;
+    overflow: auto;
+}
+
+.modal-footer {
+    position: absolute;
+    bottom: 10px;
+    left: 34%;
+}
+
+.modal-footer button {
+    margin: 10px;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.not-visible {
+    visibility: hidden;
+}
+
+@media (min-width:656px) {
     .container {
-        max-width: 540px
+        max-width: 656px
     }
 
     .mobile-header {
         background-color: var(--c-accent);
 
         display: none;
+    }
+
+    .modal-container {
+        width: 60%;
     }
 
     .desktop {
@@ -5341,7 +5407,7 @@ tfoot {
 .ph-20-p {
     padding-right: 15%;
     padding-left: 15%;
-} 
+}
 
 .pv-10 {
     padding-top: 10px;
