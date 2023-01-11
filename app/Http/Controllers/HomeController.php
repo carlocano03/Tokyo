@@ -126,32 +126,7 @@ class HomeController extends Controller
           'landline_no' => $request->input('landline_no'),
           'email' => $request->input('email'),
         );
-      } else {
-        $inserts = array(
-          'lastname' => $request->input('lastname'),
-          'middlename' => $request->input('middlename'),
-          'firstname' => $request->input('firstname'),
-          'date_birth' => $request->input('date_birth'),
-          'suffix' => $request->input('suffix'),
-          'gender' => $request->input('gender'),
-          'civilstatus' => $request->input('civilstatus'),
-          'citizenship' => $request->input('citizenship'),
-          'dual_citizenship' => $request->input('dual_citizenship'),
-          'province' => $request->input('present_province'),
-          'municipality' => $request->input('present_municipality'),
-          'barangay' => $request->input('present_barangay'),
-          'bldg_street' => $request->input('present_bldg_street'),
-          'zipcode' => $request->input('present_zipcode'),
-          'present_province' => $request->input('present_province'),
-          'present_municipality' => $request->input('present_municipality'),
-          'present_barangay' => $request->input('present_barangay'),
-          'present_bldg_street' => $request->input('present_bldg_street'),
-          'present_zipcode' => $request->input('present_zipcode'),
-          'contact_no' => $request->input('contact_no'),
-          'landline_no' => $request->input('landline_no'),
-          'email' => $request->input('email'),
-        );
-      }
+      } 
 
       $last_id = DB::table('personal_details')->insertGetId($inserts);
       //   $last_id = (DB::getPdo()->lastInsertId()); 
