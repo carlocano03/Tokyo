@@ -2,55 +2,53 @@
 @section('content')
 
 
-    <!-- mobile transition -->
-    <!-- <div class="mobile-header">
-                    <div class="logo-title">
-                        <div class="mp-pb4  mp-text-center logo-text">
-                                <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
-                                <br>
-                                <label for="">
-                                       UP Provident Fund
-                                </label>
-                              
-                        </div>
+<!-- mobile transition -->
+<!-- <div class="mobile-header">
+        <div class="logo-title">
+            <div class="mp-pb4  mp-text-center logo-text">
+                    <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
+                    <br>
+                    <label for="">
+                           UP Provident Fund
+                    </label>
+                  
+            </div>  
+        </div> 
+    </div> -->
+<!-- <div class="transition-background">
+
+</div> -->
+<div class="custom-modal not-visible" id="modal_name">
+    <div class="modal-container">
+        <div class="modal-content">
+            <div class="modal-header">
+                MODAL HEADER
+            </div>
+            <div class="modal-body">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic maiores ut consectetur qui animi corporis rem eveniet dolorem quia, esse velit iure, suscipit accusamus dignissimos natus dolorum deleniti iusto delectus?
+            </div>
+
+            <div class="modal-footer">
+                <div class="mp-container">
+                    <div class="row">
+                        <button class="up-button btn-md " id="modal_name_close" value="">
+                            <span>Close</span>
+                        </button>
+                        <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
+                            <span>Ok</span>
+                        </button>
                     </div>
-                </div> -->
-    <!-- <div class="transition-background">
-
-            </div> -->
-    <div class="custom-modal not-visible" id="modal_name">
-        <div class="modal-container">
-            <div class="modal-content">
-                <div class="modal-header">
-                    MODAL HEADER
-                </div>
-                <div class="modal-body">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic maiores ut consectetur qui animi corporis
-                    rem eveniet dolorem quia, esse velit iure, suscipit accusamus dignissimos natus dolorum deleniti iusto
-                    delectus?
                 </div>
 
-                <div class="modal-footer">
-                    <div class="mp-container">
-                        <div class="row">
-                            <button class="up-button btn-md " id="modal_name_close" value="">
-                                <span>Close</span>
-                            </button>
-                            <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
-                                <span>Ok</span>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
             </div>
         </div>
     </div>
-    <div class="mp-split-pane">
-        <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
-            <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-12 col-sm-10">
+</div>
+<div class="mp-split-pane">
+    <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
+        <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-12 col-sm-10">
                     @section('loginForm')
                     @show
 
@@ -67,8 +65,8 @@
             @section('registration-personal-form')
             @show
         </div>
-        <div class="sticky bottom-0 mp-mv5 items-between  bg-white mt-auto d-none  flex-column" id="control">
-            <div class="d-flex items-between bg-cyan-50 mp-pb4 mp-pt4 mp-pv3">
+        <div class="sticky bottom-0 mp-mv5 items-between  bg-white mt-auto d-none  flex-column gap-0" id="control">
+            <div class="d-flex items-between bg-cyan-50 mp-pb2 mp-pt3 mp-pv3 br-bottom-2">
                 <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
                     <span>Back</span>
                 </a>
@@ -137,31 +135,6 @@
             $('#barangay').ph_locations('fetch_list', [{
                 "city_code": city_code
             }]);
-        },
-
-        fill_present_provinces: function() {
-            var region = $(this).val().split('|');
-            var region_code = region[0];
-            $('#present_province').ph_locations('fetch_list', [{
-                "region_code": region_code
-            }]);
-
-        },
-
-        fill_present_cities: function() {
-            var prov = $(this).val().split('|');
-            var province_code = prov[0];
-            $('#present_city').ph_locations('fetch_list', [{
-                "province_code": province_code
-            }]);
-        },
-
-        fill_present_barangays: function() {
-            var city = $(this).val().split('|');
-            var city_code = city[0];
-            $('#present_barangay').ph_locations('fetch_list', [{
-                "city_code": city_code
-            }]);
         }
     };
 
@@ -180,21 +153,6 @@
         });
 
         $('#province').ph_locations('fetch_list');
-
-        $('#present_province').on('change', my_handlers.fill_present_cities);
-        $('#present_city').on('change', my_handlers.fill_present_barangays);
-
-        $('#present_province').ph_locations({
-            'location_type': 'provinces'
-        });
-        $('#present_city').ph_locations({
-            'location_type': 'cities'
-        });
-        $('#present_barangay').ph_locations({
-            'location_type': 'barangays'
-        });
-
-        $('#present_province').ph_locations('fetch_list');
     });
 
     $(document).on('click', '#modal_name_pop', function(e) {
@@ -273,10 +231,6 @@
     })
     var reference_no;
     var mem_id;
-    var personnel_id;
-    var employee_no;
-    var employee_details_ID;
-
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value')
         if (nextValue == 'step-2') {
@@ -285,8 +239,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            if(!personnel_id){
-                $.ajax({
+            $.ajax({
                 type: 'POST',
                 url: "{{ route('add_member') }}",
                 data: $('#member_forms').serialize(),
@@ -294,41 +247,10 @@
                     if (data.success != '') {
                         reference_no = data.randomnum;
                         mem_id = data.mem_id;
-                        personnel_id = data.success;
-                        Swal.fire({
-                            title: 'This is your reference code:'+ reference_no,
-                            icon: 'success'
-                            });
+                        alert(reference_no);
                     }
                 }
             });
-            }else{
-                $("#member_forms").on("change","input",function(){
-                    alert("Data in the form has been changed!");
-                });
-            //     var formDatas = $("#member_forms").serialize();
-            //     var additionalData = {
-            //         'mem_id': mem_id,
-            //         'personnel_id': personnel_id,
-            //     };
-            //     formDatas += '&' + $.param(additionalData);
-            //     $.ajax({
-            //     type: 'POST',
-            //     url: "{{ route('add_member_update') }}",
-            //     data: formDatas,
-            //     success: function(data) {
-            //         if (data.success != '') {
-            //             reference_no = data.randomnum;
-            //             mem_id = data.mem_id;
-            //             personnel_id = data.success;
-            //             Swal.fire({
-            //                 title: 'This is your reference code:'+ reference_no,
-            //                 icon: 'success'
-            //                 });
-            //         }
-            //     }
-            // });
-            }
             $("#step-1").removeClass('d-flex').addClass("d-none");
             $("#step-2").removeClass('d-none').addClass("d-flex");
             $("#back").attr('value', 'step-1')
@@ -337,24 +259,23 @@
             $("#registration-title").text(stepTitle[1])
             $("#stepper-2").addClass("active")
         } else if (nextValue == 'step-3') {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
             var formData = $("#member_forms_con").serialize();
             var additionalData = {
                 'mem_id': mem_id,
             };
             formData += '&' + $.param(additionalData);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
             $.ajax({
                 type: 'POST',
                 url: "{{ route('add_member_con') }}",
                 data: formData,
                 success: function(data) {
                     if (data.success != '') {
-                        employee_no = data.emp_no;
-                        employee_details_ID = data.success;
+                        alert('pwede na matulog');
                     }
                 }
             });
@@ -370,128 +291,7 @@
             $("#btn-submit").click()
         }
         scrollToTop()
-    });
-
-    $(document).on('click', '#add_dependent', function() {
-        var name = $('#dependent_name').val();
-        var bday = $('#dependent_bday').val();
-        var relation = $('#dependent_relation').val();
-        // var member_id = mem_id
-
-        if (name != '' && bday != '' && relation != '') {
-            $.ajax({
-                url: "{{ route('add_benefeciaries') }}",
-                data: {
-                    name: name,
-                    bday: bday,
-                    relation: relation
-                },
-                method: "POST",
-                success: function(data) {
-                    if (data.success == 'Exists') {
-                        Swal.fire('Error!', 'Benefeciary already exists.', 'error');
-                    } else {
-                        var table = $('#dependentTable').DataTable();
-                        table.draw();
-                        $('#dependent_name').val('');
-                        $('#dependent_bday').val('');
-                        $('#dependent_relation').val('');
-                    }
-                }
-            });
-        } else {
-            Swal.fire('Warning!', 'Please filled up dependent fields.', 'warning');
-        }
-    });
-
-    $(document).ready(function() {
-        var tableDependent = $('#dependentTable').DataTable({
-            ordering: false,
-            info: false,
-            searching: false,
-            paging: false,
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('getBeneficiary') }}",
-            columns: [{
-                    data: 'fullname',
-                    name: 'fullname'
-                },
-                {
-                    data: 'date_birth',
-                    name: 'date_birth'
-                },
-                {
-                    data: 'relationship',
-                    name: 'relationship'
-                },
-                {
-                    data: 'action',
-                    name: 'action',
-                    orderable: false,
-                    searchable: false
-                },
-            ]
-        });
-
-        $(document).on('click', '.delete', function() {
-            var ben_ID = $(this).attr('id');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You want to remove this beneficiary.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, remove it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: "{{ route('remove_benefeciaries') }}",
-                        data: {
-                            ben_ID: ben_ID
-                        },
-                        method: "POST",
-                        success: function(data) {
-                            if (data.success != '') {
-                                var table = $('#dependentTable').DataTable();
-                                table.draw();
-                            }
-                        }
-                    });
-                }
-            })
-        });
-    });
-
-    $(document).on('click', '#perm_add_check', function(e) {
-        if($(this).prop("checked"))
-        {
-            var myString = $('#present_province').val();
-            var myString1 = $('#present_city').val();
-            var myString2 = $('#present_barangay').val();
-            var myString3 = $('#present_bldg_street').val();
-            var myString4 = $('#present_zipcode').val();
-            var targetChar = '|';
-            var index = myString.indexOf(targetChar);
-            var index1 = myString1.indexOf(targetChar);
-            var index2 = myString2.indexOf(targetChar);
-            if (index !== -1) {
-                var valueAfterTargetChar = myString4 + ' ' + myString3 + ' ' + myString2.split(targetChar)[1] + ' ' + myString1.split(targetChar)[1] + ' ' + myString.split(targetChar)[1];
-                $('#same_add').val(valueAfterTargetChar);
-                $('.same_div').hide();
-            }else{
-                Swal.fire({
-                title: 'Please complete your Present Address',
-                text: 'Thank you!',
-                icon: 'error'
-                });
-            }
-        }else{
-            $('.same_div').show();
-        }
-    }); 
-
+    })
 
     function scrollToTop() {
         $('html, body, div').animate({

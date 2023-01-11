@@ -263,7 +263,7 @@
             <span>Online Membership Application</span>
         </div>
     </div>
-    <div class="relative mp-mt3 w-90 d-flex ml-auto mr-auto">
+    <div class="relative mp-mt2 w-90 d-flex ml-auto mr-auto">
         <ul class="d-flex flex-row items-between w-100 stepper">
             <li class="circle active" id="stepper-1">1</li>
             <li class="circle" id="stepper-2">2</li>
@@ -271,11 +271,11 @@
         </ul>
         <div class="line step-1" id="line"></div>
     </div>
-    <label class="mp-text-fs-medium mp-ph2 mp-split-pane__title mp-text-c-primary mb-0 mp-pv2 br-top-2" id="registration-title">Personal Information</label>
+    <label class="mp-text-fs-medium mp-ph2 mp-split-pane__title mp-text-c-primary mb-0 mp-pv2 br-top-2 mp-mt2 " id="registration-title">Personal Information</label>
 </div>
-<form id="member_forms" >
+<form id="member_forms">
     {{ csrf_field() }}
-    <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2" id="step-1">
+    <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form shadow-inset-1 mp-pv2" id="step-1">
         <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
         <div class="mp-input-group">
             <label class="mp-input-group__label">Last Name</label>
@@ -316,79 +316,44 @@
             </select>
         </div>
         <div class="mp-input-group">
-        <div class="d-flex gap-5">
-            <input type="radio" value="Filipino" id="citizenship" name="citizenship"/>
-            <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Filipino</label>
-            <input type="radio" value="Filipino" id="citizenship" name="citizenship"/>
-            <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Dual Citizenship</label>
-            <input type="radio" value="Others" id="citizenship_o" name="citizenship"/>
-            <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 5px;">Others</label>
-        </div>
             <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" />
+            <input class="mp-input-group__input mp-text-field" type="text" name="citizenship" />
         </div>
         <div class="mp-input-group">
-        <label class="mp-input-group__label">Present Address</label><br>
-            <label class="mp-input-group__label">Province</label>
-            <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
-                <option></option>
-            </select>
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Municipality</label>
-            <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality" required>
-                <option></option>
-            </select>
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Barangay</label>
-            <select class="mp-input-group__input mp-text-field" id="present_barangay" name="present_barangay" required>
-                <option></option>
-            </select>
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Bldg No. St. No.</label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="present_bldg_street" name="present_bldg_street" />
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Zipcode</label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="present_zipcode" name="present_zipcode" />
-        </div>
-
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Permanent Address</label>
-            <div class="d-flex gap-5">
-                <input type="checkbox" value="1" id="perm_add_check" name="perm_add_check" />
-                <label class="mp-input-group__label" style="margin-top: 5px;">(Same as above)</label>
-
-            </div>
-            <input class="mp-input-group__input mp-text-field" type="text" name="same_add" id="same_add" readonly/>
-        </div>
-        <div class="mp-input-group same_div">
             <label class="mp-input-group__label">Province</label>
             <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
                 <option></option>
             </select>
         </div>
-        <div class="mp-input-group same_div">
+        <div class="mp-input-group">
             <label class="mp-input-group__label">Municipality</label>
             <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
                 <option></option>
             </select>
         </div>
-        <div class="mp-input-group same_div">
+        <div class="mp-input-group">
             <label class="mp-input-group__label">Barangay</label>
             <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
                 <option></option>
             </select>
         </div>
-        <div class="mp-input-group same_div">
+        <div class="mp-input-group">
             <label class="mp-input-group__label">Bldg No. St. No.</label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="bldg_street" name="bldg_street" />
+            <input class="mp-input-group__input mp-text-field" type="text" name="bldg_street" />
         </div>
-        <div class="mp-input-group same_div">
+        <div class="mp-input-group">
             <label class="mp-input-group__label">Zipcode</label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="zipcode" name="zipcode" />
+            <input class="mp-input-group__input mp-text-field" type="text" name="zipcode" />
+        </div>
+
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Permanent Address</label>
+            <div class="d-flex gap-5">
+                <input type="checkbox" />
+                <label class="mp-input-group__label" style="margin-top: 5px;">(Same as above)</label>
+
+            </div>
+            <input class="mp-input-group__input mp-text-field" type="text" />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Cellphone Number</label>
@@ -407,9 +372,9 @@
     </div>
 
 </form>
-<form id="member_forms_con" >
+<form id="member_forms_con">
     <!-- <label class="mp-text-fs-medium">Employment Details</label> -->
-    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form mp-pv2" id="step-2">
+    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2" id="step-2">
         <div class="mp-input-group">
             <label class="mp-input-group__label">Campus</label>
             <select class="mp-input-group__input mp-text-field" name="campus">
@@ -494,7 +459,17 @@
 
 </form>
 <form id="member_forms_3">
-    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form mp-pv2 fill-block" id="step-3">
+    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-3">
+
+        <div class="mp-input-group">
+            <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
+                MONTHLY CONTRIBUTION
+            </label>
+            <label class="mp-input-group__label">
+                (Contribution will be deducted from your salary every month; Choose between: (a) Percentage of basic salary, minimum of 1%; or (b) Fixed amount;
+                You may change this anytime by filling out the Member’s Data Updating Form; Amount is subject to the DBM rule on net take-home pay threshold.)
+            </label>
+        </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
                 <input type="checkbox" />
@@ -511,66 +486,56 @@
         </div>
         <div class="mp-input-group d-flex gap-5 flex-column">
             <label class="mp-input-group__label">Dependents</label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" required placeholder="Name" />
-            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_bday" onfocus="(this.type='date')" required placeholder="Birthday" />
-            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" required placeholder="Relationship" />
-            {{-- <input type="text" id="mem_id"> --}}
+            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Name" />
+            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Birthday" />
+            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Relationship" />
             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
-                <span id="add_dependent">Add Dependent</span> </a>
+                <span>Add Dependent</span> </a>
         </div>
-        <table class="mp-table mp-text-fs-small table_style mp-mh2" id="dependentTable" cellspacing="0" width="100%">
+        <table class="mp-table mp-text-fs-small table_style mp-mh2" id="campusTable" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Birthday</th>
                     <th>Relationship</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody>
-
+                <tr>
+                    <td>Samplee D. Luffy</td>
+                    <td>January-1-2000</td>
+                    <td>Son</td>
+                </tr>
             </tbody>
         </table>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Supporting Document</label>
-            {{-- <table id="support_docu">
-                <tr>
-                    <td>Cocolife form</td>
-                    <td>
-                        <label class="label_file"> Enter Your File
-                            <input type="file" size="60" >
-                        </label> 
-                    </td>
-                </tr>
-            </table> --}}
-            <hr>
-            <div class="support_docu">
-                
-                <a href="">Cocolife Form</a>
-                <label class="label_file"> Upload Cocolife Form
-                    <input type="file" size="60" >
-                </label> 
-            </div>
-            <hr>
-            <div class="support_docu">
-                
-                <a href="">Cocolife Form</a>
-                <label class="label_file"> Upload Cocolife Form
-                    <input type="file" size="60" >
-                </label> 
-            </div>
-            <hr>
-            
+            <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" required />
         </div>
-        <div class="mp-input-group mp-mt2">
-            <label for="" class="mp-input-group__label"><input class="" type="checkbox" required /> Coco life form.</label>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Upload Signature</label>
+            <input class="mp-input-group__input mp-mt1" type="file" required />
+            <label class="mp-input-group__label mp-mt2">By signing this form, I hereby certify that all information provided above are true, accurate, and complete. I also consent to the
+                collection, recording, use, processing, storage, and retention of my personal data by UP Provident Fund for the purpose of my
+                membership with the Fund, subject to RA 10173 (“Data Privacy Act”). I authorize the company to disclose relevant personal
+                information to third parties only as necessary for the processing and execution of regular membership transactions (e.g., loans
+                disbursement, insurance application and claims processing, etc.) or as legally required by existing laws, ordinances, or regulations.
+            </label>
         </div>
-        <div class="mp-input-group mp-mt2">
-            <label for="" class="mp-input-group__label"><input class="" type="checkbox" required /> By checking this box, I hearby certify that all information provided is true, acurate, and complete.</label>
+
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">
+                <span class="mp-link link_style">Click here</span><span> to download Cocolife and Proxy Form for manual signature (Optional) </span>
+            </label>
         </div>
-        
+
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Upload Signed Form</label>
+            <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" required />
+        </div>
+
     </div>
-    
+
     <button type="submit" class="d-none" id="btn-submit">Submit</button>
 </form>
 
