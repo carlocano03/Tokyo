@@ -18,6 +18,32 @@
 <!-- <div class="transition-background">
 
 </div> -->
+<div class="custom-modal not-visible" id="modal_name">
+    <div class="modal-container">
+        <div class="modal-content">
+            <div class="modal-header">
+                MODAL HEADER
+            </div>
+            <div class="modal-body">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic maiores ut consectetur qui animi corporis rem eveniet dolorem quia, esse velit iure, suscipit accusamus dignissimos natus dolorum deleniti iusto delectus?
+            </div>
+
+            <div class="modal-footer">
+                <div class="mp-container">
+                    <div class="row">
+                         <button class="up-button btn-md " id="modal_name_close" value="">
+                            <span>Close</span>
+                        </button>
+                        <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
+                            <span>Ok</span>
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+ </div>
+</div>
 <div class="mp-split-pane">
     <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
         <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
@@ -126,6 +152,14 @@
         $('#province').ph_locations('fetch_list');
     });
 
+    $(document).on('click', '#modal_name_pop', function(e) {
+         $("#modal_name").addClass("visible")
+         $("#modal_name").removeClass("not-visible")
+    })
+    $(document).on('click', '#modal_name_close', function(e) {
+        $("#modal_name").addClass("not-visible")
+        $("#modal_name").removeClass("visible")
+    })
 
     $(document).on('click', '#status_trail', function(e) {
         $("#loginform").attr("hidden", true);

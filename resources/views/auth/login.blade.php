@@ -24,6 +24,7 @@
     </div>
     @endif
 </div>
+    <button id="modal_name_pop">Show Modal</button>
 <form id="loginForm" class="mp-pt4 mp-mb5" method="post" action="{{ url('/login') }}">
     {{ csrf_field() }}
     <div class="mp-pb4 mp-input-group">
@@ -37,6 +38,7 @@
         <label class="mp-input-group__label" for="password">Password</label>
         <input class="mp-input-group__input mp-text-field" type="password" id="password" name="password" required />
     </div>
+
     <div class="mp-pt3 row justify-content-between grid mp-pv-1">
 
         <div class="col">
