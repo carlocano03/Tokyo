@@ -256,20 +256,20 @@ class HomeController extends Controller
     return response()->json(['success' => $datadb['error']]);
   }
 
-  // public function get_beneficiary(Request $request)
-  // {
-  //   if ($request->ajax()) {
-  //     $data = Beneficiaries::select('*');
-  //     return Datatables::of($data)
-  //       ->addIndexColumn()
-  //       ->addColumn('action', function ($row) {
-  //         $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm delete" id="' . $row->ben_ID . '">Remove</a>';
-  //         return $btn;
-  //       })
-  //       ->rawColumns(['action'])
-  //       ->make(true);
-  //   }
-  // }
+  public function get_beneficiary(Request $request)
+  {
+    if ($request->ajax()) {
+      $data = Beneficiaries::select('*');
+      return Datatables::of($data)
+        ->addIndexColumn()
+        ->addColumn('action', function ($row) {
+          $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm delete" id="' . $row->ben_ID . '">Remove</a>';
+          return $btn;
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+    }
+  }
 
   public function delete_beneficiary(Request $request)
   {
