@@ -353,7 +353,7 @@
                 success: function(data) {
                     if (data.success != '') {
                         employee_no = data.emp_no;
-                        employee_details_ID = success;
+                        employee_details_ID = data.success;
                     }
                 }
             });
@@ -463,7 +463,6 @@
         });
     });
 
-    })
     $(document).on('click', '#perm_add_check', function(e) {
         if($(this).prop("checked"))
         {
