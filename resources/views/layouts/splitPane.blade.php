@@ -31,7 +31,7 @@
             <div class="modal-footer">
                 <div class="mp-container">
                     <div class="row">
-                         <button class="up-button btn-md " id="modal_name_close" value="">
+                        <button class="up-button btn-md " id="modal_name_close" value="">
                             <span>Close</span>
                         </button>
                         <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
@@ -39,10 +39,10 @@
                         </button>
                     </div>
                 </div>
-                
+
             </div>
         </div>
- </div>
+    </div>
 </div>
 <div class="mp-split-pane">
     <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
@@ -65,13 +65,16 @@
             @section('registration-personal-form')
             @show
         </div>
-        <div class="sticky bottom-0 mp-pv5 items-between mp-pb2 bg-white mt-auto d-none mp-pt3" id="control">
-            <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
-                <span>Back</span>
-            </a>
-            <a class="up-button btn-md button-animate-right " type="submit" value="step-2" id="next-btn">
-                <span>Next</span>
-            </a>
+        <div class="sticky bottom-0 mp-mv5 items-between  bg-white mt-auto d-none  flex-column" id="control">
+            <div class="d-flex items-between bg-cyan-50 mp-pb4 mp-pt4 mp-pv3">
+                <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
+                    <span>Back</span>
+                </a>
+                <a class="up-button btn-md button-animate-right " type="submit" value="step-2" id="next-btn">
+                    <span>Next</span>
+                </a>
+            </div>
+            <div class="divider-white"></div>
         </div>
 
         <div id="resetPasswordForm" hidden="hidden" class="container-fluid relative pv-3">
@@ -153,8 +156,8 @@
     });
 
     $(document).on('click', '#modal_name_pop', function(e) {
-         $("#modal_name").addClass("visible")
-         $("#modal_name").removeClass("not-visible")
+        $("#modal_name").addClass("visible")
+        $("#modal_name").removeClass("not-visible")
     })
     $(document).on('click', '#modal_name_close', function(e) {
         $("#modal_name").addClass("not-visible")
@@ -207,6 +210,7 @@
             $("#next-btn").attr('value', 'step-2')
             $("#line").removeClass('step-2').addClass('step-1')
             $("#registration-title").text(stepTitle[0])
+            $("#stepper-2").removeClass("active")
         } else if (backValue == 'step-2') {
             $("#step-2").removeClass('d-none').addClass("d-flex");
             $("#step-3").removeClass('d-flex').addClass("d-none");
@@ -214,6 +218,7 @@
             $("#next-btn").attr('value', 'step-3')
             $("#line").removeClass('step-3').addClass('step-2')
             $("#registration-title").text(stepTitle[1])
+            $("#stepper-3").removeClass("active")
         } else {
             $("#registrationform").attr("hidden", true);
             $("#statusTrailForm").attr("hidden", true);
@@ -229,22 +234,22 @@
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value')
         if (nextValue == 'step-2') {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
             $.ajax({
-            type:'POST',
-            url:"{{ route('add_member') }}",
-            data:$('#member_forms').serialize(),
-            success:function(data){
-                if(data.success != ''){
-                    reference_no = data.randomnum;
-                    mem_id = data.mem_id;
-                    alert(reference_no);
+                type: 'POST',
+                url: "{{ route('add_member') }}",
+                data: $('#member_forms').serialize(),
+                success: function(data) {
+                    if (data.success != '') {
+                        reference_no = data.randomnum;
+                        mem_id = data.mem_id;
+                        alert(reference_no);
+                    }
                 }
-            }
             });
             $("#step-1").removeClass('d-flex').addClass("d-none");
             $("#step-2").removeClass('d-none').addClass("d-flex");
@@ -252,6 +257,7 @@
             $(this).attr('value', 'step-3')
             $("#line").removeClass('step-1').addClass('step-2')
             $("#registration-title").text(stepTitle[1])
+            $("#stepper-2").addClass("active")
         } else if (nextValue == 'step-3') {
             var formData = $("#member_forms_con").serialize();
             var additionalData = {
@@ -259,19 +265,19 @@
             };
             formData += '&' + $.param(additionalData);
             $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
             });
             $.ajax({
-            type:'POST',
-            url:"{{ route('add_member_con') }}",
-            data:formData,
-            success:function(data){
-                if(data.success != ''){
-                    alert('pwede na matulog');
+                type: 'POST',
+                url: "{{ route('add_member_con') }}",
+                data: formData,
+                success: function(data) {
+                    if (data.success != '') {
+                        alert('pwede na matulog');
+                    }
                 }
-            }
             });
             $("#step-2").removeClass('d-flex').addClass("d-none");
             $("#step-3").removeClass('d-none').addClass("d-flex");
@@ -279,6 +285,7 @@
             $(this).attr('value', 'step-end')
             $("#line").removeClass('step-2').addClass('step-3')
             $("#registration-title").text(stepTitle[2])
+            $("#stepper-3").addClass("active")
         } else if (nextValue == 'step-end') {
             // alert('end')
             $("#btn-submit").click()
@@ -288,7 +295,7 @@
 
     function scrollToTop() {
         $('html, body, div').animate({
-            scrollTop: $('#leftsection').offset().top - 20 
+            scrollTop: $('#leftsection').offset().top - 20
         }, 300);
     }
 </script>
