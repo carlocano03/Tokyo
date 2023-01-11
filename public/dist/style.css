@@ -5463,3 +5463,48 @@ tfoot {
     min-height: 70vh;
 }
 
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #dfe6e9;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #b2bec3;
+    /* border-radius: 10px; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #bdc3c7;
+}
+
+/* #support_docu td {
+    width: 100%;
+    border: 1px solid red;
+} */
+
+.support_docu {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.label_file {
+    padding: 5px;
+    background: var(--c-primary); 
+    display: table;
+    color: #fff;
+    font-size: 12px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+
+
