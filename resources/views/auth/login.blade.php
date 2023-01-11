@@ -316,44 +316,79 @@
             </select>
         </div>
         <div class="mp-input-group">
+        <div class="d-flex gap-5">
+            <input type="radio" value="Filipino" id="citizenship" name="citizenship"/>
+            <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Filipino</label>
+            <input type="radio" value="Filipino" id="citizenship" name="citizenship"/>
+            <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Dual Citizenship</label>
+            <input type="radio" value="Others" id="citizenship_o" name="citizenship"/>
+            <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 5px;">Others</label>
+        </div>
             <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="citizenship" />
+            <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" />
         </div>
         <div class="mp-input-group">
+        <label class="mp-input-group__label">Present Address</label><br>
             <label class="mp-input-group__label">Province</label>
-            <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
+            <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Municipality</label>
-            <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
+            <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Barangay</label>
-            <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
+            <select class="mp-input-group__input mp-text-field" id="present_barangay" name="present_barangay" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Bldg No. St. No.</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="bldg_street" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="present_bldg_street" name="present_bldg_street" />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Zipcode</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="zipcode" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="present_zipcode" name="present_zipcode" />
         </div>
 
         <div class="mp-input-group">
             <label class="mp-input-group__label">Permanent Address</label>
             <div class="d-flex gap-5">
-                <input type="checkbox" />
+                <input type="checkbox" value="1" id="perm_add_check" name="perm_add_check" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">(Same as above)</label>
 
             </div>
-            <input class="mp-input-group__input mp-text-field" type="text" />
+            <input class="mp-input-group__input mp-text-field" type="text" name="same_add" id="same_add" readonly/>
+        </div>
+        <div class="mp-input-group same_div">
+            <label class="mp-input-group__label">Province</label>
+            <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
+                <option></option>
+            </select>
+        </div>
+        <div class="mp-input-group same_div">
+            <label class="mp-input-group__label">Municipality</label>
+            <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
+                <option></option>
+            </select>
+        </div>
+        <div class="mp-input-group same_div">
+            <label class="mp-input-group__label">Barangay</label>
+            <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
+                <option></option>
+            </select>
+        </div>
+        <div class="mp-input-group same_div">
+            <label class="mp-input-group__label">Bldg No. St. No.</label>
+            <input class="mp-input-group__input mp-text-field" type="text" id="bldg_street" name="bldg_street" />
+        </div>
+        <div class="mp-input-group same_div">
+            <label class="mp-input-group__label">Zipcode</label>
+            <input class="mp-input-group__input mp-text-field" type="text" id="zipcode" name="zipcode" />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Cellphone Number</label>
