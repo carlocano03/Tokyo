@@ -61,8 +61,8 @@ class HomeController extends Controller
       return Datatables::of($data)
         ->addIndexColumn()
         ->addColumn('action', function ($row) {
-          $button = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm delete" id="' . $row->ben_ID . '">Remove</a>';
-          return $button;
+          $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm delete" id="' . $row->ben_ID . '">Remove</a>';
+          return $btn;
         })
         ->rawColumns(['action'])
         ->make(true);
