@@ -5294,9 +5294,25 @@ tfoot {
 }
 
 
-.pv-3 {
+.pv-3-auto {
     padding-left: 3rem;
     padding-right: 3rem;
+}
+
+.mv-5-auto {
+    margin-left: 3rem;
+    margin-right: 3rem;
+}
+
+@media (max-width:900px){
+    .pv-3-auto {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .mv-5-auto {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
 }
 
 .self-end {
