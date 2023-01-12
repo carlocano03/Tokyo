@@ -63,11 +63,11 @@
             @show
         </div>
 
-        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3" style="height: calc(100% - 53px)">
+        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto" style="height: calc(100% - 53px)">
             @section('registration-personal-form')
             @show
         </div>
-        <div class="mp-mv5 items-between  bg-white mt-auto d-none  flex-column mb-5" id="control">
+        <div class="mv-5-auto items-between  bg-white mt-auto d-none flex-column mb-5" id="control">
             <div class="d-flex items-between bg-cyan-50 mp-pb2 mp-pt2 mp-pv3">
                 <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
                     <span>Back</span>
