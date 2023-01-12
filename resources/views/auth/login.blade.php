@@ -510,7 +510,24 @@
         </table>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Supporting Document</label>
-            <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" required />
+            <hr>
+            <div class="support_docu">
+                
+                <a href="">Cocolife Form</a>
+                <label class="label_file"> Upload Cocolife Form
+                    <input type="file" size="60" >
+                </label> 
+            </div>
+            <hr>
+            <div class="support_docu">
+                
+                <a href="">Cocolife Form</a>
+                <label class="label_file"> Upload Cocolife Form
+                    <input type="file" size="60" >
+                </label> 
+            </div>
+            <hr>
+            
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Upload Signature</label>
