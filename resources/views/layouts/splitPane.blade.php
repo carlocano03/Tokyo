@@ -493,10 +493,10 @@
     }); 
 
 
-    function scrollToTop() {
-        $('html, body, div').animate({
-            scrollTop: $('#leftsection').offset().top - 20
-        }, 300);
-    }
+    // function scrollToTop() {
+    //     $('html, body, div').animate({
+    //         scrollTop: $('#leftsection').offset().top - 20
+    //     }, 300);
+    // }
 </script>
 @endsection

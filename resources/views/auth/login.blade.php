@@ -533,16 +533,6 @@
         </table>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Supporting Document</label>
-            {{-- <table id="support_docu">
-                <tr>
-                    <td>Cocolife form</td>
-                    <td>
-                        <label class="label_file"> Enter Your File
-                            <input type="file" size="60" >
-                        </label> 
-                    </td>
-                </tr>
-            </table> --}}
             <hr>
             <div class="support_docu">
                 
