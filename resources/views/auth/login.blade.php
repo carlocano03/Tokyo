@@ -474,7 +474,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Monthly Salary</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="monthly_salary" required />
+            <input class="mp-input-group__input mp-text-field" type="text" id="monthly_salary" name="monthly_salary" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Salary Grade</label>
