@@ -32,6 +32,13 @@ class HomeController extends Controller
   }
 
 
+    public function dashboard()
+    {
+        return view('admin.dashboard');
+    }
+
+
+
   public function add_benefeciaries(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
@@ -71,11 +78,7 @@ class HomeController extends Controller
         ->make(true);
     }
   }
-  public function dashboard()
-    {
-        return view('admin.dashboard');
-    }
-    
+
   public function add_member(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
@@ -209,46 +212,58 @@ class HomeController extends Controller
 
       return [
         'last_id' => $request->input('personnel_id'),
-        'last_id' => $request->input('personnel_id'),
+        'mem_id' => $request->input('mem_id'),
       ];
     });
-    return response()->json(['success' => $datadb['last_id']]);
+    return response()->json(['success' => $datadb['last_id'], 'mem_id' => $datadb['mem_id']]);
   }
   public function add_member_p2(Request $request)
   {
-    $datadb = DB::transaction(function () use ($request) {
-      $inserts = array(
-        'campus' => $request->input('campus'),
-        'classification' => $request->input('classification'),
-        'classification_others' => $request->input('classification_others'),
-        'employee_no' => $request->input('employee_no'),
-        'college_unit' => $request->input('college_unit'),
-        'department' => $request->input('department'),
-        'rank_position' => $request->input('rank_position'),
-        'date_appointment' => $request->input('date_appointment'),
-        'appointment' => $request->input('appointment'),
-        'monthly_salary' => $request->input('monthly_salary'),
-        'salary_grade' => $request->input('salary_grade'),
-        'sg_category' => $request->input('sg_category'),
-        'tin_no' => $request->input('tin_no'),
-      );
-      $last_id = DB::table('employee_details')->insertGetId($inserts);
+    $employee = DB::table('employee_details')->where('employee_no', $request->input('employee_no'))->first();
+    if ($employee) {
+      return response()->json(['success' => '']);
+    } else {
+      $datadb = DB::transaction(function () use ($request) {
+        $inserts = array(
+          'campus' => $request->input('campus'),
+          'classification' => $request->input('classification'),
+          'classification_others' => $request->input('classification_others'),
+          'employee_no' => $request->input('employee_no'),
+          'college_unit' => $request->input('college_unit'),
+          'department' => $request->input('department'),
+          'rank_position' => $request->input('rank_position'),
+          'date_appointment' => $request->input('date_appointment'),
+          'appointment' => $request->input('appointment'),
+          'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
+          'salary_grade' => $request->input('salary_grade'),
+          'sg_category' => $request->input('sg_category'),
+          'tin_no' => $request->input('tin_no'),
+        );
+        $last_id = DB::table('employee_details')->insertGetId($inserts);
+        //   $last_id = (DB::getPdo()->lastInsertId()); 
       //   $last_id = (DB::getPdo()->lastInsertId()); 
-      $mem_appinst = array(
-        'employee_no' => $request->input('employee_no'),
-      );
-      DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
-        ->update($mem_appinst);
-      return [
-        'last_id' => $last_id,
-        'emp_no' => $request->input('employee_no'),
-      ];
-    });
-    return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
+        //   $last_id = (DB::getPdo()->lastInsertId()); 
+        $mem_appinst = array(
+          'employee_no' => $request->input('employee_no'),
+        );
+        DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
+          ->update($mem_appinst);
+        return [
+          'last_id' => $last_id,
+          'emp_no' => $request->input('employee_no'),
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
+    }
+    
   }
 
   public function add_member_up_p2(Request $request)
   {
+    $employee = DB::table('employee_details')->where('employee_no', $request->input('employee_no'))->first();
+    if ($employee) {
+      return response()->json(['success' => '']);
+    } else {
     $datadb = DB::transaction(function () use ($request) {
       $inserts = array(
         'campus' => $request->input('campus'),
@@ -260,12 +275,13 @@ class HomeController extends Controller
         'rank_position' => $request->input('rank_position'),
         'date_appointment' => $request->input('date_appointment'),
         'appointment' => $request->input('appointment'),
-        'monthly_salary' => $request->input('monthly_salary'),
+        'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
         'salary_grade' => $request->input('salary_grade'),
         'sg_category' => $request->input('sg_category'),
         'tin_no' => $request->input('tin_no'),
       );
-      $last_id = DB::table('employee_details')->insertGetId($inserts);
+      DB::table('employee_details')->where('employee_details_ID', $request->input('employee_details_ID'))
+      ->update($inserts);
       //   $last_id = (DB::getPdo()->lastInsertId()); 
       $mem_appinst = array(
         'employee_no' => $request->input('employee_no'),
@@ -273,11 +289,12 @@ class HomeController extends Controller
       DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
         ->update($mem_appinst);
       return [
-        'last_id' => $last_id,
+        'last_id' => $request->input('employee_details_ID'),
         'emp_no' => $request->input('employee_no'),
       ];
     });
     return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
+    }
   }
 
   public function delete_beneficiary(Request $request)
