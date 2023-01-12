@@ -69,7 +69,7 @@
             @show
         </div>
         <div class="mv-5-auto items-between  bg-white mt-auto d-none flex-column mb-5" id="control">
-            <div class="d-flex items-between bg-cyan-50 mp-pb2 mp-pt2 mp-pv3">
+            <div class="d-flex items-between  mp-pb2 mp-pt2 mp-pv3 border-style">
                 <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
                     <span>Back</span>
                 </a>
