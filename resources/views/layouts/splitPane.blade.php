@@ -2,55 +2,55 @@
 @section('content')
 
 
-<!-- mobile transition -->
-<!-- <div class="mobile-header">
-                    <div class="logo-title">
-                        <div class="mp-pb4  mp-text-center logo-text">
-                                <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
-                                <br>
-                                <label for="">
-                                       UP Provident Fund
-                                </label>
-                              
-                        </div>
-                    </div>
-                </div> -->
-<!-- <div class="transition-background">
+    <!-- mobile transition -->
+    <!-- <div class="mobile-header">
+                                <div class="logo-title">
+                                    <div class="mp-pb4  mp-text-center logo-text">
+                                            <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
+                                            <br>
+                                            <label for="">
+                                                   UP Provident Fund
+                                            </label>
+                                          
+                                    </div>
+                                </div>
+                            </div> -->
+    <!-- <div class="transition-background">
 
-            </div> -->
-<div class="custom-modal not-visible" id="modal_name">
-    <div class="modal-container">
-        <div class="modal-content">
-            <div class="modal-header">
-                MODAL HEADER
-            </div>
-            <div class="modal-body">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic maiores ut consectetur qui animi corporis
-                rem eveniet dolorem quia, esse velit iure, suscipit accusamus dignissimos natus dolorum deleniti iusto
-                delectus?
-            </div>
-
-            <div class="modal-footer">
-                <div class="mp-container">
-                    <div class="row">
-                        <button class="up-button btn-md " id="modal_name_close" value="">
-                            <span>Close</span>
-                        </button>
-                        <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
-                            <span>Ok</span>
-                        </button>
-                    </div>
+                        </div> -->
+    <div class="custom-modal not-visible" id="modal_name">
+        <div class="modal-container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    MODAL HEADER
+                </div>
+                <div class="modal-body">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic maiores ut consectetur qui animi corporis
+                    rem eveniet dolorem quia, esse velit iure, suscipit accusamus dignissimos natus dolorum deleniti iusto
+                    delectus?
                 </div>
 
+                <div class="modal-footer">
+                    <div class="mp-container">
+                        <div class="row">
+                            <button class="up-button btn-md " id="modal_name_close" value="">
+                                <span>Close</span>
+                            </button>
+                            <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
+                                <span>Ok</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="mp-split-pane">
-    <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
-        <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-12 col-sm-10">
+    <div class="mp-split-pane">
+        <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
+            <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-12 col-sm-10">
                     @section('loginForm')
                     @show
 
@@ -63,12 +63,13 @@
             @show
         </div>
 
-        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto" style="height: calc(100% - 53px)">
+        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto"
+            style="height: calc(100% - 53px)">
             @section('registration-personal-form')
             @show
         </div>
         <div class="mv-5-auto items-between  bg-white mt-auto d-none flex-column mb-5" id="control">
-            <div class="d-flex items-between bg-cyan-50 mp-pb2 mp-pt2 mp-pv3">
+            <div class="d-flex items-between  mp-pb2 mp-pt2 mp-pv3 border-style">
                 <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
                     <span>Back</span>
                 </a>
@@ -504,7 +505,8 @@
                 data: {
                     name: name,
                     bday: bday,
-                    relation: relation
+                    relation: relation,
+                    employee_no: employee_no
                 },
                 method: "POST",
                 success: function(data) {
@@ -525,6 +527,8 @@
     });
 
     $(document).ready(function() {
+        var id = employee_no;
+        console.log(id);
         var tableDependent = $('#dependentTable').DataTable({
             ordering: false,
             info: false,
@@ -532,7 +536,12 @@
             paging: false,
             processing: true,
             serverSide: true,
-            ajax: "{{ route('getBeneficiary') }}",
+            ajax: {
+                url: "{{ route('getBeneficiary') }}",
+                data: function(d) {
+                    d.employee_no = employee_no
+                }
+            },
             columns: [{
                     data: 'fullname',
                     name: 'fullname'
@@ -582,6 +591,16 @@
                 }
             })
         });
+
+        $("#monthly_salary").keyup(function() {
+            var inputValue = $(this).val();
+            inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var decimalAdded = inputValue.split(".");
+            if (decimalAdded[1] && decimalAdded[1].length > 2) {
+                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 2);
+            }
+            $(this).val(inputValue);
+        });
     });
 
     $(document).on('click', '#perm_add_check', function(e) {
@@ -596,7 +615,8 @@
             var index1 = myString1.indexOf(targetChar);
             var index2 = myString2.indexOf(targetChar);
             if (index !== -1) {
-                var valueAfterTargetChar = myString4 + ' ' + myString3 + ' ' + myString2.split(targetChar)[1] + ' ' + myString1.split(targetChar)[1] + ' ' + myString.split(targetChar)[1];
+                var valueAfterTargetChar = myString4 + ' ' + myString3 + ' ' + myString2.split(targetChar)[1] +
+                    ' ' + myString1.split(targetChar)[1] + ' ' + myString.split(targetChar)[1];
                 $('#same_add').val(valueAfterTargetChar);
                 $('.same_div').hide();
             } else {
