@@ -320,7 +320,7 @@
             <div class="d-flex gap-5 mp-mb2">
                 <input type="radio" value="Filipino" id="citizenship" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Filipino</label>
-                <input type="radio" value="Filipino" id="citizenship" name="citizenship" />
+                <input type="radio" value="Dual Citizenship" id="citizenship" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Dual Citizenship</label>
                 <input type="radio" value="Others" id="citizenship_o" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 5px;">Others</label>
@@ -353,7 +353,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Zipcode</label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="present_zipcode" name="present_zipcode" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="present_zipcode" name="present_zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
         </div>
 
         <div class="mp-input-group">
@@ -389,11 +389,11 @@
         </div>
         <div class="mp-input-group same_div">
             <label class="mp-input-group__label">Zipcode</label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="zipcode" name="zipcode" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="zipcode" name="zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Cellphone Number</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Landline Number</label>
@@ -474,7 +474,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Monthly Salary</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="monthly_salary" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="monthly_salary" id="monthly_salary"  required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Salary Grade</label>
@@ -507,17 +507,18 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" />
+                <input type="checkbox" id="percentage_check"/>
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1% - 100%)</label>
             </div>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="number" required name="percentage_bsalary" id="percentage_bsalary" />
+            <label class="mp-input-group__label" style="margin-top: 5px;">Total: </label><label class="mp-input-group__label" id="computed_amount" style="margin-top: 5px;"></label>
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" />
+                <input type="checkbox" id="fixed_amount_check"/>
                 <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso )</label>
             </div>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" required name="fixed_amount" id="fixed_amount" />
         </div>
         <div class="mp-input-group d-flex gap-5 flex-column">
             <label class="mp-input-group__label">Dependents</label>
