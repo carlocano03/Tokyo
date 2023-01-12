@@ -39,6 +39,7 @@ class HomeController extends Controller
         'fullname' => $request->input('name'),
         'date_birth' => $request->input('bday'),
         'relationship' => $request->input('relation'),
+        'personal_id'  => $request->input('employee_no'),
       );
       $dependent = Beneficiaries::where('fullname', $request->input('name'));
       if ($dependent->first()) {
@@ -57,7 +58,9 @@ class HomeController extends Controller
   public function get_beneficiary(Request $request)
   {
     if ($request->ajax()) {
-      $data = Beneficiaries::select('*');
+      // $data = Beneficiaries::select('*');
+      $test = $request->get('employee_no');
+      $data = Beneficiaries::where('personal_id', $test)->select('*');
       return Datatables::of($data)
         ->addIndexColumn()
         ->addColumn('action', function ($row) {
