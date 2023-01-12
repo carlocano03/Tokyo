@@ -659,12 +659,9 @@
     });
     $(document).on('input', '#percentage_bsalary', function(e) {
         var input1 = $("#percentage_bsalary").val();
-        var input2 = $("#monthly_salary").val();
+        var input2 = $("#monthly_salary").val().replace(/,/g, '');
         var percentage = (input1/100) * input2;
         $('#computed_amount').html(percentage);
-        console.log(input1);
-        console.log(input2);
-        console.log(percentage);
     });
     function scrollToTop() {
         $('html, body, div, div, div, form').animate({
