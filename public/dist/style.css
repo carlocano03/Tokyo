@@ -2521,7 +2521,7 @@ ul {
     background-color: var(--c-white);
     width: 100%;
     display: flex;
-    overflow-y: auto
+    height: 100%;
 }
 
 .mp-split-pane__right {
@@ -4987,6 +4987,10 @@ tfoot {
     margin-bottom: 0;
 }
 
+.mb-5 {
+    margin-bottom: 5px;
+}
+
 .mh-1 {
     margin-left: .5rem;
     margin-right: .5rem;
@@ -5179,8 +5183,16 @@ tfoot {
     min-height: 100%;
 }
 
+.absolute {
+    position: absolute
+}
+
 .sticky {
     position: sticky
+}
+
+.fixed {
+    position: fixed
 }
 
 .top-0 {
@@ -5468,6 +5480,12 @@ tfoot {
 
 .gap-0 {
     gap: 0px;
+}
+
+
+.mh-reg-form {
+    height: calc(100% - 208px);
+    overflow-y: auto;
 }
 
 
