@@ -589,6 +589,16 @@ html {
     visibility: hidden;
 }
 
+.footer-position {
+    display: none;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    bottom: 0px;
+    background-color: var(--c-accent-80);
+    color: var(--c-accent-10);
+}
+
 @media (min-width:656px) {
     .container {
         max-width: 656px
@@ -610,6 +620,10 @@ html {
 
     .qr {
         display: none;
+    }
+
+    .footer-position {
+        display: block;
     }
 
 }
@@ -5551,4 +5565,21 @@ tfoot {
 
 .border-bottom {
     border-bottom: 1px solid var(--c-base-25);
+}
+
+.border-style {
+    border: solid 1px #d7d7d7;
+}
+
+.checkbox-color {
+    filter: hue-rotate(309deg);
+    transform: scale(1.3);
+}
+
+.margin-10 {
+    margin: 10px;
+}
+
+.contacts_info p {
+    margin-right: 20px;
 }
