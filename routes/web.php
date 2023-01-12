@@ -51,6 +51,6 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 
 
 //admin
-// Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::get('/admin/dashboard', 'AdminController@index');
+Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+// Route::get('/admin/dashboard', 'AdminController@index');
 
