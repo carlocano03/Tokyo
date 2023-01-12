@@ -105,8 +105,9 @@ body{
   
 }
 .contents {
-    margin-top:200px;
-    z-index: 9;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 .top-nav {
     text-align:center;
