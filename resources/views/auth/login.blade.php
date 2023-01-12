@@ -545,13 +545,14 @@
 
         <div class="mp-input-group">
             <label class="mp-input-group__label">Upload Signature</label>
-            <input class="mp-input-group__input mp-mt1" type="file" required />
-            <label class="mp-input-group__label mp-mt2">By signing this form, I hereby certify that all information provided above are true, accurate, and complete. I also consent to the
-                collection, recording, use, processing, storage, and retention of my personal data by UP Provident Fund for the purpose of my
-                membership with the Fund, subject to RA 10173 (“Data Privacy Act”). I authorize the company to disclose relevant personal
-                information to third parties only as necessary for the processing and execution of regular membership transactions (e.g., loans
-                disbursement, insurance application and claims processing, etc.) or as legally required by existing laws, ordinances, or regulations.
-            </label>
+            <input class="mp-input-group__input mp-mt" type="file" required />
+            <!-- <label class="mp-input-group__label mp-mt2">
+                <input type="checkbox" id="terms" name="terms" value="">
+                By signing up, you agree to University of the Philippines
+                Provident Fund Inc.'s 
+                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a>  & 
+                <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a> 
+            </label> -->
         </div>
 
         <div class="mp-input-group">
@@ -604,6 +605,14 @@
                         <input type="file" size="60">
                     </div>
                 </td>
+            </div>
+            <div class="mp-input-group mp-mt5">
+                    <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms" value="">
+                    By signing up, you agree to University of the Philippines
+                    Provident Fund Inc.'s 
+                    <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a>  & 
+                    <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a> 
+                </label>
             </div>
             <hr>
 
