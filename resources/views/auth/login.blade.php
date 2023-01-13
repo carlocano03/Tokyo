@@ -283,6 +283,10 @@
         </ul>
         <div class="line step-1" id="line"></div>
     </div>
+    <div class="applicationNo">
+        <h5>Application No: <span id="application_no"></span></h5>
+    </div>
+
     <label class="mp-text-fs-medium mp-ph2 mp-split-pane__title mp-text-c-primary mb-0 mp-pv2 br-top-2 mp-mt2" id="registration-title">Personal Information</label>
 </div>
 <form id="member_forms" class="mh-reg-form form-border-bottom">
