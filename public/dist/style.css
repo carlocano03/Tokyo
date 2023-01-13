@@ -487,6 +487,10 @@ html {
     display: block;
 }
 
+#statusTrailForm {
+    overflow-y: auto;
+}
+
 .status-title {
     font-size: 1.5rem;
     font-weight: 400;
@@ -592,7 +596,7 @@ html {
 .footer-position {
     display: none;
     width: 100%;
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0px;
     background-color: var(--c-accent-80);
@@ -5582,4 +5586,13 @@ tfoot {
 
 .contacts_info p {
     margin-right: 20px;
+}
+
+.new_input_style {
+    border-bottom-width: 2px;
+    border-style: solid;
+    -moz-border-image: -moz-linear-gradient(top, #894168 0%, #894168 100%);
+    border-image: linear-gradient(to bottom, #894168 0%, #894168 100%);
+    -webkit-border-image-slice: 2;
+    border-image-slice: 2;
 }
