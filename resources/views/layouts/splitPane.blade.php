@@ -540,7 +540,7 @@
     });
 
     $(document).ready(function() {
-        $('.applicationNo').hide();
+        // $('.applicationNo').hide();
         var id = employee_no;
         console.log(id);
         var tableDependent = $('#dependentTable').DataTable({
