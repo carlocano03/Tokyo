@@ -3766,6 +3766,18 @@ tfoot {
     align-items: stretch
 }
 
+.card {
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 3px 0 var(--c-shadow);
+    border-radius: 5px;
+}
+
+.p-2 {
+    padding: 10px
+}
+
 .mp-card__body {
     flex: 1
 }
@@ -4345,6 +4357,10 @@ tfoot {
 
 .mp-overflow-x {
     overflow-x: auto !important
+}
+
+.mp-overflow-x-hidden {
+    overflow-x: hidden !important
 }
 
 .mp-overflow-y {
@@ -5200,6 +5216,10 @@ tfoot {
     gap: 10px;
 }
 
+.gap-20 {
+    gap: 20px;
+}
+
 .gap-5 {
     gap: 5px;
 }
@@ -5595,4 +5615,43 @@ tfoot {
     border-image: linear-gradient(to bottom, #894168 0%, #894168 100%);
     -webkit-border-image-slice: 2;
     border-image-slice: 2;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #dfe6e9;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #b2bec3;
+    /* border-radius: 10px; */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #bdc3c7;
+}
+
+
+.content {
+    height: 100vh;
+}
+
+.wrapper {
+    height: calc(100% - 24px);
+}
+
+.main_content {
+    height: 100%;
+}
+
+.filler {
+    height: 131px;
 }

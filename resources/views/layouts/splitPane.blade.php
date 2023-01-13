@@ -2,55 +2,55 @@
 @section('content')
 
 
-<!-- mobile transition -->
-<!-- <div class="mobile-header">
-                    <div class="logo-title">
-                        <div class="mp-pb4  mp-text-center logo-text">
-                                <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
-                                <br>
-                                <label for="">
-                                       UP Provident Fund
-                                </label>
-                              
-                        </div>
-                    </div>
-                </div> -->
-<!-- <div class="transition-background">
+    <!-- mobile transition -->
+    <!-- <div class="mobile-header">
+                                <div class="logo-title">
+                                    <div class="mp-pb4  mp-text-center logo-text">
+                                            <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
+                                            <br>
+                                            <label for="">
+                                                   UP Provident Fund
+                                            </label>
+                                          
+                                    </div>
+                                </div>
+                            </div> -->
+    <!-- <div class="transition-background">
 
-            </div> -->
-<div class="custom-modal not-visible" id="modal_name">
-    <div class="modal-container">
-        <div class="modal-content">
-            <div class="modal-header">
-                MODAL HEADER
-            </div>
-            <div class="modal-body">
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic maiores ut consectetur qui animi corporis
-                rem eveniet dolorem quia, esse velit iure, suscipit accusamus dignissimos natus dolorum deleniti iusto
-                delectus?
-            </div>
-
-            <div class="modal-footer">
-                <div class="mp-container">
-                    <div class="row">
-                        <button class="up-button btn-md " id="modal_name_close" value="">
-                            <span>Close</span>
-                        </button>
-                        <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
-                            <span>Ok</span>
-                        </button>
-                    </div>
+                        </div> -->
+    <div class="custom-modal not-visible" id="modal_name">
+        <div class="modal-container">
+            <div class="modal-content">
+                <div class="modal-header">
+                    MODAL HEADER
+                </div>
+                <div class="modal-body">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic maiores ut consectetur qui animi corporis
+                    rem eveniet dolorem quia, esse velit iure, suscipit accusamus dignissimos natus dolorum deleniti iusto
+                    delectus?
                 </div>
 
+                <div class="modal-footer">
+                    <div class="mp-container">
+                        <div class="row">
+                            <button class="up-button btn-md " id="modal_name_close" value="">
+                                <span>Close</span>
+                            </button>
+                            <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
+                                <span>Ok</span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="mp-split-pane">
-    <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
-        <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
-            <div class="row align-items-center justify-content-center">
-                <div class="col-12 col-sm-10">
+    <div class="mp-split-pane">
+        <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
+            <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-12 col-sm-10">
                     @section('loginForm')
                     @show
 
@@ -63,7 +63,8 @@
             @show
         </div>
 
-        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto" style="height: calc(100% - 53px)">
+        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto"
+            style="height: calc(100% - 53px)">
             @section('registration-personal-form')
             @show
         </div>
@@ -242,9 +243,12 @@
 
     })
     var reference_code;
+    var originalData_ext;
     $(document).on('click', '#back', function(e) {
         var backValue = $(this).attr('value')
         if (backValue == 'step-1') {
+            originalData = $("#member_forms").serialize();
+            console.log(originalData);
             $("#step-1").removeClass('d-none').addClass("d-flex");
             $("#step-2").removeClass('d-flex').addClass("d-none");
             $("#back").attr('value', "")
@@ -255,6 +259,7 @@
             $("#member_forms_con").removeClass('mh-reg-form');
             $("#member_forms").addClass('mh-reg-form');
         } else if (backValue == 'step-2') {
+            originalData_ext = $("#member_forms_con").serialize();
             $("#step-2").removeClass('d-none').addClass("d-flex");
             $("#step-3").removeClass('d-flex').addClass("d-none");
             $("#back").attr('value', "step-1")
@@ -279,17 +284,26 @@
     var personnel_id;
     var employee_no;
     var employee_details_ID;
-
+    var originalData;
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value')
         if (nextValue == 'step-2') {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
+                $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
             });
             if (!personnel_id) {
-                $.ajax({
+                Swal.fire({
+                title: 'Next Are you sure you want to continue this will generate your application number?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+                }).then((result) => {
+                if (result.isConfirmed) {    
+                    $.ajax({
                     type: 'POST',
                     url: "{{ route('add_member') }}",
                     data: $('#member_forms').serialize(),
@@ -305,32 +319,48 @@
                         }
                     }
                 });
-            } else {
-                $("#member_forms").on("change", "input", function() {
-                    alert("Data in the form has been changed!");
+                } else {
+                            swal.fire("You cancelled your transaction.");
+                        }
                 });
-                //     var formDatas = $("#member_forms").serialize();
-                //     var additionalData = {
-                //         'mem_id': mem_id,
-                //         'personnel_id': personnel_id,
-                //     };
-                //     formDatas += '&' + $.param(additionalData);
-                //     $.ajax({
-                //     type: 'POST',
-                //     url: "{{ route('add_member_update') }}",
-                //     data: formDatas,
-                //     success: function(data) {
-                //         if (data.success != '') {
-                //             reference_no = data.randomnum;
-                //             mem_id = data.mem_id;
-                //             personnel_id = data.success;
-                //             Swal.fire({
-                //                 title: 'This is your reference code:'+ reference_no,
-                //                 icon: 'success'
-                //                 });
-                //         }
-                //     }
-                // });
+            } else {
+                if (originalData !== $("#member_forms").serialize()) {
+                Swal.fire({
+                title: 'Changes have been detected. Would you like to apply the updates?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+                }).then((result) => {
+                if (result.isConfirmed) {    
+                    var formDatas = $("#member_forms").serialize();
+                    var additionalData = {
+                        'mem_id': mem_id,
+                        'personnel_id': personnel_id,
+                    };
+                    formDatas += '&' + $.param(additionalData);
+                    $.ajax({
+                    type: 'POST',
+                    url: "{{ route('add_member_update') }}",
+                    data: formDatas,
+                    success: function(data) {
+                        if (data.success != '') {
+                            mem_id = data.mem_id;
+                            personnel_id = data.success;
+                            Swal.fire({
+                                title: 'Updates applied successfully.',
+                                icon: 'success'
+                                });
+                        }
+                    }
+                });
+                } else {
+                            swal.fire("Update was cancelled by the user. No changes were made.");
+                        }
+                });
+
+                }     
             }
             $("#step-1").removeClass('d-flex').addClass("d-none");
             $("#member_forms").removeClass('mh-reg-form');
@@ -347,10 +377,11 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            if (!employee_details_ID) {
             var formData = $("#member_forms_con").serialize();
             var additionalData = {
                 'mem_id': mem_id,
-            };
+                };
             formData += '&' + $.param(additionalData);
             $.ajax({
                 type: 'POST',
@@ -360,18 +391,101 @@
                     if (data.success != '') {
                         employee_no = data.emp_no;
                         employee_details_ID = data.success;
+                        $("#step-2").removeClass('d-flex').addClass("d-none");
+                        $("#step-3").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-2')
+                        $("#member_forms_con").removeClass('mh-reg-form');
+                        $("#member_forms_3").addClass('mh-reg-form');
+                        $(this).attr('value', 'step-end')
+                        $("#line").removeClass('step-2').addClass('step-3')
+                        $("#registration-title").text(stepTitle[2])
+                        $("#stepper-3").addClass("active")
+                    }else{
+                        Swal.fire({
+                                title: 'Employee No are already used.',
+                                icon: 'error'
+                                });
+                 
+                        $('#employee_no').focus();
                     }
                 }
             });
-            $("#step-2").removeClass('d-flex').addClass("d-none");
-            $("#step-3").removeClass('d-none').addClass("d-flex");
-            $("#back").attr('value', 'step-2')
-            $("#member_forms_con").removeClass('mh-reg-form');
-            $("#member_forms_3").addClass('mh-reg-form');
-            $(this).attr('value', 'step-end')
-            $("#line").removeClass('step-2').addClass('step-3')
-            $("#registration-title").text(stepTitle[2])
-            $("#stepper-3").addClass("active")
+            }else{
+            if (originalData_ext !== $("#member_forms_con").serialize()) {
+                Swal.fire({
+                title: 'Changes have been detected. Would you like to apply the updates?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+                }).then((result) => {
+                if (result.isConfirmed) {    
+                    var formData = $("#member_forms_con").serialize();
+                    var additionalData = {
+                        'mem_id': mem_id,
+                        'employee_details_ID' : employee_details_ID,
+                        };
+                    formData += '&' + $.param(additionalData);
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('add_member_con_up') }}",
+                        data: formData,
+                        success: function(data) {
+                            if (data.success != '') {
+                                employee_no = data.emp_no;
+                                employee_details_ID = data.success;
+                                Swal.fire({
+                                title: 'Updates applied successfully.',
+                                icon: 'success'
+                                });
+                                $("#step-2").removeClass('d-flex').addClass("d-none");
+                                $("#step-3").removeClass('d-none').addClass("d-flex");
+                                $("#back").attr('value', 'step-2')
+                                $("#member_forms_con").removeClass('mh-reg-form');
+                                $("#member_forms_3").addClass('mh-reg-form');
+                                $(this).attr('value', 'step-end')
+                                $("#line").removeClass('step-2').addClass('step-3')
+                                $("#registration-title").text(stepTitle[2])
+                                $("#stepper-3").addClass("active")
+                            }else{
+                                Swal.fire({
+                                title: 'Employee No are already used.',
+                                icon: 'error'
+                                });
+                                
+                                $('#employee_no').focus();
+                            }
+                        }
+                    });
+                } else {
+                            swal.fire("Update was cancelled by the user. No changes were made.");
+                            $("#step-2").removeClass('d-flex').addClass("d-none");
+                            $("#step-3").removeClass('d-none').addClass("d-flex");
+                            $("#back").attr('value', 'step-2')
+                            $("#member_forms_con").removeClass('mh-reg-form');
+                            $("#member_forms_3").addClass('mh-reg-form');
+                            $(this).attr('value', 'step-end')
+                            $("#line").removeClass('step-2').addClass('step-3')
+                            $("#registration-title").text(stepTitle[2])
+                            $("#stepper-3").addClass("active")
+                        }
+                });
+
+                } else{
+                    $("#step-2").removeClass('d-flex').addClass("d-none");
+                            $("#step-3").removeClass('d-none').addClass("d-flex");
+                            $("#back").attr('value', 'step-2')
+                            $("#member_forms_con").removeClass('mh-reg-form');
+                            $("#member_forms_3").addClass('mh-reg-form');
+                            $(this).attr('value', 'step-end')
+                            $("#line").removeClass('step-2').addClass('step-3')
+                            $("#registration-title").text(stepTitle[2])
+                            $("#stepper-3").addClass("active")
+                }  
+
+            }
+            
         } else if (nextValue == 'step-end') {
             // alert('end')
             $("#btn-submit").click()
@@ -391,7 +505,8 @@
                 data: {
                     name: name,
                     bday: bday,
-                    relation: relation
+                    relation: relation,
+                    employee_no: employee_no
                 },
                 method: "POST",
                 success: function(data) {
@@ -412,6 +527,8 @@
     });
 
     $(document).ready(function() {
+        var id = employee_no;
+        console.log(id);
         var tableDependent = $('#dependentTable').DataTable({
             ordering: false,
             info: false,
@@ -419,7 +536,12 @@
             paging: false,
             processing: true,
             serverSide: true,
-            ajax: "{{ route('getBeneficiary') }}",
+            ajax: {
+                url: "{{ route('getBeneficiary') }}",
+                data: function(d) {
+                    d.employee_no = employee_no
+                }
+            },
             columns: [{
                     data: 'fullname',
                     name: 'fullname'
@@ -469,6 +591,16 @@
                 }
             })
         });
+
+        $("#monthly_salary").keyup(function() {
+            var inputValue = $(this).val();
+            inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var decimalAdded = inputValue.split(".");
+            if (decimalAdded[1] && decimalAdded[1].length > 2) {
+                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 2);
+            }
+            $(this).val(inputValue);
+        });
     });
 
     $(document).on('click', '#perm_add_check', function(e) {
@@ -483,7 +615,8 @@
             var index1 = myString1.indexOf(targetChar);
             var index2 = myString2.indexOf(targetChar);
             if (index !== -1) {
-                var valueAfterTargetChar = myString4 + ' ' + myString3 + ' ' + myString2.split(targetChar)[1] + ' ' + myString1.split(targetChar)[1] + ' ' + myString.split(targetChar)[1];
+                var valueAfterTargetChar = myString4 + ' ' + myString3 + ' ' + myString2.split(targetChar)[1] +
+                    ' ' + myString1.split(targetChar)[1] + ' ' + myString.split(targetChar)[1];
                 $('#same_add').val(valueAfterTargetChar);
                 $('.same_div').hide();
             } else {
@@ -497,8 +630,39 @@
             $('.same_div').show();
         }
     });
+    $(document).on('click', '#percentage_check', function(e) {
+        if ($(this).prop("checked")) {
+            $('#fixed_amount').prop('disabled', true);
+        }else{
+            $('#fixed_amount').prop('disabled', false);
+        }
+    });
+    $(document).on('click', '#fixed_amount_check', function(e) {
+        if ($(this).prop("checked")) {
+            $('#percentage_bsalary').prop('disabled', true);
+        }else{
+            $('#percentage_bsalary').prop('disabled', false);
+        }
+    });
 
+    $('#percentage_bsalary').on('keypress', function(event) {
+    var key = event.which;
+    if((key >= 48 && key <= 57) || key === 8) {
+        var value = parseInt($(this).val() + String.fromCharCode(key));
+        if(value < 1 || value > 100) {
+            return false;
+        }
 
+    } else {
+        return false;
+    }
+    });
+    $(document).on('input', '#percentage_bsalary', function(e) {
+        var input1 = $("#percentage_bsalary").val();
+        var input2 = $("#monthly_salary").val().replace(/,/g, '');
+        var percentage = (input1/100) * input2;
+        $('#computed_amount').html(percentage);
+    });
     function scrollToTop() {
         $('html, body, div, div, div, form').animate({
             scrollTop: $('#leftsection').offset().top - 20
