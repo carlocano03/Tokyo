@@ -67,8 +67,9 @@
             style="height: calc(100% - 53px)">
             @section('registration-personal-form')
             @show
+           
         </div>
-        <div class="mv-5-auto items-between  bg-white mt-auto d-none flex-column mb-5" id="control">
+        <!-- <div class="mv-5-auto items-between  bg-white mt-auto d-none flex-column mb-5" id="control">
             <div class="d-flex items-between  mp-pb2 mp-pt2 mp-pv3 border-style">
                 <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
                     <span>Back</span>
@@ -77,7 +78,7 @@
                     <span>Next</span>
                 </a>
             </div>
-        </div>
+        </div> -->
 
         <div id="resetPasswordForm" hidden="hidden" class="container-fluid relative pv-3">
             @section('reset-password-form')

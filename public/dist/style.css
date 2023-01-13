@@ -5655,3 +5655,7 @@ tfoot {
 .filler {
     height: 131px;
 }
+
+.form-border-bottom {
+    border-bottom: solid 2px #e7e6e6;
+}
