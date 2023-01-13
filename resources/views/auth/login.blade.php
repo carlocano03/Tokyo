@@ -254,7 +254,7 @@
 
 @section('registration-personal-form')
 <div class="d-flex gap-10 mp-pt2 bg-white flex-column ">
-    <div style="width: 100%;" class="d-flex gap-10">
+    <!-- <div style="width: 100%;" class="d-flex gap-10">
         <div class="ml-auto">
             <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
         </div>
@@ -262,6 +262,18 @@
             <div class="mp-mt2 up-color reg-title">University of the Philippines <br /> Provident Fund Inc.</div>
             <span>Online Membership Application</span>
         </div>
+    </div> -->
+    <div class="mp-mt2 mp-mt2 "> 
+ 
+        <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
+                   <span>Back</span>
+        </a> 
+        <!-- <a class="up-color" id="back" value="">
+                   <span > <i class="fa fa-chevron-left" aria-hidden="true"></i> Back</span>
+        </a>  -->
+    </div>
+     <div class="mp-mt2 up-color reg-title mp-text-center">
+          Online Membership Application
     </div>
     <div class="relative mp-mt2 w-90 d-flex ml-auto mr-auto">
         <ul class="d-flex flex-row items-between w-100 stepper">
@@ -273,7 +285,7 @@
     </div>
     <label class="mp-text-fs-medium mp-ph2 mp-split-pane__title mp-text-c-primary mb-0 mp-pv2 br-top-2 mp-mt2" id="registration-title">Personal Information</label>
 </div>
-<form id="member_forms" class="mh-reg-form">
+<form id="member_forms" class="mh-reg-form form-border-bottom">
     {{ csrf_field() }}
     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" id="step-1" >
         <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
@@ -403,8 +415,11 @@
             <label class="mp-input-group__label">Email Address</label>
             <input class="mp-input-group__input mp-text-field" type="email" name="email" required />
         </div>
+        <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-2" id="next-btn">
+                    <span>Next</span>
+        </a> 
         <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
-
+        
     </div>
 
 </form>
@@ -491,8 +506,11 @@
             <label class="mp-input-group__label">Taxpayer Identification Number (TIN)</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
         </div>
+        <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-2" id="next-btn">
+                    <span>Next</span>
+    </a> 
     </div>
-
+    
 </form>
 <form id="member_forms_3">
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-3">
@@ -614,13 +632,14 @@
                     <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a> 
                 </label>
             </div>
+            <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button>
             <hr>
-
+                 
         </div>
-
+        
     </div>
-
-    <button type="submit" class="d-none" id="btn-submit">Submit</button>
+                   
+   
 </form>
 
 @endsection
