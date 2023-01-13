@@ -5155,7 +5155,6 @@ tfoot {
 
 .grid {
     display: grid !important;
-    grid-template-columns: 1fr 115px;
 }
 
 .relative {
