@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PDFController;
 // use App\Http\Controllers\Member_registration;
 /*
 |--------------------------------------------------------------------------
@@ -57,3 +58,8 @@ Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.d
 //admin
 // Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 Route::get('/admin/dashboard', 'AdminController@index');
+
+
+//PDF Generation
+Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
+Route::get('/generateProxyForm', [PDFController::class, 'generateProxyForm'])->name('generateProxyForm');
