@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Beneficiaries;
 use DataTables;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 
 class HomeController extends Controller
 {
@@ -30,6 +31,7 @@ class HomeController extends Controller
   {
     return view('home');
   }
+
 
 
     public function dashboard()
@@ -103,6 +105,7 @@ class HomeController extends Controller
     //       ->update($mem_appinst);
 
 
+
   public function add_benefeciaries(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
@@ -130,8 +133,8 @@ class HomeController extends Controller
   {
     if ($request->ajax()) {
       // $data = Beneficiaries::select('*');
-      $test = $request->get('employee_no');
-      $data = Beneficiaries::where('personal_id', $test)->select('*');
+      $empNo = $request->get('employee_no');
+      $data = Beneficiaries::where('personal_id', $empNo)->select('*');
       return Datatables::of($data)
         ->addIndexColumn()
         ->addColumn('action', function ($row) {
@@ -199,8 +202,11 @@ class HomeController extends Controller
       } 
 
       $last_id = DB::table('personal_details')->insertGetId($inserts);
-      //   $last_id = (DB::getPdo()->lastInsertId()); 
-      $randomString = Str::random(6);
+
+      //Application Number
+      $id = IdGenerator::generate(['table' => 'mem_app', 'field' => 'app_no', 'length' => 9, 'prefix' =>date('Y-')]);
+      // $randomString = Str::random(6);
+      $randomString = $id;
       $mem_appinst = array(
         'app_no' => $randomString,
         'email_address' => $request->input('email'),
