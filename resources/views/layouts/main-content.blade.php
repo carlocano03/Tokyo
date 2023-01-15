@@ -26,7 +26,7 @@ body{
 }
 
 .wrapper .sidebar h2{
-  color: var(--c-accent);
+  color: var(--c-primary);
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 30px;
@@ -40,7 +40,8 @@ body{
 }    
 
 .wrapper .sidebar ul li a{
-  color: var(--c-accent-80);
+
+  color: var(--c-primary-80);
   display: block;
 }
 
@@ -49,11 +50,11 @@ body{
 }
 
 .wrapper .sidebar ul li:hover{
-  color: var(--c-accent);
+  color: var(--c-primary);
 }
     
 .wrapper .sidebar ul li:hover a{
-  color: var(--c-accent);
+  color: var(--c-primary);
 }
  
 .wrapper .sidebar .social_media{
@@ -72,7 +73,7 @@ body{
     line-height: 45px;
     text-align: center;
     margin: 0 5px;
-    color: var(--c-accent);
+    color: var(--c-primary);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -83,7 +84,7 @@ body{
 
 .wrapper .main_content .header {
     /* padding: 20px; */
-    color: var(--c-accent-80);
+    color: var(--c-primary-80);
     border-bottom: 1px solid #e0e4e8;
     border-bottom: 1px solid #e0e4e8;
 }
@@ -111,14 +112,14 @@ body{
 }
 .top-nav {
    text-align:center;
-   color: var(--c-accent);
+   color: var(--c-primary);
 }
 .top-nav i {
     font-size: 70px !important;
 }
 
 .active-nav {
-  background-color: var(--c-accent);
+  background-color: var(--c-primary);
   color:white !important;
 }
 .active-nav li a{
@@ -153,6 +154,13 @@ a {
 i {
   pointer-events: none
 }
+
+.logout {
+  float: right;
+  margin-right: 250px;
+  color: var(--c-primary)
+}
+
 </style>
 
  
@@ -199,11 +207,11 @@ i {
                 <a href="/">
                 <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
                 </a>
-                <a class="mp-link mp-link--accent" href="/">
+                <a class="mp-link mp-link--primary" href="/">
                     University of the Philippines Provident Fund Inc.
                 </a>
                 <a href="#">
-                     <strong><a href="#">Log out</a> </strong>
+                     <strong><a href="#" class="logout">Log out</a> </strong>
                 </a>
             </div>
             
