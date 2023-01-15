@@ -40,6 +40,7 @@ body{
 }    
 
 .wrapper .sidebar ul li a{
+
   color: var(--c-primary-80);
   display: block;
 }
@@ -153,11 +154,13 @@ a {
 i {
   pointer-events: none
 }
+
 .logout {
   float: right;
   margin-right: 250px;
   color: var(--c-primary)
 }
+
 </style>
 
  
