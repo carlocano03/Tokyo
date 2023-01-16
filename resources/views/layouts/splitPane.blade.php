@@ -286,7 +286,7 @@
     var employee_no;
     var employee_details_ID;
     var originalData;
-    
+
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value')
         if (nextValue == 'step-2') {
@@ -364,7 +364,9 @@
                                 }
                             });
                         } else {
-                            Swal.fire('Warning!', 'Update was cancelled by the user. No changes were made.', 'warning');
+                            Swal.fire('Warning!',
+                                'Update was cancelled by the user. No changes were made.', 'warning'
+                            );
                         }
                     });
 
@@ -380,7 +382,7 @@
             $("#registration-title").text(stepTitle[1])
             $("#stepper-2").addClass("active")
         } else if (nextValue == 'step-3') {
-            
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -500,8 +502,53 @@
             }
 
         } else if (nextValue == 'step-end') {
-            // alert('end')
-            $("#btn-submit").click()
+            //End
+            var formData = $("#member_forms_3").serialize();
+            var additionalData = {
+                'total_amount': $('#computed_amount').text(),
+                'app_no': reference_no,
+            };
+            formData += '&' + $.param(additionalData);
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('add_member_details') }}",
+                data: formData,
+                success: function(data) {
+                    if (data.success != '') {
+                        Swal.fire({
+                            title: 'Thank you!',
+                            text: "Registration completed",
+                            icon: 'success',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.open();
+                            }
+                        })
+                        $("#step-2").removeClass('d-flex').addClass("d-none");
+                        $("#step-3").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-2')
+                        $("#member_forms_con").removeClass('mh-reg-form');
+                        $("#member_forms_3").addClass('mh-reg-form');
+                        $(this).attr('value', 'step-end')
+                        $("#line").removeClass('step-2').addClass('step-3')
+                        $("#registration-title").text(stepTitle[2])
+                        $("#stepper-3").addClass("active")
+                    } else {
+                        Swal.fire({
+                            title: 'Employee No are already used.',
+                            icon: 'error'
+                        });
+
+                        $('#employee_no').focus();
+                    }
+                }
+            });
+
+
+            // $("#btn-submit").click()
         }
         scrollToTop()
     });

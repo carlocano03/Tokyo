@@ -516,7 +516,8 @@
     </div>
     
 </form>
-<form id="member_forms_3">
+<form id="member_forms_3" method="post" enctype="multipart/form-data">
+    @csrf
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-3">
         <div class="mp-input-group">
             <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
@@ -529,7 +530,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" id="percentage_check"/>
+                <input type="checkbox" id="percentage_check" name="percentage_check" value="percentage"/>
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1% - 100%)</label>
             </div>
             <input class="mp-input-group__input mp-text-field" type="number" required name="percentage_bsalary" id="percentage_bsalary" />
@@ -537,7 +538,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" id="fixed_amount_check"/>
+                <input type="checkbox" id="fixed_amount_check" name="fixed_amount_check"/>
                 <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso )</label>
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" required name="fixed_amount" id="fixed_amount" />
@@ -566,27 +567,15 @@
         </table>
 
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Upload Signature</label>
-            <input class="mp-input-group__input mp-mt" type="file" required />
-            <!-- <label class="mp-input-group__label mp-mt2">
-                <input type="checkbox" id="terms" name="terms" value="">
-                By signing up, you agree to University of the Philippines
-                Provident Fund Inc.'s 
-                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a>  & 
-                <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a> 
-            </label> -->
-        </div>
-
-        <div class="mp-input-group">
             <label class="mp-input-group__label">
-                <span class="mp-link link_style">Click here</span><span> to download Cocolife and Proxy Form for manual signature (Optional) </span>
+                <a href="{{ route('download_form') }}" class="mp-link link_style">Click here</a><span> to download Cocolife and Proxy Form for manual signature (Optional) </span>
             </label>
         </div>
-
         <div class="mp-input-group">
-
-            <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" required />
+            <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="files" required accept="application/pdf" multiple/>
         </div>
+
+
 
         <div class="mp-input-group">
             <label class="mp-input-group__label">Supporting Document</label>
