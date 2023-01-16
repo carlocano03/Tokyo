@@ -365,6 +365,71 @@ class HomeController extends Controller
       });
       return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
     }
+   }
+  public function add_member_p3(Request $request)
+  {
+      // if ($percentage != 'percentage') {
+      //   $inertMemDetails = array(
+      //     'contribution_set' => 'Fixed Amount',
+      //     'amount' => $request->input('fixed_amount'),
+      //     'app_no' => $request->input('reference_no'),
+      //   );
+      //   if ($request->hasfile('files')) {
+      //     foreach ($request->file('files') as $key => $file) {
+      //       $path = $file->store('public/uploaded_forms');
+      //       $name = $file->getClientOriginalName();
+      //       $insertFile[$key]['app_no'] = $request->input('reference_no');
+      //       $insertFile[$key]['form_name'] = $name;
+      //       $insertFile[$key]['path'] = $path;
+      //     }
+      //     DB::table('uploaded_forms')->insert($insertFile);
+      //   }
+      // } else {
+      //   $inertMemDetails = array(
+      //     'contribution_set' => 'Percentage of Basic Salary',
+      //     'amount' => $request->input('total_amount'),
+      //     'percentage' => $request->input('percentage_bsalary'),
+      //     'app_no' => $request->input('app_no'),
+      //   );
+      //   if ($request->hasfile('files')) {
+      //     foreach ($request->file('files') as $key => $file) {
+      //       $path = $file->store('public/uploaded_forms');
+      //       $name = $file->getClientOriginalName();
+      //       $insertFile[$key]['app_no'] = $request->input('app_no');
+      //       $insertFile[$key]['form_name'] = $name;
+      //       $insertFile[$key]['path'] = $path;
+      //     }
+      //     DB::table('uploaded_forms')->insert($insertFile);
+      //   }
+      // } 
+      // DB::table('membership_details')->insert($inertMemDetails);
+       
+      if ($request->hasFile('formFiles'))
+      {
+        $image_array = $request->file('formFiles');
+        $array_len = count($image_array);
+        for($i=0; $i<$array_len; $i++)
+        {
+          $imageSize = $image_array[$i]->getClientSize();
+          $image_ext = $image_array[$i]->getClientOriginalExtension();
+          $newName = rand(0, 1000). "." .$image_ext;
+
+          $destination_path = public_path('/uploaded_forms');
+          $image_array[$i]->move($destination_path, $destination_path);
+
+          // UploadFile::create([
+          //   'app_no' => $request->input('app_no'),
+          //   'form_name' => $newName,
+          //   'path' => $newName,
+          // ]);
+
+          $tab1 = new UploadFile;
+          $tab1->form_name = $newName;
+          $tab1->path = $newName;
+          $tab1->save();
+        }
+      }
+    return response()->json(['success' => 1]);
   }
 
   public function add_member_p3(Request $request)
