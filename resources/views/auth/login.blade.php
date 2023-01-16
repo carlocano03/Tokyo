@@ -572,7 +572,7 @@
             </label>
         </div>
         <div class="mp-input-group">
-            <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="files" required accept="application/pdf" multiple/>
+            <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="formFiles[]" required accept="application/pdf" multiple/>
         </div>
 
 
@@ -625,7 +625,10 @@
                     <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a> 
                 </label>
             </div>
-            <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button>
+            {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
+            <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-end" id="next-btn">
+                <span>Next</span>
+            </a> 
             <hr>
                  
         </div>
