@@ -365,8 +365,7 @@ class HomeController extends Controller
       });
       return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
     }
-  }
-
+   }
   public function add_member_p3(Request $request)
   {
       // if ($percentage != 'percentage') {
