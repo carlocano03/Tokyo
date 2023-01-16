@@ -7,6 +7,7 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Beneficiaries;
+use App\Models\UploadFile;
 use DataTables;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -368,35 +369,67 @@ class HomeController extends Controller
 
   public function add_member_p3(Request $request)
   {
+      // if ($percentage != 'percentage') {
+      //   $inertMemDetails = array(
+      //     'contribution_set' => 'Fixed Amount',
+      //     'amount' => $request->input('fixed_amount'),
+      //     'app_no' => $request->input('reference_no'),
+      //   );
+      //   if ($request->hasfile('files')) {
+      //     foreach ($request->file('files') as $key => $file) {
+      //       $path = $file->store('public/uploaded_forms');
+      //       $name = $file->getClientOriginalName();
+      //       $insertFile[$key]['app_no'] = $request->input('reference_no');
+      //       $insertFile[$key]['form_name'] = $name;
+      //       $insertFile[$key]['path'] = $path;
+      //     }
+      //     DB::table('uploaded_forms')->insert($insertFile);
+      //   }
+      // } else {
+      //   $inertMemDetails = array(
+      //     'contribution_set' => 'Percentage of Basic Salary',
+      //     'amount' => $request->input('total_amount'),
+      //     'percentage' => $request->input('percentage_bsalary'),
+      //     'app_no' => $request->input('app_no'),
+      //   );
+      //   if ($request->hasfile('files')) {
+      //     foreach ($request->file('files') as $key => $file) {
+      //       $path = $file->store('public/uploaded_forms');
+      //       $name = $file->getClientOriginalName();
+      //       $insertFile[$key]['app_no'] = $request->input('app_no');
+      //       $insertFile[$key]['form_name'] = $name;
+      //       $insertFile[$key]['path'] = $path;
+      //     }
+      //     DB::table('uploaded_forms')->insert($insertFile);
+      //   }
+      // } 
+      // DB::table('membership_details')->insert($inertMemDetails);
+       
+      if ($request->hasFile('formFiles'))
+      {
+        $image_array = $request->file('formFiles');
+        $array_len = count($image_array);
+        for($i=0; $i<$array_len; $i++)
+        {
+          $imageSize = $image_array[$i]->getClientSize();
+          $image_ext = $image_array[$i]->getClientOriginalExtension();
+          $newName = rand(0, 1000). "." .$image_ext;
 
-    $datadb = DB::transaction(function () use ($request) {
-      $percentage = $request->input('percentage_check');
-      if ($percentage != 'percentage') {
-        $inertMemDetails = array(
-          'contribution_set' => 'Fixed Amount',
-          'amount' => $request->input('fixed_amount'),
-          'app_no' => $request->input('reference_no'),
-        );
-        if ($request->hasfile('files')) {
-          foreach ($request->file('files') as $key => $file) {
-            $path = $file->store('public/uploaded_forms');
-            $name = $file->getClientOriginalName();
-            $insertFile[$key]['app_no'] = $request->input('reference_no');
-            $insertFile[$key]['form_name'] = $name;
-            $insertFile[$key]['path'] = $path;
-          }
+          $destination_path = public_path('/uploaded_forms');
+          $image_array[$i]->move($destination_path, $destination_path);
+
+          // UploadFile::create([
+          //   'app_no' => $request->input('app_no'),
+          //   'form_name' => $newName,
+          //   'path' => $newName,
+          // ]);
+
+          $tab1 = new UploadFile;
+          $tab1->form_name = $newName;
+          $tab1->path = $newName;
+          $tab1->save();
         }
-      } else {
-        $inertMemDetails = array(
-          'contribution_set' => 'Percentage of Basic Salary',
-          'amount' => $request->input('total_amount'),
-          'percentage' => $request->input('percentage_bsalary'),
-          'app_no' => $request->input('reference_no'),
-        );
-      } 
-      DB::table('membership_details')->insert($inertMemDetails);
-      DB::table('uploaded_forms')->insert($insertFile);
-    });
+      }
     return response()->json(['success' => 1]);
   }
 
