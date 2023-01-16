@@ -20,27 +20,28 @@ body{
 .wrapper .sidebar{
     width: 250px;
     height: 100%;
-    background: var(--c-accent);
+    background: var(--c-white);
     padding: 30px 0px;
     position: fixed;
 }
 
 .wrapper .sidebar h2{
-  color: white;
+  color: var(--c-primary);
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 30px;
 }
 
 .wrapper .sidebar ul li{
-  padding: 15px;
+  /* padding: 15px; */
   border-bottom: 1px solid #bdb8d7;
   border-bottom: 1px solid rgba(0,0,0,0.05);
   border-top: 1px solid rgba(255,255,255,0.05);
 }    
 
 .wrapper .sidebar ul li a{
- color: white;
+
+  color: var(--c-primary-80);
   display: block;
 }
 
@@ -49,11 +50,11 @@ body{
 }
 
 .wrapper .sidebar ul li:hover{
-  color: white;
+  color: var(--c-primary);
 }
     
 .wrapper .sidebar ul li:hover a{
-  color: white;
+  color: var(--c-primary);
 }
  
 .wrapper .sidebar .social_media{
@@ -72,7 +73,7 @@ body{
     line-height: 45px;
     text-align: center;
     margin: 0 5px;
-    color: #bdb8d7;
+    color: var(--c-primary);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
@@ -83,7 +84,7 @@ body{
 
 .wrapper .main_content .header {
     /* padding: 20px; */
-    color: var(--c-accent);
+    color: var(--c-primary-80);
     border-bottom: 1px solid #e0e4e8;
     border-bottom: 1px solid #e0e4e8;
 }
@@ -110,13 +111,59 @@ body{
   overflow-x: hidden;
 }
 .top-nav {
-    text-align:center;
-    color:white;
+   text-align:center;
+   color: var(--c-primary);
 }
 .top-nav i {
     font-size: 70px !important;
 }
+
+.active-nav {
+  background-color: var(--c-primary);
+  color:white !important;
+}
+.active-nav li a{
+  color:white !important;
+}
+
+/* .nav-child a{
+   margin-left: 20px;
+} */
+.arrow-left {
+  margin-left:20px;
+  font-size:20px;
+  float:right;
+}
+.arrow-rotate {
+  margin-top: 10px;
+  margin-right:10px;
+  transform: rotateZ(90deg);
+}
+
+.dropdown-hide {
+  display: none;
+  z-index: 1;
+}
+
+.show-dropdown {
+  display:block;
+}
+a {
+  padding: 15px; 
+}
+i {
+  pointer-events: none
+}
+
+.logout {
+  float: right;
+  margin-right: 250px;
+  color: var(--c-primary)
+}
+
 </style>
+
+ 
 
 
 <div class="wrapper">
@@ -124,24 +171,35 @@ body{
         <div class="top-nav">
             <i class="fa fa-user"></i>
             <h2>Denneb Gomez</h2> 
-           
         </div>
-
-        
         <ul>
-            <li><a href="#"><i class="fa fa-home"></i>Membership Application</a></li>
-            <li><a href="#"><i class="fa fa-user"></i>Members</a></li>
+            <li >
+              <a href="#" class="active-nav"><i class="fa fa-home "></i>Membership Application</a>
+            </li>
+            <div class="dropdown" id="dropdown">  
+              <div class="nav-parent ">
+                <li><a href="#" id="membersDropdown">
+                  <i class="fa fa-user"></i>
+                    Members 
+                  <i class="fa fa-caret-right arrow-left" id="arrow" aria-hidden="true"></i>
+                </a></li>
+              </div>
+              <div class="nav-child">
+                <div class="dropdown-hide" id ="membersDropdown-content">
+                  <li><a href="#"><i class="fa fa-user"></i>Members</a></li>
+                  <li><a href="#"><i class="fa fa-user"></i>Members</a></li>
+                </div>
+              </div>
+            </div>
             <li><a href="#"><i class="fa fa-line-chart"></i>Loan </a></li>
             <li><a href="#"><i class="fa fa-comment-o"></i>Benefits </a></li>
             <li><a href="#"><i class="fa fa-line-chart"></i>Transacton </a></li>
             <li><a href="#"><i class="fa fa-address-book"></i>Election</a></li>
             <li><a href="#"><i class="fa fa-gears"></i>Account & Settings</a></li>
+
+           
         </ul> 
-        <div class="social_media">
-          <a href="#"><i class="fa fa-facebook-f"></i></a>
-          <a href="#"><i class="fa fa-globe"></i></a>
-          <a href="#"><i class="fa fa-website"></i></a>
-      </div>
+        
     </div>
     <div class="main_content">
         <div class="header">
@@ -149,11 +207,11 @@ body{
                 <a href="/">
                 <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
                 </a>
-                <a class="mp-link mp-link--accent" href="/">
+                <a class="mp-link mp-link--primary" href="/">
                     University of the Philippines Provident Fund Inc.
                 </a>
                 <a href="#">
-                     <strong><a href="#">Log out</a> </strong>
+                     <strong><a href="#" class="logout">Log out</a> </strong>
                 </a>
             </div>
             
@@ -167,3 +225,33 @@ body{
         </div>
 
   </div>
+
+
+  <script>
+    var click = 0;
+      $(document).on('click', '#membersDropdown', function(e) {
+        click++;
+        console.log(click)
+        if (click === 1){
+          $("#membersDropdown-content").removeClass("dropdown-hide"); 
+          $("#arrow").addClass("arrow-rotate")
+        }
+        else if (click > 1) {
+          $("#membersDropdown-content").addClass("dropdown-hide"); 
+          $("#arrow").removeClass("arrow-rotate")
+          click = 0;
+        }
+           
+    })
+
+      const elm = document.querySelector('ul');
+      elm.addEventListener('click', (el) => {
+        const elActive = elm.querySelector('.active-nav');
+        if (elActive) {
+          elActive.removeAttribute('class' );
+        }
+        el.target.setAttribute('class', 'active-nav');
+      });
+      
+
+  </script>
