@@ -34,75 +34,75 @@ class HomeController extends Controller
 
 
 
-    public function dashboard()
-    {
-        return view('admin.dashboard');
-    }
+  public function dashboard()
+  {
+    return view('admin.dashboard');
+  }
 
-    // public function add_member(Request $request)
-    // {
-    //     $datadb = DB::transaction(function () use ($request){
-    //     $insertss = array(
-    //         'lastname' => $request->input('lastname'),
-    //         'middlename' => $request->input('middlename'),
-    //         'firstname' => $request->input('firstname'),
-    //         'date_birth' => $request->input('date_birth'),
-    //         'suffix' => $request->input('suffix'),
-    //         'gender' => $request->input('gender'),
-    //         'civilstatus' => $request->input('civilstatus'),
-    //         'citizenship' => $request->input('citizenship'),
-    //         'province' => $request->input('province'),
-    //         'municipality' => $request->input('municipality'),
-    //         'barangay' => $request->input('barangay'),
-    //         'bldg_street' => $request->input('bldg_street'),
-    //         'zipcode' => $request->input('zipcode'),
-    //         'contact_no' => $request->input('contact_no'),
-    //         'landline_no' => $request->input('landline_no'),
-    //         'email' => $request->input('email'),
-    //       );
-    //       $last_id = DB::table('personal_details')->insertGetId($insertss);
-    //     //   $last_id = (DB::getPdo()->lastInsertId()); 
-    //       $randomString = Str::random(6);
-    //       $mem_appinst = array(
-    //         'app_no' => $randomString,
-    //         'email_address' => $request->input('email'),
-    //         'personal_id' => $last_id,
-    //         'app_status' => 'DRAFT',
-    //       );
-    //       $mem_id = DB::table('mem_app')->insertGetId($mem_appinst);
-    //       return [
-    //         'last_id' => $last_id,
-    //         'randomString' => $randomString,
-    //         'mem_id' => $mem_id
-    //         ];
-    //     });
-    //       return response()->json(['success' => $datadb['last_id'] , 'randomnum' => $datadb['randomString'] , 'mem_id' =>  $datadb['mem_id']]);
-    // }
-    // public function add_member_p2(Request $request)
-    // {
-    //     $datadb = DB::transaction(function () use ($request){
-    //     $insertss = array(
-    //         'campus' => $request->input('campus'),
-    //         'classification' => $request->input('classification'),
-    //         'classification_others' => $request->input('classification_others'),
-    //         'employee_no' => $request->input('employee_no'),
-    //         'college_unit' => $request->input('college_unit'),
-    //         'department' => $request->input('department'),
-    //         'rank_position' => $request->input('rank_position'),
-    //         'date_appointment' => $request->input('date_appointment'),
-    //         'appointment' => $request->input('appointment'),
-    //         'monthly_salary' => $request->input('monthly_salary'),
-    //         'salary_grade' => $request->input('salary_grade'),
-    //         'sg_category' => $request->input('sg_category'),
-    //         'tin_no' => $request->input('tin_no'),
-    //       );
-    //       $last_id = DB::table('employee_details')->insertGetId($insertss);
-    //     //   $last_id = (DB::getPdo()->lastInsertId()); 
-    //       $mem_appinst = array(
-    //         'employee_no' => $request->input('employee_no'),
-    //       );
-    //       DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
-    //       ->update($mem_appinst);
+  // public function add_member(Request $request)
+  // {
+  //     $datadb = DB::transaction(function () use ($request){
+  //     $insertss = array(
+  //         'lastname' => $request->input('lastname'),
+  //         'middlename' => $request->input('middlename'),
+  //         'firstname' => $request->input('firstname'),
+  //         'date_birth' => $request->input('date_birth'),
+  //         'suffix' => $request->input('suffix'),
+  //         'gender' => $request->input('gender'),
+  //         'civilstatus' => $request->input('civilstatus'),
+  //         'citizenship' => $request->input('citizenship'),
+  //         'province' => $request->input('province'),
+  //         'municipality' => $request->input('municipality'),
+  //         'barangay' => $request->input('barangay'),
+  //         'bldg_street' => $request->input('bldg_street'),
+  //         'zipcode' => $request->input('zipcode'),
+  //         'contact_no' => $request->input('contact_no'),
+  //         'landline_no' => $request->input('landline_no'),
+  //         'email' => $request->input('email'),
+  //       );
+  //       $last_id = DB::table('personal_details')->insertGetId($insertss);
+  //     //   $last_id = (DB::getPdo()->lastInsertId()); 
+  //       $randomString = Str::random(6);
+  //       $mem_appinst = array(
+  //         'app_no' => $randomString,
+  //         'email_address' => $request->input('email'),
+  //         'personal_id' => $last_id,
+  //         'app_status' => 'DRAFT',
+  //       );
+  //       $mem_id = DB::table('mem_app')->insertGetId($mem_appinst);
+  //       return [
+  //         'last_id' => $last_id,
+  //         'randomString' => $randomString,
+  //         'mem_id' => $mem_id
+  //         ];
+  //     });
+  //       return response()->json(['success' => $datadb['last_id'] , 'randomnum' => $datadb['randomString'] , 'mem_id' =>  $datadb['mem_id']]);
+  // }
+  // public function add_member_p2(Request $request)
+  // {
+  //     $datadb = DB::transaction(function () use ($request){
+  //     $insertss = array(
+  //         'campus' => $request->input('campus'),
+  //         'classification' => $request->input('classification'),
+  //         'classification_others' => $request->input('classification_others'),
+  //         'employee_no' => $request->input('employee_no'),
+  //         'college_unit' => $request->input('college_unit'),
+  //         'department' => $request->input('department'),
+  //         'rank_position' => $request->input('rank_position'),
+  //         'date_appointment' => $request->input('date_appointment'),
+  //         'appointment' => $request->input('appointment'),
+  //         'monthly_salary' => $request->input('monthly_salary'),
+  //         'salary_grade' => $request->input('salary_grade'),
+  //         'sg_category' => $request->input('sg_category'),
+  //         'tin_no' => $request->input('tin_no'),
+  //       );
+  //       $last_id = DB::table('employee_details')->insertGetId($insertss);
+  //     //   $last_id = (DB::getPdo()->lastInsertId()); 
+  //       $mem_appinst = array(
+  //         'employee_no' => $request->input('employee_no'),
+  //       );
+  //       DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
+  //       ->update($mem_appinst);
 
 
 
@@ -199,12 +199,12 @@ class HomeController extends Controller
           'landline_no' => $request->input('landline_no'),
           'email' => $request->input('email'),
         );
-      } 
+      }
 
       $last_id = DB::table('personal_details')->insertGetId($inserts);
 
       //Application Number
-      $id = IdGenerator::generate(['table' => 'mem_app', 'field' => 'app_no', 'length' => 9, 'prefix' =>date('Y-')]);
+      $id = IdGenerator::generate(['table' => 'mem_app', 'field' => 'app_no', 'length' => 9, 'prefix' => date('Y-')]);
       // $randomString = Str::random(6);
       $randomString = $id;
       $mem_appinst = array(
@@ -311,7 +311,7 @@ class HomeController extends Controller
         );
         $last_id = DB::table('employee_details')->insertGetId($inserts);
         //   $last_id = (DB::getPdo()->lastInsertId()); 
-      //   $last_id = (DB::getPdo()->lastInsertId()); 
+        //   $last_id = (DB::getPdo()->lastInsertId()); 
         //   $last_id = (DB::getPdo()->lastInsertId()); 
         $mem_appinst = array(
           'employee_no' => $request->input('employee_no'),
@@ -325,7 +325,6 @@ class HomeController extends Controller
       });
       return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
     }
-    
   }
 
   public function add_member_up_p2(Request $request)
@@ -334,37 +333,71 @@ class HomeController extends Controller
     if ($employee) {
       return response()->json(['success' => '']);
     } else {
-    $datadb = DB::transaction(function () use ($request) {
-      $inserts = array(
-        'campus' => $request->input('campus'),
-        'classification' => $request->input('classification'),
-        'classification_others' => $request->input('classification_others'),
-        'employee_no' => $request->input('employee_no'),
-        'college_unit' => $request->input('college_unit'),
-        'department' => $request->input('department'),
-        'rank_position' => $request->input('rank_position'),
-        'date_appointment' => $request->input('date_appointment'),
-        'appointment' => $request->input('appointment'),
-        'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
-        'salary_grade' => $request->input('salary_grade'),
-        'sg_category' => $request->input('sg_category'),
-        'tin_no' => $request->input('tin_no'),
-      );
-      DB::table('employee_details')->where('employee_details_ID', $request->input('employee_details_ID'))
-      ->update($inserts);
-      //   $last_id = (DB::getPdo()->lastInsertId()); 
-      $mem_appinst = array(
-        'employee_no' => $request->input('employee_no'),
-      );
-      DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
-        ->update($mem_appinst);
-      return [
-        'last_id' => $request->input('employee_details_ID'),
-        'emp_no' => $request->input('employee_no'),
-      ];
-    });
-    return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
+      $datadb = DB::transaction(function () use ($request) {
+        $inserts = array(
+          'campus' => $request->input('campus'),
+          'classification' => $request->input('classification'),
+          'classification_others' => $request->input('classification_others'),
+          'employee_no' => $request->input('employee_no'),
+          'college_unit' => $request->input('college_unit'),
+          'department' => $request->input('department'),
+          'rank_position' => $request->input('rank_position'),
+          'date_appointment' => $request->input('date_appointment'),
+          'appointment' => $request->input('appointment'),
+          'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
+          'salary_grade' => $request->input('salary_grade'),
+          'sg_category' => $request->input('sg_category'),
+          'tin_no' => $request->input('tin_no'),
+        );
+        DB::table('employee_details')->where('employee_details_ID', $request->input('employee_details_ID'))
+          ->update($inserts);
+        //   $last_id = (DB::getPdo()->lastInsertId()); 
+        $mem_appinst = array(
+          'employee_no' => $request->input('employee_no'),
+        );
+        DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
+          ->update($mem_appinst);
+        return [
+          'last_id' => $request->input('employee_details_ID'),
+          'emp_no' => $request->input('employee_no'),
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
     }
+  }
+
+  public function add_member_p3(Request $request)
+  {
+
+    $datadb = DB::transaction(function () use ($request) {
+      $percentage = $request->input('percentage_check');
+      if ($percentage != 'percentage') {
+        $inertMemDetails = array(
+          'contribution_set' => 'Fixed Amount',
+          'amount' => $request->input('fixed_amount'),
+          'app_no' => $request->input('reference_no'),
+        );
+        if ($request->hasfile('files')) {
+          foreach ($request->file('files') as $key => $file) {
+            $path = $file->store('public/uploaded_forms');
+            $name = $file->getClientOriginalName();
+            $insertFile[$key]['app_no'] = $request->input('reference_no');
+            $insertFile[$key]['form_name'] = $name;
+            $insertFile[$key]['path'] = $path;
+          }
+        }
+      } else {
+        $inertMemDetails = array(
+          'contribution_set' => 'Percentage of Basic Salary',
+          'amount' => $request->input('total_amount'),
+          'percentage' => $request->input('percentage_bsalary'),
+          'app_no' => $request->input('reference_no'),
+        );
+      } 
+      DB::table('membership_details')->insert($inertMemDetails);
+      DB::table('uploaded_forms')->insert($insertFile);
+    });
+    return response()->json(['success' => 1]);
   }
 
   public function delete_beneficiary(Request $request)
