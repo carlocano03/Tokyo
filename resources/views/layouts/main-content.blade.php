@@ -23,6 +23,7 @@ body{
     background: var(--c-white);
     padding: 30px 0px;
     position: fixed;
+    z-index: 999;
 }
 
 .wrapper .sidebar h2{
@@ -79,11 +80,12 @@ body{
 }
 .wrapper .main_content{
   width: 100%;
-  margin-left: 250px;
+  margin-left: 0px;
 }
 
 .wrapper .main_content .header {
     /* padding: 20px; */
+    display:none;
     color: var(--c-primary-80);
     border-bottom: 1px solid #e0e4e8;
     border-bottom: 1px solid #e0e4e8;
@@ -161,13 +163,126 @@ i {
   color: var(--c-primary)
 }
 
+.mobile-toggle {
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    margin: 15px;
+    
+    font-size: 35px;
+    color: var(--c-active-hover-bg);
+}
+
+.hide {
+  display :none;
+}
+
+.move-toggle {
+    margin-left: 200px;
+}
+
+@media (min-width:656px) {
+    
+  .wrapper .main_content{
+    width: 100%;
+    margin-left: 250px;
+  }
+  .wrapper .main_content .header{
+    display:block;
+  }
+  .wrapper .sidebar {
+    display:block !important;
+  }
+  .mobile-toggle {
+    display:none;
+  }
+  .hide {
+    display:block;
+  }
+  .wrapper .sidebar {
+    z-index:0;
+  }
+}
+
+@media (min-width:768px) {
+   
+}
+
+@media (min-width:992px) {
+
+}
+
+@media (min-width:1200px) {
+   
+}
+
+.menu-toggle {
+	  position: absolute;
+    display: inline-block;
+    width: 40px;
+    height: 30px;
+    margin: 5px;
+    z-index: 1000;
+}
+.menu-toggle span {
+	margin: 0 auto;
+	position: relative;
+	top: 12px;
+	transition-duration: 0s;
+	transition-delay: .2s;
+  transition: background-color 0.3s;
+}
+.menu-toggle span:before, .menu-toggle span:after {
+	position: absolute;
+	content: '';
+}
+.menu-toggle span, .menu-toggle span:before, .menu-toggle span:after {
+	width: 40px;
+	height: 6px;
+	background-color: var(--c-primary);
+	display: block;
+  opacity: 1;
+}
+.menu-toggle span:before {
+	margin-top: -12px;
+	transition-property: margin, transform;
+	transition-duration: .2s;
+	transition-delay: .2s, 0;  
+}
+.menu-toggle span:after {
+	margin-top: 12px;
+	transition-property: margin, transform;
+	transition-duration: .2s;
+	transition-delay: .2s, 0;  
+}
+
+.menu-toggle-active span {
+  background-color: white;
+	transition: 0.3s background-color;
+}
+.menu-toggle-active span:before {
+	margin-top: 0;
+	transform: rotate(45deg);
+	transition-delay: 0, .2s;
+}
+.menu-toggle-active span:after {
+	margin-top: 0;
+	transform: rotate(-45deg);
+	transition-delay: 0, .2s;
+}
+
 </style>
 
- 
+<a href="#" class="menu-toggle" id="menu-toggle"><span></span></a>
+<!-- <div class="mobile-toggle" id="mobile-toggle">
+  <i class="fa fa-bars" aria-hidden="true"></i>
+</div> -->
 
 @if(Request::is('admin/dashboard') || Request::is('admin/settings'))         
      <div class="wrapper">
-    <div class="sidebar">
+    <div class="sidebar" id="side_bar">
         <div class="top-nav">
             <div class="profile-img">
               <img  src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659" alt="">
@@ -231,7 +346,7 @@ i {
   </div>
 @else
       <div class="wrapper">
-    <div class="sidebar">
+    <div class="sidebar hide" id="side_bar">
         <div class="top-nav">
             <div class="profile-img">
               <img  src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659" alt="">
@@ -323,4 +438,44 @@ i {
 
       //member script
 
+
+
+
+      //mobile togge script
+      let toggle_click = 0;
+      $(document).on('click', '#menu-toggle', function(e) {
+        toggle_click++;
+        if (toggle_click === 1){
+          $("#side_bar").removeClass("hide"); 
+        }
+        else if (toggle_click > 1) {
+          $("#side_bar").addClass("hide"); 
+          toggle_click = 0;
+        }
+       
+    })
+    window.addEventListener("resize", () => {
+        const width = window.innerWidth;
+        // const height = window.innerHeight;
+      if (width > 656){
+        $("#side_bar").removeClass("hide"); 
+        $("#menu-toggle").addClass("hide");
+        $("#menu-toggle").removeClass("menu-toggle-active move-toggle");
+        
+      }
+      else {
+        $("#side_bar").addClass("hide"); 
+        $("#menu-toggle").removeClass("hide"); 
+        $("#menu-toggle").addClass("menu-toggle ");
+        toggle_click =0;
+      }
+    });
+
+
+    document.getElementById('menu-toggle').addEventListener(
+      'click',
+      function() {
+        this.classList.toggle('menu-toggle-active');
+      }
+    );
   </script>
