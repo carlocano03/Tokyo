@@ -43,6 +43,7 @@
 
         <div class="col">
             <div class="row flex-column">
+
                 <label class="mp-text-fs-small mp-link link_style" id="forgot_password">
                     Forgot password?
                 </label>

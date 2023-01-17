@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Auth\LoginController;
 // use App\Http\Controllers\Member_registration;
@@ -63,7 +64,12 @@ Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin
 //admin
 // Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 
-
+//member
+Route::get('/member/dashboard', [MemberController::class, 'dashboard'])->name('member.dashboard');
+Route::get('/member/settings', [MemberController::class, 'settings'])->name('member.settings');
+Route::get('/member/loan', [MemberController::class, 'dashboard'])->name('member.loan');
+Route::get('/member/transaction', [MemberController::class, 'settings'])->name('member.transaction');
+Route::get('/member/member', [MemberController::class, 'dashboard'])->name('member.member');
 
 //PDF Generation
 Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
