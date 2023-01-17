@@ -165,8 +165,8 @@ i {
 
  
 
-
-<div class="wrapper">
+@if(Request::is('admin/dashboard') || Request::is('admin/settings'))         
+     <div class="wrapper">
     <div class="sidebar">
         <div class="top-nav">
             <div class="profile-img">
@@ -229,9 +229,70 @@ i {
         </div>
 
   </div>
+@else
+      <div class="wrapper">
+    <div class="sidebar">
+        <div class="top-nav">
+            <div class="profile-img">
+              <img  src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659" alt="">
+            </div>
+            <h2>Member Account</h2> 
+        </div>
+        <ul>
+            <li >
+              <a href="/member/dashboard" class ="{{ Request::is('member/dashboard') ? 'active-nav' : '' }}">
+                <i class="fa fa-home "></i>Dashboard</a>
+            </li>
+            <li><a href="/member/transaction" class="{{ Request::is('member/transaction') ? 'active-nav' : '' }}">
+              <i class="fa fa-line-chart" ></i>Transactions </a>
+            </li>
+           
+            <li><a href="/member/member" class="{{ Request::is('member/member') ? 'active-nav' : '' }}"> 
+              <i class="fa fa-user"></i>  Member Forms </a>
+            </li>
+              
+            <li><a href="/member/loan"class="{{ Request::is('member/loan') ? 'active-nav' : '' }}" >
+              <i class="fa fa-address-book"></i>Loan Application</a>
+            </li>
+            <li><a href="/member/settings" class ="{{ Request::is('member/settings') ? 'active-nav' : '' }}">
+              <i class="fa fa-gears"></i>Account & Settings</a>
+            </li>
+
+           
+        </ul> 
+        
+    </div>
+    <div class="main_content">
+        <div class="header">
+            <div class="info">
+                <a href="/">
+                <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+                </a>
+                <a class="mp-link mp-link--primary" href="/">
+                    University of the Philippines Provident Fund Inc.
+                </a>
+                <a href="#">
+                     <strong><a href="#" class="logout">Log out</a> </strong>
+                </a>
+            </div>
+            
+ 
+        </div>
+            
+         
+        <div class="contents">
+            @section('content_body')
+            @show
+        </div>
+
+  </div>      
+@endif
+
 
 
   <script>
+
+    
     var click = 0;
       $(document).on('click', '#membersDropdown', function(e) {
         click++;
@@ -248,6 +309,8 @@ i {
            
     })
 
+
+    //admin script
       const elm = document.querySelector('ul');
       elm.addEventListener('click', (el) => {
         const elActive = elm.querySelector('.active-nav');
@@ -257,5 +320,7 @@ i {
         el.target.setAttribute('class', 'active-nav');
       });
       
+
+      //member script
 
   </script>
