@@ -75,3 +75,9 @@ Route::get('/member/member', [MemberController::class, 'dashboard'])->name('memb
 Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
 Route::get('/generateProxyForm', [PDFController::class, 'generateProxyForm'])->name('generateProxyForm');
 Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('download_form');
+
+// check status trail
+Route::post('/login/status_trail', [HomeController::class, 'search_app_trail'])->name('status_trail');
+
+// slarygrade bracket
+Route::post('/login/check_sg', [HomeController::class, 'check_sg_bracket'])->name('check_sg');
