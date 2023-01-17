@@ -432,12 +432,11 @@
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form mp-pv2 shadow-inset-1" id="step-2">
         <div class="mp-input-group">
             <label class="mp-input-group__label">Campus</label>
-            <select class="mp-input-group__input mp-text-field" name="campus">
+            <select class="mp-input-group__input mp-text-field" name="campus" id="campus">
                 <option>Select Campus</option>
-                <option>Campus </option>
-                <option>Campus </option>
-                <option>Campus </option>
-                <option>Campus </option>
+                {{-- @foreach ($campuses as $row)
+                    <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
+                @endforeach --}}
             </select>
         </div>
         <div class="mp-input-group">
