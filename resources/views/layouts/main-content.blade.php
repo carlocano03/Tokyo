@@ -153,11 +153,13 @@ a {
 i {
   pointer-events: none
 }
+
 .logout {
   float: right;
   margin-right: 250px;
   color: var(--c-primary)
 }
+
 </style>
 
  

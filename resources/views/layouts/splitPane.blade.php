@@ -286,7 +286,7 @@
     var employee_no;
     var employee_details_ID;
     var originalData;
-    
+
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value')
         if (nextValue == 'step-2') {
@@ -310,6 +310,9 @@
                             type: 'POST',
                             url: "{{ route('add_member') }}",
                             data: $('#member_forms').serialize(),
+                            beforeSend: function() {
+                                $('#loading').show();
+                            },
                             success: function(data) {
                                 if (data.success != '') {
                                     reference_no = data.randomnum;
@@ -322,9 +325,13 @@
                                     });
                                     $('.applicationNo').show(200);
                                     $('#application_no').text(reference_no);
+                                    $('#app_no').val(reference_no);
                                     $('#test').val(reference_no);
                                 }
-                            }
+                            },
+                            complete: function(data) {
+                                $('#loading').hide();
+                            },
                         });
                     } else {
                         swal.fire("You cancelled your transaction.");
@@ -364,7 +371,9 @@
                                 }
                             });
                         } else {
-                            Swal.fire('Warning!', 'Update was cancelled by the user. No changes were made.', 'warning');
+                            Swal.fire('Warning!',
+                                'Update was cancelled by the user. No changes were made.', 'warning'
+                            );
                         }
                     });
 
@@ -380,7 +389,7 @@
             $("#registration-title").text(stepTitle[1])
             $("#stepper-2").addClass("active")
         } else if (nextValue == 'step-3') {
-            
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -499,11 +508,46 @@
 
             }
 
-        } else if (nextValue == 'step-end') {
-            // alert('end')
-            $("#btn-submit").click()
         }
         scrollToTop()
+    });
+
+    $(document).on('submit', '#member_forms_3', function(e) {
+        e.preventDefault();
+
+        $.ajax({
+            method: 'POST',
+            url: "{{ route('add_member_details') }}",
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if (data.success != '') {
+                    Swal.fire({
+                        title: 'Thank you!',
+                        text: "Registration completed",
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.open();
+                        }
+                    })
+                    $("#step-2").removeClass('d-flex').addClass("d-none");
+                    $("#step-3").removeClass('d-none').addClass("d-flex");
+                    $("#back").attr('value', 'step-2')
+                    $("#member_forms_con").removeClass('mh-reg-form');
+                    $("#member_forms_3").addClass('mh-reg-form');
+                    $(this).attr('value', 'step-end')
+                    $("#line").removeClass('step-2').addClass('step-3')
+                    $("#registration-title").text(stepTitle[2])
+                    $("#stepper-3").addClass("active")
+                } 
+            }
+        });
+
     });
 
     $(document).on('click', '#add_dependent', function() {
@@ -540,6 +584,7 @@
     });
 
     $(document).ready(function() {
+        // $('.applicationNo').hide();
         var id = employee_no;
         console.log(id);
         var tableDependent = $('#dependentTable').DataTable({
@@ -675,6 +720,7 @@
         var input2 = $("#monthly_salary").val().replace(/,/g, '');
         var percentage = (input1 / 100) * input2;
         $('#computed_amount').html(percentage);
+        $('#percent_amt').val(percentage);
     });
 
     function scrollToTop() {
