@@ -26,7 +26,8 @@ body{
 }
 
 .wrapper .sidebar h2{
-  color: var(--c-primary);
+  /* color: var(--c-primary); */
+  color: #979797;
   text-transform: uppercase;
   text-align: center;
   margin-bottom: 30px;
@@ -168,12 +169,14 @@ i {
 <div class="wrapper">
     <div class="sidebar">
         <div class="top-nav">
-            <i class="fa fa-user"></i>
+            <div class="profile-img">
+              <img  src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659" alt="">
+            </div>
             <h2>Denneb Gomez</h2> 
         </div>
         <ul>
             <li >
-              <a href="#" class="active-nav"><i class="fa fa-home "></i>Membership Application</a>
+              <a href="/admin/dashboard" class ="{{ Request::is('admin/dashboard') ? 'active-nav' : '' }}"><i class="fa fa-home "></i>Membership Application</a>
             </li>
             <div class="dropdown" id="dropdown">  
               <div class="nav-parent ">
@@ -194,7 +197,9 @@ i {
             <li><a href="#"><i class="fa fa-comment-o"></i>Benefits </a></li>
             <li><a href="#"><i class="fa fa-line-chart"></i>Transacton </a></li>
             <li><a href="#"><i class="fa fa-address-book"></i>Election</a></li>
-            <li><a href="#"><i class="fa fa-gears"></i>Account & Settings</a></li>
+            <li><a href="/admin/settings" class ="{{ Request::is('admin/settings') ? 'active-nav' : '' }}">
+              <i class="fa fa-gears"></i>Account & Settings</a>
+            </li>
 
            
         </ul> 

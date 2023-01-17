@@ -100,10 +100,7 @@ class HomeController extends Controller
     //       DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
     //       ->update($mem_appinst);
 
-  public function dashboard()
-  {
-    return view('admin.dashboard');
-  }
+ 
 
   public function add_benefeciaries(Request $request)
   {

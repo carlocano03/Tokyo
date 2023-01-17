@@ -5574,7 +5574,7 @@ tfoot {
 
 
 .mh-reg-form {
-    height: calc(100% - 208px);
+    height: calc(100% - 258px);
     overflow-y: auto;
 }
 
@@ -5657,4 +5657,32 @@ tfoot {
 
 .form-border-bottom {
     border-bottom: solid 2px #e7e6e6;
+}
+
+.applicationNo {
+    text-align: center;
+}
+
+.applicationNo label {
+    font-size: 15px;
+    margin-bottom: -30px;
+}
+
+.applicationNo span {
+    font-size: 35px;
+    color: var(--c-accent-80);
+}
+
+/* .profile-img {
+    height: 100px;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+} */
+
+.profile-img img {
+    object-fit: cover;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
 }
