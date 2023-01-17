@@ -24,7 +24,7 @@
     </div>
     @endif
 </div>
-<button id="modal_name_pop">Show Modal</button>
+<!-- <button id="modal_name_pop">Show Modal</button> -->
 <form id="loginForm" class="mp-pt4 mp-mb5" method="post" action="{{ url('/login') }}">
     {{ csrf_field() }}
     <div class="mp-pb4 mp-input-group">
@@ -254,8 +254,8 @@
 @endsection
 
 @section('registration-personal-form')
-<div class="d-flex gap-10 sticky mp-pt2 top-0 bg-white flex-column ">
-    <div style="width: 100%;" class="d-flex gap-10">
+<div class="d-flex gap-10 mp-pt2 bg-white flex-column ">
+    <!-- <div style="width: 100%;" class="d-flex gap-10">
         <div class="ml-auto">
             <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
         </div>
@@ -263,8 +263,20 @@
             <div class="mp-mt2 up-color reg-title">University of the Philippines <br /> Provident Fund Inc.</div>
             <span>Online Membership Application</span>
         </div>
+    </div> -->
+    <div class="mp-mt2 mp-mt2 "> 
+ 
+        <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
+                   <span>Back</span>
+        </a> 
+        <!-- <a class="up-color" id="back" value="">
+                   <span > <i class="fa fa-chevron-left" aria-hidden="true"></i> Back</span>
+        </a>  -->
     </div>
-    <div class="relative mp-mt3 w-90 d-flex ml-auto mr-auto">
+     <div class="mp-mt2 up-color reg-title mp-text-center">
+          Online Membership Application
+    </div>
+    <div class="relative mp-mt2 w-90 d-flex ml-auto mr-auto">
         <ul class="d-flex flex-row items-between w-100 stepper">
             <li class="circle active" id="stepper-1">1</li>
             <li class="circle" id="stepper-2">2</li>
@@ -272,11 +284,16 @@
         </ul>
         <div class="line step-1" id="line"></div>
     </div>
-    <label class="mp-text-fs-medium mp-ph2 mp-split-pane__title mp-text-c-primary mb-0 mp-pv2 br-top-2" id="registration-title">Personal Information</label>
+    <div class="applicationNo">
+        <label>Application No </label><br>
+        <span id="application_no">6969</span>
+    </div>
+
+    <label class="mp-text-fs-medium mp-ph2 mp-split-pane__title mp-text-c-primary mb-0 mp-pv2 br-top-2 mp-mt2" id="registration-title">Personal Information</label>
 </div>
-<form id="member_forms" >
+<form id="member_forms" class="mh-reg-form form-border-bottom">
     {{ csrf_field() }}
-    <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2" id="step-1">
+    <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" id="step-1" >
         <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
         <div class="mp-input-group">
             <label class="mp-input-group__label">Last Name</label>
@@ -316,49 +333,85 @@
                 <option>Registered Ppartnership</option>
             </select>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group ">
+            <label class="mp-input-group__label">Citizenship</label>
+            <div class="d-flex gap-5 mp-mb2">
+                <input type="radio" value="Filipino" id="citizenship" name="citizenship" />
+                <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Filipino</label>
+                <input type="radio" value="Dual Citizenship" id="citizenship" name="citizenship" />
+                <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Dual Citizenship</label>
+                <input type="radio" value="Others" id="citizenship_o" name="citizenship" />
+                <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 5px;">Others</label>
+            </div>
             <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="citizenship" />
+            <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" />
         </div>
         <div class="mp-input-group">
+            <label class="mp-input-group__label">Present Address</label><br>
             <label class="mp-input-group__label">Province</label>
-            <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
+            <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Municipality</label>
-            <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
+            <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Barangay</label>
-            <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
+            <select class="mp-input-group__input mp-text-field" id="present_barangay" name="present_barangay" required>
                 <option></option>
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Bldg No. St. No.</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="bldg_street" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="present_bldg_street" name="present_bldg_street" />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Zipcode</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="zipcode" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="present_zipcode" name="present_zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
         </div>
 
         <div class="mp-input-group">
             <label class="mp-input-group__label">Permanent Address</label>
             <div class="d-flex gap-5">
-                <input type="checkbox" />
+                <input type="checkbox" value="1" id="perm_add_check" name="perm_add_check" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">(Same as above)</label>
 
             </div>
-            <input class="mp-input-group__input mp-text-field" type="text" />
+            <input class="mp-input-group__input mp-text-field" type="text" name="same_add" id="same_add" readonly />
+        </div>
+        <div class="mp-input-group same_div">
+            <label class="mp-input-group__label">Province</label>
+            <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
+                <option></option>
+            </select>
+        </div>
+        <div class="mp-input-group same_div">
+            <label class="mp-input-group__label">Municipality</label>
+            <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
+                <option></option>
+            </select>
+        </div>
+        <div class="mp-input-group same_div">
+            <label class="mp-input-group__label">Barangay</label>
+            <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
+                <option></option>
+            </select>
+        </div>
+        <div class="mp-input-group same_div">
+            <label class="mp-input-group__label">Bldg No. St. No.</label>
+            <input class="mp-input-group__input mp-text-field" type="text" id="bldg_street" name="bldg_street" />
+        </div>
+        <div class="mp-input-group same_div">
+            <label class="mp-input-group__label">Zipcode</label>
+            <input class="mp-input-group__input mp-text-field" type="text" id="zipcode" name="zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Cellphone Number</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Landline Number</label>
@@ -368,22 +421,24 @@
             <label class="mp-input-group__label">Email Address</label>
             <input class="mp-input-group__input mp-text-field" type="email" name="email" required />
         </div>
+        <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-2" id="next-btn">
+                    <span>Next</span>
+        </a> 
         <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
-
+        
     </div>
 
 </form>
-<form id="member_forms_con" >
+<form id="member_forms_con">
     <!-- <label class="mp-text-fs-medium">Employment Details</label> -->
-    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form mp-pv2" id="step-2">
+    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form mp-pv2 shadow-inset-1" id="step-2">
         <div class="mp-input-group">
             <label class="mp-input-group__label">Campus</label>
-            <select class="mp-input-group__input mp-text-field" name="campus">
+            <select class="mp-input-group__input mp-text-field" name="campus" id="campus">
                 <option>Select Campus</option>
-                <option>Campus </option>
-                <option>Campus </option>
-                <option>Campus </option>
-                <option>Campus </option>
+                {{-- @foreach ($campuses as $row)
+                    <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
+                @endforeach --}}
             </select>
         </div>
         <div class="mp-input-group">
@@ -439,7 +494,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Monthly Salary</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="monthly_salary" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="monthly_salary" id="monthly_salary"  required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Salary Grade</label>
@@ -456,63 +511,94 @@
             <label class="mp-input-group__label">Taxpayer Identification Number (TIN)</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
         </div>
+        <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-2" id="next-btn">
+                    <span>Next</span>
+    </a> 
     </div>
-
 </form>
-<form id="member_forms_3">
-    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form mp-pv2 fill-block" id="step-3">
+
+<form id="member_forms_3" method="post" enctype="multipart/form-data">
+    @csrf
+    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-3">
         <div class="mp-input-group">
-            <div class="d-flex gap-5">
-                <input type="checkbox" />
-                <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1% - 100%)</label>
-            </div>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
+                MONTHLY CONTRIBUTION
+            </label>
+            <label class="mp-input-group__label">
+                (Contribution will be deducted from your salary every month; Choose between: (a) Percentage of basic salary, minimum of 1%; or (b) Fixed amount;
+                You may change this anytime by filling out the Member’s Data Updating Form; Amount is subject to the DBM rule on net take-home pay threshold.)
+            </label>
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" />
+                <input type="checkbox" id="percentage_check" name="percentage_check" value="percentage"/>
+                <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1% - 100%)</label>
+            </div>
+            <input class="mp-input-group__input mp-text-field" type="number" name="percentage_bsalary" id="percentage_bsalary" />
+            <label class="mp-input-group__label" style="margin-top: 5px;">Total: </label><label class="mp-input-group__label" id="computed_amount" style="margin-top: 5px;"></label>
+        </div>
+        <div class="mp-input-group">
+            <div class="d-flex gap-5">
+                <input type="checkbox" id="fixed_amount_check" name="fixed_amount_check"/>
                 <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso )</label>
             </div>
-            <input class="mp-input-group__input mp-text-field" type="text" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="fixed_amount" id="fixed_amount" />
         </div>
         <div class="mp-input-group d-flex gap-5 flex-column">
             <label class="mp-input-group__label">Dependents</label>
-            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Name" />
-            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Birthday" />
-            <input class="mp-input-group__input mp-text-field" type="text" required placeholder="Relationship" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Name" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_bday" onfocus="(this.type='date')" placeholder="Birthday" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" placeholder="Relationship" />
             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
-                <span>Add Dependent</span> </a>
+                <span id="add_dependent">Add Dependent</span> </a>
         </div>
-        <table class="mp-table mp-text-fs-small table_style mp-mh2" id="campusTable" cellspacing="0" width="100%">
+        <table class=" mp-mh2" id="dependentTable" cellspacing="0" width="100%">
             <thead>
                 <tr>
                     <th>Name</th>
                     <th>Birthday</th>
                     <th>Relationship</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>Samplee D. Luffy</td>
-                    <td>January-1-2000</td>
-                    <td>Son</td>
-                </tr>
+
             </tbody>
         </table>
+
         <div class="mp-input-group">
             <label class="mp-input-group__label">Supporting Document</label>
-            <input class="mp-input-group__input mp-mt3" type="file" required />
         </div>
-        <div class="mp-input-group mp-mt2">
-            <label for="" class="mp-input-group__label"><input class="" type="checkbox" required /> Coco life form.</label>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">
+                <a href="{{ route('download_form') }}" class="mp-link link_style">Click here</a><span> to download Cocolife and Proxy Form for manual signature (Optional) </span>
+            </label>
+            <input type="hidden" name="app_no" id="app_no">
+            <input type="hidden" name="percent_amt" id="percent_amt">
         </div>
-        <div class="mp-input-group mp-mt2">
-            <label for="" class="mp-input-group__label"><input class="" type="checkbox" required /> By checking this box, I hearby certify that all information provided is true, acurate, and complete.</label>
+        <div class="mp-input-group">
+            {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="documents[]" required accept="application/pdf" multiple/> --}}
+            <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="documents[]" required accept="application/pdf" multiple/>
+        </div>
+
+        <div class="mp-input-group">
+            <div class="mp-input-group mp-mt5">
+                    <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms" value="">
+                    By signing up, you agree to University of the Philippines
+                    Provident Fund Inc.'s 
+                    <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a>  & 
+                    <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a> 
+                </label>
+            </div>
+            {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
+            <button class="up-button btn-md button-animate-right mp-text-center" type="submit">
+                <span>Submit</span>
+            </button> 
+            <hr>
+                 
         </div>
         
     </div>
-    
-    <button type="submit" class="d-none" id="btn-submit">Submit</button>
 </form>
 
 @endsection
