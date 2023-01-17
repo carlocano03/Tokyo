@@ -23,7 +23,7 @@ body{
     background: var(--c-white);
     padding: 30px 0px;
     position: fixed;
-    z-index: 999;
+    z-index: 1001;
 }
 
 .wrapper .sidebar h2{
@@ -218,13 +218,14 @@ i {
    
 }
 
+
 .menu-toggle {
 	  position: absolute;
     display: inline-block;
-    width: 40px;
-    height: 30px;
     margin: 5px;
-    z-index: 1000;
+    height:50px;
+    background:transparent;
+    z-index: 1002;
 }
 .menu-toggle span {
 	margin: 0 auto;
@@ -272,14 +273,23 @@ i {
 	transform: rotate(-45deg);
 	transition-delay: 0, .2s;
 }
+.dark-bg {
+    background-color: black;
+    padding: 100%;
+    z-index: 1000 !important;
+    position: absolute;
+    opacity: 0.5;
+}
 
 </style>
 
-<a href="#" class="menu-toggle" id="menu-toggle"><span></span></a>
+<button href="#" class="menu-toggle" id="menu-toggle"><span></span></button>
 <!-- <div class="mobile-toggle" id="mobile-toggle">
   <i class="fa fa-bars" aria-hidden="true"></i>
 </div> -->
+<div class="dark-bg" id ="dark-bg">
 
+</div>
 @if(Request::is('admin/dashboard') || Request::is('admin/settings'))         
      <div class="wrapper">
     <div class="sidebar" id="side_bar">
@@ -447,9 +457,11 @@ i {
         toggle_click++;
         if (toggle_click === 1){
           $("#side_bar").removeClass("hide"); 
+          $("#dark-bg").removeClass("hide");
         }
         else if (toggle_click > 1) {
           $("#side_bar").addClass("hide"); 
+          $("#dark-bg").addClass("hide");
           toggle_click = 0;
         }
        
@@ -457,20 +469,37 @@ i {
     window.addEventListener("resize", () => {
         const width = window.innerWidth;
         // const height = window.innerHeight;
-      if (width > 656){
+      if (width >= 656){
         $("#side_bar").removeClass("hide"); 
         $("#menu-toggle").addClass("hide");
+        $("#dark-bg").addClass("hide");
         $("#menu-toggle").removeClass("menu-toggle-active move-toggle");
         
       }
-      else {
+      else  {
         $("#side_bar").addClass("hide"); 
         $("#menu-toggle").removeClass("hide"); 
+        $("#dark-bg").addClass("hide");
         $("#menu-toggle").addClass("menu-toggle ");
         toggle_click =0;
       }
     });
 
+    let initialWidth = screen.width;
+     if (initialWidth >= 656){
+        $("#side_bar").removeClass("hide"); 
+        $("#menu-toggle").addClass("hide");
+        $("#dark-bg").addClass("hide");
+        $("#menu-toggle").removeClass("menu-toggle-active move-toggle");
+        
+      }
+      else  {
+        $("#side_bar").addClass("hide"); 
+        $("#menu-toggle").removeClass("hide"); 
+        $("#dark-bg").addClass("hide");
+        $("#menu-toggle").addClass("menu-toggle ");
+        toggle_click =0;
+      }
 
     document.getElementById('menu-toggle').addEventListener(
       'click',
