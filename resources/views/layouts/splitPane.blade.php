@@ -2,6 +2,7 @@
 @section('content')
 
 
+
     <!-- mobile transition -->
     <div class="mobile-header">
         <div class="logo-title">
@@ -101,6 +102,7 @@
     // // });
     // $("#step-1").attr("hidden", true);
     // // var $ids = $('[id="loginForm"]');
+
 
     // // $ids.each(function(i, e) {
     // //     $(e).attr("hidden", true);

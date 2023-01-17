@@ -5256,10 +5256,17 @@ tfoot {
 .up-button {
     background-color: var(--c-accent) !important;
     color: white !important;
-
+    <<<<<<< HEAD
 }
 
-.transition-background {
+
+
+
+
+=======
+}
+
+>>>>>>>479ff9520d959c66621e8cccb1c4fadcbcef8421 .transition-background {
     /* padding: 100%; */
 
     height: 100%;
@@ -5566,6 +5573,7 @@ tfoot {
 
 .fill-block {
     min-height: 70vh;
+    <<<<<<< HEAD=======
 }
 
 .gap-0 {
@@ -5685,4 +5693,5 @@ tfoot {
     border-radius: 50%;
     width: 100px;
     height: 100px;
+    >>>>>>>ac209d518f079be3c29d64e7cf116fdf4e7d7810
 }
