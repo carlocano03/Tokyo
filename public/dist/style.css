@@ -487,6 +487,10 @@ html {
     display: block;
 }
 
+#statusTrailForm {
+    overflow-y: auto;
+}
+
 .status-title {
     font-size: 1.5rem;
     font-weight: 400;
@@ -592,7 +596,7 @@ html {
 .footer-position {
     display: none;
     width: 100%;
-    position: absolute;
+    position: fixed;
     left: 0;
     bottom: 0px;
     background-color: var(--c-accent-80);
@@ -5151,7 +5155,6 @@ tfoot {
 
 .grid {
     display: grid !important;
-    grid-template-columns: 1fr 115px;
 }
 
 .relative {
@@ -5571,7 +5574,7 @@ tfoot {
 
 
 .mh-reg-form {
-    height: calc(100% - 208px);
+    height: calc(100% - 258px);
     overflow-y: auto;
 }
 
@@ -5603,6 +5606,17 @@ tfoot {
 .contacts_info p {
     margin-right: 20px;
 }
+
+.new_input_style {
+    border-bottom-width: 2px;
+    border-style: solid;
+    -moz-border-image: -moz-linear-gradient(top, #894168 0%, #894168 100%);
+    border-image: linear-gradient(to bottom, #894168 0%, #894168 100%);
+    -webkit-border-image-slice: 2;
+    border-image-slice: 2;
+}
+
+
 /* width */
 ::-webkit-scrollbar {
     width: 7px;
@@ -5639,4 +5653,36 @@ tfoot {
 
 .filler {
     height: 131px;
+}
+
+.form-border-bottom {
+    border-bottom: solid 2px #e7e6e6;
+}
+
+.applicationNo {
+    text-align: center;
+}
+
+.applicationNo label {
+    font-size: 15px;
+    margin-bottom: -30px;
+}
+
+.applicationNo span {
+    font-size: 35px;
+    color: var(--c-accent-80);
+}
+
+/* .profile-img {
+    height: 100px;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+} */
+
+.profile-img img {
+    object-fit: cover;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
 }
