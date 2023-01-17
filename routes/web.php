@@ -29,12 +29,12 @@ Route::get('/', function () {
 
 Route::get('admin', [
     'as' => 'admin',
-    // 'uses' => 'Auth\LoginController@showLoginForm'
+    'uses' => 'Auth\LoginController@showLoginForm'
   ]);
 
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
-
+Route::get('/options', [HomeController::class, 'getCampuses']);
 //GET
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/login/get_beneficiary', [HomeController::class, 'get_beneficiary'])->name('getBeneficiary');
