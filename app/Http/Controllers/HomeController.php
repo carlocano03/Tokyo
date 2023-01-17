@@ -85,11 +85,7 @@ class HomeController extends Controller
   public function add_member(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
-      $mailData = [
-        'title' => 'Application Sample',
-        'body' => 'This is for testing email using smtp.'
-      ];
-
+      
       if ($request->input('perm_add_check') != 1) {
         $inserts = array(
           'lastname' => $request->input('lastname'),
@@ -155,8 +151,14 @@ class HomeController extends Controller
         'app_status' => 'DRAFT',
       );
       $mem_id = DB::table('mem_app')->insertGetId($mem_appinst);
-      
-      //Mail::to($request->input('email'))->send(new DemoMail($mailData));
+
+      $mailData = [
+        'title' => 'Member Application Draft',
+        'body' => 'Your application is save as draft.',
+        'app_no' => $randomString
+      ];
+
+      Mail::to($request->input('email'))->send(new DemoMail($mailData));
 
       return [
         'last_id' => $last_id,
