@@ -25,20 +25,13 @@
     position: fixed;
     z-index: 1001;
 }
-    .wrapper .sidebar {
-        width: 250px;
-        height: 100%;
-        background: var(--c-white);
-        padding: 30px 0px;
-        position: fixed;
-    }
+ 
 
     .wrapper .sidebar h2 {
         /* color: var(--c-primary); */
         color: #979797;
         text-transform: uppercase;
         text-align: center;
-        margin-bottom: 30px;
     }
 
     .wrapper .sidebar ul li {
@@ -295,14 +288,17 @@
 <div class="dark-bg" id ="dark-bg">
 
 </div>
-@if(Request::is('admin/dashboard') || Request::is('admin/settings'))         
-     <div class="wrapper">
+@if(Request::is('admin/dashboard'))         
+  <div class="wrapper">
     <div class="sidebar" id="side_bar">
 
         <div class="top-nav">
             <div class="profile-img">
               <img  src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659" alt="">
             </div>
+            <h2><label for="">{{ Auth::user()->last_name }} {{ Auth::user()->first_name }}
+              </label></h2>
+        </div>
             <ul>
                 <li>
                     <a href="/admin/dashboard" class="{{ Request::is('admin/dashboard') ? 'active-nav' : '' }}"><i
@@ -362,7 +358,7 @@
    
   </div>
 @else
-      <div class="wrapper">
+  <div class="wrapper">
     <div class="sidebar hide" id="side_bar">
         <div class="top-nav">
             <div class="profile-img">
