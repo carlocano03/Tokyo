@@ -61,35 +61,23 @@
         color: var(--c-primary);
     }
 
-    .wrapper .sidebar ul li:hover a {
-        color: var(--c-primary);
-    }
 
-    .wrapper .sidebar .social_media {
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-    }
-
-    .wrapper .sidebar .social_media a {
-        display: block;
-        width: 40px;
-        height: 40px;
-        background: transparent;
-        line-height: 45px;
-        text-align: center;
-        margin: 0 5px;
-        color: var(--c-primary);
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-    }
-
-    .wrapper .main_content {
-        width: 100%;
-        margin-left: 250px;
-    }
+.wrapper .sidebar .social_media a {
+    display: block;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    line-height: 45px;
+    text-align: center;
+    margin: 0 5px;
+    color: var(--c-primary);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+.wrapper .main_content{
+  width: 100%;
+  margin-left: 0px;
+}
 
 .wrapper .main_content .header {
     /* padding: 20px; */
@@ -371,70 +359,72 @@
             </div>
 
         </div>
-    @else
-        <div class="wrapper">
-            <div class="sidebar">
-                <div class="top-nav">
-                    <div class="profile-img">
-                        <img src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659"
-                            alt="">
-                    </div>
-                    <h2>Member Account</h2>
-                </div>
-                <ul>
-                    <li>
-                        <a href="/member/dashboard" class="{{ Request::is('member/dashboard') ? 'active-nav' : '' }}">
-                            <i class="fa fa-home "></i>Dashboard</a>
-                    </li>
-                    <li><a href="/member/transaction"
-                            class="{{ Request::is('member/transaction') ? 'active-nav' : '' }}">
-                            <i class="fa fa-line-chart"></i>Transactions </a>
-                    </li>
-
-                    <li><a href="/member/member" class="{{ Request::is('member/member') ? 'active-nav' : '' }}">
-                            <i class="fa fa-user"></i> Member Forms </a>
-                    </li>
-
-                    <li><a href="/member/loan"class="{{ Request::is('member/loan') ? 'active-nav' : '' }}">
-                            <i class="fa fa-address-book"></i>Loan Application</a>
-                    </li>
-                    <li><a href="/member/settings" class="{{ Request::is('member/settings') ? 'active-nav' : '' }}">
-                            <i class="fa fa-gears"></i>Account & Settings</a>
-                    </li>
-
-
-                </ul>
-
+   
+  </div>
+@else
+      <div class="wrapper">
+    <div class="sidebar hide" id="side_bar">
+        <div class="top-nav">
+            <div class="profile-img">
+              <img  src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659" alt="">
             </div>
-            <div class="main_content">
-                <div class="header">
-                    <div class="info">
-                        <a href="/">
-                            <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
-                        </a>
-                        <a class="mp-link mp-link--primary" href="/">
-                            University of the Philippines Provident Fund Inc.
-                        </a>
-                        <a href="#">
-                            <strong><a href="#" class="logout">Log out</a> </strong>
-                        </a>
-                    </div>
+            <h2>Member Account</h2> 
+        </div>
+        <ul>
+            <li >
+              <a href="/member/dashboard" class ="{{ Request::is('member/dashboard') ? 'active-nav' : '' }}">
+                <i class="fa fa-home "></i>Dashboard</a>
+            </li>
+            <li><a href="/member/transaction" class="{{ Request::is('member/transaction') ? 'active-nav' : '' }}">
+              <i class="fa fa-line-chart" ></i>Transactions </a>
+            </li>
+           
+            <li><a href="/member/member" class="{{ Request::is('member/member') ? 'active-nav' : '' }}"> 
+              <i class="fa fa-user"></i>  Member Forms </a>
+            </li>
+              
+            <li><a href="/member/loan"class="{{ Request::is('member/loan') ? 'active-nav' : '' }}" >
+              <i class="fa fa-address-book"></i>Loan Application</a>
+            </li>
+            <li><a href="/member/settings" class ="{{ Request::is('member/settings') ? 'active-nav' : '' }}">
+              <i class="fa fa-gears"></i>Account & Settings</a>
+            </li>
 
-
-                </div>
-
-
-                <div class="contents">
-                    @section('content_body')
-                    @show
-                </div>
-
+           
+        </ul> 
+        
+    </div>
+    <div class="main_content">
+        <div class="header">
+            <div class="info">
+                <a href="/">
+                <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+                </a>
+                <a class="mp-link mp-link--primary" href="/">
+                    University of the Philippines Provident Fund Inc.
+                </a>
+                <a href="#">
+                     <strong><a href="#" class="logout">Log out</a> </strong>
+                </a>
             </div>
+            
+ 
+        </div>
+            
+         
+        <div class="contents">
+            @section('content_body')
+            @show
+        </div>
+
+  </div>      
 @endif
 
 
 
-<script>
+  <script>
+
+    
     var click = 0;
     $(document).on('click', '#membersDropdown', function(e) {
         click++;
@@ -452,8 +442,10 @@
 
 
     //admin script
-    const elm = document.querySelector('ul');
-    elm.addEventListener('click', (el) => {
+
+      const elm = document.querySelector('ul');
+      elm.addEventListener('click', (el) => {
+
         const elActive = elm.querySelector('.active-nav');
         if (elActive) {
             elActive.removeAttribute('class');
@@ -464,4 +456,65 @@
 
       //member script
 
+      //member script
+
+
+
+
+      //mobile togge script
+      let toggle_click = 0;
+      $(document).on('click', '#menu-toggle', function(e) {
+        toggle_click++;
+        if (toggle_click === 1){
+          $("#side_bar").removeClass("hide"); 
+          $("#dark-bg").removeClass("hide");
+        }
+        else if (toggle_click > 1) {
+          $("#side_bar").addClass("hide"); 
+          $("#dark-bg").addClass("hide");
+          toggle_click = 0;
+        }
+       
+    })
+    window.addEventListener("resize", () => {
+        const width = window.innerWidth;
+        // const height = window.innerHeight;
+      if (width >= 656){
+        $("#side_bar").removeClass("hide"); 
+        $("#menu-toggle").addClass("hide");
+        $("#dark-bg").addClass("hide");
+        $("#menu-toggle").removeClass("menu-toggle-active move-toggle");
+        
+      }
+      else  {
+        $("#side_bar").addClass("hide"); 
+        $("#menu-toggle").removeClass("hide"); 
+        $("#dark-bg").addClass("hide");
+        $("#menu-toggle").addClass("menu-toggle ");
+        toggle_click =0;
+      }
+    });
+
+    let initialWidth = screen.width;
+     if (initialWidth >= 656){
+        $("#side_bar").removeClass("hide"); 
+        $("#menu-toggle").addClass("hide");
+        $("#dark-bg").addClass("hide");
+        $("#menu-toggle").removeClass("menu-toggle-active move-toggle");
+        
+      }
+      else  {
+        $("#side_bar").addClass("hide"); 
+        $("#menu-toggle").removeClass("hide"); 
+        $("#dark-bg").addClass("hide");
+        $("#menu-toggle").addClass("menu-toggle ");
+        toggle_click =0;
+      }
+
+    document.getElementById('menu-toggle').addEventListener(
+      'click',
+      function() {
+        this.classList.toggle('menu-toggle-active');
+      }
+    );
   </script>
