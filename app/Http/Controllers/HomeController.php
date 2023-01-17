@@ -10,6 +10,8 @@ use App\Models\Beneficiaries;
 use App\Models\UploadFile;
 use DataTables;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Mail\DemoMail;
+use Mail;
 
 class HomeController extends Controller
 {
@@ -39,73 +41,6 @@ class HomeController extends Controller
   {
     return view('admin.dashboard');
   }
-
-  // public function add_member(Request $request)
-  // {
-  //     $datadb = DB::transaction(function () use ($request){
-  //     $insertss = array(
-  //         'lastname' => $request->input('lastname'),
-  //         'middlename' => $request->input('middlename'),
-  //         'firstname' => $request->input('firstname'),
-  //         'date_birth' => $request->input('date_birth'),
-  //         'suffix' => $request->input('suffix'),
-  //         'gender' => $request->input('gender'),
-  //         'civilstatus' => $request->input('civilstatus'),
-  //         'citizenship' => $request->input('citizenship'),
-  //         'province' => $request->input('province'),
-  //         'municipality' => $request->input('municipality'),
-  //         'barangay' => $request->input('barangay'),
-  //         'bldg_street' => $request->input('bldg_street'),
-  //         'zipcode' => $request->input('zipcode'),
-  //         'contact_no' => $request->input('contact_no'),
-  //         'landline_no' => $request->input('landline_no'),
-  //         'email' => $request->input('email'),
-  //       );
-  //       $last_id = DB::table('personal_details')->insertGetId($insertss);
-  //     //   $last_id = (DB::getPdo()->lastInsertId()); 
-  //       $randomString = Str::random(6);
-  //       $mem_appinst = array(
-  //         'app_no' => $randomString,
-  //         'email_address' => $request->input('email'),
-  //         'personal_id' => $last_id,
-  //         'app_status' => 'DRAFT',
-  //       );
-  //       $mem_id = DB::table('mem_app')->insertGetId($mem_appinst);
-  //       return [
-  //         'last_id' => $last_id,
-  //         'randomString' => $randomString,
-  //         'mem_id' => $mem_id
-  //         ];
-  //     });
-  //       return response()->json(['success' => $datadb['last_id'] , 'randomnum' => $datadb['randomString'] , 'mem_id' =>  $datadb['mem_id']]);
-  // }
-  // public function add_member_p2(Request $request)
-  // {
-  //     $datadb = DB::transaction(function () use ($request){
-  //     $insertss = array(
-  //         'campus' => $request->input('campus'),
-  //         'classification' => $request->input('classification'),
-  //         'classification_others' => $request->input('classification_others'),
-  //         'employee_no' => $request->input('employee_no'),
-  //         'college_unit' => $request->input('college_unit'),
-  //         'department' => $request->input('department'),
-  //         'rank_position' => $request->input('rank_position'),
-  //         'date_appointment' => $request->input('date_appointment'),
-  //         'appointment' => $request->input('appointment'),
-  //         'monthly_salary' => $request->input('monthly_salary'),
-  //         'salary_grade' => $request->input('salary_grade'),
-  //         'sg_category' => $request->input('sg_category'),
-  //         'tin_no' => $request->input('tin_no'),
-  //       );
-  //       $last_id = DB::table('employee_details')->insertGetId($insertss);
-  //     //   $last_id = (DB::getPdo()->lastInsertId()); 
-  //       $mem_appinst = array(
-  //         'employee_no' => $request->input('employee_no'),
-  //       );
-  //       DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
-  //       ->update($mem_appinst);
-
-
 
   public function add_benefeciaries(Request $request)
   {
@@ -150,6 +85,11 @@ class HomeController extends Controller
   public function add_member(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
+      $mailData = [
+        'title' => 'Application Sample',
+        'body' => 'This is for testing email using smtp.'
+      ];
+
       if ($request->input('perm_add_check') != 1) {
         $inserts = array(
           'lastname' => $request->input('lastname'),
@@ -215,6 +155,9 @@ class HomeController extends Controller
         'app_status' => 'DRAFT',
       );
       $mem_id = DB::table('mem_app')->insertGetId($mem_appinst);
+      
+      //Mail::to($request->input('email'))->send(new DemoMail($mailData));
+
       return [
         'last_id' => $last_id,
         'randomString' => $randomString,
@@ -365,71 +308,63 @@ class HomeController extends Controller
       });
       return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
     }
-   }
+  }
+
   public function add_member_p3(Request $request)
   {
-      // if ($percentage != 'percentage') {
-      //   $inertMemDetails = array(
-      //     'contribution_set' => 'Fixed Amount',
-      //     'amount' => $request->input('fixed_amount'),
-      //     'app_no' => $request->input('reference_no'),
-      //   );
-      //   if ($request->hasfile('files')) {
-      //     foreach ($request->file('files') as $key => $file) {
-      //       $path = $file->store('public/uploaded_forms');
-      //       $name = $file->getClientOriginalName();
-      //       $insertFile[$key]['app_no'] = $request->input('reference_no');
-      //       $insertFile[$key]['form_name'] = $name;
-      //       $insertFile[$key]['path'] = $path;
-      //     }
-      //     DB::table('uploaded_forms')->insert($insertFile);
-      //   }
-      // } else {
-      //   $inertMemDetails = array(
-      //     'contribution_set' => 'Percentage of Basic Salary',
-      //     'amount' => $request->input('total_amount'),
-      //     'percentage' => $request->input('percentage_bsalary'),
-      //     'app_no' => $request->input('app_no'),
-      //   );
-      //   if ($request->hasfile('files')) {
-      //     foreach ($request->file('files') as $key => $file) {
-      //       $path = $file->store('public/uploaded_forms');
-      //       $name = $file->getClientOriginalName();
-      //       $insertFile[$key]['app_no'] = $request->input('app_no');
-      //       $insertFile[$key]['form_name'] = $name;
-      //       $insertFile[$key]['path'] = $path;
-      //     }
-      //     DB::table('uploaded_forms')->insert($insertFile);
-      //   }
-      // } 
-      // DB::table('membership_details')->insert($inertMemDetails);
-       
-      if ($request->hasFile('formFiles'))
-      {
-        $image_array = $request->file('formFiles');
-        $array_len = count($image_array);
-        for($i=0; $i<$array_len; $i++)
-        {
-          $imageSize = $image_array[$i]->getClientSize();
-          $image_ext = $image_array[$i]->getClientOriginalExtension();
-          $newName = rand(0, 1000). "." .$image_ext;
-
-          $destination_path = public_path('/uploaded_forms');
-          $image_array[$i]->move($destination_path, $destination_path);
-
-          // UploadFile::create([
-          //   'app_no' => $request->input('app_no'),
-          //   'form_name' => $newName,
-          //   'path' => $newName,
-          // ]);
-
-          $tab1 = new UploadFile;
-          $tab1->form_name = $newName;
-          $tab1->path = $newName;
-          $tab1->save();
+    $options = $request->input('percentage_check');
+    if ($options != 'percentage') {
+      $insertMemDetails = array(
+        'contribution_set' => 'Fixed Amount',
+        'amount' => $request->input('fixed_amount'),
+        'app_no' => $request->input('app_no')
+      );
+      if ($request->documents) {
+        foreach($request->documents as $file) {
+   
+          $fileName = $file->getClientOriginalName();
+          $newName = $request->input('app_no').'_'.$fileName;
+          $filePath = 'uploaded_forms/' . $newName;
+          $file->storeAs('uploaded_forms', $newName, 'public');
+  
+          $insertFile = array(
+            'app_no' => $request->input('app_no'),
+            'form_name' => $newName,
+            'path' => $filePath
+          );
+          // // Create files
+          DB::table('uploaded_forms')->insert($insertFile);
         }
+        DB::table('membership_details')->insert($insertMemDetails);
       }
-    return response()->json(['success' => 1]);
+    } else {
+      $insertMemDetails = array(
+        'contribution_set' => 'Percentage of Basic Salary',
+        'amount' => $request->input('percent_amt'),
+        'percentage' => $request->input('percentage_bsalary'),
+        'app_no' => $request->input('app_no')
+      );
+      if ($request->documents){
+        foreach($request->documents as $file) {
+   
+          $fileName = $file->getClientOriginalName();
+          $newName = $request->input('app_no').'_'.$fileName;
+          $filePath = 'uploaded_forms/' . $newName;
+          $file->storeAs('uploaded_forms', $newName, 'public');
+  
+          $insertFile = array(
+            'app_no' => $request->input('app_no'),
+            'form_name' => $newName,
+            'path' => $filePath
+          );
+          // // Create files
+          DB::table('uploaded_forms')->insert($insertFile);
+        }
+        DB::table('membership_details')->insert($insertMemDetails);
+      }
+    }
+
+    
   }
 
   public function delete_beneficiary(Request $request)
