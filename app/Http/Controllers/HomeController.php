@@ -333,6 +333,8 @@ class HomeController extends Controller
           DB::table('uploaded_forms')->insert($insertFile);
         }
         DB::table('membership_details')->insert($insertMemDetails);
+        DB::table('mem_app')->where('app_no', $request->input('app_no'))
+          ->update(array('app_status' => 'SUBMITTED'));
       }
     } else {
       $insertMemDetails = array(
@@ -358,6 +360,8 @@ class HomeController extends Controller
           DB::table('uploaded_forms')->insert($insertFile);
         }
         DB::table('membership_details')->insert($insertMemDetails);
+        DB::table('mem_app')->where('app_no', $request->input('app_no'))
+          ->update(array('app_status' => 'SUBMITTED'));
       }
     }
 
