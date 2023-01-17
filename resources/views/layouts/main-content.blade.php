@@ -17,6 +17,14 @@
         position: relative;
     }
 
+.wrapper .sidebar{
+    width: 250px;
+    height: 100%;
+    background: var(--c-white);
+    padding: 30px 0px;
+    position: fixed;
+    z-index: 1001;
+}
     .wrapper .sidebar {
         width: 250px;
         height: 100%;
@@ -83,12 +91,13 @@
         margin-left: 250px;
     }
 
-    .wrapper .main_content .header {
-        /* padding: 20px; */
-        color: var(--c-primary-80);
-        border-bottom: 1px solid #e0e4e8;
-        border-bottom: 1px solid #e0e4e8;
-    }
+.wrapper .main_content .header {
+    /* padding: 20px; */
+    display:none;
+    color: var(--c-primary-80);
+    border-bottom: 1px solid #e0e4e8;
+    border-bottom: 1px solid #e0e4e8;
+}
 
     .wrapper .main_content .info {
         margin: 20px;
@@ -164,25 +173,147 @@
         pointer-events: none
     }
 
-    .logout {
-        float: right;
-        margin-right: 250px;
-        color: var(--c-primary)
-    }
+.logout {
+  float: right;
+  margin-right: 250px;
+  color: var(--c-primary)
+}
+
+.mobile-toggle {
+    display: block;
+    position: absolute;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    margin: 15px;
+    
+    font-size: 35px;
+    color: var(--c-active-hover-bg);
+}
+
+.hide {
+  display :none;
+}
+
+.move-toggle {
+    margin-left: 200px;
+}
+
+@media (min-width:656px) {
+    
+  .wrapper .main_content{
+    width: 100%;
+    margin-left: 250px;
+  }
+  .wrapper .main_content .header{
+    display:block;
+  }
+  .wrapper .sidebar {
+    display:block !important;
+  }
+  .mobile-toggle {
+    display:none;
+  }
+  .hide {
+    display:block;
+  }
+  .wrapper .sidebar {
+    z-index:0;
+  }
+}
+
+@media (min-width:768px) {
+   
+}
+
+@media (min-width:992px) {
+
+}
+
+@media (min-width:1200px) {
+   
+}
+
+
+.menu-toggle {
+	  position: absolute;
+    display: inline-block;
+    margin: 5px;
+    height:50px;
+    background:transparent;
+    z-index: 1002;
+}
+.menu-toggle span {
+	margin: 0 auto;
+	position: relative;
+	top: 12px;
+	transition-duration: 0s;
+	transition-delay: .2s;
+  transition: background-color 0.3s;
+}
+.menu-toggle span:before, .menu-toggle span:after {
+	position: absolute;
+	content: '';
+}
+.menu-toggle span, .menu-toggle span:before, .menu-toggle span:after {
+	width: 40px;
+	height: 6px;
+	background-color: var(--c-primary);
+	display: block;
+  opacity: 1;
+}
+.menu-toggle span:before {
+	margin-top: -12px;
+	transition-property: margin, transform;
+	transition-duration: .2s;
+	transition-delay: .2s, 0;  
+}
+.menu-toggle span:after {
+	margin-top: 12px;
+	transition-property: margin, transform;
+	transition-duration: .2s;
+	transition-delay: .2s, 0;  
+}
+
+.menu-toggle-active span {
+  background-color: white;
+	transition: 0.3s background-color;
+}
+.menu-toggle-active span:before {
+	margin-top: 0;
+	transform: rotate(45deg);
+	transition-delay: 0, .2s;
+}
+.menu-toggle-active span:after {
+	margin-top: 0;
+	transform: rotate(-45deg);
+	transition-delay: 0, .2s;
+}
+.dark-bg {
+    background-color: black;
+    padding: 100%;
+    z-index: 1000 !important;
+    position: absolute;
+    opacity: 0.5;
+}
+
+
 </style>
 
+<button href="#" class="menu-toggle" id="menu-toggle"><span></span></button>
+<!-- <div class="mobile-toggle" id="mobile-toggle">
+  <i class="fa fa-bars" aria-hidden="true"></i>
+</div> -->
+<div class="dark-bg" id ="dark-bg">
 
+</div>
+@if(Request::is('admin/dashboard') || Request::is('admin/settings'))         
+     <div class="wrapper">
+    <div class="sidebar" id="side_bar">
 
-{{-- @if (Request::is('admin/dashboard') || Request::is('admin/settings'))          --}}
-@if (Request::segment(1) == 'admin')
-    <div class="wrapper">
-        <div class="sidebar">
-            <div class="top-nav">
-                <div class="profile-img">
-                    <img src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659"
-                        alt="">
-                </div>
-                <h2>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h2>
+        <div class="top-nav">
+            <div class="profile-img">
+              <img  src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659" alt="">
             </div>
             <ul>
                 <li>
@@ -331,5 +462,6 @@
     });
 
 
-    //member script
-</script>
+      //member script
+
+  </script>
