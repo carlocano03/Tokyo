@@ -95,7 +95,7 @@
 
 <div class="mp-input-group mp-mt2">
     <label class="mp-input-group__label">Application Number</label>
-    <input class="mp-input-group__input mp-text-field" type="text" required />
+    <input class="mp-input-group__input mp-text-field" type="text" id="app_no_trail" required />
 </div>
 
 <div class="col col-auto">
@@ -106,7 +106,7 @@
     </div>
 
     <div class="row" style="float:right;">
-        <button class="up-button btn-md mp-mt3 mp-mb3 button-animate-right " type="submit" id="btn-submit">
+        <button class="up-button btn-md mp-mt3 mp-mb3 button-animate-right " id="search_btn">
             <span>Search</span>
         </button>
     </div>
@@ -117,10 +117,10 @@
         Online Membership Application Status
         <br>
         <div class="status-icon">
-            <i class="fa fa-frown-o" aria-hidden="true"></i>
+            <i class="fa fa-frown-o" aria-hidden="true" id="icon_status"></i>
         </div>
         <div class="status-text">
-            Not Found
+            <span id="found_remarks">Not Found</span>
         </div>
     </div>
 
@@ -131,101 +131,101 @@
     <div class="status-info">
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>First Name : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>info : </label>
-            </div>
-            <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="fname_label"></label>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>Middle Name : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>info : </label>
-            </div>
-            <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="mname_label"></label>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>Last Name : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>info : </label>
-            </div>
-            <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="lname_label"></label>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>Suffix : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>info : </label>
-            </div>
-            <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="suffix_label"></label>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>Birth date : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="bdate_label"></label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>Appointment : </label>
+            </div>
+            <div class="col">
+                <label id="appointment_label"></label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>Tin No : </label>
+            </div>
+            <div class="col">
+                <label id="tin_no_label"></label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>Contact No. : </label>
+            </div>
+            <div class="col">
+                <label id="contact_no_label"></label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>Land line no. : </label>
+            </div>
+            <div class="col">
+                <label id="landlineno_label"></label>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>Email Address : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="email_add_label"></label>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12 status-title" style="margin-bottom: -20px;">
                 <Label>Status : </Label>
-                <label class="status-text">PROCESSING</label>
+                <label class="status-text" id="application_status"></label>
             </div>
             <div class="col-12 status-title">
                 <Label>Remarks : </Label>
-                <label class="status-text">Mama mo Remarks</label>
+                <label class="status-text"></label>
             </div>
         </div>
 
@@ -239,7 +239,8 @@
                 </div>
 
                 <div class="col-6">
-                    <button class="up-button btn-md mp-mt3 mp-mb3" style="float:left;" type="submit" id="">Print</button>
+                    <button class="up-button btn-md mp-mt3 mp-mb3" style="float:left;" id="print_app">Print</button>
+                    <button class="up-button btn-md mp-mt3 mp-mb3" style="float:left;" id="cont_app">Continue the application</button>
                 </div>
             </div>
         </div>
@@ -336,11 +337,11 @@
         <div class="mp-input-group ">
             <label class="mp-input-group__label">Citizenship</label>
             <div class="d-flex gap-5 mp-mb2">
-                <input type="radio" value="Filipino" id="citizenship" name="citizenship" />
+                <input type="radio" value="FILIPINO" id="citizenship" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Filipino</label>
-                <input type="radio" value="Dual Citizenship" id="citizenship" name="citizenship" />
+                <input type="radio" value="DUAL CITIZENSHIP" id="citizenship" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Dual Citizenship</label>
-                <input type="radio" value="Others" id="citizenship_o" name="citizenship" />
+                <input type="radio" value="OTHERS" id="citizenship_o" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 5px;">Others</label>
             </div>
             <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
@@ -498,7 +499,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Salary Grade</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="salary_grade" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="salary_grade" id="salary_grade" readonly />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Salary Grade Category</label>
