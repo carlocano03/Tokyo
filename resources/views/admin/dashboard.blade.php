@@ -489,7 +489,7 @@
           <div class="card grid flex-row user-details" style="min-height: 146px;  ">
             <div class="details d-flex flex-column" style="height: 100%">
               <label for="">
-                Welcome! Dela Cruz Juan
+                Welcome! {{ Auth::user()->last_name }} {{ Auth::user()->first_name }}
               </label>
               <div style="margin-top: auto" class="mp-mb1">
                 <button class="mp-button up-button" style="padding: 4px 16px;">View my Profile</button>
