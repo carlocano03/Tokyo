@@ -659,6 +659,16 @@
             }
             $(this).val(inputValue);
         });
+
+        $.getJSON('/options', function(options) {
+            $.each(options, function(index, option) {
+                $('#campus').append($('<option>', {
+                    value: option.campus_key,
+                    text: option.name
+                }));
+            });
+        });
+
     });
 
     $(document).on('click', '#perm_add_check', function(e) {

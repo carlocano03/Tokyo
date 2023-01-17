@@ -29,13 +29,15 @@ Route::get('/', function () {
 
 Route::get('admin', [
     'as' => 'admin',
-    // 'uses' => 'Auth\LoginController@showLoginForm'
+    'uses' => 'Auth\LoginController@showLoginForm'
   ]);
 
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+
 Route::get('/settings', [HomeController::class, 'settings'])->name('settings');
 
+Route::get('/options', [HomeController::class, 'getCampuses']);
 
 //GET
 Route::get('/home', [HomeController::class, 'index'])->name('home');

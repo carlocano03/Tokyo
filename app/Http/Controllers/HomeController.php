@@ -435,4 +435,11 @@ class HomeController extends Controller
     Beneficiaries::where('ben_ID', $benID)->delete();
     return response()->json(['success' => 1]);
   }
+
+  public function getCampuses()
+  {
+    $options = DB::table('campus')->select('campus_key', 'name')->get();
+        return response()->json($options);
+  }
+
 }
