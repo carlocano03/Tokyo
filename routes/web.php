@@ -34,7 +34,11 @@ Route::get('admin', [
 
 
 Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+
+Route::get('/settings', [HomeController::class, 'settings'])->name('settings');
+
 Route::get('/options', [HomeController::class, 'getCampuses']);
+
 //GET
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/login/get_beneficiary', [HomeController::class, 'get_beneficiary'])->name('getBeneficiary');
@@ -53,12 +57,13 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 
 
 //admin
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
 // Route::get('/admin/dashboard', 'AdminController@index');
 
 //admin
 // Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::get('/admin/dashboard', 'AdminController@index');
+
 
 
 //PDF Generation

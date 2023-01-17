@@ -24,7 +24,7 @@
     </div>
     @endif
 </div>
-<button id="modal_name_pop">Show Modal</button>
+<!-- <button id="modal_name_pop">Show Modal</button> -->
 <form id="loginForm" class="mp-pt4 mp-mb5" method="post" action="{{ url('/login') }}">
     {{ csrf_field() }}
     <div class="mp-pb4 mp-input-group">
@@ -284,7 +284,8 @@
         <div class="line step-1" id="line"></div>
     </div>
     <div class="applicationNo">
-        <h5>Application No: <span id="application_no"></span></h5>
+        <label>Application No </label><br>
+        <span id="application_no">6969</span>
     </div>
 
     <label class="mp-text-fs-medium mp-ph2 mp-split-pane__title mp-text-c-primary mb-0 mp-pv2 br-top-2 mp-mt2" id="registration-title">Personal Information</label>
