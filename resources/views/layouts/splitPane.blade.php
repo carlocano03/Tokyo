@@ -310,6 +310,9 @@
                             type: 'POST',
                             url: "{{ route('add_member') }}",
                             data: $('#member_forms').serialize(),
+                            beforeSend: function() {
+                                $('#loading').show();
+                            },
                             success: function(data) {
                                 if (data.success != '') {
                                     reference_no = data.randomnum;
@@ -325,7 +328,10 @@
                                     $('#app_no').val(reference_no);
                                     $('#test').val(reference_no);
                                 }
-                            }
+                            },
+                            complete: function(data) {
+                                $('#loading').hide();
+                            },
                         });
                     } else {
                         swal.fire("You cancelled your transaction.");
