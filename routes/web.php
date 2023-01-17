@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\Auth\LoginController;
 // use App\Http\Controllers\Member_registration;
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +18,7 @@ use App\Http\Controllers\PDFController;
 */
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/logout', [LoginController::class, 'logout']);
 
 // Auth::routes('/admin');
 Route::get('/', function () {
@@ -33,9 +32,9 @@ Route::get('admin', [
   ]);
 
 
-Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
-Route::get('/settings', [HomeController::class, 'settings'])->name('settings');
+Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
 
 Route::get('/options', [HomeController::class, 'getCampuses']);
 

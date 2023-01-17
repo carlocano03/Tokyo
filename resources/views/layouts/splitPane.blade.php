@@ -93,6 +93,21 @@
 
 </div>
 <script>
+    function ckChange(ckType) {
+        var ckName = document.getElementsByClassName(ckType.className);
+
+        for (var i = 0; i < ckName.length; i++) {
+            if (!ckType.checked) {
+                ckName[i].disabled = false;
+            } else {
+                if (!ckName[i].checked) {
+                    ckName[i].disabled = true;
+                } else {
+                    ckName[i].disabled = false;
+                }
+            }
+        }
+    }
     // $("#loginform").attr("hidden", true);
     // // var $ids = $('[id="loginForm"]');
 
@@ -514,40 +529,46 @@
 
     $(document).on('submit', '#member_forms_3', function(e) {
         e.preventDefault();
-
-        $.ajax({
-            method: 'POST',
-            url: "{{ route('add_member_details') }}",
-            data: new FormData(this),
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                if (data.success != '') {
-                    Swal.fire({
-                        title: 'Thank you!',
-                        text: "Registration completed",
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.open();
-                        }
-                    })
-                    $("#step-2").removeClass('d-flex').addClass("d-none");
-                    $("#step-3").removeClass('d-none').addClass("d-flex");
-                    $("#back").attr('value', 'step-2')
-                    $("#member_forms_con").removeClass('mh-reg-form');
-                    $("#member_forms_3").addClass('mh-reg-form');
-                    $(this).attr('value', 'step-end')
-                    $("#line").removeClass('step-2').addClass('step-3')
-                    $("#registration-title").text(stepTitle[2])
-                    $("#stepper-3").addClass("active")
-                } 
-            }
-        });
-
+        if ($('#terms').prop('checked')) {
+            $.ajax({
+                method: 'POST',
+                url: "{{ route('add_member_details') }}",
+                data: new FormData(this),
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if (data.success != '') {
+                        Swal.fire({
+                            title: 'Thank you!',
+                            text: "Registration completed",
+                            icon: 'success',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.open();
+                            }
+                        })
+                        $("#step-2").removeClass('d-flex').addClass("d-none");
+                        $("#step-3").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-2')
+                        $("#member_forms_con").removeClass('mh-reg-form');
+                        $("#member_forms_3").addClass('mh-reg-form');
+                        $(this).attr('value', 'step-end')
+                        $("#line").removeClass('step-2').addClass('step-3')
+                        $("#registration-title").text(stepTitle[2])
+                        $("#stepper-3").addClass("active")
+                    }
+                }
+            });
+        } else {
+            Swal.fire({
+                title: 'Terms and Conditions!',
+                text: 'Please check the terms and conditions before you proceed.',
+                icon: 'warning'
+            });
+        }
     });
 
     $(document).on('click', '#add_dependent', function() {
@@ -584,7 +605,7 @@
     });
 
     $(document).ready(function() {
-        // $('.applicationNo').hide();
+        $('.applicationNo').hide();
         var id = employee_no;
         console.log(id);
         var tableDependent = $('#dependentTable').DataTable({

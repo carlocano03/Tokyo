@@ -285,7 +285,7 @@
     </div>
     <div class="applicationNo">
         <label>Application No </label><br>
-        <span id="application_no">6969</span>
+        <span id="application_no"></span>
     </div>
 
     <label class="mp-text-fs-medium mp-ph2 mp-split-pane__title mp-text-c-primary mb-0 mp-pv2 br-top-2 mp-mt2" id="registration-title">Personal Information</label>
@@ -530,7 +530,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" id="percentage_check" name="percentage_check" value="percentage"/>
+                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" onClick="ckChange(this)"/>
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1% - 100%)</label>
             </div>
             <input class="mp-input-group__input mp-text-field" type="number" name="percentage_bsalary" id="percentage_bsalary" />
@@ -538,7 +538,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" id="fixed_amount_check" name="fixed_amount_check"/>
+                <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check" onClick="ckChange(this)"/>
                 <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso )</label>
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="fixed_amount" id="fixed_amount" />
@@ -582,7 +582,7 @@
 
         <div class="mp-input-group">
             <div class="mp-input-group mp-mt5">
-                    <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms" value="">
+                    <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms">
                     By signing up, you agree to University of the Philippines
                     Provident Fund Inc.'s 
                     <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a>  & 

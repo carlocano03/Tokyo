@@ -172,7 +172,7 @@ i {
             <div class="profile-img">
               <img  src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659" alt="">
             </div>
-            <h2>Denneb Gomez</h2> 
+            <h2>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</h2> 
         </div>
         <ul>
             <li >
@@ -215,7 +215,7 @@ i {
                     University of the Philippines Provident Fund Inc.
                 </a>
                 <a href="#">
-                     <strong><a href="#" class="logout">Log out</a> </strong>
+                     <strong><a href="{{ url('/logout') }}" class="logout">Log out</a> </strong>
                 </a>
             </div>
             
