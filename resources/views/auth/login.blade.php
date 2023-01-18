@@ -131,6 +131,15 @@
     <div class="status-info">
         <div class="row">
             <div class="col">
+                <label>Application No. : </label>
+            </div>
+            <div class="col">
+                <label id="appNo_label"></label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
                 <label>First Name : </label>
             </div>
             <div class="col">
