@@ -24,7 +24,7 @@
     </div>
     @endif
 </div>
-<button id="modal_name_pop">Show Modal</button>
+<!-- <button id="modal_name_pop">Show Modal</button> -->
 <form id="loginForm" class="mp-pt4 mp-mb5" method="post" action="{{ url('/login') }}">
     {{ csrf_field() }}
     <div class="mp-pb4 mp-input-group">
@@ -43,6 +43,7 @@
 
         <div class="col">
             <div class="row flex-column">
+
                 <label class="mp-text-fs-small mp-link link_style" id="forgot_password">
                     Forgot password?
                 </label>
@@ -94,7 +95,7 @@
 
 <div class="mp-input-group mp-mt2">
     <label class="mp-input-group__label">Application Number</label>
-    <input class="mp-input-group__input mp-text-field" type="text" required />
+    <input class="mp-input-group__input mp-text-field" type="text" id="app_no_trail" required />
 </div>
 
 <div class="col col-auto">
@@ -105,7 +106,7 @@
     </div>
 
     <div class="row" style="float:right;">
-        <button class="up-button btn-md mp-mt3 mp-mb3 button-animate-right " type="submit" id="btn-submit">
+        <button class="up-button btn-md mp-mt3 mp-mb3 button-animate-right " id="search_btn">
             <span>Search</span>
         </button>
     </div>
@@ -116,10 +117,10 @@
         Online Membership Application Status
         <br>
         <div class="status-icon">
-            <i class="fa fa-frown-o" aria-hidden="true"></i>
+            <i class="fa fa-frown-o" aria-hidden="true" id="icon_status"></i>
         </div>
         <div class="status-text">
-            Not Found
+            <span id="found_remarks">Not Found</span>
         </div>
     </div>
 
@@ -130,101 +131,101 @@
     <div class="status-info">
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>First Name : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>info : </label>
-            </div>
-            <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="fname_label"></label>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>Middle Name : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>info : </label>
-            </div>
-            <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="mname_label"></label>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>Last Name : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>info : </label>
-            </div>
-            <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="lname_label"></label>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>Suffix : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>info : </label>
-            </div>
-            <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="suffix_label"></label>
             </div>
         </div>
 
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>Birth date : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="bdate_label"></label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>Appointment : </label>
+            </div>
+            <div class="col">
+                <label id="appointment_label"></label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>Tin No : </label>
+            </div>
+            <div class="col">
+                <label id="tin_no_label"></label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>Contact No. : </label>
+            </div>
+            <div class="col">
+                <label id="contact_no_label"></label>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <label>Land line no. : </label>
+            </div>
+            <div class="col">
+                <label id="landlineno_label"></label>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <label>info : </label>
+                <label>Email Address : </label>
             </div>
             <div class="col">
-                <label>asdasdasdadas</label>
+                <label id="email_add_label"></label>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12 status-title" style="margin-bottom: -20px;">
                 <Label>Status : </Label>
-                <label class="status-text">PROCESSING</label>
+                <label class="status-text" id="application_status"></label>
             </div>
             <div class="col-12 status-title">
                 <Label>Remarks : </Label>
-                <label class="status-text">Mama mo Remarks</label>
+                <label class="status-text"></label>
             </div>
         </div>
 
@@ -238,7 +239,8 @@
                 </div>
 
                 <div class="col-6">
-                    <button class="up-button btn-md mp-mt3 mp-mb3" style="float:left;" type="submit" id="">Print</button>
+                    <button class="up-button btn-md mp-mt3 mp-mb3" style="float:left;" id="print_app">Print</button>
+                    <button class="up-button btn-md mp-mt3 mp-mb3" style="float:left;" id="cont_app">Continue the application</button>
                 </div>
             </div>
         </div>
@@ -284,7 +286,8 @@
         <div class="line step-1" id="line"></div>
     </div>
     <div class="applicationNo">
-        <h5>Application No: <span id="application_no"></span></h5>
+        <label>Application No </label><br>
+        <span id="application_no"></span>
     </div>
 
     <label class="mp-text-fs-medium mp-ph2 mp-split-pane__title mp-text-c-primary mb-0 mp-pv2 br-top-2 mp-mt2" id="registration-title">Personal Information</label>
@@ -334,11 +337,11 @@
         <div class="mp-input-group ">
             <label class="mp-input-group__label">Citizenship</label>
             <div class="d-flex gap-5 mp-mb2">
-                <input type="radio" value="Filipino" id="citizenship" name="citizenship" />
+                <input type="radio" value="FILIPINO" id="citizenship" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Filipino</label>
-                <input type="radio" value="Dual Citizenship" id="citizenship" name="citizenship" />
+                <input type="radio" value="DUAL CITIZENSHIP" id="citizenship" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Dual Citizenship</label>
-                <input type="radio" value="Others" id="citizenship_o" name="citizenship" />
+                <input type="radio" value="OTHERS" id="citizenship_o" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 5px;">Others</label>
             </div>
             <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
@@ -496,7 +499,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Salary Grade</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="salary_grade" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="salary_grade" id="salary_grade" readonly />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Salary Grade Category</label>
@@ -529,7 +532,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" id="percentage_check" name="percentage_check" value="percentage"/>
+                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" onClick="ckChange(this)"/>
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1% - 100%)</label>
             </div>
             <input class="mp-input-group__input mp-text-field" type="number" name="percentage_bsalary" id="percentage_bsalary" />
@@ -537,7 +540,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" id="fixed_amount_check" name="fixed_amount_check"/>
+                <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check" onClick="ckChange(this)"/>
                 <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso )</label>
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="fixed_amount" id="fixed_amount" />
@@ -581,7 +584,7 @@
 
         <div class="mp-input-group">
             <div class="mp-input-group mp-mt5">
-                    <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms" value="">
+                    <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms">
                     By signing up, you agree to University of the Philippines
                     Provident Fund Inc.'s 
                     <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a>  & 

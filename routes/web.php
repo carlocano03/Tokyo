@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\Auth\LoginController;
 // use App\Http\Controllers\Member_registration;
 /*
 |--------------------------------------------------------------------------
@@ -17,9 +19,7 @@ use App\Http\Controllers\PDFController;
 */
 Auth::routes();
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/logout', [LoginController::class, 'logout']);
 
 // Auth::routes('/admin');
 Route::get('/', function () {
@@ -33,8 +33,12 @@ Route::get('admin', [
   ]);
 
 
-Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashboard');
+Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+
+Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
+
 Route::get('/options', [HomeController::class, 'getCampuses']);
+
 //GET
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/login/get_beneficiary', [HomeController::class, 'get_beneficiary'])->name('getBeneficiary');
@@ -53,15 +57,27 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 
 
 //admin
-Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
 // Route::get('/admin/dashboard', 'AdminController@index');
 
 //admin
 // Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
-Route::get('/admin/dashboard', 'AdminController@index');
 
+//member
+Route::get('/member/dashboard', [MemberController::class, 'dashboard'])->name('member.dashboard');
+Route::get('/member/settings', [MemberController::class, 'settings'])->name('member.settings');
+Route::get('/member/loan', [MemberController::class, 'dashboard'])->name('member.loan');
+Route::get('/member/transaction', [MemberController::class, 'settings'])->name('member.transaction');
+Route::get('/member/member', [MemberController::class, 'dashboard'])->name('member.member');
 
 //PDF Generation
 Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
 Route::get('/generateProxyForm', [PDFController::class, 'generateProxyForm'])->name('generateProxyForm');
 Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('download_form');
+
+// check status trail
+Route::post('/login/status_trail', [HomeController::class, 'search_app_trail'])->name('status_trail');
+
+// slarygrade bracket
+Route::post('/login/check_sg', [HomeController::class, 'check_sg_bracket'])->name('check_sg');

@@ -2,6 +2,7 @@
 @section('content')
 
 
+
     <!-- mobile transition -->
     <div class="mobile-header">
         <div class="logo-title">
@@ -93,6 +94,21 @@
 
 </div>
 <script>
+    function ckChange(ckType) {
+        var ckName = document.getElementsByClassName(ckType.className);
+
+        for (var i = 0; i < ckName.length; i++) {
+            if (!ckType.checked) {
+                ckName[i].disabled = false;
+            } else {
+                if (!ckName[i].checked) {
+                    ckName[i].disabled = true;
+                } else {
+                    ckName[i].disabled = false;
+                }
+            }
+        }
+    }
     // $("#loginform").attr("hidden", true);
     // // var $ids = $('[id="loginForm"]');
 
@@ -101,6 +117,7 @@
     // // });
     // $("#step-1").attr("hidden", true);
     // // var $ids = $('[id="loginForm"]');
+
 
     // // $ids.each(function(i, e) {
     // //     $(e).attr("hidden", true);
@@ -514,40 +531,46 @@
 
     $(document).on('submit', '#member_forms_3', function(e) {
         e.preventDefault();
-
-        $.ajax({
-            method: 'POST',
-            url: "{{ route('add_member_details') }}",
-            data: new FormData(this),
-            contentType: false,
-            processData: false,
-            success: function(data) {
-                if (data.success != '') {
-                    Swal.fire({
-                        title: 'Thank you!',
-                        text: "Registration completed",
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.open();
-                        }
-                    })
-                    $("#step-2").removeClass('d-flex').addClass("d-none");
-                    $("#step-3").removeClass('d-none').addClass("d-flex");
-                    $("#back").attr('value', 'step-2')
-                    $("#member_forms_con").removeClass('mh-reg-form');
-                    $("#member_forms_3").addClass('mh-reg-form');
-                    $(this).attr('value', 'step-end')
-                    $("#line").removeClass('step-2').addClass('step-3')
-                    $("#registration-title").text(stepTitle[2])
-                    $("#stepper-3").addClass("active")
-                } 
-            }
-        });
-
+        if ($('#terms').prop('checked')) {
+            $.ajax({
+                method: 'POST',
+                url: "{{ route('add_member_details') }}",
+                data: new FormData(this),
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if (data.success != '') {
+                        Swal.fire({
+                            title: 'Thank you!',
+                            text: "Registration completed",
+                            icon: 'success',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.open();
+                            }
+                        })
+                        $("#step-2").removeClass('d-flex').addClass("d-none");
+                        $("#step-3").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-2')
+                        $("#member_forms_con").removeClass('mh-reg-form');
+                        $("#member_forms_3").addClass('mh-reg-form');
+                        $(this).attr('value', 'step-end')
+                        $("#line").removeClass('step-2').addClass('step-3')
+                        $("#registration-title").text(stepTitle[2])
+                        $("#stepper-3").addClass("active")
+                    }
+                }
+            });
+        } else {
+            Swal.fire({
+                title: 'Terms and Conditions!',
+                text: 'Please check the terms and conditions before you proceed.',
+                icon: 'warning'
+            });
+        }
     });
 
     $(document).on('click', '#add_dependent', function() {
@@ -584,7 +607,7 @@
     });
 
     $(document).ready(function() {
-        // $('.applicationNo').hide();
+        $('.applicationNo').hide();
         var id = employee_no;
         console.log(id);
         var tableDependent = $('#dependentTable').DataTable({
@@ -658,6 +681,23 @@
                 inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 2);
             }
             $(this).val(inputValue);
+            $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                url: "{{ route('check_sg') }}",
+                type: 'POST',
+                data: {inputValue: inputValue},
+                success: function(response) {
+                    if (Object.keys(response).length > 0) {
+                    $('#salary_grade').val(response.sg_no);
+                    } else {
+                    $('#salary_grade').val('');
+                    }
+                }
+                });
         });
 
         $.getJSON('/options', function(options) {
@@ -738,5 +778,76 @@
             scrollTop: $('#leftsection').offset().top - 20
         }, 300);
     }
+    $('#cont_app').hide();
+    // status trail
+    $(document).on('click', '#search_btn', function(e) {
+        var query = $('#app_no_trail').val();
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+        url: "{{ route('status_trail') }}",
+        type: 'POST',
+        data: {query: query},
+        success: function (data) {
+            if(Object.keys(data).length > 0){
+                $("#icon_status").removeClass("fa fa-frown-o").addClass("fa fa-smile-o");
+                $('#found_remarks').text('Record has been found');
+                 $('#lname_label').text(data.lastname);
+                 $('#mname_label').text(data.middlename);
+                 $('#fname_label').text(data.firstname);
+                 $('#suffix_label').text(data.suffix);
+                 $('#bdate_label').text(data.date_birth);
+                 $('#appointment_label').text(data.appointment);
+                 $('#tin_no_label').text(data.tin_no);
+                 $('#contact_no_label').text(data.contact_no);
+                 $('#landlineno_label').text(data.landline_no);
+                 $('#email_add_label').text(data.email);
+                 $('#application_status').text(data.app_status);
+                 if(data.app_status == "DRAFT"){
+                    $('#cont_app').show();
+                    $('#print_app').hide();
+                 }else{
+                    $('#cont_app').hide();
+                    $('#print_app').show();
+                 }
+            }else{
+                alert('No application number found');
+                $('#cont_app').hide();
+                $('#print_app').show();
+                $("#icon_status").removeClass("fa fa-smile-o").addClass("fa fa-frown-o");
+                $('#found_remarks').text('Not Found');
+                $('#lname_label').text('');
+                 $('#mname_label').text('');
+                 $('#fname_label').text('');
+                 $('#suffix_label').text('');
+                 $('#bdate_label').text('');
+                 $('#appointment_label').text('');
+                 $('#tin_no_label').text('');
+                 $('#contact_no_label').text('');
+                 $('#landlineno_label').text('');
+                 $('#email_add_label').text('');
+                 $('#application_status').text('');
+            }
+            
+        }
+    });
+    });
+    $(document).on('click', '#cont_app', function(e) {
+        $("#resetPasswordForm").attr("hidden", true);
+        $("#statusTrailForm").attr("hidden", true);
+        $("#loginform").removeAttr("hidden");
+        $("#leftsection").removeClass("mw-600").removeClass("w-600");
+        setTimeout(function timout() {
+            $("#leftsection").removeClass("transition-all-cubic").addClass("transition-all");
+        }, 400)
+
+        // $("#loginform").attr("hidden", true);
+        // $("#statusTrailForm").removeAttr("hidden");
+        // $("#leftsection").removeClass("transition-all").addClass("transition-all-cubic");
+        // $("#leftsection").addClass("mw-600").addClass("w-600");
+    });
 </script>
 @endsection

@@ -18,9 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+        'first_name', 'email', 'password','password_set'
     ];
 
     /**
@@ -32,6 +30,11 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    // public function sendPasswordResetNotification($token)
+    // {
+    //     $this->notify(new Notifications\MailResetPasswordNotification($token));
+    // }
 
     /**
      * The attributes that should be cast.
