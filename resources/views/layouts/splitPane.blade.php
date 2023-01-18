@@ -264,9 +264,9 @@
     var originalData_ext;
     $(document).on('click', '#back', function(e) {
         var backValue = $(this).attr('value')
+        console.log(backValue);
         if (backValue == 'step-1') {
             originalData = $("#member_forms").serialize();
-            console.log(originalData);
             $("#step-1").removeClass('d-none').addClass("d-flex");
             $("#step-2").removeClass('d-flex').addClass("d-none");
             $("#back").attr('value', "")
@@ -305,7 +305,8 @@
     var originalData;
 
     $(document).on('click', '#next-btn', function(e) {
-        var nextValue = $(this).attr('value')
+        var nextValue = $(this).attr('value');
+        console.log($(this).attr('value'));
         if (nextValue == 'step-2') {
             $.ajaxSetup({
                 headers: {
@@ -349,13 +350,32 @@
                             },
                             complete: function(data) {
                                 $('#loading').hide();
+                                $("#step-1").removeClass('d-flex').addClass("d-none");
+                $("#member_forms").removeClass('mh-reg-form');
+                $("#member_forms_con").addClass('mh-reg-form');
+                $("#step-2").removeClass('d-none').addClass("d-flex");
+                $("#back").attr('value', 'step-1')
+                $(this).attr('value', 'step-3')
+                $("#line").removeClass('step-1').addClass('step-2')
+                $("#registration-title").text(stepTitle[1])
+                $("#stepper-2").addClass("active")
                             },
                         });
+                        $("#step-1").removeClass('d-flex').addClass("d-none");
+                        $("#member_forms").removeClass('mh-reg-form');
+                        $("#member_forms_con").addClass('mh-reg-form');
+                        $("#step-2").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-1');
+                        $(this).attr('value', 'step-3');
+                        $("#line").removeClass('step-1').addClass('step-2');
+                        $("#registration-title").text(stepTitle[1]);
+                        $("#stepper-2").addClass("active");
                     } else {
                         swal.fire("You cancelled your transaction.");
                     }
                 });
             } else {
+                console.log('stepval2');
                 if (originalData !== $("#member_forms").serialize()) {
                     Swal.fire({
                         title: 'Changes have been detected',
@@ -385,6 +405,15 @@
                                             title: 'Updates applied successfully.',
                                             icon: 'success'
                                         });
+                                        $("#step-1").removeClass('d-flex').addClass("d-none");
+                                        $("#member_forms").removeClass('mh-reg-form');
+                                        $("#member_forms_con").addClass('mh-reg-form');
+                                        $("#step-2").removeClass('d-none').addClass("d-flex");
+                                        $("#back").attr('value', 'step-1')
+                                        $(this).attr('value', 'step-3')
+                                        $("#line").removeClass('step-1').addClass('step-2')
+                                        $("#registration-title").text(stepTitle[1])
+                                        $("#stepper-2").addClass("active")
                                     }
                                 }
                             });
@@ -395,17 +424,28 @@
                         }
                     });
 
+                }else{
+                    $("#step-1").removeClass('d-flex').addClass("d-none");
+                    $("#member_forms").removeClass('mh-reg-form');
+                    $("#member_forms_con").addClass('mh-reg-form');
+                    $("#step-2").removeClass('d-none').addClass("d-flex");
+                    $("#back").attr('value', 'step-1');
+                    $(this).attr('value', 'step-3');
+                    $("#line").removeClass('step-1').addClass('step-2');
+                    $("#registration-title").text(stepTitle[1]);
+                    $("#stepper-2").addClass("active");
                 }
+                $("#step-1").removeClass('d-flex').addClass("d-none");
+                $("#member_forms").removeClass('mh-reg-form');
+                $("#member_forms_con").addClass('mh-reg-form');
+                $("#step-2").removeClass('d-none').addClass("d-flex");
+                $("#back").attr('value', 'step-1')
+                $(this).attr('value', 'step-3')
+                $("#line").removeClass('step-1').addClass('step-2')
+                $("#registration-title").text(stepTitle[1])
+                $("#stepper-2").addClass("active")
             }
-            $("#step-1").removeClass('d-flex').addClass("d-none");
-            $("#member_forms").removeClass('mh-reg-form');
-            $("#member_forms_con").addClass('mh-reg-form');
-            $("#step-2").removeClass('d-none').addClass("d-flex");
-            $("#back").attr('value', 'step-1')
-            $(this).attr('value', 'step-3')
-            $("#line").removeClass('step-1').addClass('step-2')
-            $("#registration-title").text(stepTitle[1])
-            $("#stepper-2").addClass("active")
+
         } else if (nextValue == 'step-3') {
 
             $.ajaxSetup({
@@ -433,7 +473,7 @@
                             $("#back").attr('value', 'step-2')
                             $("#member_forms_con").removeClass('mh-reg-form');
                             $("#member_forms_3").addClass('mh-reg-form');
-                            $(this).attr('value', 'step-end')
+                            // $(this).attr('value', 'step-end')
                             $("#line").removeClass('step-2').addClass('step-3')
                             $("#registration-title").text(stepTitle[2])
                             $("#stepper-3").addClass("active")
@@ -448,6 +488,7 @@
                     }
                 });
             } else {
+                console.log('asdasd');
                 if (originalData_ext !== $("#member_forms_con").serialize()) {
                     Swal.fire({
                         title: 'Changes have been detected.',
@@ -484,7 +525,7 @@
                                         $("#back").attr('value', 'step-2')
                                         $("#member_forms_con").removeClass('mh-reg-form');
                                         $("#member_forms_3").addClass('mh-reg-form');
-                                        $(this).attr('value', 'step-end')
+                                        // $(this).attr('value', 'step-end')
                                         $("#line").removeClass('step-2').addClass('step-3')
                                         $("#registration-title").text(stepTitle[2])
                                         $("#stepper-3").addClass("active")
@@ -505,7 +546,7 @@
                             $("#back").attr('value', 'step-2')
                             $("#member_forms_con").removeClass('mh-reg-form');
                             $("#member_forms_3").addClass('mh-reg-form');
-                            $(this).attr('value', 'step-end')
+                            // $(this).attr('value', 'step-end')
                             $("#line").removeClass('step-2').addClass('step-3')
                             $("#registration-title").text(stepTitle[2])
                             $("#stepper-3").addClass("active")
@@ -518,10 +559,11 @@
                     $("#back").attr('value', 'step-2')
                     $("#member_forms_con").removeClass('mh-reg-form');
                     $("#member_forms_3").addClass('mh-reg-form');
-                    $(this).attr('value', 'step-end')
+                    // $(this).attr('value', 'step-end')
                     $("#line").removeClass('step-2').addClass('step-3')
                     $("#registration-title").text(stepTitle[2])
                     $("#stepper-3").addClass("active")
+                    // console.log($("#back").val());
                 }
 
             }
@@ -613,7 +655,6 @@
         $('#proxy').hide();
 
         var id = employee_no;
-        console.log(id);
         var tableDependent = $('#dependentTable').DataTable({
             ordering: false,
             info: false,
