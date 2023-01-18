@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Storage;
 use PDF;
 use ZipArchive;
 use File;
+use DB;
 
 class PDFController extends Controller
  {
@@ -27,8 +28,16 @@ class PDFController extends Controller
         return $pdf->stream();
     }
 
-    public function generateProxyForm() {
-        $pdf = PDF::loadView( 'pdf.proxy_form' );
+    public function generateProxyForm($id) {
+        $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$id'")
+        ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+        ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+        ->leftjoin('member_signature', 'mem_app.app_no', '=', 'member_signature.app_no')
+        ->get()->first();
+
+        $data['member'] = $results;
+
+        $pdf = PDF::loadView( 'pdf.proxy_form', $data );
         $pdf->setPaper( 'A4', 'portrait' );
         return $pdf->stream();
     }

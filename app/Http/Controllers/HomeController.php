@@ -403,4 +403,18 @@ class HomeController extends Controller
       return response()->json($results);
   }
 
+  public function add_proxy(Request $request)
+  {
+    $file = $request->file('file');
+
+    $fileName = $file->getClientOriginalName();
+    $newName = $request->input('appNo').'_'.$fileName;
+    $path = $file->storeAs('signature', $newName, 'public');
+
+    $signFile['app_no'] = $request->input('appNo');
+    $signFile['sign'] = $newName;
+    $signFile['sign_path'] = '/storage/'.$path;
+    DB::table('member_signature')->insert($signFile);
+  }
+
 }
