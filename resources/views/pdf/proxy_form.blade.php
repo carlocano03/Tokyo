@@ -51,15 +51,23 @@
     </div>
     <br>
     <div style="text-align: right;">
+
+        <img src="{{ public_path().$member->sign_path }}" width="15%" alt="UPPFI">
         <hr style="width: 50%; margin-right: 0px; margin-bottom:1px;">
         Signature of Member
         <br><br><br>
+
+        {{ $member->firstname }} {{ $member->middlename }} {{ $member->lastname }}
         <hr style="width: 50%; margin-right: 0px; margin-bottom:1px;">
         Name of Member
         <br><br><br>
+
+        {{ $member->campus }}
         <hr style="width: 30%; margin-right: 0px; margin-bottom:1px;">
         Campus
         <br><br><br>
+
+        {{ date('F j, Y') }}
         <hr style="width: 30%; margin-right: 0px; margin-bottom:-5px;">
         Date
     </div>
