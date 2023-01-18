@@ -682,22 +682,24 @@
             }
             $(this).val(inputValue);
             $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
                 url: "{{ route('check_sg') }}",
                 type: 'POST',
-                data: {inputValue: inputValue},
+                data: {
+                    inputValue: inputValue
+                },
                 success: function(response) {
                     if (Object.keys(response).length > 0) {
-                    $('#salary_grade').val(response.sg_no);
+                        $('#salary_grade').val(response.sg_no);
                     } else {
-                    $('#salary_grade').val('');
+                        $('#salary_grade').val('');
                     }
                 }
-                });
+            });
         });
 
         $.getJSON('/options', function(options) {
@@ -782,58 +784,76 @@
     // status trail
     $(document).on('click', '#search_btn', function(e) {
         var query = $('#app_no_trail').val();
-    $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.ajax({
-        url: "{{ route('status_trail') }}",
-        type: 'POST',
-        data: {query: query},
-        success: function (data) {
-            if(Object.keys(data).length > 0){
-                $("#icon_status").removeClass("fa fa-frown-o").addClass("fa fa-smile-o");
-                $('#found_remarks').text('Record has been found');
-                 $('#lname_label').text(data.lastname);
-                 $('#mname_label').text(data.middlename);
-                 $('#fname_label').text(data.firstname);
-                 $('#suffix_label').text(data.suffix);
-                 $('#bdate_label').text(data.date_birth);
-                 $('#appointment_label').text(data.appointment);
-                 $('#tin_no_label').text(data.tin_no);
-                 $('#contact_no_label').text(data.contact_no);
-                 $('#landlineno_label').text(data.landline_no);
-                 $('#email_add_label').text(data.email);
-                 $('#application_status').text(data.app_status);
-                 if(data.app_status == "DRAFT"){
-                    $('#cont_app').show();
-                    $('#print_app').hide();
-                 }else{
-                    $('#cont_app').hide();
-                    $('#print_app').show();
-                 }
-            }else{
-                alert('No application number found');
-                $('#cont_app').hide();
-                $('#print_app').show();
-                $("#icon_status").removeClass("fa fa-smile-o").addClass("fa fa-frown-o");
-                $('#found_remarks').text('Not Found');
-                $('#lname_label').text('');
-                 $('#mname_label').text('');
-                 $('#fname_label').text('');
-                 $('#suffix_label').text('');
-                 $('#bdate_label').text('');
-                 $('#appointment_label').text('');
-                 $('#tin_no_label').text('');
-                 $('#contact_no_label').text('');
-                 $('#landlineno_label').text('');
-                 $('#email_add_label').text('');
-                 $('#application_status').text('');
-            }
-            
+
+        if (query != '') {
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('status_trail') }}",
+                type: 'POST',
+                data: {
+                    query: query
+                },
+                success: function(data) {
+                    if (Object.keys(data).length > 0) {
+                        $("#icon_status").removeClass("fa fa-frown-o").addClass("fa fa-smile-o");
+                        $('#found_remarks').text('Record has been found');
+                        $('#appNo_label').text(data.app_no==null ? 'N/A' : data.app_no);
+                        $('#lname_label').text(data.lastname==null ? 'N/A' : data.lastname);
+                        $('#mname_label').text(data.middlename==null ? 'N/A' : data.middlename);
+                        $('#fname_label').text(data.firstname==null ? 'N/A' : data.firstname);
+                        $('#suffix_label').text(data.suffix==null ? 'N/A' : data.suffix);
+                        $('#bdate_label').text(data.date_birth==null ? 'N/A' : data.date_birth);
+                        $('#appointment_label').text(data.appointment==null ? 'N/A' : data.appointment);
+                        $('#tin_no_label').text(data.tin_no==null ? 'N/A' : data.tin_no);
+                        $('#contact_no_label').text(data.contact_no==null ? 'N/A' : data.contact_no);
+                        $('#landlineno_label').text(data.landline_no==null ? 'N/A' : data.landline_no);
+                        $('#email_add_label').text(data.email==null ? 'N/A' : data.email);
+                        $('#application_status').text(data.app_status==null ? 'N/A' : data.app_status);
+                        if (data.app_status == "DRAFT") {
+                            $('#cont_app').show();
+                            $('#print_app').hide();
+                        } else {
+                            $('#cont_app').hide();
+                            $('#print_app').show();
+                        }
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'No application number found.',
+                            icon: 'error'
+                        });
+                        $('#cont_app').hide();
+                        $('#print_app').show();
+                        $("#icon_status").removeClass("fa fa-smile-o").addClass("fa fa-frown-o");
+                        $('#found_remarks').text('Not Found');
+                        $('#lname_label').text('');
+                        $('#mname_label').text('');
+                        $('#fname_label').text('');
+                        $('#suffix_label').text('');
+                        $('#bdate_label').text('');
+                        $('#appointment_label').text('');
+                        $('#tin_no_label').text('');
+                        $('#contact_no_label').text('');
+                        $('#landlineno_label').text('');
+                        $('#email_add_label').text('');
+                        $('#application_status').text('');
+                    }
+
+                }
+            });
+        } else {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'Please input your application number.',
+                icon: 'warning'
+            });
         }
-    });
     });
     $(document).on('click', '#cont_app', function(e) {
         $("#resetPasswordForm").attr("hidden", true);
