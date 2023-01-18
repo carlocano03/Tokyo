@@ -24,6 +24,8 @@
     padding: 30px 0px;
     position: fixed;
     z-index: 1001;
+    overflow-y: auto;
+    padding-bottom: 50px;
 }
  
 
@@ -99,8 +101,8 @@
     }
 
     .contents {
-        height: 100%;
-        overflow-y: auto;
+        /* height: 100%; */
+        /* overflow-y: auto; */
         overflow-x: hidden;
     }
 
