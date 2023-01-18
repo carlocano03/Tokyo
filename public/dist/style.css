@@ -5693,5 +5693,205 @@ tfoot {
     border-radius: 50%;
     width: 100px;
     height: 100px;
-    >>>>>>>ac209d518f079be3c29d64e7cf116fdf4e7d7810
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+}
+
+.default-padding {
+    padding: 10px;
+}
+
+.zero-padding {
+    padding: 0px;
+}
+
+.table_style {
+    color: var(--c-base);
+    padding: 10px;
+}
+
+.table_style th {
+    background-color: var(--c-primary);
+    color: white !important;
+    padding: 10px !important;
+}
+
+.button_style {
+    background-color: var(--c-primary);
+    color: white !important;
+
+    border: 1px solid var(--c-primary);
+    color: var(--c-primary);
+    font-size: .8rem;
+    font-weight: 500;
+    border-radius: 25px;
+    margin: 5px 5px 5px 5px;
+    text-transform: uppercase;
+}
+
+.button_style:hover {
+    background-color: white;
+    color: var(--c-primary) !important;
+}
+
+.bypass_padding {
+
+    padding: 5px 7px 5px 7px !important;
+}
+
+
+/*Modal CSS */
+
+.modal_title {
+    font-size: 2.2rem;
+    text-align: center;
+    color: var(--c-active-hover-bg);
+}
+
+.modal_background {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 100%;
+    height: 100%;
+}
+
+.select_style {
+    padding: 5px;
+    width: 100%;
+    border-radius: 10px;
+    border-color: var(--c-active-hover-bg);
+    color: var(--c-primary);
+    outline: 0 none;
+}
+
+.input_style {
+    width: 100%;
+    padding: 3px;
+    color: var(--c-primary);
+    outline: 0 none;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: thin;
+    border-color: var(--c-primary);
+}
+
+.gc_row {
+    margin: 10px;
+}
+
+.save-button {
+    text-align: center;
+    margin: 10px;
+}
+
+.delete_campus {
+    color: red !important
+}
+
+.delete_campus:hover {
+    border: 1px red !important;
+    transform: scale(1.1);
+}
+
+.export_campus {
+    margin: 2px;
+    float: right;
+    color: var(--c-primary);
+}
+
+.export_campus:hover {
+    color: var(--c-primary);
+    transform: scale(1.1);
+}
+
+#campusTable_wrapper {
+    margin-top: 10px;
+}
+
+#dataTables_paginate {
+    color: var(--c-primary);
+}
+
+#campusTable_filter input {
+    width: 100%;
+    margin-left: -20px;
+    padding: 3px;
+    color: var(--c-primary);
+    outline: 0 none;
+    border-radius: 10px;
+    border-style: solid;
+    border-width: thin;
+    border-color: var(--c-primary);
+}
+
+.custom_header {
+    background-color: var(--c-accent);
+    color: white;
+}
+
+.filter-text {
+    font-size: 30px;
+    margin-left: 15px;
+    margin-top: 20px;
+}
+
+.mp-top-button a {
+    background-color: var(--c-accent) !important;
+    color: white !important;
+    margin-bottom: 10px;
+    padding: 6px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.mp-top-button a:hover {
+    color: white !important;
+    transform: scale(1.2);
+}
+
+.mp-top-button {
+    margin: 20px;
+}
+
+.active-tab {
+    padding-top: 10px;
+    background-color: var(--c-accent);
+
+}
+
+.active-tab a {
+    color: white !important;
+}
+
+.unactive-tab {
+
+    background-color: white;
+    color: black;
+}
+
+#search_value {
+    width: 100%;
+    max-width: 300px;
+    margin-right: 0;
+    float: right;
+    padding: 5px;
+}
+
+
+.thead_style {
+    background-color: var(--c-primary);
+    color: white;
+    padding: 5px;
+}
+
+.mp_header_style {
+    background-color: var(--c-accent);
+    color: white !important;
+    padding: 15px;
 }

@@ -343,6 +343,7 @@
                                     $('.applicationNo').show(200);
                                     $('#application_no').text(reference_no);
                                     $('#app_no').val(reference_no);
+                                    $('#appNo').val(reference_no);
                                     $('#test').val(reference_no);
                                 }
                             },
@@ -550,6 +551,7 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 window.open();
+                                location.reload();
                             }
                         })
                         $("#step-2").removeClass('d-flex').addClass("d-none");
@@ -608,6 +610,8 @@
 
     $(document).ready(function() {
         $('.applicationNo').hide();
+        $('#proxy').hide();
+
         var id = employee_no;
         console.log(id);
         var tableDependent = $('#dependentTable').DataTable({
@@ -681,6 +685,25 @@
                 inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 2);
             }
             $(this).val(inputValue);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('check_sg') }}",
+                type: 'POST',
+                data: {
+                    inputValue: inputValue
+                },
+                success: function(response) {
+                    if (Object.keys(response).length > 0) {
+                        $('#salary_grade').val(response.sg_no);
+                    } else {
+                        $('#salary_grade').val('');
+                    }
+                }
+            });
         });
 
         $.getJSON('/options', function(options) {
@@ -761,5 +784,148 @@
             scrollTop: $('#leftsection').offset().top - 20
         }, 300);
     }
+    $('#cont_app').hide();
+    // status trail
+    $(document).on('click', '#search_btn', function(e) {
+        var query = $('#app_no_trail').val();
+
+        if (query != '') {
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('status_trail') }}",
+                type: 'POST',
+                data: {
+                    query: query
+                },
+                success: function(data) {
+                    if (Object.keys(data).length > 0) {
+                        $("#icon_status").removeClass("fa fa-frown-o").addClass("fa fa-smile-o");
+                        $('#found_remarks').text('Record has been found');
+                        $('#appNo_label').text(data.app_no == null ? 'N/A' : data.app_no);
+                        $('#lname_label').text(data.lastname == null ? 'N/A' : data.lastname);
+                        $('#mname_label').text(data.middlename == null ? 'N/A' : data.middlename);
+                        $('#fname_label').text(data.firstname == null ? 'N/A' : data.firstname);
+                        $('#suffix_label').text(data.suffix == null ? 'N/A' : data.suffix);
+                        $('#bdate_label').text(data.date_birth == null ? 'N/A' : data.date_birth);
+                        $('#appointment_label').text(data.appointment == null ? 'N/A' : data
+                            .appointment);
+                        $('#tin_no_label').text(data.tin_no == null ? 'N/A' : data.tin_no);
+                        $('#contact_no_label').text(data.contact_no == null ? 'N/A' : data
+                            .contact_no);
+                        $('#landlineno_label').text(data.landline_no == null ? 'N/A' : data
+                            .landline_no);
+                        $('#email_add_label').text(data.email == null ? 'N/A' : data.email);
+                        $('#application_status').text(data.app_status == null ? 'N/A' : data
+                            .app_status);
+                        if (data.app_status == "DRAFT") {
+                            $('#cont_app').show();
+                            $('#print_app').hide();
+                        } else {
+                            $('#cont_app').hide();
+                            $('#print_app').show();
+                        }
+                    } else {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'No application number found.',
+                            icon: 'error'
+                        });
+                        $('#cont_app').hide();
+                        $('#print_app').show();
+                        $("#icon_status").removeClass("fa fa-smile-o").addClass("fa fa-frown-o");
+                        $('#found_remarks').text('Not Found');
+                        $('#lname_label').text('');
+                        $('#mname_label').text('');
+                        $('#fname_label').text('');
+                        $('#suffix_label').text('');
+                        $('#bdate_label').text('');
+                        $('#appointment_label').text('');
+                        $('#tin_no_label').text('');
+                        $('#contact_no_label').text('');
+                        $('#landlineno_label').text('');
+                        $('#email_add_label').text('');
+                        $('#application_status').text('');
+                    }
+
+                }
+            });
+        } else {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'Please input your application number.',
+                icon: 'warning'
+            });
+        }
+    });
+    $(document).on('click', '#cont_app', function(e) {
+        $("#resetPasswordForm").attr("hidden", true);
+        $("#statusTrailForm").attr("hidden", true);
+        $("#loginform").removeAttr("hidden");
+        $("#leftsection").removeClass("mw-600").removeClass("w-600");
+        setTimeout(function timout() {
+            $("#leftsection").removeClass("transition-all-cubic").addClass("transition-all");
+        }, 400)
+
+        // $("#loginform").attr("hidden", true);
+        // $("#statusTrailForm").removeAttr("hidden");
+        // $("#leftsection").removeClass("transition-all").addClass("transition-all-cubic");
+        // $("#leftsection").addClass("mw-600").addClass("w-600");
+    });
+
+    $(document).on('click', '#save_sign', function() {
+        var id = reference_no;
+        var files = $('#file')[0].files;
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var fd = new FormData();
+        fd.append('file', files[0]);
+        fd.append('appNo', id);
+
+        if (files.length > 0) {
+            $.ajax({
+                method: 'POST',
+                url: "{{ route('add_proxyForm') }}",
+                data: fd,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    if (data.success != '') {
+                        var url = "{{ URL::to('/generateProxyForm/') }}" + '/' +
+                            id; //YOUR CHANGES HERE...
+                        window.open(url, '_blank');
+                    }
+                }
+            });
+        } else {
+            Swal.fire({
+                title: 'Warning!',
+                text: 'Please upload your signature.',
+                icon: 'warning'
+            });
+        }
+    });
+
+    $(document).on('click', '#generateForm', function() {
+        if($(this).prop('checked')) {
+            $('#proxy').show(300);
+            $('.supporting_docu').hide(300);
+            $('#document').attr('required', false);
+        } else {
+            $('#proxy').hide(300);
+            $('.supporting_docu').show(300);
+            $('#document').attr('required', true);
+        }
+    });
 </script>
 @endsection

@@ -40,12 +40,12 @@ class HomeController extends Controller
   {
     $datadb = DB::transaction(function () use ($request) {
       $addBeneficiaries = array(
-        'fullname'  => $request->input('name'),
+        'fullname'  => strtoupper($request->input('name')),
         'date_birth' => $request->input('bday'),
-        'relationship' => $request->input('relation'),
+        'relationship' => strtoupper($request->input('relation')),
         'personal_id'  => $request->input('employee_no'),
       );
-      $dependent = Beneficiaries::where('fullname', $request->input('name'));
+      $dependent = Beneficiaries::where('fullname', strtoupper($request->input('name')));
       if ($dependent->first()) {
         $message = 'Exists';
       } else {
@@ -83,19 +83,19 @@ class HomeController extends Controller
       
       if ($request->input('perm_add_check') != 1) {
         $inserts = array(
-          'lastname' => $request->input('lastname'),
-          'middlename' => $request->input('middlename'),
-          'firstname' => $request->input('firstname'),
+          'lastname' => strtoupper($request->input('lastname')),
+          'middlename' => strtoupper($request->input('middlename')),
+          'firstname' => strtoupper($request->input('firstname')),
           'date_birth' => $request->input('date_birth'),
-          'suffix' => $request->input('suffix'),
+          'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
-          'citizenship' => $request->input('citizenship'),
-          'dual_citizenship' => $request->input('dual_citizenship'),
+          'citizenship' => strtoupper($request->input('citizenship')),
+          'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
           'province' => $request->input('province'),
           'municipality' => $request->input('municipality'),
           'barangay' => $request->input('barangay'),
-          'bldg_street' => $request->input('bldg_street'),
+          'bldg_street' => strtoupper($request->input('bldg_street')),
           'zipcode' => $request->input('zipcode'),
           'present_province' => $request->input('present_province'),
           'present_municipality' => $request->input('present_municipality'),
@@ -108,19 +108,19 @@ class HomeController extends Controller
         );
       } else {
         $inserts = array(
-          'lastname' => $request->input('lastname'),
-          'middlename' => $request->input('middlename'),
-          'firstname' => $request->input('firstname'),
+          'lastname' => strtoupper($request->input('lastname')),
+          'middlename' => strtoupper($request->input('middlename')),
+          'firstname' => strtoupper($request->input('firstname')),
           'date_birth' => $request->input('date_birth'),
-          'suffix' => $request->input('suffix'),
+          'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
-          'citizenship' => $request->input('citizenship'),
-          'dual_citizenship' => $request->input('dual_citizenship'),
+          'citizenship' => strtoupper($request->input('citizenship')),
+          'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
           'province' => $request->input('province'),
           'municipality' => $request->input('municipality'),
           'barangay' => $request->input('barangay'),
-          'bldg_street' => $request->input('bldg_street'),
+          'bldg_street' => strtoupper($request->input('bldg_street')),
           'zipcode' => $request->input('zipcode'),
           'present_province' => $request->input('present_province'),
           'present_municipality' => $request->input('present_municipality'),
@@ -168,19 +168,19 @@ class HomeController extends Controller
     $datadb = DB::transaction(function () use ($request) {
       if ($request->input('perm_add_check') != 1) {
         $inserts = array(
-          'lastname' => $request->input('lastname'),
-          'middlename' => $request->input('middlename'),
-          'firstname' => $request->input('firstname'),
+          'lastname' => strtoupper($request->input('lastname')),
+          'middlename' => strtoupper($request->input('middlename')),
+          'firstname' => strtoupper($request->input('firstname')),
           'date_birth' => $request->input('date_birth'),
-          'suffix' => $request->input('suffix'),
+          'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
-          'citizenship' => $request->input('citizenship'),
-          'dual_citizenship' => $request->input('dual_citizenship'),
+          'citizenship' => strtoupper($request->input('citizenship')),
+          'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
           'province' => $request->input('province'),
           'municipality' => $request->input('municipality'),
           'barangay' => $request->input('barangay'),
-          'bldg_street' => $request->input('bldg_street'),
+          'bldg_street' => strtoupper($request->input('bldg_street')),
           'zipcode' => $request->input('zipcode'),
           'present_province' => $request->input('present_province'),
           'present_municipality' => $request->input('present_municipality'),
@@ -193,19 +193,19 @@ class HomeController extends Controller
         );
       } else {
         $inserts = array(
-          'lastname' => $request->input('lastname'),
-          'middlename' => $request->input('middlename'),
-          'firstname' => $request->input('firstname'),
+          'lastname' => strtoupper($request->input('lastname')),
+          'middlename' => strtoupper($request->input('middlename')),
+          'firstname' =>strtoupper($request->input('firstname')),
           'date_birth' => $request->input('date_birth'),
-          'suffix' => $request->input('suffix'),
+          'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
-          'citizenship' => $request->input('citizenship'),
-          'dual_citizenship' => $request->input('dual_citizenship'),
+          'citizenship' => strtoupper($request->input('citizenship')),
+          'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
           'province' => $request->input('present_province'),
           'municipality' => $request->input('present_municipality'),
           'barangay' => $request->input('present_barangay'),
-          'bldg_street' => $request->input('present_bldg_street'),
+          'bldg_street' => strtoupper($request->input('present_bldg_street')),
           'zipcode' => $request->input('present_zipcode'),
           'present_province' => $request->input('present_province'),
           'present_municipality' => $request->input('present_municipality'),
@@ -379,6 +379,42 @@ class HomeController extends Controller
   {
     $options = DB::table('campus')->select('campus_key', 'name')->get();
         return response()->json($options);
+  }
+
+
+  public function search_app_trail(Request $request)
+  {
+      $query = $request->input('query');
+      $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$query'")
+      ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->get()->first();
+    
+      return response()->json($results);
+  }
+
+  public function check_sg_bracket(Request $request)
+  {
+      $query = str_replace(',', '',$request->input('inputValue'));
+      $results = DB::table('ref_salarygrade')->select('sg_no')->where('min_bracket','<=', $query)
+      ->where('max_bracket','>=', $query)
+      ->get()->first();
+      // print_r($query);
+      return response()->json($results);
+  }
+
+  public function add_proxy(Request $request)
+  {
+    $file = $request->file('file');
+
+    $fileName = $file->getClientOriginalName();
+    $newName = $request->input('appNo').'_'.$fileName;
+    $path = $file->storeAs('signature', $newName, 'public');
+
+    $signFile['app_no'] = $request->input('appNo');
+    $signFile['sign'] = $newName;
+    $signFile['sign_path'] = '/storage/'.$path;
+    DB::table('member_signature')->insert($signFile);
   }
 
 }

@@ -51,6 +51,7 @@ Route::post('/login/add_member_con', [HomeController::class, 'add_member_p2'])->
 Route::post('/login/add_member_details', [HomeController::class, 'add_member_p3'])->name('add_member_details');
 Route::post('/login/add_member_con_up', [HomeController::class, 'add_member_up_p2'])->name('add_member_con_up');
 Route::post('/login/add_member_update', [HomeController::class, 'add_member_update1'])->name('add_member_update');
+Route::post('/login/add_proxy', [HomeController::class, 'add_proxy'])->name('add_proxyForm');
 
 
 Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciaries'])->name('add_benefeciaries');
@@ -73,5 +74,11 @@ Route::get('/member/member', [MemberController::class, 'dashboard'])->name('memb
 
 //PDF Generation
 Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
-Route::get('/generateProxyForm', [PDFController::class, 'generateProxyForm'])->name('generateProxyForm');
+Route::get('/generateProxyForm/{id}', [PDFController::class, 'generateProxyForm']);
 Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('download_form');
+
+// check status trail
+Route::post('/login/status_trail', [HomeController::class, 'search_app_trail'])->name('status_trail');
+
+// slarygrade bracket
+Route::post('/login/check_sg', [HomeController::class, 'check_sg_bracket'])->name('check_sg');
