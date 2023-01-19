@@ -95,22 +95,22 @@
 </div>
 <script>
     window.onload = function() {
-        setInterval(function() {
+        setTimeout(function() {
             $('.mobile-header').hide(300);
         }, 1000);
     };
 
     //CONDITION TO DETECT SYSTEM
     if (window.navigator.userAgent.indexOf("Mobile") > -1) {
-        setTimeout(function() {
+        setInterval(function() {
             $('.mobile-header').hide(300);
         }, 2000);
     }
 
     // if ($(window).width() < 768) {
-    //     setTimeout(function() {
+    //     setInterval(function() {
     //         $('.mobile-header').hide(300);
-    //     }, 1000);
+    //     }, 3000);
     // }
 
 
