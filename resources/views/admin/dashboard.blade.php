@@ -495,11 +495,11 @@
                 <button class="mp-button up-button" style="padding: 4px 16px;">View my Profile</button>
               </div>
             </div>
-            <div class="image-profile items-center" style="width: 100%; height: 100%; ">
+            <!-- <div class="image-profile items-center" style="width: 100%; height: 100%; ">
               <div class="" style="width: 100%; height: 100%; background-color: blue; color: white">
                 image here
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-12">

@@ -27,7 +27,13 @@ class PDFController extends Controller
         $pdf->setPaper( 'A4', 'portrait' );
         return $pdf->stream();
     }
-
+    
+    public function memberform() {
+        $pdf = PDF::loadView( 'pdf.member_form' );
+        $pdf->setPaper( 'A4', 'portrait' );
+        return $pdf->stream();
+    }
+    
     public function generateProxyForm($id) {
         $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$id'")
         ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
