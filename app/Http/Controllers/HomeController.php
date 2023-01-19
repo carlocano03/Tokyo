@@ -270,10 +270,6 @@ class HomeController extends Controller
 
   public function add_member_up_p2(Request $request)
   {
-    $employee = DB::table('employee_details')->where('employee_no', $request->input('employee_no'))->first();
-    if ($employee) {
-      return response()->json(['success' => '']);
-    } else {
       $datadb = DB::transaction(function () use ($request) {
         $inserts = array(
           'campus' => $request->input('campus'),
@@ -304,7 +300,7 @@ class HomeController extends Controller
         ];
       });
       return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
-    }
+
   }
 
   public function add_member_p3(Request $request)

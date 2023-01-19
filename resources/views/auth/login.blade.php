@@ -41,7 +41,11 @@
             <label class="mp-input-group__label" for="password">Password</label>
             <input class="mp-input-group__input mp-text-field" type="password" id="password" name="password" required />
         </div>
-
+        <div class="col col-auto">
+            <div class="row">
+                <button type="submit" class="mp-button mp-button--accent">Login</button>
+            </div>
+        </div>
         <div class="mp-pt3 row justify-content-between grid mp-pv-1">
 
             <div class="col">
@@ -65,11 +69,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col col-auto">
-                <div class="row">
-                    <button type="submit" class="mp-button mp-button--accent">Login</button>
-                </div>
-            </div>
+            
 
 
         </div>
@@ -355,11 +355,11 @@
                     <input type="radio" value="DUAL CITIZENSHIP" id="citizenship" name="citizenship" />
                     <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Dual
                         Citizenship</label>
-                    <input type="radio" value="OTHERS" id="citizenship_o" name="citizenship" />
+                    <input type="radio" value="OTHERS" id="citizenship" name="citizenship" />
                     <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 5px;">Others</label>
                 </div>
                 <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
-                <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" />
+                <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" id="d_citizen" disabled/>
             </div>
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Present Address</label><br>
@@ -529,17 +529,18 @@
             </div>
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Salary Grade Category</label>
-                <select class="mp-input-group__input mp-text-field" name="sg_category">
+                <input class="mp-input-group__input mp-text-field" type="text" name="sg_category" id="sg_category"
+                    readonly />
+                {{-- <select class="mp-input-group__input mp-text-field" name="sg_category">
                     <option>Select Category</option>
                     <option>Yayamanin</option>
-                </select>
+                </select> --}}
             </div>
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Taxpayer Identification Number (TIN)</label>
                 <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
             </div>
-            <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-2"
-                id="next-btn">
+            <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-3" id="next-btn">
                 <span>Next</span>
             </a>
         </div>
@@ -568,7 +569,7 @@
                 </div>
                 <input class="mp-input-group__input mp-text-field" type="number" name="percentage_bsalary"
                     id="percentage_bsalary" />
-                <label class="mp-input-group__label" style="margin-top: 5px;">Total: </label><label
+                <label class="mp-input-group__label" style="margin-top: 5px;">Equivalent:</label> <label
                     class="mp-input-group__label" id="computed_amount" style="margin-top: 5px;"></label>
             </div>
             <div class="mp-input-group">
@@ -656,13 +657,11 @@
                     </label>
                 </div>
                 {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
-                <button class="up-button btn-md button-animate-right mp-text-center" type="submit">
-                    <span>Submit</span>
-                </button>
                 <hr>
-
             </div>
-
+            <button class="up-button btn-md button-animate-right mp-text-center" type="submit" id="next-btn">
+                <span>Submit</span>
+            </button>
         </div>
     </form>
 @endsection
