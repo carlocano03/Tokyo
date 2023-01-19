@@ -492,14 +492,14 @@
                 Welcome! {{ Auth::user()->last_name }} {{ Auth::user()->first_name }}
               </label>
               <div style="margin-top: auto" class="mp-mb1">
-                <button class="mp-button up-button" style="padding: 4px 16px;">View my Profile</button>
+                <button class="mp-button up-button-green" style="padding: 4px 16px;">View my Profile</button>
               </div>
             </div>
-            <div class="image-profile items-center" style="width: 100%; height: 100%; ">
+            <!-- <div class="image-profile items-center" style="width: 100%; height: 100%; ">
               <div class="" style="width: 100%; height: 100%; background-color: blue; color: white">
                 image here
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
         <div class="col-12">
@@ -539,7 +539,7 @@
                     <span class="mp-text-fs-xlarge total-loans-child" id="totalMember">100</span>
                   </span>
                   <span class="ml-auto total-loans-child">
-                    <button href="{{ url('/admin/members') }}" style="height: 25px;" class=" mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small up-button">
+                    <button href="{{ url('/admin/members') }}" style="height: 25px;" class=" mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small up-button-green">
                       <!-- mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small -->
                       View All Members
                     </button>
@@ -560,7 +560,7 @@
                     <span class="mp-text-fs-xlarge total-loans-child" id="totalMember">100m</span>
                   </span>
                   <span class="ml-auto total-loans-child">
-                    <button href="{{ url('/admin/members') }}" style="height: 25px;" class="mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small up-button">
+                    <button href="{{ url('/admin/members') }}" style="height: 25px;" class="mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small up-button-green">
                       <!-- mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small -->
                       View All Loans
                     </button>
@@ -576,25 +576,25 @@
     <div class="right-dashboard col grid side-dashboard gap-10">
       <div class="card">
         <div class="content-right">
-          <label for="">New application</label>
+          <label for="" class="mp-text-c-gray">New application</label>
           <label for="" style="margin-top: auto; min-width: 70px"><span class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span> 20</label>
         </div>
       </div>
       <div class="card">
         <div class="content-right">
-          <label for="">For approval application</label>
+          <label for="" class="mp-text-c-gray">For approval application</label>
           <label for="" style="margin-top: auto; min-width: 70px"><span class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span> 20</label>
         </div>
       </div>
       <div class="card">
         <div class="content-right">
-          <label for="">Incomplete application</label>
+          <label for="" class="mp-text-c-gray">Incomplete application</label>
           <label for="" style="margin-top: auto; min-width: 70px"><span class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span> 20</label>
         </div>
       </div>
       <div class="card">
         <div class="content-right">
-          <label for="">Rejected application</label>
+          <label for="" class="mp-text-c-gray">Rejected application</label>
           <label for="" style="margin-top: auto; min-width: 70px"><span class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span> 20</label>
         </div>
       </div>

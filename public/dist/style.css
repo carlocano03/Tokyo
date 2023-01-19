@@ -5256,17 +5256,15 @@ tfoot {
 .up-button {
     background-color: var(--c-accent) !important;
     color: white !important;
-    <<<<<<< HEAD
+
 }
 
-
-
-
-
-=======
+.up-button-green {
+    background-color: var(--c-primary) !important;
+    color: white !important;
 }
 
->>>>>>>479ff9520d959c66621e8cccb1c4fadcbcef8421 .transition-background {
+.transition-background {
     /* padding: 100%; */
 
     height: 100%;
@@ -5894,4 +5892,10 @@ tfoot {
     background-color: var(--c-accent);
     color: white !important;
     padding: 15px;
+}
+
+.univ-title {
+    font-size: 2.0vw;
+    margin-left: -20px;
+    margin-bottom: -5px;
 }
