@@ -652,6 +652,7 @@
 
     $(document).ready(function() {
         $('.applicationNo').hide();
+        $('.status-result').hide();
         $('#proxy').hide();
 
         var id = employee_no;
@@ -725,6 +726,9 @@
             if (decimalAdded[1] && decimalAdded[1].length > 2) {
                 inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 2);
             }
+            if (inputValue == '') {
+                $('#sg_category').val('');
+            }
             $(this).val(inputValue);
             $.ajaxSetup({
                 headers: {
@@ -740,6 +744,11 @@
                 success: function(response) {
                     if (Object.keys(response).length > 0) {
                         $('#salary_grade').val(response.sg_no);
+                        if (response.sg_no <= '15') {
+                            $('#sg_category').val('1-15');
+                        } else {
+                            $('#sg_category').val('16-33');
+                        }
                     } else {
                         $('#salary_grade').val('');
                     }
@@ -790,6 +799,8 @@
             $('#fixed_amount').prop('disabled', true);
         } else {
             $('#fixed_amount').prop('disabled', false);
+            $('#percentage_bsalary').val('');
+            $('#computed_amount').text('');
         }
     });
     $(document).on('click', '#fixed_amount_check', function(e) {
@@ -797,6 +808,16 @@
             $('#percentage_bsalary').prop('disabled', true);
         } else {
             $('#percentage_bsalary').prop('disabled', false);
+            $('#fixed_amount').val('');
+        }
+    });
+    $(document).on('click', '#citizenship', function(e) {
+        var citizen = $(this).val();
+        if (citizen == 'DUAL CITIZENSHIP') {
+            $('#d_citizen').prop('disabled', false);
+        } else {
+            $('#d_citizen').prop('disabled', true);
+            $('#d_citizen').val('');
         }
     });
 
@@ -846,6 +867,7 @@
                 },
                 success: function(data) {
                     if (Object.keys(data).length > 0) {
+                        $('.status-result').show(200);
                         $("#icon_status").removeClass("fa fa-frown-o").addClass("fa fa-smile-o");
                         $('#found_remarks').text('Record has been found');
                         $('#appNo_label').text(data.app_no == null ? 'N/A' : data.app_no);
