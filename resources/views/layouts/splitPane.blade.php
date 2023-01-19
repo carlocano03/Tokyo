@@ -94,18 +94,29 @@
 
 </div>
 <script>
-    // $(window).load(function() {
+    window.onload = function() {
+        setInterval(function() {
+            $('.mobile-header').hide(300);
+        }, 1000);
+    };
+
+    //CONDITION TO DETECT SYSTEM
+    if (window.navigator.userAgent.indexOf("Mobile") > -1) {
+        setTimeout(function() {
+            $('.mobile-header').hide(300);
+        }, 2000);
+    }
+
+    // if ($(window).width() < 768) {
     //     setTimeout(function() {
-    //     $('.mobile-header').hide(300);
-    // }, 1000);
-    //     });
-    setTimeout(function() {
-        $('.mobile-header').hide(300);
-    }, 1000);
+    //         $('.mobile-header').hide(300);
+    //     }, 1000);
+    // }
+
+
 
     function ckChange(ckType) {
         var ckName = document.getElementsByClassName(ckType.className);
-
         for (var i = 0; i < ckName.length; i++) {
             if (!ckType.checked) {
                 ckName[i].disabled = false;
@@ -369,14 +380,14 @@
                             complete: function(data) {
                                 $('#loading').hide();
                                 $("#step-1").removeClass('d-flex').addClass("d-none");
-                $("#member_forms").removeClass('mh-reg-form');
-                $("#member_forms_con").addClass('mh-reg-form');
-                $("#step-2").removeClass('d-none').addClass("d-flex");
-                $("#back").attr('value', 'step-1')
-                $(this).attr('value', 'step-3')
-                $("#line").removeClass('step-1').addClass('step-2')
-                $("#registration-title").text(stepTitle[1])
-                $("#stepper-2").addClass("active")
+                                $("#member_forms").removeClass('mh-reg-form');
+                                $("#member_forms_con").addClass('mh-reg-form');
+                                $("#step-2").removeClass('d-none').addClass("d-flex");
+                                $("#back").attr('value', 'step-1')
+                                $(this).attr('value', 'step-3')
+                                $("#line").removeClass('step-1').addClass('step-2')
+                                $("#registration-title").text(stepTitle[1])
+                                $("#stepper-2").addClass("active")
                             },
                         });
                         $("#step-1").removeClass('d-flex').addClass("d-none");
@@ -423,10 +434,12 @@
                                             title: 'Updates applied successfully.',
                                             icon: 'success'
                                         });
-                                        $("#step-1").removeClass('d-flex').addClass("d-none");
+                                        $("#step-1").removeClass('d-flex').addClass(
+                                            "d-none");
                                         $("#member_forms").removeClass('mh-reg-form');
                                         $("#member_forms_con").addClass('mh-reg-form');
-                                        $("#step-2").removeClass('d-none').addClass("d-flex");
+                                        $("#step-2").removeClass('d-none').addClass(
+                                            "d-flex");
                                         $("#back").attr('value', 'step-1')
                                         $(this).attr('value', 'step-3')
                                         $("#line").removeClass('step-1').addClass('step-2')
@@ -442,7 +455,7 @@
                         }
                     });
 
-                }else{
+                } else {
                     $("#step-1").removeClass('d-flex').addClass("d-none");
                     $("#member_forms").removeClass('mh-reg-form');
                     $("#member_forms_con").addClass('mh-reg-form');
@@ -998,7 +1011,7 @@
     });
 
     $(document).on('click', '#generateForm', function() {
-        if($(this).prop('checked')) {
+        if ($(this).prop('checked')) {
             $('#proxy').show(300);
             $('.supporting_docu').hide(300);
             $('#document').attr('required', false);
