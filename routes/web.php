@@ -76,6 +76,7 @@ Route::get('/member/member', [MemberController::class, 'dashboard'])->name('memb
 Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
 Route::get('/generateProxyForm/{id}', [PDFController::class, 'generateProxyForm']);
 Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('download_form');
+Route::get('/memberform', [PDFController::class, 'memberform'])->name('memberform');
 
 // check status trail
 Route::post('/login/status_trail', [HomeController::class, 'search_app_trail'])->name('status_trail');
