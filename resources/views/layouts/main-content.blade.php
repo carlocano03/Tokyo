@@ -85,7 +85,9 @@
 .wrapper .main_content .header {
     /* padding: 20px; */
     display:none;
-    background-color: var(--c-primary-80);
+    /* background-color: var(--c-primary-80); */
+    background: rgb(137,65,104);
+    background: linear-gradient(90deg, rgba(137,65,104,1) 8%, rgba(26,137,129,1) 98%);
     border-bottom: 1px solid #e0e4e8;
     border-bottom: 1px solid #e0e4e8;
 }
