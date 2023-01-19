@@ -105,9 +105,12 @@
         width: 100%;
         z-index: 10;
         background-color: white;
+       
 
     }
-
+    .header label {
+       font-size: 1.3rem;
+    }
     .contents {
         /* height: 100%; */
         /* overflow-y: auto; */
@@ -347,7 +350,7 @@
                     <a href="/">
                         <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
                     </a>
-                    <a class="mp-link mp-link--primary" href="/">
+                    <a class="univ-title" href="/">
                         University of the Philippines Provident Fund Inc.
                     </a>
                     <a href="#">
