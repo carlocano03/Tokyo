@@ -47,7 +47,6 @@
             </div>
         </div>
         <div class="mp-pt3 row justify-content-between grid mp-pv-1">
-
             <div class="col">
                 <div class="row flex-column">
 
@@ -56,22 +55,25 @@
                     </label>
                     <br />
                     <br />
-                    <label class="mp-text-fs-small">
-                        <span>If you are not yet a member? </span><span class="mp-link link_style" id="register">Click
-                            here</span>
-                    </label>
-                    <label class="mp-text-fs-small">
-                        <span>Do you want to check your application status? </span><span class="mp-link link_style"
-                            id="status_trail">Click here</span>
-                    </label>
-                    <a class="mp-text-fs-small mp-link link_style" href="https://www.upprovidentfund.com/">
-                        Back to www.upprovidentfund.com
-                    </a>
+                    @if (Request::route()->getName() == 'admin')
+                        <a class="mp-text-fs-small mp-link link_style" href="https://www.upprovidentfund.com/">
+                            Back to www.upprovidentfund.com
+                        </a>
+                    @else
+                        <label class="mp-text-fs-small">
+                            <span>If you are not yet a member? </span><span class="mp-link link_style" id="register">Click
+                                here</span>
+                        </label>
+                        <label class="mp-text-fs-small">
+                            <span>Do you want to check your application status? </span><span class="mp-link link_style"
+                                id="status_trail">Click here</span>
+                        </label>
+                        <a class="mp-text-fs-small mp-link link_style" href="https://www.upprovidentfund.com/">
+                            Back to www.upprovidentfund.com
+                        </a>
+                    @endif
                 </div>
             </div>
-            
-
-
         </div>
 
     </form>
@@ -269,22 +271,22 @@
 @section('registration-personal-form')
     <div class="d-flex gap-10 mp-pt2 bg-white flex-column ">
         <!-- <div style="width: 100%;" class="d-flex gap-10">
-                    <div class="ml-auto">
-                        <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
-                    </div>
-                    <div class="d-flex flex-column justify-content-center mr-auto">
-                        <div class="mp-mt2 up-color reg-title">University of the Philippines <br /> Provident Fund Inc.</div>
-                        <span>Online Membership Application</span>
-                    </div>
-                </div> -->
+                        <div class="ml-auto">
+                            <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+                        </div>
+                        <div class="d-flex flex-column justify-content-center mr-auto">
+                            <div class="mp-mt2 up-color reg-title">University of the Philippines <br /> Provident Fund Inc.</div>
+                            <span>Online Membership Application</span>
+                        </div>
+                    </div> -->
         <div class="mp-mt2 mp-mt2 ">
 
             <a class="up-button btn-md button-animate-left hover-back" id="back" value="">
                 <span>Back</span>
             </a>
             <!-- <a class="up-color" id="back" value="">
-                               <span > <i class="fa fa-chevron-left" aria-hidden="true"></i> Back</span>
-                    </a>  -->
+                                   <span > <i class="fa fa-chevron-left" aria-hidden="true"></i> Back</span>
+                        </a>  -->
         </div>
         <div class="mp-mt2 up-color reg-title mp-text-center">
             Online Membership Application
@@ -359,7 +361,8 @@
                     <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 5px;">Others</label>
                 </div>
                 <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
-                <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" id="d_citizen" disabled/>
+                <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" id="d_citizen"
+                    disabled />
             </div>
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Present Address</label><br>
@@ -459,7 +462,7 @@
         <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form mp-pv2 shadow-inset-1" id="step-2">
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Campus</label>
-                <select class="mp-input-group__input mp-text-field" name="campus" id="campus">
+                <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
                     <option>Select Campus</option>
                     {{-- @foreach ($campuses as $row)
                     <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
@@ -490,7 +493,7 @@
             </div>
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Department</label>
-                <select class="mp-input-group__input mp-text-field" name="department">
+                <select class="mp-input-group__input mp-text-field" name="department" required>
                     <option>Select Department</option>
                     <option>DEPED </option>
                 </select>
@@ -508,7 +511,7 @@
             </div>
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Appointment Status</label>
-                <select class="mp-input-group__input mp-text-field" name="appointment">
+                <select class="mp-input-group__input mp-text-field" name="appointment" required>
                     <option>Select Status</option>
                     <option>Regular Employee</option>
                 </select>
@@ -623,8 +626,8 @@
                 </div>
                 <div class="mp-input-group">
                     {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="documents[]" required accept="application/pdf" multiple/> --}}
-                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" id="document" name="documents[]" required
-                        accept="application/pdf" multiple />
+                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" id="document" name="documents[]"
+                        required accept="application/pdf" multiple />
                 </div>
             </div>
 

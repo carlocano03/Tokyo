@@ -116,6 +116,7 @@
                 <label class="p-sex">SEX</label>
                 <div class="checkbox_male">
                      <input type="checkbox" checked>
+
                      <label class="p-male">Male</label>
                 </div>
                
@@ -126,7 +127,9 @@
              </div>
              
              <div class="civil_status">
+
                 <label class="p-civil_status">CIVIL STATUS</label>
+
                 <div class="checkbox_Single">
                     <input type="checkbox" >
                     <label class="p-single">Single</label>
@@ -194,6 +197,11 @@
                 
              </div>
 
+             </div>
+
+             <div class="citizenship">
+                <label class="p-civil_status">SEX</label>
+             </div>
              
         </div>
 
