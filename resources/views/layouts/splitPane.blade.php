@@ -342,6 +342,17 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            var empty = $('#member_forms').find("input[required]").filter(function(){
+                return !$.trim($(this).val()).length; 
+            });
+            if(empty.length){
+                // var emptyFields = [];
+                // empty.each(function() {
+                // emptyFields.push($(this).attr("id"));
+                // });
+                empty.first().focus();
+                swal.fire("Error!", "Please fill out the required fields", "error");
+            }else{
             if (!personnel_id) {
                 Swal.fire({
                     title: 'Are you sure?',
@@ -379,15 +390,6 @@
                             },
                             complete: function(data) {
                                 $('#loading').hide();
-                                $("#step-1").removeClass('d-flex').addClass("d-none");
-                                $("#member_forms").removeClass('mh-reg-form');
-                                $("#member_forms_con").addClass('mh-reg-form');
-                                $("#step-2").removeClass('d-none').addClass("d-flex");
-                                $("#back").attr('value', 'step-1')
-                                $(this).attr('value', 'step-3')
-                                $("#line").removeClass('step-1').addClass('step-2')
-                                $("#registration-title").text(stepTitle[1])
-                                $("#stepper-2").addClass("active")
                             },
                         });
                         $("#step-1").removeClass('d-flex').addClass("d-none");
@@ -434,17 +436,6 @@
                                             title: 'Updates applied successfully.',
                                             icon: 'success'
                                         });
-                                        $("#step-1").removeClass('d-flex').addClass(
-                                            "d-none");
-                                        $("#member_forms").removeClass('mh-reg-form');
-                                        $("#member_forms_con").addClass('mh-reg-form');
-                                        $("#step-2").removeClass('d-none').addClass(
-                                            "d-flex");
-                                        $("#back").attr('value', 'step-1')
-                                        $(this).attr('value', 'step-3')
-                                        $("#line").removeClass('step-1').addClass('step-2')
-                                        $("#registration-title").text(stepTitle[1])
-                                        $("#stepper-2").addClass("active")
                                     }
                                 }
                             });
@@ -455,16 +446,6 @@
                         }
                     });
 
-                } else {
-                    $("#step-1").removeClass('d-flex').addClass("d-none");
-                    $("#member_forms").removeClass('mh-reg-form');
-                    $("#member_forms_con").addClass('mh-reg-form');
-                    $("#step-2").removeClass('d-none').addClass("d-flex");
-                    $("#back").attr('value', 'step-1');
-                    $(this).attr('value', 'step-3');
-                    $("#line").removeClass('step-1').addClass('step-2');
-                    $("#registration-title").text(stepTitle[1]);
-                    $("#stepper-2").addClass("active");
                 }
                 $("#step-1").removeClass('d-flex').addClass("d-none");
                 $("#member_forms").removeClass('mh-reg-form');
@@ -476,7 +457,7 @@
                 $("#registration-title").text(stepTitle[1])
                 $("#stepper-2").addClass("active")
             }
-
+        }
         } else if (nextValue == 'step-3') {
 
             $.ajaxSetup({
@@ -484,7 +465,17 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
+            var empty = $('#member_forms_con').find("input[required]").filter(function(){
+                return !$.trim($(this).val()).length; 
+            });
+            if(empty.length){
+                // var emptyFields = [];
+                // empty.each(function() {
+                // emptyFields.push($(this).attr("id"));
+                // });
+                empty.first().focus();
+                swal.fire("Error!", "Please fill out the required fields", "error");
+            }else{
             if (!employee_details_ID) {
                 var formData = $("#member_forms_con").serialize();
                 var additionalData = {
@@ -599,6 +590,7 @@
 
             }
 
+        }
         }
         scrollToTop()
     });
@@ -822,6 +814,7 @@
                 });
             }
         } else {
+            $('#same_add').val('');
             $('.same_div').show();
         }
     });
