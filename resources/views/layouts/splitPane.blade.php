@@ -99,6 +99,7 @@
             $('.mobile-header').hide(300);
         }, 1000);
     };
+    
     if ($(window).width() < 768) {
         $('.mobile-header').show();
         window.onload = function() {
