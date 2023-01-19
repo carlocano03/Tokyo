@@ -317,7 +317,7 @@
             <ul>
                 <li>
                     <a href="/admin/dashboard" class="{{ Request::is('admin/dashboard') ? 'active-nav' : '' }}"><i
-                            class="fa fa-home "></i>Membership Application</a>
+                            class="fa fa-home "></i>Dashboard</a>
                 </li>
                 <div class="dropdown" id="dropdown">
                     <div class="nav-parent ">
@@ -329,8 +329,9 @@
                     </div>
                     <div class="nav-child">
                         <div class="dropdown-hide" id="membersDropdown-content">
-                            <li><a href="#"><i class="fa fa-user"></i>Members</a></li>
-                            <li><a href="#"><i class="fa fa-user"></i>Members</a></li>
+                        <li><a href="/admin/members/records" class="{{ Request::is('admin/members/records') ? 'active-nav' : '' }}"><i class="fa fa-user"></i>View Records</a></li>
+                        <li><a href="#"><i class="fa fa-user"></i>Application Trail</a></li>
+                        <li><a href="#"><i class="fa fa-user"></i>Generate Report</a></li>
                         </div>
                     </div>
                 </div>

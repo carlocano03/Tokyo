@@ -25,4 +25,9 @@ class AdminController extends Controller
     return view('admin.settings');
   }
 
+  public function members_records()
+  {
+    return view('admin.members.records');
+  }
+
 }
