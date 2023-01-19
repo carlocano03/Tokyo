@@ -298,7 +298,7 @@
 <div class="dark-bg" id ="dark-bg">
 
 </div>
-@if(Request::is('admin/dashboard'))         
+@if(Request::segment(1) === 'admin')         
   <div class="wrapper">
     <div class="sidebar" id="side_bar">
 
@@ -306,7 +306,7 @@
             <div class="profile-img">
               <img  src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659" alt="">
             </div>
-            <h2><label for="">{{ Auth::user()->last_name }} {{ Auth::user()->first_name }}
+            <h2><label for="">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
               </label></h2>
         </div>
             <ul>
