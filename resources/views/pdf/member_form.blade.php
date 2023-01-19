@@ -115,7 +115,7 @@
              <div class="sex">
                 <label class="p-sex">SEX</label>
                 <div class="checkbox_male">
-                     <input type="checkbox" >
+                     <input type="checkbox" checked>
                      <label class="p-male">Male</label>
                 </div>
                
@@ -126,7 +126,7 @@
              </div>
              
              <div class="civil_status">
-                <label class="p-civil_status">SEX</label>
+                <label class="p-civil_status">CIVIL STATUS</label>
                 <div class="checkbox_Single">
                     <input type="checkbox" >
                     <label class="p-single">Single</label>
@@ -136,11 +136,64 @@
                     <input type="checkbox" >
                     <label class="p-married">Married</label>
                 </div>
+
+                <div class="checkbox_widowed">
+                    <input type="checkbox" >
+                    <label class="p-widowed">Widowed
+                    </label>
+                </div>
+
+                <div class="checkbox_annulled">
+                    <input type="checkbox" >
+                    <label class="p-annulled">Annulled/ Legally
+                    Separated</label>
+                </div>
              </div>
 
              <div class="citizenship">
-                <label class="p-civil_status">SEX</label>
+                <label class="p-citizenship">CITIZENSHIP</label>
+
+                <div class="checkbox_filipino">
+                    <input type="checkbox" >
+                    <label class="p-filipino">Filipino</label>
+                </div>
+
+                <div class="checkbox_dual_filipino">
+                    <input type="checkbox" >
+                    <label class="p-dual_filipino">Dual (Filipino and______________ )</label>
+                </div>
+                <div class="checkbox_others">
+                    <input type="checkbox" >
+                    <label class="p-others">Others ( ________________ )</label>
+                </div>
              </div>
+
+             <div class="address">
+                <label class="p-address">CITY ADDRESS / CURRENT HOME ADDRESS </label>
+                <label class="p-address_value">address value </label>
+             </div>
+
+             <div class="cellphone">
+                <label class="p-cellphone">CELLPHONE NO. </label>
+                <label class="p-cellphone_value">cellphone value </label>
+             </div>
+
+             <div class="landline">
+                <label class="p-cellphone">LANDLINE NO. </label>
+                <label class="p-cellphone_value">landline value </label>
+             </div>
+
+             <div class="permanent_address">
+                <label class="p-address">PERMANENT ADDRESS<i> (If different from above) </i></label>
+                <label class="p-address_value">permanent address value</label>
+             </div>
+
+             <div class="email_address">
+                <label class="p-email_address">EMAIL ADDRESS</label>
+                <label class="p-email_address_value">EMAIL ADDRESS value</label>
+                
+             </div>
+
              
         </div>
 
