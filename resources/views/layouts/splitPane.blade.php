@@ -99,21 +99,15 @@
             $('.mobile-header').hide(300);
         }, 1000);
     };
-
-    //CONDITION TO DETECT SYSTEM
-    if (window.navigator.userAgent.indexOf("Mobile") > -1) {
-        setInterval(function() {
-            $('.mobile-header').hide(300);
-        }, 2000);
+    
+    if ($(window).width() < 768) {
+        $('.mobile-header').show();
+        window.onload = function() {
+            setTimeout(function() {
+                $('.mobile-header').hide(300);
+            }, 1000);
+        };
     }
-
-    // if ($(window).width() < 768) {
-    //     setInterval(function() {
-    //         $('.mobile-header').hide(300);
-    //     }, 3000);
-    // }
-
-
 
     function ckChange(ckType) {
         var ckName = document.getElementsByClassName(ckType.className);
@@ -323,6 +317,13 @@
             $("#next-btn").attr('value', 'step-2');
             $("#leftsection").removeClass("mw-600").removeClass("w-600");
             $("#control").removeClass("d-flex").addClass("d-none");
+
+            if ($(window).width() < 768) {
+                $('.mobile-header').show();
+            }
+            setTimeout(function() {
+                $('.mobile-header').hide(300);
+            }, 1000);
         }
         scrollToTop()
     })
@@ -342,75 +343,21 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var empty = $('#member_forms').find("input[required]").filter(function(){
-                return !$.trim($(this).val()).length; 
+            var empty = $('#member_forms').find("input[required]").filter(function() {
+                return !$.trim($(this).val()).length;
             });
-            if(empty.length){
+            if (empty.length) {
                 // var emptyFields = [];
                 // empty.each(function() {
                 // emptyFields.push($(this).attr("id"));
                 // });
                 empty.first().focus();
                 swal.fire("Error!", "Please fill out the required fields", "error");
-            }else{
-            if (!personnel_id) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    text: 'You want to continue this will generate your application number.',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{ route('add_member') }}",
-                            data: $('#member_forms').serialize(),
-                            beforeSend: function() {
-                                $('#loading').show();
-                            },
-                            success: function(data) {
-                                if (data.success != '') {
-                                    reference_no = data.randomnum;
-                                    mem_id = data.mem_id;
-                                    personnel_id = data.success;
-                                    Swal.fire({
-                                        text: 'This is your reference code:' + ' ' +
-                                            reference_no,
-                                        icon: 'success'
-                                    });
-                                    $('.applicationNo').show(200);
-                                    $('#application_no').text(reference_no);
-                                    $('#app_no').val(reference_no);
-                                    $('#appNo').val(reference_no);
-                                    $('#test').val(reference_no);
-                                }
-                            },
-                            complete: function(data) {
-                                $('#loading').hide();
-                            },
-                        });
-                        $("#step-1").removeClass('d-flex').addClass("d-none");
-                        $("#member_forms").removeClass('mh-reg-form');
-                        $("#member_forms_con").addClass('mh-reg-form');
-                        $("#step-2").removeClass('d-none').addClass("d-flex");
-                        $("#back").attr('value', 'step-1');
-                        $(this).attr('value', 'step-3');
-                        $("#line").removeClass('step-1').addClass('step-2');
-                        $("#registration-title").text(stepTitle[1]);
-                        $("#stepper-2").addClass("active");
-                    } else {
-                        swal.fire("You cancelled your transaction.");
-                    }
-                });
             } else {
-                console.log('stepval2');
-                if (originalData !== $("#member_forms").serialize()) {
+                if (!personnel_id) {
                     Swal.fire({
-                        title: 'Changes have been detected',
-                        text: 'Would you like to apply the updates?',
+                        title: 'Are you sure?',
+                        text: 'You want to continue this will generate your application number.',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
@@ -418,46 +365,102 @@
                         confirmButtonText: 'Yes'
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            var formDatas = $("#member_forms").serialize();
-                            var additionalData = {
-                                'mem_id': mem_id,
-                                'personnel_id': personnel_id,
-                            };
-                            formDatas += '&' + $.param(additionalData);
                             $.ajax({
                                 type: 'POST',
-                                url: "{{ route('add_member_update') }}",
-                                data: formDatas,
+                                url: "{{ route('add_member') }}",
+                                data: $('#member_forms').serialize(),
+                                beforeSend: function() {
+                                    $('#loading').show();
+                                },
                                 success: function(data) {
                                     if (data.success != '') {
+                                        reference_no = data.randomnum;
                                         mem_id = data.mem_id;
                                         personnel_id = data.success;
                                         Swal.fire({
-                                            title: 'Updates applied successfully.',
+                                            text: 'This is your reference code:' +
+                                                ' ' +
+                                                reference_no,
                                             icon: 'success'
                                         });
+                                        $('.applicationNo').show(200);
+                                        $('#application_no').text(reference_no);
+                                        $('#app_no').val(reference_no);
+                                        $('#appNo').val(reference_no);
+                                        $('#test').val(reference_no);
                                     }
-                                }
+                                },
+                                complete: function(data) {
+                                    $('#loading').hide();
+                                },
                             });
+                            $("#step-1").removeClass('d-flex').addClass("d-none");
+                            $("#member_forms").removeClass('mh-reg-form');
+                            $("#member_forms_con").addClass('mh-reg-form');
+                            $("#step-2").removeClass('d-none').addClass("d-flex");
+                            $("#back").attr('value', 'step-1');
+                            $(this).attr('value', 'step-3');
+                            $("#line").removeClass('step-1').addClass('step-2');
+                            $("#registration-title").text(stepTitle[1]);
+                            $("#stepper-2").addClass("active");
                         } else {
-                            Swal.fire('Warning!',
-                                'Update was cancelled by the user. No changes were made.', 'warning'
-                            );
+                            swal.fire("You cancelled your transaction.");
                         }
                     });
+                } else {
+                    console.log('stepval2');
+                    if (originalData !== $("#member_forms").serialize()) {
+                        Swal.fire({
+                            title: 'Changes have been detected',
+                            text: 'Would you like to apply the updates?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                var formDatas = $("#member_forms").serialize();
+                                var additionalData = {
+                                    'mem_id': mem_id,
+                                    'personnel_id': personnel_id,
+                                };
+                                formDatas += '&' + $.param(additionalData);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "{{ route('add_member_update') }}",
+                                    data: formDatas,
+                                    success: function(data) {
+                                        if (data.success != '') {
+                                            mem_id = data.mem_id;
+                                            personnel_id = data.success;
+                                            Swal.fire({
+                                                title: 'Updates applied successfully.',
+                                                icon: 'success'
+                                            });
+                                        }
+                                    }
+                                });
+                            } else {
+                                Swal.fire('Warning!',
+                                    'Update was cancelled by the user. No changes were made.',
+                                    'warning'
+                                );
+                            }
+                        });
 
+                    }
+                    $("#step-1").removeClass('d-flex').addClass("d-none");
+                    $("#member_forms").removeClass('mh-reg-form');
+                    $("#member_forms_con").addClass('mh-reg-form');
+                    $("#step-2").removeClass('d-none').addClass("d-flex");
+                    $("#back").attr('value', 'step-1')
+                    $(this).attr('value', 'step-3')
+                    $("#line").removeClass('step-1').addClass('step-2')
+                    $("#registration-title").text(stepTitle[1])
+                    $("#stepper-2").addClass("active")
                 }
-                $("#step-1").removeClass('d-flex').addClass("d-none");
-                $("#member_forms").removeClass('mh-reg-form');
-                $("#member_forms_con").addClass('mh-reg-form');
-                $("#step-2").removeClass('d-none').addClass("d-flex");
-                $("#back").attr('value', 'step-1')
-                $(this).attr('value', 'step-3')
-                $("#line").removeClass('step-1').addClass('step-2')
-                $("#registration-title").text(stepTitle[1])
-                $("#stepper-2").addClass("active")
             }
-        }
         } else if (nextValue == 'step-3') {
 
             $.ajaxSetup({
@@ -465,132 +468,134 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var empty = $('#member_forms_con').find("input[required]").filter(function(){
-                return !$.trim($(this).val()).length; 
+            var empty = $('#member_forms_con').find("input[required]").filter(function() {
+                return !$.trim($(this).val()).length;
             });
-            if(empty.length){
+            if (empty.length) {
                 // var emptyFields = [];
                 // empty.each(function() {
                 // emptyFields.push($(this).attr("id"));
                 // });
                 empty.first().focus();
                 swal.fire("Error!", "Please fill out the required fields", "error");
-            }else{
-            if (!employee_details_ID) {
-                var formData = $("#member_forms_con").serialize();
-                var additionalData = {
-                    'mem_id': mem_id,
-                };
-                formData += '&' + $.param(additionalData);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('add_member_con') }}",
-                    data: formData,
-                    success: function(data) {
-                        if (data.success != '') {
-                            employee_no = data.emp_no;
-                            employee_details_ID = data.success;
-                            $("#step-2").removeClass('d-flex').addClass("d-none");
-                            $("#step-3").removeClass('d-none').addClass("d-flex");
-                            $("#back").attr('value', 'step-2')
-                            $("#member_forms_con").removeClass('mh-reg-form');
-                            $("#member_forms_3").addClass('mh-reg-form');
-                            // $(this).attr('value', 'step-end')
-                            $("#line").removeClass('step-2').addClass('step-3')
-                            $("#registration-title").text(stepTitle[2])
-                            $("#stepper-3").addClass("active")
-                        } else {
-                            Swal.fire({
-                                title: 'Employee No are already used.',
-                                icon: 'error'
-                            });
-
-                            $('#employee_no').focus();
-                        }
-                    }
-                });
             } else {
-                console.log('asdasd');
-                if (originalData_ext !== $("#member_forms_con").serialize()) {
-                    Swal.fire({
-                        title: 'Changes have been detected.',
-                        text: 'Would you like to apply the updates?',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            var formData = $("#member_forms_con").serialize();
-                            var additionalData = {
-                                'mem_id': mem_id,
-                                'employee_details_ID': employee_details_ID,
-                            };
-                            formData += '&' + $.param(additionalData);
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ route('add_member_con_up') }}",
-                                data: formData,
-                                success: function(data) {
-                                    if (data.success != '') {
-                                        employee_no = data.emp_no;
-                                        employee_details_ID = data.success;
-                                        Swal.fire({
-                                            title: 'Updates applied successfully.',
-                                            icon: 'success'
-                                        });
-                                        $("#step-2").removeClass('d-flex').addClass(
-                                            "d-none");
-                                        $("#step-3").removeClass('d-none').addClass(
-                                            "d-flex");
-                                        $("#back").attr('value', 'step-2')
-                                        $("#member_forms_con").removeClass('mh-reg-form');
-                                        $("#member_forms_3").addClass('mh-reg-form');
-                                        // $(this).attr('value', 'step-end')
-                                        $("#line").removeClass('step-2').addClass('step-3')
-                                        $("#registration-title").text(stepTitle[2])
-                                        $("#stepper-3").addClass("active")
-                                    } else {
-                                        Swal.fire({
-                                            title: 'Employee No are already used.',
-                                            icon: 'error'
-                                        });
+                if (!employee_details_ID) {
+                    var formData = $("#member_forms_con").serialize();
+                    var additionalData = {
+                        'mem_id': mem_id,
+                    };
+                    formData += '&' + $.param(additionalData);
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('add_member_con') }}",
+                        data: formData,
+                        success: function(data) {
+                            if (data.success != '') {
+                                employee_no = data.emp_no;
+                                employee_details_ID = data.success;
+                                $("#step-2").removeClass('d-flex').addClass("d-none");
+                                $("#step-3").removeClass('d-none').addClass("d-flex");
+                                $("#back").attr('value', 'step-2')
+                                $("#member_forms_con").removeClass('mh-reg-form');
+                                $("#member_forms_3").addClass('mh-reg-form');
+                                // $(this).attr('value', 'step-end')
+                                $("#line").removeClass('step-2').addClass('step-3')
+                                $("#registration-title").text(stepTitle[2])
+                                $("#stepper-3").addClass("active")
+                            } else {
+                                Swal.fire({
+                                    title: 'Employee No are already used.',
+                                    icon: 'error'
+                                });
 
-                                        $('#employee_no').focus();
-                                    }
-                                }
-                            });
-                        } else {
-                            swal.fire("Update was cancelled by the user. No changes were made.");
-                            $("#step-2").removeClass('d-flex').addClass("d-none");
-                            $("#step-3").removeClass('d-none').addClass("d-flex");
-                            $("#back").attr('value', 'step-2')
-                            $("#member_forms_con").removeClass('mh-reg-form');
-                            $("#member_forms_3").addClass('mh-reg-form');
-                            // $(this).attr('value', 'step-end')
-                            $("#line").removeClass('step-2').addClass('step-3')
-                            $("#registration-title").text(stepTitle[2])
-                            $("#stepper-3").addClass("active")
+                                $('#employee_no').focus();
+                            }
                         }
                     });
-
                 } else {
-                    $("#step-2").removeClass('d-flex').addClass("d-none");
-                    $("#step-3").removeClass('d-none').addClass("d-flex");
-                    $("#back").attr('value', 'step-2')
-                    $("#member_forms_con").removeClass('mh-reg-form');
-                    $("#member_forms_3").addClass('mh-reg-form');
-                    // $(this).attr('value', 'step-end')
-                    $("#line").removeClass('step-2').addClass('step-3')
-                    $("#registration-title").text(stepTitle[2])
-                    $("#stepper-3").addClass("active")
-                    // console.log($("#back").val());
+                    console.log('asdasd');
+                    if (originalData_ext !== $("#member_forms_con").serialize()) {
+                        Swal.fire({
+                            title: 'Changes have been detected.',
+                            text: 'Would you like to apply the updates?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                var formData = $("#member_forms_con").serialize();
+                                var additionalData = {
+                                    'mem_id': mem_id,
+                                    'employee_details_ID': employee_details_ID,
+                                };
+                                formData += '&' + $.param(additionalData);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "{{ route('add_member_con_up') }}",
+                                    data: formData,
+                                    success: function(data) {
+                                        if (data.success != '') {
+                                            employee_no = data.emp_no;
+                                            employee_details_ID = data.success;
+                                            Swal.fire({
+                                                title: 'Updates applied successfully.',
+                                                icon: 'success'
+                                            });
+                                            $("#step-2").removeClass('d-flex').addClass(
+                                                "d-none");
+                                            $("#step-3").removeClass('d-none').addClass(
+                                                "d-flex");
+                                            $("#back").attr('value', 'step-2')
+                                            $("#member_forms_con").removeClass(
+                                                'mh-reg-form');
+                                            $("#member_forms_3").addClass('mh-reg-form');
+                                            // $(this).attr('value', 'step-end')
+                                            $("#line").removeClass('step-2').addClass(
+                                                'step-3')
+                                            $("#registration-title").text(stepTitle[2])
+                                            $("#stepper-3").addClass("active")
+                                        } else {
+                                            Swal.fire({
+                                                title: 'Employee No are already used.',
+                                                icon: 'error'
+                                            });
+
+                                            $('#employee_no').focus();
+                                        }
+                                    }
+                                });
+                            } else {
+                                swal.fire("Update was cancelled by the user. No changes were made.");
+                                $("#step-2").removeClass('d-flex').addClass("d-none");
+                                $("#step-3").removeClass('d-none').addClass("d-flex");
+                                $("#back").attr('value', 'step-2')
+                                $("#member_forms_con").removeClass('mh-reg-form');
+                                $("#member_forms_3").addClass('mh-reg-form');
+                                // $(this).attr('value', 'step-end')
+                                $("#line").removeClass('step-2').addClass('step-3')
+                                $("#registration-title").text(stepTitle[2])
+                                $("#stepper-3").addClass("active")
+                            }
+                        });
+
+                    } else {
+                        $("#step-2").removeClass('d-flex').addClass("d-none");
+                        $("#step-3").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-2')
+                        $("#member_forms_con").removeClass('mh-reg-form');
+                        $("#member_forms_3").addClass('mh-reg-form');
+                        // $(this).attr('value', 'step-end')
+                        $("#line").removeClass('step-2').addClass('step-3')
+                        $("#registration-title").text(stepTitle[2])
+                        $("#stepper-3").addClass("active")
+                        // console.log($("#back").val());
+                    }
+
                 }
 
             }
-
-        }
         }
         scrollToTop()
     });
