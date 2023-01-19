@@ -657,13 +657,11 @@
                     </label>
                 </div>
                 {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
-                <button class="up-button btn-md button-animate-right mp-text-center" type="submit">
-                    <span>Submit</span>
-                </button>
                 <hr>
-
             </div>
-
+            <button class="up-button btn-md button-animate-right mp-text-center" type="submit" id="next-btn">
+                <span>Submit</span>
+            </button>
         </div>
     </form>
 @endsection

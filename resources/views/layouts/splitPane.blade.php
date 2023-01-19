@@ -94,6 +94,15 @@
 
 </div>
 <script>
+    // $(window).load(function() {
+    //     setTimeout(function() {
+    //     $('.mobile-header').hide(300);
+    // }, 1000);
+    //     });
+    setTimeout(function() {
+        $('.mobile-header').hide(300);
+    }, 1000);
+
     function ckChange(ckType) {
         var ckName = document.getElementsByClassName(ckType.className);
 
@@ -260,6 +269,15 @@
         $("#control").removeClass("d-none").addClass("d-flex");
 
     })
+
+    //Continue Application
+    $(document).on('click', '#cont_app', function(e) {
+        $("#loginform").attr("hidden", true);
+        $("#registrationform").removeAttr("hidden");
+        $("#leftsection").addClass("mw-600").addClass("w-600");
+        $("#control").removeClass("d-none").addClass("d-flex");
+    });
+
     var reference_code;
     var originalData_ext;
     $(document).on('click', '#back', function(e) {
