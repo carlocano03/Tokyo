@@ -54,6 +54,8 @@
             left:320px;
             margin-top:30px;
         }
+
+        /* personal details css */
         .personal-details .title{
             position:absolute;
             font-weight:bold;
@@ -61,8 +63,6 @@
             left:300px;
             top:65px;
         }
-
-
 
         /* employment details css */
         .employment-details .title{
@@ -86,7 +86,62 @@
 
         <div class="personal-details">
              <label class="title white">Personal Details</label>
-             <label class="info_text black">Please write using BLOCK or CAPITAL LETTERS. Accomplish and submit one (1) copy</label>
+            
+             <div class="lastname">
+                <label class="p-lastname">LAST NAME</label>
+                <label class="p-lastname_value">Gomez</label>
+             </div>
+             
+             <div class="suffix">
+                <label class="p-suffix">SUFFIX (e.g.,JR.,SR.,IV</label>
+                <label class="p-lastname_value">JR</label>
+             </div>
+             
+            <div class="first_name">
+                 <label class="p-firstname">FIRST NAME</label>
+                 <label class="p-firstname_value">Mark Denneb</label>
+            </div>
+            
+            <div class="middle_name">
+              <label class="p-middlname">MIDDLE NAME</label>
+              <label class="p-middlename_value">Ramirez</label>
+            </div>
+             
+            <div class="date_of_birth">
+               <label class="p-birth">DATE OF BIRTH</label>
+               <label class="p-birth_value">Ramirez</label>
+            </div>
+             
+             <div class="sex">
+                <label class="p-sex">SEX</label>
+                <div class="checkbox_male">
+                     <input type="checkbox" >
+                     <label class="p-male">Male</label>
+                </div>
+               
+                <div class="checkbox_female">
+                    <input type="checkbox" >
+                    <label class="p-female">Female</label>
+                </div> 
+             </div>
+             
+             <div class="civil_status">
+                <label class="p-civil_status">SEX</label>
+                <div class="checkbox_Single">
+                    <input type="checkbox" >
+                    <label class="p-single">Single</label>
+                </div>
+
+                 <div class="checkbox_married">
+                    <input type="checkbox" >
+                    <label class="p-married">Married</label>
+                </div>
+             </div>
+
+             <div class="citizenship">
+                <label class="p-civil_status">SEX</label>
+             </div>
+             
         </div>
 
         <div class="employment-details">
