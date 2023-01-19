@@ -538,8 +538,7 @@
                 <label class="mp-input-group__label">Taxpayer Identification Number (TIN)</label>
                 <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
             </div>
-            <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-2"
-                id="next-btn">
+            <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-3" id="next-btn">
                 <span>Next</span>
             </a>
         </div>
