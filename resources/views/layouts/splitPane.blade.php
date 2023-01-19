@@ -99,7 +99,6 @@
             $('.mobile-header').hide(300);
         }, 1000);
     };
-
     if ($(window).width() < 768) {
         $('.mobile-header').show();
         window.onload = function() {
@@ -108,8 +107,6 @@
             }, 1000);
         };
     }
-
-
 
     function ckChange(ckType) {
         var ckName = document.getElementsByClassName(ckType.className);
