@@ -59,6 +59,7 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 
 //admin
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/members/records', [AdminController::class, 'members_records'])->name('admin.members_records');
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
 // Route::get('/admin/dashboard', 'AdminController@index');
 
