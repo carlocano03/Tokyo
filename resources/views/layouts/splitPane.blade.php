@@ -65,7 +65,7 @@
         </div>
 
         <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto"
-            style="height: calc(100% - 53px)">
+            style="height: calc(100% - 0px)">
             @section('registration-personal-form')
             @show
 
