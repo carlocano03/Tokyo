@@ -64,6 +64,24 @@
             top:65px;
         }
 
+        .lastname {
+            margin-top:84px;
+        }
+        .lastname .p-lastname_value {
+            margin-top:12px;
+        }
+        
+        .suffix {
+            padding-left:550px;
+            width:300px;
+        }
+        .suffix .p-suffix {
+            left: 580px;
+        }
+        .suffix .p-suffix_value {
+            margin-top:12px;
+        }
+
         /* employment details css */
         .employment-details .title{
             position:absolute;
@@ -71,6 +89,11 @@
             font-size:15px;
             left:287px;
             top:312px;
+        }
+
+        .title-font {
+            position: absolute;
+            font-size: 11.5px;
         }
     </style>
 </head> 
@@ -80,7 +103,7 @@
     </div> 
     <div class="text-container">
         <div class="top-text">
-            <label class="title white">Membership Application Form</label>
+            <label class="title white">Mmbership Application Form</label>
             <label class="info_text black">Please write using BLOCK or CAPITAL LETTERS. Accomplish and submit one (1) copy</label>
         </div>
 
@@ -88,13 +111,13 @@
              <label class="title white">Personal Details</label>
             
              <div class="lastname">
-                <label class="p-lastname">LAST NAME</label>
-                <label class="p-lastname_value">Gomez</label>
+                <label class="p-lastname title-font">LAST NAME</label>
+                <label class="p-lastname_value title-font">Gomez</label>
              </div>
              
              <div class="suffix">
-                <label class="p-suffix">SUFFIX (e.g.,JR.,SR.,IV</label>
-                <label class="p-lastname_value">JR</label>
+                <label class="p-suffix title-font">SUFFIX (e.g.,JR.,SR.,IV</label>
+                <label class="p-lastname_value title-font">JR</label>
              </div>
              
             <div class="first_name">
@@ -205,10 +228,10 @@
              
         </div>
 
-        <div class="employment-details">
+        <!-- <div class="employment-details">
              <label class="title white">Employment Details</label>
              <label class="info_text black">Please write using BLOCK or CAPITAL LETTERS. Accomplish and submit one (1) copy</label>
-        </div>
+        </div> -->
     </div>
 </body>
 </html>

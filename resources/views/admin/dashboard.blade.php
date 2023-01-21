@@ -486,7 +486,18 @@
             <div class="details d-flex flex-column" style="height: 100%">
               <label for="">
                 Welcome! {{ Auth::user()->last_name }} {{ Auth::user()->first_name }}
+                
               </label>
+              <br>
+              <label>
+                UP diliman Administrator
+              </label>
+               
+                Last Login: <label
+                style=" color: var(--c-primary);
+    font-size: 15px;">November 5, 1994, 8:15:30 am</label>
+              
+            
               <div style="margin-top: auto" class="mp-mb1">
                 <button class="mp-button up-button-green" style="padding: 4px 16px;">View my Profile</button>
               </div>
