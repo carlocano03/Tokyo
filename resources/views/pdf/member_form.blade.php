@@ -542,6 +542,57 @@
             margin-top:-25px;
             margin-left:-20px;
         }
+        .tbf-title {
+            position:absolute;
+            margin-left:-150px;
+            margin-top:37px;
+        }
+
+        .to-be-filled .title-labels {
+            position:absolute;
+            margin-top:58px;
+            margin-left:-290px; 
+        }
+        .to-be-filled .title-labels .title-1 {
+            position:absolute;
+            margin-left:20px;
+        }
+
+        .to-be-filled .title-labels .title-2 {
+            position:absolute;
+            margin-left:290px;
+        }
+        .to-be-filled .title-labels .title-3 {
+            position:absolute;
+            margin-left:500px;
+        }
+
+        .signature-labels {
+            margin-top:95px;
+            margin-left:-300px;
+        }
+        .sig-1 {
+            margin-left:20px;
+        }
+        .date-sig-1 {
+           margin-top:2px;
+           margin-left:190px;
+        }
+        .sig-2 {
+            margin-left:262px;
+        }
+        .date-sig-2 {
+           margin-top:2px;
+           margin-left:432px;
+        }
+        .sig-3 {
+            margin-left:20px;
+            margin-left:502px;
+        }
+        .date-sig-3 {
+           margin-top:2px;
+           margin-left:682px;
+        }
     </style>
 </head> 
 <body>
@@ -965,7 +1016,32 @@
                     </div>
             </div>
 
-            
+            <div class="to-be-filled">
+                <label class="tbf-title main_title white"  >
+                    To be filled out by UP Provident Fund and UP HRDO Personnel
+                </label>
+
+                <div class="title-labels" >
+                    <label class="title-1 title-font" style="font-size:8.5px !important;">Received and checked by: UP PROVIDENT STAFF</label>
+                    <label class="title-2 title-font" style="font-size:8.5px !important;">Verified by: UP HRDO DIRECTOR</label>
+                    <label class="title-3 title-font" style="font-size:8.5px !important;">Approved by: UP PROVIDENT FUND MANAGER</label>
+                </div>
+                <div class="signature-labels">
+                    
+                    <label class="sig-1 title-font">Signature over Printed Name</label>
+                    <img class="img-sig-1" src="" alt="">
+                    <label class="date-sig-1 title-font">Date</label>
+
+
+                    <label class="sig-2 title-font">Signature over Printed Name</label>
+                    <img class="img-sig-2" src="" alt="">
+                    <label class="date-sig-2 title-font">Date</label>
+
+                    <label class="sig-3 title-font">Signature over Printed Name</label>
+                    <img class="img-sig-3" src="" alt="">
+                    <label class="date-sig-3 title-font">Date</label>
+                </div>
+            </div>
         
 
         </div>
