@@ -620,8 +620,11 @@
                             confirmButtonText: 'OK'
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.open();
-                                location.reload();
+                                // window.open();
+                                // location.reload();
+                                var url = "{{ URL::to('/memberform/') }}" + '/' +
+                                employee_no; //YOUR CHANGES HERE...
+                            window.open(url, '_blank');
                             }
                         })
                         $("#step-2").removeClass('d-flex').addClass("d-none");
