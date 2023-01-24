@@ -248,10 +248,14 @@
     grid-column: span 12;
   }
 
+  @media (max-width:1300px) {
+    .col:nth-child(2) {
+      grid-column: span 5;
+    }
 
-
-
-  @media (max-width:984px) {
+    .col:nth-child(1) {
+      grid-column: span 7;
+    }
 
     .total-loans {
       display: flex;
@@ -259,23 +263,35 @@
       align-items: center;
     }
 
-    .total-loans > .ml-auto {
+    .title-total {
+      text-align: center;
+    }
+
+    .total-loans>.ml-auto {
       margin-left: 0;
       margin-bottom: 10px;
     }
-    
+
+
+    .col-campus:nth-child(1) {
+      grid-column: span 12;
+    }
+
+    .col-campus:nth-child(2) {
+      grid-column: span 6;
+    }
+
+    .col-campus:nth-child(3) {
+      grid-column: span 6;
+    }
+
     #campusSelector {
       display: flex;
       justify-content: center;
     }
 
-    .title-total {
-      text-align: center;
-    }
-
     .side-dashboard {
       grid-template-columns: 1fr;
-
     }
 
     .side-dashboard>.card>.content-right {
@@ -289,6 +305,17 @@
       margin-bottom: 0px;
       margin-top: 0px !important;
     }
+  }
+
+
+  @media (max-width:984px) {
+
+
+    .right-dashboard {
+      padding-left: 15px;
+      margin-top: 10px;
+      margin-bottom: 25px;
+    }
 
     .col:nth-child(2) {
       grid-column: span 5;
@@ -296,18 +323,6 @@
 
     .col:nth-child(1) {
       grid-column: span 7;
-    }
-
-    .col-campus:nth-child(1) {
-      grid-column: span 12;
-    }
-
-    .col-campus:nth-child(2) {
-      grid-column: span 6;
-    }
-
-    .col-campus:nth-child(3) {
-      grid-column: span 6;
     }
 
 
@@ -367,10 +382,6 @@
 
   }
 
-  .side-dashboard {
-    grid-template-columns: 1fr 1fr;
-  }
-
   .right-dashboard {
     padding-left: 0;
   }
@@ -400,10 +411,7 @@
   @media (max-width:1300px) {
     .side-dashboard {
       grid-template-columns: 1fr;
-
     }
-
-
   }
 
   .highcharts-figure,
@@ -460,26 +468,14 @@
   text.highcharts-credits {
     display: none;
   }
-
-  @media (max-width:984px) {
-    .side-dashboard {
-      grid-template-columns: 1fr;
-
-    }
-
-    .right-dashboard {
-      padding-left: 15px;
-      margin-top: 10px;
-      margin-bottom: 25px;
-    }
-
-  }
 </style>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script src="{{ asset('/dist/adminDashboard.js') }}"></script>
+
+
 <div class="filler"></div>
 <div class="col-12 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-accent mp-overflow-y dashboard ">
   <div class="row no-gutter mp-pt1 main-dashboard grid gap-10">
@@ -490,7 +486,18 @@
             <div class="details d-flex flex-column" style="height: 100%">
               <label for="">
                 Welcome! {{ Auth::user()->last_name }} {{ Auth::user()->first_name }}
+                
               </label>
+              <br>
+              <label>
+                UP diliman Administrator
+              </label>
+               
+                Last Login: <label
+                style=" color: var(--c-primary);
+    font-size: 15px;">November 5, 1994, 8:15:30 am</label>
+              
+            
               <div style="margin-top: auto" class="mp-mb1">
                 <button class="mp-button up-button-green" style="padding: 4px 16px;">View my Profile</button>
               </div>
