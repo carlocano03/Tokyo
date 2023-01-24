@@ -25,7 +25,7 @@ class MemberController extends Controller
     return view('member.settings');
   }
 
-  public function transactions()
+  public function transaction()
   {
     return view('member.transaction');
   }
@@ -37,6 +37,11 @@ class MemberController extends Controller
   public function member()
   {
     return view('member.member');
+  }
+
+  public function equity()
+  {
+    return view('member.equity');
   }
 
 }
