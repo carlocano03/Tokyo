@@ -44,4 +44,9 @@ class MemberController extends Controller
     return view('member.equity');
   }
 
+  public function updatepassword()
+  {
+    return view('member.updatepassword');
+  }
+
 }

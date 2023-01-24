@@ -73,6 +73,8 @@ Route::get('/member/loan', [MemberController::class, 'loan'])->name('member.loan
 Route::get('/member/transaction', [MemberController::class, 'transaction'])->name('member.transaction');
 Route::get('/member/member', [MemberController::class, 'member'])->name('member.member');
 Route::get('/member/equity', [MemberController::class, 'equity'])->name('member.equity');
+//member-profile
+Route::get('/member/update-password', [MemberController::class, 'updatepassword'])->name('member.updatepassword');
 
 //PDF Generation
 Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');

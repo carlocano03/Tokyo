@@ -377,7 +377,7 @@
                 <li><a href="#"><i class="fa fa-comment-o"></i>Benefits </a></li>
                 <li><a href="#"><i class="fa fa-line-chart"></i>Transacton </a></li>
                 <li><a href="#"><i class="fa fa-address-book"></i>Election</a></li>
-                <li><a href="/admin/settings" class="{{ Request::is('admin/settings') ? 'active-nav' : '' }}">
+                <li><a href="/admin/settings" class="{{ Request::is('admin/settings')  ? 'active-nav' : '' }}">
                         <i class="fa fa-gears"></i>Account & Settings</a>
                 </li>
 
@@ -438,7 +438,8 @@
             <li><a href="/member/loan"class="{{ Request::is('member/loan') ? 'active-nav' : '' }}" >
               <i class="fa fa-address-book"></i>Loan Application</a>
             </li>
-            <li><a href="/member/settings" class ="{{ Request::is('member/settings') ? 'active-nav' : '' }}">
+            <li><a href="/member/settings" class ="{{ Request::is('member/settings')
+                  || Request::is('member/update-password')  ? 'active-nav' : '' }}">
               <i class="fa fa-gears"></i>Account & Settings</a>
             </li>
              <li><a href="https://www.upprovidentfund.com/contact-us/"target="_blank" >
@@ -448,7 +449,7 @@
            
         </ul> 
         <a href="#">
-                        <strong><a href="{{ url('/logout') }}" class="logout-mobile">Log out</a> </strong>
+            <strong><a href="{{ url('/logout') }}" class="logout-mobile">Log out</a> </strong>
         </a>
     </div>
     <div class="main_content">
