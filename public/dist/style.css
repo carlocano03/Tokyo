@@ -3778,6 +3778,10 @@ tfoot {
     padding: 10px
 }
 
+.p-5px {
+    padding: 10px
+}
+
 .mp-card__body {
     flex: 1
 }
@@ -4879,15 +4883,16 @@ tfoot {
 
 [data-md-tooltip].md-tooltip--right:before {
     left: auto;
-    right: -10px;
+    right: 0px;
+    min-width: 100px;
     bottom: auto;
     top: 50%;
-    transform: translate(100%, -50%) scale(0);
+    transform: translate(100%, -60%) scale(0);
     transform-origin: left center;
 }
 
 [data-md-tooltip].md-tooltip--right:hover:before {
-    transform: translate(100%, -50%) scale(1);
+    transform: translate(100%, -60%) scale(1);
 }
 
 .hide {
@@ -5422,6 +5427,14 @@ tfoot {
 
 .ml-auto {
     margin-left: auto;
+}
+
+.ml-0 {
+    margin-left: 0;
+}
+
+.mr-0 {
+    margin-right: 0;
 }
 
 .mr-auto {
