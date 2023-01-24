@@ -48,5 +48,5 @@ class MemberController extends Controller
   {
     return view('member.updatepassword');
   }
-
+  
 }

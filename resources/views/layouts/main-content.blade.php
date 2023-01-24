@@ -449,7 +449,10 @@
            
         </ul> 
         <a href="#">
-            <strong><a href="{{ url('/logout') }}" class="logout-mobile">Log out</a> </strong>
+
+
+           <strong><a href="{{ url('/logout') }}" class="logout-mobile">Log out</a> </strong>
+
         </a>
     </div>
     <div class="main_content">
