@@ -322,6 +322,7 @@
     <form id="member_forms" class="mh-reg-form form-border-bottom">
         {{ csrf_field() }}
         <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" id="step-1">
+        <input type="hidden" id="app_trailNo">
             <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Last Name</label>
