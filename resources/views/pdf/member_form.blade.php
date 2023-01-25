@@ -112,6 +112,12 @@
             width:2000px;
             display: inline-block;
         }
+        .value-font-date {
+            position: absolute;
+            font-size: 11.5px;
+            width:1990px;
+            display: inline-block;
+        }
         .first_name {
             margin-top:30px;
         }
@@ -471,6 +477,12 @@
         .no_2 {
             margin-top:55px;
         }
+        .no_3 {
+            margin-top:25px;
+        }
+        .no_4 {
+            margin-top:55px;
+        }
         .full_name {
             margin-left:20px;
            
@@ -540,7 +552,7 @@
         }
         .by-signing .dates .value  {
             margin-top:-25px;
-            margin-left:-20px;
+            margin-left:-35px;
         }
         .tbf-title {
             position:absolute;
@@ -604,28 +616,28 @@
             <label class="title white">Membership Application Form</label>
             <label class="info_text black">Please write using BLOCK or CAPITAL LETTERS. Accomplish and submit one (1) copy</label>
         </div>
-
+        <!-- <label class="p-lastname_value  value-font"><pre>{{ print_r($member) }}</pre></label> -->
         <div class="personal-details">
              <label class="title white main_title">PERSONAL DETAILS</label>
             
              <div class="lastname">
                 <label class="p-lastname title-font ">LAST NAME</label>
-                <label class="p-lastname_value  value-font">Gomez</label>
+                <label class="p-lastname_value  value-font">{{$member->lastname}}</label>
              </div>
              
              <div class="suffix">
                 <label class="p-suffix title-font">SUFFIX <i>(e.g.,JR.,SR.,IV)</i></label>
-                <label class="p-suffix_value value-font">JR</label>
+                <label class="p-suffix_value value-font">{{$member->suffix}}</label>
              </div>
              
             <div class="first_name">
                  <label class="p-firstname title-font">FIRST NAME</label>
-                 <label class="p-firstname_value  value-font">Mark Denneb</label>
+                 <label class="p-firstname_value  value-font">{{$member->firstname}}</label>
             </div>
             
             <div class="middle_name">
               <label class="p-middlname title-font">MIDDLE NAME</label>
-              <label class="p-middlename_value  value-font">Ramirez</label>
+              <label class="p-middlename_value  value-font">{{$member->middlename}}</label>
             </div>
              
             <div class="date_of_birth" style="margin-left:0px !important; margin-top:27px !important;">
@@ -634,22 +646,22 @@
                <label class="p-birth_month title-font">Month</label>
                <label class="p-birth_day title-font">Day</label>
                <label class="p-birth_year title-font">Year</label>
-
-               <label class="p-birth_month_value  value-font">May</label>
-               <label class="p-birth_day_value  value-font">06</label>
-               <label class="p-birth_year_value  value-font">1999</label>
+               
+               <label class="p-birth_month_value  value-font">{{ date("F", strtotime($member->date_birth)) }}</label>
+               <label class="p-birth_day_value  value-font">{{ date("d", strtotime($member->date_birth)) }}</label>
+               <label class="p-birth_year_value  value-font">{{ date("Y", strtotime($member->date_birth)) }}</label>
             </div>
              
              <div class="sex">
                 <label class="p-sex title-font">SEX</label>
                 <div class="checkbox_male">
-                     <input type="checkbox" checked>
+                     <input type="checkbox" {{ $member->gender == 'Male' ? 'checked' : '' }}>
 
                      <label class="p-male title-font value-font">Male</label>
                 </div>
                
                 <div class="checkbox_female">
-                    <input type="checkbox"  >
+                    <input type="checkbox"  {{ $member->gender == 'Female' ? 'checked' : '' }}>
                     <label class="p-female title-font value-font">Female</label>
                 </div> 
              </div>
@@ -659,23 +671,25 @@
                 <label class="p-civil_status title-font">CIVIL STATUS</label>
 
                 <div class="checkbox_single">
-                    <input type="checkbox" >
+                    <input type="checkbox" {{ $member->civilstatus == 'Single' ? 'checked' : '' }}>
                     <label class="p-single title-font">Single</label>
                 </div>
 
                  <div class="checkbox_married">
-                    <input type="checkbox" >
+                    <input type="checkbox" {{ $member->civilstatus == 'Married' ? 'checked' : '' }}>
                     <label class="p-married title-font">Married</label>
                 </div>
 
                 <div class="checkbox_widowed">
-                    <input type="checkbox" >
+                    <input type="checkbox" {{ $member->civilstatus == 'Widowed' ? 'checked' : '' }}>
                     <label class="p-widowed title-font">Widowed
                     </label>
                 </div>
 
                 <div class="checkbox_annulled">
-                    <input type="checkbox" >
+                    <input type="checkbox" {{ $member->civilstatus == 'Divorced' ? 'checked' : '' }}
+                    {{ $member->civilstatus == 'Registered Partnership' ? 'checked' : '' }}
+                    >
                     <label class="p-annulled title-font">Annulled/ Legally
                     Separated</label>
                 </div>
@@ -685,45 +699,72 @@
                 <label class="p-citizenship title-font">CITIZENSHIP</label>
 
                 <div class="checkbox_filipino">
-                    <input type="checkbox" >
+                    <input type="checkbox" {{ $member->citizenship == 'FILIPINO' ? 'checked' : '' }}>
                     <label class="p-filipino title-font">Filipino</label>
                 </div>
 
                 <div class="checkbox_dual_filipino">
-                    <input type="checkbox" >
+                    <input type="checkbox" {{ $member->citizenship == 'DUAL CITIZENSHIP' ? 'checked' : '' }}>
                     <label class="p-dual_filipino title-font">Dual (Filipino and______________ )</label>
-                    <label class="p-dual_filipino_value value-font">Dual Value</label>
+                    <label class="p-dual_filipino_value value-font">{{ $member->citizenship == 'DUAL CITIZENSHIP' ? $member->dual_citizenship : '' }}</label>
                 </div>
                 <div class="checkbox_others">
-                    <input type="checkbox" >
+                    <input type="checkbox" {{ $member->citizenship == 'OTHERS' ? 'checked' : '' }}>
                     <label class="p-others title-font">Others ( ________________ )</label>
-                    <label class="p-others_value value-font">others value</label>
+                    <label class="p-others_value value-font">{{ $member->citizenship == 'OTHERS' ? $member->dual_citizenship : '' }}</label>
                 </div>
              </div>
+            <?php
+            $province = explode("|", $member->present_province ?? "");
+            $province = trim($province[1]);
+            $muni = explode("|", $member->present_municipality ?? "");
+            $muni = trim($muni[1]);
+            $barangay = explode("|", $member->present_barangay ?? "");
+            $barangay = trim($barangay[1]);
+            ?>
 
              <div class="address">
                 <label class="p-address title-font" >CITY ADDRESS / CURRENT HOME ADDRESS </label>
-                <label class="p-address_value value-font">address value </label>
+                <label class="p-address_value value-font">{{$member->present_bldg_street}} {{ $barangay}} {{ $muni}} {{ $province}} {{$member->present_zipcode}}</label>
              </div>
 
              <div class="cellphone">
                 <label class="p-cellphone title-font">CELLPHONE NO. </label>
-                <label class="p-cellphone_value value-font">cellphone value </label>
+                <label class="p-cellphone_value value-font">{{$member->contact_no}} </label>
              </div>
 
              <div class="landline">
                 <label class="p-cellphone title-font">LANDLINE NO. </label>
-                <label class="p-cellphone_value value-font">landline value </label>
+                <label class="p-cellphone_value value-font">{{$member->landline_no}} </label>
              </div>
-
+             <?php
+             if (isset($member) && isset($member->province)) {
+                $per_province = explode("|", $member->province);
+                $per_province = trim($per_province[1]);
+            } else {
+                $per_province = '';
+            }
+            if (isset($member) && isset($member->municipality)) {
+                $per_municipality = explode("|", $member->municipality);
+                $per_municipality = trim($per_municipality[1]);
+            } else {
+                $per_municipality = '';
+            }
+            if (isset($member) && isset($member->barangay)) {
+                $per_barangay = explode("|", $member->barangay);
+                $per_barangay = trim($per_barangay[1]);
+            } else {
+                $per_barangay = '';
+            }
+            ?>
              <div class="permanent_address">
                 <label class="p-address title-font">PERMANENT ADDRESS<i> (If different from above) </i></label>
-                <label class="p-address_value value-font">permanent address value</label>
+                <label class="p-address_value value-font">{{$member->bldg_street}} {{ $per_barangay}} {{ $per_municipality}} {{ $per_province}} {{$member->zipcode}}</label>
              </div>
 
              <div class="email_address">
                 <label class="p-email_address title-font">EMAIL ADDRESS</label>
-                <label class="p-email_address_value value-font">EMAIL ADDRESS value</label>
+                <label class="p-email_address_value value-font">{{$member->email}} </label>
                 
              </div>
 
@@ -740,75 +781,75 @@
                 <div class="e-univ_value value-font">
                     <div class="col-1">
                         <div class="choices">
-                           <input type="checkbox" >
+                           <input type="checkbox" {{ $member->campus == 'Baguio' ? 'checked' : '' }}>
                            <label class="title-font">Baguio</label>
                         </div>
                         <div class="choices">
-                           <input type="checkbox" >
+                           <input type="checkbox" {{ $member->campus == 'Diliman' ? 'checked' : '' }}>
                            <label class="title-font">Diliman</label>
                         </div>
                         <div class="choices">
-                           <input type="checkbox" >
+                           <input type="checkbox" {{ $member->campus == 'System Admin' ? 'checked' : '' }}>
                            <label class="title-font">System Admin</label>
                         </div>
                     </div>
 
                     <div class="col-2">
                         <div class="choices">
-                           <input type="checkbox" >
+                           <input type="checkbox" {{ $member->campus == 'Manila' ? 'checked' : '' }}>
                            <label class="title-font">Manila</label>
                         </div>
                         <div class="choices">
-                           <input type="checkbox" >
+                           <input type="checkbox" {{ $member->campus == 'PGH' ? 'checked' : '' }}>
                            <label class="title-font">PGH</label>
                         </div>
                     </div>
 
                     <div class="col-3">
                          <div class="choices">
-                           <input type="checkbox" >
+                           <input type="checkbox" {{ $member->campus == 'Los Baños' ? 'checked' : '' }}>
                            <label class="title-font">Los Baños</label>
                         </div>
                         <div class="choices">
-                           <input type="checkbox" >
+                           <input type="checkbox" {{ $member->campus == 'Open University' ? 'checked' : '' }}>
                            <label class="title-font">Open University</label>
                         </div>
                     </div>
 
                     <div class="col-4">
                         <div class="choices">
-                          <input type="checkbox" >
+                          <input type="checkbox" {{ $member->campus == 'Cebu' ? 'checked' : '' }}>
                           <label class="title-font">Cebu</label> 
                         </div>
                         <div class="choices">
-                          <input type="checkbox" >
+                          <input type="checkbox" {{ $member->campus == 'Mindanao' ? 'checked' : '' }}>
                           <label class="title-font">Mindanao</label> 
                         </div>
                         <div class="choices">
-                           <input type="checkbox" >
+                           <input type="checkbox" {{ $member->campus == 'Visayas' ? 'checked' : '' }}>
                           <label class="title-font">Visayas</label> 
                         </div>
                  </div>
                    <div class="col-5">
                         <div class="choices">
-                          <input type="checkbox" >
-                          <label class="title-font"> Admin Staf</label> 
+                          <input type="checkbox" {{ $member->classification == 'Admin Staff' ? 'checked' : '' }}>
+                          <label class="title-font"> Admin Staff</label> 
                         </div>
                         <div class="choices">
-                          <input type="checkbox" >
+                          <input type="checkbox" {{ $member->classification == 'Faculty' ? 'checked' : '' }}>
                           <label class="title-font">Faculty</label> 
                         </div>
                     </div>
 
                     <div class="col-6">
                         <div class="choices">
-                          <input type="checkbox" >
+                          <input type="checkbox" {{ $member->classification == 'REPS' ? 'checked' : '' }}>
                           <label class="title-font"> REPS</label> 
                         </div>
                         <div class="choices">
-                          <input type="checkbox" >
+                          <input type="checkbox" {{ $member->classification == 'Others' ? 'checked' : '' }}>
                           <label class="title-font">Others</label> 
-                          <label class="choices_others_value">Others Value</label>
+                          <label class="choices_others_value">{{ $member->classification == 'Others' ?  $member->classification_others : '_____________' }}</label>
                         </div>
                     </div>
              </div>
@@ -820,44 +861,44 @@
 
              <div class="emp_no">
                 <label class="e-emp_no title-font">EMPLOYEE NO</label>
-                <div class="e-emp_no_value value-font">EMPLOYEE no value</div>
+                <div class="e-emp_no_value value-font">{{$member->employee_no}}</div>
              </div>
 
              <div class="college_unit">
                 <label class="e-college_unit title-font">COLLEGE / UNIT</label>
-                <label class="e-college_unit_value value-font">college unit value</label>
+                <label class="e-college_unit_value value-font">{{$member->college_unit}}</label>
              </div>
 
              <div class="department">
                 <label class="e-department title-font">DEPARTMENT</label>
-                <label class="e-department_value value-font">DEPARTMENT Value</label>
+                <label class="e-department_value value-font">{{$member->department}}</label>
              </div>
 
              <div class="academic_rank">
                 <label class="e-academic_rank title-font">ACADEMIC RANK / POSITION</label>
-                <label class="e-academic_rank_value value-font">ACADEMIC RANK value</label>
+                <label class="e-academic_rank_value value-font">{{$member->rank_position}}</label>
              </div>
              <div class="status_appointment">
                 <label class="e-status_appointment title-font">STATUS APPOINTMENT</label>
                 <div class="col-1">
                         <div class="choices">
-                          <input type="checkbox" >
+                          <input type="checkbox" {{ $member->appointment == 'Permanent' ? 'checked' : '' }}>
                           <label class="title-font"> Permanent</label> 
                         </div>
                         <div class="choices">
-                          <input type="checkbox" >
+                          <input type="checkbox" {{ $member->appointment == 'Temporary' ? 'checked' : '' }}>
                           <label class="title-font">Temporary</label> 
                         </div>
                 </div>
                 <div class="col-2">
                         <div class="choices">
-                          <input type="checkbox" >
+                          <input type="checkbox" {{ $member->appointment == 'Contractual' ? 'checked' : '' }}>
                           <label class="title-font"> Contractual</label> 
                         </div>
                         <div class="choices">
-                          <input type="checkbox" >
+                          <input type="checkbox" {{ $member->appointment == 'Contractual' ? 'checked' : '' }}>
                           <label class="title-font">Others</label> 
-                          <label class="choices_others_value value-font">Others Value</label>
+                          <label class="choices_others_value value-font">{{ $member->appointment == 'Others' ?  $member->classification_others : '_____________' }}</label>
                         </div>
                 </div>
 
@@ -871,9 +912,9 @@
                         </div>
                         
                         <div class="e-dop_date_value">
-                            <label class="e-dop_date_month_value  value-font">May</label>
-                            <label class="e-dop_date_day_value  value-font">06</label>
-                            <label class="e-dop_date_year_value  value-font">1999</label>
+                            <label class="e-dop_date_month_value  value-font">{{ date("F", strtotime($member->date_appointment)) }}</label>
+                            <label class="e-dop_date_day_value  value-font">{{ date("d", strtotime($member->date_appointment)) }}</label>
+                            <label class="e-dop_date_year_value  value-font">{{ date("Y", strtotime($member->date_appointment)) }}</label>
                         </div>
                        
                     </div>
@@ -881,15 +922,15 @@
 
                 <div class="salary_grade">
                     <label class="e-s_grade_title  title-font">SALARY GRADE</label>
-                    <label class="e-s_grade_value  value-font">salary grade value</label>
+                    <label class="e-s_grade_value  value-font">  {{$member->salary_grade}}</label>
                 </div>
                 <div class="monthly_salary">
                     <label class="e-monthly_salary  title-font">MONTHLY SALARY</label>
-                    <label class="e-monthly_salary_value value-font">MONTHLY SALARY value</label>
+                    <label class="e-monthly_salary_value value-font">{{ number_format($member->monthly_salary, 2, '.', ',') }}</label>
                 </div>
                 <div class="tin_id">
                     <label class="e-tin_id  title-font">TAXPAYER ID NO. (TIN)</label>
-                    <label class="e-tin_id_value value-font">tin value</label>
+                    <label class="e-tin_id_value value-font"> {{$member->tin_no}}</label>
                 </div>
             </div>
              
@@ -910,13 +951,13 @@
 
                 <div class="percentage">
                     <div class="col-1">
-                        <input type="checkbox">
+                        <input type="checkbox" {{ $member->contribution_set == 'Percentage of Basic Salary' ? 'checked' : '' }}>
                         <label class="a-text title-font">
                         
                             A. Percentage of Basic Salary (Between 1% and 100%)
                         </label>
 
-                        <label class="value value-font">value %</label>
+                        <label class="value value-font">{{ $member->contribution_set == 'Percentage of Basic Salary' ? $member->percentage : '' }}% </label>
                     </div>
                     
                     <div class="col-2">
@@ -926,11 +967,11 @@
                     </div>
 
                     <div class="col-3">
-                        <input type="checkbox">
+                        <input type="checkbox" {{ $member->contribution_set == 'Fixed Amount' ? 'checked' : '' }}>
                         <label class="b-text title-font">
                             B. Fixed Amount (in Philippine Peso):
                         </label>
-                         <label class="value value-font">PHP 696969</label>
+                         <label class="value value-font">PHP {{ $member->contribution_set == 'Fixed Amount' ? number_format($member->amount, 2, '.', ',') : '' }}</label>
                     </div>
                 </div>
 
@@ -942,29 +983,96 @@
                         <label class="row-1">(Those who will receive the fund benefits in case of the member’s death; Please use additional sheet if necessary; If left blank, benefits shall be</label>
                         <label class="row-2">divided among heirs in accordance with the New Family Code.)</label>
                     </div>
-
+                    <!-- <pre>{{ print_r($benificiary) }}</pre> -->
                     <div class="b-table">
-                        <div class="col-1">
+                    @if(count($benificiary) > 0)
+                    @php
+                        $count = 1;
+                    @endphp
+                    @foreach($benificiary as $ben)
+                    @if($count == 1)
+                    <!-- <div class="col-{{ $count }}"> -->
+                    <div class="col-1">
+                        <div class="title">
+                            <label class="no_1 title-font">{{ $count }}</label>
+                            <label class="full_name title-font">Full Name</label>
+                            <label class="full_name_value value-font">{{ $ben->fullname }}</label>
+                            <label class="date_of_birth title-font">Date of Birth </label>
+                            <label class="date_of_birth_value value-font">{{ $ben->date_birth }} </label>
+                            <label class="relationship title-font">Relationship </label>
+                            <label class="relationship_value value-font">{{ $ben->relationship }} </label>
+
+                    @elseif($count == 2)
+                            <label class="no_2 title-font" style="margin-top:55px;">{{ $count }}</label>
+                            <label class="full_name_value value-font" style="margin-top:55px;">{{ $ben->fullname }}</label>
+                            <label class="date_of_birth_value value-font" style="margin-top:55px;">{{ $ben->date_birth }} </label>
+                            <label class="relationship_value value-font" style="margin-top:55px;">{{ $ben->relationship }} </label>
+                         </div>
+                    </div>
+                    @elseif($count == 3)
+                    <div class="col-2">
+                        <div class="title">
+                            <label class="no_1 title-font" >{{ $count }}</label>
+                            <label class="full_name title-font">Full Name</label>
+                            <label class="full_name_value value-font">{{ $ben->fullname }}</label>
+                            <label class="date_of_birth title-font">Date of Birth </label>
+                            <label class="date_of_birth_value value-font">{{ $ben->date_birth }} </label>
+                            <label class="relationship title-font">Relationship </label>
+                            <label class="relationship_value value-font">{{ $ben->relationship }} </label>
+                    @elseif($count == 4)
+                            <label class="no_2 title-font" style="margin-top:47px;">{{ $count }}</label>
+                            <label class="full_name_value value-font" style="margin-top:47px;">{{ $ben->fullname }}</label>
+                            <label class="date_of_birth_value value-font" style="margin-top:47px;">{{ $ben->date_birth }} </label>
+                            <label class="relationship_value value-font" style="margin-top:47px;">{{ $ben->relationship }} </label>
+                         </div>
+                    </div>
+                    @elseif($count > 4)
+                    @break
+                    @else
+                    </div>
+                    </div>
+                    @endif
+                    <!-- @if($count > 2)
+                        <div class="col-{{ $count }}">
+                            <div class="title">
+                                <label class="no_{{ $count }} title-font">{{ $count }}</label>
+                                <label class="full_name title-font">Full Name</label>
+                                <label class="full_name_value value-font">{{ $ben->fullname }}</label>
+                                <label class="date_of_birth title-font">Date of Birth </label>
+                                <label class="date_of_birth_value value-font">{{ $ben->date_birth }} </label>
+                                <label class="relationship title-font">Relationship </label>
+                                <label class="relationship_value value-font">{{ $ben->relationship }} </label>
+                            </div>
+                        </div>
+                    @endif -->
+                        @php
+                            $count++;
+                        @endphp
+                        
+                    @endforeach
+
+                    @else
+                    <div class="col-1">
                             <div class="title">
                                 <label class="no_1 title-font">1</label>
 
                                 <label class="full_name title-font">Full Name</label>
-                                <label class="full_name_value value-font">Mark Denneb R. Gomez asdasdsadas</label>
+                                <label class="full_name_value value-font"></label>
 
                                 <label class="date_of_birth title-font">Date of Birth </label>
-                                <label class="date_of_birth_value value-font">May 6, 1969 </label>
+                                <label class="date_of_birth_value value-font"> </label>
 
                                 <label class="relationship title-font">Relationship </label>
-                                <label class="relationship_value value-font">Cousin </label>
+                                <label class="relationship_value value-font"> </label>
 
                                 
                                 <label class="no_2 title-font">2</label>
                                 <label class="full_name_value value-font" style="margin-top:47px;">
-                                Mark Denneb R. Gomez asdasdsadas</label>
+                                </label>
 
-                                <label class="date_of_birth_value value-font" style="margin-top:47px;">May 6, 1969 </label>
+                                <label class="date_of_birth_value value-font" style="margin-top:47px;"> </label>
 
-                                <label class="relationship_value value-font" style="margin-top:47px;">Cousin </label>
+                                <label class="relationship_value value-font" style="margin-top:47px;"> </label>
                             </div>
                         </div>
 
@@ -973,24 +1081,25 @@
                                 <label class="no_1 title-font">3</label>
 
                                 <label class="full_name title-font">Full Name</label>
-                                <label class="full_name_value value-font">Mark Denneb R. Gomez asdasdsadas</label>
+                                <label class="full_name_value value-font"></label>
 
                                 <label class="date_of_birth title-font">Date of Birth </label>
-                                <label class="date_of_birth_value value-font">May 6, 1969 </label>
+                                <label class="date_of_birth_value value-font"> </label>
 
                                 <label class="relationship title-font">Relationship </label>
-                                <label class="relationship_value value-font">Cousin </label>
+                                <label class="relationship_value value-font"> </label>
 
                                 
                                 <label class="no_2 title-font">4</label>
                                 <label class="full_name_value value-font" style="margin-top:47px;">
-                                Mark Denneb R. Gomez asdasdsadas</label>
+                                </label>
 
-                                <label class="date_of_birth_value value-font" style="margin-top:47px;">May 6, 1969 </label>
+                                <label class="date_of_birth_value value-font" style="margin-top:47px;"> </label>
 
-                                <label class="relationship_value value-font" style="margin-top:47px;">Cousin </label>
+                                <label class="relationship_value value-font" style="margin-top:47px;"> </label>
                             </div>
                         </div>
+                    @endif
                     </div>
                 </div>
             </div>
@@ -1011,7 +1120,7 @@
                     </div>
 
                     <div class="dates">
-                        <label class="value value-font">May 6, 1969</label>
+                        <label class="value value-font-date">{{ date("F d, Y", strtotime($member->date_accomplished)) }}</label>
                         <label class="title title-font">DATE</label>
                     </div>
             </div>
