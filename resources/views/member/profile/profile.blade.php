@@ -1,10 +1,7 @@
+
 @extends('layouts/main')
 @section('content_body')
-
-<script src="{{ asset('/dist/adminDashboard.js') }}"></script>
-<div class="filler"></div>
-  <div class="col-12 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-accent mp-overflow-y dashboard ">
-    <div class="container-fluid">
+<div class="container-fluid">
   <link href="/css/css-module/global_css/global.css" rel="stylesheet">
   <div class="row no-gutters mp-mt5">
     <div class="col-12 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-primary">
@@ -13,7 +10,6 @@
         Back to Dashboard
       </a>
     </div>
-
   </div>
 
   <div class="row no-gutters">
@@ -29,17 +25,34 @@
           <div class="mp-text-no-lh">
             <div class="mp-mb1 mp-text-c-light-gray mp-text-fs-small">Member ID</div>
             <div class="mp-text-fs-large mp-text-fw-heavy">
-              member id
+              {{ $member->member_no }}
             </div>
           </div>
           <div class="mp-mh2 mp-text-no-lh mp-text-word-wrap mp-dashboard__title">
-            Gomez , Denneb
+            {{ $member->last_name }}, {{ $member->first_name}}
           </div>
           <div class="mp-text-no-lh">
-            <div class="mp-mb2 mp-text-fs-large">Campus</div>
-            <div class="mp-text-fs-large">position id</div>
+            <div class="mp-mb2 mp-text-fs-large">{{ $member->campus_name }}</div>
+            <div class="mp-text-fs-large">{{ $member->position_id}}</div>
           </div>
-            
+            <!-- <div class="mp-mt3">
+              <i class="mp-icon icon-envelope mp-mr1 mp-text-fs-medium mp-text-c-primary"></i>
+
+
+              <a id="email" href="#" class="mp-link mp-link--primary mp-link--editable">
+                {{ $member->email }}
+              </a>
+
+            </div>
+            <div>
+              <i class="mp-icon icon-phone mp-mr1 mp-text-fs-medium mp-text-c-primary"></i>
+
+
+              <a id="contactNo" href="#" class="mp-link mp-link--primary mp-link--editable">
+                +63{{ $member->contact_no }}
+              </a>
+
+            </div> -->
 
           </div>
         </div>
@@ -58,13 +71,15 @@
                   </tr>
                 </thead>
                 <tbody>
-                 
+                  @if($beneficiaries)
+                  @foreach($beneficiaries as $bene)
                   <tr>
-                    <td>asdasdsa</td>
-                    <td>asdasdsa</td>
-                    <td>asdasdsa</td>
+                    <td>{{ $bene->beni_name }}</td>
+                    <td>{{ $bene->birth_date }}</td>
+                    <td>{{ $bene->relationship }}</td>
                   </tr>
-                  
+                  @endforeach
+                  @endif
                 </tbody>
               </table>
             </div>
@@ -111,45 +126,45 @@
           
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Cellphone Number:</div>
-            <div class="col-md-auto">+632323232</div>
+            <div class="col-md-auto">+63{{ $member->contact_no }}</div>
           </div>
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Landline Number:</div>
-            <div class="col-md-auto">123132</div>
+            <div class="col-md-auto">{{  $details ? $details->landline : '' }}</div>
           </div>
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Gender:</div>
-            <div class="col-md-auto">male</div>
+            <div class="col-md-auto">{{  $details ? $details->gender : '' }}</div>
           </div>
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Employee Number:</div>
-            <div class="col-md-auto">employee value</div>
+            <div class="col-md-auto">{{  $details ? $details->employee_no : '' }}</div>
           </div>
 
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Status of Appointment:</div>
-            <div class="col-md-auto">status value</div>
+            <div class="col-md-auto">{{  $details ? $details->appointment_status : '' }}</div>
           </div>
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">TIN:</div>
-            <div class="col-md-auto">tin id 123</div>
+            <div class="col-md-auto">{{  $details ? $details->tin : '' }}</div>
           </div>
 
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Permanent Address:</div>
-            <div class="col-md-auto"  style="width:100%">permanent address</div>
+            <div class="col-md-auto"  style="width:100%">{{  $details ? $details->permanent_address : '' }}</div>
           </div>
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Current Address:</div>
-            <div class="col-md-auto"  style="width:100%" >address</div>
+            <div class="col-md-auto"  style="width:100%" >{{  $details ? $details->current_address : '' }}</div>
           </div>
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Birthday:</div>
-            <div class="col-md-auto">date</div>
+            <div class="col-md-auto">{{  $details ? $details->birth_date : '' }}</div>
           </div>
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Monthly Salary:</div>
-            <div class="col-md-auto">PHP 1231232</div>
+            <div class="col-md-auto">PHP {{  $details ? number_format($details->monthly_salary,2) : '0.00' }}</div>
           </div>
         </div>
         <div class="mp-card__footer mp-text-right mp-pb4 mp-pv4">
@@ -183,35 +198,53 @@
           <!--   <div class="mp-mb3 mp-text-fw-heavy">Your Member's Equity</div> -->
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Email:</div>
-            <div class="col-md-auto">markdennebg@gmail.com</div>
+            <div class="col-md-auto">{{ $member->email }}</div>
           </div>
 
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Salary Grade:</div>
-            <div class="col-md-auto">salary grade value</div>
+            <div class="col-md-auto">{{  $details ? $details->salary_grade : '' }}</div>
           </div>
 
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Original Appointment Date:</div>
-            <div class="col-md-auto">date</div>
+            <div class="col-md-auto">{{   $member ? date('m/d/Y', strtotime($member->original_appointment_date)): '' }}</div>
           </div>
 
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Civil Status:</div>
-            <div class="col-md-auto">single</div>
+            <div class="col-md-auto">{{  $details ? $details->civil_status : '' }}</div>
           </div>
 
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Member Contribution Type:</div>
-            <div class="col-md-auto">type</div>
+            <div class="col-md-auto">{{  $details ? strtoupper($details->contribution_type) : '' }}</div>
           </div>
           <div class="row mp-mb2">
             <div class="col mp-text-fw-heavy">Member Monthly Contribution:</div>
-            <div class="col-md-auto">123123</div>
+            <div class="col-md-auto">{{  isset($details)  ? $details->contribution_type=='FIXED' ? 'PHP '.number_format($details->contribution,2) : intval($details->contribution).'%'  : ''  }}</div>
+          </div>
 
-            
+            <!-- @if(!empty($outstandingloans))
+              <div class="mp-mt5 mp-mb3 mp-text-fw-heavy">Your Outstanding Loans</div>
+                @foreach($outstandingloans as $oloans)
+                <div class="row mp-mb2">
+                  <div class="col">{{ $oloans->type }}</div>
+                  <div class="col-md-auto">PHP {{ number_format($oloans->balance,2) }}</div>
+                </div>
+               @endforeach
+                <hr class="mp-mt3">
+                <div class="row mp-mt3 mp-mb2">
+                  <div class="col">Total Outstanding Loan Balance</div>
+                  <div class="col-md-auto">PHP {{ number_format($totalloanbalance,2) }}</div>
+                </div>
+                @endif -->
               </div>
-             
+             <!--  <div class="mp-card__footer mp-text-right">
+                <a href="{{url('/member/edit_details_approval')}}" class="mp-link mp-link--primary">
+                  Edit
+                </a>
+              </div> -->
             </div>
           </div>
 
@@ -222,5 +255,3 @@
       @section('script')
       <script src="{{ asset('/dist/dashboard.js') }}"></script>   
       @endsection
-
-  </div>

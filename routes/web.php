@@ -74,11 +74,18 @@ Route::get('/member/transaction', [MemberController::class, 'transaction'])->nam
 Route::get('/member/member', [MemberController::class, 'member'])->name('member.member');
 Route::get('/member/equity', [MemberController::class, 'equity'])->name('member.equity');
 
+//member-profile
+Route::get('/member/update-password', [MemberController::class, 'updatepassword'])->name('member.updatepassword');
+
+
 //PDF Generation
 Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
 Route::get('/generateProxyForm/{id}', [PDFController::class, 'generateProxyForm']);
 Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('download_form');
-Route::get('/memberform/{id}', [PDFController::class, 'memberform']);
+
+Route::get('/memberform', [PDFController::class, 'memberform'])->name('memberform');
+Route::get('/proxyForm', [PDFController::class, 'proxyForm'])->name('proxyForm');
+
 
 // check status trail
 Route::post('/login/status_trail', [HomeController::class, 'search_app_trail'])->name('status_trail');
