@@ -27,6 +27,11 @@ class PDFController extends Controller
         $pdf->setPaper( 'A4', 'portrait' );
         return $pdf->stream();
     }
+    public function proxyForm() {
+        $pdf = PDF::loadView( 'pdf.cocolife_proxyform' );
+        $pdf->setPaper( 'A4', 'portrait' );
+        return $pdf->stream();
+    }
     
     public function memberform() {
         $pdf = PDF::loadView( 'pdf.member_form' );
