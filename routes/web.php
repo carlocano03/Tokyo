@@ -59,6 +59,7 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 
 //admin
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/members/records', [AdminController::class, 'members_records'])->name('admin.members_records');
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
 // Route::get('/admin/dashboard', 'AdminController@index');
 
@@ -68,15 +69,23 @@ Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin
 //member
 Route::get('/member/dashboard', [MemberController::class, 'dashboard'])->name('member.dashboard');
 Route::get('/member/settings', [MemberController::class, 'settings'])->name('member.settings');
-Route::get('/member/loan', [MemberController::class, 'dashboard'])->name('member.loan');
-Route::get('/member/transaction', [MemberController::class, 'settings'])->name('member.transaction');
-Route::get('/member/member', [MemberController::class, 'dashboard'])->name('member.member');
+Route::get('/member/loan', [MemberController::class, 'loan'])->name('member.loan');
+Route::get('/member/transaction', [MemberController::class, 'transaction'])->name('member.transaction');
+Route::get('/member/member', [MemberController::class, 'member'])->name('member.member');
+Route::get('/member/equity', [MemberController::class, 'equity'])->name('member.equity');
+
+//member-profile
+Route::get('/member/update-password', [MemberController::class, 'updatepassword'])->name('member.updatepassword');
+
 
 //PDF Generation
 Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
 Route::get('/generateProxyForm/{id}', [PDFController::class, 'generateProxyForm']);
 Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('download_form');
+
 Route::get('/memberform', [PDFController::class, 'memberform'])->name('memberform');
+Route::get('/proxyForm', [PDFController::class, 'proxyForm'])->name('proxyForm');
+
 
 // check status trail
 Route::post('/login/status_trail', [HomeController::class, 'search_app_trail'])->name('status_trail');

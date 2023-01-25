@@ -47,16 +47,79 @@
 
         #loading-image {
             position: absolute;
-            margin-right:-50px;
+            margin-right: -50px;
             top: 0;
             bottom: 0;
             left: 0;
             right: 0;
             margin: auto;
             width: 200px;
-           
+
         }
 
+        .opacity-0 {
+            opacity: 0 !important;
+        }
+
+        #modalBackDrop {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, .3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .5s;
+            opacity: 1;
+        }
+
+        .modalContent {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            width: 70vw;
+            height: 23vh;
+            background-color: white;
+            margin-bottom: 100px;
+            padding: 40px;
+            border-radius: 17px;
+            transition: all .5s;
+        }
+
+        .modalBody {
+            height: 90%;
+            display: flex;
+            align-items: center;
+        }
+
+        .modalFooter {
+            display: flex;
+            justify-content: center;
+        }
+
+        .modalFooter>button {
+            font-size: 25px;
+            padding-left: 20px;
+            padding-right: 20px;
+            background-color: #894168;
+            font-weight: 400;
+            color: white;
+            border-radius: 17px;
+        }
+
+        @media (max-width:500px) {
+            .modalContent {
+                width: 90vw;
+                height: 30vh;
+                padding: 20px;
+                padding-bottom: 30px;
+            }
+
+            .modalBody {
+                text-align: center;
+            }
+        }
     </style>
 
 
@@ -64,16 +127,45 @@
 
 
 </head>
+<script>
+    $(document).on('click', '#agree', function(e) {
+        $("#modalBackDrop").addClass("opacity-0")
+        setTimeout(function() {
+            $("#modalBackDrop").addClass("d-none")
+        }, 500)
+        sessionStorage.setItem("agreeClicked", true)
+    })
+    $(document).ready(function(e) {
+        if (sessionStorage.getItem("agreeClicked") == null) {
+            $("#modalBackDrop").removeClass("d-none")
+            setTimeout(function() {
+                $("#modalBackDrop").removeClass("opacity-0")
+            }, 100)
+        }
+    })
+</script>
 
 <body id="uppfi">
     <div id="loading" class="mx-auto" style="display:none;">
         <img id="loading-image" src="{{ asset('/img/logo_gif_blue.gif') }}" alt="Loading..." />
     </div>
+    <div id="modalBackDrop" class="d-none opacity-0">
+        <div class="modalContent">
+            <div class="modalBody">
+                <p>UPPFI uses a third party service to analyze non-identifiable web traffic for us. This site uses cookies. Data generated is not disclosed not shared with any other party. For more information please see our <a href="#" class="link_style">Privacy Policy</a>.</p>
+            </div>
+            <div class="modalFooter">
+                <button id="agree">
+                    I Agree
+                </button>
+            </div>
+        </div>
+    </div>
     @section('content')
     @extends('layouts/footer')
     @show
     @yield('scripts')
-   
+
 </body>
 
 </html>

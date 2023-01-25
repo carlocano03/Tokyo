@@ -42,17 +42,29 @@
             <input class="mp-input-group__input mp-text-field" type="password" id="password" name="password" required />
         </div>
         <div class="col col-auto">
+        
             <div class="row">
-                <button type="submit" class="mp-button mp-button--accent">Login</button>
+                <div class="col-6" style="padding:0px;">
+                     <label class="mp-text-fs-small mp-link link_style" 
+                     style="padding-top:10px;"
+                     id="forgot_password">
+                        Forgot password?
+                     </label>
+                </div>
+
+                <div class="col-6" style="text-align:right; padding: 0px;">
+                    <button type="submit" class="mp-button mp-button--accent">Login</button>
+                </div>
+               
+                
+                
             </div>
         </div>
         <div class="mp-pt3 row justify-content-between grid mp-pv-1">
             <div class="col">
                 <div class="row flex-column">
 
-                    <label class="mp-text-fs-small mp-link link_style" id="forgot_password">
-                        Forgot password?
-                    </label>
+                    
                     <br />
                     <br />
                     @if (Request::route()->getName() == 'admin')

@@ -3778,6 +3778,10 @@ tfoot {
     padding: 10px
 }
 
+.p-5px {
+    padding: 10px
+}
+
 .mp-card__body {
     flex: 1
 }
@@ -4879,15 +4883,16 @@ tfoot {
 
 [data-md-tooltip].md-tooltip--right:before {
     left: auto;
-    right: -10px;
+    right: 0px;
+    min-width: 100px;
     bottom: auto;
     top: 50%;
-    transform: translate(100%, -50%) scale(0);
+    transform: translate(100%, -60%) scale(0);
     transform-origin: left center;
 }
 
 [data-md-tooltip].md-tooltip--right:hover:before {
-    transform: translate(100%, -50%) scale(1);
+    transform: translate(100%, -60%) scale(1);
 }
 
 .hide {
@@ -5424,6 +5429,14 @@ tfoot {
     margin-left: auto;
 }
 
+.ml-0 {
+    margin-left: 0;
+}
+
+.mr-0 {
+    margin-right: 0;
+}
+
 .mr-auto {
     margin-right: auto;
 }
@@ -5659,6 +5672,10 @@ tfoot {
 
 .filler {
     height: 131px;
+    background-color: white;
+    /* background: linear-gradient(90deg, rgba(137, 65, 104, 1) 8%, rgba(26, 137, 129, 1) 98%);
+    border-bottom: 1px solid #e0e4e8;
+    border-bottom: 1px solid #e0e4e8; */
 }
 
 .form-border-bottom {

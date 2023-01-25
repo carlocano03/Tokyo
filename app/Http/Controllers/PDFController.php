@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use Faker\Provider\Base;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 use PDF;
 use ZipArchive;
 use File;
 use DB;
+use Carbon\Carbon;
+
 
 class PDFController extends Controller
  {
@@ -27,9 +30,26 @@ class PDFController extends Controller
         $pdf->setPaper( 'A4', 'portrait' );
         return $pdf->stream();
     }
+    public function proxyForm() {
+        $pdf = PDF::loadView( 'pdf.cocolife_proxyform' );
+        $pdf->setPaper( 'A4', 'portrait' );
+        return $pdf->stream();
+    }
     
-    public function memberform() {
-        $pdf = PDF::loadView( 'pdf.member_form' );
+    public function memberform($id) {
+        $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.employee_no = '$id'")
+        ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+        ->leftjoin('personal_details', 'personal_details.personal_id', '=', 'mem_app.personal_id')
+        ->leftjoin('beneficiaries', 'beneficiaries.personal_id', '=', 'employee_details.employee_no')
+        ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
+        ->get()->first();
+        $benificiary = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$id'")
+        ->get();
+
+        $data['member'] = $results;
+        $data['benificiary'] = $benificiary;
+        // print_r($data);
+        $pdf = PDF::loadView( 'pdf.member_form',$data );
         $pdf->setPaper( 'A4', 'portrait' );
         return $pdf->stream();
     }
