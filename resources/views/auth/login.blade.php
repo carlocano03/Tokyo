@@ -467,6 +467,7 @@
     </form>
     <form id="member_forms_con">
         <!-- <label class="mp-text-fs-medium">Employment Details</label> -->
+        <input type="hidden" id="employee_details_ID">
         <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form mp-pv2 shadow-inset-1" id="step-2">
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Campus</label>

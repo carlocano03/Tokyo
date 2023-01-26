@@ -333,7 +333,9 @@
     var employee_no;
     var employee_details_ID;
     var originalData;
-
+    var pers_id;
+    var mems_id;
+    var continued_trail = 0;
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value');
         console.log($(this).attr('value'));
@@ -346,6 +348,7 @@
             var empty = $('#member_forms').find("input[required]").filter(function() {
                 return !$.trim($(this).val()).length;
             });
+            console.log(personnel_id);
             if (empty.length) {
                 // var emptyFields = [];
                 // empty.each(function() {
@@ -354,6 +357,35 @@
                 empty.first().focus();
                 swal.fire("Error!", "Please fill out the required fields", "error");
             } else {
+            if($('#app_trailNo').val() !== '' && personnel_id == undefined){
+                var formDatas = $("#member_forms").serialize();
+                var additionalData = {
+                    'mem_id': mem_id,
+                    'personnel_id': pers_id,
+                };
+                formDatas += '&' + $.param(additionalData);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('update_trail_member') }}",
+                    data: formDatas,
+                    success: function(data) {
+                        if (data.success != '') {
+                            mem_id = data.mem_id;
+                            personnel_id = data.success;
+                            $("#step-1").removeClass('d-flex').addClass("d-none");
+                            $("#member_forms").removeClass('mh-reg-form');
+                            $("#member_forms_con").addClass('mh-reg-form');
+                            $("#step-2").removeClass('d-none').addClass("d-flex");
+                            $("#back").attr('value', 'step-1');
+                            $(this).attr('value', 'step-3');
+                            $("#line").removeClass('step-1').addClass('step-2');
+                            $("#registration-title").text(stepTitle[1]);
+                            $("#stepper-2").addClass("active");
+                        }
+                    }
+                });
+            }else{
+            
                 if (!personnel_id) {
                     Swal.fire({
                         title: 'Are you sure?',
@@ -460,6 +492,7 @@
                     $("#registration-title").text(stepTitle[1])
                     $("#stepper-2").addClass("active")
                 }
+             }
             }
         } else if (nextValue == 'step-3') {
 
@@ -468,17 +501,57 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
             var empty = $('#member_forms_con').find("input[required]").filter(function() {
                 return !$.trim($(this).val()).length;
             });
+            console.log(mem_id);
+            console.log(employee_details_ID);
             if (empty.length) {
-                // var emptyFields = [];
-                // empty.each(function() {
-                // emptyFields.push($(this).attr("id"));
-                // });
+
                 empty.first().focus();
                 swal.fire("Error!", "Please fill out the required fields", "error");
             } else {
+            if($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' && continued_trail == 0){
+                var formData = $("#member_forms_con").serialize();
+                var additionalData = {
+                    'mem_id': mem_id,
+                    'employee_details_ID': $('#employee_details_ID').val(),
+                };
+                formData += '&' + $.param(additionalData);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('update_trail_member_1') }}",
+                    data: formData,
+                    success: function(data) {
+                        if (data.success != '') {
+                            employee_no = data.emp_no;
+                            employee_details_ID = data.success;
+                            continued_trail = 1;
+                            $("#step-2").removeClass('d-flex').addClass(
+                                "d-none");
+                            $("#step-3").removeClass('d-none').addClass(
+                                "d-flex");
+                            $("#back").attr('value', 'step-2')
+                            $("#member_forms_con").removeClass(
+                                'mh-reg-form');
+                            $("#member_forms_3").addClass('mh-reg-form');
+                            // $(this).attr('value', 'step-end')
+                            $("#line").removeClass('step-2').addClass(
+                                'step-3')
+                            $("#registration-title").text(stepTitle[2])
+                            $("#stepper-3").addClass("active")
+                        } else {
+                            Swal.fire({
+                                title: 'Employee No are already used.',
+                                icon: 'error'
+                            });
+
+                            $('#employee_no').focus();
+                        }
+                    }
+                });
+            }else{
                 if (!employee_details_ID) {
                     var formData = $("#member_forms_con").serialize();
                     var additionalData = {
@@ -513,7 +586,6 @@
                         }
                     });
                 } else {
-                    console.log('asdasd');
                     if (originalData_ext !== $("#member_forms_con").serialize()) {
                         Swal.fire({
                             title: 'Changes have been detected.',
@@ -595,6 +667,7 @@
 
                 }
 
+             }
             }
         }
         scrollToTop()
@@ -983,6 +1056,7 @@
             });
         }
     });
+
     $(document).on('click', '#cont_app', function(e) {
         $("#resetPasswordForm").attr("hidden", true);
         $("#statusTrailForm").attr("hidden", true);
@@ -1002,9 +1076,55 @@
                 method: "POST",
                 success: function(data) {
                     if (Object.keys(data).length > 0) {
-                        $('#app_trailNo').val(data.app_no == null ? 'N/A' : data.app_no);
-                        $("[name='lastname']").val(data.lastname == null ? 'N/A' : data.lastname);
-                        $("[name='tin_no']").val(data.tin_no == null ? 'N/A' : data.tin_no);
+                        pers_id = data.personal_id;
+                        mems_id = data.employee_details_ID;
+                        mem_id = data.mem_app_ID;
+                        $('#employee_details_ID').val(data.employee_details_ID == null ? '' : data.employee_details_ID);
+                        $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
+                        $("[name='lastname']").val(data.lastname == null ? '' : data.lastname);
+                        $("[name='middlename']").val(data.middlename == null ? '' : data.middlename);
+                        $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
+                        $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
+                        $("[name='date_birth']").val(data.date_birth == null ? '' : data.date_birth);
+                        $("[name='gender']").val(data.gender == null ? '' : data.gender);
+                        $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
+                        if(data.citizenship == 'FILIPINO'){
+                            $('input[name="citizenship"][value="FILIPINO"]').prop('checked', true);
+                        }
+                        else if(data.citizenship == 'DUAL CITIZENSHIP'){
+                            $('input[name="citizenship"][value="DUAL CITIZENSHIP"]').prop('checked', true);
+                        }
+                        else if(data.citizenship == 'OTHERS'){
+                            $('input[name="citizenship"][value="OTHERS"]').prop('checked', true);
+                        }
+                        // $("[name='citizenship']").val(data.citizenship == null ? '' : data.citizenship).prop('checked', true);
+                        // $('input[name="citizenship"][value="'+(data.citizenship == null ? '' : data.citizenship)+'"]').prop('checked', true);
+                        $("[name='dual_citizenship']").val(data.dual_citizenship == null ? '' : data.dual_citizenship);
+                        $("[name='present_bldg_street']").val(data.present_bldg_street == null ? '' : data.present_bldg_street);
+                        $("[name='present_zipcode']").val(data.present_zipcode == null ? '' : data.present_zipcode);
+                        $("[name='bldg_street']").val(data.bldg_street == null ? '' : data.bldg_street);
+                        $("[name='zipcode']").val(data.zipcode == null ? '' : data.zipcode);
+                        $("[name='contact_no']").val(data.contact_no == null ? '' : data.contact_no);
+                        $("[name='landline_no']").val(data.landline_no == null ? '' : data.landline_no);
+                        $("[name='email']").val(data.email == null ? '' : data.email);
+
+                        $("[name='employee_no']").val(data.employee_no == null ? '' : data.employee_no);
+                        $("[name='campus']").val(data.campus == null ? '' : data.campus);
+                        $("[name='classification']").val(data.classification == null ? '' : data.classification);
+                        $("[name='classification_others']").val(data.classification_others == null ? '' : data.classification_others);
+                        $("[name='college_unit']").val(data.college_unit == null ? '' : data.college_unit);
+                        $("[name='rank_position']").val(data.rank_position == null ? '' : data.rank_position);
+                        $("[name='department']").val(data.department == null ? '' : data.department);
+                        $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
+                        $("[name='date_appointment']").val(data.date_appointment == null ? '' : data.date_appointment);
+                        
+                        var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
+                        var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+
+                        $("[name='monthly_salary']").val(formattedNumber);
+                        $("[name='salary_grade']").val(data.salary_grade == null ? '' : data.salary_grade);
+                        $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
+                        $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
                         $('#present_province').val(data.present_province).trigger('change');
                         // $('#present_city').val(data.present_municipality).trigger('change');
                         // $('#present_barangay').val(data.present_barangay).trigger('change');
