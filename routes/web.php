@@ -62,6 +62,7 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('adm
 Route::get('/admin/members/records', [AdminController::class, 'members_records'])->name('admin.members_records');
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
 Route::post('/admin/countApplication', [AdminController::class, 'countApplication'])->name('count_application');
+Route::get('/admin/get_members', [AdminController::class, 'get_members'])->name('getMembers');
 // Route::get('/admin/dashboard', 'AdminController@index');
 
 //admin

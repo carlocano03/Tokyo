@@ -927,7 +927,7 @@
                         $('#search_btn').hide(200);
                         $("#icon_status").removeClass("fa fa-frown-o").addClass("fa fa-smile-o");
                         $('#found_remarks').text('Record has been found');
-                        $('#appNo_label').text(data.app_no == null ? 'N/A' : data.app_no);
+                        $('#appNo_label').text(data.campus == null ? 'N/A' : data.campus);
                         $('#lname_label').text(data.lastname == null ? 'N/A' : data.lastname);
                         $('#mname_label').text(data.middlename == null ? 'N/A' : data.middlename);
                         $('#fname_label').text(data.firstname == null ? 'N/A' : data.firstname);
