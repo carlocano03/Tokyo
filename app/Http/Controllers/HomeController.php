@@ -389,6 +389,17 @@ class HomeController extends Controller
       return response()->json($results);
   }
 
+  public function continued_trail_status(Request $request)
+  {
+      $query = $request->input('app_trailno');
+      $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$query'")
+      ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->get()->first();
+    
+      return response()->json($results);
+  }
+
   public function check_sg_bracket(Request $request)
   {
       $query = str_replace(',', '',$request->input('inputValue'));
