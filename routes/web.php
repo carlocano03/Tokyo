@@ -51,6 +51,9 @@ Route::post('/login/add_member_con', [HomeController::class, 'add_member_p2'])->
 Route::post('/login/add_member_details', [HomeController::class, 'add_member_p3'])->name('add_member_details');
 Route::post('/login/add_member_con_up', [HomeController::class, 'add_member_up_p2'])->name('add_member_con_up');
 Route::post('/login/add_member_update', [HomeController::class, 'add_member_update1'])->name('add_member_update');
+Route::post('/login/update_trail_member', [HomeController::class, 'update_trail_member_1'])->name('update_trail_member');
+Route::post('/login/update_trail_member_1', [HomeController::class, 'update_trail_member_2'])->name('update_trail_member_1');
+
 Route::post('/login/add_proxy', [HomeController::class, 'add_proxy'])->name('add_proxyForm');
 
 
