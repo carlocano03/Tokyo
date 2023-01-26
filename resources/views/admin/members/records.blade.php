@@ -289,8 +289,8 @@
             New Application
           </div>
           <div class="card-body justify-content-center">
-            <div class="ldBar green label-center" data-preset="circle" data-value="50"></div>
-          </div>
+            <div class="ldBar green label-center" data-preset="circle" data-value="{{ $new_app }}"></div>
+          </div> 
           <button class="green-bg button-view">
             View
           </button>
@@ -300,7 +300,7 @@
             Processing Application
           </div>
           <div class="card-body justify-content-center">
-            <div class="ldBar magenta label-center" data-preset="circle" data-value="80"></div>
+            <div class="ldBar magenta label-center" data-preset="circle" data-value="{{ $forApproval }}"></div>
           </div>
           <button class="magenta-bg button-view">
             View
@@ -311,7 +311,7 @@
             Approved Application
           </div>
           <div class="card-body justify-content-center">
-            <div class="ldBar maroon label-center" data-preset="circle" data-value="40"></div>
+            <div class="ldBar maroon label-center" data-preset="circle" data-value="{{ $approved }}"></div>
           </div>
           <button class="maroon-bg button-view">
             View
@@ -322,7 +322,7 @@
             Rejected Application
           </div>
           <div class="card-body justify-content-center">
-            <div class="ldBar red label-center" data-preset="circle" data-value="10"></div>
+            <div class="ldBar red label-center" data-preset="circle" data-value="{{ $rejected }}"></div>
           </div>
           <button class="red-bg button-view">
             View

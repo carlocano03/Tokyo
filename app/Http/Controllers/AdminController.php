@@ -86,7 +86,18 @@ class AdminController extends Controller
 
   public function members_records()
   {
-    return view('admin.members.records');
+    $total_new = DB::table('mem_app')->count();
+    $forApproval = DB::table('mem_app')->where('app_status', 'SUBMITTED')->count();
+    $draft = DB::table('mem_app')->where('app_status', 'APPROVED')->count();
+    $rejected = DB::table('mem_app')->where('app_status', 'REJECTED')->count();
+
+    $data = array(
+      'new_app' => $total_new,
+      'forApproval' => $forApproval,
+      'approved' => $draft,
+      'rejected' => $rejected,
+    );
+    return view('admin.members.records')->with($data);
   }
 
 }
