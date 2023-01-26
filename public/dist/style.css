@@ -5916,3 +5916,67 @@ tfoot {
     margin-left: -20px;
     margin-bottom: -5px;
 }
+
+.members-table {
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+    border: 1px solid #ececec;
+}
+
+.members-table>thead>tr>th {
+    font-size: 13px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #1a8981;
+    color: white !important;
+    border-left: 1px solid white;
+    font-weight: 500;
+    border-top: 2px solid #1a8981;
+    border-bottom: 2px solid #1a8981;
+    height: auto;
+}
+
+.members-table>thead>tr>th:first-child {
+    border-left: 1px solid #1a8981;
+}
+
+.members-table>thead>tr>th:last-child {
+    border-right: 1px solid #1a8981;
+}
+
+.members-table>thead>tr>th>span {
+    display: flex;
+    height: 100%;
+}
+
+.members-table>tbody>tr>td>span {
+    display: flex;
+    padding: 5px 2px;
+
+}
+
+.members-table>tbody>tr>td {
+    font-size: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.text-green {
+    color: var(--c-primary) !important;
+}
+
+.text-grey {
+    color: var(--c-base-80) !important;
+}
+
+.soa-title {
+    background-color: var(--c-accent);
+    border-radius: 4px !important;
+    font-size: px !important;
+    color: white;
+    padding: 14px;
+    text-align: center;
+}
