@@ -334,6 +334,9 @@
   .dark-bg {
     background-color: black;
     padding: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
     z-index: 1000 !important;
     position: absolute;
     opacity: 0.5;
@@ -630,7 +633,7 @@
     });
 
     let initialWidth = screen.width;
-    console.log(initialWidth)
+
     if (initialWidth >= 656 || initialWidth >= 896) {
       $("#side_bar").removeClass("hide");
       $("#menu-toggle").addClass("hide");

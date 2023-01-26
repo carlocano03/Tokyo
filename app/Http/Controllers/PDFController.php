@@ -68,18 +68,30 @@ class PDFController extends Controller
         return $pdf->stream();
     }
 
-    public function downloadForm() {
-        $zip = new ZipArchive;
-        $filename = 'forms.zip';
-        if($zip->open(public_path($filename), ZipArchive::CREATE) === TRUE)
-        {
-            $files = File::files(public_path('forms'));
-            foreach($files as $key => $value) {
-                $relativeItemName = basename($value);
-                $zip->addFile($value,$relativeItemName);
-            }
-            $zip->close();
-        }
-        return response()->download(public_path($filename));
+    // public function downloadForm() {
+    //     $zip = new ZipArchive;
+    //     $filename = 'forms.zip';
+    //     if($zip->open(public_path($filename), ZipArchive::CREATE) === TRUE)
+    //     {
+    //         $files = File::files(public_path('forms'));
+    //         foreach($files as $key => $value) {
+    //             $relativeItemName = basename($value);
+    //             $zip->addFile($value,$relativeItemName);
+    //         }
+    //         $zip->close();
+    //     }
+    //     return response()->download(public_path($filename));
+    // }
+
+    public function downloadCoco()
+    {
+        $path = public_path('forms/COCOLIFE_FORM.pdf');
+        return response()->download($path);
+    }
+
+    public function downloadProxy()
+    {
+        $path = public_path('forms/PROXY_FORM.pdf');
+        return response()->download($path);
     }
 }

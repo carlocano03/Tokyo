@@ -7,6 +7,7 @@
   <div class="col-12 mp-ph2   mp-pv2 mp-text mp-text-c-accent dashboard " style=" margin-bottom: 32px; margin-top: -30px;">
     <div class="row">
       <div class="col-lg-6 " style="margin-top: 20px;">
+
         <div class="mp-card mp-mt3 default-padding">
           <div class="row">
             <div class="col-8">
@@ -22,7 +23,9 @@
           </div>
         </div>
       </div>
+
       <div class="col-lg-6" style="margin-top: 20px;">
+
         <div class="mp-card mp-mt3 default-padding">
           <div class="row">
             <div class="col-8">

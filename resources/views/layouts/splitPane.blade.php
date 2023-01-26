@@ -378,7 +378,7 @@
                                         mem_id = data.mem_id;
                                         personnel_id = data.success;
                                         Swal.fire({
-                                            text: 'This is your reference code:' +
+                                            text: 'This is your application no.:' +
                                                 ' ' +
                                                 reference_no,
                                             icon: 'success'
@@ -621,10 +621,12 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // window.open();
-                                // location.reload();
                                 var url = "{{ URL::to('/memberform/') }}" + '/' +
                                 employee_no; //YOUR CHANGES HERE...
-                            window.open(url, '_blank');
+                                window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
                             }
                         })
                         $("#step-2").removeClass('d-flex').addClass("d-none");
@@ -921,6 +923,8 @@
                 success: function(data) {
                     if (Object.keys(data).length > 0) {
                         $('.status-result').show(200);
+                        $('#input-app').hide(200);
+                        $('#search_btn').hide(200);
                         $("#icon_status").removeClass("fa fa-frown-o").addClass("fa fa-smile-o");
                         $('#found_remarks').text('Record has been found');
                         $('#appNo_label').text(data.app_no == null ? 'N/A' : data.app_no);
@@ -1053,11 +1057,13 @@
         if ($(this).prop('checked')) {
             $('#proxy').show(300);
             $('.supporting_docu').hide(300);
-            $('#document').attr('required', false);
+            $('#coco').attr('required', false);
+            $('#proxy_form').attr('required', false);
         } else {
             $('#proxy').hide(300);
             $('.supporting_docu').show(300);
-            $('#document').attr('required', true);
+            $('#coco').attr('required', true);
+            $('#proxy_form').attr('required', true);
         }
     });
 </script>
