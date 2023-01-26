@@ -85,6 +85,7 @@ Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('
 Route::get('/downloadCoco', [PDFController::class, 'downloadCoco'])->name('download_coco');
 Route::get('/downloadProxy', [PDFController::class, 'downloadProxy'])->name('download_proxy');
 
+
 Route::get('/memberform/{id}', [PDFController::class, 'memberform'])->name('memberform');
 Route::get('/proxyForm', [PDFController::class, 'proxyForm'])->name('proxyForm');
 

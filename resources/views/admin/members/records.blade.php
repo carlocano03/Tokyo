@@ -270,9 +270,6 @@
     text-decoration: underline;
     color: #1a8981;
   }
-
-
-
 </style>
 <div class="filler"></div>
 <script type="text/javascript" src="{{ asset('/dist/loading-bar/loading-bar.js') }}"></script>
