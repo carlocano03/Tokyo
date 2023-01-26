@@ -334,6 +334,9 @@
   .dark-bg {
     background-color: black;
     padding: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
     z-index: 1000 !important;
     position: absolute;
     opacity: 0.5;
@@ -630,6 +633,7 @@
     });
 
     let initialWidth = screen.width;
+
     if (initialWidth >= 656 || initialWidth >= 896) {
       $("#side_bar").removeClass("hide");
       $("#menu-toggle").addClass("hide");
@@ -652,4 +656,25 @@
         this.classList.toggle('menu-toggle-active');
       }
     );
+
+    function myFunction(x) {
+      if (x.matches) { // If media query matches
+        $("#side_bar").addClass("hide");
+        $("#menu-toggle").removeClass("hide");
+        $("#dark-bg").addClass("hide");
+        $("#menu-toggle").addClass("menu-toggle ");
+        $("#toggle-container").addClass("width-100");
+        toggle_click = 0;
+      } else {
+        $("#side_bar").removeClass("hide");
+        $("#menu-toggle").addClass("hide");
+        $("#dark-bg").addClass("hide");
+        $("#menu-toggle").removeClass("menu-toggle-active move-toggle");
+        $("#toggle-container").removeClass("width-100");
+      }
+    }
+
+    var x = window.matchMedia("(max-width: 656px)")
+    myFunction(x) // Call listener function at run time
+    x.addListener(myFunction) // Attach listener function on state changes
   </script>
