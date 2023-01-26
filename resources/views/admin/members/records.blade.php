@@ -62,7 +62,6 @@
   .record-container {
     min-height: 65vh;
     max-height: 65vh;
-    overflow: auto;
   }
 
   .p-0 {
@@ -270,66 +269,125 @@
     text-decoration: underline;
     color: #1a8981;
   }
+
+  .font-sm {
+    font-size: 13px;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .ml-auto {
+    margin-left: auto;
+  }
+
+  .middle-content {
+    width: calc(73% - 20px);
+    transition: all .5s;
+  }
+
+  .middle-content.full {
+    width: calc(88% - 10px);
+    transition: all .5s;
+  }
+
+  .left-content {
+    width: 15%;
+    opacity: 1;
+    transition: opacity .5s;
+  }
+
+  .left-content.full {
+    width: 0px;
+    opacity: 0;
+  }
+
+  .d-none {
+    display: none !important;
+  }
 </style>
+<script>
+  $(document).on('click', '#showLogs', function(e) {
+    if ($(".middle-content").hasClass("full")) {
+      $(".middle-content").removeClass("full")
+      $(".left-content").removeClass("d-none")
+      setTimeout(function() {
+        $(".left-content").removeClass("full")
+      }, 500)
+      $("#showLogs").text("Hide history logs")
+    } else {
+      $(".middle-content").addClass("full")
+     
+      $(".left-content").addClass("d-none")
+      $(".left-content").addClass("full")
+      $("#showLogs").text("Show history logs")
+    }
+
+  })
+</script>
 <div class="filler"></div>
 <script type="text/javascript" src="{{ asset('/dist/loading-bar/loading-bar.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}">
 </link>
 <div class="row no-gutter ml-0 mr-0 p-5px">
-  <div class="col-12 mp-pv0 mp-pr0">
+  <div class="col-12 mp-pv0 mp-pr0 d-flex">
     <span class="d-inline-flex align-items-center ">
       <a href="/dashboard" class="link-style">Dashboard</a>/ &nbsp; Membership Application Records
+    </span>
+    <span class="d-inline-flex align-items-center ml-auto mp-mr3">
+      <button class="f-button magenta-bg" id="showLogs">Show history logs</button>
     </span>
   </div>
   <div class="col-12 mp-pr0" style="width: 100%;">
     <div class="row d-flex flex-row gap-10 mp-pr0" style="width: 100%;">
-      <div style="width: 15%;" class="d-flex flex-column gap-10">
+      <div style="width: 12%;" class="d-flex flex-column gap-10">
         <div class="card-container card p-0">
-          <div class="card-header green-bg">
+          <div class="card-header font-sm green-bg text-center">
             New Application
           </div>
           <div class="card-body justify-content-center">
-            <div class="ldBar green label-center" data-preset="circle" data-value="{{ $new_app }}"></div>
-          </div> 
-          <button class="green-bg button-view">
+            <div class="ldBar green label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="50"></div>
+          </div>
+          <button class="green-bg button-view font-sm">
             View
           </button>
         </div>
         <div class="card-container card p-0">
-          <div class="card-header magenta-bg">
+          <div class="card-header font-sm magenta-bg text-center">
             Processing Application
           </div>
           <div class="card-body justify-content-center">
-            <div class="ldBar magenta label-center" data-preset="circle" data-value="{{ $forApproval }}"></div>
+            <div class="ldBar magenta label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="80"></div>
           </div>
-          <button class="magenta-bg button-view">
+          <button class="magenta-bg button-view font-sm">
             View
           </button>
         </div>
         <div class="card-container card p-0">
-          <div class="card-header maroon-bg">
+          <div class="card-header font-sm maroon-bg text-center">
             Approved Application
           </div>
           <div class="card-body justify-content-center">
-            <div class="ldBar maroon label-center" data-preset="circle" data-value="{{ $approved }}"></div>
+            <div class="ldBar maroon label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="40"></div>
           </div>
-          <button class="maroon-bg button-view">
+          <button class="maroon-bg button-view font-sm">
             View
           </button>
         </div>
         <div class="card-container card p-0">
-          <div class="card-header red-bg">
+          <div class="card-header font-sm red-bg text-center">
             Rejected Application
           </div>
           <div class="card-body justify-content-center">
-            <div class="ldBar red label-center" data-preset="circle" data-value="{{ $rejected }}"></div>
+            <div class="ldBar red label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="10"></div>
           </div>
-          <button class="red-bg button-view">
+          <button class="red-bg button-view font-sm text-center">
             View
           </button>
         </div>
       </div>
-      <div style="width: calc(65% - 20px)" class="d-flex flex-column gap-10">
+      <div class="d-flex flex-column gap-10 middle-content full ">
         <div class="card-container card p-0 ">
           <div class="card-header filtering">
             Filtering Section
@@ -688,277 +746,13 @@
                   </td>
 
                 </tr>
-                <tr>
-                  <td>
 
-                    <span>
-                      <a data-md-tooltip="View Member" class="md-tooltip--right view" style="cursor: pointer">
-                        <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                      </a>
-                    </span>
-                  </td>
-                  <td>
-                    <span>23781623</span>
-                  </td>
-                  <td>
-                    <span>01-01-2023</span>
-                  </td>
-                  <td>
-                    <span class="member-name">Dela Cruz, Juan Abaa</span>
-                  </td>
-                  <td>
-                    <span>acbc</span>
-                  </td>
-                  <td>
-                    <span>Faculty</span>
-                  </td>
-                  <td>
-                    <span>Position</span>
-                  </td>
-                  <td>
-                    <span>1.5%</span>
-                  </td>
-                  <td>
-                    <span>New Application</span>
-                  </td>
-                  <td>
-                    <span>Forwarded to HRDO</span>
-                  </td>
-
-                </tr>
-                <tr>
-                  <td>
-
-                    <span>
-                      <a data-md-tooltip="View Member" class="md-tooltip--right view" style="cursor: pointer">
-                        <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                      </a>
-                    </span>
-                  </td>
-                  <td>
-                    <span>23781623</span>
-                  </td>
-                  <td>
-                    <span>01-01-2023</span>
-                  </td>
-                  <td>
-                    <span class="member-name">Dela Cruz, Juan Abaa</span>
-                  </td>
-                  <td>
-                    <span>acbc</span>
-                  </td>
-                  <td>
-                    <span>Faculty</span>
-                  </td>
-                  <td>
-                    <span>Position</span>
-                  </td>
-                  <td>
-                    <span>1.5%</span>
-                  </td>
-                  <td>
-                    <span>New Application</span>
-                  </td>
-                  <td>
-                    <span>Forwarded to HRDO</span>
-                  </td>
-
-                </tr>
-                <tr>
-                  <td>
-
-                    <span>
-                      <a data-md-tooltip="View Member" class="md-tooltip--right view" style="cursor: pointer">
-                        <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                      </a>
-                    </span>
-                  </td>
-                  <td>
-                    <span>23781623</span>
-                  </td>
-                  <td>
-                    <span>01-01-2023</span>
-                  </td>
-                  <td>
-                    <span class="member-name">Dela Cruz, Juan Abaa</span>
-                  </td>
-                  <td>
-                    <span>acbc</span>
-                  </td>
-                  <td>
-                    <span>Faculty</span>
-                  </td>
-                  <td>
-                    <span>Position</span>
-                  </td>
-                  <td>
-                    <span>1.5%</span>
-                  </td>
-                  <td>
-                    <span>New Application</span>
-                  </td>
-                  <td>
-                    <span>Forwarded to HRDO</span>
-                  </td>
-
-                </tr>
-                <tr>
-                  <td>
-
-                    <span>
-                      <a data-md-tooltip="View Member" class="md-tooltip--right view" style="cursor: pointer">
-                        <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                      </a>
-                    </span>
-                  </td>
-                  <td>
-                    <span>23781623</span>
-                  </td>
-                  <td>
-                    <span>01-01-2023</span>
-                  </td>
-                  <td>
-                    <span class="member-name">Dela Cruz, Juan Abaa</span>
-                  </td>
-                  <td>
-                    <span>acbc</span>
-                  </td>
-                  <td>
-                    <span>Faculty</span>
-                  </td>
-                  <td>
-                    <span>Position</span>
-                  </td>
-                  <td>
-                    <span>1.5%</span>
-                  </td>
-                  <td>
-                    <span>New Application</span>
-                  </td>
-                  <td>
-                    <span>Forwarded to HRDO</span>
-                  </td>
-
-                </tr>
-                <tr>
-                  <td>
-
-                    <span>
-                      <a data-md-tooltip="View Member" class="md-tooltip--right view" style="cursor: pointer">
-                        <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                      </a>
-                    </span>
-                  </td>
-                  <td>
-                    <span>23781623</span>
-                  </td>
-                  <td>
-                    <span>01-01-2023</span>
-                  </td>
-                  <td>
-                    <span class="member-name">Dela Cruz, Juan Abaa</span>
-                  </td>
-                  <td>
-                    <span>acbc</span>
-                  </td>
-                  <td>
-                    <span>Faculty</span>
-                  </td>
-                  <td>
-                    <span>Position</span>
-                  </td>
-                  <td>
-                    <span>1.5%</span>
-                  </td>
-                  <td>
-                    <span>New Application</span>
-                  </td>
-                  <td>
-                    <span>Forwarded to HRDO</span>
-                  </td>
-
-                </tr>
-                <tr>
-                  <td>
-
-                    <span>
-                      <a data-md-tooltip="View Member" class="md-tooltip--right view" style="cursor: pointer">
-                        <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                      </a>
-                    </span>
-                  </td>
-                  <td>
-                    <span>23781623</span>
-                  </td>
-                  <td>
-                    <span>01-01-2023</span>
-                  </td>
-                  <td>
-                    <span class="member-name">Dela Cruz, Juan Abaa</span>
-                  </td>
-                  <td>
-                    <span>acbc</span>
-                  </td>
-                  <td>
-                    <span>Faculty</span>
-                  </td>
-                  <td>
-                    <span>Position</span>
-                  </td>
-                  <td>
-                    <span>1.5%</span>
-                  </td>
-                  <td>
-                    <span>New Application</span>
-                  </td>
-                  <td>
-                    <span>Forwarded to HRDO</span>
-                  </td>
-
-                </tr>
-                <tr>
-                  <td>
-                    <span>
-                      <a data-md-tooltip="View Member" class="md-tooltip--right view" style="cursor: pointer">
-                        <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                      </a>
-                    </span>
-                  </td>
-                  <td>
-                    <span>23781623</span>
-                  </td>
-                  <td>
-                    <span>01-01-2023</span>
-                  </td>
-                  <td>
-                    <span class="member-name">Dela Cruz, Juan Abaa</span>
-                  </td>
-                  <td>
-                    <span>acbc</span>
-                  </td>
-                  <td>
-                    <span>Faculty</span>
-                  </td>
-                  <td>
-                    <span>Position</span>
-                  </td>
-                  <td>
-                    <span>1.5%</span>
-                  </td>
-                  <td>
-                    <span>New Application</span>
-                  </td>
-                  <td>
-                    <span>Forwarded to HRDO</span>
-                  </td>
-
-                </tr>
               </tbody>
             </table>
           </div>
         </div>
       </div>
-      <div style="width: 20%;">
+      <div class="left-content full d-none">
         <div class="card-container card p-0">
           <div class="card-header history-logs">
             History Logs
