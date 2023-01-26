@@ -82,6 +82,8 @@ Route::get('/member/update-password', [MemberController::class, 'updatepassword'
 Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
 Route::get('/generateProxyForm/{id}', [PDFController::class, 'generateProxyForm']);
 Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('download_form');
+Route::get('/downloadCoco', [PDFController::class, 'downloadCoco'])->name('download_coco');
+Route::get('/downloadProxy', [PDFController::class, 'downloadProxy'])->name('download_proxy');
 
 Route::get('/memberform/{id}', [PDFController::class, 'memberform'])->name('memberform');
 Route::get('/proxyForm', [PDFController::class, 'proxyForm'])->name('proxyForm');
