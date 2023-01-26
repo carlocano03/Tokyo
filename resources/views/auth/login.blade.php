@@ -111,7 +111,7 @@
         <img src="{!! asset('assets/icons/qr-icon.svg') !!}" alt="UPPFI">
     </div>
 
-    <div class="mp-input-group mp-mt2">
+    <div class="mp-input-group mp-mt2" id="input-app">
         <label class="mp-input-group__label">Application Number</label>
         <input class="mp-input-group__input mp-text-field" type="text" id="app_no_trail" required />
     </div>
@@ -140,11 +140,6 @@
             <div class="status-text">
                 <span id="found_remarks">Not Found</span>
             </div>
-        </div>
-
-        <div class="status-title">
-            Online Membership Application Status
-            <br>
         </div>
         <div class="status-info">
             <div class="row">
@@ -322,6 +317,7 @@
     <form id="member_forms" class="mh-reg-form form-border-bottom">
         {{ csrf_field() }}
         <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" id="step-1">
+        <input type="hidden" id="app_trailNo">
             <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Last Name</label>
@@ -627,26 +623,37 @@
             </div>
 
             <div class="supporting_docu">
+                <input type="hidden" name="app_no" id="app_no">
+                <input type="hidden" name="percent_amt" id="percent_amt">
                 <div class="mp-input-group">
                     <label class="mp-input-group__label">
-                        <a href="{{ route('download_form') }}" class="mp-link link_style">Click here</a><span> to
-                            download
-                            Cocolife and Proxy Form for manual signature (Optional) </span>
+                        <a href="{{ route('download_coco') }}" class="mp-link link_style">Click here</a><span> to
+                            download Cocolife Form for manual signature (Optional) </span>
                     </label>
-                    <input type="hidden" name="app_no" id="app_no">
-                    <input type="hidden" name="percent_amt" id="percent_amt">
                 </div>
                 <div class="mp-input-group">
                     {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="documents[]" required accept="application/pdf" multiple/> --}}
-                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" id="document" name="documents[]"
-                        required accept="application/pdf" multiple />
+                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" id="coco" name="coco"
+                        required accept="application/pdf" />
+                </div>
+
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">
+                        <a href="{{ route('download_proxy') }}" class="mp-link link_style">Click here</a><span> to
+                            download Proxy Form for manual signature (Optional) </span>
+                    </label>
+                </div>
+                <div class="mp-input-group">
+                    {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="documents[]" required accept="application/pdf" multiple/> --}}
+                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" id="proxy_form" name="proxy"
+                        required accept="application/pdf" />
                 </div>
             </div>
 
 
             <div class="mp-input-group">
                 <div class="d-flex gap-5">
-                    <input type="checkbox" id="generateForm" name="generateForm" />
+                    <input type="checkbox" id="generateForm" name="generateForm" value="generateForm"/>
                     <label class="mp-input-group__label" style="margin-top: 5px;">Generate Cocolife and Proxy Form</label>
                 </div>
 
@@ -655,11 +662,10 @@
                     <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file"
                         accept="image/png, image/gif, image/jpeg, image/jpg" />
                     <input type="hidden" name="appNo" id="appNo">
-                    <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="submit">
+                    <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
                         <span>Generate Proxy Form</span>
                     </button>
                 </div>
-
             </div>
 
             <div class="mp-input-group">

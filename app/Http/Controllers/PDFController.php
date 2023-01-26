@@ -40,7 +40,7 @@ class PDFController extends Controller
         $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.employee_no = '$id'")
         ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
         ->leftjoin('personal_details', 'personal_details.personal_id', '=', 'mem_app.personal_id')
-        ->leftjoin('beneficiaries', 'beneficiaries.personal_id', '=', 'employee_details.employee_no')
+        // ->leftjoin('beneficiaries', 'beneficiaries.personal_id', '=', 'employee_details.employee_no')
         ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
         ->get()->first();
         $benificiary = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$id'")
@@ -68,18 +68,30 @@ class PDFController extends Controller
         return $pdf->stream();
     }
 
-    public function downloadForm() {
-        $zip = new ZipArchive;
-        $filename = 'forms.zip';
-        if($zip->open(public_path($filename), ZipArchive::CREATE) === TRUE)
-        {
-            $files = File::files(public_path('forms'));
-            foreach($files as $key => $value) {
-                $relativeItemName = basename($value);
-                $zip->addFile($value,$relativeItemName);
-            }
-            $zip->close();
-        }
-        return response()->download(public_path($filename));
+    // public function downloadForm() {
+    //     $zip = new ZipArchive;
+    //     $filename = 'forms.zip';
+    //     if($zip->open(public_path($filename), ZipArchive::CREATE) === TRUE)
+    //     {
+    //         $files = File::files(public_path('forms'));
+    //         foreach($files as $key => $value) {
+    //             $relativeItemName = basename($value);
+    //             $zip->addFile($value,$relativeItemName);
+    //         }
+    //         $zip->close();
+    //     }
+    //     return response()->download(public_path($filename));
+    // }
+
+    public function downloadCoco()
+    {
+        $path = public_path('forms/COCOLIFE_FORM.pdf');
+        return response()->download($path);
+    }
+
+    public function downloadProxy()
+    {
+        $path = public_path('forms/PROXY_FORM.pdf');
+        return response()->download($path);
     }
 }

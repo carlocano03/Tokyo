@@ -61,6 +61,7 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin/members/records', [AdminController::class, 'members_records'])->name('admin.members_records');
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
+Route::post('/admin/countApplication', [AdminController::class, 'countApplication'])->name('count_application');
 // Route::get('/admin/dashboard', 'AdminController@index');
 
 //admin
@@ -82,6 +83,10 @@ Route::get('/member/update-password', [MemberController::class, 'updatepassword'
 Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
 Route::get('/generateProxyForm/{id}', [PDFController::class, 'generateProxyForm']);
 Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('download_form');
+Route::get('/downloadCoco', [PDFController::class, 'downloadCoco'])->name('download_coco');
+Route::get('/downloadProxy', [PDFController::class, 'downloadProxy'])->name('download_proxy');
+
+
 
 Route::get('/memberform/{id}', [PDFController::class, 'memberform'])->name('memberform');
 Route::get('/proxyForm', [PDFController::class, 'proxyForm'])->name('proxyForm');
@@ -89,6 +94,7 @@ Route::get('/proxyForm', [PDFController::class, 'proxyForm'])->name('proxyForm')
 
 // check status trail
 Route::post('/login/status_trail', [HomeController::class, 'search_app_trail'])->name('status_trail');
+Route::post('/login/continued_trail', [HomeController::class, 'continued_trail_status'])->name('continued_trail');
 
 // slarygrade bracket
 Route::post('/login/check_sg', [HomeController::class, 'check_sg_bracket'])->name('check_sg');

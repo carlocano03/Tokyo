@@ -619,7 +619,7 @@
         <!-- <label class="p-lastname_value  value-font"><pre>{{ print_r($member) }}</pre></label> -->
         <div class="personal-details">
              <label class="title white main_title">PERSONAL DETAILS</label>
-            
+                <!-- {{print_r($member)}} -->
              <div class="lastname">
                 <label class="p-lastname title-font ">LAST NAME</label>
                 <label class="p-lastname_value  value-font">{{$member->lastname}}</label>

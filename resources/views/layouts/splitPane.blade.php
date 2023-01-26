@@ -378,7 +378,7 @@
                                         mem_id = data.mem_id;
                                         personnel_id = data.success;
                                         Swal.fire({
-                                            text: 'This is your reference code:' +
+                                            text: 'This is your application no.:' +
                                                 ' ' +
                                                 reference_no,
                                             icon: 'success'
@@ -621,10 +621,12 @@
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // window.open();
-                                // location.reload();
                                 var url = "{{ URL::to('/memberform/') }}" + '/' +
                                 employee_no; //YOUR CHANGES HERE...
-                            window.open(url, '_blank');
+                                window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 1000);
                             }
                         })
                         $("#step-2").removeClass('d-flex').addClass("d-none");
@@ -869,6 +871,26 @@
         var input1 = $("#percentage_bsalary").val();
         var input2 = $("#monthly_salary").val().replace(/,/g, '');
         var percentage = (input1 / 100) * input2;
+        var inputValue = percentage.toFixed(2);
+    if (inputValue !== null && inputValue !== undefined) {
+        inputValue = inputValue.toString();
+        // remove any existing commas
+        inputValue = inputValue.replace(/,/g, "");
+        // add commas every 3 digits to the left of the decimal point
+        inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        // check if there's a decimal point present
+        if (inputValue.indexOf(".") !== -1) {
+            // split the input value by the decimal point
+            var decimalAdded = inputValue.split(".");
+            // check if there are more than 2 decimal places
+            if (decimalAdded[1] && decimalAdded[1].length > 2) {
+                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 2);
+            }
+        } else {
+            inputValue += ".00";
+        }
+        percentage = inputValue;
+    }
         $('#computed_amount').html(percentage);
         $('#percent_amt').val(percentage);
     });
@@ -880,8 +902,9 @@
     }
     $('#cont_app').hide();
     // status trail
+    var query
     $(document).on('click', '#search_btn', function(e) {
-        var query = $('#app_no_trail').val();
+        query = $('#app_no_trail').val();
 
         if (query != '') {
 
@@ -900,6 +923,8 @@
                 success: function(data) {
                     if (Object.keys(data).length > 0) {
                         $('.status-result').show(200);
+                        $('#input-app').hide(200);
+                        $('#search_btn').hide(200);
                         $("#icon_status").removeClass("fa fa-frown-o").addClass("fa fa-smile-o");
                         $('#found_remarks').text('Record has been found');
                         $('#appNo_label').text(data.app_no == null ? 'N/A' : data.app_no);
@@ -961,16 +986,33 @@
     $(document).on('click', '#cont_app', function(e) {
         $("#resetPasswordForm").attr("hidden", true);
         $("#statusTrailForm").attr("hidden", true);
-        $("#loginform").removeAttr("hidden");
-        $("#leftsection").removeClass("mw-600").removeClass("w-600");
+        $("#loginform").attr("hidden", true);
+        $("#registrationform").removeAttr("hidden");
+        $("#leftsection").addClass("mw-600").addClass("w-600");
+        $("#control").removeClass("d-none").addClass("d-flex");
         setTimeout(function timout() {
             $("#leftsection").removeClass("transition-all-cubic").addClass("transition-all");
         }, 400)
+        var app_trailno = query;
+        $.ajax({
+                url: "{{ route('continued_trail') }}",
+                data: {
+                    app_trailno: app_trailno,
+                },
+                method: "POST",
+                success: function(data) {
+                    if (Object.keys(data).length > 0) {
+                        $('#app_trailNo').val(data.app_no == null ? 'N/A' : data.app_no);
+                        $("[name='lastname']").val(data.lastname == null ? 'N/A' : data.lastname);
+                        $("[name='tin_no']").val(data.tin_no == null ? 'N/A' : data.tin_no);
+                        $('#present_province').val(data.present_province).trigger('change');
+                        // $('#present_city').val(data.present_municipality).trigger('change');
+                        // $('#present_barangay').val(data.present_barangay).trigger('change');
+                        
+                    } 
+                }
+            });
 
-        // $("#loginform").attr("hidden", true);
-        // $("#statusTrailForm").removeAttr("hidden");
-        // $("#leftsection").removeClass("transition-all").addClass("transition-all-cubic");
-        // $("#leftsection").addClass("mw-600").addClass("w-600");
     });
 
     $(document).on('click', '#save_sign', function() {
@@ -1015,11 +1057,13 @@
         if ($(this).prop('checked')) {
             $('#proxy').show(300);
             $('.supporting_docu').hide(300);
-            $('#document').attr('required', false);
+            $('#coco').attr('required', false);
+            $('#proxy_form').attr('required', false);
         } else {
             $('#proxy').hide(300);
             $('.supporting_docu').show(300);
-            $('#document').attr('required', true);
+            $('#coco').attr('required', true);
+            $('#proxy_form').attr('required', true);
         }
     });
 </script>
