@@ -69,6 +69,10 @@ class LoginController extends Controller
                 if ($user->password_set == 0) {
                     return redirect('/admin/onboarding');
                 } else {
+                    $insertLoginHistory = array(
+                       'user_id' => Auth::user()->id,
+                    );
+                    DB::table('login_logs')->insert($insertLoginHistory);
                     return redirect('/admin/dashboard');
                 }
             } else {

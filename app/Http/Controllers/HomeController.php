@@ -306,32 +306,48 @@ class HomeController extends Controller
   public function add_member_p3(Request $request)
   {
     $options = $request->input('percentage_check');
+    $form = $request->input('generateForm');
     if ($options != 'percentage') {
       $insertMemDetails = array(
         'contribution_set' => 'Fixed Amount',
         'amount' => $request->input('fixed_amount'),
         'app_no' => $request->input('app_no')
       );
-      if ($request->documents) {
-        foreach($request->documents as $file) {
-   
-          $fileName = $file->getClientOriginalName();
-          $newName = $request->input('app_no').'_'.$fileName;
-          $filePath = 'uploaded_forms/' . $newName;
-          $file->storeAs('uploaded_forms', $newName, 'public');
-  
-          $insertFile = array(
-            'app_no' => $request->input('app_no'),
-            'form_name' => $newName,
-            'path' => $filePath
-          );
-          // // Create files
-          DB::table('uploaded_forms')->insert($insertFile);
-        }
+      
+      if ($request->hasFile('coco') && $request->hasFile('proxy')) { 
+        //Cocolife Form
+        $fileName = $request->file('coco')->getClientOriginalName();
+        $newName = $request->input('app_no').'_'.$fileName;
+        $filePath = 'uploaded_forms/' . $newName;
+        $request->file('coco')->storeAs('uploaded_forms', $newName, 'public');
+        $insertCoco = array(
+          'app_no' => $request->input('app_no'),
+          'coco_name' => $newName,
+          'coco_path' => $filePath
+        );
+
+        //Proxy Form
+        $proxyName = $request->file('proxy')->getClientOriginalName();
+        $newProxyName = $request->input('app_no').'_'.$proxyName;
+        $filePathProxy = 'uploaded_forms/' . $newProxyName;
+        $request->file('proxy')->storeAs('uploaded_forms', $newProxyName, 'public');
+        $insertProxy = array(
+          'app_no' => $request->input('app_no'),
+          'form_name' => $newProxyName,
+          'path' => $filePathProxy
+        );
+
+        DB::table('coco_form')->insert($insertCoco);
+        DB::table('proxy_form')->insert($insertProxy);
         DB::table('membership_details')->insert($insertMemDetails);
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
-          ->update(array('app_status' => 'SUBMITTED'));
+            ->update(array('app_status' => 'SUBMITTED'));
+      } else {
+        DB::table('membership_details')->insert($insertMemDetails);
+        DB::table('mem_app')->where('app_no', $request->input('app_no'))
+            ->update(array('app_status' => 'SUBMITTED'));
       }
+      
     } else {
       $insertMemDetails = array(
         'contribution_set' => 'Percentage of Basic Salary',
@@ -339,29 +355,43 @@ class HomeController extends Controller
         'percentage' => $request->input('percentage_bsalary'),
         'app_no' => $request->input('app_no')
       );
-      if ($request->documents){
-        foreach($request->documents as $file) {
-   
-          $fileName = $file->getClientOriginalName();
-          $newName = $request->input('app_no').'_'.$fileName;
-          $filePath = 'uploaded_forms/' . $newName;
-          $file->storeAs('uploaded_forms', $newName, 'public');
-  
-          $insertFile = array(
-            'app_no' => $request->input('app_no'),
-            'form_name' => $newName,
-            'path' => $filePath
-          );
-          // // Create files
-          DB::table('uploaded_forms')->insert($insertFile);
-        }
+
+      if ($request->hasFile('coco') && $request->hasFile('proxy')) { 
+        //Cocolife Form
+        $fileName = $request->file('coco')->getClientOriginalName();
+        $newName = $request->input('app_no').'_'.$fileName;
+        $filePath = 'uploaded_forms/' . $newName;
+        $request->file('coco')->storeAs('uploaded_forms', $newName, 'public');
+        $insertCoco = array(
+          'app_no' => $request->input('app_no'),
+          'coco_name' => $newName,
+          'coco_path' => $filePath
+        );
+
+        //Proxy Form
+        $proxyName = $request->file('proxy')->getClientOriginalName();
+        $newProxyName = $request->input('app_no').'_'.$proxyName;
+        $filePathProxy = 'uploaded_forms/' . $newProxyName;
+        $request->file('proxy')->storeAs('uploaded_forms', $newProxyName, 'public');
+        $insertProxy = array(
+          'app_no' => $request->input('app_no'),
+          'form_name' => $newProxyName,
+          'path' => $filePathProxy
+        );
+
+        DB::table('coco_form')->insert($insertCoco);
+        DB::table('proxy_form')->insert($insertProxy);
         DB::table('membership_details')->insert($insertMemDetails);
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
-          ->update(array('app_status' => 'SUBMITTED'));
+            ->update(array('app_status' => 'SUBMITTED'));
+      } else {
+        DB::table('membership_details')->insert($insertMemDetails);
+        DB::table('mem_app')->where('app_no', $request->input('app_no'))
+            ->update(array('app_status' => 'SUBMITTED'));
       }
-    }
 
-    
+      
+    }
   }
 
   public function delete_beneficiary(Request $request)
