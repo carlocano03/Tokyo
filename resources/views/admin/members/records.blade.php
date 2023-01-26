@@ -58,15 +58,22 @@
             overflow: auto;
         }
 
-        .record-container {
-            min-height: 65vh;
-            max-height: 65vh;
-            overflow: auto;
-        }
+  .record-container {
+    min-height: 65vh;
+    max-height: 65vh;
+    overflow: auto;
+  }
+
 
         .p-0 {
             padding: 0;
         }
+
+  .record-container {
+    min-height: 65vh;
+    max-height: 65vh;
+  }
+
 
         .f-button {
             background-color: #6c1242;
