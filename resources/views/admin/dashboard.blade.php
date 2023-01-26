@@ -7,20 +7,20 @@
         }
 
         /* .calendar>.wrapper {
-        width: 100%;
-        background: #fff;
-        border-radius: 10px;
-        box-shadow: 0 0px 5px rgba(0, 0, 0, 0.12);
-        display: flex;
-        flex-direction: column;
-      }
+                width: 100%;
+                background: #fff;
+                border-radius: 10px;
+                box-shadow: 0 0px 5px rgba(0, 0, 0, 0.12);
+                display: flex;
+                flex-direction: column;
+              }
 
-      .calendar>.wrapper header {
-        display: flex;
-        align-items: center;
-        padding: 25px 30px 10px;
-        justify-content: space-between;
-      } */
+              .calendar>.wrapper header {
+                display: flex;
+                align-items: center;
+                padding: 25px 30px 10px;
+                justify-content: space-between;
+              } */
 
         header .icons {
             display: flex;
@@ -53,62 +53,62 @@
         }
 
         /*
-      .calendar ul {
-        display: flex;
-        flex-wrap: wrap;
-        list-style: none;
-        text-align: center;
-      }
+              .calendar ul {
+                display: flex;
+                flex-wrap: wrap;
+                list-style: none;
+                text-align: center;
+              }
 
-      .calendar .days {
-        margin-bottom: 20px;
-      }
+              .calendar .days {
+                margin-bottom: 20px;
+              }
 
-      .calendar li {
-        color: #333;
-        width: calc(100% / 7);
-        font-size: 1.07rem;
-      }
+              .calendar li {
+                color: #333;
+                width: calc(100% / 7);
+                font-size: 1.07rem;
+              }
 
-      .calendar .weeks li {
-        font-weight: 500;
-        cursor: default;
-      }
+              .calendar .weeks li {
+                font-weight: 500;
+                cursor: default;
+              }
 
-      .calendar .days li {
-        z-index: 1;
-        cursor: pointer;
-        position: relative;
-        margin-top: 30px;
-      }
+              .calendar .days li {
+                z-index: 1;
+                cursor: pointer;
+                position: relative;
+                margin-top: 30px;
+              }
 
-      .calendar>.days li.default {
-        color: #aaa;
-      }
+              .calendar>.days li.default {
+                color: #aaa;
+              }
 
-      .calendar>.days li.selected {
-        color: #fff;
-      }
+              .calendar>.days li.selected {
+                color: #fff;
+              }
 
-      .calendar>.days li::before {
-        position: absolute;
-        content: "";
-        left: 50%;
-        top: 50%;
-        height: 40px;
-        width: 40px;
-        z-index: -1;
-        border-radius: 50%;
-        transform: translate(-50%, -50%);
-      }
+              .calendar>.days li::before {
+                position: absolute;
+                content: "";
+                left: 50%;
+                top: 50%;
+                height: 40px;
+                width: 40px;
+                z-index: -1;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+              }
 
-      .calendar>.days li.selected::before {
-        background: #6c1242;
-      }
+              .calendar>.days li.selected::before {
+                background: #6c1242;
+              }
 
-      .calendar>.days li:not(.selected):hover::before {
-        background: #f2f2f2;
-      } */
+              .calendar>.days li:not(.selected):hover::before {
+                background: #f2f2f2;
+              } */
 
         .side-dashboard {
             grid-template-columns: 1fr 1fr;
@@ -495,7 +495,7 @@
 
                                 Last Login: <label
                                     style=" color: var(--c-primary);
-    font-size: 15px;">{{ date('F j, Y H:i:s A', strtotime($login->login_date)) }}</label>
+    font-size: 15px;">{{ date('F j, Y H:i:s A', strtotime($login)) }}</label>
 
 
                                 <div style="margin-top: auto" class="mp-mb1">
@@ -504,10 +504,10 @@
                                 </div>
                             </div>
                             <!-- <div class="image-profile items-center" style="width: 100%; height: 100%; ">
-                  <div class="" style="width: 100%; height: 100%; background-color: blue; color: white">
-                    image here
-                  </div>
-                </div> -->
+                          <div class="" style="width: 100%; height: 100%; background-color: blue; color: white">
+                            image here
+                          </div>
+                        </div> -->
                         </div>
                     </div>
                     <div class="col-12">
@@ -524,24 +524,27 @@
                                         <a value=""
                                             class="text_link mp-dropdown__item mp-link mp-link--normal campus_change"
                                             style="cursor: pointer">All UP Campuses</a>
-                                        <a value=""
-                                            class="text_link mp-dropdown__item mp-link mp-link--normal campus_change"
-                                            style="cursor: pointer">
-                                            Campus
-                                        </a>
-                                        <a value=""
-                                            class="text_link mp-dropdown__item mp-link mp-link--normal campus_change"
-                                            style="cursor: pointer">
-                                            Campus
-                                        </a>
-                                        <a value=""
-                                            class="text_link mp-dropdown__item mp-link mp-link--normal campus_change"
-                                            style="cursor: pointer">
-                                            Campus
-                                        </a>
+                                        @foreach ($campuses as $row)
+                                            <a value="{{ $row->id }}"
+                                                class="text_link mp-dropdown__item mp-link mp-link--normal campus_change"
+                                                style="cursor: pointer">
+                                                {{ $row->name }}
+                                            </a>
+                                        @endforeach
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="col-lg-4" hidden>
+                                <select name="" class="mp-text-field mp-ph3 mp-link mp-link--accent"
+                                    style="width: 100%; font-size:20px" id="campuses_select">
+                                    <option value="">All Campuses</option>
+                                    @foreach ($campuses as $row)
+                                        <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <div class="col-campus">
                                 <div class=" mp-pv3">
                                     <div class="mp-text-c-gray mp-text-fs-small mp-pt3 title-total">
@@ -597,7 +600,7 @@
                         <label for="" class="mp-text-c-gray">New application</label>
                         <label for="" style="margin-top: auto; min-width: 70px"><span
                                 class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span>
-                                <span id="new_app"></span>
+                            <span id="new_app"></span>
                         </label>
                     </div>
                 </div>
@@ -606,7 +609,7 @@
                         <label for="" class="mp-text-c-gray">For approval application</label>
                         <label for="" style="margin-top: auto; min-width: 70px"><span
                                 class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span>
-                                <span id="forApproval"></span>
+                            <span id="forApproval"></span>
                         </label>
                     </div>
                 </div>
@@ -615,7 +618,7 @@
                         <label for="" class="mp-text-c-gray">Incomplete application</label>
                         <label for="" style="margin-top: auto; min-width: 70px"><span
                                 class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span>
-                                <span id="draft"></span>
+                            <span id="draft"></span>
                         </label>
                     </div>
                 </div>
@@ -624,7 +627,7 @@
                         <label for="" class="mp-text-c-gray">Rejected application</label>
                         <label for="" style="margin-top: auto; min-width: 70px"><span
                                 class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span>
-                                <span id="rejected"></span>
+                            <span id="rejected"></span>
                         </label>
                     </div>
                 </div>
@@ -652,28 +655,28 @@
                 </div>
             </div>
             <!-- <div class="calendar">
-            <div class="wrapper">
-              <header>
-                <p class="current-date"></p>
-                <div class="icons">
-                  <span id="prev" class="material-symbols-rounded"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
-                  <span id="next" class="material-symbols-rounded"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
-                </div>
-              </header>
-              <div class="calendar">
-                <ul class="weeks">
-                  <li>Sun</li>
-                  <li>Mon</li>
-                  <li>Tue</li>
-                  <li>Wed</li>
-                  <li>Thu</li>
-                  <li>Fri</li>
-                  <li>Sat</li>
-                </ul>
-                <ul class="days"></ul>
-              </div>
-            </div>
-          </div> -->
+                    <div class="wrapper">
+                      <header>
+                        <p class="current-date"></p>
+                        <div class="icons">
+                          <span id="prev" class="material-symbols-rounded"><i class="fa fa-chevron-left" aria-hidden="true"></i></span>
+                          <span id="next" class="material-symbols-rounded"><i class="fa fa-chevron-right" aria-hidden="true"></i></span>
+                        </div>
+                      </header>
+                      <div class="calendar">
+                        <ul class="weeks">
+                          <li>Sun</li>
+                          <li>Mon</li>
+                          <li>Tue</li>
+                          <li>Wed</li>
+                          <li>Thu</li>
+                          <li>Fri</li>
+                          <li>Sat</li>
+                        </ul>
+                        <ul class="days"></ul>
+                      </div>
+                    </div>
+                  </div> -->
             <script>
                 Highcharts.chart('chart-members', {
                     chart: {
@@ -779,7 +782,7 @@
                         liTag += `<li class="default">${i - lastDayofMonth + 1}</li>`
                     }
                     currentDate.innerText =
-                    `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
+                        `${months[currMonth]} ${currYear}`; // passing current mon and yr as currentDate text
                     daysTag.innerHTML = liTag;
                 }
                 renderCalendar();
@@ -882,9 +885,16 @@
 
 
     <script>
-      $(document).ready(function() {
-        load_apllicationList_count();
-      });
+        $(document).ready(function() {
+            load_apllicationList_count();
+
+            $('.campus_change').on('click', function(e) {
+                var select = document.querySelector('#campuses_select')
+                select.value = e.target.getAttribute('value');
+                select.dispatchEvent(new Event('change'));
+            });
+        });
+
         function load_apllicationList_count(view = '') {
             $.ajaxSetup({
                 headers: {
@@ -900,9 +910,10 @@
                 },
                 dataType: "json",
                 success: function(data) {
-                    $('#new_app').html(data.new_app > 0 ? data.new_app : "");
-
-
+                    $('#new_app').html(data.new_app > 0 ? data.new_app : "0");
+                    $('#forApproval').html(data.forApproval > 0 ? data.forApproval : "0");
+                    $('#draft').html(data.draft > 0 ? data.draft : "0");
+                    $('#rejected').html(data.rejected > 0 ? data.rejected : "0");
                 }
             });
         }

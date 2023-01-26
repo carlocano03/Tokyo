@@ -30,27 +30,51 @@ class AdminController extends Controller
    */
   public function dashboard()
   {
-    // $user = User::find(Auth::user()->id);
-    $login = DB::table('login_logs')
+    $lastLogin = '';
+    $loginCount = DB::table('login_logs')
               ->where('user_id', Auth::user()->id)
-              ->orderBy('log_id', 'DESC')
+              ->count();
+    $loginNew = DB::table('login_logs')
+              ->where('user_id', Auth::user()->id)
+              ->orderBy('login_date', 'DESC')
               ->first();
+    if ($loginCount == 1) {
+      if($loginNew){
+        $lastLogin = $loginNew->login_date;
+      }
+    } else {
+      $login = DB::table('login_logs')
+              ->where('user_id', Auth::user()->id)
+              ->orderBy('login_date', 'DESC')
+              ->skip(1)
+              ->first();
+      if($login){
+        $lastLogin = $login->login_date;
+      }
+    }
+    
+    $campuses = DB::table('campus')->get();
     $data = array(
-      'login' => $login,
+      'login' => $lastLogin,
+      'campuses' => $campuses,
     );
-
     return view('admin.dashboard')->with($data);
   }
 
-  public function countApplication(Request $request)
+  public function countApplication()
   {
     if (request()->has('view')) {
       $total_new = DB::table('mem_app')->count();
-      // $total_new = DB::table('mem_app')->count();
+      $forApproval = DB::table('mem_app')->where('app_status', 'SUBMITTED')->count();
+      $draft = DB::table('mem_app')->where('app_status', 'DRAFT')->count();
+      $rejected = DB::table('mem_app')->where('app_status', 'REJECTED')->count();
     }
-
+    
     $data = array(
       'new_app' => $total_new,
+      'forApproval' => $forApproval,
+      'draft' => $draft,
+      'rejected' => $rejected,
     );
     echo json_encode($data);
   }
