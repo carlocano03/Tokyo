@@ -36,10 +36,23 @@ class AdminController extends Controller
               ->orderBy('log_id', 'DESC')
               ->first();
     $data = array(
-      'login' => $login
+      'login' => $login,
     );
 
     return view('admin.dashboard')->with($data);
+  }
+
+  public function countApplication(Request $request)
+  {
+    if (request()->has('view')) {
+      $total_new = DB::table('mem_app')->count();
+      // $total_new = DB::table('mem_app')->count();
+    }
+
+    $data = array(
+      'new_app' => $total_new,
+    );
+    echo json_encode($data);
   }
 
   public function settings()
