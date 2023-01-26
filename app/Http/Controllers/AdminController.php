@@ -1,18 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Admin;
-use App\User;
-use App\Campus;
-use App\Member;
-use App\Tempass;
-use App\LoanTransaction;
-use App\ContributionTransaction;
+use App\Models\MemApp;
 use Auth;
 use Hash;
 use DB;
 use PDF;
 use Excel;
+use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -91,13 +86,135 @@ class AdminController extends Controller
     $draft = DB::table('mem_app')->where('app_status', 'APPROVED')->count();
     $rejected = DB::table('mem_app')->where('app_status', 'REJECTED')->count();
 
+    $campuses = DB::table('campus')->get();
     $data = array(
       'new_app' => $total_new,
       'forApproval' => $forApproval,
       'approved' => $draft,
       'rejected' => $rejected,
+      'campuses' => $campuses,
     );
     return view('admin.members.records')->with($data);
+  }
+
+  public function get_members(Request $request)
+  {
+    ## Read value
+    $draw = $request->get('draw');
+    $start = $request->get("start");
+    $rowperpage = $request->get("length"); // Rows display per page
+
+    $columnIndex_arr = $request->get('order');
+    $columnName_arr = $request->get('columns');
+    $order_arr = $request->get('order');
+    $search_arr = $request->get('search');
+
+    // Custom search filter 
+    $campus  = $request->get('campus');
+    $department  = $request->get('department');
+    $dt_from  = $request->get('dt_from');
+    $dt_to  = $request->get('dt_to');
+    $search  = $request->get('searchValue');
+
+    // Total records
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->where('mem_app.app_no', 'like', '%' . $search . '%');
+
+    ## Add custom filter conditions
+    if (!empty($campus)) {
+      $records->where('employee_details.campus', $campus);
+    }
+    if (!empty($department)) {
+      $records->where('employee_details.department', $department);
+    }
+    if (!empty($search)) {
+      $records->orWhere('mem_app.app_no', 'like', '%' . $search . '%');
+      $records->orWhere('mem_app.employee_no', 'like', '%' . $search . '%');
+      $records->orWhere('personal_details.lastname', 'like', '%' . $search . '%');
+    }
+    if (!empty($dt_from) && !empty($dt_to)) {
+      $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
+    }
+    $totalRecords = $records->count();
+
+    // Total records with filter
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->where('mem_app.app_no', 'like', '%' . $search . '%');
+
+    ## Add custom filter conditions
+    if (!empty($campus)) {
+      $records->where('employee_details.campus', $campus);
+    }
+    if (!empty($department)) {
+      $records->where('employee_details.department', $department);
+    }
+    if (!empty($search)) {
+      $records->orWhere('mem_app.app_no', 'like', '%' . $search . '%');
+      $records->orWhere('mem_app.employee_no', 'like', '%' . $search . '%');
+      $records->orWhere('personal_details.lastname', 'like', '%' . $search . '%');
+    }
+    if (!empty($dt_from) && !empty($dt_to)) {
+      $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
+    }
+    $totalRecordswithFilter = $records->count();
+
+    // Fetch records
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->where('mem_app.app_no', 'like', '%' . $search . '%');
+
+    ## Add custom filter conditions
+    if (!empty($campus)) {
+      $records->where('employee_details.campus', $campus);
+    }
+    if (!empty($department)) {
+      $records->where('employee_details.department', $department);
+    }
+    if (!empty($search)) {
+      $records->orWhere('mem_app.app_no', 'like', '%' . $search . '%');
+      $records->orWhere('mem_app.employee_no', 'like', '%' . $search . '%');
+      $records->orWhere('personal_details.lastname', 'like', '%' . $search . '%');
+    }
+    if (!empty($dt_from) && !empty($dt_to)) {
+      $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
+    }
+
+    $posts = $records->skip($start)
+      ->take($rowperpage)
+      ->get();
+    $data = array();
+    if ($posts) {
+      foreach ($posts as $r) {
+        $start++;
+        $row = array();
+        $row[] = "<a data-md-tooltip='View Member' class='view_member md-tooltip--right' id='" . $r->app_no . "' style='cursor: pointer'>
+                    <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
+                  </a>";
+        $row[] = $r->app_no;
+        $row[] = date("D M j, Y", strtotime($r->app_date));
+        $row[] = '<span class="mp-text-fw-heavy">' . $r->lastname . ', ' . $r->firstname . ' ' . $r->middlename . '</span>';
+        $row[] = $r->employee_no;
+        $row[] = $r->classification;
+        $row[] = $r->rank_position;
+        $row[] = '';
+        $row[] = $r->app_status;
+        $row[] = $r->app_status;
+
+        $data[] = $row;
+      }
+    }
+    $json_data = array(
+      "draw" => intval($draw),
+      "recordsTotal" => intval($totalRecords),
+      "recordsFiltered" => intval($totalRecordswithFilter),
+      "data" => $data
+    );
+    echo json_encode($json_data);
   }
 
 }
