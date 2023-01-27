@@ -454,4 +454,103 @@ class HomeController extends Controller
     DB::table('member_signature')->insert($signFile);
   }
 
+  public function update_trail_member_1(Request $request)
+  {
+    $datadb = DB::transaction(function () use ($request) {
+      if ($request->input('perm_add_check') != 1) {
+        $inserts = array(
+          'lastname' => strtoupper($request->input('lastname')),
+          'middlename' => strtoupper($request->input('middlename')),
+          'firstname' => strtoupper($request->input('firstname')),
+          'date_birth' => $request->input('date_birth'),
+          'suffix' => strtoupper($request->input('suffix')),
+          'gender' => $request->input('gender'),
+          'civilstatus' => $request->input('civilstatus'),
+          'citizenship' => strtoupper($request->input('citizenship')),
+          'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
+          'province' => $request->input('province'),
+          'municipality' => $request->input('municipality'),
+          'barangay' => $request->input('barangay'),
+          'bldg_street' => strtoupper($request->input('bldg_street')),
+          'zipcode' => $request->input('zipcode'),
+          'present_province' => $request->input('present_province'),
+          'present_municipality' => $request->input('present_municipality'),
+          'present_barangay' => $request->input('present_barangay'),
+          'present_bldg_street' => $request->input('present_bldg_street'),
+          'present_zipcode' => $request->input('present_zipcode'),
+          'contact_no' => $request->input('contact_no'),
+          'landline_no' => $request->input('landline_no'),
+          'email' => $request->input('email'),
+        );
+      } else {
+        $inserts = array(
+          'lastname' => strtoupper($request->input('lastname')),
+          'middlename' => strtoupper($request->input('middlename')),
+          'firstname' =>strtoupper($request->input('firstname')),
+          'date_birth' => $request->input('date_birth'),
+          'suffix' => strtoupper($request->input('suffix')),
+          'gender' => $request->input('gender'),
+          'civilstatus' => $request->input('civilstatus'),
+          'citizenship' => strtoupper($request->input('citizenship')),
+          'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
+          'province' => $request->input('present_province'),
+          'municipality' => $request->input('present_municipality'),
+          'barangay' => $request->input('present_barangay'),
+          'bldg_street' => strtoupper($request->input('present_bldg_street')),
+          'zipcode' => $request->input('present_zipcode'),
+          'present_province' => $request->input('present_province'),
+          'present_municipality' => $request->input('present_municipality'),
+          'present_barangay' => $request->input('present_barangay'),
+          'present_bldg_street' => $request->input('present_bldg_street'),
+          'present_zipcode' => $request->input('present_zipcode'),
+          'contact_no' => $request->input('contact_no'),
+          'landline_no' => $request->input('landline_no'),
+          'email' => $request->input('email'),
+        );
+      }
+
+      DB::table('personal_details')->where('personal_id', $request->input('personnel_id'))
+        ->update($inserts);
+
+      return [
+        'last_id' => $request->input('personnel_id'),
+        'mem_id' => $request->input('mem_id'),
+      ];
+    });
+    return response()->json(['success' => $datadb['last_id'], 'mem_id' => $datadb['mem_id']]);
+  }
+  public function update_trail_member_2(Request $request)
+  {
+      $datadb = DB::transaction(function () use ($request) {
+        $inserts = array(
+          'campus' => $request->input('campus'),
+          'classification' => $request->input('classification'),
+          'classification_others' => $request->input('classification_others'),
+          'employee_no' => $request->input('employee_no'),
+          'college_unit' => $request->input('college_unit'),
+          'department' => $request->input('department'),
+          'rank_position' => $request->input('rank_position'),
+          'date_appointment' => $request->input('date_appointment'),
+          'appointment' => $request->input('appointment'),
+          'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
+          'salary_grade' => $request->input('salary_grade'),
+          'sg_category' => $request->input('sg_category'),
+          'tin_no' => $request->input('tin_no'),
+        );
+        DB::table('employee_details')->where('employee_details_ID', $request->input('employee_details_ID'))
+          ->update($inserts);
+        //   $last_id = (DB::getPdo()->lastInsertId()); 
+        $mem_appinst = array(
+          'employee_no' => $request->input('employee_no'),
+        );
+        DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
+          ->update($mem_appinst);
+        return [
+          'last_id' => $request->input('employee_details_ID'),
+          'emp_no' => $request->input('employee_no'),
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
+
+  }
 }
