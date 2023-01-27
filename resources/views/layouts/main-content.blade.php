@@ -445,7 +445,7 @@
       <li><a href="#"><i class="fa fa-line-chart"></i>Transacton </a></li>
       <li><a href="#"><i class="fa fa-address-book"></i>Election</a></li>
       <li><a href="/admin/settings" class="{{ Request::is('admin/settings')  ? 'active-nav' : '' }}">
-          <i class="fa fa-gears"></i>Account & Settings</a>
+          <i class="fa fa-gears"></i>Settings & Configuration</a>
       </li>
 
       <!-- <a href="#">
