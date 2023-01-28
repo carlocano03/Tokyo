@@ -58,21 +58,20 @@
             overflow: auto;
         }
 
-  .record-container {
-    min-height: 65vh;
-    max-height: 65vh;
-    overflow: auto;
-  }
+        .record-container {
+            min-height: 65vh;
+            max-height: 65vh;
+        }
 
 
         .p-0 {
             padding: 0;
         }
 
-  .record-container {
-    min-height: 65vh;
-    max-height: 65vh;
-  }
+        .record-container {
+            min-height: 65vh;
+            max-height: 65vh;
+        }
 
 
         .f-button {
@@ -276,69 +275,121 @@
             text-decoration: underline;
             color: #1a8981;
         }
+
+        .font-sm {
+            font-size: 13px;
+        }
+        .text-center {
+            text-align: center;
+        }
+        .ml-auto {
+            margin-left: auto;
+        }
+        .middle-content {
+            width: calc(73% - 20px);
+            transition: all .5s;
+        }
+        .middle-content.full {
+            width: calc(88% - 10px);
+            transition: all .5s;
+        }
+        .left-content {
+            width: 15%;
+            opacity: 1;
+            transition: opacity .5s;
+        }
+        .left-content.full {
+            width: 0px;
+            opacity: 0;
+        }
+        .d-none {
+            display: none !important;
+        }
+
     </style>
     <div class="filler"></div>
     <script type="text/javascript" src="{{ asset('/dist/loading-bar/loading-bar.js') }}"></script>
+    <script>
+        $(document).on('click', '#showLogs', function(e) {
+            if ($(".middle-content").hasClass("full")) {
+            $(".middle-content").removeClass("full")
+            $(".left-content").removeClass("d-none")
+            setTimeout(function() {
+                $(".left-content").removeClass("full")
+            }, 500)
+            $("#showLogs").text("Hide history logs")
+            } else {
+            $(".middle-content").addClass("full")
+            
+            $(".left-content").addClass("d-none")
+            $(".left-content").addClass("full")
+            $("#showLogs").text("Show history logs")
+            }
+        })
+    </script>
     <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}">
     </link>
-    <div class="row no-gutter ml-0 mr-0 p-5px">
-        <div class="col-12 mp-pv0 mp-pr0">
+    <div class="row no-gutter ml-0 mr-0 p-5px ">
+        <div class="col-12 mp-pv0 mp-pr0 d-flex">
             <span class="d-inline-flex align-items-center ">
                 <a href="/dashboard" class="link-style">Dashboard</a>/ &nbsp; Membership Application Records
+            </span>
+            <span class="d-inline-flex align-items-center ml-auto mp-mr3">
+                <button class="f-button magenta-bg" id="showLogs">Show history logs</button>
             </span>
         </div>
         <div class="col-12 mp-pr0" style="width: 100%;">
             <div class="row d-flex flex-row gap-10 mp-pr0" style="width: 100%;">
-                <div style="width: 15%;" class="d-flex flex-column gap-10">
+                <div style="width: 10%;" class="d-flex flex-column gap-10">
                     <div class="card-container card p-0">
-                        <div class="card-header green-bg">
+                        <div class="card-header font-sm text-center green-bg">
                             New Application
                         </div>
                         <div class="card-body justify-content-center">
-                            <div class="ldBar green label-center" data-preset="circle" data-value="{{ $new_app }}">
+                            <div class="ldBar green label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="{{ $new_app }}">
                             </div>
                         </div>
-                        <button class="green-bg button-view">
+                        <button class="green-bg button-view font-sm">
                             View
                         </button>
                     </div>
                     <div class="card-container card p-0">
-                        <div class="card-header magenta-bg">
+                        <div class="card-header font-sm text-center magenta-bg">
                             Processing Application
                         </div>
                         <div class="card-body justify-content-center">
-                            <div class="ldBar magenta label-center" data-preset="circle" data-value="{{ $forApproval }}">
+                            <div class="ldBar magenta label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="{{ $forApproval }}">
                             </div>
                         </div>
-                        <button class="magenta-bg button-view">
+                        <button class="magenta-bg button-view font-sm">
                             View
                         </button>
                     </div>
                     <div class="card-container card p-0">
-                        <div class="card-header maroon-bg">
+                        <div class="card-header font-sm text-center maroon-bg">
                             Approved Application
                         </div>
                         <div class="card-body justify-content-center">
-                            <div class="ldBar maroon label-center" data-preset="circle" data-value="{{ $approved }}">
+                            <div class="ldBar maroon label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="{{ $approved }}">
                             </div>
                         </div>
-                        <button class="maroon-bg button-view">
+                        <button class="maroon-bg button-view font-sm">
                             View
                         </button>
                     </div>
                     <div class="card-container card p-0">
-                        <div class="card-header red-bg">
+                        <div class="card-header font-sm text-center red-bg">
                             Rejected Application
                         </div>
                         <div class="card-body justify-content-center">
-                            <div class="ldBar red label-center" data-preset="circle" data-value="{{ $rejected }}"></div>
+                            <div class="ldBar red label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="{{ $rejected }}"></div>
                         </div>
-                        <button class="red-bg button-view">
+                        <button class="red-bg button-view font-sm">
                             View
                         </button>
                     </div>
                 </div>
-                <div style="width: calc(65% - 20px)" class="d-flex flex-column gap-10">
+                <div class="d-flex flex-column gap-10 middle-content full">
                     <div class="card-container card p-0 ">
                         <div class="card-header filtering">
                             Filtering Section
@@ -446,7 +497,7 @@
                         </div>
                     </div>
                 </div>
-                <div style="width: 20%;">
+                <div class="left-content full d-none">
                     <div class="card-container card p-0">
                         <div class="card-header history-logs">
                             History Logs
