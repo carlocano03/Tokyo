@@ -341,7 +341,7 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-4 " style="padding:0px !important; height: 100%; overflow-y:auto; ">
+      <div class="col-lg-3 " style="padding:0px !important; height: 100%; overflow-y:auto; ">
         <div class="mp-card" style="padding-bottom:150px;">
           <div class="settings-tab">
             <div class="top-label">
@@ -406,7 +406,7 @@
 
         </div>
       </div>
-      <div class="col-lg-8 mp-mt3 gap-10">
+      <div class="col-lg-9 mp-mt3 gap-10">
         <div class="mp-card  mp-ph2 mp-pv2">
           <div class="container-fluid">
             <div class="row">
