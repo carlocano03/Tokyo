@@ -666,6 +666,8 @@
                     <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
                         <span>Generate Proxy Form</span>
                     </button>
+                    <hr>
+                    <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generare Cocolife</button>
                 </div>
             </div>
 

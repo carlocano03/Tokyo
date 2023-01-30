@@ -23,23 +23,74 @@
         <div class="modal-container">
             <div class="modal-content">
                 <div class="modal-header">
-                    MODAL HEADER
+                    Generate Cocolife Form
                 </div>
                 <div class="modal-body">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic maiores ut consectetur qui animi corporis
-                    rem eveniet dolorem quia, esse velit iure, suscipit accusamus dignissimos natus dolorum deleniti iusto
-                    delectus?
+                    {{-- <form id="generateCoco" method="POST" enctype="multipart/form-data">
+                        @csrf --}}
+                        <input type="text" name="app_number" id="app_number">
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Place of Birth</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Height</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="height" id="height"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Weight</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="weight" id="weight"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Amount of Insurance</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="amt_isurance" id="amt_isurance"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Term of Coverage</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="coverage" id="coverage"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Premiums</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="premiums" id="premiums"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Occupation</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Nature of Work</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="nature_work" id="nature_work"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">If seaman, port of entry</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="seaman" id="seaman"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">If OCW/OFW,destination country</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="ofw" id="ofw"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Exceptions</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="exception" id="exception"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
+                            <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="cocolife_sign" id="cocolife_sign"
+                                accept="image/png, image/gif, image/jpeg, image/jpg" />
+                        </div>
+                        
                 </div>
 
                 <div class="modal-footer">
                     <div class="mp-container">
                         <div class="row">
-                            <button class="up-button btn-md " id="modal_name_close" value="">
+                            <button class="up-button btn-md " id="modal_name_close" type="button">
                                 <span>Close</span>
                             </button>
-                            <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
-                                <span>Ok</span>
+                            <button class="up-button btn-md" type="button" id="btn-coco">
+                                <span>Generate</span>
                             </button>
+                        {{-- </form> --}}
                         </div>
                     </div>
 
@@ -230,6 +281,15 @@
     });
 
     $(document).on('click', '#modal_name_pop', function(e) {
+        var appNo = query;
+        var ref = reference_no;
+        console.log(query);
+        if (ref != undefined)
+        {
+            $('#app_number').val(ref);
+        } else {
+            $('#app_number').val(query);
+        }
         $("#modal_name").addClass("visible")
         $("#modal_name").removeClass("not-visible")
     })
@@ -920,7 +980,7 @@
     });
     $(document).on('click', '#citizenship', function(e) {
         var citizen = $(this).val();
-        if (citizen == 'DUAL CITIZENSHIP') {
+        if (citizen == 'DUAL CITIZENSHIP' || citizen == 'OTHERS') {
             $('#d_citizen').prop('disabled', false);
         } else {
             $('#d_citizen').prop('disabled', true);
@@ -1136,7 +1196,15 @@
     });
 
     $(document).on('click', '#save_sign', function() {
-        var id = reference_no;
+        var ref = reference_no;
+        var id;
+        if (ref != undefined)
+        {
+            id = ref;
+        } else {
+            id = query;
+        }
+
         var files = $('#file')[0].files;
 
         $.ajaxSetup({
@@ -1186,5 +1254,101 @@
             $('#proxy_form').attr('required', true);
         }
     });
+
+    $(document).on('click', '#btn-coco', function() {
+        var id = $('#app_number').val();
+        var place_birth = $('#place_birth').val();
+        var height = $('#height').val();
+        var weight = $('#weight').val();
+        var amt_isurance = $('#amt_isurance').val();
+        var term_coverage = $('#term_coverage').val();
+        var premiums = $('#premiums').val();
+        var occupation = $('#occupation').val();
+        var nature_work = $('#nature_work').val();
+        var seaman = $('#seaman').val();
+        var ofw = $('#ofw').val();
+        var exceptions = $('#exceptions').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var files = $('#cocolife_sign')[0].files;
+
+        var fd = new FormData();
+        fd.append('cocolife_sign', files[0]);
+        fd.append('app_number', id);
+        fd.append('place_birth', place_birth);
+        fd.append('height', height);
+        fd.append('weight', weight);
+        fd.append('amt_isurance', amt_isurance);
+        fd.append('term_coverage', term_coverage);
+        fd.append('premiums', premiums);
+        fd.append('occupation', occupation);
+        fd.append('nature_work', nature_work);
+        fd.append('seaman', seaman);
+        fd.append('ofw', ofw);
+        fd.append('exceptions', exceptions);
+        $.ajax({
+            url: "{{ route('add_cocolife') }}",
+            method: "POST",
+            data: fd,
+            contentType: false,
+            processData: false,
+            beforeSend: function() {
+                $('#loading').show();
+            },
+            success: function(data) {
+                if (data.message == 'Exist') {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Cocolife form already generated.',
+                        icon: 'error'
+                    });
+                    $("#modal_name").addClass("not-visible")
+                    $("#modal_name").removeClass("visible")
+                } else {
+                    var url = "{{ URL::to('/generateCocolife/') }}" + '/' +
+                    id; //YOUR CHANGES HERE...
+                    window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+                    $('#generateCoco').trigger('reset');
+                    $("#modal_name").addClass("not-visible")
+                    $("#modal_name").removeClass("visible")
+                }
+            },
+            complete: function() {
+                $('#loading').hide();
+            }
+        });
+    })
+
+    // $(document).on('submit', '#generateCoco', function(event) {
+    //     event.preventDefault();
+    //     var id = $('#app_number').val();
+        
+    //     $.ajax({
+    //         url: "{{ route('add_cocolife') }}",
+    //         method: "POST",
+    //         data: new FormData(this),
+    //         dataType: 'json',
+    //         contentType: false,
+    //         processData: false,
+    //         beforeSend: function() {
+    //             $('#loading').show();
+    //         },
+    //         success: function(data) {
+    //             var url = "{{ URL::to('/generateCocolife/') }}" + '/' +
+    //                 id; //YOUR CHANGES HERE...
+    //             window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+    //             $('#generateCoco').trigger('reset');
+    //             $("#modal_name").addClass("not-visible")
+    //             $("#modal_name").removeClass("visible")
+    //         },
+    //         complete: function() {
+    //             $('#loading').hide();
+    //         }
+    //     });
+    // })
 </script>
 @endsection

@@ -2,7 +2,7 @@
 @section('content_body')
 
 <style>
-  .card-container {
+  /* .card-container {
     display: flex;
     flex-direction: column;
   }
@@ -291,11 +291,11 @@
   }
 
   .settings-tab label {
-    margin-left: 20px;
+    /* margin-left: 20px; */
   }
 
   .settings-tab a {
-    margin-left: 20px;
+    /* margin-left: 20px; */
   }
 
   .top-label i {
@@ -315,7 +315,7 @@
   }
 
   .options a {
-    color: black !important;
+    color: black;
   }
 
   .options:hover {
@@ -328,20 +328,37 @@
     line-height: 1;
   }
 
+  .options-active {
+    background-color: var(--c-accent) !important;
+  }
+
+  .options-a-active {
+    color: white !important;
+  }
+
+  .options-info-active {
+    color: white !important;
+  }
+
   .account-info {
     font-size: 12px;
     color: var(--c-base-50);
     line-height: 1;
     font-weight: 400;
   }
+
+  */
 </style>
+
+
+
 <div class="filler"></div>
-<div class="col-12  mp-text-fs-large mp-text-c-accent  dashboard " style="padding:0px !important;">
+<div class="col-12  mp-text-fs-large mp-text-c-accent  dashboard mh-content" style="padding:0px !important;">
 
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-3 " style="padding:0px !important; height: 100%; overflow-y:auto; ">
+      <div class="col-lg-2" style="padding:0px !important; height: 100%; overflow-y:auto; ">
         <div class="mp-card" style="padding-bottom:150px;">
           <div class="settings-tab">
             <div class="top-label">
@@ -351,51 +368,50 @@
 
             <div class="settings-buttons">
               <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
-
-                <li class="options">
-                  <a href="#" class="no-padding">Manage Accounts</a><br>
-                  <label class="option-info">Allow User to create and manage system user accounts, You also can manage permissions and
+                <li class="options options-active" onclick="location.href='manage-account'">
+                  <a href="#" class="no-padding options-a-active">Manage Accounts</a><br>
+                  <label class="option-info options-info-active">Allow User to create and manage system user accounts, You also can manage permissions and
                     authorizations.
                   </label>
                 </li>
-                <li class="options">
+                <li class="options" onclick="location.href='campus-management'">
                   <a href="#" class="no-padding">Campus Management</a><br>
                   <label class="option-info">Allow User to manage respective campus; key, names, and clusters
                   </label>
                 </li>
-                <li class="options">
+                <li class="options" onclick="location.href='employee-classification'">
                   <a href="#" class="no-padding">Employee Classification</a><br>
                   <label class="option-info">Allow User to add and manage employee Classifications
                   </label>
                 </li>
-                <li class="options">
+                <li class="options" onclick="location.href='college-management'">
                   <a href="#" class="no-padding">College / Unit Management</a><br>
                   <label class="option-info">Allow User to manage respective College and units
                   </label>
                 </li>
-                <li class="options">
+                <li class="options" onclick="location.href='department-management'">
                   <a href="#" class="no-padding">Department Management</a><br>
                   <label class="option-info">Allow User to manage respective departments per campuses
                   </label>
                 </li>
-                <li class="options">
+                <li class="options" onclick="location.href='status-appointment'">
                   <a href="#" class="no-padding">Status and Appointments</a><br>
                   <label class="option-info">Allow User to pre-setup, manage the employee status and appointments.
                   </label>
                 </li>
-                <li class="options">
+                <li class="options" onclick="location.href='sg-modules'">
                   <a href="#" class="no-padding">SG Modules</a><br>
                   <label class="option-info">Allow User to pre-setup salary grade range and assign salary grade category for election
                     modules
                   </label>
                 </li>
-                <li class="options">
+                <li class="options" onclick="location.href='history-logs'">
                   <a href="#" class="no-padding">History Logs</a><br>
                   <label class="option-info">Allow User to retrieve and monitor user activity using History logs module.
                     modules
                   </label>
                 </li>
-                <li class="options">
+                <li class="options" onclick="location.href='backup-database'">
                   <a href="#" class="no-padding">Backup Database</a><br>
                   <label class="option-info">Allow User to download and backup system database for documentations and risk management
                   </label>
@@ -406,7 +422,8 @@
 
         </div>
       </div>
-      <div class="col-lg-9 mp-mt3 gap-10">
+      <div class="col-lg-10 mp-mt3 gap-10">
+
         <div class="mp-card  mp-ph2 mp-pv2">
           <div class="container-fluid">
             <div class="row">
@@ -624,16 +641,14 @@
             </div>
 
           </div>
-
-
-
         </div>
-
 
       </div>
 
     </div>
   </div>
 </div>
+
+
 
 @endsection

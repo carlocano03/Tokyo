@@ -25,8 +25,22 @@ class PDFController extends Controller
     * @return \Illuminate\Http\Response
     */
 
-    public function generateCocolife() {
-        $pdf = PDF::loadView( 'pdf.cocolife' );
+    public function generateCocolife($id) {
+        $data['member']  = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$id'")
+        ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+        ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+        ->leftjoin('member_signature', 'mem_app.app_no', '=', 'member_signature.app_no')
+        ->get()->first();
+
+        $personal_id = $data['member']->personal_id;
+
+        $data['benificiary'] = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$personal_id'")
+        ->get();
+
+        $data['coco_details'] = DB::table('generated_coco')->select('*')->whereRaw("app_number = '$id'")
+        ->get()->first();
+
+        $pdf = PDF::loadView( 'pdf.cocolife_proxyform', $data );
         $pdf->setPaper( 'A4', 'portrait' );
         return $pdf->stream();
     }
