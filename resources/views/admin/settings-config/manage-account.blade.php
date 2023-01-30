@@ -353,7 +353,7 @@
 
 
 <div class="filler"></div>
-<div class="col-12  mp-text-fs-large mp-text-c-accent  dashboard " style="padding:0px !important;">
+<div class="col-12  mp-text-fs-large mp-text-c-accent  dashboard mh-content" style="padding:0px !important;">
 
 
   <div class="container-fluid">
@@ -379,40 +379,40 @@
                   <label class="option-info">Allow User to manage respective campus; key, names, and clusters
                   </label>
                 </li>
-                <li class="options">
-                  <a href="#" class="no-padding" onclick="location.href='employee-classification'">Employee Classification</a><br>
+                <li class="options" onclick="location.href='employee-classification'">
+                  <a href="#" class="no-padding">Employee Classification</a><br>
                   <label class="option-info">Allow User to add and manage employee Classifications
                   </label>
                 </li>
-                <li class="options">
-                  <a href="#" class="no-padding" onclick="location.href='college-management'">College / Unit Management</a><br>
+                <li class="options" onclick="location.href='college-management'">
+                  <a href="#" class="no-padding">College / Unit Management</a><br>
                   <label class="option-info">Allow User to manage respective College and units
                   </label>
                 </li>
-                <li class="options">
-                  <a href="#" class="no-padding" onclick="location.href='department-management'">Department Management</a><br>
+                <li class="options" onclick="location.href='department-management'">
+                  <a href="#" class="no-padding">Department Management</a><br>
                   <label class="option-info">Allow User to manage respective departments per campuses
                   </label>
                 </li>
-                <li class="options">
-                  <a href="#" class="no-padding" onclick="location.href='status-appointment'">Status and Appointments</a><br>
+                <li class="options" onclick="location.href='status-appointment'">
+                  <a href="#" class="no-padding">Status and Appointments</a><br>
                   <label class="option-info">Allow User to pre-setup, manage the employee status and appointments.
                   </label>
                 </li>
-                <li class="options">
-                  <a href="#" class="no-padding" onclick="location.href='sg-modules'">SG Modules</a><br>
+                <li class="options" onclick="location.href='sg-modules'">
+                  <a href="#" class="no-padding">SG Modules</a><br>
                   <label class="option-info">Allow User to pre-setup salary grade range and assign salary grade category for election
                     modules
                   </label>
                 </li>
-                <li class="options">
-                  <a href="#" class="no-padding" onclick="location.href='history-logs'">History Logs</a><br>
+                <li class="options" onclick="location.href='history-logs'">
+                  <a href="#" class="no-padding">History Logs</a><br>
                   <label class="option-info">Allow User to retrieve and monitor user activity using History logs module.
                     modules
                   </label>
                 </li>
-                <li class="options">
-                  <a href="#" class="no-padding" onclick="location.href='backup-database'">Backup Database</a><br>
+                <li class="options" onclick="location.href='backup-database'">
+                  <a href="#" class="no-padding">Backup Database</a><br>
                   <label class="option-info">Allow User to download and backup system database for documentations and risk management
                   </label>
                 </li>
@@ -642,6 +642,7 @@
 
           </div>
         </div>
+
       </div>
 
     </div>

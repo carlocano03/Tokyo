@@ -129,6 +129,11 @@ class AdminController extends Controller
     return view('admin.members.records')->with($data);
   }
 
+  public function members_application_trail()
+  {
+    return view('admin.members.trail');
+  }
+
   public function get_members(Request $request)
   {
     ## Read value
@@ -224,7 +229,7 @@ class AdminController extends Controller
       foreach ($posts as $r) {
         $start++;
         $row = array();
-        $row[] = "<a data-md-tooltip='View Member' class='view_member md-tooltip--right' id='" . $r->app_no . "' style='cursor: pointer'>
+        $row[] = "<a data-md-tooltip='View Member' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "' style='cursor: pointer'>
                     <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
                   </a>";
         $row[] = $r->app_no;

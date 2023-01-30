@@ -2483,7 +2483,7 @@ html {
     font-family: Fira Sans, sans-serif;
     font-family: var(--font-family);
     font-size: 12pt;
-    /*overflow: hidden;*/
+    overflow: hidden;
     width: 100%;
     height: 100%;
     text-rendering: optimizeLegibility;
@@ -2660,9 +2660,9 @@ html {
     height: 100%
 }
 
-body {
+/* body {
     overflow: visible
-}
+} */
 
 table {
     height: 100%;
@@ -6016,6 +6016,7 @@ tfoot {
     border: solid 1px #b1aaaa;
 }
 
+
 .card-container {
     display: flex;
     flex-direction: column;
@@ -6359,4 +6360,23 @@ tfoot {
     color: var(--c-base-50);
     line-height: 1;
     font-weight: 400;
+}
+
+.mh-content {
+    height: calc(100vh - 158px) !important;
+    overflow-y: auto !important;
+}
+
+@media (max-width:1244px) {
+    .mh-content {
+        height: calc(100vh - 179px) !important;
+        overflow-y: scroll !important;
+    }
+}
+
+@media (max-width:655px) {
+    .mh-content {
+        height: calc(100vh - 131px) !important;
+        overflow-y: scroll !important;
+    }
 }

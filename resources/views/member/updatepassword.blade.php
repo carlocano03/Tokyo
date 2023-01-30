@@ -2,7 +2,7 @@
 @section('content_body')
 <link href="/css/css-module/global_css/global.css" rel="stylesheet">
 <div class="filler"></div>
-  <div class="container mp-container">
+  <div class="container mp-container mh-content">
     <div class="row no-gutters mp-mt4 justify-content-center">
       <div class="col-12 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-primary">
         <a class="mp-link mp-link--primary" href="{{url('/member/settings')}}">
