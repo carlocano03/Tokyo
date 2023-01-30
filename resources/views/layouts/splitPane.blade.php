@@ -4,7 +4,7 @@
 
 
     <!-- mobile transition -->
-    <div class="mobile-header">
+    {{-- <div class="mobile-header">
         <div class="logo-title">
             <div class="mp-pb4  mp-text-center logo-text">
                 <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
@@ -15,7 +15,7 @@
 
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class="transition-background">
 
     </div>
@@ -146,17 +146,18 @@
 </div>
 <script>
     window.onload = function() {
+        $('#loading').show();
         setTimeout(function() {
-            $('.mobile-header').hide(300);
+            $('#loading').hide();
         }, 1000);
     };
     
     if ($(window).width() < 768) {
-        $('.mobile-header').show();
+        $('#loading').show();
         window.onload = function() {
             setTimeout(function() {
-                $('.mobile-header').hide(300);
-            }, 1000);
+                $('#loading').hide();
+            }, 1500);
         };
     }
 
