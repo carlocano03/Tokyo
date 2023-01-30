@@ -435,7 +435,7 @@
         <div class="nav-child">
           <div class="dropdown-hide" id="membersDropdown-content">
             <li><a href="/admin/members/records" class="{{ Request::is('admin/members/records') ? 'active-nav' : '' }}"><i class="fa fa-user"></i>View Records</a></li>
-            <li><a href="#"><i class="fa fa-user"></i>Application Trail</a></li>
+            <li><a href="/admin/members/trail"><i class="fa fa-user"></i>Application Trail</a></li>
             <li><a href="#"><i class="fa fa-user"></i>Generate Report</a></li>
           </div>
         </div>
@@ -444,7 +444,7 @@
       <li><a href="#"><i class="fa fa-comment-o"></i>Benefits </a></li>
       <li><a href="#"><i class="fa fa-line-chart"></i>Transacton </a></li>
       <li><a href="#"><i class="fa fa-address-book"></i>Election</a></li>
-      <li><a href="/admin/settings" class="{{ Request::is('admin/settings')  ? 'active-nav' : '' }}">
+      <li><a href="/admin/settings/manage-account" class="{{ Request::is('admin/settings/manage-account')  ? 'active-nav' : '' }}">
           <i class="fa fa-gears"></i>Settings & Configuration</a>
       </li>
 

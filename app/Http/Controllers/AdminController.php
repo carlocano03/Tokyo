@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\MemApp;
 use Auth;
 use Hash;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 
 class AdminController extends Controller
 {
-  
+
   public function __construct()
   {
     $this->middleware('auth');
@@ -27,27 +28,27 @@ class AdminController extends Controller
   {
     $lastLogin = '';
     $loginCount = DB::table('login_logs')
-              ->where('user_id', Auth::user()->id)
-              ->count();
+      ->where('user_id', Auth::user()->id)
+      ->count();
     $loginNew = DB::table('login_logs')
-              ->where('user_id', Auth::user()->id)
-              ->orderBy('login_date', 'DESC')
-              ->first();
+      ->where('user_id', Auth::user()->id)
+      ->orderBy('login_date', 'DESC')
+      ->first();
     if ($loginCount == 1) {
-      if($loginNew){
+      if ($loginNew) {
         $lastLogin = $loginNew->login_date;
       }
     } else {
       $login = DB::table('login_logs')
-              ->where('user_id', Auth::user()->id)
-              ->orderBy('login_date', 'DESC')
-              ->skip(1)
-              ->first();
-      if($login){
+        ->where('user_id', Auth::user()->id)
+        ->orderBy('login_date', 'DESC')
+        ->skip(1)
+        ->first();
+      if ($login) {
         $lastLogin = $login->login_date;
       }
     }
-    
+
     $campuses = DB::table('campus')->get();
     $data = array(
       'login' => $lastLogin,
@@ -64,7 +65,7 @@ class AdminController extends Controller
       $draft = DB::table('mem_app')->where('app_status', 'DRAFT')->count();
       $rejected = DB::table('mem_app')->where('app_status', 'REJECTED')->count();
     }
-    
+
     $data = array(
       'new_app' => $total_new,
       'forApproval' => $forApproval,
@@ -74,11 +75,42 @@ class AdminController extends Controller
     echo json_encode($data);
   }
 
-  public function settings()
+  public function manageAccount()
   {
-    return view('admin.settings');
+    return view('admin.settings-config.manage-account');
   }
-
+  public function backUpDatabase()
+  {
+    return view('admin.settings-config.backup-database');
+  }
+  public function campusManagement()
+  {
+    return view('admin.settings-config.campus-management');
+  }
+  public function collegeManagement()
+  {
+    return view('admin.settings-config.college-management');
+  }
+  public function departmentManagement()
+  {
+    return view('admin.settings-config.department-management');
+  }
+  public function employeeClassification()
+  {
+    return view('admin.settings-config.employee-classification');
+  }
+  public function historyLogs()
+  {
+    return view('admin.settings-config.history-logs');
+  }
+  public function sgModules()
+  {
+    return view('admin.settings-config.sg-modules');
+  }
+  public function statusAppointment()
+  {
+    return view('admin.settings-config.status-appointment');
+  }
   public function members_records()
   {
     $total_new = DB::table('mem_app')->count();
@@ -95,6 +127,11 @@ class AdminController extends Controller
       'campuses' => $campuses,
     );
     return view('admin.members.records')->with($data);
+  }
+
+  public function members_application_trail()
+  {
+    return view('admin.members.trail');
   }
 
   public function get_members(Request $request)
@@ -192,7 +229,7 @@ class AdminController extends Controller
       foreach ($posts as $r) {
         $start++;
         $row = array();
-        $row[] = "<a data-md-tooltip='View Member' class='view_member md-tooltip--right' id='" . $r->app_no . "' style='cursor: pointer'>
+        $row[] = "<a data-md-tooltip='View Member' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "' style='cursor: pointer'>
                     <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
                   </a>";
         $row[] = $r->app_no;
@@ -216,5 +253,4 @@ class AdminController extends Controller
     );
     echo json_encode($json_data);
   }
-
 }

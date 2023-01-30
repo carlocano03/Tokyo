@@ -17,20 +17,21 @@ use App\Http\Controllers\Auth\LoginController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes();
 
 Route::get('/logout', [LoginController::class, 'logout']);
 
 // Auth::routes('/admin');
 Route::get('/', function () {
-    return redirect()->route('login');
+  return redirect()->route('login');
 });
 
 
 Route::get('admin', [
-    'as' => 'admin',
-    'uses' => 'Auth\LoginController@showLoginForm'
-  ]);
+  'as' => 'admin',
+  'uses' => 'Auth\LoginController@showLoginForm'
+]);
 
 
 Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
@@ -63,9 +64,22 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 //admin
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin/members/records', [AdminController::class, 'members_records'])->name('admin.members_records');
+Route::get('/admin/members/trail', [AdminController::class, 'members_application_trail'])->name('admin.members_application_trail');
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
 Route::post('/admin/countApplication', [AdminController::class, 'countApplication'])->name('count_application');
 Route::get('/admin/get_members', [AdminController::class, 'get_members'])->name('getMembers');
+
+//admin settings links
+Route::get('/admin/settings/manage-account', [AdminController::class, 'manageAccount'])->name('admin.settings-config.manage-account');
+Route::get('/admin/settings/backup-database', [AdminController::class, 'backUpDatabase'])->name('admin.settings-config.backup-database');
+Route::get('/admin/settings/campus-management', [AdminController::class, 'campusManagement'])->name('admin.settings-config.campus-management');
+Route::get('/admin/settings/college-management', [AdminController::class, 'collegeManagement'])->name('admin.settings-config.college-management');
+Route::get('/admin/settings/department-management', [AdminController::class, 'departmentManagement'])->name('admin.settings-config.department-management');
+Route::get('/admin/settings/employee-classification', [AdminController::class, 'employeeClassification'])->name('admin.settings-config.employee-classification');
+Route::get('/admin/settings/history-logs', [AdminController::class, 'historyLogs'])->name('admin.settings-config.history-logs');
+Route::get('/admin/settings/sg-modules', [AdminController::class, 'sgModules'])->name('admin.settings-config.sg-modules');
+Route::get('/admin/settings/status-appointment', [AdminController::class, 'statusAppointment'])->name('admin.settings-config.status-appointment');
+
 
 // Route::get('/admin/dashboard', 'AdminController@index');
 
