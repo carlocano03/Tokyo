@@ -55,7 +55,7 @@ Route::post('/login/update_trail_member', [HomeController::class, 'update_trail_
 Route::post('/login/update_trail_member_1', [HomeController::class, 'update_trail_member_2'])->name('update_trail_member_1');
 
 Route::post('/login/add_proxy', [HomeController::class, 'add_proxy'])->name('add_proxyForm');
-
+Route::post('/login/addcocolife', [HomeController::class, 'addcocolife'])->name('add_cocolife');
 
 Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciaries'])->name('add_benefeciaries');
 
@@ -66,6 +66,7 @@ Route::get('/admin/members/records', [AdminController::class, 'members_records']
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
 Route::post('/admin/countApplication', [AdminController::class, 'countApplication'])->name('count_application');
 Route::get('/admin/get_members', [AdminController::class, 'get_members'])->name('getMembers');
+
 // Route::get('/admin/dashboard', 'AdminController@index');
 
 //admin
@@ -84,7 +85,7 @@ Route::get('/member/update-password', [MemberController::class, 'updatepassword'
 
 
 //PDF Generation
-Route::get('/generateCocolife', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
+Route::get('/generateCocolife/{id}', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
 Route::get('/generateProxyForm/{id}', [PDFController::class, 'generateProxyForm']);
 Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('download_form');
 Route::get('/downloadCoco', [PDFController::class, 'downloadCoco'])->name('download_coco');
