@@ -258,7 +258,7 @@
                     <div class="col-6">
                         <button class="up-button btn-md mp-mt3  hover-back" id="fp_back" value=""
                             style="float:right;">
-                            <span>Back</span>
+                            <span>Close</span>
                         </button>
                     </div>
 
