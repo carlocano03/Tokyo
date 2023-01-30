@@ -23,23 +23,68 @@
         <div class="modal-container">
             <div class="modal-content">
                 <div class="modal-header">
-                    MODAL HEADER
+                    Generate Cocolife Form
                 </div>
                 <div class="modal-body">
-                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Hic maiores ut consectetur qui animi corporis
-                    rem eveniet dolorem quia, esse velit iure, suscipit accusamus dignissimos natus dolorum deleniti iusto
-                    delectus?
+                    <form id="generateCoco" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <input type="text" name="app_number" id="app_number">
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Place of Birth</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Height</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="height" id="height"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Weight</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="weight" id="weight"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Amount of Insurance</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="amt_isurance" id="amt_isurance"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Term of Coverage</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="coverage" id="coverage"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Premiums</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="coverage" id="coverage"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Occupation</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Nature of Work</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="nature_work" id="nature_work"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">If seaman, port of entry</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="seaman" id="seaman"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">If OCW/OFW,destination country</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="ofw" id="ofw"/>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Exceptions</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="exception" id="exception"/>
+                        </div>
                 </div>
 
                 <div class="modal-footer">
                     <div class="mp-container">
                         <div class="row">
-                            <button class="up-button btn-md " id="modal_name_close" value="">
+                            <button class="up-button btn-md " id="modal_name_close" type="button">
                                 <span>Close</span>
                             </button>
-                            <button class="up-button btn-md  " type="submit" value="" id="modal_name_close">
-                                <span>Ok</span>
+                            <button class="up-button btn-md  " type="submit">
+                                <span>Generate</span>
                             </button>
+                        </form>
                         </div>
                     </div>
 
@@ -230,6 +275,13 @@
     });
 
     $(document).on('click', '#modal_name_pop', function(e) {
+        var appNo = query;
+
+        if (appNo !='') {
+            $('#app_number').val(appNo);
+        } else {
+            $('#app_number').val(reference_no);
+        }
         $("#modal_name").addClass("visible")
         $("#modal_name").removeClass("not-visible")
     })
@@ -920,7 +972,7 @@
     });
     $(document).on('click', '#citizenship', function(e) {
         var citizen = $(this).val();
-        if (citizen == 'DUAL CITIZENSHIP') {
+        if (citizen == 'DUAL CITIZENSHIP' || citizen == 'OTHERS') {
             $('#d_citizen').prop('disabled', false);
         } else {
             $('#d_citizen').prop('disabled', true);
