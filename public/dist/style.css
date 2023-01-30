@@ -5269,6 +5269,11 @@ tfoot {
     color: white !important;
 }
 
+.up-button-grey {
+    background-color: var(--c-base-25) !important;
+    color: black !important;
+}
+
 .transition-background {
     /* padding: 100%; */
 
@@ -5955,6 +5960,7 @@ tfoot {
 .members-table>tbody>tr>td>span {
     display: flex;
     padding: 5px 2px;
+    text-overflow: clip;
 
 }
 
@@ -5979,4 +5985,33 @@ tfoot {
     color: white;
     padding: 14px;
     text-align: center;
+}
+
+.records-button {
+    position: absolute;
+    right: 0;
+}
+
+.records-button a:hover {
+    background-color: #797979 !important;
+}
+
+.permission-table {
+    width: 100%;
+    transform: scale(0.9);
+    font-size: 12px;
+    border: solid 1px #b1aaaa;
+    padding: 5px;
+}
+
+.permission-table th {
+    background-color: var(--c-active-hover-bg);
+    color: white;
+    text-align: center;
+}
+
+.permission-table td {
+    text-align: center;
+    padding: 10px;
+    border: solid 1px #b1aaaa;
 }
