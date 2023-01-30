@@ -1,6 +1,15 @@
 @extends('layouts/main')
 @section('content_body')
     <style>
+
+        .card-header {
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            background-color: gray;
+            padding: 5px 10px;
+            color: white;
+        }
+     
         .dashboard {
             height: calc(100% - 131px);
             overflow-x: hidden;
@@ -37,6 +46,10 @@
             font-size: 1.9rem;
             user-select: none;
             border-radius: 50%;
+        }
+
+        .p-0 {
+            padding: 0;
         }
 
         .icons span:last-child {
@@ -207,11 +220,11 @@
         }
 
         .col:nth-child(1) {
-            grid-column: span 8;
+            grid-column: span 9;
         }
 
         .col:nth-child(2) {
-            grid-column: span 4;
+            grid-column: span 3;
         }
 
         .col:nth-child(3) {
@@ -250,11 +263,11 @@
 
         @media (max-width:1300px) {
             .col:nth-child(2) {
-                grid-column: span 5;
+                grid-column: span 12;
             }
 
             .col:nth-child(1) {
-                grid-column: span 7;
+                grid-column: span 12;
             }
 
             .total-loans {
@@ -291,7 +304,7 @@
             }
 
             .side-dashboard {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr 1fr 1fr;
             }
 
             .side-dashboard>.card>.content-right {
@@ -318,11 +331,11 @@
             }
 
             .col:nth-child(2) {
-                grid-column: span 5;
+                grid-column: span 12;
             }
 
             .col:nth-child(1) {
-                grid-column: span 7;
+                grid-column: span 12;
             }
 
 
@@ -408,12 +421,6 @@
 
         }
 
-        @media (max-width:1300px) {
-            .side-dashboard {
-                grid-template-columns: 1fr;
-            }
-        }
-
         .highcharts-figure,
         .highcharts-data-table table {
             min-width: 310px;
@@ -468,41 +475,143 @@
         text.highcharts-credits {
             display: none;
         }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .pb-1px {
+            padding-bottom: 1px;
+        }
+
+        .h-42px {
+            height: 42px;
+        }
+
+        .green.ldBar path.mainline {
+            stroke-width: 10;
+            stroke: #39b74d;
+            stroke-linecap: round;
+        }
+
+        .magenta.ldBar path.mainline {
+            stroke-width: 10;
+            stroke: #1a8981;
+            stroke-linecap: round;
+        }
+
+        .maroon.ldBar path.mainline {
+            stroke-width: 10;
+            stroke: #894168;
+            stroke-linecap: round;
+        }
+
+        .red.ldBar path.mainline {
+            stroke-width: 10;
+            stroke: #de2e4f;
+            stroke-linecap: round;
+        }
+
+        .ldBar path.baseline {
+            stroke-width: 10;
+            stroke: #f1f2f3;
+            stroke-linecap: round;
+        }
+        .button-view {
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            color: white;
+        }
+        .magenta-bg {
+            background-color: #1a8981;
+        }
+
+        .maroon-bg {
+            background-color: #894168;
+        }
+
+        .red-bg {
+            background-color: #de2e4f;
+        }
+
+        .green-bg {
+            background-color: #39b74d;
+            color: white;
+        }
+
+        .font-sm {
+            font-size: 13px;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: row;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            padding: 5px 10px;
+            background-color: white;
+            height: 100%;
+            align-items: center;
+        }
+
+        .card-body>span {
+            font-size: 20px;
+        }
+
+        .card-body>h1 {
+            width: 60px;
+        }
+
+
+        .ldBar-label {
+            font-size: 17px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+
+
     </style>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/exporting.js"></script>
     <script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="{{ asset('/dist/adminDashboard.js') }}"></script>
-
+    <script type="text/javascript" src="{{ asset('/dist/loading-bar/loading-bar.js') }}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}">
 
     <div class="filler"></div>
-    <div class="col-12 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-accent mp-overflow-y dashboard ">
+    <div class="col-12 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-accent mp-overflow-y dashboard mh-content">
         <div class="row no-gutter mp-pt1 main-dashboard grid gap-10">
             <div class="col">
                 <div class="row no-gutter gap-10">
                     <div class="col-12">
-                        <div class="card grid flex-row user-details" style="min-height: 146px;  ">
-                            <div class="details d-flex flex-column" style="height: 100%">
-                                <label for="">
+                        <div class="card d-flex flex-row items-between">
+                           <div class="">
+                                <h2 class="font-lg mb-0">
                                     Welcome! {{ Auth::user()->last_name }} {{ Auth::user()->first_name }}
-
-                                </label>
-                                <br>
-                                <label>
+                                </h2>
+                                <span class="mp-text-c-gray">
                                     UP diliman Administrator
-                                </label>
-
-                                Last Login: <label
-                                    style=" color: var(--c-primary);
-    font-size: 15px;">{{ date('F j, Y H:i:s A', strtotime($login)) }}</label>
-
-
-                                <div style="margin-top: auto" class="mp-mb1">
-                                    <button class="mp-button up-button-green" style="padding: 4px 16px;">View my
-                                        Profile</button>
-                                </div>
-                            </div>
+                                </span>
+                           </div>
+                           <div class="d-flex flex-column">
+                             
+                                   <div class="h-42px d-flex flex-row align-items-center w-full justify-content-end">
+                                    <button class="pb-1px mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small up-button-green">View my
+                                            Profile
+                                    </button>
+                                   </div>
+                                   <span>
+                                     <label
+                                            style=" color: var(--c-primary);
+                                            font-size: 15px;">{{ date('F j, Y H:i:s A', strtotime($login)) }} <span class="up-color">: Last Login</span></label>
+                                </span>
+                           </div>
+                           
+                            
                             <!-- <div class="image-profile items-center" style="width: 100%; height: 100%; ">
                           <div class="" style="width: 100%; height: 100%; background-color: blue; color: white">
                             image here
@@ -513,7 +622,7 @@
                     <div class="col-12">
                         <div class="card grid campus-content" style="min-height: 134px;">
                             <div class="col-campus">
-                                <div id="campusSelector" class="mp-dropdown mp-ph3">
+                                <div id="campusSelector" class="mp-dropdown">
                                     <a class="mp-dropdown__toggle mp-link mp-link--accent">
                                         <span class="mp-text-fs-xxlarge campus_title text_link_primary">
                                             All UP Campuses
@@ -533,9 +642,7 @@
                                         @endforeach
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="col-lg-4" hidden>
+                                <div class="col-lg-4" hidden>
                                 <select name="" class="mp-text-field mp-ph3 mp-link mp-link--accent"
                                     style="width: 100%; font-size:20px" id="campuses_select">
                                     <option value="">All Campuses</option>
@@ -544,6 +651,9 @@
                                     @endforeach
                                 </select>
                             </div>
+                            </div>
+
+                           
 
                             <div class="col-campus">
                                 <div class=" mp-pv3">
@@ -594,42 +704,50 @@
                     </div>
                 </div>
             </div>
-            <div class="right-dashboard col grid side-dashboard gap-10">
-                <div class="card">
-                    <div class="content-right">
-                        <label for="" class="mp-text-c-gray">New application</label>
-                        <label for="" style="margin-top: auto; min-width: 70px"><span
-                                class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span>
-                            <span id="new_app"></span>
-                        </label>
+            <div class="right-dashboard col grid side-dashboard gap-10 font-sm">
+                <div class="card-container card p-0 ">
+                    <div class="card-header green-bg text-center">
+                        New
                     </div>
+                    <div class="card-body justify-content-center">
+                        <div class="ldBar green label-center" data-preset="circle" data-value="0" id="new_app" style="width: 60px; height:60px"></div>
+                    </div> 
+                    <button class="green-bg button-view mt-auto">
+                        View
+                    </button>
                 </div>
-                <div class="card">
-                    <div class="content-right">
-                        <label for="" class="mp-text-c-gray">For approval application</label>
-                        <label for="" style="margin-top: auto; min-width: 70px"><span
-                                class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span>
-                            <span id="forApproval"></span>
-                        </label>
+                <div class="card-container card p-0">
+                    <div class="card-header magenta-bg text-center">
+                        Processing
                     </div>
+                    <div class="card-body justify-content-center">
+                        <div class="ldBar magenta label-center" data-preset="circle" data-value="0" id="forApproval" style="width: 60px; height:60px"></div>
+                    </div>
+                    <button class="magenta-bg button-view mt-auto">
+                        View
+                    </button>
                 </div>
-                <div class="card">
-                    <div class="content-right">
-                        <label for="" class="mp-text-c-gray">Incomplete application</label>
-                        <label for="" style="margin-top: auto; min-width: 70px"><span
-                                class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span>
-                            <span id="draft"></span>
-                        </label>
+                <div class="card-container card p-0">
+                    <div class="card-header maroon-bg text-center">
+                        Approved
                     </div>
+                    <div class="card-body justify-content-center">
+                        <div class="ldBar maroon label-center" data-preset="circle" data-value="0" id="draft" style="width: 60px; height:60px"></div>
+                    </div>
+                    <button class="maroon-bg button-view mt-auto">
+                        View
+                    </button>
                 </div>
-                <div class="card">
-                    <div class="content-right">
-                        <label for="" class="mp-text-c-gray">Rejected application</label>
-                        <label for="" style="margin-top: auto; min-width: 70px"><span
-                                class="mp-mr2 mp-dashboard__icon">@include('layouts.icons.i-members')</span>
-                            <span id="rejected"></span>
-                        </label>
+                <div class="card-container card p-0">
+                    <div class="card-header red-bg text-center">
+                        Rejected
                     </div>
+                    <div class="card-body justify-content-center">
+                        <div class="ldBar red label-center" data-preset="circle" data-value="0" id="rejected" style="width: 60px; height:60px"></div>
+                    </div>
+                    <button class="red-bg button-view mt-auto">
+                        View
+                    </button>
                 </div>
             </div>
             <div class="col">
@@ -746,8 +864,20 @@
                     },
                     series: [{
                         name: 'Members',
-                        color: '#6c1242',
-                        data: [631, 727, 3202, 721, 26, 631, 727, 3202, 721, 26]
+                        color: 'rgb(124, 181, 236)',
+                        data: [
+                            { y: 631, color: 'rgb(247, 163, 92)' },
+                            { y: 1300, color: '#071e22'},
+                            { y: 3202, color: 'rgb(124, 181, 236)'},
+                            { y: 721, color: 'rgb(247, 163, 92)'},
+                            { y: 300, color: 'rgb(144, 237, 125)'},
+                            { y: 631, color: 'rgb(247, 163, 92)'},
+                            { y: 727, color: 'rgb(247, 163, 92)'},
+                            { y: 3202, color: 'rgb(124, 181, 236)'},
+                            { y: 2000, color: '#071e22'},
+                            { y: 50, color: 'rgb(144, 237, 125)'}
+
+                       ]
                     }, ]
                 });
             </script>
@@ -883,7 +1013,7 @@
 
     </div>
 
-
+    <!-- <div id="myItem1"></div> -->
     <script>
         $(document).ready(function() {
             load_apllicationList_count();
@@ -910,10 +1040,18 @@
                 },
                 dataType: "json",
                 success: function(data) {
-                    $('#new_app').html(data.new_app > 0 ? data.new_app : "0");
-                    $('#forApproval').html(data.forApproval > 0 ? data.forApproval : "0");
-                    $('#draft').html(data.draft > 0 ? data.draft : "0");
-                    $('#rejected').html(data.rejected > 0 ? data.rejected : "0");
+                    // $('#new_app').attr("data-value", );
+                    // $('#forApproval').attr("data-value", data.forApproval > 0 ? data.forApproval : "0");
+                    // $('#draft').attr("data-value", data.draft > 0 ? data.draft : "0");
+                    // $('#rejected').attr("data-value", data.rejected > 0 ? data.rejected : "0");
+                    var bar1 = new ldBar("#new_app");
+                    bar1.set(data.new_app > 0 ? data.new_app : 0);
+                    var bar2 = new ldBar("#forApproval");
+                    bar2.set(data.forApproval > 0 ? data.forApproval : 0);
+                    var bar3 = new ldBar("#draft");
+                    bar3.set(data.draft > 0 ? data.draft : 0);
+                    var bar4 = new ldBar("#rejected");
+                    bar4.set(data.rejected > 0 ? data.rejected : 0);
                 }
             });
         }
