@@ -344,7 +344,12 @@ class HomeController extends Controller
         'app_no' => $request->input('app_no')
       );
       
-      if ($request->hasFile('coco') && $request->hasFile('proxy')) { 
+      if (!$request->hasFile('coco') && !$request->hasFile('proxy')) { 
+        DB::table('membership_details')->insert($insertMemDetails);
+        DB::table('mem_app')->where('app_no', $request->input('app_no'))
+            ->update(array('app_status' => 'SUBMITTED'));
+
+      } else {
         //Cocolife Form
         $fileName = $request->file('coco')->getClientOriginalName();
         $newName = $request->input('app_no').'_'.$fileName;
@@ -369,11 +374,6 @@ class HomeController extends Controller
 
         DB::table('coco_form')->insert($insertCoco);
         DB::table('proxy_form')->insert($insertProxy);
-        DB::table('membership_details')->insert($insertMemDetails);
-        DB::table('mem_app')->where('app_no', $request->input('app_no'))
-            ->update(array('app_status' => 'SUBMITTED'));
-
-      } else {
         DB::table('membership_details')->insert($insertMemDetails);
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
             ->update(array('app_status' => 'SUBMITTED'));
@@ -387,7 +387,13 @@ class HomeController extends Controller
         'app_no' => $request->input('app_no')
       );
 
-      if ($request->hasFile('coco') && $request->hasFile('proxy')) { 
+      if (!$request->hasFile('coco') && !$request->hasFile('proxy')) { 
+
+        DB::table('membership_details')->insert($insertMemDetails);
+        DB::table('mem_app')->where('app_no', $request->input('app_no'))
+            ->update(array('app_status' => 'SUBMITTED'));
+
+      } else {
         //Cocolife Form
         $fileName = $request->file('coco')->getClientOriginalName();
         $newName = $request->input('app_no').'_'.$fileName;
@@ -412,11 +418,6 @@ class HomeController extends Controller
 
         DB::table('coco_form')->insert($insertCoco);
         DB::table('proxy_form')->insert($insertProxy);
-        DB::table('membership_details')->insert($insertMemDetails);
-        DB::table('mem_app')->where('app_no', $request->input('app_no'))
-            ->update(array('app_status' => 'SUBMITTED'));
-
-      } else {
         DB::table('membership_details')->insert($insertMemDetails);
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
             ->update(array('app_status' => 'SUBMITTED'));
