@@ -714,18 +714,10 @@
                     <label class="p-others_value value-font">{{ $member->citizenship == 'OTHERS' ? $member->dual_citizenship : '' }}</label>
                 </div>
              </div>
-            <?php
-            $province = explode("|", $member->present_province ?? "");
-            $province = trim($province[1]);
-            $muni = explode("|", $member->present_municipality ?? "");
-            $muni = trim($muni[1]);
-            $barangay = explode("|", $member->present_barangay ?? "");
-            $barangay = trim($barangay[1]);
-            ?>
 
              <div class="address">
                 <label class="p-address title-font" >CITY ADDRESS / CURRENT HOME ADDRESS </label>
-                <label class="p-address_value value-font">{{$member->present_bldg_street}} {{ $barangay}} {{ $muni}} {{ $province}} {{$member->present_zipcode}}</label>
+                <label class="p-address_value value-font">{{$member->present_bldg_street}} {{ $member->present_barangay}} {{ $member->present_municipality}} {{ $member->present_province}} {{$member->present_zipcode}}</label>
              </div>
 
              <div class="cellphone">
@@ -737,29 +729,10 @@
                 <label class="p-cellphone title-font">LANDLINE NO. </label>
                 <label class="p-cellphone_value value-font">{{$member->landline_no}} </label>
              </div>
-             <?php
-             if (isset($member) && isset($member->province)) {
-                $per_province = explode("|", $member->province);
-                $per_province = trim($per_province[1]);
-            } else {
-                $per_province = '';
-            }
-            if (isset($member) && isset($member->municipality)) {
-                $per_municipality = explode("|", $member->municipality);
-                $per_municipality = trim($per_municipality[1]);
-            } else {
-                $per_municipality = '';
-            }
-            if (isset($member) && isset($member->barangay)) {
-                $per_barangay = explode("|", $member->barangay);
-                $per_barangay = trim($per_barangay[1]);
-            } else {
-                $per_barangay = '';
-            }
-            ?>
+
              <div class="permanent_address">
                 <label class="p-address title-font">PERMANENT ADDRESS<i> (If different from above) </i></label>
-                <label class="p-address_value value-font">{{$member->bldg_street}} {{ $per_barangay}} {{ $per_municipality}} {{ $per_province}} {{$member->zipcode}}</label>
+                <label class="p-address_value value-font">{{$member->bldg_street}} {{ $member->barangay}} {{ $member->municipality}} {{ $member->province}} {{$member->zipcode}}</label>
              </div>
 
              <div class="email_address">

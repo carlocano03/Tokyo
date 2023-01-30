@@ -195,91 +195,137 @@
 
     var stepTitle = ["Personal Information", "Employment Details", "Membership Details"]
 
-    var my_handlers = {
-
-        fill_provinces: function() {
-            var region = $(this).val().split('|');
-            var region_code = region[0];
-            $('#province').ph_locations('fetch_list', [{
-                "region_code": region_code
-            }]);
-
-        },
-
-        fill_cities: function() {
-            var prov = $(this).val().split('|');
-            var province_code = prov[0];
-            $('#city').ph_locations('fetch_list', [{
-                "province_code": province_code
-            }]);
-        },
-
-        fill_barangays: function() {
-            var city = $(this).val().split('|');
-            var city_code = city[0];
-            $('#barangay').ph_locations('fetch_list', [{
-                "city_code": city_code
-            }]);
-        },
-
-        fill_present_provinces: function() {
-            var region = $(this).val().split('|');
-            var region_code = region[0];
-            $('#present_province').ph_locations('fetch_list', [{
-                "region_code": region_code
-            }]);
-
-        },
-
-        fill_present_cities: function() {
-            var prov = $(this).val().split('|');
-            var province_code = prov[0];
-            $('#present_city').ph_locations('fetch_list', [{
-                "province_code": province_code
-            }]);
-        },
-
-        fill_present_barangays: function() {
-            var city = $(this).val().split('|');
-            var city_code = city[0];
-            $('#present_barangay').ph_locations('fetch_list', [{
-                "city_code": city_code
-            }]);
+    $(document).on('change','#present_province',function(){
+    var codes = $(this).val();
+    var subss = codes.substring(0,4);
+    // console.log(subss);
+        $.ajax({
+        url: "{{ route('psgc_munc') }}",
+        method:"POST",
+        data:{codes:subss},
+        success:function(data)
+        {
+            var options = '<option value="">Select Municipal</option>';
+            $.each(data.data, function(index, item) {
+            options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+            });
+            $("#present_city").html(options);
+            $("#present_province_name").val($("#present_province").find("option:selected").text());
+            if (present_muncode) {
+            var mun_code = present_muncode;
+                    $("#present_city").val(mun_code).change();
+                }
+            }
+        });
+    });
+    $(document).on('change','#present_city',function(){
+    var codes = $(this).val();
+    var subss = codes.substring(0,6);
+    // console.log(subss);
+        $.ajax({
+        url: "{{ route('psgc_brgy') }}",
+        method:"POST",
+        data:{codes:subss},
+        success:function(data)
+        {
+            var options = '<option value="">Select Barangay</option>';
+            $.each(data.data, function(index, item) {
+            options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+            });
+            $("#present_barangay").html(options);
+            $("#present_municipality_name").val($("#present_city").find("option:selected").text());
+            if (present_brgycode) {
+            var brgy_code = present_brgycode;
+                    $("#present_barangay").val(brgy_code).change();
+                }
         }
-    };
-
-    $(function() {
-        $('#province').on('change', my_handlers.fill_cities);
-        $('#city').on('change', my_handlers.fill_barangays);
-
-        $('#province').ph_locations({
-            'location_type': 'provinces'
         });
-        $('#city').ph_locations({
-            'location_type': 'cities'
+    });
+    $(document).on('change','#present_barangay',function(){
+        $("#present_barangay_name").val($("#present_barangay").find("option:selected").text());
+    });
+    $(document).ready(function() {
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
-        $('#barangay').ph_locations({
-            'location_type': 'barangays'
+    $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#present_province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
         });
-
-        $('#province').ph_locations('fetch_list');
-
-        $('#present_province').on('change', my_handlers.fill_present_cities);
-        $('#present_city').on('change', my_handlers.fill_present_barangays);
-
-        $('#present_province').ph_locations({
-            'location_type': 'provinces'
-        });
-        $('#present_city').ph_locations({
-            'location_type': 'cities'
-        });
-        $('#present_barangay').ph_locations({
-            'location_type': 'barangays'
-        });
-
-        $('#present_province').ph_locations('fetch_list');
     });
 
+    $(document).on('change','#province',function(){
+    var codes = $(this).val();
+    var subss = codes.substring(0,4);
+    // console.log(subss);
+        $.ajax({
+        url: "{{ route('psgc_munc') }}",
+        method:"POST",
+        data:{codes:subss},
+        success:function(data)
+        {
+            var options = '<option value="">Select Municipal</option>';
+            $.each(data.data, function(index, item) {
+            options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+            });
+            $("#city").html(options);
+            $("#province_name").val($("#province").find("option:selected").text());
+            if (perm_muncode) {
+            var mun_code = perm_muncode;
+                    $("#city").val(mun_code).change();
+                }
+        }
+        });
+    });
+    $(document).on('change','#city',function(){
+    var codes = $(this).val();
+    var subss = codes.substring(0,6);
+    // console.log(subss);
+        $.ajax({
+        url: "{{ route('psgc_brgy') }}",
+        method:"POST",
+        data:{codes:subss},
+        success:function(data)
+        {
+            var options = '<option value="">Select Barangay</option>';
+            $.each(data.data, function(index, item) {
+            options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+            });
+            $("#barangay").html(options);
+            $("#municipality_name").val($("#city").find("option:selected").text());
+            if (perm_brgycode) {
+            var brgy_code = perm_brgycode;
+                    $("#barangay").val(brgy_code).change();
+                }
+        }
+        });
+    });
+    $(document).on('change','#barangay',function(){
+        $("#barangay_name").val($("#barangay").find("option:selected").text());
+    });
+    $(document).ready(function() {
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
+        });
+    });
+
+    
     $(document).on('click', '#modal_name_pop', function(e) {
         var appNo = query;
         var ref = reference_no;
@@ -396,6 +442,10 @@
     var pers_id;
     var mems_id;
     var continued_trail = 0;
+    var present_muncode;
+    var present_brgycode;
+    var perm_muncode;
+    var perm_brgycode;
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value');
         console.log($(this).attr('value'));
@@ -889,9 +939,10 @@
             var inputValue = $(this).val();
             inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             var decimalAdded = inputValue.split(".");
-            if (decimalAdded[1] && decimalAdded[1].length > 2) {
-                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 2);
+            if (decimalAdded.length > 2) {
+            inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
             }
+            
             if (inputValue == '') {
                 $('#sg_category').val('');
             }
@@ -935,18 +986,13 @@
 
     $(document).on('click', '#perm_add_check', function(e) {
         if ($(this).prop("checked")) {
-            var myString = $('#present_province').val();
-            var myString1 = $('#present_city').val();
-            var myString2 = $('#present_barangay').val();
+            var myString = $('#present_province').find("option:selected").text();
+            var myString1 = $("#present_city").find("option:selected").text();
+            var myString2 = $('#present_barangay').find("option:selected").text();
             var myString3 = $('#present_bldg_street').val();
             var myString4 = $('#present_zipcode').val();
-            var targetChar = '|';
-            var index = myString.indexOf(targetChar);
-            var index1 = myString1.indexOf(targetChar);
-            var index2 = myString2.indexOf(targetChar);
-            if (index !== -1) {
-                var valueAfterTargetChar = myString4 + ' ' + myString3 + ' ' + myString2.split(targetChar)[1] +
-                    ' ' + myString1.split(targetChar)[1] + ' ' + myString.split(targetChar)[1];
+            if (myString !== "" && myString1 !== "" && myString2 !== "" ) {
+                var valueAfterTargetChar = myString3 + ' ' + myString2 + ' ' + myString1 + ' ' + myString + ' ,' + myString4 + ' ';
                 $('#same_add').val(valueAfterTargetChar);
                 $('.same_div').hide();
             } else {
@@ -955,6 +1001,7 @@
                     text: 'Thank you!',
                     icon: 'error'
                 });
+                $(this).prop("checked",false);
             }
         } else {
             $('#same_add').val('');
@@ -988,16 +1035,30 @@
         }
     });
 
-    $('#percentage_bsalary').on('keypress', function(event) {
-        var key = event.which;
-        if ((key >= 48 && key <= 57) || key === 8) {
-            var value = parseInt($(this).val() + String.fromCharCode(key));
-            if (value < 1 || value > 100) {
-                return false;
-            }
-
-        } else {
-            return false;
+    $('#percentage_bsalary').on('keypress keyup blur', function(event) {
+        var $this = $(this);
+        if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
+        ((event.which < 48 || event.which > 57) &&
+        (event.which != 0 && event.which != 8))) {
+            event.preventDefault();
+        }
+        var text = $(this).val();
+        if ((event.which == 46) && (text.indexOf('.') == -1)) {
+            setTimeout(function() {
+                if ($this.val().substring($this.val().indexOf('.')).length > 3) {
+                    $this.val($this.val().substring(0, $this.val().indexOf('.') + 3));
+                }
+            }, 1);
+        }
+        if ((text.indexOf('.') != -1) &&
+            (text.substring(text.indexOf('.')).length > 2) &&
+            (event.which != 0 && event.which != 8) &&
+            ($(this)[0].selectionStart >= text.length - 2)) {
+                event.preventDefault();
+        }
+        if (parseFloat($this.val()) < 1 || parseFloat($this.val()) > 100) {
+            $this.val("");
+            $('#computed_amount').html($this.val());
         }
     });
     $(document).on('input', '#percentage_bsalary', function(e) {
@@ -1185,10 +1246,30 @@
                         $("[name='salary_grade']").val(data.salary_grade == null ? '' : data.salary_grade);
                         $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
                         $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
-                        $('#present_province').val(data.present_province).trigger('change');
-                        // $('#present_city').val(data.present_municipality).trigger('change');
-                        // $('#present_barangay').val(data.present_barangay).trigger('change');
-                        
+                        $('#present_province').val(data.present_province_code).trigger('change');
+                        $('#present_province_name').val(data.present_province);
+                        $('#present_city').val(data.present_municipality_code);
+                        present_muncode = data.present_municipality_code;
+                        $('#present_municipality_name').val(data.present_municipality);
+                        present_brgycode = data.present_barangay_code;
+                        if(data.same_add == 1){
+                            $('#perm_add_check').prop("checked",true);
+                            var valueAfterTargetChar = data.present_bldg_street + ' ' + data.present_barangay + ' ' + data.present_municipality + ' ' + data.present_province + ', ' + data.present_zipcode + ' ' ;
+                            $('#same_add').val(valueAfterTargetChar);
+                            $('.same_div').hide();
+                        }else{
+                            $('#perm_add_check').prop("checked",false);
+                            $('#same_add').val('');
+                            $('.same_div').show();
+                            $('#province').val(data.province_code).trigger('change');
+                            $('#province_name').val(data.province);
+                            $('#city').val(data.municipality_code);
+                            perm_muncode = data.municipality_code;
+                            $('#municipality_name').val(data.municipality);
+                            perm_brgycode = data.barangay_code;
+                            $('#bldg_street').val(data.bldg_street);
+                            $('#zipcode').val(data.zipcode);
+                        }                       
                     } 
                 }
             });
