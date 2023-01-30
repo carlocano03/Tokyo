@@ -26,8 +26,8 @@
                     Generate Cocolife Form
                 </div>
                 <div class="modal-body">
-                    <form id="generateCoco" method="POST" enctype="multipart/form-data">
-                        @csrf
+                    {{-- <form id="generateCoco" method="POST" enctype="multipart/form-data">
+                        @csrf --}}
                         <input type="text" name="app_number" id="app_number">
                         <div class="mp-input-group">
                             <label class="mp-input-group__label">Place of Birth</label>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="mp-input-group">
                             <label class="mp-input-group__label">Premiums</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="coverage" id="coverage"/>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="premiums" id="premiums"/>
                         </div>
                         <div class="mp-input-group">
                             <label class="mp-input-group__label">Occupation</label>
@@ -73,6 +73,12 @@
                             <label class="mp-input-group__label">Exceptions</label>
                             <input class="mp-input-group__input mp-text-field" type="text" name="exception" id="exception"/>
                         </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
+                            <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="cocolife_sign" id="cocolife_sign"
+                                accept="image/png, image/gif, image/jpeg, image/jpg" />
+                        </div>
+                        
                 </div>
 
                 <div class="modal-footer">
@@ -81,10 +87,10 @@
                             <button class="up-button btn-md " id="modal_name_close" type="button">
                                 <span>Close</span>
                             </button>
-                            <button class="up-button btn-md  " type="submit">
+                            <button class="up-button btn-md" type="button" id="btn-coco">
                                 <span>Generate</span>
                             </button>
-                        </form>
+                        {{-- </form> --}}
                         </div>
                     </div>
 
@@ -276,11 +282,13 @@
 
     $(document).on('click', '#modal_name_pop', function(e) {
         var appNo = query;
-
-        if (appNo !='') {
-            $('#app_number').val(appNo);
+        var ref = reference_no;
+        console.log(query);
+        if (ref != undefined)
+        {
+            $('#app_number').val(ref);
         } else {
-            $('#app_number').val(reference_no);
+            $('#app_number').val(query);
         }
         $("#modal_name").addClass("visible")
         $("#modal_name").removeClass("not-visible")
@@ -1188,7 +1196,15 @@
     });
 
     $(document).on('click', '#save_sign', function() {
-        var id = reference_no;
+        var ref = reference_no;
+        var id;
+        if (ref != undefined)
+        {
+            id = ref;
+        } else {
+            id = query;
+        }
+
         var files = $('#file')[0].files;
 
         $.ajaxSetup({
@@ -1238,5 +1254,101 @@
             $('#proxy_form').attr('required', true);
         }
     });
+
+    $(document).on('click', '#btn-coco', function() {
+        var id = $('#app_number').val();
+        var place_birth = $('#place_birth').val();
+        var height = $('#height').val();
+        var weight = $('#weight').val();
+        var amt_isurance = $('#amt_isurance').val();
+        var term_coverage = $('#term_coverage').val();
+        var premiums = $('#premiums').val();
+        var occupation = $('#occupation').val();
+        var nature_work = $('#nature_work').val();
+        var seaman = $('#seaman').val();
+        var ofw = $('#ofw').val();
+        var exceptions = $('#exceptions').val();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var files = $('#cocolife_sign')[0].files;
+
+        var fd = new FormData();
+        fd.append('cocolife_sign', files[0]);
+        fd.append('app_number', id);
+        fd.append('place_birth', place_birth);
+        fd.append('height', height);
+        fd.append('weight', weight);
+        fd.append('amt_isurance', amt_isurance);
+        fd.append('term_coverage', term_coverage);
+        fd.append('premiums', premiums);
+        fd.append('occupation', occupation);
+        fd.append('nature_work', nature_work);
+        fd.append('seaman', seaman);
+        fd.append('ofw', ofw);
+        fd.append('exceptions', exceptions);
+        $.ajax({
+            url: "{{ route('add_cocolife') }}",
+            method: "POST",
+            data: fd,
+            contentType: false,
+            processData: false,
+            beforeSend: function() {
+                $('#loading').show();
+            },
+            success: function(data) {
+                if (data.message == 'Exist') {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'Cocolife form already generated.',
+                        icon: 'error'
+                    });
+                    $("#modal_name").addClass("not-visible")
+                    $("#modal_name").removeClass("visible")
+                } else {
+                    var url = "{{ URL::to('/generateCocolife/') }}" + '/' +
+                    id; //YOUR CHANGES HERE...
+                    window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+                    $('#generateCoco').trigger('reset');
+                    $("#modal_name").addClass("not-visible")
+                    $("#modal_name").removeClass("visible")
+                }
+            },
+            complete: function() {
+                $('#loading').hide();
+            }
+        });
+    })
+
+    // $(document).on('submit', '#generateCoco', function(event) {
+    //     event.preventDefault();
+    //     var id = $('#app_number').val();
+        
+    //     $.ajax({
+    //         url: "{{ route('add_cocolife') }}",
+    //         method: "POST",
+    //         data: new FormData(this),
+    //         dataType: 'json',
+    //         contentType: false,
+    //         processData: false,
+    //         beforeSend: function() {
+    //             $('#loading').show();
+    //         },
+    //         success: function(data) {
+    //             var url = "{{ URL::to('/generateCocolife/') }}" + '/' +
+    //                 id; //YOUR CHANGES HERE...
+    //             window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+    //             $('#generateCoco').trigger('reset');
+    //             $("#modal_name").addClass("not-visible")
+    //             $("#modal_name").removeClass("visible")
+    //         },
+    //         complete: function() {
+    //             $('#loading').hide();
+    //         }
+    //     });
+    // })
 </script>
 @endsection

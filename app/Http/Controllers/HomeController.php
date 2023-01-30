@@ -454,6 +454,81 @@ class HomeController extends Controller
     DB::table('member_signature')->insert($signFile);
   }
 
+  public function addcocolife(Request $request)
+  {
+    // $coco = DB::table('generated_coco')
+    //       ->where('app_number', $request->input('app_number'))
+    //       ->count();
+    // $message = '';
+    // if ($coco > 1) {
+    //   $message = 'Exist';
+    // } else {
+    //   $file = $request->file('cocolife_sign');
+
+    //   $fileName = $file->getClientOriginalName();
+    //   $newName = $request->input('app_number').'_coco'.$fileName;
+    //   $path = $file->storeAs('signature', $newName, 'public');
+
+    //   $insertCoco = array(
+    //     'app_number' => $request->input('app_number'),
+    //     'place_birth' => $request->input('place_birth'),
+    //     'height' => $request->input('height'),
+    //     'weight' => $request->input('weight'),
+    //     'amt_isurance' => $request->input('amt_isurance'),
+    //     'term_coverage' => $request->input('coverage'),
+    //     'premiums' => $request->input('premiums'),
+    //     'occupation' => $request->input('occupation'),
+    //     'nature_work' => $request->input('nature_work'),
+    //     'seaman' => $request->input('seaman'),
+    //     'ofw' => $request->input('ofw'),
+    //     'exceptions' => $request->input('exception'),
+    //     'sign_path' => '/storage/'.$path
+    //   );
+    //   DB::table('generated_coco')->insert($insertCoco);
+    // }
+    // $output = array(
+    //   'message' => $message,
+    // );
+
+    // echo json_encode($output);
+    $appNumber = $request->input('app_number');
+    $coco = DB::table('generated_coco')->where('app_number', $appNumber)->count();
+
+    if ($coco > 0) {
+        return response()->json(['message' => 'Exist']);
+    }
+
+    if (!$request->hasFile('cocolife_sign')) {
+        return response()->json(['message' => 'File not found']);
+    }
+
+    $file = $request->file('cocolife_sign');
+    $fileName = $file->getClientOriginalName();
+    $newName = "{$appNumber}_coco_{$fileName}";
+    $path = $file->storeAs('public/signatures', $newName);
+
+    $insertCoco = [
+        'app_number' => $appNumber,
+        'place_birth' => $request->input('place_birth'),
+        'height' => $request->input('height'),
+        'weight' => $request->input('weight'),
+        'amt_isurance' => $request->input('amt_isurance'),
+        'term_coverage' => $request->input('coverage'),
+        'premiums' => $request->input('premiums'),
+        'occupation' => $request->input('occupation'),
+        'nature_work' => $request->input('nature_work'),
+        'seaman' => $request->input('seaman'),
+        'ofw' => $request->input('ofw'),
+        'exceptions' => $request->input('exception'),
+        'sign_path' => $path,
+    ];
+
+    DB::table('generated_coco')->insert($insertCoco);
+
+    return response()->json(['message' => 'Success']);
+    
+  }
+
   public function update_trail_member_1(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
