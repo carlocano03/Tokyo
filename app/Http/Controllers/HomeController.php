@@ -157,7 +157,7 @@ class HomeController extends Controller
         'app_no' => $randomString,
         'email_address' => $request->input('email'),
         'personal_id' => $last_id,
-        'app_status' => 'DRAFT',
+        'app_status' => 'DRAFT APPLICATION',
       );
       $mem_id = DB::table('mem_app')->insertGetId($mem_appinst);
 

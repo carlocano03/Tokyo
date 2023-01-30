@@ -145,12 +145,12 @@
 
 </div>
 <script>
-    window.onload = function() {
-        $('#loading').show();
-        setTimeout(function() {
-            $('#loading').hide();
-        }, 1000);
-    };
+    // window.onload = function() {
+    //     $('#loading').show();
+    //     setTimeout(function() {
+    //         $('#loading').hide();
+    //     }, 1000);
+    // };
     
     if ($(window).width() < 768) {
         $('#loading').show();
@@ -499,13 +499,13 @@
             
                 if (!personnel_id) {
                     Swal.fire({
-                        title: 'Are you sure?',
-                        text: 'You want to continue this will generate your application number.',
+                        title: 'Are you sure you want to proceed this registration?',
+                        text: 'By clicking yes, the system will automatically send via email your application number.',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes'
+                        confirmButtonText: 'Proceed'
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
@@ -521,10 +521,12 @@
                                         mem_id = data.mem_id;
                                         personnel_id = data.success;
                                         Swal.fire({
-                                            text: 'This is your application no.:' +
+                                            text: 'Notice, please copy your system generated application no.:' +
                                                 ' ' +
                                                 reference_no,
-                                            icon: 'success'
+                                            icon: 'success',
+                                            confirmButtonColor: '#3085d6',
+                                            confirmButtonText: 'Proceed',
                                         });
                                         $('.applicationNo').show(200);
                                         $('#application_no').text(reference_no);
@@ -554,13 +556,13 @@
                     console.log('stepval2');
                     if (originalData !== $("#member_forms").serialize()) {
                         Swal.fire({
-                            title: 'Changes have been detected',
-                            text: 'Would you like to apply the updates?',
+                            text: 'Do you want to allow these changes on your application?',
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Yes'
+                            cancelButtonText: 'No',
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 var formDatas = $("#member_forms").serialize();
@@ -699,13 +701,13 @@
                 } else {
                     if (originalData_ext !== $("#member_forms_con").serialize()) {
                         Swal.fire({
-                            title: 'Changes have been detected.',
-                            text: 'Would you like to apply the updates?',
+                            text: 'Do you want to allow these changes on your application?',
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Yes'
+                            cancelButtonText: 'No',
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 var formData = $("#member_forms_con").serialize();
@@ -796,8 +798,8 @@
                 success: function(data) {
                     if (data.success != '') {
                         Swal.fire({
-                            title: 'Thank you!',
-                            text: "Registration completed",
+                            title: 'Registration Success!',
+                            text: "Your membership application has been successfully submitted. Check your email for your reference.",
                             icon: 'success',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
@@ -1140,7 +1142,7 @@
                         $('#email_add_label').text(data.email == null ? 'N/A' : data.email);
                         $('#application_status').text(data.app_status == null ? 'N/A' : data
                             .app_status);
-                        if (data.app_status == "DRAFT") {
+                        if (data.app_status == "DRAFT APPLICATION") {
                             $('#cont_app').show();
                             $('#print_app').hide();
                         } else {
