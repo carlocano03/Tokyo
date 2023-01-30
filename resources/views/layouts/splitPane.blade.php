@@ -28,7 +28,7 @@
                 <div class="modal-body">
                     {{-- <form id="generateCoco" method="POST" enctype="multipart/form-data">
                         @csrf --}}
-                        <input type="text" name="app_number" id="app_number">
+                        <input type="hidden" name="app_number" id="app_number">
                         <div class="mp-input-group">
                             <label class="mp-input-group__label">Place of Birth</label>
                             <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth"/>
@@ -1121,6 +1121,8 @@
                         $('#search_btn').hide(200);
                         $("#icon_status").removeClass("fa fa-frown-o").addClass("fa fa-smile-o");
                         $('#found_remarks').text('Record has been found');
+                        $('#found_remarks').css('color', '#1a8981');
+                        $('#icon_status').css('color', '#1a8981');
                         $('#appNo_label').text(data.campus == null ? 'N/A' : data.campus);
                         $('#lname_label').text(data.lastname == null ? 'N/A' : data.lastname);
                         $('#mname_label').text(data.middlename == null ? 'N/A' : data.middlename);
