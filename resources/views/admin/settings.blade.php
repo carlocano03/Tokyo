@@ -411,6 +411,7 @@
           @section('manage-account')
           @show
         </div>
+
       </div>
 
     </div>
