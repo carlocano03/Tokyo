@@ -375,17 +375,20 @@
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Present Address</label><br>
                 <label class="mp-input-group__label">Province</label>
-                <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province"
-                    required>
-                    <option></option>
+                <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
+                <option value="">Select Province</option>
+                {{-- @foreach ($psgc_prov as $row)
+                    <option value="{{ $row->code }}">{{ mb_strtoupper($row->name) }}</option>
+                @endforeach --}}
                 </select>
+                <input type="hidden" id="present_province_name" name="present_province_name">
             </div>
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Municipality</label>
-                <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality"
-                    required>
-                    <option></option>
+                <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality" required>
+                    <option value=""></option>
                 </select>
+                <input type="hidden" id="present_municipality_name" name="present_municipality_name">
             </div>
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Barangay</label>
@@ -393,6 +396,7 @@
                     required>
                     <option></option>
                 </select>
+                <input type="hidden" id="present_barangay_name" name="present_barangay_name">
             </div>
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Bldg No. St. No.</label>
@@ -421,18 +425,21 @@
                 <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
                     <option></option>
                 </select>
+                <input type="hidden" id="province_name" name="province_name">
             </div>
             <div class="mp-input-group same_div">
                 <label class="mp-input-group__label">Municipality</label>
                 <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
                     <option></option>
                 </select>
+                <input type="hidden" id="municipality_name" name="municipality_name">
             </div>
             <div class="mp-input-group same_div">
                 <label class="mp-input-group__label">Barangay</label>
                 <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
                     <option></option>
                 </select>
+                <input type="hidden" id="barangay_name" name="barangay_name">
             </div>
             <div class="mp-input-group same_div">
                 <label class="mp-input-group__label">Bldg No. St. No.</label>
@@ -472,7 +479,7 @@
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Campus</label>
                 <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
-                    <option>Select Campus</option>
+                    <option value="">Select Campus</option>
                     {{-- @foreach ($campuses as $row)
                     <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
                 @endforeach --}}
@@ -481,7 +488,7 @@
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Employee Classification</label>
                 <select class="mp-input-group__input mp-text-field" name="classification">
-                    <option>Select Classification</option>
+                    <option value="">Select Classification</option>
                     <option>Class A </option>
                 </select>
             </div>
@@ -579,7 +586,7 @@
                     <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
                         - 100%)</label>
                 </div>
-                <input class="mp-input-group__input mp-text-field" type="number" name="percentage_bsalary"
+                <input class="mp-input-group__input mp-text-field" type="text" name="percentage_bsalary"
                     id="percentage_bsalary" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Equivalent:</label> <label
                     class="mp-input-group__label" id="computed_amount" style="margin-top: 5px;"></label>

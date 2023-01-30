@@ -39,6 +39,7 @@ Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard
 Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
 
 Route::get('/options', [HomeController::class, 'getCampuses']);
+Route::get('/options_psgc', [HomeController::class, 'getpsgc_prov']);
 
 //GET
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -117,3 +118,7 @@ Route::post('/login/continued_trail', [HomeController::class, 'continued_trail_s
 
 // slarygrade bracket
 Route::post('/login/check_sg', [HomeController::class, 'check_sg_bracket'])->name('check_sg');
+
+// psgc_mun
+Route::post('/login/psgc_munc', [HomeController::class, 'psgc_munc'])->name('psgc_munc');
+Route::post('/login/psgc_brgy', [HomeController::class, 'psgc_brgy'])->name('psgc_brgy');
