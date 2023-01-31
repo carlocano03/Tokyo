@@ -71,7 +71,7 @@
                 </div>
                 <div class="mp-input-group">
                     <label class="mp-input-group__label">Exceptions</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="exception" id="exception" />
+                    <input class="mp-input-group__input mp-text-field" type="text" name="exception" id="exceptions" />
                 </div>
                 <div class="mp-input-group">
                     <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
