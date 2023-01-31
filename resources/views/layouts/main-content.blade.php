@@ -367,7 +367,7 @@
     color: var(--c-base-50);
     font-weight: 400;
     font-size: 12px;
-    margin-top: -9px;
+    margin-top: -4px;
   }
 
   .profile-details .logout-button {
