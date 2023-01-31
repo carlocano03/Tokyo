@@ -6304,7 +6304,7 @@ tfoot {
     padding: 10px;
     font-weight: bold;
     font-size: 20px;
-    color: var(--c-base-50);
+    color: var(--c-base);
 }
 
 .settings-tab label {
@@ -6341,7 +6341,7 @@ tfoot {
 
 .options .option-info {
     font-size: 12px;
-    color: var(--c-base-50);
+    color: var(--c-base);
     line-height: 1;
 }
 
@@ -6359,7 +6359,7 @@ tfoot {
 
 .account-info {
     font-size: 12px;
-    color: var(--c-base-50);
+    color: var(--c-base);
     line-height: 1;
     font-weight: 400;
 }
