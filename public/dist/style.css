@@ -547,7 +547,7 @@ html {
     position: relative;
     margin: auto;
     width: 90%;
-    height: 60%;
+    height: 500px;
     background-color: white;
     border-radius: 20px;
 }
@@ -555,7 +555,7 @@ html {
 .modal-content {
     display: grid;
     grid-template-rows: auto auto auto;
-
+    max-height: 375px !important;
 }
 
 .modal-header {
@@ -570,15 +570,14 @@ html {
 
 .modal-body {
     height: 100%;
-    padding: 5px;
-    max-height: 400px;
-    overflow: auto;
+    padding: 40px;
+    max-height: 300px;
+    overflow-y: auto;
 }
 
 .modal-footer {
-    position: absolute;
-    bottom: 10px;
-    left: 34%;
+    width: 100%;
+    margin-top: 50px;
 }
 
 .modal-footer button {
