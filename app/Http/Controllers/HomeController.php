@@ -92,14 +92,21 @@ class HomeController extends Controller
           'civilstatus' => $request->input('civilstatus'),
           'citizenship' => strtoupper($request->input('citizenship')),
           'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
-          'province' => $request->input('province'),
-          'municipality' => $request->input('municipality'),
-          'barangay' => $request->input('barangay'),
+          'same_add' => 0,
+          'province_code' => $request->input('province'),
+          'province' => $request->input('province_name'),
+          'municipality_code' => $request->input('municipality'),
+          'municipality' => $request->input('municipality_name'),
+          'barangay_code' => $request->input('barangay'),
+          'barangay' => $request->input('barangay_name'),
           'bldg_street' => strtoupper($request->input('bldg_street')),
           'zipcode' => $request->input('zipcode'),
-          'present_province' => $request->input('present_province'),
-          'present_municipality' => $request->input('present_municipality'),
-          'present_barangay' => $request->input('present_barangay'),
+          'present_province_code' => $request->input('present_province'),
+          'present_province' => $request->input('present_province_name'),
+          'present_municipality_code' => $request->input('present_municipality'),
+          'present_municipality' => $request->input('present_municipality_name'),
+          'present_barangay_code' => $request->input('present_barangay'),
+          'present_barangay' => $request->input('present_barangay_name'),
           'present_bldg_street' => $request->input('present_bldg_street'),
           'present_zipcode' => $request->input('present_zipcode'),
           'contact_no' => $request->input('contact_no'),
@@ -117,14 +124,21 @@ class HomeController extends Controller
           'civilstatus' => $request->input('civilstatus'),
           'citizenship' => strtoupper($request->input('citizenship')),
           'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
-          'province' => $request->input('province'),
-          'municipality' => $request->input('municipality'),
-          'barangay' => $request->input('barangay'),
-          'bldg_street' => strtoupper($request->input('bldg_street')),
-          'zipcode' => $request->input('zipcode'),
-          'present_province' => $request->input('present_province'),
-          'present_municipality' => $request->input('present_municipality'),
-          'present_barangay' => $request->input('present_barangay'),
+          'same_add' => 1,
+          'province_code' => $request->input('present_province'),
+          'province' => $request->input('present_province_name'),
+          'municipality_code' => $request->input('present_municipality'),
+          'municipality' => $request->input('present_municipality_name'),
+          'barangay_code' => $request->input('present_barangay'),
+          'barangay' => $request->input('present_barangay_name'),
+          'bldg_street' => strtoupper($request->input('present_bldg_street')),
+          'zipcode' => $request->input('present_zipcode'),
+          'present_province_code' => $request->input('present_province'),
+          'present_province' => $request->input('present_province_name'),
+          'present_municipality_code' => $request->input('present_municipality'),
+          'present_municipality' => $request->input('present_municipality_name'),
+          'present_barangay_code' => $request->input('present_barangay'),
+          'present_barangay' => $request->input('present_barangay_name'),
           'present_bldg_street' => $request->input('present_bldg_street'),
           'present_zipcode' => $request->input('present_zipcode'),
           'contact_no' => $request->input('contact_no'),
@@ -143,7 +157,7 @@ class HomeController extends Controller
         'app_no' => $randomString,
         'email_address' => $request->input('email'),
         'personal_id' => $last_id,
-        'app_status' => 'DRAFT',
+        'app_status' => 'DRAFT APPLICATION',
       );
       $mem_id = DB::table('mem_app')->insertGetId($mem_appinst);
 
@@ -177,14 +191,21 @@ class HomeController extends Controller
           'civilstatus' => $request->input('civilstatus'),
           'citizenship' => strtoupper($request->input('citizenship')),
           'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
-          'province' => $request->input('province'),
-          'municipality' => $request->input('municipality'),
-          'barangay' => $request->input('barangay'),
+          'same_add' => 0,
+          'province_code' => $request->input('province'),
+          'province' => $request->input('province_name'),
+          'municipality_code' => $request->input('municipality'),
+          'municipality' => $request->input('municipality_name'),
+          'barangay_code' => $request->input('barangay'),
+          'barangay' => $request->input('barangay_name'),
           'bldg_street' => strtoupper($request->input('bldg_street')),
           'zipcode' => $request->input('zipcode'),
-          'present_province' => $request->input('present_province'),
-          'present_municipality' => $request->input('present_municipality'),
-          'present_barangay' => $request->input('present_barangay'),
+          'present_province_code' => $request->input('present_province'),
+          'present_province' => $request->input('present_province_name'),
+          'present_municipality_code' => $request->input('present_municipality'),
+          'present_municipality' => $request->input('present_municipality_name'),
+          'present_barangay_code' => $request->input('present_barangay'),
+          'present_barangay' => $request->input('present_barangay_name'),
           'present_bldg_street' => $request->input('present_bldg_street'),
           'present_zipcode' => $request->input('present_zipcode'),
           'contact_no' => $request->input('contact_no'),
@@ -202,14 +223,21 @@ class HomeController extends Controller
           'civilstatus' => $request->input('civilstatus'),
           'citizenship' => strtoupper($request->input('citizenship')),
           'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
-          'province' => $request->input('present_province'),
-          'municipality' => $request->input('present_municipality'),
-          'barangay' => $request->input('present_barangay'),
+          'same_add' => 1,
+          'province_code' => $request->input('present_province'),
+          'province' => $request->input('present_province_name'),
+          'municipality_code' => $request->input('present_municipality'),
+          'municipality' => $request->input('present_municipality_name'),
+          'barangay_code' => $request->input('present_barangay'),
+          'barangay' => $request->input('present_barangay_name'),
           'bldg_street' => strtoupper($request->input('present_bldg_street')),
           'zipcode' => $request->input('present_zipcode'),
-          'present_province' => $request->input('present_province'),
-          'present_municipality' => $request->input('present_municipality'),
-          'present_barangay' => $request->input('present_barangay'),
+          'present_province_code' => $request->input('present_province'),
+          'present_province' => $request->input('present_province_name'),
+          'present_municipality_code' => $request->input('present_municipality'),
+          'present_municipality' => $request->input('present_municipality_name'),
+          'present_barangay_code' => $request->input('present_barangay'),
+          'present_barangay' => $request->input('present_barangay_name'),
           'present_bldg_street' => $request->input('present_bldg_street'),
           'present_zipcode' => $request->input('present_zipcode'),
           'contact_no' => $request->input('contact_no'),
@@ -307,6 +335,8 @@ class HomeController extends Controller
   {
     $options = $request->input('percentage_check');
     $form = $request->input('generateForm');
+    $coco = $request->file('coco');
+    $proxy = $request->file('proxy');
     if ($options != 'percentage') {
       $insertMemDetails = array(
         'contribution_set' => 'Fixed Amount',
@@ -314,7 +344,12 @@ class HomeController extends Controller
         'app_no' => $request->input('app_no')
       );
       
-      if ($request->hasFile('coco') && $request->hasFile('proxy')) { 
+      if (!$request->hasFile('coco') && !$request->hasFile('proxy')) { 
+        DB::table('membership_details')->insert($insertMemDetails);
+        DB::table('mem_app')->where('app_no', $request->input('app_no'))
+            ->update(array('app_status' => 'SUBMITTED'));
+
+      } else {
         //Cocolife Form
         $fileName = $request->file('coco')->getClientOriginalName();
         $newName = $request->input('app_no').'_'.$fileName;
@@ -339,10 +374,6 @@ class HomeController extends Controller
 
         DB::table('coco_form')->insert($insertCoco);
         DB::table('proxy_form')->insert($insertProxy);
-        DB::table('membership_details')->insert($insertMemDetails);
-        DB::table('mem_app')->where('app_no', $request->input('app_no'))
-            ->update(array('app_status' => 'SUBMITTED'));
-      } else {
         DB::table('membership_details')->insert($insertMemDetails);
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
             ->update(array('app_status' => 'SUBMITTED'));
@@ -356,7 +387,13 @@ class HomeController extends Controller
         'app_no' => $request->input('app_no')
       );
 
-      if ($request->hasFile('coco') && $request->hasFile('proxy')) { 
+      if (!$request->hasFile('coco') && !$request->hasFile('proxy')) { 
+
+        DB::table('membership_details')->insert($insertMemDetails);
+        DB::table('mem_app')->where('app_no', $request->input('app_no'))
+            ->update(array('app_status' => 'SUBMITTED'));
+
+      } else {
         //Cocolife Form
         $fileName = $request->file('coco')->getClientOriginalName();
         $newName = $request->input('app_no').'_'.$fileName;
@@ -381,10 +418,6 @@ class HomeController extends Controller
 
         DB::table('coco_form')->insert($insertCoco);
         DB::table('proxy_form')->insert($insertProxy);
-        DB::table('membership_details')->insert($insertMemDetails);
-        DB::table('mem_app')->where('app_no', $request->input('app_no'))
-            ->update(array('app_status' => 'SUBMITTED'));
-      } else {
         DB::table('membership_details')->insert($insertMemDetails);
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
             ->update(array('app_status' => 'SUBMITTED'));
@@ -405,6 +438,11 @@ class HomeController extends Controller
   {
     $options = DB::table('campus')->select('campus_key', 'name')->get();
         return response()->json($options);
+  }
+  public function getpsgc_prov()
+  {
+    $psgc_province = DB::table('psgc_province')->orderBy('name')->get();
+        return response()->json($psgc_province);
   }
 
 
@@ -456,41 +494,6 @@ class HomeController extends Controller
 
   public function addcocolife(Request $request)
   {
-    // $coco = DB::table('generated_coco')
-    //       ->where('app_number', $request->input('app_number'))
-    //       ->count();
-    // $message = '';
-    // if ($coco > 1) {
-    //   $message = 'Exist';
-    // } else {
-    //   $file = $request->file('cocolife_sign');
-
-    //   $fileName = $file->getClientOriginalName();
-    //   $newName = $request->input('app_number').'_coco'.$fileName;
-    //   $path = $file->storeAs('signature', $newName, 'public');
-
-    //   $insertCoco = array(
-    //     'app_number' => $request->input('app_number'),
-    //     'place_birth' => $request->input('place_birth'),
-    //     'height' => $request->input('height'),
-    //     'weight' => $request->input('weight'),
-    //     'amt_isurance' => $request->input('amt_isurance'),
-    //     'term_coverage' => $request->input('coverage'),
-    //     'premiums' => $request->input('premiums'),
-    //     'occupation' => $request->input('occupation'),
-    //     'nature_work' => $request->input('nature_work'),
-    //     'seaman' => $request->input('seaman'),
-    //     'ofw' => $request->input('ofw'),
-    //     'exceptions' => $request->input('exception'),
-    //     'sign_path' => '/storage/'.$path
-    //   );
-    //   DB::table('generated_coco')->insert($insertCoco);
-    // }
-    // $output = array(
-    //   'message' => $message,
-    // );
-
-    // echo json_encode($output);
     $appNumber = $request->input('app_number');
     $coco = DB::table('generated_coco')->where('app_number', $appNumber)->count();
 
@@ -543,14 +546,21 @@ class HomeController extends Controller
           'civilstatus' => $request->input('civilstatus'),
           'citizenship' => strtoupper($request->input('citizenship')),
           'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
-          'province' => $request->input('province'),
-          'municipality' => $request->input('municipality'),
-          'barangay' => $request->input('barangay'),
+          'same_add' => 0,
+          'province_code' => $request->input('province'),
+          'province' => $request->input('province_name'),
+          'municipality_code' => $request->input('municipality'),
+          'municipality' => $request->input('municipality_name'),
+          'barangay_code' => $request->input('barangay'),
+          'barangay' => $request->input('barangay_name'),
           'bldg_street' => strtoupper($request->input('bldg_street')),
           'zipcode' => $request->input('zipcode'),
-          'present_province' => $request->input('present_province'),
-          'present_municipality' => $request->input('present_municipality'),
-          'present_barangay' => $request->input('present_barangay'),
+          'present_province_code' => $request->input('present_province'),
+          'present_province' => $request->input('present_province_name'),
+          'present_municipality_code' => $request->input('present_municipality'),
+          'present_municipality' => $request->input('present_municipality_name'),
+          'present_barangay_code' => $request->input('present_barangay'),
+          'present_barangay' => $request->input('present_barangay_name'),
           'present_bldg_street' => $request->input('present_bldg_street'),
           'present_zipcode' => $request->input('present_zipcode'),
           'contact_no' => $request->input('contact_no'),
@@ -568,14 +578,21 @@ class HomeController extends Controller
           'civilstatus' => $request->input('civilstatus'),
           'citizenship' => strtoupper($request->input('citizenship')),
           'dual_citizenship' => strtoupper($request->input('dual_citizenship')),
-          'province' => $request->input('present_province'),
-          'municipality' => $request->input('present_municipality'),
-          'barangay' => $request->input('present_barangay'),
+          'same_add' => 1,
+          'province_code' => $request->input('present_province'),
+          'province' => $request->input('present_province_name'),
+          'municipality_code' => $request->input('present_municipality'),
+          'municipality' => $request->input('present_municipality_name'),
+          'barangay_code' => $request->input('present_barangay'),
+          'barangay' => $request->input('present_barangay_name'),
           'bldg_street' => strtoupper($request->input('present_bldg_street')),
           'zipcode' => $request->input('present_zipcode'),
-          'present_province' => $request->input('present_province'),
-          'present_municipality' => $request->input('present_municipality'),
-          'present_barangay' => $request->input('present_barangay'),
+          'present_province_code' => $request->input('present_province'),
+          'present_province' => $request->input('present_province_name'),
+          'present_municipality_code' => $request->input('present_municipality'),
+          'present_municipality' => $request->input('present_municipality_name'),
+          'present_barangay_code' => $request->input('present_barangay'),
+          'present_barangay' => $request->input('present_barangay_name'),
           'present_bldg_street' => $request->input('present_bldg_street'),
           'present_zipcode' => $request->input('present_zipcode'),
           'contact_no' => $request->input('contact_no'),
@@ -628,4 +645,23 @@ class HomeController extends Controller
       return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
 
   }
+
+  public function psgc_munc(Request $request)
+{
+    $codes = $request->input('codes');
+    // Perform your database query to get the data based on the $codes variable
+    // ...
+    // Return the response, for example:
+      $results = DB::table('psgc_municipal')->select('*')->whereRaw("code LIKE '$codes%'")->orderBy('name')->get();
+      return response()->json(['data' => $results]);
+}
+public function psgc_brgy(Request $request)
+{
+    $codes = $request->input('codes');
+    // Perform your database query to get the data based on the $codes variable
+    // ...
+    // Return the response, for example:
+      $results = DB::table('psgc_brgy')->select('*')->whereRaw("code LIKE '$codes%'")->orderBy('name')->get();
+      return response()->json(['data' => $results]);
+}
 }

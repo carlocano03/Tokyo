@@ -4,18 +4,17 @@
 
 
 <!-- mobile transition -->
-<div class="mobile-header">
-    <div class="logo-title">
-        <div class="mp-pb4  mp-text-center logo-text">
-            <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
-            <br>
-            <label for="">
-                UP Provident Fund
-            </label>
-
+{{-- <div class="mobile-header">
+        <div class="logo-title">
+            <div class="mp-pb4  mp-text-center logo-text">
+                <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
+                <br>
+                <label for="">
+                    UP Provident Fund
+                </label>
+            </div>
         </div>
-    </div>
-</div>
+    </div> --}}
 <div class="transition-background">
 
 </div>
@@ -28,10 +27,7 @@
             <div class="modal-body">
                 {{-- <form id="generateCoco" method="POST" enctype="multipart/form-data">
                         @csrf --}}
-
-                <input type="text" class="mp-input-group__input mp-text-field" name="app_number" id="app_number">
-
-
+                <input type="hidden" name="app_number" id="app_number">
                 <div class="mp-input-group">
                     <label class="mp-input-group__label">Place of Birth</label>
                     <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth" />
@@ -84,8 +80,8 @@
             </div>
 
             <div class="modal-footer">
-                <div class="mp-container">
-                    <div class="row" style="display: flex; justify-content: center;">
+                <div class="mp-container" style="display: flex; justify-content: center;">
+                    <div class="row">
                         <button class="up-button btn-md " id="modal_name_close" type="button">
                             <span>Close</span>
                         </button>
@@ -95,10 +91,11 @@
                         {{-- </form> --}}
                     </div>
                 </div>
-
             </div>
+
         </div>
     </div>
+</div>
 </div>
 <div class="mp-split-pane">
     <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
@@ -152,14 +149,32 @@
         }, 1000);
     };
 
-    if ($(window).width() < 768) {
-        $('.mobile-header').show();
-        window.onload = function() {
+
+    $(document).ready(function() {
+        if ($(window).width() < 768) {
+            $('.transition-background').hide();
+            $("#loading").show();
+
             setTimeout(function() {
-                $('.mobile-header').hide(300);
+                $("#loading").hide();
             }, 1000);
-        };
-    }
+        }
+    });
+    // window.onload = function() {
+    //     $('#loading').show();
+    //     setTimeout(function() {
+    //         $('#loading').hide();
+    //     }, 1000);
+    // };
+
+    // if ($(window).width() < 768) {
+    //     $('#loading').show();
+    //     window.onload = function() {
+    //         setTimeout(function() {
+    //             $('#loading').hide();
+    //         }, 1500);
+    //     };
+    // }
 
     function ckChange(ckType) {
         var ckName = document.getElementsByClassName(ckType.className);
@@ -196,90 +211,146 @@
 
     var stepTitle = ["Personal Information", "Employment Details", "Membership Details"]
 
-    var my_handlers = {
-
-        fill_provinces: function() {
-            var region = $(this).val().split('|');
-            var region_code = region[0];
-            $('#province').ph_locations('fetch_list', [{
-                "region_code": region_code
-            }]);
-
-        },
-
-        fill_cities: function() {
-            var prov = $(this).val().split('|');
-            var province_code = prov[0];
-            $('#city').ph_locations('fetch_list', [{
-                "province_code": province_code
-            }]);
-        },
-
-        fill_barangays: function() {
-            var city = $(this).val().split('|');
-            var city_code = city[0];
-            $('#barangay').ph_locations('fetch_list', [{
-                "city_code": city_code
-            }]);
-        },
-
-        fill_present_provinces: function() {
-            var region = $(this).val().split('|');
-            var region_code = region[0];
-            $('#present_province').ph_locations('fetch_list', [{
-                "region_code": region_code
-            }]);
-
-        },
-
-        fill_present_cities: function() {
-            var prov = $(this).val().split('|');
-            var province_code = prov[0];
-            $('#present_city').ph_locations('fetch_list', [{
-                "province_code": province_code
-            }]);
-        },
-
-        fill_present_barangays: function() {
-            var city = $(this).val().split('|');
-            var city_code = city[0];
-            $('#present_barangay').ph_locations('fetch_list', [{
-                "city_code": city_code
-            }]);
-        }
-    };
-
-    $(function() {
-        $('#province').on('change', my_handlers.fill_cities);
-        $('#city').on('change', my_handlers.fill_barangays);
-
-        $('#province').ph_locations({
-            'location_type': 'provinces'
+    $(document).on('change', '#present_province', function() {
+        var codes = $(this).val();
+        var subss = codes.substring(0, 4);
+        // console.log(subss);
+        $.ajax({
+            url: "{{ route('psgc_munc') }}",
+            method: "POST",
+            data: {
+                codes: subss
+            },
+            success: function(data) {
+                var options = '<option value="">Select Municipal</option>';
+                $.each(data.data, function(index, item) {
+                    options += '<option value="' + item.code + '">' + item.name
+                        .toUpperCase() + '</option>';
+                });
+                $("#present_city").html(options);
+                $("#present_province_name").val($("#present_province").find("option:selected")
+                    .text());
+                if (present_muncode) {
+                    var mun_code = present_muncode;
+                    $("#present_city").val(mun_code).change();
+                }
+            }
         });
-        $('#city').ph_locations({
-            'location_type': 'cities'
-        });
-        $('#barangay').ph_locations({
-            'location_type': 'barangays'
-        });
-
-        $('#province').ph_locations('fetch_list');
-
-        $('#present_province').on('change', my_handlers.fill_present_cities);
-        $('#present_city').on('change', my_handlers.fill_present_barangays);
-
-        $('#present_province').ph_locations({
-            'location_type': 'provinces'
-        });
-        $('#present_city').ph_locations({
-            'location_type': 'cities'
-        });
-        $('#present_barangay').ph_locations({
-            'location_type': 'barangays'
-        });
-
-        $('#present_province').ph_locations('fetch_list');
     });
+    $(document).on('change', '#present_city', function() {
+        var codes = $(this).val();
+        var subss = codes.substring(0, 6);
+        // console.log(subss);
+        $.ajax({
+            url: "{{ route('psgc_brgy') }}",
+            method: "POST",
+            data: {
+                codes: subss
+            },
+            success: function(data) {
+                var options = '<option value="">Select Barangay</option>';
+                $.each(data.data, function(index, item) {
+                    options += '<option value="' + item.code + '">' + item.name
+                        .toUpperCase() + '</option>';
+                });
+                $("#present_barangay").html(options);
+                $("#present_municipality_name").val($("#present_city").find("option:selected")
+                    .text());
+                if (present_brgycode) {
+                    var brgy_code = present_brgycode;
+                    $("#present_barangay").val(brgy_code).change();
+                }
+            }
+        });
+    });
+    $(document).on('change', '#present_barangay', function() {
+        $("#present_barangay_name").val($("#present_barangay").find("option:selected").text());
+    });
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#present_province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
+        });
+    });
+
+    $(document).on('change', '#province', function() {
+        var codes = $(this).val();
+        var subss = codes.substring(0, 4);
+        // console.log(subss);
+        $.ajax({
+            url: "{{ route('psgc_munc') }}",
+            method: "POST",
+            data: {
+                codes: subss
+            },
+            success: function(data) {
+                var options = '<option value="">Select Municipal</option>';
+                $.each(data.data, function(index, item) {
+                    options += '<option value="' + item.code + '">' + item.name
+                        .toUpperCase() + '</option>';
+                });
+                $("#city").html(options);
+                $("#province_name").val($("#province").find("option:selected").text());
+                if (perm_muncode) {
+                    var mun_code = perm_muncode;
+                    $("#city").val(mun_code).change();
+                }
+            }
+        });
+    });
+    $(document).on('change', '#city', function() {
+        var codes = $(this).val();
+        var subss = codes.substring(0, 6);
+        // console.log(subss);
+        $.ajax({
+            url: "{{ route('psgc_brgy') }}",
+            method: "POST",
+            data: {
+                codes: subss
+            },
+            success: function(data) {
+                var options = '<option value="">Select Barangay</option>';
+                $.each(data.data, function(index, item) {
+                    options += '<option value="' + item.code + '">' + item.name
+                        .toUpperCase() + '</option>';
+                });
+                $("#barangay").html(options);
+                $("#municipality_name").val($("#city").find("option:selected").text());
+                if (perm_brgycode) {
+                    var brgy_code = perm_brgycode;
+                    $("#barangay").val(brgy_code).change();
+                }
+            }
+        });
+    });
+    $(document).on('change', '#barangay', function() {
+        $("#barangay_name").val($("#barangay").find("option:selected").text());
+    });
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
+        });
+    });
+
 
     $(document).on('click', '#modal_name_pop', function(e) {
         var appNo = query;
@@ -396,6 +467,10 @@
     var pers_id;
     var mems_id;
     var continued_trail = 0;
+    var present_muncode;
+    var present_brgycode;
+    var perm_muncode;
+    var perm_brgycode;
     $(document).on('click', '#next-btn', function(e) {
         var nextValue = $(this).attr('value');
         console.log($(this).attr('value'));
@@ -448,13 +523,13 @@
 
                     if (!personnel_id) {
                         Swal.fire({
-                            title: 'Are you sure?',
-                            text: 'You want to continue this will generate your application number.',
+                            title: 'Are you sure you want to proceed this registration?',
+                            text: 'By clicking yes, the system will automatically send via email your application number.',
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes'
+                            confirmButtonText: 'Proceed',
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 $.ajax({
@@ -470,10 +545,12 @@
                                             mem_id = data.mem_id;
                                             personnel_id = data.success;
                                             Swal.fire({
-                                                text: 'This is your application no.:' +
+                                                text: 'Notice, please copy your system generated application no.:' +
                                                     ' ' +
                                                     reference_no,
-                                                icon: 'success'
+                                                icon: 'success',
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: 'Proceed',
                                             });
                                             $('.applicationNo').show(200);
                                             $('#application_no').text(reference_no);
@@ -503,13 +580,13 @@
                         console.log('stepval2');
                         if (originalData !== $("#member_forms").serialize()) {
                             Swal.fire({
-                                title: 'Changes have been detected',
-                                text: 'Would you like to apply the updates?',
+                                text: 'Do you want to allow these changes on your application?',
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
-                                confirmButtonText: 'Yes'
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No',
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     var formDatas = $("#member_forms").serialize();
@@ -572,7 +649,8 @@
                 empty.first().focus();
                 swal.fire("Error!", "Please fill out the required fields", "error");
             } else {
-                if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' && continued_trail == 0) {
+                if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' &&
+                    continued_trail == 0) {
                     var formData = $("#member_forms_con").serialize();
                     var additionalData = {
                         'mem_id': mem_id,
@@ -648,13 +726,13 @@
                     } else {
                         if (originalData_ext !== $("#member_forms_con").serialize()) {
                             Swal.fire({
-                                title: 'Changes have been detected.',
-                                text: 'Would you like to apply the updates?',
+                                text: 'Do you want to allow these changes on your application?',
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
-                                confirmButtonText: 'Yes'
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No',
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     var formData = $("#member_forms_con").serialize();
@@ -682,7 +760,8 @@
                                                 $("#back").attr('value', 'step-2')
                                                 $("#member_forms_con").removeClass(
                                                     'mh-reg-form');
-                                                $("#member_forms_3").addClass('mh-reg-form');
+                                                $("#member_forms_3").addClass(
+                                                    'mh-reg-form');
                                                 // $(this).attr('value', 'step-end')
                                                 $("#line").removeClass('step-2').addClass(
                                                     'step-3')
@@ -699,7 +778,8 @@
                                         }
                                     });
                                 } else {
-                                    swal.fire("Update was cancelled by the user. No changes were made.");
+                                    swal.fire(
+                                        "Update was cancelled by the user. No changes were made.");
                                     $("#step-2").removeClass('d-flex').addClass("d-none");
                                     $("#step-3").removeClass('d-none').addClass("d-flex");
                                     $("#back").attr('value', 'step-2')
@@ -745,8 +825,8 @@
                 success: function(data) {
                     if (data.success != '') {
                         Swal.fire({
-                            title: 'Thank you!',
-                            text: "Registration completed",
+                            title: 'Registration Success!',
+                            text: "Your membership application has been successfully submitted. Check your email for your reference.",
                             icon: 'success',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
@@ -756,7 +836,8 @@
                                 // window.open();
                                 var url = "{{ URL::to('/memberform/') }}" + '/' +
                                     employee_no; //YOUR CHANGES HERE...
-                                window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+                                window.open(url, 'targetWindow',
+                                    'resizable=yes,width=1000,height=1000');
                                 setTimeout(function() {
                                     location.reload();
                                 }, 1000);
@@ -889,9 +970,10 @@
             var inputValue = $(this).val();
             inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             var decimalAdded = inputValue.split(".");
-            if (decimalAdded[1] && decimalAdded[1].length > 2) {
-                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 2);
+            if (decimalAdded.length > 2) {
+                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
             }
+
             if (inputValue == '') {
                 $('#sg_category').val('');
             }
@@ -935,18 +1017,14 @@
 
     $(document).on('click', '#perm_add_check', function(e) {
         if ($(this).prop("checked")) {
-            var myString = $('#present_province').val();
-            var myString1 = $('#present_city').val();
-            var myString2 = $('#present_barangay').val();
+            var myString = $('#present_province').find("option:selected").text();
+            var myString1 = $("#present_city").find("option:selected").text();
+            var myString2 = $('#present_barangay').find("option:selected").text();
             var myString3 = $('#present_bldg_street').val();
             var myString4 = $('#present_zipcode').val();
-            var targetChar = '|';
-            var index = myString.indexOf(targetChar);
-            var index1 = myString1.indexOf(targetChar);
-            var index2 = myString2.indexOf(targetChar);
-            if (index !== -1) {
-                var valueAfterTargetChar = myString4 + ' ' + myString3 + ' ' + myString2.split(targetChar)[1] +
-                    ' ' + myString1.split(targetChar)[1] + ' ' + myString.split(targetChar)[1];
+            if (myString !== "" && myString1 !== "" && myString2 !== "") {
+                var valueAfterTargetChar = myString3 + ' ' + myString2 + ' ' + myString1 + ' ' + myString +
+                    ' ,' + myString4 + ' ';
                 $('#same_add').val(valueAfterTargetChar);
                 $('.same_div').hide();
             } else {
@@ -955,6 +1033,7 @@
                     text: 'Thank you!',
                     icon: 'error'
                 });
+                $(this).prop("checked", false);
             }
         } else {
             $('#same_add').val('');
@@ -988,16 +1067,30 @@
         }
     });
 
-    $('#percentage_bsalary').on('keypress', function(event) {
-        var key = event.which;
-        if ((key >= 48 && key <= 57) || key === 8) {
-            var value = parseInt($(this).val() + String.fromCharCode(key));
-            if (value < 1 || value > 100) {
-                return false;
-            }
-
-        } else {
-            return false;
+    $('#percentage_bsalary').on('keypress keyup blur', function(event) {
+        var $this = $(this);
+        if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
+            ((event.which < 48 || event.which > 57) &&
+                (event.which != 0 && event.which != 8))) {
+            event.preventDefault();
+        }
+        var text = $(this).val();
+        if ((event.which == 46) && (text.indexOf('.') == -1)) {
+            setTimeout(function() {
+                if ($this.val().substring($this.val().indexOf('.')).length > 3) {
+                    $this.val($this.val().substring(0, $this.val().indexOf('.') + 3));
+                }
+            }, 1);
+        }
+        if ((text.indexOf('.') != -1) &&
+            (text.substring(text.indexOf('.')).length > 2) &&
+            (event.which != 0 && event.which != 8) &&
+            ($(this)[0].selectionStart >= text.length - 2)) {
+            event.preventDefault();
+        }
+        if (parseFloat($this.val()) < 1 || parseFloat($this.val()) > 100) {
+            $this.val("");
+            $('#computed_amount').html($this.val());
         }
     });
     $(document).on('input', '#percentage_bsalary', function(e) {
@@ -1060,6 +1153,8 @@
                         $('#search_btn').hide(200);
                         $("#icon_status").removeClass("fa fa-frown-o").addClass("fa fa-smile-o");
                         $('#found_remarks').text('Record has been found');
+                        $('#found_remarks').css('color', '#1a8981');
+                        $('#icon_status').css('color', '#1a8981');
                         $('#appNo_label').text(data.campus == null ? 'N/A' : data.campus);
                         $('#lname_label').text(data.lastname == null ? 'N/A' : data.lastname);
                         $('#mname_label').text(data.middlename == null ? 'N/A' : data.middlename);
@@ -1076,7 +1171,7 @@
                         $('#email_add_label').text(data.email == null ? 'N/A' : data.email);
                         $('#application_status').text(data.app_status == null ? 'N/A' : data
                             .app_status);
-                        if (data.app_status == "DRAFT") {
+                        if (data.app_status == "DRAFT APPLICATION") {
                             $('#cont_app').show();
                             $('#print_app').hide();
                         } else {
@@ -1139,7 +1234,8 @@
                     pers_id = data.personal_id;
                     mems_id = data.employee_details_ID;
                     mem_id = data.mem_app_ID;
-                    $('#employee_details_ID').val(data.employee_details_ID == null ? '' : data.employee_details_ID);
+                    $('#employee_details_ID').val(data.employee_details_ID == null ? '' : data
+                        .employee_details_ID);
                     $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
                     $("[name='lastname']").val(data.lastname == null ? '' : data.lastname);
                     $("[name='middlename']").val(data.middlename == null ? '' : data.middlename);
@@ -1151,15 +1247,19 @@
                     if (data.citizenship == 'FILIPINO') {
                         $('input[name="citizenship"][value="FILIPINO"]').prop('checked', true);
                     } else if (data.citizenship == 'DUAL CITIZENSHIP') {
-                        $('input[name="citizenship"][value="DUAL CITIZENSHIP"]').prop('checked', true);
+                        $('input[name="citizenship"][value="DUAL CITIZENSHIP"]').prop('checked',
+                            true);
                     } else if (data.citizenship == 'OTHERS') {
                         $('input[name="citizenship"][value="OTHERS"]').prop('checked', true);
                     }
                     // $("[name='citizenship']").val(data.citizenship == null ? '' : data.citizenship).prop('checked', true);
                     // $('input[name="citizenship"][value="'+(data.citizenship == null ? '' : data.citizenship)+'"]').prop('checked', true);
-                    $("[name='dual_citizenship']").val(data.dual_citizenship == null ? '' : data.dual_citizenship);
-                    $("[name='present_bldg_street']").val(data.present_bldg_street == null ? '' : data.present_bldg_street);
-                    $("[name='present_zipcode']").val(data.present_zipcode == null ? '' : data.present_zipcode);
+                    $("[name='dual_citizenship']").val(data.dual_citizenship == null ? '' : data
+                        .dual_citizenship);
+                    $("[name='present_bldg_street']").val(data.present_bldg_street == null ? '' :
+                        data.present_bldg_street);
+                    $("[name='present_zipcode']").val(data.present_zipcode == null ? '' : data
+                        .present_zipcode);
                     $("[name='bldg_street']").val(data.bldg_street == null ? '' : data.bldg_street);
                     $("[name='zipcode']").val(data.zipcode == null ? '' : data.zipcode);
                     $("[name='contact_no']").val(data.contact_no == null ? '' : data.contact_no);
@@ -1168,25 +1268,54 @@
 
                     $("[name='employee_no']").val(data.employee_no == null ? '' : data.employee_no);
                     $("[name='campus']").val(data.campus == null ? '' : data.campus);
-                    $("[name='classification']").val(data.classification == null ? '' : data.classification);
-                    $("[name='classification_others']").val(data.classification_others == null ? '' : data.classification_others);
-                    $("[name='college_unit']").val(data.college_unit == null ? '' : data.college_unit);
-                    $("[name='rank_position']").val(data.rank_position == null ? '' : data.rank_position);
+                    $("[name='classification']").val(data.classification == null ? '' : data
+                        .classification);
+                    $("[name='classification_others']").val(data.classification_others == null ?
+                        '' : data.classification_others);
+                    $("[name='college_unit']").val(data.college_unit == null ? '' : data
+                        .college_unit);
+                    $("[name='rank_position']").val(data.rank_position == null ? '' : data
+                        .rank_position);
                     $("[name='department']").val(data.department == null ? '' : data.department);
                     $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
-                    $("[name='date_appointment']").val(data.date_appointment == null ? '' : data.date_appointment);
+                    $("[name='date_appointment']").val(data.date_appointment == null ? '' : data
+                        .date_appointment);
 
                     var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
-                    var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
+                        ",");
 
                     $("[name='monthly_salary']").val(formattedNumber);
-                    $("[name='salary_grade']").val(data.salary_grade == null ? '' : data.salary_grade);
+                    $("[name='salary_grade']").val(data.salary_grade == null ? '' : data
+                        .salary_grade);
                     $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
                     $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
-                    $('#present_province').val(data.present_province).trigger('change');
-                    // $('#present_city').val(data.present_municipality).trigger('change');
-                    // $('#present_barangay').val(data.present_barangay).trigger('change');
-
+                    $('#present_province').val(data.present_province_code).trigger('change');
+                    $('#present_province_name').val(data.present_province);
+                    $('#present_city').val(data.present_municipality_code);
+                    present_muncode = data.present_municipality_code;
+                    $('#present_municipality_name').val(data.present_municipality);
+                    present_brgycode = data.present_barangay_code;
+                    if (data.same_add == 1) {
+                        $('#perm_add_check').prop("checked", true);
+                        var valueAfterTargetChar = data.present_bldg_street + ' ' + data
+                            .present_barangay + ' ' + data.present_municipality + ' ' + data
+                            .present_province + ', ' + data.present_zipcode + ' ';
+                        $('#same_add').val(valueAfterTargetChar);
+                        $('.same_div').hide();
+                    } else {
+                        $('#perm_add_check').prop("checked", false);
+                        $('#same_add').val('');
+                        $('.same_div').show();
+                        $('#province').val(data.province_code).trigger('change');
+                        $('#province_name').val(data.province);
+                        $('#city').val(data.municipality_code);
+                        perm_muncode = data.municipality_code;
+                        $('#municipality_name').val(data.municipality);
+                        perm_brgycode = data.barangay_code;
+                        $('#bldg_street').val(data.bldg_street);
+                        $('#zipcode').val(data.zipcode);
+                    }
                 }
             }
         });

@@ -515,10 +515,10 @@
                 $("#view-member-details").addClass("d-none")
             }
         })
-        $(document).ready(function () {
-            $("#view-member-details").removeClass("d-none")
-                $("#view-all-members").removeClass("d-none")
-        })
+        // $(document).ready(function () {
+        //     $("#view-member-details").removeClass("d-none")
+        //         $("#view-all-members").removeClass("d-none")
+        // })
     </script>
     <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}">
     </link>

@@ -9,11 +9,21 @@
         {{ Request::route()->getName() == 'admin' ? 'Admin' : 'Member' }} Login
     </div>
 </div>
-
 <div class="mp-text-fs-small">
     @if (Session::get('error'))
     <div class='mp-flash mp-flash--danger'>
         {{ Session::get('error') }}
+        {{-- <label class="mp-text-fs-medium">
+        Abutin ang pangarap kasama ang
+        <a href="https://www.upprovidentfund.com/" target="_blank">
+            UP PROVIDENT FUND INC.
+        </a>
+    </label> --}}
+    </div>
+    <div class="mp-input-group mp-mt3 mp-text-center qr">
+        <label class="mp-input-group__label">Scan QR</label>
+        <br>
+        <img src="{!! asset('assets/icons/qr-icon.svg') !!}" alt="UPPFI">
     </div>
     @endif
     @if (session('status'))
@@ -22,6 +32,7 @@
     </div>
     @endif
 </div>
+
 <!-- <button id="modal_name_pop">Show Modal</button> -->
 <form id="loginForm" class="mp-pt4 mp-mb5" method="post" action="{{ url('/login') }}">
     {{ csrf_field() }}
@@ -52,35 +63,37 @@
 
 
         </div>
-    </div>
-    <div class="mp-pt3 row justify-content-between grid mp-pv-1">
-        <div class="col">
-            <div class="row flex-column">
 
 
-                <br />
-                <br />
-                @if (Request::route()->getName() == 'admin')
-                <a class="mp-text-fs-small mp-link link_style" href="https://www.upprovidentfund.com/">
-                    Back to www.upprovidentfund.com
-                </a>
-                @else
-                <label class="mp-text-fs-small">
-                    <span>If you are not yet a member? </span><span class="mp-link link_style" id="register">Click
-                        here</span>
-                </label>
-                <label class="mp-text-fs-small">
-                    <span>Do you want to check your application status? </span><span class="mp-link link_style" id="status_trail">Click here</span>
-                </label>
-                <a class="mp-text-fs-small mp-link link_style" href="https://www.upprovidentfund.com/">
-                    Back to www.upprovidentfund.com
-                </a>
-                @endif
+        <div class="mp-pt3 row justify-content-between grid mp-pv-1">
+            <div class="col">
+                <div class="row flex-column">
+
+
+                    <br />
+                    <br />
+                    @if (Request::route()->getName() == 'admin')
+                    <a class="mp-text-fs-small mp-link link_style" href="https://www.upprovidentfund.com/">
+                        Back to www.upprovidentfund.com
+                    </a>
+                    @else
+                    <label class="mp-text-fs-small">
+                        <span>If you are not yet a member? </span><span class="mp-link link_style" id="register">Click
+                            here</span>
+                    </label>
+                    <label class="mp-text-fs-small">
+                        <span>Do you want to check your application status? </span><span class="mp-link link_style" id="status_trail">Click here</span>
+                    </label>
+                    <a class="mp-text-fs-small mp-link link_style" href="https://www.upprovidentfund.com/">
+                        Back to www.upprovidentfund.com
+                    </a>
+                    @endif
+                </div>
             </div>
         </div>
     </div>
-
 </form>
+</div>
 @endsection
 
 @section('status-trail-form')
@@ -150,6 +163,115 @@
             <div class="col">
                 <label id="fname_label"></label>
             </div>
+
+            <div class="row">
+                <div class="col">
+                    <label>Middle Name : </label>
+                </div>
+                <div class="col">
+                    <label id="mname_label"></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label>Last Name : </label>
+                </div>
+                <div class="col">
+                    <label id="lname_label"></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label>Suffix : </label>
+                </div>
+                <div class="col">
+                    <label id="suffix_label"></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label>Birth date : </label>
+                </div>
+                <div class="col">
+                    <label id="bdate_label"></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label>Appointment : </label>
+                </div>
+                <div class="col">
+                    <label id="appointment_label"></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label>Tin No : </label>
+                </div>
+                <div class="col">
+                    <label id="tin_no_label"></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label>Contact No. : </label>
+                </div>
+                <div class="col">
+                    <label id="contact_no_label"></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <label>Land line no. : </label>
+                </div>
+                <div class="col">
+                    <label id="landlineno_label"></label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label>Email Address : </label>
+                </div>
+                <div class="col">
+                    <label id="email_add_label"></label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 status-title" style="margin-bottom: -20px;">
+                    <Label>Status : </Label>
+                    <label class="status-text" id="application_status"></label>
+                </div>
+                <div class="col-12 status-title">
+                    <Label>Remarks : </Label>
+                    <label class="status-text"></label>
+                </div>
+            </div>
+
+
+            <div class="container" style="text-align:center;">
+                <div class="row">
+                    <div class="col-6">
+                        <button class="up-button btn-md mp-mt3  hover-back" id="fp_back" value="" style="float:right;">
+                            <span>Close</span>
+                        </button>
+                    </div>
+
+                    <div class="col-6">
+                        <button class="up-button btn-md mp-mt3 mp-mb3" style="float:left;" id="print_app">Print</button>
+                        <button class="up-button btn-md mp-mt3 mp-mb3" style="float:left;" id="cont_app">Continue the
+                            application</button>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="row">
@@ -358,90 +480,144 @@
                 <input type="radio" value="OTHERS" id="citizenship" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 5px;">Others</label>
             </div>
-            <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" id="d_citizen" disabled />
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Present Address</label><br>
-            <label class="mp-input-group__label">Province</label>
-            <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
-                <option></option>
-            </select>
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Municipality</label>
-            <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality" required>
-                <option></option>
-            </select>
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Barangay</label>
-            <select class="mp-input-group__input mp-text-field" id="present_barangay" name="present_barangay" required>
-                <option></option>
-            </select>
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Bldg No. St. No.</label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="present_bldg_street" name="present_bldg_street" />
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Zipcode</label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="present_zipcode" name="present_zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
-        </div>
-
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Permanent Address</label>
-            <div class="d-flex gap-5">
-                <input type="checkbox" value="1" id="perm_add_check" name="perm_add_check" />
-                <label class="mp-input-group__label" style="margin-top: 5px;">(Same as above)</label>
-
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">First Name</label>
+                <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
             </div>
-            <input class="mp-input-group__input mp-text-field" type="text" name="same_add" id="same_add" readonly />
-        </div>
-        <div class="mp-input-group same_div">
-            <label class="mp-input-group__label">Province</label>
-            <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
-                <option></option>
-            </select>
-        </div>
-        <div class="mp-input-group same_div">
-            <label class="mp-input-group__label">Municipality</label>
-            <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
-                <option></option>
-            </select>
-        </div>
-        <div class="mp-input-group same_div">
-            <label class="mp-input-group__label">Barangay</label>
-            <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
-                <option></option>
-            </select>
-        </div>
-        <div class="mp-input-group same_div">
-            <label class="mp-input-group__label">Bldg No. St. No.</label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="bldg_street" name="bldg_street" />
-        </div>
-        <div class="mp-input-group same_div">
-            <label class="mp-input-group__label">Zipcode</label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="zipcode" name="zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Cellphone Number</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Landline Number</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="landline_no" />
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Email Address</label>
-            <input class="mp-input-group__input mp-text-field" type="email" name="email" required />
-        </div>
-        <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-2" id="next-btn">
-            <span>Next</span>
-        </a>
-        <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Middle Name</label>
+                <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Suffix</label>
+                <input class="mp-input-group__input mp-text-field" type="text" name="suffix" />
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Date of Birth</label>
+                <input class="mp-input-group__input mp-text-field" type="date" name="date_birth" required />
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Gender</label>
+                <select class="mp-input-group__input mp-text-field" name="gender" required>
+                    <option>Select Gender</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                </select>
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Civil Status</label>
+                <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
+                    <option>Single</option>
+                    <option>Married</option>
+                    <option>Widowed</option>
+                    <option>Divorced</option>
+                    <option>Registered Ppartnership</option>
+                </select>
+            </div>
+            <div class="mp-input-group ">
+                <label class="mp-input-group__label">Citizenship</label>
+                <div class="d-flex gap-5 mp-mb2">
+                    <input type="radio" value="FILIPINO" id="citizenship" name="citizenship" />
+                    <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Filipino</label>
+                    <input type="radio" value="DUAL CITIZENSHIP" id="citizenship" name="citizenship" />
+                    <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Dual
+                        Citizenship</label>
+                    <input type="radio" value="OTHERS" id="citizenship" name="citizenship" />
+                    <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 5px;">Others</label>
+                </div>
+                <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
+                <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" id="d_citizen" disabled />
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Present Address</label><br>
+                <label class="mp-input-group__label">Province</label>
+                <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
+                    <option value="">Select Province</option>
+                    {{-- @foreach ($psgc_prov as $row)
+                    <option value="{{ $row->code }}">{{ mb_strtoupper($row->name) }}</option>
+                    @endforeach --}}
+                </select>
+                <input type="hidden" id="present_province_name" name="present_province_name">
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Municipality</label>
+                <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality" required>
+                    <option value=""></option>
+                </select>
+                <input type="hidden" id="present_municipality_name" name="present_municipality_name">
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Barangay</label>
+                <select class="mp-input-group__input mp-text-field" id="present_barangay" name="present_barangay" required>
+                    <option></option>
+                </select>
+                <input type="hidden" id="present_barangay_name" name="present_barangay_name">
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Bldg No. St. No.</label>
+                <input class="mp-input-group__input mp-text-field" type="text" id="present_bldg_street" name="present_bldg_street" />
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Zipcode</label>
+                <input class="mp-input-group__input mp-text-field" type="text" id="present_zipcode" name="present_zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
+            </div>
 
-    </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Permanent Address</label>
+                <div class="d-flex gap-5">
+                    <input type="checkbox" value="1" id="perm_add_check" name="perm_add_check" />
+                    <label class="mp-input-group__label" style="margin-top: 5px;">(Same as above)</label>
+
+                </div>
+                <input class="mp-input-group__input mp-text-field" type="text" name="same_add" id="same_add" readonly />
+            </div>
+            <div class="mp-input-group same_div">
+                <label class="mp-input-group__label">Province</label>
+                <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
+                    <option></option>
+                </select>
+                <input type="hidden" id="province_name" name="province_name">
+            </div>
+            <div class="mp-input-group same_div">
+                <label class="mp-input-group__label">Municipality</label>
+                <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
+                    <option></option>
+                </select>
+                <input type="hidden" id="municipality_name" name="municipality_name">
+            </div>
+            <div class="mp-input-group same_div">
+                <label class="mp-input-group__label">Barangay</label>
+                <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
+                    <option></option>
+                </select>
+                <input type="hidden" id="barangay_name" name="barangay_name">
+            </div>
+            <div class="mp-input-group same_div">
+                <label class="mp-input-group__label">Bldg No. St. No.</label>
+                <input class="mp-input-group__input mp-text-field" type="text" id="bldg_street" name="bldg_street" />
+            </div>
+            <div class="mp-input-group same_div">
+                <label class="mp-input-group__label">Zipcode</label>
+                <input class="mp-input-group__input mp-text-field" type="text" id="zipcode" name="zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Cellphone Number</label>
+                <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Landline Number</label>
+                <input class="mp-input-group__input mp-text-field" type="text" name="landline_no" />
+            </div>
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Email Address</label>
+                <input class="mp-input-group__input mp-text-field" type="email" name="email" required />
+            </div>
+            <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-2" id="next-btn">
+                <span>Next</span>
+            </a>
+            <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
+        </div>
 
 </form>
 <form id="member_forms_con">
@@ -451,7 +627,7 @@
         <div class="mp-input-group">
             <label class="mp-input-group__label">Campus</label>
             <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
-                <option>Select Campus</option>
+                <option value="">Select Campus</option>
                 {{-- @foreach ($campuses as $row)
                     <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
                 @endforeach --}}
@@ -460,7 +636,7 @@
         <div class="mp-input-group">
             <label class="mp-input-group__label">Employee Classification</label>
             <select class="mp-input-group__input mp-text-field" name="classification">
-                <option>Select Classification</option>
+                <option value="">Select Classification</option>
                 <option>Class A </option>
             </select>
         </div>
@@ -601,8 +777,91 @@
                 </label>
             </div>
             <div class="mp-input-group">
-                {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="documents[]" required accept="application/pdf" multiple/> --}}
-                <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" id="coco" name="coco" required accept="application/pdf" />
+                <div class="d-flex gap-5">
+                    <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" onClick="ckChange(this)" />
+                    <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
+                        - 100%)</label>
+                </div>
+                <input class="mp-input-group__input mp-text-field" type="text" name="percentage_bsalary" id="percentage_bsalary" />
+                <label class="mp-input-group__label" style="margin-top: 5px;">Equivalent:</label> <label class="mp-input-group__label" id="computed_amount" style="margin-top: 5px;"></label>
+            </div>
+            <div class="mp-input-group">
+                <div class="d-flex gap-5">
+                    <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check" onClick="ckChange(this)" />
+                    <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso
+                        )</label>
+                </div>
+                <input class="mp-input-group__input mp-text-field" type="text" name="fixed_amount" id="fixed_amount" />
+            </div>
+            <div class="mp-input-group d-flex gap-5 flex-column">
+                <label class="mp-input-group__label">Dependents</label>
+                <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Name" />
+                <input class="mp-input-group__input mp-text-field" type="text" id="dependent_bday" onfocus="(this.type='date')" placeholder="Birthday" />
+                <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" placeholder="Relationship" />
+                <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
+                    <span id="add_dependent">Add Dependent</span> </a>
+            </div>
+            <table class=" mp-mh2" id="dependentTable" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Birthday</th>
+                        <th>Relationship</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+
+            <div class="mp-input-group">
+                <label class="mp-input-group__label">Supporting Document</label>
+            </div>
+
+            <div class="supporting_docu">
+                <input type="hidden" name="app_no" id="app_no">
+                <input type="hidden" name="percent_amt" id="percent_amt">
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">
+                        <a href="{{ route('download_coco') }}" class="mp-link link_style">Click here</a><span> to
+                            download Cocolife Form for manual signature (Optional) </span>
+                    </label>
+                </div>
+                <div class="mp-input-group">
+                    {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="documents[]" required accept="application/pdf" multiple/> --}}
+                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" id="coco" name="coco" required accept="application/pdf" />
+                </div>
+
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">
+                        <a href="{{ route('download_proxy') }}" class="mp-link link_style">Click here</a><span> to
+                            download Proxy Form for manual signature (Optional) </span>
+                    </label>
+                </div>
+                <div class="mp-input-group">
+                    {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="documents[]" required accept="application/pdf" multiple/> --}}
+                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" id="proxy_form" name="proxy" required accept="application/pdf" />
+                </div>
+            </div>
+
+
+            <div class="mp-input-group">
+                <div class="d-flex gap-5">
+                    <input type="checkbox" id="generateForm" name="generateForm" value="generateForm" />
+                    <label class="mp-input-group__label" style="margin-top: 5px;">Generate Cocolife and Proxy Form</label>
+                </div>
+
+                <div id="proxy">
+                    <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
+                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
+                    <input type="hidden" name="appNo" id="appNo">
+                    <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
+                        <span>Generate Proxy Form</span>
+                    </button>
+                    <hr>
+                    <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generare Cocolife</button>
+                </div>
             </div>
 
             <div class="mp-input-group">
