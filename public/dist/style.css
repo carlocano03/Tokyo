@@ -3773,6 +3773,10 @@ tfoot {
     border-radius: 5px;
 }
 
+.shadow-1 {
+    box-shadow: 0 1px 3px 0 var(--c-shadow);
+}
+
 .p-2 {
     padding: 10px
 }
@@ -5588,7 +5592,6 @@ tfoot {
 
 .fill-block {
     min-height: 70vh;
-    <<<<<<< HEAD=======
 }
 
 .gap-0 {
@@ -6359,6 +6362,10 @@ tfoot {
     color: var(--c-base-50);
     line-height: 1;
     font-weight: 400;
+}
+
+.text-center {
+    text-align: center;
 }
 
 .mh-content {

@@ -51,6 +51,13 @@
         .p-0 {
             padding: 0;
         }
+        .font-bold {
+                font-weight: 500;
+        }
+        .font-lg {
+                    font-size: 30px;
+        }
+                
 
         .icons span:last-child {
             margin-right: -10px;
@@ -270,6 +277,11 @@
                 grid-column: span 12;
             }
 
+            .right-dashboard {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+
             .total-loans {
                 display: flex;
                 flex-direction: column;
@@ -325,6 +337,8 @@
 
 
             .right-dashboard {
+                padding-top: 10px;
+                padding-bottom: 10px;
                 padding-left: 15px;
                 margin-top: 10px;
                 margin-bottom: 25px;
@@ -539,6 +553,23 @@
             color: white;
         }
 
+        .red-clr {
+            color: #de2e4f;
+        }
+
+        .green-clr {
+            color: #39b74d;
+        }
+
+        .maroon-clr {
+            color: #894168;
+        }
+
+        .magenta-clr {
+            color: #1a8981;
+        }
+
+
         .font-sm {
             font-size: 13px;
         }
@@ -571,6 +602,7 @@
             text-align: center;
         }
 
+       
 
 
     </style>
@@ -704,50 +736,30 @@
                     </div>
                 </div>
             </div>
-            <div class="right-dashboard col grid side-dashboard gap-10 font-sm">
-                <div class="card-container card p-0 ">
-                    <div class="card-header green-bg text-center">
-                        New
+            <div class="right-dashboard col grid side-dashboard gap-10 font-sm card" style="color: black;">
+                <div class="text-center d-flex flex-column justify-content-center">
+                    <div>
+                        <span class="font-bold font-lg magenta-clr" id="new_app">0</span>
                     </div>
-                    <div class="card-body justify-content-center">
-                        <div class="ldBar green label-center" data-preset="circle" data-value="0" id="new_app" style="width: 60px; height:60px"></div>
-                    </div> 
-                    <button class="green-bg button-view mt-auto">
-                        View
-                    </button>
+                    <span class="font-sm">New Application</span>
                 </div>
-                <div class="card-container card p-0">
-                    <div class="card-header magenta-bg text-center">
-                        Processing
+                <div class="text-center d-flex flex-column justify-content-center">
+                    <div>
+                        <span class="font-bold font-lg magenta-clr" id="forApproval">0</span>
                     </div>
-                    <div class="card-body justify-content-center">
-                        <div class="ldBar magenta label-center" data-preset="circle" data-value="0" id="forApproval" style="width: 60px; height:60px"></div>
-                    </div>
-                    <button class="magenta-bg button-view mt-auto">
-                        View
-                    </button>
+                    <span class="font-sm">Processing Application</span>
                 </div>
-                <div class="card-container card p-0">
-                    <div class="card-header maroon-bg text-center">
-                        Approved
+                <div class="text-center d-flex flex-column justify-content-center">
+                    <div>
+                        <span class="font-bold font-lg magenta-clr" id="draft">0</span>
                     </div>
-                    <div class="card-body justify-content-center">
-                        <div class="ldBar maroon label-center" data-preset="circle" data-value="0" id="draft" style="width: 60px; height:60px"></div>
-                    </div>
-                    <button class="maroon-bg button-view mt-auto">
-                        View
-                    </button>
+                    <span class="font-sm">Approved Application</span>
                 </div>
-                <div class="card-container card p-0">
-                    <div class="card-header red-bg text-center">
-                        Rejected
+                <div class="text-center d-flex flex-column justify-content-center">
+                    <div>
+                        <span class="font-bold font-lg magenta-clr" id="rejected">0</span>
                     </div>
-                    <div class="card-body justify-content-center">
-                        <div class="ldBar red label-center" data-preset="circle" data-value="0" id="rejected" style="width: 60px; height:60px"></div>
-                    </div>
-                    <button class="red-bg button-view mt-auto">
-                        View
-                    </button>
+                    <span class="font-sm ">Rejected Application</span>
                 </div>
             </div>
             <div class="col">
@@ -867,14 +879,14 @@
                         color: 'rgb(124, 181, 236)',
                         data: [
                             { y: 631, color: 'rgb(247, 163, 92)' },
-                            { y: 1300, color: '#071e22'},
+                            { y: 1300, color: '#1a8981'},
                             { y: 3202, color: 'rgb(124, 181, 236)'},
                             { y: 721, color: 'rgb(247, 163, 92)'},
                             { y: 300, color: 'rgb(144, 237, 125)'},
                             { y: 631, color: 'rgb(247, 163, 92)'},
                             { y: 727, color: 'rgb(247, 163, 92)'},
                             { y: 3202, color: 'rgb(124, 181, 236)'},
-                            { y: 2000, color: '#071e22'},
+                            { y: 2000, color: '#1a8981'},
                             { y: 50, color: 'rgb(144, 237, 125)'}
 
                        ]
@@ -1040,18 +1052,18 @@
                 },
                 dataType: "json",
                 success: function(data) {
-                    // $('#new_app').attr("data-value", );
-                    // $('#forApproval').attr("data-value", data.forApproval > 0 ? data.forApproval : "0");
-                    // $('#draft').attr("data-value", data.draft > 0 ? data.draft : "0");
-                    // $('#rejected').attr("data-value", data.rejected > 0 ? data.rejected : "0");
-                    var bar1 = new ldBar("#new_app");
-                    bar1.set(data.new_app > 0 ? data.new_app : 0);
-                    var bar2 = new ldBar("#forApproval");
-                    bar2.set(data.forApproval > 0 ? data.forApproval : 0);
-                    var bar3 = new ldBar("#draft");
-                    bar3.set(data.draft > 0 ? data.draft : 0);
-                    var bar4 = new ldBar("#rejected");
-                    bar4.set(data.rejected > 0 ? data.rejected : 0);
+                    $('#new_app').text(data.new_app > 0 ? data.new_app : "0");
+                    $('#forApproval').text(data.forApproval > 0 ? data.forApproval : "0");
+                    $('#draft').text(data.draft > 0 ? data.draft : "0");
+                    $('#rejected').text(data.rejected > 0 ? data.rejected : "0");
+                    // var bar1 = new ldBar("#new_app");
+                    // bar1.set(data.new_app > 0 ? data.new_app : 0);
+                    // var bar2 = new ldBar("#forApproval");
+                    // bar2.set(data.forApproval > 0 ? data.forApproval : 0);
+                    // var bar3 = new ldBar("#draft");
+                    // bar3.set(data.draft > 0 ? data.draft : 0);
+                    // var bar4 = new ldBar("#rejected");
+                    // bar4.set(data.rejected > 0 ? data.rejected : 0);
                 }
             });
         }
