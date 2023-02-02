@@ -99,12 +99,13 @@
         Application Status Trail
     </div>
 
-    <label class="mp-text-fs-medium">
+    {{-- <label class="mp-text-fs-medium">
         Abutin ang pangarap kasama ang
         <a href="https://www.upprovidentfund.com/" target="_blank">
             UP PROVIDENT FUND INC.
         </a>
-    </label>
+    </label> --}}
+    
     <div class="mp-input-group mp-mt3 mp-text-center qr">
         <label class="mp-input-group__label">Scan QR</label>
         <br>
@@ -257,7 +258,7 @@
                     <div class="col-6">
                         <button class="up-button btn-md mp-mt3  hover-back" id="fp_back" value=""
                             style="float:right;">
-                            <span>Back</span>
+                            <span>Close</span>
                         </button>
                     </div>
 

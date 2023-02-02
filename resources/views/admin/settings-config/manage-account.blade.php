@@ -291,11 +291,11 @@
   }
 
   .settings-tab label {
-    /* margin-left: 20px; */
+    margin-left: 20px;
   }
 
   .settings-tab a {
-    /* margin-left: 20px; */
+    margin-left: 20px;
   }
 
   .top-label i {

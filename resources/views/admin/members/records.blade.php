@@ -45,16 +45,16 @@
         }
 
         .history-container {
-            min-height: 65vh;
-            max-height: 65vh;
+            min-height: calc(57vh - 10px);
+            max-height: calc(57vh - 10px);
             overflow: auto;
             padding: 0;
 
         }
 
         .table-container {
-            min-height: calc(65vh - 219px);
-            max-height: calc(65vh - 219px);
+            min-height: calc(60vh - 220px);
+            max-height: calc(60vh - 220px);
             overflow: auto;
         }
 
@@ -302,20 +302,20 @@
             margin-left: auto;
         }
         .middle-content {
-            width: calc(73% - 20px);
+            width: calc(80% - 10px);
             transition: all .5s;
         }
         .middle-content.full {
-            width: calc(88% - 10px);
+            width: 100%;
             transition: all .5s;
         }
-        .left-content {
-            width: 15%;
+        .right-content {
+            width: 20%;
             opacity: 1;
-            transition: opacity .5s;
+            transition: all .2s;
         }
-        .left-content.full {
-            width: 0px;
+        .right-content.full {
+            width: -1%;
             opacity: 0;
         }
         .d-none {
@@ -332,6 +332,10 @@
 
         .w-auto {
             width: 100%;
+        }
+
+        .w-80 {
+            width: calc(88% - 10px);
         }
 
         .table-form {
@@ -471,6 +475,16 @@
             width: 98%;
         }
 
+        .justify-items-center {
+            justify-items: center;
+        }
+
+
+        .font-lg {
+            font-size: 30px;
+        }
+        
+
 
     </style>
     <div class="filler"></div>
@@ -478,18 +492,24 @@
     <script>
         $(document).on('click', '#showLogs', function(e) {
             if ($(".middle-content").hasClass("full")) {
-            $(".middle-content").removeClass("full")
-            $(".left-content").removeClass("d-none")
-            setTimeout(function() {
-                $(".left-content").removeClass("full")
-            }, 500)
-            $("#showLogs").text("Hide history logs")
+                $(".middle-content").removeClass("full")
+                setTimeout(function() {
+                    $(".right-content").removeClass("d-none")
+                    $(".right-content").removeClass("full")
+                }, 500)
+                
+                $("#showLogs").text("Hide history logs")
             } else {
-            $(".middle-content").addClass("full")
-            
-            $(".left-content").addClass("d-none")
-            $(".left-content").addClass("full")
-            $("#showLogs").text("Show history logs")
+                
+                $(".right-content").addClass("full")
+               
+                setTimeout(function() {
+                    $(".right-content").addClass("d-none")
+                    $(".middle-content").addClass("full")
+                }, 200)
+               
+                
+                $("#showLogs").text("Show history logs")
             }
         })
         $(document).on('click', '#trail-button', function(e) {
@@ -515,13 +535,12 @@
                 $("#view-member-details").addClass("d-none")
             }
         })
-        $(document).ready(function () {
-            $("#view-member-details").removeClass("d-none")
-                $("#view-all-members").removeClass("d-none")
-        })
+        // $(document).ready(function () {
+        //     $("#view-member-details").removeClass("d-none")
+        //         $("#view-all-members").removeClass("d-none")
+        // })
     </script>
-    <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}">
-    </link>
+    <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
     <div class="row no-gutter ml-0 mr-0 p-5px mh-content d-none" id="view-member-details">
         <div class="w-full">
             <div class="card relative" style="min-height: 200px;">
@@ -1072,269 +1091,261 @@
             </span>
         </div>
         <div class="col-12 mp-pr0" style="width: 100%;">
-            <div class="row d-flex flex-row gap-10 mp-pr0" style="width: 100%;">
-                <div style="width: 12%;" class="d-flex flex-column gap-10">
-                    <div class="card-container card p-0">
-                        <div class="card-header font-sm text-center green-bg">
-                            New Application
-                        </div>
-                        <div class="card-body justify-content-center">
-                            <div class="ldBar green label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="{{ $new_app }}">
-                            </div>
-                        </div>
-                        <button class="green-bg button-view font-sm">
-                            View
-                        </button>
+        <div class="w-full d-flex flex-row justify-content-center mp-mh3">
+            <div class=" card d-flex justify-content-around w-80 flex-row">
+                <div class="text-center">
+                    <div>
+                        <span class="font-bold font-lg">100</span>
                     </div>
-                    <div class="card-container card p-0">
-                        <div class="card-header font-sm text-center magenta-bg">
-                            Processing Application
-                        </div>
-                        <div class="card-body justify-content-center">
-                            <div class="ldBar magenta label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="{{ $forApproval }}">
-                            </div>
-                        </div>
-                        <button class="magenta-bg button-view font-sm">
-                            View
-                        </button>
-                    </div>
-                    <div class="card-container card p-0">
-                        <div class="card-header font-sm text-center maroon-bg">
-                            Approved Application
-                        </div>
-                        <div class="card-body justify-content-center">
-                            <div class="ldBar maroon label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="{{ $approved }}">
-                            </div>
-                        </div>
-                        <button class="maroon-bg button-view font-sm">
-                            View
-                        </button>
-                    </div>
-                    <div class="card-container card p-0">
-                        <div class="card-header font-sm text-center red-bg">
-                            Rejected Application
-                        </div>
-                        <div class="card-body justify-content-center">
-                            <div class="ldBar red label-center" data-preset="circle" style="width: 60px; height: 60px" data-value="{{ $rejected }}"></div>
-                        </div>
-                        <button class="red-bg button-view font-sm">
-                            View
-                        </button>
-                    </div>
+                    <span class="font-sm">New Application</span>
                 </div>
-                <div class="d-flex flex-column gap-10 middle-content full">
-                    <div class="card-container card p-0 ">
-                        <div class="card-header filtering">
-                            Filtering Section
-                        </div>
-                        <div class="card-body filtering-section-body justify-content-center gap-10">
-                            <div class="col-md-12 col-xl-6">
-                                <div class="row field-filter">
-                                    <div class="col-md-12 p-0">
-                                        <label for="row">Campus</label>
-                                        <select name="" class="radius-1 outline select-field"
-                                            style="width: 100%; height: 30px" id="campuses_select">
-                                            <option value="">Show All</option>
-                                            @foreach ($campuses as $row)
-                                              <option value="{{ $row->campus_key }}">{{ $row->name }}</option> 
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="col-md-12 p-0">
-                                        <label for="row">Department</label>
-                                        <select name="" class="radius-1 outline select-field"
-                                            style="width: 100%; height: 30px" id="department_select">
-                                            <option value="">Show All</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-xl-5">
-                                <div class="row">
-                                    <label for="row">Membership Date</label>
-                                </div>
-                                <div class="row date_range">
-                                    <input type="date" id="from" class="radius-1 border-1 date-input outline"
-                                        style="height: 30px;">
-                                    <span for="" class="self_center mv-1"
-                                        style="margin-left:15px; margin-right:15px;">to</span>
-                                    <input type="date" id="to" class="radius-1 border-1 date-input outline"
-                                        style="height: 30px;">
-                                </div>
-                            </div>
-                        </div>
+                <div class="text-center">
+                    <div>
+                        <span class="font-bold font-lg">10</span>
                     </div>
-                    <div class="d-flex gap-10 flex-row justify-content-end mp-pr2">
-                        <button class="f-button">Export</button>
-                        <button class="f-button">Print</button>
+                    <span class="font-sm">Processing Application</span>
+                </div>
+                <div class="text-center">
+                    <div>
+                        <span class="font-bold font-lg">1</span>
                     </div>
-                    <div class="card d-flex flex-column">
-                        <div class="d-flex flex-row items-between">
-                            <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value"/>
-                            <select name="" id="" class="radius-1 outline select-field mp-pr2"
-                                style="height: 30px;margin-top: auto;margin-bottom: auto;">
-                                <option value="">
-                                    All Records
-                                </option>
-                                <option value="">
-                                    AA
-                                </option>
-                                <option value="">
-                                    CFM
-                                </option>
-                                <option value="">
-                                    HRDO
-                                </option>
-                            </select>
+                    <span class="font-sm">Approved Application</span>
+                </div>
+                <div class="text-center">
+                    <div>
+                        <span class="font-bold font-lg">40</span>
+                    </div>
+                    <span class="font-sm">Rejected Application</span>
+                </div>
+            </div>
+        </div>
+        <div class="w-full justify-content-center d-flex">
+            <div class="d-flex flex-row w-80 gap-10" >
+                    <div class="d-flex flex-column gap-10 middle-content full">
+                        <div class="card-container card p-0">
+                            <div class="card-header filtering items-between d-flex">
+                                <span>Filtering Section</span>
+                                <span class="mp-pr2">
+                                    <button class="f-button font-bold">Export</button>
+                                    <button class="f-button font-bold">Print</button>
+                                </span>
+                            </div>
+                        
+                        
+                            <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
+                                
+                                <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr);">
+                                    <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap">
+                                        <span>Campus</span>
+                                        <select name="" class="radius-1 outline select-field"
+                                                style="width: 100%; height: 30px" id="campuses_select">
+                                                <option value="">Show All</option>
+                                                @foreach ($campuses as $row)
+                                                <option value="{{ $row->campus_key }}">{{ $row->name }}</option> 
+                                                @endforeach
+                                            </select>
+                                    </span>
+                                    <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap">
+                                        <span>Department</span>
+                                        <select name="" class="radius-1 outline select-field"
+                                                style="width: 100%; height: 30px" id="department_select">
+                                                <option value="">Show All</option>
+                                            </select>
+                                    </span>
+                                    <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap">
+                                        <span>Membership Date</span>
+                                        <div class="date_range d-flex">
+                                                <input type="date" id="from" class="radius-1 border-1 date-input outline"
+                                                    style="height: 30px;">
+                                                <span for="" class="self_center mv-1"
+                                                    style="margin-left:15px; margin-right:15px;">to</span>
+                                                <input type="date" id="to" class="radius-1 border-1 date-input outline"
+                                                    style="height: 30px;">
+                                            </div>
+                                    </span>
+                                </div>
+                                        <!-- <div class="">
+                                            <label for="row">Membership Date</label>
+                                            <div class="row date_range">
+                                                <input type="date" id="from" class="radius-1 border-1 date-input outline"
+                                                    style="height: 30px;">
+                                                <span for="" class="self_center mv-1"
+                                                    style="margin-left:15px; margin-right:15px;">to</span>
+                                                <input type="date" id="to" class="radius-1 border-1 date-input outline"
+                                                    style="height: 30px;">
+                                            </div>
+                                        </div> -->
+                                
+                            </div>
                         </div>
-                        <div class="mp-mt3 table-container">
-                            <table class="members-table" style="height: auto;" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 48px;">
-                                            <span>Action</span>
-                                        </th>
-                                        <th>
-                                            <span>Application No.</span>
-                                        </th>
-                                        <th>
-                                            <span>Date of Application</span>
-                                        </th>
-                                        <th>
-                                            <span>Full Name</span>
-                                        </th>
-                                        <th>
-                                            <span>Employee No</span>
-                                        </th>
-                                        <th>
-                                            <span>Class</span>
-                                        </th>
-                                        <th>
-                                            <span>Position</span>
-                                        </th>
-                                        <th>
-                                            <span>MC</span>
-                                        </th>
-                                        <th>
-                                            <span>Status</span>
-                                        </th>
-                                        <th>
-                                            <span>Remarks</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
+                        <div class="card d-flex flex-column">
+                            <div class="d-flex flex-row items-between">
+                                <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value"/>
+                                <select name="" id="" class="radius-1 outline select-field mp-pr2"
+                                    style="height: 30px;margin-top: auto;margin-bottom: auto;">
+                                    <option value="">
+                                        All Records
+                                    </option>
+                                    <option value="">
+                                        AA
+                                    </option>
+                                    <option value="">
+                                        CFM
+                                    </option>
+                                    <option value="">
+                                        HRDO
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="mp-mt3 table-container">
+                                <table class="members-table" style="height: auto;" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 48px;">
+                                                <span>Action</span>
+                                            </th>
+                                            <th>
+                                                <span>Application No.</span>
+                                            </th>
+                                            <th>
+                                                <span>Date of Application</span>
+                                            </th>
+                                            <th>
+                                                <span>Full Name</span>
+                                            </th>
+                                            <th>
+                                                <span>Employee No</span>
+                                            </th>
+                                            <th>
+                                                <span>Class</span>
+                                            </th>
+                                            <th>
+                                                <span>Position</span>
+                                            </th>
+                                            <th>
+                                                <span>MC</span>
+                                            </th>
+                                            <th>
+                                                <span>Status</span>
+                                            </th>
+                                            <th>
+                                                <span>Remarks</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="left-content full d-none">
-                    <div class="card-container card p-0">
-                        <div class="card-header history-logs">
-                            History Logs
-                        </div>
-                        <div class="card-body flex-column history-container ">
-                            <input class="mp-input-group__input mp-text-field mp-pt2 sticky top-0 " type="text"
-                                placeholder="Search here" style="width: 95% ;margin-left: auto;margin-right: auto" />
-                            <div class="history-item">
-                                <div>
-                                    <span class="font-18">Dela Cruz, Juan</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">UP Head Office / Administrator</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
-                                </div>
+                    <div class="right-content full d-none">
+                        <div class="card-container card p-0">
+                            <div class="card-header history-logs">
+                                History Logs
                             </div>
-                            <div class="history-item">
-                                <div>
-                                    <span class="font-18">Dela Cruz, Juan</span>
+                            <div class="card-body flex-column history-container ">
+                                <input class="mp-input-group__input mp-text-field mp-pt2 sticky top-0 " type="text"
+                                    placeholder="Search here" style="width: 95% ;margin-left: auto;margin-right: auto" />
+                                <div class="history-item">
+                                    <div>
+                                        <span class="font-18">Dela Cruz, Juan</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">UP Head Office / Administrator</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span class="font-13">UP Head Office / Administrator</span>
+                                <div class="history-item">
+                                    <div>
+                                        <span class="font-18">Dela Cruz, Juan</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">UP Head Office / Administrator</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                <div class="history-item">
+                                    <div>
+                                        <span class="font-18">Dela Cruz, Juan</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">UP Head Office / Administrator</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="history-item">
-                                <div>
-                                    <span class="font-18">Dela Cruz, Juan</span>
+                                <div class="history-item">
+                                    <div>
+                                        <span class="font-18">Dela Cruz, Juan</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">UP Head Office / Administrator</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span class="font-13">UP Head Office / Administrator</span>
+                                <div class="history-item">
+                                    <div>
+                                        <span class="font-18">Dela Cruz, Juan</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">UP Head Office / Administrator</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                <div class="history-item">
+                                    <div>
+                                        <span class="font-18">Dela Cruz, Juan</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">UP Head Office / Administrator</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="history-item">
-                                <div>
-                                    <span class="font-18">Dela Cruz, Juan</span>
+                                <div class="history-item">
+                                    <div>
+                                        <span class="font-18">Dela Cruz, Juan</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">UP Head Office / Administrator</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span class="font-13">UP Head Office / Administrator</span>
+                                <div class="history-item">
+                                    <div>
+                                        <span class="font-18">Dela Cruz, Juan</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">UP Head Office / Administrator</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                    </div>
                                 </div>
-                                <div>
-                                    <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
-                                </div>
-                            </div>
-                            <div class="history-item">
-                                <div>
-                                    <span class="font-18">Dela Cruz, Juan</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">UP Head Office / Administrator</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
-                                </div>
-                            </div>
-                            <div class="history-item">
-                                <div>
-                                    <span class="font-18">Dela Cruz, Juan</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">UP Head Office / Administrator</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
-                                </div>
-                            </div>
-                            <div class="history-item">
-                                <div>
-                                    <span class="font-18">Dela Cruz, Juan</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">UP Head Office / Administrator</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
-                                </div>
-                            </div>
-                            <div class="history-item">
-                                <div>
-                                    <span class="font-18">Dela Cruz, Juan</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">UP Head Office / Administrator</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
-                                </div>
-                            </div>
-                            <div class="history-item">
-                                <div>
-                                    <span class="font-18">Dela Cruz, Juan</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">UP Head Office / Administrator</span>
-                                </div>
-                                <div>
-                                    <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                <div class="history-item">
+                                    <div>
+                                        <span class="font-18">Dela Cruz, Juan</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">UP Head Office / Administrator</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-13">Signed in, January 2, 2023 Time: 02:00 pm</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

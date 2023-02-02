@@ -3,8 +3,8 @@
 
 
 
-    <!-- mobile transition -->
-    <div class="mobile-header">
+<!-- mobile transition -->
+{{-- <div class="mobile-header">
         <div class="logo-title">
             <div class="mp-pb4  mp-text-center logo-text">
                 <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
@@ -15,94 +15,93 @@
 
             </div>
         </div>
-    </div>
-    <div class="transition-background">
+    </div> --}}
+<div class="transition-background">
 
-    </div>
-    <div class="custom-modal not-visible" id="modal_name">
-        <div class="modal-container">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Generate Cocolife Form
-                </div>
-                <div class="modal-body">
-                    {{-- <form id="generateCoco" method="POST" enctype="multipart/form-data">
+</div>
+<div class="custom-modal not-visible" id="modal_name">
+    <div class="modal-container">
+        <div class="modal-content">
+            <div class="modal-header">
+                Generate Cocolife Form
+            </div>
+            <div class="modal-body">
+                {{-- <form id="generateCoco" method="POST" enctype="multipart/form-data">
                         @csrf --}}
-                        <input type="text" name="app_number" id="app_number">
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label">Place of Birth</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth"/>
-                        </div>
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label">Height</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="height" id="height"/>
-                        </div>
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label">Weight</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="weight" id="weight"/>
-                        </div>
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label">Amount of Insurance</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="amt_isurance" id="amt_isurance"/>
-                        </div>
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label">Term of Coverage</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="coverage" id="coverage"/>
-                        </div>
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label">Premiums</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="premiums" id="premiums"/>
-                        </div>
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label">Occupation</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation"/>
-                        </div>
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label">Nature of Work</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="nature_work" id="nature_work"/>
-                        </div>
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label">If seaman, port of entry</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="seaman" id="seaman"/>
-                        </div>
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label">If OCW/OFW,destination country</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="ofw" id="ofw"/>
-                        </div>
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label">Exceptions</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="exception" id="exception"/>
-                        </div>
-                        <div class="mp-input-group">
-                            <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
-                            <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="cocolife_sign" id="cocolife_sign"
-                                accept="image/png, image/gif, image/jpeg, image/jpg" />
-                        </div>
-                        
+                <input type="hidden" name="app_number" id="app_number">
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Place of Birth</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Height</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="height" id="height" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Weight</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="weight" id="weight" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Amount of Insurance</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="amt_isurance" id="amt_isurance" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Term of Coverage</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="coverage" id="coverage" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Premiums</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="premiums" id="premiums" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Occupation</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Nature of Work</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="nature_work" id="nature_work" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">If seaman, port of entry</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="seaman" id="seaman" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">If OCW/OFW,destination country</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="ofw" id="ofw" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Exceptions</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="exception" id="exceptions" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
+                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="cocolife_sign" id="cocolife_sign" accept="image/png, image/gif, image/jpeg, image/jpg" />
                 </div>
 
-                <div class="modal-footer">
-                    <div class="mp-container">
-                        <div class="row">
-                            <button class="up-button btn-md " id="modal_name_close" type="button">
-                                <span>Close</span>
-                            </button>
-                            <button class="up-button btn-md" type="button" id="btn-coco">
-                                <span>Generate</span>
-                            </button>
+            </div>
+
+            <div class="modal-footer">
+                <div class="mp-container" style="display: flex; justify-content: center;">
+                    <div class="row">
+                        <button class="up-button btn-md " id="modal_name_close" type="button">
+                            <span>Close</span>
+                        </button>
+                        <button class="up-button btn-md" type="button" id="btn-coco">
+                            <span>Generate</span>
+                        </button>
                         {{-- </form> --}}
-                        </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
     </div>
-    <div class="mp-split-pane">
-        <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
-            <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-12 col-sm-10">
+</div>
+<div class="mp-split-pane">
+    <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
+        <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-12 col-sm-10">
                     @section('loginForm')
                     @show
 
@@ -115,8 +114,7 @@
             @show
         </div>
 
-        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto"
-            style="height: calc(100% - 0px)">
+        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto" style="height: calc(100% - 0px)">
             @section('registration-personal-form')
             @show
 
@@ -145,20 +143,30 @@
 
 </div>
 <script>
-    window.onload = function() {
-        setTimeout(function() {
-            $('.mobile-header').hide(300);
-        }, 1000);
-    };
-    
-    if ($(window).width() < 768) {
-        $('.mobile-header').show();
-        window.onload = function() {
+    $(document).ready(function() {
+        if ($(window).width() < 768) {
+            $('.transition-background').hide();
+            $("#loading").show();
             setTimeout(function() {
-                $('.mobile-header').hide(300);
+                $("#loading").hide();
             }, 1000);
-        };
-    }
+        }
+    });
+    // window.onload = function() {
+    //     $('#loading').show();
+    //     setTimeout(function() {
+    //         $('#loading').hide();
+    //     }, 1000);
+    // };
+
+    // if ($(window).width() < 768) {
+    //     $('#loading').show();
+    //     window.onload = function() {
+    //         setTimeout(function() {
+    //             $('#loading').hide();
+    //         }, 1500);
+    //     };
+    // }
 
     function ckChange(ckType) {
         var ckName = document.getElementsByClassName(ckType.className);
@@ -259,6 +267,120 @@
             });
         });
     });
+    $(document).on('change', '#present_city', function() {
+        var codes = $(this).val();
+        var subss = codes.substring(0, 6);
+        // console.log(subss);
+        $.ajax({
+            url: "{{ route('psgc_brgy') }}",
+            method: "POST",
+            data: {
+                codes: subss
+            },
+            success: function(data) {
+                var options = '<option value="">Select Barangay</option>';
+                $.each(data.data, function(index, item) {
+                    options += '<option value="' + item.code + '">' + item.name
+                        .toUpperCase() + '</option>';
+                });
+                $("#present_barangay").html(options);
+                $("#present_municipality_name").val($("#present_city").find("option:selected")
+                    .text());
+                if (present_brgycode) {
+                    var brgy_code = present_brgycode;
+                    $("#present_barangay").val(brgy_code).change();
+                }
+            }
+        });
+    });
+    $(document).on('change', '#present_barangay', function() {
+        $("#present_barangay_name").val($("#present_barangay").find("option:selected").text());
+    });
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#present_province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
+        });
+    });
+
+    $(document).on('change', '#province', function() {
+        var codes = $(this).val();
+        var subss = codes.substring(0, 4);
+        // console.log(subss);
+        $.ajax({
+            url: "{{ route('psgc_munc') }}",
+            method: "POST",
+            data: {
+                codes: subss
+            },
+            success: function(data) {
+                var options = '<option value="">Select Municipal</option>';
+                $.each(data.data, function(index, item) {
+                    options += '<option value="' + item.code + '">' + item.name
+                        .toUpperCase() + '</option>';
+                });
+                $("#city").html(options);
+                $("#province_name").val($("#province").find("option:selected").text());
+                if (perm_muncode) {
+                    var mun_code = perm_muncode;
+                    $("#city").val(mun_code).change();
+                }
+            }
+        });
+    });
+    $(document).on('change', '#city', function() {
+        var codes = $(this).val();
+        var subss = codes.substring(0, 6);
+        // console.log(subss);
+        $.ajax({
+            url: "{{ route('psgc_brgy') }}",
+            method: "POST",
+            data: {
+                codes: subss
+            },
+            success: function(data) {
+                var options = '<option value="">Select Barangay</option>';
+                $.each(data.data, function(index, item) {
+                    options += '<option value="' + item.code + '">' + item.name
+                        .toUpperCase() + '</option>';
+                });
+                $("#barangay").html(options);
+                $("#municipality_name").val($("#city").find("option:selected").text());
+                if (perm_brgycode) {
+                    var brgy_code = perm_brgycode;
+                    $("#barangay").val(brgy_code).change();
+                }
+            }
+        });
+    });
+    $(document).on('change', '#barangay', function() {
+        $("#barangay_name").val($("#barangay").find("option:selected").text());
+    });
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
+        });
+    });
+
 
     $(document).on('change','#province',function(){
     var codes = $(this).val();
@@ -330,8 +452,7 @@
         var appNo = query;
         var ref = reference_no;
         console.log(query);
-        if (ref != undefined)
-        {
+        if (ref != undefined) {
             $('#app_number').val(ref);
         } else {
             $('#app_number').val(query);
@@ -467,142 +588,144 @@
                 empty.first().focus();
                 swal.fire("Error!", "Please fill out the required fields", "error");
             } else {
-            if($('#app_trailNo').val() !== '' && personnel_id == undefined){
-                var formDatas = $("#member_forms").serialize();
-                var additionalData = {
-                    'mem_id': mem_id,
-                    'personnel_id': pers_id,
-                };
-                formDatas += '&' + $.param(additionalData);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('update_trail_member') }}",
-                    data: formDatas,
-                    success: function(data) {
-                        if (data.success != '') {
-                            mem_id = data.mem_id;
-                            personnel_id = data.success;
-                            $("#step-1").removeClass('d-flex').addClass("d-none");
-                            $("#member_forms").removeClass('mh-reg-form');
-                            $("#member_forms_con").addClass('mh-reg-form');
-                            $("#step-2").removeClass('d-none').addClass("d-flex");
-                            $("#back").attr('value', 'step-1');
-                            $(this).attr('value', 'step-3');
-                            $("#line").removeClass('step-1').addClass('step-2');
-                            $("#registration-title").text(stepTitle[1]);
-                            $("#stepper-2").addClass("active");
-                        }
-                    }
-                });
-            }else{
-            
-                if (!personnel_id) {
-                    Swal.fire({
-                        title: 'Are you sure?',
-                        text: 'You want to continue this will generate your application number.',
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Yes'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ route('add_member') }}",
-                                data: $('#member_forms').serialize(),
-                                beforeSend: function() {
-                                    $('#loading').show();
-                                },
-                                success: function(data) {
-                                    if (data.success != '') {
-                                        reference_no = data.randomnum;
-                                        mem_id = data.mem_id;
-                                        personnel_id = data.success;
-                                        Swal.fire({
-                                            text: 'This is your application no.:' +
-                                                ' ' +
-                                                reference_no,
-                                            icon: 'success'
-                                        });
-                                        $('.applicationNo').show(200);
-                                        $('#application_no').text(reference_no);
-                                        $('#app_no').val(reference_no);
-                                        $('#appNo').val(reference_no);
-                                        $('#test').val(reference_no);
-                                    }
-                                },
-                                complete: function(data) {
-                                    $('#loading').hide();
-                                },
-                            });
-                            $("#step-1").removeClass('d-flex').addClass("d-none");
-                            $("#member_forms").removeClass('mh-reg-form');
-                            $("#member_forms_con").addClass('mh-reg-form');
-                            $("#step-2").removeClass('d-none').addClass("d-flex");
-                            $("#back").attr('value', 'step-1');
-                            $(this).attr('value', 'step-3');
-                            $("#line").removeClass('step-1').addClass('step-2');
-                            $("#registration-title").text(stepTitle[1]);
-                            $("#stepper-2").addClass("active");
-                        } else {
-                            swal.fire("You cancelled your transaction.");
+                if ($('#app_trailNo').val() !== '' && personnel_id == undefined) {
+                    var formDatas = $("#member_forms").serialize();
+                    var additionalData = {
+                        'mem_id': mem_id,
+                        'personnel_id': pers_id,
+                    };
+                    formDatas += '&' + $.param(additionalData);
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('update_trail_member') }}",
+                        data: formDatas,
+                        success: function(data) {
+                            if (data.success != '') {
+                                mem_id = data.mem_id;
+                                personnel_id = data.success;
+                                $("#step-1").removeClass('d-flex').addClass("d-none");
+                                $("#member_forms").removeClass('mh-reg-form');
+                                $("#member_forms_con").addClass('mh-reg-form');
+                                $("#step-2").removeClass('d-none').addClass("d-flex");
+                                $("#back").attr('value', 'step-1');
+                                $(this).attr('value', 'step-3');
+                                $("#line").removeClass('step-1').addClass('step-2');
+                                $("#registration-title").text(stepTitle[1]);
+                                $("#stepper-2").addClass("active");
+                            }
                         }
                     });
                 } else {
-                    console.log('stepval2');
-                    if (originalData !== $("#member_forms").serialize()) {
+
+                    if (!personnel_id) {
                         Swal.fire({
-                            title: 'Changes have been detected',
-                            text: 'Would you like to apply the updates?',
+                            title: 'Are you sure you want to proceed this registration?',
+                            text: 'By clicking yes, the system will automatically send via email your application number.',
                             icon: 'warning',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
                             cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes'
+                            confirmButtonText: 'Proceed',
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                var formDatas = $("#member_forms").serialize();
-                                var additionalData = {
-                                    'mem_id': mem_id,
-                                    'personnel_id': personnel_id,
-                                };
-                                formDatas += '&' + $.param(additionalData);
                                 $.ajax({
                                     type: 'POST',
-                                    url: "{{ route('add_member_update') }}",
-                                    data: formDatas,
+                                    url: "{{ route('add_member') }}",
+                                    data: $('#member_forms').serialize(),
+                                    beforeSend: function() {
+                                        $('#loading').show();
+                                    },
                                     success: function(data) {
                                         if (data.success != '') {
+                                            reference_no = data.randomnum;
                                             mem_id = data.mem_id;
                                             personnel_id = data.success;
                                             Swal.fire({
-                                                title: 'Updates applied successfully.',
-                                                icon: 'success'
+                                                text: 'Notice, please copy your system generated application no.:' +
+                                                    ' ' +
+                                                    reference_no,
+                                                icon: 'success',
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: 'Proceed',
                                             });
+                                            $('.applicationNo').show(200);
+                                            $('#application_no').text(reference_no);
+                                            $('#app_no').val(reference_no);
+                                            $('#appNo').val(reference_no);
+                                            $('#test').val(reference_no);
                                         }
-                                    }
+                                    },
+                                    complete: function(data) {
+                                        $('#loading').hide();
+                                    },
                                 });
+                                $("#step-1").removeClass('d-flex').addClass("d-none");
+                                $("#member_forms").removeClass('mh-reg-form');
+                                $("#member_forms_con").addClass('mh-reg-form');
+                                $("#step-2").removeClass('d-none').addClass("d-flex");
+                                $("#back").attr('value', 'step-1');
+                                $(this).attr('value', 'step-3');
+                                $("#line").removeClass('step-1').addClass('step-2');
+                                $("#registration-title").text(stepTitle[1]);
+                                $("#stepper-2").addClass("active");
                             } else {
-                                Swal.fire('Warning!',
-                                    'Update was cancelled by the user. No changes were made.',
-                                    'warning'
-                                );
+                                swal.fire("You cancelled your transaction.");
                             }
                         });
+                    } else {
+                        console.log('stepval2');
+                        if (originalData !== $("#member_forms").serialize()) {
+                            Swal.fire({
+                                text: 'Do you want to allow these changes on your application?',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    var formDatas = $("#member_forms").serialize();
+                                    var additionalData = {
+                                        'mem_id': mem_id,
+                                        'personnel_id': personnel_id,
+                                    };
+                                    formDatas += '&' + $.param(additionalData);
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: "{{ route('add_member_update') }}",
+                                        data: formDatas,
+                                        success: function(data) {
+                                            if (data.success != '') {
+                                                mem_id = data.mem_id;
+                                                personnel_id = data.success;
+                                                Swal.fire({
+                                                    title: 'Updates applied successfully.',
+                                                    icon: 'success'
+                                                });
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire('Warning!',
+                                        'Update was cancelled by the user. No changes were made.',
+                                        'warning'
+                                    );
+                                }
+                            });
 
+                        }
+                        $("#step-1").removeClass('d-flex').addClass("d-none");
+                        $("#member_forms").removeClass('mh-reg-form');
+                        $("#member_forms_con").addClass('mh-reg-form');
+                        $("#step-2").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-1')
+                        $(this).attr('value', 'step-3')
+                        $("#line").removeClass('step-1').addClass('step-2')
+                        $("#registration-title").text(stepTitle[1])
+                        $("#stepper-2").addClass("active")
                     }
-                    $("#step-1").removeClass('d-flex').addClass("d-none");
-                    $("#member_forms").removeClass('mh-reg-form');
-                    $("#member_forms_con").addClass('mh-reg-form');
-                    $("#step-2").removeClass('d-none').addClass("d-flex");
-                    $("#back").attr('value', 'step-1')
-                    $(this).attr('value', 'step-3')
-                    $("#line").removeClass('step-1').addClass('step-2')
-                    $("#registration-title").text(stepTitle[1])
-                    $("#stepper-2").addClass("active")
                 }
-             }
             }
         } else if (nextValue == 'step-3') {
 
@@ -622,67 +745,34 @@
                 empty.first().focus();
                 swal.fire("Error!", "Please fill out the required fields", "error");
             } else {
-            if($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' && continued_trail == 0){
-                var formData = $("#member_forms_con").serialize();
-                var additionalData = {
-                    'mem_id': mem_id,
-                    'employee_details_ID': $('#employee_details_ID').val(),
-                };
-                formData += '&' + $.param(additionalData);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('update_trail_member_1') }}",
-                    data: formData,
-                    success: function(data) {
-                        if (data.success != '') {
-                            employee_no = data.emp_no;
-                            employee_details_ID = data.success;
-                            continued_trail = 1;
-                            $("#step-2").removeClass('d-flex').addClass(
-                                "d-none");
-                            $("#step-3").removeClass('d-none').addClass(
-                                "d-flex");
-                            $("#back").attr('value', 'step-2')
-                            $("#member_forms_con").removeClass(
-                                'mh-reg-form');
-                            $("#member_forms_3").addClass('mh-reg-form');
-                            // $(this).attr('value', 'step-end')
-                            $("#line").removeClass('step-2').addClass(
-                                'step-3')
-                            $("#registration-title").text(stepTitle[2])
-                            $("#stepper-3").addClass("active")
-                        } else {
-                            Swal.fire({
-                                title: 'Employee No are already used.',
-                                icon: 'error'
-                            });
-
-                            $('#employee_no').focus();
-                        }
-                    }
-                });
-            }else{
-                if (!employee_details_ID) {
+                if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' &&
+                    continued_trail == 0) {
                     var formData = $("#member_forms_con").serialize();
                     var additionalData = {
                         'mem_id': mem_id,
+                        'employee_details_ID': $('#employee_details_ID').val(),
                     };
                     formData += '&' + $.param(additionalData);
                     $.ajax({
                         type: 'POST',
-                        url: "{{ route('add_member_con') }}",
+                        url: "{{ route('update_trail_member_1') }}",
                         data: formData,
                         success: function(data) {
                             if (data.success != '') {
                                 employee_no = data.emp_no;
                                 employee_details_ID = data.success;
-                                $("#step-2").removeClass('d-flex').addClass("d-none");
-                                $("#step-3").removeClass('d-none').addClass("d-flex");
+                                continued_trail = 1;
+                                $("#step-2").removeClass('d-flex').addClass(
+                                    "d-none");
+                                $("#step-3").removeClass('d-none').addClass(
+                                    "d-flex");
                                 $("#back").attr('value', 'step-2')
-                                $("#member_forms_con").removeClass('mh-reg-form');
+                                $("#member_forms_con").removeClass(
+                                    'mh-reg-form');
                                 $("#member_forms_3").addClass('mh-reg-form');
                                 // $(this).attr('value', 'step-end')
-                                $("#line").removeClass('step-2').addClass('step-3')
+                                $("#line").removeClass('step-2').addClass(
+                                    'step-3')
                                 $("#registration-title").text(stepTitle[2])
                                 $("#stepper-3").addClass("active")
                             } else {
@@ -696,88 +786,124 @@
                         }
                     });
                 } else {
-                    if (originalData_ext !== $("#member_forms_con").serialize()) {
-                        Swal.fire({
-                            title: 'Changes have been detected.',
-                            text: 'Would you like to apply the updates?',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                var formData = $("#member_forms_con").serialize();
-                                var additionalData = {
-                                    'mem_id': mem_id,
-                                    'employee_details_ID': employee_details_ID,
-                                };
-                                formData += '&' + $.param(additionalData);
-                                $.ajax({
-                                    type: 'POST',
-                                    url: "{{ route('add_member_con_up') }}",
-                                    data: formData,
-                                    success: function(data) {
-                                        if (data.success != '') {
-                                            employee_no = data.emp_no;
-                                            employee_details_ID = data.success;
-                                            Swal.fire({
-                                                title: 'Updates applied successfully.',
-                                                icon: 'success'
-                                            });
-                                            $("#step-2").removeClass('d-flex').addClass(
-                                                "d-none");
-                                            $("#step-3").removeClass('d-none').addClass(
-                                                "d-flex");
-                                            $("#back").attr('value', 'step-2')
-                                            $("#member_forms_con").removeClass(
-                                                'mh-reg-form');
-                                            $("#member_forms_3").addClass('mh-reg-form');
-                                            // $(this).attr('value', 'step-end')
-                                            $("#line").removeClass('step-2').addClass(
-                                                'step-3')
-                                            $("#registration-title").text(stepTitle[2])
-                                            $("#stepper-3").addClass("active")
-                                        } else {
-                                            Swal.fire({
-                                                title: 'Employee No are already used.',
-                                                icon: 'error'
-                                            });
+                    if (!employee_details_ID) {
+                        var formData = $("#member_forms_con").serialize();
+                        var additionalData = {
+                            'mem_id': mem_id,
+                        };
+                        formData += '&' + $.param(additionalData);
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('add_member_con') }}",
+                            data: formData,
+                            success: function(data) {
+                                if (data.success != '') {
+                                    employee_no = data.emp_no;
+                                    employee_details_ID = data.success;
+                                    $("#step-2").removeClass('d-flex').addClass("d-none");
+                                    $("#step-3").removeClass('d-none').addClass("d-flex");
+                                    $("#back").attr('value', 'step-2')
+                                    $("#member_forms_con").removeClass('mh-reg-form');
+                                    $("#member_forms_3").addClass('mh-reg-form');
+                                    // $(this).attr('value', 'step-end')
+                                    $("#line").removeClass('step-2').addClass('step-3')
+                                    $("#registration-title").text(stepTitle[2])
+                                    $("#stepper-3").addClass("active")
+                                } else {
+                                    Swal.fire({
+                                        title: 'Employee No are already used.',
+                                        icon: 'error'
+                                    });
 
-                                            $('#employee_no').focus();
-                                        }
-                                    }
-                                });
-                            } else {
-                                swal.fire("Update was cancelled by the user. No changes were made.");
-                                $("#step-2").removeClass('d-flex').addClass("d-none");
-                                $("#step-3").removeClass('d-none').addClass("d-flex");
-                                $("#back").attr('value', 'step-2')
-                                $("#member_forms_con").removeClass('mh-reg-form');
-                                $("#member_forms_3").addClass('mh-reg-form');
-                                // $(this).attr('value', 'step-end')
-                                $("#line").removeClass('step-2').addClass('step-3')
-                                $("#registration-title").text(stepTitle[2])
-                                $("#stepper-3").addClass("active")
+                                    $('#employee_no').focus();
+                                }
                             }
                         });
-
                     } else {
-                        $("#step-2").removeClass('d-flex').addClass("d-none");
-                        $("#step-3").removeClass('d-none').addClass("d-flex");
-                        $("#back").attr('value', 'step-2')
-                        $("#member_forms_con").removeClass('mh-reg-form');
-                        $("#member_forms_3").addClass('mh-reg-form');
-                        // $(this).attr('value', 'step-end')
-                        $("#line").removeClass('step-2').addClass('step-3')
-                        $("#registration-title").text(stepTitle[2])
-                        $("#stepper-3").addClass("active")
-                        // console.log($("#back").val());
+                        if (originalData_ext !== $("#member_forms_con").serialize()) {
+                            Swal.fire({
+                                text: 'Do you want to allow these changes on your application?',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    var formData = $("#member_forms_con").serialize();
+                                    var additionalData = {
+                                        'mem_id': mem_id,
+                                        'employee_details_ID': employee_details_ID,
+                                    };
+                                    formData += '&' + $.param(additionalData);
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: "{{ route('add_member_con_up') }}",
+                                        data: formData,
+                                        success: function(data) {
+                                            if (data.success != '') {
+                                                employee_no = data.emp_no;
+                                                employee_details_ID = data.success;
+                                                Swal.fire({
+                                                    title: 'Updates applied successfully.',
+                                                    icon: 'success'
+                                                });
+                                                $("#step-2").removeClass('d-flex').addClass(
+                                                    "d-none");
+                                                $("#step-3").removeClass('d-none').addClass(
+                                                    "d-flex");
+                                                $("#back").attr('value', 'step-2')
+                                                $("#member_forms_con").removeClass(
+                                                    'mh-reg-form');
+                                                $("#member_forms_3").addClass(
+                                                    'mh-reg-form');
+                                                // $(this).attr('value', 'step-end')
+                                                $("#line").removeClass('step-2').addClass(
+                                                    'step-3')
+                                                $("#registration-title").text(stepTitle[2])
+                                                $("#stepper-3").addClass("active")
+                                            } else {
+                                                Swal.fire({
+                                                    title: 'Employee No are already used.',
+                                                    icon: 'error'
+                                                });
+
+                                                $('#employee_no').focus();
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    swal.fire(
+                                        "Update was cancelled by the user. No changes were made.");
+                                    $("#step-2").removeClass('d-flex').addClass("d-none");
+                                    $("#step-3").removeClass('d-none').addClass("d-flex");
+                                    $("#back").attr('value', 'step-2')
+                                    $("#member_forms_con").removeClass('mh-reg-form');
+                                    $("#member_forms_3").addClass('mh-reg-form');
+                                    // $(this).attr('value', 'step-end')
+                                    $("#line").removeClass('step-2').addClass('step-3')
+                                    $("#registration-title").text(stepTitle[2])
+                                    $("#stepper-3").addClass("active")
+                                }
+                            });
+
+                        } else {
+                            $("#step-2").removeClass('d-flex').addClass("d-none");
+                            $("#step-3").removeClass('d-none').addClass("d-flex");
+                            $("#back").attr('value', 'step-2')
+                            $("#member_forms_con").removeClass('mh-reg-form');
+                            $("#member_forms_3").addClass('mh-reg-form');
+                            // $(this).attr('value', 'step-end')
+                            $("#line").removeClass('step-2').addClass('step-3')
+                            $("#registration-title").text(stepTitle[2])
+                            $("#stepper-3").addClass("active")
+                            // console.log($("#back").val());
+                        }
+
                     }
 
                 }
-
-             }
             }
         }
         scrollToTop()
@@ -795,8 +921,8 @@
                 success: function(data) {
                     if (data.success != '') {
                         Swal.fire({
-                            title: 'Thank you!',
-                            text: "Registration completed",
+                            title: 'Registration Success!',
+                            text: "Your membership application has been successfully submitted. Check your email for your reference.",
                             icon: 'success',
                             showCancelButton: true,
                             confirmButtonColor: '#3085d6',
@@ -805,8 +931,9 @@
                             if (result.isConfirmed) {
                                 // window.open();
                                 var url = "{{ URL::to('/memberform/') }}" + '/' +
-                                employee_no; //YOUR CHANGES HERE...
-                                window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+                                    employee_no; //YOUR CHANGES HERE...
+                                window.open(url, 'targetWindow',
+                                    'resizable=yes,width=1000,height=1000');
                                 setTimeout(function() {
                                     location.reload();
                                 }, 1000);
@@ -1066,25 +1193,25 @@
         var input2 = $("#monthly_salary").val().replace(/,/g, '');
         var percentage = (input1 / 100) * input2;
         var inputValue = percentage.toFixed(2);
-    if (inputValue !== null && inputValue !== undefined) {
-        inputValue = inputValue.toString();
-        // remove any existing commas
-        inputValue = inputValue.replace(/,/g, "");
-        // add commas every 3 digits to the left of the decimal point
-        inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        // check if there's a decimal point present
-        if (inputValue.indexOf(".") !== -1) {
-            // split the input value by the decimal point
-            var decimalAdded = inputValue.split(".");
-            // check if there are more than 2 decimal places
-            if (decimalAdded[1] && decimalAdded[1].length > 2) {
-                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 2);
+        if (inputValue !== null && inputValue !== undefined) {
+            inputValue = inputValue.toString();
+            // remove any existing commas
+            inputValue = inputValue.replace(/,/g, "");
+            // add commas every 3 digits to the left of the decimal point
+            inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            // check if there's a decimal point present
+            if (inputValue.indexOf(".") !== -1) {
+                // split the input value by the decimal point
+                var decimalAdded = inputValue.split(".");
+                // check if there are more than 2 decimal places
+                if (decimalAdded[1] && decimalAdded[1].length > 2) {
+                    inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 2);
+                }
+            } else {
+                inputValue += ".00";
             }
-        } else {
-            inputValue += ".00";
+            percentage = inputValue;
         }
-        percentage = inputValue;
-    }
         $('#computed_amount').html(percentage);
         $('#percent_amt').val(percentage);
     });
@@ -1121,6 +1248,8 @@
                         $('#search_btn').hide(200);
                         $("#icon_status").removeClass("fa fa-frown-o").addClass("fa fa-smile-o");
                         $('#found_remarks').text('Record has been found');
+                        $('#found_remarks').css('color', '#1a8981');
+                        $('#icon_status').css('color', '#1a8981');
                         $('#appNo_label').text(data.campus == null ? 'N/A' : data.campus);
                         $('#lname_label').text(data.lastname == null ? 'N/A' : data.lastname);
                         $('#mname_label').text(data.middlename == null ? 'N/A' : data.middlename);
@@ -1137,7 +1266,7 @@
                         $('#email_add_label').text(data.email == null ? 'N/A' : data.email);
                         $('#application_status').text(data.app_status == null ? 'N/A' : data
                             .app_status);
-                        if (data.app_status == "DRAFT") {
+                        if (data.app_status == "DRAFT APPLICATION") {
                             $('#cont_app').show();
                             $('#print_app').hide();
                         } else {
@@ -1190,57 +1319,62 @@
         }, 400)
         var app_trailno = query;
         $.ajax({
-                url: "{{ route('continued_trail') }}",
-                data: {
-                    app_trailno: app_trailno,
-                },
-                method: "POST",
-                success: function(data) {
-                    if (Object.keys(data).length > 0) {
-                        pers_id = data.personal_id;
-                        mems_id = data.employee_details_ID;
-                        mem_id = data.mem_app_ID;
-                        $('#employee_details_ID').val(data.employee_details_ID == null ? '' : data.employee_details_ID);
-                        $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
-                        $("[name='lastname']").val(data.lastname == null ? '' : data.lastname);
-                        $("[name='middlename']").val(data.middlename == null ? '' : data.middlename);
-                        $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
-                        $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
-                        $("[name='date_birth']").val(data.date_birth == null ? '' : data.date_birth);
-                        $("[name='gender']").val(data.gender == null ? '' : data.gender);
-                        $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
-                        if(data.citizenship == 'FILIPINO'){
-                            $('input[name="citizenship"][value="FILIPINO"]').prop('checked', true);
-                        }
-                        else if(data.citizenship == 'DUAL CITIZENSHIP'){
-                            $('input[name="citizenship"][value="DUAL CITIZENSHIP"]').prop('checked', true);
-                        }
-                        else if(data.citizenship == 'OTHERS'){
-                            $('input[name="citizenship"][value="OTHERS"]').prop('checked', true);
-                        }
-                        // $("[name='citizenship']").val(data.citizenship == null ? '' : data.citizenship).prop('checked', true);
-                        // $('input[name="citizenship"][value="'+(data.citizenship == null ? '' : data.citizenship)+'"]').prop('checked', true);
-                        $("[name='dual_citizenship']").val(data.dual_citizenship == null ? '' : data.dual_citizenship);
-                        $("[name='present_bldg_street']").val(data.present_bldg_street == null ? '' : data.present_bldg_street);
-                        $("[name='present_zipcode']").val(data.present_zipcode == null ? '' : data.present_zipcode);
-                        $("[name='bldg_street']").val(data.bldg_street == null ? '' : data.bldg_street);
-                        $("[name='zipcode']").val(data.zipcode == null ? '' : data.zipcode);
-                        $("[name='contact_no']").val(data.contact_no == null ? '' : data.contact_no);
-                        $("[name='landline_no']").val(data.landline_no == null ? '' : data.landline_no);
-                        $("[name='email']").val(data.email == null ? '' : data.email);
+            url: "{{ route('continued_trail') }}",
+            data: {
+                app_trailno: app_trailno,
+            },
+            method: "POST",
+            success: function(data) {
+                if (Object.keys(data).length > 0) {
+                    pers_id = data.personal_id;
+                    mems_id = data.employee_details_ID;
+                    mem_id = data.mem_app_ID;
+                    $('#employee_details_ID').val(data.employee_details_ID == null ? '' : data
+                        .employee_details_ID);
+                    $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
+                    $("[name='lastname']").val(data.lastname == null ? '' : data.lastname);
+                    $("[name='middlename']").val(data.middlename == null ? '' : data.middlename);
+                    $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
+                    $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
+                    $("[name='date_birth']").val(data.date_birth == null ? '' : data.date_birth);
+                    $("[name='gender']").val(data.gender == null ? '' : data.gender);
+                    $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
+                    if (data.citizenship == 'FILIPINO') {
+                        $('input[name="citizenship"][value="FILIPINO"]').prop('checked', true);
+                    } else if (data.citizenship == 'DUAL CITIZENSHIP') {
+                        $('input[name="citizenship"][value="DUAL CITIZENSHIP"]').prop('checked',
+                            true);
+                    } else if (data.citizenship == 'OTHERS') {
+                        $('input[name="citizenship"][value="OTHERS"]').prop('checked', true);
+                    }
+                    // $("[name='citizenship']").val(data.citizenship == null ? '' : data.citizenship).prop('checked', true);
+                    // $('input[name="citizenship"][value="'+(data.citizenship == null ? '' : data.citizenship)+'"]').prop('checked', true);
+                    $("[name='dual_citizenship']").val(data.dual_citizenship == null ? '' : data
+                        .dual_citizenship);
+                    $("[name='present_bldg_street']").val(data.present_bldg_street == null ? '' :
+                        data.present_bldg_street);
+                    $("[name='present_zipcode']").val(data.present_zipcode == null ? '' : data
+                        .present_zipcode);
+                    $("[name='bldg_street']").val(data.bldg_street == null ? '' : data.bldg_street);
+                    $("[name='zipcode']").val(data.zipcode == null ? '' : data.zipcode);
+                    $("[name='contact_no']").val(data.contact_no == null ? '' : data.contact_no);
+                    $("[name='landline_no']").val(data.landline_no == null ? '' : data.landline_no);
+                    $("[name='email']").val(data.email == null ? '' : data.email);
 
-                        $("[name='employee_no']").val(data.employee_no == null ? '' : data.employee_no);
-                        $("[name='campus']").val(data.campus == null ? '' : data.campus);
-                        $("[name='classification']").val(data.classification == null ? '' : data.classification);
-                        $("[name='classification_others']").val(data.classification_others == null ? '' : data.classification_others);
-                        $("[name='college_unit']").val(data.college_unit == null ? '' : data.college_unit);
-                        $("[name='rank_position']").val(data.rank_position == null ? '' : data.rank_position);
-                        $("[name='department']").val(data.department == null ? '' : data.department);
-                        $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
-                        $("[name='date_appointment']").val(data.date_appointment == null ? '' : data.date_appointment);
-                        
-                        var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
-                        var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    $("[name='employee_no']").val(data.employee_no == null ? '' : data.employee_no);
+                    $("[name='campus']").val(data.campus == null ? '' : data.campus);
+                    $("[name='classification']").val(data.classification == null ? '' : data
+                        .classification);
+                    $("[name='classification_others']").val(data.classification_others == null ?
+                        '' : data.classification_others);
+                    $("[name='college_unit']").val(data.college_unit == null ? '' : data
+                        .college_unit);
+                    $("[name='rank_position']").val(data.rank_position == null ? '' : data
+                        .rank_position);
+                    $("[name='department']").val(data.department == null ? '' : data.department);
+                    $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
+                    $("[name='date_appointment']").val(data.date_appointment == null ? '' : data
+                        .date_appointment);
 
                         $("[name='monthly_salary']").val(formattedNumber);
                         $("[name='salary_grade']").val(data.salary_grade == null ? '' : data.salary_grade);
@@ -1272,15 +1406,15 @@
                         }                       
                     } 
                 }
-            });
+            }
+        });
 
     });
 
     $(document).on('click', '#save_sign', function() {
         var ref = reference_no;
         var id;
-        if (ref != undefined)
-        {
+        if (ref != undefined) {
             id = ref;
         } else {
             id = query;
@@ -1391,7 +1525,7 @@
                     $("#modal_name").removeClass("visible")
                 } else {
                     var url = "{{ URL::to('/generateCocolife/') }}" + '/' +
-                    id; //YOUR CHANGES HERE...
+                        id; //YOUR CHANGES HERE...
                     window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
                     $('#generateCoco').trigger('reset');
                     $("#modal_name").addClass("not-visible")
@@ -1407,7 +1541,7 @@
     // $(document).on('submit', '#generateCoco', function(event) {
     //     event.preventDefault();
     //     var id = $('#app_number').val();
-        
+
     //     $.ajax({
     //         url: "{{ route('add_cocolife') }}",
     //         method: "POST",
