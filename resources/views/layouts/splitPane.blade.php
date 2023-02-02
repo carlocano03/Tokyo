@@ -485,6 +485,10 @@
     })
 
     $(document).on('click', '#fp_back', function(e) {
+        $('#input-app').show();
+        $('#search_btn').show();
+        $('.status-result').hide();
+        $('#app_no_trail').val('');
         $("#resetPasswordForm").attr("hidden", true);
         $("#statusTrailForm").attr("hidden", true);
         $("#loginform").removeAttr("hidden");
@@ -1152,6 +1156,23 @@
             $('#fixed_amount').val('');
         }
     });
+    $('#fixed_amount').on('blur', function(event) {
+    var input1 = parseFloat($("#fixed_amount").val().replace(/,/g, ''));
+    var input2 = parseFloat($("#monthly_salary").val().replace(/,/g, ''));
+    var percentage = (input2 * 0.01);
+    if (input1 < percentage) {
+        swal.fire("Error!", "Please input fixed amount greater than 1% of your Monthly Salary", "error");
+        $("#fixed_amount").val('');
+    }
+    });
+    
+    $('input[name="middlename"]').on("blur", function() {
+    var middleName = $(this).val();
+    if (middleName.length === 1) {
+        swal.fire("Error!", "Please input your complete MIDDLE NAME (Ex. GOMEZ). Thank you.", "error");
+        $('input[name="middlename"]').focus();
+        }
+    })
     $(document).on('click', '#citizenship', function(e) {
         var citizen = $(this).val();
         if (citizen == 'DUAL CITIZENSHIP' || citizen == 'OTHERS') {
@@ -1163,30 +1184,14 @@
     });
 
     $('#percentage_bsalary').on('keypress keyup blur', function(event) {
-        var $this = $(this);
-        if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
-        ((event.which < 48 || event.which > 57) &&
-        (event.which != 0 && event.which != 8))) {
-            event.preventDefault();
-        }
-        var text = $(this).val();
-        if ((event.which == 46) && (text.indexOf('.') == -1)) {
-            setTimeout(function() {
-                if ($this.val().substring($this.val().indexOf('.')).length > 3) {
-                    $this.val($this.val().substring(0, $this.val().indexOf('.') + 3));
-                }
-            }, 1);
-        }
-        if ((text.indexOf('.') != -1) &&
-            (text.substring(text.indexOf('.')).length > 2) &&
-            (event.which != 0 && event.which != 8) &&
-            ($(this)[0].selectionStart >= text.length - 2)) {
-                event.preventDefault();
-        }
-        if (parseFloat($this.val()) < 1 || parseFloat($this.val()) > 100) {
-            $this.val("");
-            $('#computed_amount').html($this.val());
-        }
+    var $this = $(this);
+    if ((event.which < 48 || event.which > 57) && (event.which != 0 && event.which != 8)) {
+        event.preventDefault();
+    }
+    if (parseInt($this.val()) < 1 || parseInt($this.val()) > 100) {
+        $this.val("");
+        $('#computed_amount').html($this.val());
+    }
     });
     $(document).on('input', '#percentage_bsalary', function(e) {
         var input1 = $("#percentage_bsalary").val();
@@ -1226,10 +1231,7 @@
     var query
     $(document).on('click', '#search_btn', function(e) {
         query = $('#app_no_trail').val();
-
         if (query != '') {
-
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1317,6 +1319,10 @@
         setTimeout(function timout() {
             $("#leftsection").removeClass("transition-all-cubic").addClass("transition-all");
         }, 400)
+        $('#input-app').show();
+        $('#search_btn').show();
+        $('.status-result').hide();
+        $('#app_no_trail').val('');
         var app_trailno = query;
         $.ajax({
             url: "{{ route('continued_trail') }}",
@@ -1406,7 +1412,7 @@
                         }                       
                     } 
                 }
-            }
+            
         });
 
     });
@@ -1537,7 +1543,17 @@
             }
         });
     })
+    $(document).on('click', '#no_middlename', function() {
+        if ($(this).is(':checked')) {
+            $('input[name="middlename"]').val('N/A');
+            $('input[name="middlename"]').prop('disabled',true);
+        } else {
+            $('input[name="middlename"]').val('');
+            $('input[name="middlename"]').prop('disabled',false);
+        }
 
+
+    });
     // $(document).on('submit', '#generateCoco', function(event) {
     //     event.preventDefault();
     //     var id = $('#app_number').val();
