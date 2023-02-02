@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\Settings;
 use App\Http\Controllers\Auth\LoginController;
 // use App\Http\Controllers\Member_registration;
 /*
@@ -122,3 +123,8 @@ Route::post('/login/check_sg', [HomeController::class, 'check_sg_bracket'])->nam
 // psgc_mun
 Route::post('/login/psgc_munc', [HomeController::class, 'psgc_munc'])->name('psgc_munc');
 Route::post('/login/psgc_brgy', [HomeController::class, 'psgc_brgy'])->name('psgc_brgy');
+
+// settings
+Route::get('/settings/campus_list', [Settings::class, 'campus_list'])->name('campus_list');
+Route::post('/settings/save_campus', [Settings::class, 'save_campus'])->name('add_campus');
+Route::post('/settings/delete_campus', [Settings::class, 'remove_campus'])->name('delete_campus');

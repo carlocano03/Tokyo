@@ -203,30 +203,68 @@
 
     var stepTitle = ["Personal Information", "Employment Details", "Membership Details"]
 
-    $(document).on('change', '#present_province', function() {
-        var codes = $(this).val();
-        var subss = codes.substring(0, 4);
-        // console.log(subss);
+    $(document).on('change','#present_province',function(){
+    var codes = $(this).val();
+    var subss = codes.substring(0,4);
+    // console.log(subss);
         $.ajax({
-            url: "{{ route('psgc_munc') }}",
-            method: "POST",
-            data: {
-                codes: subss
-            },
-            success: function(data) {
-                var options = '<option value="">Select Municipal</option>';
-                $.each(data.data, function(index, item) {
-                    options += '<option value="' + item.code + '">' + item.name
-                        .toUpperCase() + '</option>';
-                });
-                $("#present_city").html(options);
-                $("#present_province_name").val($("#present_province").find("option:selected")
-                    .text());
-                if (present_muncode) {
-                    var mun_code = present_muncode;
+        url: "{{ route('psgc_munc') }}",
+        method:"POST",
+        data:{codes:subss},
+        success:function(data)
+        {
+            var options = '<option value="">Select Municipal</option>';
+            $.each(data.data, function(index, item) {
+            options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+            });
+            $("#present_city").html(options);
+            $("#present_province_name").val($("#present_province").find("option:selected").text());
+            if (present_muncode) {
+            var mun_code = present_muncode;
                     $("#present_city").val(mun_code).change();
                 }
             }
+        });
+    });
+    $(document).on('change','#present_city',function(){
+    var codes = $(this).val();
+    var subss = codes.substring(0,6);
+    // console.log(subss);
+        $.ajax({
+        url: "{{ route('psgc_brgy') }}",
+        method:"POST",
+        data:{codes:subss},
+        success:function(data)
+        {
+            var options = '<option value="">Select Barangay</option>';
+            $.each(data.data, function(index, item) {
+            options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+            });
+            $("#present_barangay").html(options);
+            $("#present_municipality_name").val($("#present_city").find("option:selected").text());
+            if (present_brgycode) {
+            var brgy_code = present_brgycode;
+                    $("#present_barangay").val(brgy_code).change();
+                }
+        }
+        });
+    });
+    $(document).on('change','#present_barangay',function(){
+        $("#present_barangay_name").val($("#present_barangay").find("option:selected").text());
+    });
+    $(document).ready(function() {
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#present_province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
         });
     });
     $(document).on('change', '#present_city', function() {
@@ -344,6 +382,72 @@
     });
 
 
+    $(document).on('change','#province',function(){
+    var codes = $(this).val();
+    var subss = codes.substring(0,4);
+    // console.log(subss);
+        $.ajax({
+        url: "{{ route('psgc_munc') }}",
+        method:"POST",
+        data:{codes:subss},
+        success:function(data)
+        {
+            var options = '<option value="">Select Municipal</option>';
+            $.each(data.data, function(index, item) {
+            options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+            });
+            $("#city").html(options);
+            $("#province_name").val($("#province").find("option:selected").text());
+            if (perm_muncode) {
+            var mun_code = perm_muncode;
+                    $("#city").val(mun_code).change();
+                }
+        }
+        });
+    });
+    $(document).on('change','#city',function(){
+    var codes = $(this).val();
+    var subss = codes.substring(0,6);
+    // console.log(subss);
+        $.ajax({
+        url: "{{ route('psgc_brgy') }}",
+        method:"POST",
+        data:{codes:subss},
+        success:function(data)
+        {
+            var options = '<option value="">Select Barangay</option>';
+            $.each(data.data, function(index, item) {
+            options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+            });
+            $("#barangay").html(options);
+            $("#municipality_name").val($("#city").find("option:selected").text());
+            if (perm_brgycode) {
+            var brgy_code = perm_brgycode;
+                    $("#barangay").val(brgy_code).change();
+                }
+        }
+        });
+    });
+    $(document).on('change','#barangay',function(){
+        $("#barangay_name").val($("#barangay").find("option:selected").text());
+    });
+    $(document).ready(function() {
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
+        });
+    });
+
+    
     $(document).on('click', '#modal_name_pop', function(e) {
         var appNo = query;
         var ref = reference_no;
@@ -381,6 +485,10 @@
     })
 
     $(document).on('click', '#fp_back', function(e) {
+        $('#input-app').show();
+        $('#search_btn').show();
+        $('.status-result').hide();
+        $('#app_no_trail').val('');
         $("#resetPasswordForm").attr("hidden", true);
         $("#statusTrailForm").attr("hidden", true);
         $("#loginform").removeAttr("hidden");
@@ -963,9 +1071,9 @@
             inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             var decimalAdded = inputValue.split(".");
             if (decimalAdded.length > 2) {
-                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
+            inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
             }
-
+            
             if (inputValue == '') {
                 $('#sg_category').val('');
             }
@@ -1014,9 +1122,8 @@
             var myString2 = $('#present_barangay').find("option:selected").text();
             var myString3 = $('#present_bldg_street').val();
             var myString4 = $('#present_zipcode').val();
-            if (myString !== "" && myString1 !== "" && myString2 !== "") {
-                var valueAfterTargetChar = myString3 + ' ' + myString2 + ' ' + myString1 + ' ' + myString +
-                    ' ,' + myString4 + ' ';
+            if (myString !== "" && myString1 !== "" && myString2 !== "" ) {
+                var valueAfterTargetChar = myString3 + ' ' + myString2 + ' ' + myString1 + ' ' + myString + ' ,' + myString4 + ' ';
                 $('#same_add').val(valueAfterTargetChar);
                 $('.same_div').hide();
             } else {
@@ -1025,7 +1132,7 @@
                     text: 'Thank you!',
                     icon: 'error'
                 });
-                $(this).prop("checked", false);
+                $(this).prop("checked",false);
             }
         } else {
             $('#same_add').val('');
@@ -1049,6 +1156,23 @@
             $('#fixed_amount').val('');
         }
     });
+    $('#fixed_amount').on('blur', function(event) {
+    var input1 = parseFloat($("#fixed_amount").val().replace(/,/g, ''));
+    var input2 = parseFloat($("#monthly_salary").val().replace(/,/g, ''));
+    var percentage = (input2 * 0.01);
+    if (input1 < percentage) {
+        swal.fire("Error!", "Please input fixed amount greater than 1% of your Monthly Salary", "error");
+        $("#fixed_amount").val('');
+    }
+    });
+    
+    $('input[name="middlename"]').on("blur", function() {
+    var middleName = $(this).val();
+    if (middleName.length === 1) {
+        swal.fire("Error!", "Please input your complete MIDDLE NAME (Ex. GOMEZ). Thank you.", "error");
+        $('input[name="middlename"]').focus();
+        }
+    })
     $(document).on('click', '#citizenship', function(e) {
         var citizen = $(this).val();
         if (citizen == 'DUAL CITIZENSHIP' || citizen == 'OTHERS') {
@@ -1060,30 +1184,14 @@
     });
 
     $('#percentage_bsalary').on('keypress keyup blur', function(event) {
-        var $this = $(this);
-        if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
-            ((event.which < 48 || event.which > 57) &&
-                (event.which != 0 && event.which != 8))) {
-            event.preventDefault();
-        }
-        var text = $(this).val();
-        if ((event.which == 46) && (text.indexOf('.') == -1)) {
-            setTimeout(function() {
-                if ($this.val().substring($this.val().indexOf('.')).length > 3) {
-                    $this.val($this.val().substring(0, $this.val().indexOf('.') + 3));
-                }
-            }, 1);
-        }
-        if ((text.indexOf('.') != -1) &&
-            (text.substring(text.indexOf('.')).length > 2) &&
-            (event.which != 0 && event.which != 8) &&
-            ($(this)[0].selectionStart >= text.length - 2)) {
-            event.preventDefault();
-        }
-        if (parseFloat($this.val()) < 1 || parseFloat($this.val()) > 100) {
-            $this.val("");
-            $('#computed_amount').html($this.val());
-        }
+    var $this = $(this);
+    if ((event.which < 48 || event.which > 57) && (event.which != 0 && event.which != 8)) {
+        event.preventDefault();
+    }
+    if (parseInt($this.val()) < 1 || parseInt($this.val()) > 100) {
+        $this.val("");
+        $('#computed_amount').html($this.val());
+    }
     });
     $(document).on('input', '#percentage_bsalary', function(e) {
         var input1 = $("#percentage_bsalary").val();
@@ -1123,10 +1231,7 @@
     var query
     $(document).on('click', '#search_btn', function(e) {
         query = $('#app_no_trail').val();
-
         if (query != '') {
-
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1214,6 +1319,10 @@
         setTimeout(function timout() {
             $("#leftsection").removeClass("transition-all-cubic").addClass("transition-all");
         }, 400)
+        $('#input-app').show();
+        $('#search_btn').show();
+        $('.status-result').hide();
+        $('#app_no_trail').val('');
         var app_trailno = query;
         $.ajax({
             url: "{{ route('continued_trail') }}",
@@ -1273,43 +1382,37 @@
                     $("[name='date_appointment']").val(data.date_appointment == null ? '' : data
                         .date_appointment);
 
-                    var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
-                    var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
-                        ",");
-
-                    $("[name='monthly_salary']").val(formattedNumber);
-                    $("[name='salary_grade']").val(data.salary_grade == null ? '' : data
-                        .salary_grade);
-                    $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
-                    $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
-                    $('#present_province').val(data.present_province_code).trigger('change');
-                    $('#present_province_name').val(data.present_province);
-                    $('#present_city').val(data.present_municipality_code);
-                    present_muncode = data.present_municipality_code;
-                    $('#present_municipality_name').val(data.present_municipality);
-                    present_brgycode = data.present_barangay_code;
-                    if (data.same_add == 1) {
-                        $('#perm_add_check').prop("checked", true);
-                        var valueAfterTargetChar = data.present_bldg_street + ' ' + data
-                            .present_barangay + ' ' + data.present_municipality + ' ' + data
-                            .present_province + ', ' + data.present_zipcode + ' ';
-                        $('#same_add').val(valueAfterTargetChar);
-                        $('.same_div').hide();
-                    } else {
-                        $('#perm_add_check').prop("checked", false);
-                        $('#same_add').val('');
-                        $('.same_div').show();
-                        $('#province').val(data.province_code).trigger('change');
-                        $('#province_name').val(data.province);
-                        $('#city').val(data.municipality_code);
-                        perm_muncode = data.municipality_code;
-                        $('#municipality_name').val(data.municipality);
-                        perm_brgycode = data.barangay_code;
-                        $('#bldg_street').val(data.bldg_street);
-                        $('#zipcode').val(data.zipcode);
-                    }
+                        $("[name='monthly_salary']").val(formattedNumber);
+                        $("[name='salary_grade']").val(data.salary_grade == null ? '' : data.salary_grade);
+                        $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
+                        $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
+                        $('#present_province').val(data.present_province_code).trigger('change');
+                        $('#present_province_name').val(data.present_province);
+                        $('#present_city').val(data.present_municipality_code);
+                        present_muncode = data.present_municipality_code;
+                        $('#present_municipality_name').val(data.present_municipality);
+                        present_brgycode = data.present_barangay_code;
+                        if(data.same_add == 1){
+                            $('#perm_add_check').prop("checked",true);
+                            var valueAfterTargetChar = data.present_bldg_street + ' ' + data.present_barangay + ' ' + data.present_municipality + ' ' + data.present_province + ', ' + data.present_zipcode + ' ' ;
+                            $('#same_add').val(valueAfterTargetChar);
+                            $('.same_div').hide();
+                        }else{
+                            $('#perm_add_check').prop("checked",false);
+                            $('#same_add').val('');
+                            $('.same_div').show();
+                            $('#province').val(data.province_code).trigger('change');
+                            $('#province_name').val(data.province);
+                            $('#city').val(data.municipality_code);
+                            perm_muncode = data.municipality_code;
+                            $('#municipality_name').val(data.municipality);
+                            perm_brgycode = data.barangay_code;
+                            $('#bldg_street').val(data.bldg_street);
+                            $('#zipcode').val(data.zipcode);
+                        }                       
+                    } 
                 }
-            }
+            
         });
 
     });
@@ -1440,7 +1543,17 @@
             }
         });
     })
+    $(document).on('click', '#no_middlename', function() {
+        if ($(this).is(':checked')) {
+            $('input[name="middlename"]').val('N/A');
+            $('input[name="middlename"]').prop('disabled',true);
+        } else {
+            $('input[name="middlename"]').val('');
+            $('input[name="middlename"]').prop('disabled',false);
+        }
 
+
+    });
     // $(document).on('submit', '#generateCoco', function(event) {
     //     event.preventDefault();
     //     var id = $('#app_number').val();
