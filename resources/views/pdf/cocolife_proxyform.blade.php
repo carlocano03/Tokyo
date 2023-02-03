@@ -305,7 +305,8 @@
         }
         .signatures .img-2 {
             position:absolute;
-            margin-left:270px;
+            margin-left:250px;
+            margin-top: 10px;
         }
     </style>
 </head>
@@ -339,26 +340,74 @@
 
     <div class="absolute">
         <div class="values">
-            <label class="fullname"> full name valueasda</label>
-            <label class="residence">residence value</label>
-            <label class="date_of_birth">date of birth value</label>
-            <label class="place_of_birth">pob value</label>
+            <label class="fullname"> {{ $member->lastname }}, {{ $member->firstname }} {{ $member->middlename }}</label>
+            <label class="residence"><small>{{$member->bldg_street}} {{ $member->barangay}} {{ $member->municipality}} {{ $member->province}} {{$member->zipcode}}</small></label>
+            <label class="date_of_birth">{{ $member->date_birth }}</label>
+            <label class="place_of_birth">{{ $coco_details->place_birth }}</label>
             <label class="sex">Male</label>
-            <label class="civil_status">Single</label>
-            <label class="height">h value</label>
-            <label class="weight">w value</label>
-            <label class="occupation">o value</label>
-            <label class="nature_of_work">now value</label>
-            <label class="ifseaman">seaman value</label>
-            <label class="ifocw">ofw value</label>
+            <label class="civil_status">{{ $member->gender }}</label>
+            <label class="height">{{ $coco_details->height }}</label>
+            <label class="weight">{{ $coco_details->weight }}</label>
+            <label class="occupation">{{ $coco_details->occupation }}</label>
+            <label class="nature_of_work">{{ $coco_details->nature_work }}</label>
+            <label class="ifseaman">{{ $coco_details->seaman }}</label>
+            <label class="ifocw">{{ $coco_details->ofw }}</label>
 
-            <label class="amount_of_insurance">amount value</label>
-            <label class="term_of_coverage">cov value</label>
-            <label class="premiums">pre value</label>
-            <label class="telephone_number">tele value</label>
+            <label class="amount_of_insurance">{{ $coco_details->amt_isurance }}</label>
+            <label class="term_of_coverage">{{ $coco_details->term_coverage }}</label>
+            <label class="premiums">{{ $coco_details->premiums }}</label>
+            <label class="telephone_number">{{ $member->contact_no }}</label>
         </div>
     </div>
 
+    <div class="absolute">
+        @if(count($benificiary) > 0)
+        @php
+            $count = 1;
+        @endphp
+
+        @foreach($benificiary as $ben)
+        @if($count == 1)
+        <div class="name_values1">
+            <label class="name">{{ $ben->fullname }}</label>
+            <label class="age">69</label>
+            <label class="relationship">{{ $ben->date_birth }}</label>
+            <label class="remarks">{{ $ben->relationship }}</label>
+        </div>
+        
+        @elseif($count == 2)
+        <div class="name_values2">
+            <label class="name">{{ $ben->fullname }}</label>
+            <label class="age">69</label>
+            <label class="relationship">{{ $ben->date_birth }}</label>
+            <label class="remarks">{{ $ben->relationship }}</label>
+        </div>
+
+        @elseif($count == 3)
+        <div class="name_values3">
+            <label class="name">{{ $ben->fullname }}</label>
+            <label class="age">69</label>
+            <label class="relationship">{{ $ben->date_birth }}</label>
+            <label class="remarks">{{ $ben->relationship }}</label>
+        </div>
+
+        @elseif($count == 4)
+        <div class="name_values4">
+            <label class="name">{{ $ben->fullname }}</label>
+            <label class="age">69</label>
+            <label class="relationship">{{ $ben->date_birth }}</label>
+            <label class="remarks">{{ $ben->relationship }}</label>
+        </div>
+        @elseif($count > 4)
+        @break
+        @else
+        @endif
+        @php
+            $count++;
+            @endphp
+        @endforeach
+    </div>
+    @else
     <div class="absolute">
         <div class="name_values1">
             <label class="name">NAME Value</label>
@@ -387,29 +436,25 @@
             <label class="relationship">Single</label>
             <label class="remarks">sample remarks</label>
         </div>
-         <div class="name_values5">
-            <label class="name">NAME Value</label>
-            <label class="age">69</label>
-            <label class="relationship">Single</label>
-            <label class="remarks">sample remarks</label>
-        </div>
+
     </div>
+    @endif
 
     <div class="absolute">
         <div class="exceptions">
-            <label class="exceptions_value">exception value asdasdasdasdasdasda</label>
+            <label class="exceptions_value">{{ $coco_details->exceptions }}</label>
         </div>
 
         <div class="signed_at">
-            <label class="sig-1">Signed at</label>
+            <label class="sig-1"></label>
             <label class="sig-2">this</label>
-            <label class="sig-3">day of</label>
-            <label class="sig-4">20</label>
+            <label class="sig-3"></label>
+            <label class="sig-4"></label>
         </div>
 
         <div class="signatures">
-            <img class="img-1" src="{{ public_path().'/assets/images/uppfi-logo.png' }}" width="50px" alt="UPPFI">
-            <img class="img-2" src="{{ public_path().'/assets/images/uppfi-logo.png' }}" width="50px" alt="UPPFI">
+            
+            <img class="img-2" src="{{ public_path().$coco_details->sign_path }}" width="100" alt="UPPFI">
         </div>
     </div>
 </body>

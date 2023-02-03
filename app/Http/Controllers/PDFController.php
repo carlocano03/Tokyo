@@ -32,9 +32,9 @@ class PDFController extends Controller
         ->leftjoin('member_signature', 'mem_app.app_no', '=', 'member_signature.app_no')
         ->get()->first();
 
-        $personal_id = $data['member']->personal_id;
+        $employee_no = $data['member']->employee_no;
 
-        $data['benificiary'] = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$personal_id'")
+        $data['benificiary'] = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$employee_no'")
         ->get();
 
         $data['coco_details'] = DB::table('generated_coco')->select('*')->whereRaw("app_number = '$id'")

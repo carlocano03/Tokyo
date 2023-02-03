@@ -508,7 +508,7 @@ class HomeController extends Controller
     $file = $request->file('cocolife_sign');
     $fileName = $file->getClientOriginalName();
     $newName = "{$appNumber}_coco_{$fileName}";
-    $path = $file->storeAs('public/signatures', $newName);
+    $path = $file->storeAs('signature', $newName, 'public');
 
     $insertCoco = [
         'app_number' => $appNumber,
