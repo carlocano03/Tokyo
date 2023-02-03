@@ -358,7 +358,7 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-2" style="padding:0px !important; height: 100%; overflow-y:auto; ">
+      <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
         <div class="mp-card" style="padding-bottom:150px;">
           <div class="settings-tab">
             <div class="top-label">
@@ -422,8 +422,10 @@
 
         </div>
       </div>
-      <div class="col-lg-10 mp-mt3 gap-10">
-
+      <div class="col-lg-10 mp-mt3 gap-10" id="settingsContent">
+        <div class="button-container mp-mb3">
+          <button class="f-button magenta-bg" id="showSettings">Hide Settings</button>
+        </div>
         <div class="mp-card  mp-ph2 mp-pv2">
           <div class="container-fluid">
             <div class="row">
@@ -649,6 +651,26 @@
   </div>
 </div>
 
+<script>
+  $(document).on('click', '#showSettings', function(e) {
+    if ($("#settingsTab").hasClass("col-lg-2")) {
+      $("#settingsTab").addClass("d-none");
+      $("#settingsTab").removeClass("col-lg-2");
+      $("#settingsContent").removeClass("col-lg-10");
+      $("#settingsContent").addClass("col-lg-12");
 
+      $("#showSettings").text("Show Settings")
+
+    } else {
+      $("#settingsTab").removeClass("d-none");
+      $("#settingsTab").addClass("col-lg-2");
+      $("#settingsContent").removeClass("col-lg-12");
+      $("#settingsContent").addClass("col-lg-10");
+
+      $("#showSettings").text("Hide Settings")
+    }
+
+  })
+</script>
 
 @endsection
