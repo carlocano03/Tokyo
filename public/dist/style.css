@@ -6386,3 +6386,8 @@ tfoot {
         overflow-y: scroll !important;
     }
 }
+
+.backup-button {
+    padding: 10px;
+    border-radius: 20px;
+}
