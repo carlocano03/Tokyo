@@ -2,8 +2,69 @@
 @section('content_body')
 
 <style>
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
 
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+    transform: scale(0.6);
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked+.slider {
+    background-color: var(--c-accent);
+  }
+
+  input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
 </style>
+
+
 
 
 
@@ -86,10 +147,34 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="top-label">
-                  <label>Create Account</label>
-                  <label class="account-info">Allow User to manage respective campus; key, names, and clusters
+                  <label>Employee Classification</label>
+                  <label class="account-info">Allow user to add & manage employee Classifications
                   </label>
+                  {{ csrf_field() }}
+                  <form id="campus_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
 
+                    <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
+                      <input type="hidden" id="app_trailNo">
+                      <div class="mp-input-group">
+                        <label class="mp-input-group__label">Classification Name</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
+                      </div>
+
+
+
+
+
+                      <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_campus" type="submit">
+                        <span>Save Record</span>
+                      </a>
+                      <a class="up-button-grey btn-md button-animate-right mp-text-center">
+                        <span>Clear</span>
+                      </a>
+                      <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
+                    </div>
+
+                  </form>
 
                 </div>
 
@@ -98,53 +183,41 @@
               <div class="col-lg-8">
                 <div>
                   <div class="top-label">
-                    <label>Data Records</label>
+                    <!-- <label>Data Records</label> -->
                   </div>
                   <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                    <table class="members-table" style="height: auto;;" width="100%">
+                    <table class="members-table" style="height: auto;" width="100%" id="campus_table">
                       <thead>
                         <tr>
                           <th>
-                            <span>Username</span>
+                            <span>ID</span>
                           </th>
                           <th>
-                            <span>Password</span>
-                          </th>
-                          <th>
-                            <span>Fullname</span>
-                          </th>
-                          <th>
-                            <span>Campus</span>
-                          </th>
-                          <th>
-                            <span>User Level</span>
+                            <span>Classification Name</span>
                           </th>
                           <th>
                             <span>Status</span>
                           </th>
+
                           <th>
                             <span>Action</span>
                           </th>
-
                         </tr>
                       </thead>
                       <tbody>
-                        @for ($i = 0; $i < 100; $i++) <tr>
-                          <td>akosirr</td>
-                          <td>asd</td>
-                          <td>AKO SI RR</td>
-                          <td>UP DILIMAN</td>
-                          <td>Super admin</td>
-                          <td>Pending</td>
+                        @for($x=1;$x<=5;$x++) <tr>
+                          <td>1</td>
+                          <td>Admin Staff</td>
+                          <td>Active</td>
                           <td>
-                            <button class="up-button-green" style="border-radius: 10px;">
-                              view <i class="fa fa-eye" aria-hidden="true"></i>
-                            </button>
-
+                            <label class="switch">
+                              <input type="checkbox" checked>
+                              <span class="slider round"></span>
+                            </label>
                           </td>
                           </tr>
-
                           @endfor
+
                       </tbody>
                     </table>
 
@@ -155,7 +228,7 @@
                     <a class="up-button btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
                       <span>Print</span>
                     </a>
-                    <br>
+
                     <a class="up-button-green btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
                       <span>Download</span>
                     </a>

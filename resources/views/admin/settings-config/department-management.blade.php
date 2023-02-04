@@ -86,10 +86,55 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="top-label">
-                  <label>Create Account</label>
-                  <label class="account-info">Allow User to manage respective campus; key, names, and clusters
+                  <label>Department Management</label>
+                  <label class="account-info">Allow User to manage respective Departments for Campuses
                   </label>
+                  {{ csrf_field() }}
+                  <form id="campus_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
 
+                    <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
+                      <input type="hidden" id="app_trailNo">
+                      <div class="mp-input-group">
+                        <label class="mp-input-group__label">Department No.</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
+                      </div>
+                      <div class="mp-input-group">
+                        <label class="mp-input-group__label">Department Name</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
+                      </div>
+                      <div class="mp-input-group">
+                        <label class="mp-input-group__label">Campus</label>
+                        <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
+                          <option>campus 1</option>
+                          <option>campus 1</option>
+                          <option>campus 1</option>
+                          <option>campus 1</option>
+
+                        </select>
+                      </div>
+                      <div class="mp-input-group">
+                        <label class="mp-input-group__label">College / Unit</label>
+                        <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
+                          <option>College Unit 1</option>
+                          <option>College Unit 1</option>
+                          <option>College Unit 1</option>
+                        </select>
+                      </div>
+
+
+
+
+                      <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_campus" type="submit">
+                        <span>Save Record</span>
+                      </a>
+                      <a class="up-button-grey btn-md button-animate-right mp-text-center">
+                        <span>Clear</span>
+                      </a>
+                      <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
+                    </div>
+
+                  </form>
 
                 </div>
 
@@ -98,53 +143,56 @@
               <div class="col-lg-8">
                 <div>
                   <div class="top-label">
-                    <label>Data Records</label>
+                    <!-- <label>Data Records</label> -->
                   </div>
                   <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                    <table class="members-table" style="height: auto;;" width="100%">
+                    <table class="members-table" style="height: auto;" width="100%" id="campus_table">
                       <thead>
                         <tr>
                           <th>
-                            <span>Username</span>
+                            <span>ID</span>
                           </th>
                           <th>
-                            <span>Password</span>
-                          </th>
-                          <th>
-                            <span>Fullname</span>
+                            <span>Department Name</span>
                           </th>
                           <th>
                             <span>Campus</span>
                           </th>
                           <th>
-                            <span>User Level</span>
-                          </th>
-                          <th>
-                            <span>Status</span>
+                            <span>College</span>
                           </th>
                           <th>
                             <span>Action</span>
                           </th>
-
                         </tr>
                       </thead>
                       <tbody>
-                        @for ($i = 0; $i < 100; $i++) <tr>
-                          <td>akosirr</td>
-                          <td>asd</td>
-                          <td>AKO SI RR</td>
-                          <td>UP DILIMAN</td>
-                          <td>Super admin</td>
-                          <td>Pending</td>
-                          <td>
-                            <button class="up-button-green" style="border-radius: 10px;">
-                              view <i class="fa fa-eye" aria-hidden="true"></i>
+                        @for($x=1;$x<=5;$x++) <tr>
+                          <td>1</td>
+                          <td>Elementary Education</td>
+                          <td>Up Diliman</td>
+                          <td>College of Information Technology</td>
+                          <td style="padding:5px;">
+                            <button class="up-button" style="border-radius: 5px;">
+                              <span>
+                                <i class="fa fa-trash" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
+                              </span>
                             </button>
-
+                            <button class="" style="border-radius: 5px;">
+                              <span>
+                                <i class="fa fa-copy" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
+                              </span>
+                            </button>
+                            <button class="up-button-green" style="border-radius: 5px;">
+                              <span>
+                                <i class="fa fa-edit" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
+                              </span>
+                            </button>
                           </td>
-                          </tr>
 
+                          </tr>
                           @endfor
+
                       </tbody>
                     </table>
 
@@ -155,7 +203,7 @@
                     <a class="up-button btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
                       <span>Print</span>
                     </a>
-                    <br>
+
                     <a class="up-button-green btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
                       <span>Download</span>
                     </a>
