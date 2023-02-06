@@ -358,7 +358,7 @@
 
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-2" style="padding:0px !important; height: 100%; overflow-y:auto; ">
+      <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
         <div class="mp-card" style="padding-bottom:150px;">
           <div class="settings-tab">
             <div class="top-label">
@@ -422,8 +422,10 @@
 
         </div>
       </div>
-      <div class="col-lg-10 mp-mt3 gap-10">
-
+      <div class="col-lg-10 mp-mt3 gap-10" id="settingsContent">
+        <div class="button-container mp-mb3">
+          <button class="f-button magenta-bg" id="showSettings">Hide Settings</button>
+        </div>
         <div class="mp-card  mp-ph2 mp-pv2">
           <div class="container-fluid">
             <div class="row">
@@ -451,18 +453,18 @@
                     </div> -->
 
 
-                    
-                    <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_campus" type="submit">
-                      <span>Save Record</span>
-                    </a>
-                    <a class="up-button-grey btn-md button-animate-right mp-text-center" >
-                      <span>Clear</span>
-                    </a>
-                    <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
 
-                  </div>
+                      <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_campus" type="submit">
+                        <span>Save Record</span>
+                      </a>
+                      <a class="up-button-grey btn-md button-animate-right mp-text-center">
+                        <span>Clear</span>
+                      </a>
+                      <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
 
-                </form>
+                    </div>
+
+                  </form>
 
                 </div>
 
@@ -520,98 +522,118 @@
 <script>
   var campus_table;
   $(document).ready(function() {
-     campus_table = $('#campus_table').DataTable({
-            ordering: false,
-            info: false,
-            searching: true,
-            paging: false,
-            processing: true,
-            serverSide: true,
-            ajax: {
-                url: "{{ route('campus_list') }}"
-            },
-            columns: [{
-                    data: 'campus_key',
-                    name: 'campus_key'
-                },
-                {
-                    data: 'name',
-                    name: 'name'
-                },
-                {
-                    data: 'action',
-                    name: 'action',
- 
-                },
-            ]
-        });
-});
+    campus_table = $('#campus_table').DataTable({
+      ordering: false,
+      info: false,
+      searching: true,
+      paging: false,
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "{{ route('campus_list') }}"
+      },
+      columns: [{
+          data: 'campus_key',
+          name: 'campus_key'
+        },
+        {
+          data: 'name',
+          name: 'name'
+        },
+        {
+          data: 'action',
+          name: 'action',
+
+        },
+      ]
+    });
+  });
   $(document).on('click', '#save_campus', function() {
     $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-      var formData = $("#campus_form").serialize();
-      // var additionalData = {
-      //     'mem_id': mem_id,
-      // };
-      // formData += '&' + $.param(additionalData);
-      $.ajax({
-          type: 'POST',
-          url: "{{ route('add_campus') }}",
-          data: formData,
-          success: function(data) {
-            if (data.success != '') {
-            Swal.fire({
-                        text: 'Campus has been added Successfully.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Ok',
-                    });
-              campus_table.draw();
-            }
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var formData = $("#campus_form").serialize();
+    // var additionalData = {
+    //     'mem_id': mem_id,
+    // };
+    // formData += '&' + $.param(additionalData);
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('add_campus') }}",
+      data: formData,
+      success: function(data) {
+        if (data.success != '') {
+          Swal.fire({
+            text: 'Campus has been added Successfully.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok',
+          });
+          campus_table.draw();
+        }
 
-          }
-      });
+      }
+    });
   });
   $(document).on('click', '.delete_campus', function() {
     $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-      var id_campus = $(this).data('id');
-      Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                icon: 'warning',
-                showCancelButton: true,
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var id_campus = $(this).data('id');
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          type: 'POST',
+          url: "{{ route('delete_campus') }}",
+          data: {
+            id_campus: id_campus
+          },
+          success: function(data) {
+            if (data.success != '') {
+              Swal.fire({
+                text: 'Campus has been Deleted Successfully.',
+                icon: 'success',
                 confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-              }).then((result) => {
-                if (result.value) {
-                  $.ajax({
-                    type: 'POST',
-                    url: "{{ route('delete_campus') }}",
-                    data: {id_campus:id_campus},
-                    success: function(data) {
-                      if (data.success != '') {
-                      Swal.fire({
-                                  text: 'Campus has been Deleted Successfully.',
-                                  icon: 'success',
-                                  confirmButtonColor: '#3085d6',
-                                  confirmButtonText: 'Ok',
-                              });
-                        campus_table.draw();
-                      }
-                    }
-                });
-                 
-                }
+                confirmButtonText: 'Ok',
               });
-      
+              campus_table.draw();
+            }
+          }
+        });
+
+      }
+    });
   });
+  $(document).on('click', '#showSettings', function(e) {
+    if ($("#settingsTab").hasClass("col-lg-2")) {
+      $("#settingsTab").addClass("d-none");
+      $("#settingsTab").removeClass("col-lg-2");
+      $("#settingsContent").removeClass("col-lg-10");
+      $("#settingsContent").addClass("col-lg-12");
+
+      $("#showSettings").text("Show Settings")
+
+    } else {
+      $("#settingsTab").removeClass("d-none");
+      $("#settingsTab").addClass("col-lg-2");
+      $("#settingsContent").removeClass("col-lg-12");
+      $("#settingsContent").addClass("col-lg-10");
+
+      $("#showSettings").text("Hide Settings")
+    }
+
+  })
 </script>
 @endsection
