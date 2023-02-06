@@ -784,6 +784,18 @@
                     </figure>
                 </div>
             </div>
+            <div id="modalBackDrop" class="d-none opacity-0">
+                <div class="modalContent">
+                    <div class="modalBody">
+                        <p>UPPFI uses a third party service to analyze non-identifiable web traffic for us. This site uses cookies. Data generated is not disclosed not shared with any other party. For more information please see our <a href="#" class="link_style">Privacy Policy</a>.</p>
+                    </div>
+                    <div class="modalFooter">
+                        <button id="agree">
+                            I Agree
+                        </button>
+                    </div>
+                </div>
+            </div>
             <!-- <div class="calendar">
                     <div class="wrapper">
                       <header>
@@ -1027,6 +1039,29 @@
 
     <!-- <div id="myItem1"></div> -->
     <script>
+        $(document).on('click', '#agree', function(e) {
+        $("#modalBackDrop").addClass("opacity-0")
+        setTimeout(function() {
+            $("#modalBackDrop").addClass("d-none")
+        }, 500)
+        sessionStorage.setItem("agreeClicked", true)
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('saveAgreement') }}",
+            data: {_token: "{{ csrf_token() }}"},
+            success: function(response) {
+            console.log(response);
+            }
+        });
+        })
+        $(document).ready(function(e) {
+            if (sessionStorage.getItem("agreeClicked") == null) {
+                $("#modalBackDrop").removeClass("d-none")
+                setTimeout(function() {
+                    $("#modalBackDrop").removeClass("opacity-0")
+                }, 100)
+            }
+        })
         $(document).ready(function() {
             load_apllicationList_count();
 

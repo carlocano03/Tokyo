@@ -125,6 +125,19 @@ Route::post('/login/psgc_munc', [HomeController::class, 'psgc_munc'])->name('psg
 Route::post('/login/psgc_brgy', [HomeController::class, 'psgc_brgy'])->name('psgc_brgy');
 
 // settings
+Route::post('/save-agreement', [AdminController::class, 'saveAgreement'])->name('saveAgreement');
 Route::get('/settings/campus_list', [Settings::class, 'campus_list'])->name('campus_list');
 Route::post('/settings/save_campus', [Settings::class, 'save_campus'])->name('add_campus');
 Route::post('/settings/delete_campus', [Settings::class, 'remove_campus'])->name('delete_campus');
+// classification
+Route::post('/settings/save-class', [Settings::class, 'save_classif'])->name('save-class');
+Route::get('/settings/class_list', [Settings::class, 'classification_table'])->name('class_list');
+Route::post('/settings/update_status', [Settings::class, 'up_status'])->name('update_status');
+// college
+Route::post('/settings/save-college', [Settings::class, 'save_college'])->name('save-college');
+Route::get('/settings/college_list', [Settings::class, 'college_table'])->name('college_list');
+Route::post('/settings/delete_college', [Settings::class, 'remove_college'])->name('delete_college');
+Route::post('/settings/get_details_coll', [Settings::class, 'get_college'])->name('get_details_coll');
+Route::post('/settings/update-college', [Settings::class, 'update_college'])->name('update-college');
+
+

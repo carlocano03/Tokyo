@@ -92,17 +92,17 @@
                   {{ csrf_field() }}
                   <form id="campus_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
 
-                    <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
-                      <input type="hidden" id="app_trailNo">
-                      <div class="mp-input-group">
-                        <label class="mp-input-group__label">Campus Key</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
-                      </div>
-                      <div class="mp-input-group">
-                        <label class="mp-input-group__label">Campus Name</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_name" id="campus_name" required="">
-                      </div>
-                      <!-- <div class="mp-input-group">
+                  <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" >
+                    <input type="hidden" id="app_trailNo">
+                    <div class="mp-input-group">
+                      <label class="mp-input-group__label">Campus Key</label>
+                      <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
+                    </div>
+                    <div class="mp-input-group">
+                      <label class="mp-input-group__label">Campus Name</label>
+                      <input class="mp-input-group__input mp-text-field" type="text" name="campus_name" id="campus_name" required="">
+                    </div>
+                    <!-- <div class="mp-input-group">
                       <label class="mp-input-group__label">Last Name</label>
                       <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required="">
                     </div> -->
