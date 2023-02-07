@@ -545,7 +545,7 @@ class HomeController extends Controller
           'middlename' => strtoupper($request->input('middlename')),
           'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
           'firstname' => strtoupper($request->input('firstname')),
-          'date_birth' => $request->input('date_birth'),
+          'date_birth' => date('mm', strtotime($request->input('date_birth'))),
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
