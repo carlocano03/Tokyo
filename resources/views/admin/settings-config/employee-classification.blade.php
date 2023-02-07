@@ -202,18 +202,6 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @for($x=1;$x<=5;$x++) <tr>
-                          <td>1</td>
-                          <td>Admin Staff</td>
-                          <td>Active</td>
-                          <td>
-                            <label class="switch">
-                              <input type="checkbox" checked>
-                              <span class="slider round"></span>
-                            </label>
-                          </td>
-                          </tr>
-                          @endfor
 
                       </tbody>
                     </table>
