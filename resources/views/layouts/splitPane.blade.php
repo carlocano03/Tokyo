@@ -3,8 +3,8 @@
 
 
 
-    <!-- mobile transition -->
-    {{-- <div class="mobile-header">
+<!-- mobile transition -->
+{{-- <div class="mobile-header">
         <div class="logo-title">
             <div class="mp-pb4  mp-text-center logo-text">
                 <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
@@ -16,97 +16,92 @@
             </div>
         </div>
     </div> --}}
-    <div class="transition-background">
+<div class="transition-background">
 
-    </div>
-    <div class="custom-modal not-visible" id="modal_name">
-        <div class="modal-container">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Generate Cocolife Form
-                </div>
-                <div class="modal-body">
-                    {{-- <form id="generateCoco" method="POST" enctype="multipart/form-data">
+</div>
+<div class="custom-modal not-visible" id="modal_name">
+    <div class="modal-container">
+        <div class="modal-content">
+            <div class="modal-header">
+                Generate Cocolife Form
+            </div>
+            <div class="modal-body">
+                {{-- <form id="generateCoco" method="POST" enctype="multipart/form-data">
                         @csrf --}}
-                    <input type="hidden" name="app_number" id="app_number">
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Place of Birth</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="place_birth"
-                            id="place_birth" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Height</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="height" id="height" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Weight</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="weight" id="weight" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Amount of Insurance</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="amt_isurance"
-                            id="amt_isurance" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Term of Coverage</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="coverage" id="coverage" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Premiums</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="premiums" id="premiums" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Occupation</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="occupation"
-                            id="occupation" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Nature of Work</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="nature_work"
-                            id="nature_work" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">If seaman, port of entry</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="seaman" id="seaman" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">If OCW/OFW,destination country</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="ofw" id="ofw" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Exceptions</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="exception" id="exception" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
-                        <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="cocolife_sign"
-                            id="cocolife_sign" accept="image/png, image/gif, image/jpeg, image/jpg" />
-                    </div>
-
+                <input type="hidden" name="app_number" id="app_number">
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Place of Birth</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Height</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="height" id="height" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Weight</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="weight" id="weight" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Amount of Insurance</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="amt_isurance" id="amt_isurance" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Term of Coverage</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="coverage" id="coverage" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Premiums</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="premiums" id="premiums" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Occupation</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Nature of Work</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="nature_work" id="nature_work" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">If seaman, port of entry</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="seaman" id="seaman" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">If OCW/OFW,destination country</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="ofw" id="ofw" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Exceptions</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="exception" id="exceptions" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
+                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="cocolife_sign" id="cocolife_sign" accept="image/png, image/gif, image/jpeg, image/jpg" />
                 </div>
 
-                <div class="modal-footer">
-                    <div class="mp-container">
-                        <div class="row">
-                            <button class="up-button btn-md " id="modal_name_close" type="button">
-                                <span>Close</span>
-                            </button>
-                            <button class="up-button btn-md" type="button" id="btn-coco">
-                                <span>Generate</span>
-                            </button>
-                            {{-- </form> --}}
-                        </div>
-                    </div>
+            </div>
 
+            <div class="modal-footer">
+                <div class="mp-container" style="display: flex; justify-content: center;">
+                    <div class="row">
+                        <button class="up-button btn-md " id="modal_name_close" type="button">
+                            <span>Close</span>
+                        </button>
+                        <button class="up-button btn-md" type="button" id="btn-coco">
+                            <span>Generate</span>
+                        </button>
+                        {{-- </form> --}}
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
-    <div class="mp-split-pane">
-        <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
-            <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-12 col-sm-10">
+</div>
+<div class="mp-split-pane">
+    <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
+        <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-12 col-sm-10">
                     @section('loginForm')
                     @show
 
@@ -119,8 +114,7 @@
             @show
         </div>
 
-        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto"
-            style="height: calc(100% - 0px)">
+        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto" style="height: calc(100% - 0px)">
             @section('registration-personal-form')
             @show
 
@@ -209,10 +203,10 @@
 
     var stepTitle = ["Personal Information", "Employment Details", "Membership Details"]
 
-    $(document).on('change', '#present_province', function() {
-        var codes = $(this).val();
-        var subss = codes.substring(0, 4);
-        // console.log(subss);
+    $(document).on('change','#present_province',function(){
+    var codes = $(this).val();
+    var subss = codes.substring(0,4);
+    // console.log(subss);
         $.ajax({
             url: "{{ route('psgc_munc') }}",
             method: "POST",
@@ -222,17 +216,98 @@
             success: function(data) {
                 var options = '<option value="">Select Municipal</option>';
                 $.each(data.data, function(index, item) {
-                    options += '<option value="' + item.code + '">' + item.name
-                    .toUpperCase() + '</option>';
+                    options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
                 });
                 $("#present_city").html(options);
-                $("#present_province_name").val($("#present_province").find("option:selected")
-                .text());
+                $("#present_province_name").val($("#present_province").find("option:selected").text());
                 if (present_muncode) {
                     var mun_code = present_muncode;
                     $("#present_city").val(mun_code).change();
                 }
             }
+        });
+    });
+    $(document).on('change','#present_city',function(){
+    var codes = $(this).val();
+    var subss = codes.substring(0,6);
+    // console.log(subss);
+        $.ajax({
+        url: "{{ route('psgc_brgy') }}",
+        method:"POST",
+        data:{codes:subss},
+        success:function(data)
+        {
+            var options = '<option value="">Select Barangay</option>';
+            $.each(data.data, function(index, item) {
+            options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+            });
+            $("#present_barangay").html(options);
+            $("#present_municipality_name").val($("#present_city").find("option:selected").text());
+            if (present_brgycode) {
+            var brgy_code = present_brgycode;
+                    $("#present_barangay").val(brgy_code).change();
+                }
+        }
+        });
+    });
+    $(document).on('change','#present_barangay',function(){
+        $("#present_barangay_name").val($("#present_barangay").find("option:selected").text());
+    });
+    $(document).ready(function() {
+    $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#present_province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
+        });
+    });
+    $(document).on('change', '#present_city', function() {
+        var codes = $(this).val();
+        var subss = codes.substring(0, 6);
+        // console.log(subss);
+        $.ajax({
+            url: "{{ route('psgc_brgy') }}",
+            method: "POST",
+            data: {
+                codes: subss
+            },
+            success: function(data) {
+                var options = '<option value="">Select Barangay</option>';
+                $.each(data.data, function(index, item) {
+                    options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+                });
+                $("#present_barangay").html(options);
+                $("#present_municipality_name").val($("#present_city").find("option:selected").text());
+                if (present_brgycode) {
+                    var brgy_code = present_brgycode;
+                    $("#present_barangay").val(brgy_code).change();
+                }
+            }
+        });
+    });
+    $(document).on('change', '#present_barangay', function() {
+        $("#present_barangay_name").val($("#present_barangay").find("option:selected").text());
+    });
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#present_province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
         });
     });
     $(document).on('change', '#present_city', function() {
@@ -249,11 +324,11 @@
                 var options = '<option value="">Select Barangay</option>';
                 $.each(data.data, function(index, item) {
                     options += '<option value="' + item.code + '">' + item.name
-                    .toUpperCase() + '</option>';
+                        .toUpperCase() + '</option>';
                 });
                 $("#present_barangay").html(options);
                 $("#present_municipality_name").val($("#present_city").find("option:selected")
-                .text());
+                    .text());
                 if (present_brgycode) {
                     var brgy_code = present_brgycode;
                     $("#present_barangay").val(brgy_code).change();
@@ -294,7 +369,7 @@
                 var options = '<option value="">Select Municipal</option>';
                 $.each(data.data, function(index, item) {
                     options += '<option value="' + item.code + '">' + item.name
-                    .toUpperCase() + '</option>';
+                        .toUpperCase() + '</option>';
                 });
                 $("#city").html(options);
                 $("#province_name").val($("#province").find("option:selected").text());
@@ -319,7 +394,7 @@
                 var options = '<option value="">Select Barangay</option>';
                 $.each(data.data, function(index, item) {
                     options += '<option value="' + item.code + '">' + item.name
-                    .toUpperCase() + '</option>';
+                        .toUpperCase() + '</option>';
                 });
                 $("#barangay").html(options);
                 $("#municipality_name").val($("#city").find("option:selected").text());
@@ -349,6 +424,73 @@
         });
     });
 
+
+    $(document).on('change', '#province', function() {
+        var codes = $(this).val();
+        var subss = codes.substring(0, 4);
+        // console.log(subss);
+        $.ajax({
+            url: "{{ route('psgc_munc') }}",
+            method: "POST",
+            data: {
+                codes: subss
+            },
+            success: function(data) {
+                var options = '<option value="">Select Municipal</option>';
+                $.each(data.data, function(index, item) {
+                    options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+                });
+                $("#city").html(options);
+                $("#province_name").val($("#province").find("option:selected").text());
+                if (perm_muncode) {
+                    var mun_code = perm_muncode;
+                    $("#city").val(mun_code).change();
+                }
+            }
+        });
+    });
+    $(document).on('change', '#city', function() {
+        var codes = $(this).val();
+        var subss = codes.substring(0, 6);
+        // console.log(subss);
+        $.ajax({
+            url: "{{ route('psgc_brgy') }}",
+            method: "POST",
+            data: {
+                codes: subss
+            },
+            success: function(data) {
+                var options = '<option value="">Select Barangay</option>';
+                $.each(data.data, function(index, item) {
+                    options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+                });
+                $("#barangay").html(options);
+                $("#municipality_name").val($("#city").find("option:selected").text());
+                if (perm_brgycode) {
+                    var brgy_code = perm_brgycode;
+                    $("#barangay").val(brgy_code).change();
+                }
+            }
+        });
+    });
+    $(document).on('change', '#barangay', function() {
+        $("#barangay_name").val($("#barangay").find("option:selected").text());
+    });
+    $(document).ready(function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
+        });
+    });
 
     $(document).on('click', '#modal_name_pop', function(e) {
         var appNo = query;
@@ -387,6 +529,10 @@
     })
 
     $(document).on('click', '#fp_back', function(e) {
+        $('#input-app').show();
+        $('#search_btn').show();
+        $('.status-result').hide();
+        $('#app_no_trail').val('');
         $("#resetPasswordForm").attr("hidden", true);
         $("#statusTrailForm").attr("hidden", true);
         $("#loginform").removeAttr("hidden");
@@ -759,7 +905,7 @@
                                                 $("#member_forms_con").removeClass(
                                                     'mh-reg-form');
                                                 $("#member_forms_3").addClass(
-                                                'mh-reg-form');
+                                                    'mh-reg-form');
                                                 // $(this).attr('value', 'step-end')
                                                 $("#line").removeClass('step-2').addClass(
                                                     'step-3')
@@ -777,7 +923,7 @@
                                     });
                                 } else {
                                     swal.fire(
-                                    "Update was cancelled by the user. No changes were made.");
+                                        "Update was cancelled by the user. No changes were made.");
                                     $("#step-2").removeClass('d-flex').addClass("d-none");
                                     $("#step-3").removeClass('d-none').addClass("d-flex");
                                     $("#back").attr('value', 'step-2')
@@ -969,9 +1115,9 @@
             inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             var decimalAdded = inputValue.split(".");
             if (decimalAdded.length > 2) {
-                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
+            inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
             }
-
+            
             if (inputValue == '') {
                 $('#sg_category').val('');
             }
@@ -1021,8 +1167,7 @@
             var myString3 = $('#present_bldg_street').val();
             var myString4 = $('#present_zipcode').val();
             if (myString !== "" && myString1 !== "" && myString2 !== "") {
-                var valueAfterTargetChar = myString3 + ' ' + myString2 + ' ' + myString1 + ' ' + myString +
-                    ' ,' + myString4 + ' ';
+                var valueAfterTargetChar = myString3 + ' ' + myString2 + ' ' + myString1 + ' ' + myString + ' ,' + myString4 + ' ';
                 $('#same_add').val(valueAfterTargetChar);
                 $('.same_div').hide();
             } else {
@@ -1031,7 +1176,7 @@
                     text: 'Thank you!',
                     icon: 'error'
                 });
-                $(this).prop("checked", false);
+                $(this).prop("checked",false);
             }
         } else {
             $('#same_add').val('');
@@ -1055,6 +1200,23 @@
             $('#fixed_amount').val('');
         }
     });
+    $('#fixed_amount').on('blur', function(event) {
+        var input1 = parseFloat($("#fixed_amount").val().replace(/,/g, ''));
+        var input2 = parseFloat($("#monthly_salary").val().replace(/,/g, ''));
+        var percentage = (input2 * 0.01);
+        if (input1 < percentage) {
+            swal.fire("Error!", "Please input fixed amount greater than 1% of your Monthly Salary", "error");
+            $("#fixed_amount").val('');
+        }
+    });
+
+    $('input[name="middlename"]').on("blur", function() {
+        var middleName = $(this).val();
+        if (middleName.length === 1) {
+            swal.fire("Error!", "Please input your complete MIDDLE NAME (Ex. GOMEZ). Thank you.", "error");
+            $('input[name="middlename"]').focus();
+        }
+    })
     $(document).on('click', '#citizenship', function(e) {
         var citizen = $(this).val();
         if (citizen == 'DUAL CITIZENSHIP' || citizen == 'OTHERS') {
@@ -1067,26 +1229,10 @@
 
     $('#percentage_bsalary').on('keypress keyup blur', function(event) {
         var $this = $(this);
-        if ((event.which != 46 || $this.val().indexOf('.') != -1) &&
-            ((event.which < 48 || event.which > 57) &&
-                (event.which != 0 && event.which != 8))) {
+        if ((event.which < 48 || event.which > 57) && (event.which != 0 && event.which != 8)) {
             event.preventDefault();
         }
-        var text = $(this).val();
-        if ((event.which == 46) && (text.indexOf('.') == -1)) {
-            setTimeout(function() {
-                if ($this.val().substring($this.val().indexOf('.')).length > 3) {
-                    $this.val($this.val().substring(0, $this.val().indexOf('.') + 3));
-                }
-            }, 1);
-        }
-        if ((text.indexOf('.') != -1) &&
-            (text.substring(text.indexOf('.')).length > 2) &&
-            (event.which != 0 && event.which != 8) &&
-            ($(this)[0].selectionStart >= text.length - 2)) {
-            event.preventDefault();
-        }
-        if (parseFloat($this.val()) < 1 || parseFloat($this.val()) > 100) {
+        if (parseInt($this.val()) < 1 || parseInt($this.val()) > 100) {
             $this.val("");
             $('#computed_amount').html($this.val());
         }
@@ -1129,10 +1275,7 @@
     var query
     $(document).on('click', '#search_btn', function(e) {
         query = $('#app_no_trail').val();
-
         if (query != '') {
-
-
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1220,6 +1363,10 @@
         setTimeout(function timout() {
             $("#leftsection").removeClass("transition-all-cubic").addClass("transition-all");
         }, 400)
+        $('#input-app').show();
+        $('#search_btn').show();
+        $('.status-result').hide();
+        $('#app_no_trail').val('');
         var app_trailno = query;
         $.ajax({
             url: "{{ route('continued_trail') }}",
@@ -1279,13 +1426,8 @@
                     $("[name='date_appointment']").val(data.date_appointment == null ? '' : data
                         .date_appointment);
 
-                    var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
-                    var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
-                        ",");
-
                     $("[name='monthly_salary']").val(formattedNumber);
-                    $("[name='salary_grade']").val(data.salary_grade == null ? '' : data
-                        .salary_grade);
+                    $("[name='salary_grade']").val(data.salary_grade == null ? '' : data.salary_grade);
                     $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
                     $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
                     $('#present_province').val(data.present_province_code).trigger('change');
@@ -1296,9 +1438,7 @@
                     present_brgycode = data.present_barangay_code;
                     if (data.same_add == 1) {
                         $('#perm_add_check').prop("checked", true);
-                        var valueAfterTargetChar = data.present_bldg_street + ' ' + data
-                            .present_barangay + ' ' + data.present_municipality + ' ' + data
-                            .present_province + ', ' + data.present_zipcode + ' ';
+                        var valueAfterTargetChar = data.present_bldg_street + ' ' + data.present_barangay + ' ' + data.present_municipality + ' ' + data.present_province + ', ' + data.present_zipcode + ' ';
                         $('#same_add').val(valueAfterTargetChar);
                         $('.same_div').hide();
                     } else {
@@ -1316,6 +1456,7 @@
                     }
                 }
             }
+
         });
 
     });
@@ -1446,7 +1587,17 @@
             }
         });
     })
+    $(document).on('click', '#no_middlename', function() {
+        if ($(this).is(':checked')) {
+            $('input[name="middlename"]').val('N/A');
+            $('input[name="middlename"]').prop('disabled', true);
+        } else {
+            $('input[name="middlename"]').val('');
+            $('input[name="middlename"]').prop('disabled', false);
+        }
 
+
+    });
     // $(document).on('submit', '#generateCoco', function(event) {
     //     event.preventDefault();
     //     var id = $('#app_number').val();

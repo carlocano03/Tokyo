@@ -330,6 +330,9 @@
             </div>
             <div class="mp-input-group">
                 <label class="mp-input-group__label">Middle Name</label>
+                <input type="checkbox" class="options" id="no_middlename" name="no_middlename"
+                        value="N/A" onClick="ckChange(this)" />
+                    <label class="mp-input-group__label" style="margin-top: 5px;">No Middle Name</label>
                 <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
             </div>
             <div class="mp-input-group">
