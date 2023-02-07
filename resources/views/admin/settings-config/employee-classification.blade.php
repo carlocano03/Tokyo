@@ -212,10 +212,6 @@
                         </tr>
                       </thead>
                       <tbody>
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes
 
                       </tbody>
                     </table>
