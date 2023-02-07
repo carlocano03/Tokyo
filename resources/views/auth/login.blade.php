@@ -295,7 +295,7 @@
             <li class="circle active" id="stepper-1">1</li>
             <li class="circle" id="stepper-2">2</li>
             <li class="circle" id="stepper-3">3</li>
-            <li class="circle" id="stepper-3">4</li>
+            <li class="circle" id="stepper-4">4</li>
         </ul>
         <div class="line step-1" id="line"></div>
     </div>
