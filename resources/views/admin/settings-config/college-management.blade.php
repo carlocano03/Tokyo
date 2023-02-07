@@ -107,41 +107,6 @@
                         </select>
                       </div>
 
-                      <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
-                        <input type="hidden" id="app_trailNo">
-                        <div class="mp-input-group">
-                          <label class="mp-input-group__label">College ID</label>
-                          <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
-                        </div>
-                        <div class="mp-input-group">
-                          <label class="mp-input-group__label">College / Unit Name</label>
-                          <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
-                        </div>
-                        <div class="mp-input-group">
-                          <label class="mp-input-group__label">Campus</label>
-                          <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
-                            <option>campus 1</option>
-                            <option>campus 1</option>
-                            <option>campus 1</option>
-                            <option>campus 1</option>
-
-                          </select>
-                        </div>
-
-
-
-                        <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_campus" type="submit">
-                          <span>Save Record</span>
-                        </a>
-                        <a class="up-button-grey btn-md button-animate-right mp-text-center">
-                          <span>Clear</span>
-                        </a>
-                        <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
-
-                      </div>
-
-                  </form>
-
 
                   <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_college" type="submit">
                     <span class="save_up">Save Record</span>
@@ -165,7 +130,7 @@
                   <!-- <label>Data Records</label> -->
                 </div>
                 <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                  <table class="college-table" style="height: auto;" width="100%" id="college_table">
+                  <table class="members-table" style="height: auto;" width="100%" id="college_table">
                     <thead>
                       <tr>
                         <th>
@@ -252,6 +217,7 @@
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Ok',
               });
+              $("#college_form")[0].reset();
               tbl_clss.draw();
             }
           }

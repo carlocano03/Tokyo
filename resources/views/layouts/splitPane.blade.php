@@ -235,7 +235,6 @@
                 if (present_muncode) {
                     var mun_code = present_muncode;
                     $("#present_city").val(mun_code).change();
-
                 }
             }
         });
@@ -643,6 +642,13 @@
                         }
                     }
                 }
+            } else {
+                Swal.fire({
+                    title: 'Terms and Conditions!',
+                    text: 'Please check the terms and conditions before you proceed.',
+                    icon: 'warning'
+                });
+            }
             } else {
                 Swal.fire({
                     title: 'Terms and Conditions!',
@@ -1267,11 +1273,10 @@
                         $('#no_middlename').prop('checked', true);
                         $("[name='middlename']").val('N/A')
                         $('input[name="middlename"]').prop('disabled', true);
-                    } else {
+                    }else{
                         $('#no_middlename').prop('checked', false);
                         $('input[name="middlename"]').prop('disabled', false);
-                        $("[name='middlename']").val(data.middlename == null ? '' : data
-                            .middlename);
+                        $("[name='middlename']").val(data.middlename == null ? '' : data.middlename);
                     }
                     $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
                     $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
@@ -1315,8 +1320,7 @@
                     $("[name='date_appointment']").val(data.date_appointment == null ? '' : data
                         .date_appointment);
                     var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
-                    var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
-                        ",");
+                    var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     $("[name='monthly_salary']").val(formattedNumber);
                     $("[name='salary_grade']").val(data.salary_grade == null ? '' : data
                         .salary_grade);

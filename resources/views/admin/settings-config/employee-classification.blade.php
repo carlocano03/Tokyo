@@ -193,7 +193,7 @@
                     <!-- <label>Data Records</label> -->
                   </div>
                   <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                    <table class="classif-table" style="height: auto;" width="100%" id="classif-table">
+                    <table class="members-table" style="height: auto;" width="100%" id="classif-table">
                       <thead>
                         <tr>
                           <th>
@@ -212,6 +212,10 @@
                         </tr>
                       </thead>
                       <tbody>
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
                       </tbody>
                     </table>
@@ -288,7 +292,7 @@
   });
   var tbl_clss;
   $(document).ready(function() {
-    tbl_clss = $('.classif-table').DataTable({
+    tbl_clss = $('#classif-table').DataTable({
       processing: true,
       serverSide: true,
       ajax: {
