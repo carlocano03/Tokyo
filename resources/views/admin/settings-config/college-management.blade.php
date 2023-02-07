@@ -130,7 +130,6 @@
 
 
 
-
                         <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_campus" type="submit">
                           <span>Save Record</span>
                         </a>

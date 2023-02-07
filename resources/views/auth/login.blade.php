@@ -691,7 +691,6 @@
         </button>
     </div>
 </form>
-
 @endsection
 
 @section('reset-password-form')
