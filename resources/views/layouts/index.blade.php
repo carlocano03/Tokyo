@@ -18,7 +18,7 @@
     <link href="{!! asset('dist/select2-4.0.13/css/select2.min.css') !!}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-
+    <link href="https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap" rel="stylesheet">
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     {{-- <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> --}}
     <script src="//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
@@ -34,6 +34,11 @@
                 families: ['Fira Sans:300,400,500,600,700']
             }
         });
+        WebFont.load({
+    google: {
+      families: ['Droid Sans', 'Droid Serif']
+    }
+  });
     </script>
     <script src="{{ asset('/dist/vendor.js') }}"></script>
     <script src="{{ asset('/dist/dashboard.js') }}"></script>

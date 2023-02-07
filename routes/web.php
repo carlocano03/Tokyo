@@ -40,6 +40,10 @@ Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard
 Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
 
 Route::get('/options', [HomeController::class, 'getCampuses']);
+Route::get('/classification', [HomeController::class, 'getClassification']);
+Route::get('/college_unit', [HomeController::class, 'getcollege_unit']);
+Route::get('/department', [HomeController::class, 'getdepartment']);
+Route::get('/appointment', [HomeController::class, 'getappointment']);
 Route::get('/options_psgc', [HomeController::class, 'getpsgc_prov']);
 
 //GET
