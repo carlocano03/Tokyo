@@ -6,8 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Proxy Form</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
-
         body {
             font-family: 'Fira Sans', sans-serif;
             margin-left: 40px;
@@ -20,13 +18,13 @@
         }
 
         .sign {
-            font-family: 'Homemade Apple', cursive;
+            font-family: 'Droid Sans';
         }
     </style>
 </head>
 <body>
     <div class="logo">
-        <img src="{{ public_path().'/storage/uppfi-logo.png' }}" width="15%" alt="UPPFI">
+        <img src="{{ public_path().'/assets/images/uppfi-logo.png' }}" width="15%" alt="UPPFI">
         <h2>PROXY FORM</h2>
     </div>
     <b>Know all men by these presents:</b>
@@ -59,7 +57,7 @@
     <div style="text-align: right;">
 
         {{-- <img src="{{ public_path().$member->sign_path }}" width="15%" alt="UPPFI"> --}}
-        <label class="sign">{{ $member->firstname }} {{ $member->lastname }}</label>
+        <label class="sign">{{ $member->sign }}</label>
         <hr style="width: 50%; margin-right: 0px; margin-bottom:1px;">
         Signature of Member
         <br><br><br>

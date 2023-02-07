@@ -482,6 +482,8 @@
     var perm_muncode;
     var perm_brgycode;
     $(document).on('click', '#next-btn', function(e) {
+        var table = $('#dependentTable').DataTable();
+        table.draw();
         var nextValue = $(this).attr('value');
         console.log($(this).attr('value'));
         if (nextValue == 'step-2') {
@@ -657,7 +659,8 @@
                 });
             }
         } else if (nextValue == 'step-3') {
-
+            var table = $('#dependentTable').DataTable();
+            table.draw();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -716,6 +719,8 @@
                     });
                 } else {
                     if (!employee_details_ID) {
+                        var table = $('#dependentTable').DataTable();
+                        table.draw();
                         var formData = $("#member_forms_con").serialize();
                         var additionalData = {
                             'mem_id': mem_id,
@@ -749,6 +754,8 @@
                             }
                         });
                     } else {
+                        var table = $('#dependentTable').DataTable();
+                        table.draw();
                         if (originalData_ext !== $("#member_forms_con").serialize()) {
                             Swal.fire({
                                 text: 'Do you want to allow these changes on your application?',
@@ -848,7 +855,7 @@
         scrollToTop()
     });
 
-    $(document).on('submit', '#member_forms_4', function(e) {
+    $(document).on('submit', '#member_forms_3', function(e) {
         e.preventDefault();
 
         $.ajax({
@@ -929,7 +936,7 @@
     $(document).ready(function() {
         $('.applicationNo').hide();
         $('.status-result').hide();
-        $('#proxy').hide();
+        // $('#proxy').hide();
 
         var id = employee_no;
         var tableDependent = $('#dependentTable').DataTable({
@@ -1038,6 +1045,42 @@
                 $('#campus').append($('<option>', {
                     value: option.campus_key,
                     text: option.name
+                }));
+            });
+        });
+
+        $.getJSON('/classification', function(options) {
+            $.each(options, function(index, option) {
+                $('#classification').append($('<option>', {
+                    value: option.classification_name,
+                    text: option.classification_name
+                }));
+            });
+        });
+
+        $.getJSON('/college_unit', function(options) {
+            $.each(options, function(index, option) {
+                $('#college_unit').append($('<option>', {
+                    value: option.college_unit_name,
+                    text: option.college_unit_name
+                }));
+            });
+        });
+
+        $.getJSON('/department', function(options) {
+            $.each(options, function(index, option) {
+                $('#department').append($('<option>', {
+                    value: option.department_name,
+                    text: option.department_name
+                }));
+            });
+        });
+
+        $.getJSON('/appointment', function(options) {
+            $.each(options, function(index, option) {
+                $('#appointment').append($('<option>', {
+                    value: option.appoint_id,
+                    text: option.appointment_name
                 }));
             });
         });
@@ -1158,6 +1201,7 @@
     }
     $('#cont_app').hide();
     // status trail
+
     var query
     $(document).on('click', '#search_btn', function(e) {
         query = $('#app_no_trail').val();
@@ -1205,6 +1249,7 @@
                             $('#cont_app').hide();
                             $('#print_app').show();
                         }
+
                     } else {
                         Swal.fire({
                             title: 'Error!',
@@ -1371,7 +1416,8 @@
             id = query;
         }
 
-        var files = $('#file')[0].files;
+        // var files = $('#file')[0].files;
+        var esig = $('#e_sig').val();
 
         $.ajaxSetup({
             headers: {
@@ -1380,10 +1426,10 @@
         });
 
         var fd = new FormData();
-        fd.append('file', files[0]);
+        fd.append('esig', esig);
         fd.append('appNo', id);
 
-        if (files.length > 0) {
+        if (esig != '') {
             $.ajax({
                 method: 'POST',
                 url: "{{ route('add_proxyForm') }}",
@@ -1401,25 +1447,25 @@
         } else {
             Swal.fire({
                 title: 'Warning!',
-                text: 'Please upload your signature.',
+                text: 'Please input your name as signature.',
                 icon: 'warning'
             });
         }
     });
 
-    $(document).on('click', '#generateForm', function() {
-        if ($(this).prop('checked')) {
-            $('#proxy').show(300);
-            $('.supporting_docu').hide(300);
-            $('#coco').attr('required', false);
-            $('#proxy_form').attr('required', false);
-        } else {
-            $('#proxy').hide(300);
-            $('.supporting_docu').show(300);
-            $('#coco').attr('required', true);
-            $('#proxy_form').attr('required', true);
-        }
-    });
+    // $(document).on('click', '#generateForm', function() {
+    //     if ($(this).prop('checked')) {
+    //         $('#proxy').show(300);
+    //         $('.supporting_docu').hide(300);
+    //         $('#coco').attr('required', false);
+    //         $('#proxy_form').attr('required', false);
+    //     } else {
+    //         $('#proxy').hide(300);
+    //         $('.supporting_docu').show(300);
+    //         $('#coco').attr('required', true);
+    //         $('#proxy_form').attr('required', true);
+    //     }
+    // });
 
     $(document).on('click', '#btn-coco', function() {
         var id = $('#app_number').val();
