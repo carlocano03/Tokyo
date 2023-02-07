@@ -90,45 +90,41 @@
                   <label class="account-info">Allow User to manage respective Departments for Campuses
                   </label>
                   {{ csrf_field() }}
-                  <form id="campus_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+                  <form id="dept_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
 
                     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
-                      <input type="hidden" id="app_trailNo">
-                      <div class="mp-input-group">
-                        <label class="mp-input-group__label">Department No.</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
-                      </div>
+                      <input type="hidden" id="dept_no" name="dept_no">
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Department Name</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="dept_name" id="dept_name" required="">
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Campus</label>
-                        <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
-                          <option>campus 1</option>
-                          <option>campus 1</option>
-                          <option>campus 1</option>
-                          <option>campus 1</option>
-
+                        <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
+                          <option value="">Select Campus</option>
+                          @foreach($campus as $row)
+                          <option value="{{ $row->id }}">{{ $row->name }}</option>
+                          @endforeach
                         </select>
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">College / Unit</label>
-                        <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
-                          <option>College Unit 1</option>
-                          <option>College Unit 1</option>
-                          <option>College Unit 1</option>
+                        <select class="mp-input-group__input mp-text-field" name="college_unit" id="college_unit" required>
+                          <option value="">Select College/Unit</option>
+                          @foreach($college_unit as $row)
+                          <option value="{{ $row->cu_no }}">{{ $row->college_unit_name }}</option>
+                          @endforeach
                         </select>
                       </div>
 
 
 
 
-                      <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_campus" type="submit">
-                        <span>Save Record</span>
+                      <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_dept" type="submit">
+                        <span class="save_dept">Save Record</span>
                       </a>
-                      <a class="up-button-grey btn-md button-animate-right mp-text-center">
-                        <span>Clear</span>
+                      <a class="up-button-grey btn-md button-animate-right mp-text-center" id="cancel_dept">
+                        <span class="clear_dept">Clear</span>
                       </a>
                       <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
 
@@ -146,12 +142,9 @@
                     <!-- <label>Data Records</label> -->
                   </div>
                   <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                    <table class="members-table" style="height: auto;" width="100%" id="campus_table">
+                    <table class="members-table" style="height: auto;" width="100%" id="department_table">
                       <thead>
                         <tr>
-                          <th>
-                            <span>ID</span>
-                          </th>
                           <th>
                             <span>Department Name</span>
                           </th>
@@ -162,36 +155,14 @@
                             <span>College</span>
                           </th>
                           <th>
+                            <span>Created At</span>
+                          </th>
+                          <th>
                             <span>Action</span>
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        @for($x=1;$x<=5;$x++) <tr>
-                          <td>1</td>
-                          <td>Elementary Education</td>
-                          <td>Up Diliman</td>
-                          <td>College of Information Technology</td>
-                          <td style="padding:5px;">
-                            <button class="up-button" style="border-radius: 5px;">
-                              <span>
-                                <i class="fa fa-trash" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
-                              </span>
-                            </button>
-                            <button class="" style="border-radius: 5px;">
-                              <span>
-                                <i class="fa fa-copy" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
-                              </span>
-                            </button>
-                            <button class="up-button-green" style="border-radius: 5px;">
-                              <span>
-                                <i class="fa fa-edit" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
-                              </span>
-                            </button>
-                          </td>
-
-                          </tr>
-                          @endfor
 
                       </tbody>
                     </table>
@@ -240,6 +211,166 @@
     }
 
   })
+  $(document).on('click', '#save_dept', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    if ($('#campus').val() && $('#dept_name').val() && $('#college_unit').val()) {
+      var formData = $("#dept_form").serialize();
+      if ($('#dept_no').val() != '') {
+        $.ajax({
+          type: 'POST',
+          url: "{{ route('update-department') }}",
+          data: formData,
+          success: function(data) {
+            if (data.success != '') {
+              Swal.fire({
+                text: 'Department has been Updated Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+              });
+              $("#dept_form")[0].reset();
+              $('#dept_no').val('');
+              $('.save_dept').text('Save');
+              $('.clear_dept').text('Clear');
+              tbl_clss.draw();
+            }
+          }
+        });
+      } else {
+        $.ajax({
+          type: 'POST',
+          url: "{{ route('save-department') }}",
+          data: formData,
+          success: function(data) {
+            if (data.success != '') {
+              Swal.fire({
+                text: 'Department has been added Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+              });
+              $("#dept_form")[0].reset();
+              $('#dept_no').val('');
+              $('.save_dept').text('Save');
+              $('.clear_dept').text('Clear');
+              tbl_clss.draw();
+            }
+          }
+        });
+      }
+    } else {
+      Swal.fire('Error', 'Please input Department,College and Campus', 'error')
+    }
+
+  });
+  var tbl_clss;
+  $(document).ready(function() {
+    tbl_clss = $('#department_table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "{{ route('department_list') }}",
+        type: 'GET',
+      },
+      columns: [{
+          data: 'department_name',
+          name: 'department_name'
+        },
+        {
+          data: 'camp_name',
+          name: 'camp_name'
+        },
+        {
+          data: 'college_unit_name',
+          name: 'college_unit_name'
+        },
+        {
+          data: 'time_stamp',
+          name: 'time_stamp'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        },
+      ],
+    });
+  });
+  $(document).on('click', '.remove_dept', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var id_dept = $(this).data('id');
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          type: 'POST',
+          url: "{{ route('delete_department') }}",
+          data: {
+            id_dept: id_dept
+          },
+          success: function(data) {
+            if (data.success) {
+              Swal.fire({
+                text: 'Department has been Removed Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+              });
+
+              tbl_clss.draw();
+            }
+          }
+        });
+
+      }
+    });
+  });
+  $(document).on('click', '#cancel_dept', function() {
+    // $("#college_form").clear();
+    $("#dept_form")[0].reset();
+    $('#dept_no').val('');
+    $('.save_dept').text('Save');
+    $('.clear_dept').text('Clear');
+
+  });
+  $(document).on('click', '.edit_dept', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var id_department = $(this).data('id');
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('get_details_dept') }}",
+      data: {
+        id_department: id_department
+      },
+      success: function(data) {
+        $('#dept_no').val(data.dept_no);
+        $('#dept_name').val(data.department_name);
+        $('#campus').val(data.campus_id);
+        $('#college_unit').val(data.cu_no);
+        $('.save_dept').text('Update');
+        $('.clear_dept').text('Cancel');
+      }
+    });
+
+  });
 </script>
 
 

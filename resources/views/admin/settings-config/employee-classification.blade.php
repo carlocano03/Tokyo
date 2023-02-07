@@ -157,7 +157,14 @@
                       <input type="hidden" id="app_trailNo">
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Classification Name</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="classif_name" id="classif_name" required="">
+                      </div>
+                      <div class="mp-input-group">
+                        <label class="mp-input-group__label">Status</label>
+                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                          <option value="1">Active</option>
+                          <option value="0">In Active</option>
+                        </select>
                       </div>
 
 
@@ -186,7 +193,7 @@
                     <!-- <label>Data Records</label> -->
                   </div>
                   <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                    <table class="classif-table" style="height: auto;" width="100%" id="classif-table">
+                    <table class="members-table" style="height: auto;" width="100%" id="classif-table">
                       <thead>
                         <tr>
                           <th>
@@ -197,11 +204,18 @@
                           </th>
 
                           <th>
+                            <span>Created time</span>
+                          </th>
+                          <th>
                             <span>Action</span>
                           </th>
                         </tr>
                       </thead>
                       <tbody>
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
                       </tbody>
                     </table>
@@ -250,6 +264,93 @@
     }
 
   })
+  $(document).on('click', '#save_class', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var formData = $("#classif_form").serialize();
+
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('save-class') }}",
+      data: formData,
+      success: function(data) {
+        if (data.success != '') {
+          Swal.fire({
+            text: 'Classification Name has been added Successfully.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok',
+          });
+          tbl_clss.draw();
+        }
+
+      }
+    });
+  });
+  var tbl_clss;
+  $(document).ready(function() {
+    tbl_clss = $('#classif-table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "{{ route('class_list') }}",
+        type: 'GET',
+      },
+      columns: [{
+          data: 'classification_name',
+          name: 'classification_name'
+        },
+        {
+          data: 'status',
+          name: 'status'
+        },
+        {
+          data: 'time_stamp',
+          name: 'time_stamp'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        },
+      ],
+    });
+  });
+  $(document).on('click', '#up_status', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var data_id = $(this).attr('data-id');
+    if ($(this).prop('checked')) {
+      var status = 1;
+    } else {
+      var status = 0;
+    }
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('update_status') }}",
+      data: {
+        data_id: data_id,
+        status: status
+      },
+      success: function(data) {
+        if (data.success != '') {
+          Swal.fire({
+            text: 'Status has been added Changed.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok',
+          });
+          tbl_clss.draw();
+        }
+
+      }
+    });
+  });
 </script>
 
 

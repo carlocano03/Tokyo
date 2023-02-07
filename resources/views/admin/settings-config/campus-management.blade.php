@@ -93,7 +93,7 @@
                   <form id="campus_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
 
                   <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" >
-                    <input type="hidden" id="app_trailNo">
+                    <input type="hidden" id="campus_id" name="campus_id">
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Campus Key</label>
                       <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
@@ -110,10 +110,10 @@
 
 
                       <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_campus" type="submit">
-                        <span>Save Record</span>
+                        <span class="save_up">Save Record</span>
                       </a>
-                      <a class="up-button-grey btn-md button-animate-right mp-text-center">
-                        <span>Clear</span>
+                      <a class="up-button-grey btn-md button-animate-right mp-text-center" id="cancel">
+                        <span class="clear_txt">Clear</span>
                       </a>
                       <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
 
@@ -176,16 +176,14 @@
 
 <script>
   var campus_table;
+
   $(document).ready(function() {
     campus_table = $('#campus_table').DataTable({
-      ordering: false,
-      info: false,
-      searching: true,
-      paging: false,
       processing: true,
       serverSide: true,
       ajax: {
-        url: "{{ route('campus_list') }}"
+        url: "{{ route('campus_list') }}",
+        type: 'GET',
       },
       columns: [{
           data: 'campus_key',
@@ -203,17 +201,44 @@
       ]
     });
   });
+  $(document).on('click', '#cancel', function() {
+    $("#campus_form")[0].reset();
+    $('#campus_id').val('');
+    $('.save_up').text('Save Record');
+    $('.clear_txt').text('Clear');
+  });
   $(document).on('click', '#save_campus', function() {
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-    var formData = $("#campus_form").serialize();
-    // var additionalData = {
-    //     'mem_id': mem_id,
-    // };
-    // formData += '&' + $.param(additionalData);
+    if($('#campus_id').val()){
+      var formData = $("#campus_form").serialize();
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('update-campus') }}",
+      data: formData,
+      success: function(data) {
+        if (data.success != '') {
+          Swal.fire({
+            text: 'Campus has been added Updated Successfully.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok',
+          });
+          $("#campus_form")[0].reset();
+          $('#campus_id').val('');
+          $('.save_up').text('Save Record');
+          $('.clear_txt').text('Clear');
+
+          campus_table.draw();
+        }
+
+      }
+    });
+    }else{
+      var formData = $("#campus_form").serialize();
     $.ajax({
       type: 'POST',
       url: "{{ route('add_campus') }}",
@@ -226,11 +251,16 @@
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Ok',
           });
+          $("#campus_form")[0].reset();
+          $('.save_up').text('Save Record');
+          $('.clear_txt').text('Clear');
           campus_table.draw();
         }
 
       }
     });
+    }
+    
   });
   $(document).on('click', '.delete_campus', function() {
     $.ajaxSetup({
@@ -263,6 +293,10 @@
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Ok',
               });
+              $("#campus_form")[0].reset();
+              $('#campus_id').val('');
+              $('.save_up').text('Save Record');
+              $('.clear_txt').text('Clear');
               campus_table.draw();
             }
           }
@@ -272,7 +306,29 @@
     });
 
   });
+  $(document).on('click', '.edit_campus', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var id_campus = $(this).attr('data-id');
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('get_details_campus') }}",
+      data: {
+        id_campus: id_campus
+      },
+      success: function(data) {
+        $('#campus_id').val(data.id);
+        $('#campus_key').val(data.campus_key);
+        $('#campus_name').val(data.name);
+        $('.save_up').text('Update Record');
+        $('.clear_txt').text('Cancel');
+      }
+    });
 
+  });
   $(document).on('click', '#showSettings', function(e) {
     if ($("#settingsTab").hasClass("col-lg-2")) {
       $("#settingsTab").addClass("d-none");

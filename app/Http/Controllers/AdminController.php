@@ -107,7 +107,9 @@ class AdminController extends Controller
   }
   public function departmentManagement()
   {
-    return view('admin.settings-config.department-management');
+    $campus = DB::table('campus')->get();
+    $college_unit = DB::table('college_unit')->get();
+    return view('admin.settings-config.department-management',compact('campus') , compact('college_unit'));
   }
   public function employeeClassification()
   {

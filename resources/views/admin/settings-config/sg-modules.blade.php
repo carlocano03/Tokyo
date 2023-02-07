@@ -91,36 +91,36 @@
                     modules
                   </label>
                   {{ csrf_field() }}
-                  <form id="campus_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+                  <form id="salaryg_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
 
                     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
-                      <input type="hidden" id="app_trailNo">
+                      <input type="hidden" id="ref_sgid" name="ref_sgid">
+                      <div class="mp-input-group">
+                        <label class="mp-input-group__label">Salary Grade Number</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="salaryg_num" id="salaryg_num" required="">
+                      </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Salary Grade Amount(from)</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="salaryg_frm" id="salaryg_frm" required="">
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Salary Grade Amount(to)</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="slaryg_to" id="slaryg_to" required="">
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Salary Grade Category</label>
-                        <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
-                          <option>categ 1</option>
-                          <option>categ 1</option>
-                          <option>categ 1</option>
-                          <option>categ 1</option>
+                        <select class="mp-input-group__input mp-text-field" name="salarycat" id="salarycat" required>
+                          <option value="1-15">1-15</option>
+                          <option value="16-33">16-33</option>
                         </select>
                       </div>
 
 
-
-
-                      <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_campus" type="submit">
-                        <span>Save Record</span>
+                      <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_sg" type="submit">
+                        <span class="save_text">Save Record</span>
                       </a>
-                      <a class="up-button-grey btn-md button-animate-right mp-text-center">
-                        <span>Clear</span>
+                      <a class="up-button-grey btn-md button-animate-right mp-text-center" id="cancel">
+                        <span class="clear_txt">Clear</span>
                       </a>
                       <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
 
@@ -138,7 +138,7 @@
                     <!-- <label>Data Records</label> -->
                   </div>
                   <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                    <table class="members-table" style="height: auto;" width="100%" id="campus_table">
+                    <table class="members-table" style="height: auto;" width="100%" id="sg_table">
                       <thead>
                         <tr>
                           <th>
@@ -159,20 +159,6 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @for($x=1;$x<=5;$x++) <tr>
-                          <td>1</td>
-                          <td>6969</td>
-                          <td>696969</td>
-                          <td>SG-69</td>
-                          <td style="padding:5px;"><button class="up-button-green" style="border-radius: 10px;">
-                              <span>
-                                Update <i class="fa fa-edit" aria-hidden="true"></i>
-                              </span>
-
-                            </button></td>
-                          </tr>
-                          @endfor
-
                       </tbody>
                     </table>
 
@@ -221,5 +207,143 @@
     }
 
   })
+  var tbl_clss;
+  $(document).ready(function() {
+    tbl_clss = $('#sg_table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "{{ route('salaryg_list') }}",
+        type: 'GET',
+      },
+      columns: [{
+          data: 'sg_no',
+          name: 'sg_no'
+        },
+        {
+          data: 'min_bracket',
+          name: 'min_bracket'
+        },
+        {
+          data: 'max_bracket',
+          name: 'max_bracket'
+        },
+        {
+          data: 'salary_cat',
+          name: 'salary_cat'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        },
+      ],
+    });
+  });
+  $(document).on('click', '#cancel', function() {
+    $("#salaryg_form")[0].reset();
+    $('#ref_sgid').val('');
+    $('.save_text').text('Save Record');
+    $('.clear_txt').text('Clear');
+  });
+  $(document).on('click', '#save_sg', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    if($('#salaryg_num').val() && $('#salaryg_frm').val() && $('#slaryg_to').val() && $('#salarycat').val()){
+      if($('#ref_sgid').val()){
+      var formData = $("#salaryg_form").serialize();
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('update-salaryg') }}",
+      data: formData,
+      success: function(data) {
+          if (data.error) {
+            Swal.fire({
+              text: 'Salary Grade already exist.',
+              icon: 'error',
+              confirmButtonColor: '#FF0000',
+              confirmButtonText: 'Ok',
+            });
+          } else if (data.success != '') {
+            Swal.fire({
+              text: 'Salary Grade has been Updated Successfully.',
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Ok',
+            });
+            $("#salaryg_form")[0].reset();
+            $('#ref_sgid').val('');
+            $('.save_text').text('Save Record');
+            $('.clear_txt').text('Clear');
+            tbl_clss.draw();
+          }
+        }
+      
+    });
+    }else{
+      var formData = $("#salaryg_form").serialize();
+
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('save-salaryg') }}",
+      data: formData,
+      success: function(data) {
+          if (data.error) {
+            Swal.fire({
+              text: 'Salary Grade already exist.',
+              icon: 'error',
+              confirmButtonColor: '#FF0000',
+              confirmButtonText: 'Ok',
+            });
+          } else if (data.success != '') {
+            Swal.fire({
+              text: 'Salary Grade has been added Successfully.',
+              icon: 'success',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Ok',
+            });
+            $("#salaryg_form")[0].reset();
+            $('#ref_sgid').val('');
+            $('.save_text').text('Save Record');
+            $('.clear_txt').text('Clear');
+            tbl_clss.draw();
+          }
+        }
+      
+    });
+    }
+    }else{
+      Swal.fire('Error', 'Please Complete the Fields', 'error')
+    }
+    
+    
+  });
+  $(document).on('click', '.update_sg', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var ref_sgno = $(this).data('id');
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('get_details_sg') }}",
+      data: {
+        ref_sgno: ref_sgno
+      },
+      success: function(data) {
+        $('#ref_sgid').val(data.ref_sg_ID);
+        $('#salaryg_num').val(data.sg_no);
+        $('#salaryg_frm').val(data.min_bracket);
+        $('#slaryg_to').val(data.max_bracket);
+        $('#salarycat').val(data.salary_cat);
+        $('.save_text').text('Update Record');
+        $('.clear_txt').text('Cancel');
+      }
+    });
+
+  });
 </script>
 @endsection
