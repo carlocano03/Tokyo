@@ -3,8 +3,8 @@
 
 
 
-    <!-- mobile transition -->
-    {{-- <div class="mobile-header">
+<!-- mobile transition -->
+{{-- <div class="mobile-header">
         <div class="logo-title">
             <div class="mp-pb4  mp-text-center logo-text">
                 <img src="{!! asset('assets\favicon\ms-icon-310x310.png') !!}" alt="UPPFI">
@@ -16,98 +16,92 @@
             </div>
         </div>
     </div> --}}
-    <div class="transition-background">
+<div class="transition-background">
 
-    </div>
-    <div class="custom-modal not-visible" id="modal_name">
-        <div class="modal-container">
-            <div class="modal-content">
-                <div class="modal-header">
-                    Generate Cocolife Form
-                </div>
-                <div class="modal-body">
-                    {{-- <form id="generateCoco" method="POST" enctype="multipart/form-data">
+</div>
+<div class="custom-modal not-visible" id="modal_name">
+    <div class="modal-container">
+        <div class="modal-content">
+            <div class="modal-header">
+                Generate Cocolife Form
+            </div>
+            <div class="modal-body">
+                {{-- <form id="generateCoco" method="POST" enctype="multipart/form-data">
                         @csrf --}}
-                    <input type="hidden" name="app_number" id="app_number">
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Place of Birth</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="place_birth"
-                            id="place_birth" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Height</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="height" id="height" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Weight</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="weight" id="weight" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Amount of Insurance</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="amt_isurance"
-                            id="amt_isurance" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Term of Coverage</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="coverage" id="coverage" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Premiums</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="premiums" id="premiums" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Occupation</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="occupation"
-                            id="occupation" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Nature of Work</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="nature_work"
-                            id="nature_work" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">If seaman, port of entry</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="seaman" id="seaman" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">If OCW/OFW,destination country</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="ofw" id="ofw" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Exceptions</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="exception"
-                            id="exceptions" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
-                        <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="cocolife_sign"
-                            id="cocolife_sign" accept="image/png, image/gif, image/jpeg, image/jpg" />
-                    </div>
-
+                <input type="hidden" name="app_number" id="app_number">
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Place of Birth</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Height</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="height" id="height" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Weight</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="weight" id="weight" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Amount of Insurance</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="amt_isurance" id="amt_isurance" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Term of Coverage</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="coverage" id="coverage" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Premiums</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="premiums" id="premiums" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Occupation</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Nature of Work</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="nature_work" id="nature_work" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">If seaman, port of entry</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="seaman" id="seaman" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">If OCW/OFW,destination country</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="ofw" id="ofw" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Exceptions</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="exception" id="exceptions" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
+                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="cocolife_sign" id="cocolife_sign" accept="image/png, image/gif, image/jpeg, image/jpg" />
                 </div>
 
-                <div class="modal-footer">
-                    <div class="mp-container" style="display: flex; justify-content: center;">
-                        <div class="row">
-                            <button class="up-button btn-md " id="modal_name_close" type="button">
-                                <span>Close</span>
-                            </button>
-                            <button class="up-button btn-md" type="button" id="btn-coco">
-                                <span>Generate</span>
-                            </button>
-                            {{-- </form> --}}
-                        </div>
-                    </div>
+            </div>
 
+            <div class="modal-footer">
+                <div class="mp-container" style="display: flex; justify-content: center;">
+                    <div class="row">
+                        <button class="up-button btn-md " id="modal_name_close" type="button">
+                            <span>Close</span>
+                        </button>
+                        <button class="up-button btn-md" type="button" id="btn-coco">
+                            <span>Generate</span>
+                        </button>
+                        {{-- </form> --}}
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>
-    <div class="mp-split-pane">
-        <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
-            <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
-                <div class="row align-items-center justify-content-center">
-                    <div class="col-12 col-sm-10">
+</div>
+<div class="mp-split-pane">
+    <div class="mp-split-pane__left transition-all d-flex flex-column" id="leftsection">
+        <div class="container-fluid mp-pt3 mp-pb5 mp-mvauto mp-mhauto" id="loginform">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-12 col-sm-10">
                     @section('loginForm')
                     @show
 
@@ -120,8 +114,7 @@
             @show
         </div>
 
-        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto"
-            style="height: calc(100% - 0px)">
+        <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto" style="height: calc(100% - 0px)">
             @section('registration-personal-form')
             @show
 
@@ -214,7 +207,7 @@
     // //     $(e).removeAttr("hidden");
     // // });
 
-    var stepTitle = ["Personal Information", "Employment Details", "Membership Details"]
+    var stepTitle = ["Personal Information", "Employment Details", "Membership Details", "Cocolife Forms"]
     var present_provcode;
     $(document).on('change', '#present_province', function() {
         if (present_provcode) {
@@ -234,11 +227,11 @@
                 var options = '<option value="">Select Municipal</option>';
                 $.each(data.data, function(index, item) {
                     options += '<option value="' + item.code + '">' + item.name
-                    .toUpperCase() + '</option>';
+                        .toUpperCase() + '</option>';
                 });
                 $("#present_city").html(options);
                 $("#present_province_name").val($("#present_province").find("option:selected")
-                .text());
+                    .text());
                 if (present_muncode) {
                     var mun_code = present_muncode;
                     $("#present_city").val(mun_code).change();
@@ -265,11 +258,11 @@
                 var options = '<option value="">Select Barangay</option>';
                 $.each(data.data, function(index, item) {
                     options += '<option value="' + item.code + '">' + item.name
-                    .toUpperCase() + '</option>';
+                        .toUpperCase() + '</option>';
                 });
                 $("#present_barangay").html(options);
                 $("#present_municipality_name").val($("#present_city").find("option:selected")
-                .text());
+                    .text());
                 if (present_brgycode) {
                     var brgy_code = present_brgycode;
                     $("#present_barangay").val(brgy_code).change();
@@ -311,7 +304,7 @@
                 var options = '<option value="">Select Municipal</option>';
                 $.each(data.data, function(index, item) {
                     options += '<option value="' + item.code + '">' + item.name
-                    .toUpperCase() + '</option>';
+                        .toUpperCase() + '</option>';
                 });
                 $("#city").html(options);
                 $("#province_name").val($("#province").find("option:selected").text());
@@ -336,7 +329,7 @@
                 var options = '<option value="">Select Barangay</option>';
                 $.each(data.data, function(index, item) {
                     options += '<option value="' + item.code + '">' + item.name
-                    .toUpperCase() + '</option>';
+                        .toUpperCase() + '</option>';
                 });
                 $("#barangay").html(options);
                 $("#municipality_name").val($("#city").find("option:selected").text());
@@ -835,11 +828,21 @@
 
                 }
             }
+        } else if (nextValue == 'step-4') {
+            $("#step-3").removeClass('d-flex').addClass("d-none");
+            $("#step-4").removeClass('d-none').addClass("d-flex");
+            $("#back").attr('value', 'step-3')
+            $("#member_forms_3").removeClass('mh-reg-form');
+            $("#member_forms_4").addClass('mh-reg-form');
+            // $(this).attr('value', 'step-end')
+            $("#line").removeClass('step-3').addClass('step-4')
+            $("#registration-title").text(stepTitle[3])
+            $("#stepper-4").addClass("active")
         }
         scrollToTop()
     });
 
-    $(document).on('submit', '#member_forms_3', function(e) {
+    $(document).on('submit', '#member_forms_4', function(e) {
         e.preventDefault();
 
         $.ajax({
@@ -1268,7 +1271,7 @@
                         $('#no_middlename').prop('checked', false);
                         $('input[name="middlename"]').prop('disabled', false);
                         $("[name='middlename']").val(data.middlename == null ? '' : data
-                        .middlename);
+                            .middlename);
                     }
                     $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
                     $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
