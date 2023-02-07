@@ -347,7 +347,6 @@
       }
     });
   });
-
   $(document).on('click', '#clear_btn', function() {
     // $("#college_form").clear();
     $("#college_form")[0].reset();

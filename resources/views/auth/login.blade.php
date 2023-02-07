@@ -331,7 +331,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Date of Birth</label>
-            <input class="mp-input-group__input mp-text-field" type="date" name="date_birth" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="date_birth" id="date_birth" required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Gender</label>
@@ -448,6 +448,18 @@
         <div class="mp-input-group">
             <label class="mp-input-group__label">Email Address</label>
             <input class="mp-input-group__input mp-text-field" type="email" name="email" required />
+        </div>
+        <div class="mp-input-group">
+            <div class="mp-input-group mp-mt5">
+                <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms">
+                By signing up, you agree to University of the Philippines
+                Provident Fund Inc.'s
+                <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
+                <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>
+                </label>
+            </div>
+            {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
+            <hr>
         </div>
         <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-2" id="next-btn">
             <span>Next</span>
@@ -600,6 +612,31 @@
             </tbody>
         </table>
 
+
+
+        <!-- <div class="mp-input-group">
+            <div class="mp-input-group mp-mt5">
+                <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms">
+                By signing up, you agree to University of the Philippines
+                Provident Fund Inc.'s
+                <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
+                <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>
+                </label>
+            </div>
+            {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
+            <hr>
+        </div> -->
+
+        <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-4" id="next-btn">
+            <span>Next</span>
+        </a>
+    </div>
+</form>
+
+<form id="member_forms_4" method="post" enctype="multipart/form-data">
+    @csrf
+    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-4">
+
         <div class="mp-input-group">
             <label class="mp-input-group__label">Supporting Document</label>
         </div>
@@ -649,23 +686,12 @@
             </div>
         </div>
 
-        <div class="mp-input-group">
-            <div class="mp-input-group mp-mt5">
-                <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms">
-                By signing up, you agree to University of the Philippines
-                Provident Fund Inc.'s
-                <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
-                <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>
-                </label>
-            </div>
-            {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
-            <hr>
-        </div>
         <button class="up-button btn-md button-animate-right mp-text-center" type="submit" id="next-btn">
             <span>Submit</span>
         </button>
     </div>
 </form>
+
 @endsection
 
 @section('reset-password-form')

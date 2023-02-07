@@ -151,6 +151,12 @@
                 $("#loading").hide();
             }, 1000);
         }
+
+        $('#date_birth').datetimepicker({
+            timepicker: false, //hide time
+            format: 'F j, Y',
+            autoclose: true
+        });
     });
     // window.onload = function() {
     //     $('#loading').show();
@@ -201,12 +207,16 @@
     // //     $(e).removeAttr("hidden");
     // // });
 
-    var stepTitle = ["Personal Information", "Employment Details", "Membership Details"]
-
-    $(document).on('change','#present_province',function(){
-    var codes = $(this).val();
-    var subss = codes.substring(0,4);
-    // console.log(subss);
+    var stepTitle = ["Personal Information", "Employment Details", "Membership Details", "Cocolife Forms"]
+    var present_provcode;
+    $(document).on('change', '#present_province', function() {
+        if (present_provcode) {
+            var codes = present_provcode;
+        } else {
+            var codes = $(this).val();
+        }
+        var subss = codes.substring(0, 4);
+        // console.log(subss);
         $.ajax({
             url: "{{ route('psgc_munc') }}",
             method: "POST",
@@ -216,102 +226,26 @@
             success: function(data) {
                 var options = '<option value="">Select Municipal</option>';
                 $.each(data.data, function(index, item) {
-                    options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
+                    options += '<option value="' + item.code + '">' + item.name
+                        .toUpperCase() + '</option>';
                 });
                 $("#present_city").html(options);
-                $("#present_province_name").val($("#present_province").find("option:selected").text());
+                $("#present_province_name").val($("#present_province").find("option:selected")
+                    .text());
                 if (present_muncode) {
                     var mun_code = present_muncode;
                     $("#present_city").val(mun_code).change();
+
                 }
             }
         });
     });
-    $(document).on('change','#present_city',function(){
-    var codes = $(this).val();
-    var subss = codes.substring(0,6);
-    // console.log(subss);
-        $.ajax({
-        url: "{{ route('psgc_brgy') }}",
-        method:"POST",
-        data:{codes:subss},
-        success:function(data)
-        {
-            var options = '<option value="">Select Barangay</option>';
-            $.each(data.data, function(index, item) {
-            options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
-            });
-            $("#present_barangay").html(options);
-            $("#present_municipality_name").val($("#present_city").find("option:selected").text());
-            if (present_brgycode) {
-            var brgy_code = present_brgycode;
-                    $("#present_barangay").val(brgy_code).change();
-                }
+    $(document).on('change', '#present_city', function() {
+        if (present_muncode) {
+            var codes = present_muncode;
+        } else {
+            var codes = $(this).val();
         }
-        });
-    });
-    $(document).on('change','#present_barangay',function(){
-        $("#present_barangay_name").val($("#present_barangay").find("option:selected").text());
-    });
-    $(document).ready(function() {
-    $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    $.getJSON('/options_psgc', function(options) {
-            $.each(options, function(index, option) {
-                $('#present_province').append($('<option>', {
-                    value: option.code,
-                    text: option.name.toUpperCase()
-                }));
-            });
-        });
-    });
-    $(document).on('change', '#present_city', function() {
-        var codes = $(this).val();
-        var subss = codes.substring(0, 6);
-        // console.log(subss);
-        $.ajax({
-            url: "{{ route('psgc_brgy') }}",
-            method: "POST",
-            data: {
-                codes: subss
-            },
-            success: function(data) {
-                var options = '<option value="">Select Barangay</option>';
-                $.each(data.data, function(index, item) {
-                    options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
-                });
-                $("#present_barangay").html(options);
-                $("#present_municipality_name").val($("#present_city").find("option:selected").text());
-                if (present_brgycode) {
-                    var brgy_code = present_brgycode;
-                    $("#present_barangay").val(brgy_code).change();
-                }
-            }
-        });
-    });
-    $(document).on('change', '#present_barangay', function() {
-        $("#present_barangay_name").val($("#present_barangay").find("option:selected").text());
-    });
-    $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.getJSON('/options_psgc', function(options) {
-            $.each(options, function(index, option) {
-                $('#present_province').append($('<option>', {
-                    value: option.code,
-                    text: option.name.toUpperCase()
-                }));
-            });
-        });
-    });
-    $(document).on('change', '#present_city', function() {
-        var codes = $(this).val();
         var subss = codes.substring(0, 6);
         // console.log(subss);
         $.ajax({
@@ -355,6 +289,7 @@
         });
     });
 
+
     $(document).on('change', '#province', function() {
         var codes = $(this).val();
         var subss = codes.substring(0, 4);
@@ -395,74 +330,6 @@
                 $.each(data.data, function(index, item) {
                     options += '<option value="' + item.code + '">' + item.name
                         .toUpperCase() + '</option>';
-                });
-                $("#barangay").html(options);
-                $("#municipality_name").val($("#city").find("option:selected").text());
-                if (perm_brgycode) {
-                    var brgy_code = perm_brgycode;
-                    $("#barangay").val(brgy_code).change();
-                }
-            }
-        });
-    });
-    $(document).on('change', '#barangay', function() {
-        $("#barangay_name").val($("#barangay").find("option:selected").text());
-    });
-    $(document).ready(function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.getJSON('/options_psgc', function(options) {
-            $.each(options, function(index, option) {
-                $('#province').append($('<option>', {
-                    value: option.code,
-                    text: option.name.toUpperCase()
-                }));
-            });
-        });
-    });
-
-
-    $(document).on('change', '#province', function() {
-        var codes = $(this).val();
-        var subss = codes.substring(0, 4);
-        // console.log(subss);
-        $.ajax({
-            url: "{{ route('psgc_munc') }}",
-            method: "POST",
-            data: {
-                codes: subss
-            },
-            success: function(data) {
-                var options = '<option value="">Select Municipal</option>';
-                $.each(data.data, function(index, item) {
-                    options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
-                });
-                $("#city").html(options);
-                $("#province_name").val($("#province").find("option:selected").text());
-                if (perm_muncode) {
-                    var mun_code = perm_muncode;
-                    $("#city").val(mun_code).change();
-                }
-            }
-        });
-    });
-    $(document).on('change', '#city', function() {
-        var codes = $(this).val();
-        var subss = codes.substring(0, 6);
-        // console.log(subss);
-        $.ajax({
-            url: "{{ route('psgc_brgy') }}",
-            method: "POST",
-            data: {
-                codes: subss
-            },
-            success: function(data) {
-                var options = '<option value="">Select Barangay</option>';
-                $.each(data.data, function(index, item) {
-                    options += '<option value="' + item.code + '">' + item.name.toUpperCase() + '</option>';
                 });
                 $("#barangay").html(options);
                 $("#municipality_name").val($("#city").find("option:selected").text());
@@ -619,161 +486,169 @@
         var nextValue = $(this).attr('value');
         console.log($(this).attr('value'));
         if (nextValue == 'step-2') {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            var empty = $('#member_forms').find("input[required]").filter(function() {
-                return !$.trim($(this).val()).length;
-            });
-            console.log(personnel_id);
-            if (empty.length) {
-                // var emptyFields = [];
-                // empty.each(function() {
-                // emptyFields.push($(this).attr("id"));
-                // });
-                empty.first().focus();
-                swal.fire("Error!", "Please fill out the required fields", "error");
-            } else {
-                if ($('#app_trailNo').val() !== '' && personnel_id == undefined) {
-                    var formDatas = $("#member_forms").serialize();
-                    var additionalData = {
-                        'mem_id': mem_id,
-                        'personnel_id': pers_id,
-                    };
-                    formDatas += '&' + $.param(additionalData);
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('update_trail_member') }}",
-                        data: formDatas,
-                        success: function(data) {
-                            if (data.success != '') {
-                                mem_id = data.mem_id;
-                                personnel_id = data.success;
-                                $("#step-1").removeClass('d-flex').addClass("d-none");
-                                $("#member_forms").removeClass('mh-reg-form');
-                                $("#member_forms_con").addClass('mh-reg-form');
-                                $("#step-2").removeClass('d-none').addClass("d-flex");
-                                $("#back").attr('value', 'step-1');
-                                $(this).attr('value', 'step-3');
-                                $("#line").removeClass('step-1').addClass('step-2');
-                                $("#registration-title").text(stepTitle[1]);
-                                $("#stepper-2").addClass("active");
-                            }
-                        }
-                    });
+            if ($('#terms').prop('checked')) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                var empty = $('#member_forms').find("input[required]").filter(function() {
+                    return !$.trim($(this).val()).length;
+                });
+                console.log(personnel_id);
+                if (empty.length) {
+                    // var emptyFields = [];
+                    // empty.each(function() {
+                    // emptyFields.push($(this).attr("id"));
+                    // });
+                    empty.first().focus();
+                    swal.fire("Error!", "Please fill out the required fields", "error");
                 } else {
-
-                    if (!personnel_id) {
-                        Swal.fire({
-                            title: 'Are you sure you want to proceed this registration?',
-                            text: 'By clicking yes, the system will automatically send via email your application number.',
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Proceed',
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                $.ajax({
-                                    type: 'POST',
-                                    url: "{{ route('add_member') }}",
-                                    data: $('#member_forms').serialize(),
-                                    beforeSend: function() {
-                                        $('#loading').show();
-                                    },
-                                    success: function(data) {
-                                        if (data.success != '') {
-                                            reference_no = data.randomnum;
-                                            mem_id = data.mem_id;
-                                            personnel_id = data.success;
-                                            Swal.fire({
-                                                text: 'Notice, please copy your system generated application no.:' +
-                                                    ' ' +
-                                                    reference_no,
-                                                icon: 'success',
-                                                confirmButtonColor: '#3085d6',
-                                                confirmButtonText: 'Proceed',
-                                            });
-                                            $('.applicationNo').show(200);
-                                            $('#application_no').text(reference_no);
-                                            $('#app_no').val(reference_no);
-                                            $('#appNo').val(reference_no);
-                                            $('#test').val(reference_no);
-                                        }
-                                    },
-                                    complete: function(data) {
-                                        $('#loading').hide();
-                                    },
-                                });
-                                $("#step-1").removeClass('d-flex').addClass("d-none");
-                                $("#member_forms").removeClass('mh-reg-form');
-                                $("#member_forms_con").addClass('mh-reg-form');
-                                $("#step-2").removeClass('d-none').addClass("d-flex");
-                                $("#back").attr('value', 'step-1');
-                                $(this).attr('value', 'step-3');
-                                $("#line").removeClass('step-1').addClass('step-2');
-                                $("#registration-title").text(stepTitle[1]);
-                                $("#stepper-2").addClass("active");
-                            } else {
-                                swal.fire("You cancelled your transaction.");
+                    if ($('#app_trailNo').val() !== '' && personnel_id == undefined) {
+                        var formDatas = $("#member_forms").serialize();
+                        var additionalData = {
+                            'mem_id': mem_id,
+                            'personnel_id': pers_id,
+                        };
+                        formDatas += '&' + $.param(additionalData);
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('update_trail_member') }}",
+                            data: formDatas,
+                            success: function(data) {
+                                if (data.success != '') {
+                                    mem_id = data.mem_id;
+                                    personnel_id = data.success;
+                                    $("#step-1").removeClass('d-flex').addClass("d-none");
+                                    $("#member_forms").removeClass('mh-reg-form');
+                                    $("#member_forms_con").addClass('mh-reg-form');
+                                    $("#step-2").removeClass('d-none').addClass("d-flex");
+                                    $("#back").attr('value', 'step-1');
+                                    $(this).attr('value', 'step-3');
+                                    $("#line").removeClass('step-1').addClass('step-2');
+                                    $("#registration-title").text(stepTitle[1]);
+                                    $("#stepper-2").addClass("active");
+                                }
                             }
                         });
                     } else {
-                        console.log('stepval2');
-                        if (originalData !== $("#member_forms").serialize()) {
+
+                        if (!personnel_id) {
                             Swal.fire({
-                                text: 'Do you want to allow these changes on your application?',
+                                title: 'Are you sure you want to proceed this registration?',
+                                text: 'By clicking yes, the system will automatically send via email your application number.',
                                 icon: 'warning',
                                 showCancelButton: true,
                                 confirmButtonColor: '#3085d6',
                                 cancelButtonColor: '#d33',
-                                confirmButtonText: 'Yes',
-                                cancelButtonText: 'No',
+                                confirmButtonText: 'Proceed',
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    var formDatas = $("#member_forms").serialize();
-                                    var additionalData = {
-                                        'mem_id': mem_id,
-                                        'personnel_id': personnel_id,
-                                    };
-                                    formDatas += '&' + $.param(additionalData);
                                     $.ajax({
                                         type: 'POST',
-                                        url: "{{ route('add_member_update') }}",
-                                        data: formDatas,
+                                        url: "{{ route('add_member') }}",
+                                        data: $('#member_forms').serialize(),
+                                        beforeSend: function() {
+                                            $('#loading').show();
+                                        },
                                         success: function(data) {
                                             if (data.success != '') {
+                                                reference_no = data.randomnum;
                                                 mem_id = data.mem_id;
                                                 personnel_id = data.success;
                                                 Swal.fire({
-                                                    title: 'Updates applied successfully.',
-                                                    icon: 'success'
+                                                    text: 'Notice, please copy your system generated application no.:' +
+                                                        ' ' +
+                                                        reference_no,
+                                                    icon: 'success',
+                                                    confirmButtonColor: '#3085d6',
+                                                    confirmButtonText: 'Proceed',
                                                 });
+                                                $('.applicationNo').show(200);
+                                                $('#application_no').text(reference_no);
+                                                $('#app_no').val(reference_no);
+                                                $('#appNo').val(reference_no);
+                                                $('#test').val(reference_no);
                                             }
-                                        }
+                                        },
+                                        complete: function(data) {
+                                            $('#loading').hide();
+                                        },
                                     });
+                                    $("#step-1").removeClass('d-flex').addClass("d-none");
+                                    $("#member_forms").removeClass('mh-reg-form');
+                                    $("#member_forms_con").addClass('mh-reg-form');
+                                    $("#step-2").removeClass('d-none').addClass("d-flex");
+                                    $("#back").attr('value', 'step-1');
+                                    $(this).attr('value', 'step-3');
+                                    $("#line").removeClass('step-1').addClass('step-2');
+                                    $("#registration-title").text(stepTitle[1]);
+                                    $("#stepper-2").addClass("active");
                                 } else {
-                                    Swal.fire('Warning!',
-                                        'Update was cancelled by the user. No changes were made.',
-                                        'warning'
-                                    );
+                                    swal.fire("You cancelled your transaction.");
                                 }
                             });
+                        } else {
+                            console.log('stepval2');
+                            if (originalData !== $("#member_forms").serialize()) {
+                                Swal.fire({
+                                    text: 'Do you want to allow these changes on your application?',
+                                    icon: 'warning',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Yes',
+                                    cancelButtonText: 'No',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        var formDatas = $("#member_forms").serialize();
+                                        var additionalData = {
+                                            'mem_id': mem_id,
+                                            'personnel_id': personnel_id,
+                                        };
+                                        formDatas += '&' + $.param(additionalData);
+                                        $.ajax({
+                                            type: 'POST',
+                                            url: "{{ route('add_member_update') }}",
+                                            data: formDatas,
+                                            success: function(data) {
+                                                if (data.success != '') {
+                                                    mem_id = data.mem_id;
+                                                    personnel_id = data.success;
+                                                    Swal.fire({
+                                                        title: 'Updates applied successfully.',
+                                                        icon: 'success'
+                                                    });
+                                                }
+                                            }
+                                        });
+                                    } else {
+                                        Swal.fire('Warning!',
+                                            'Update was cancelled by the user. No changes were made.',
+                                            'warning'
+                                        );
+                                    }
+                                });
 
+                            }
+                            $("#step-1").removeClass('d-flex').addClass("d-none");
+                            $("#member_forms").removeClass('mh-reg-form');
+                            $("#member_forms_con").addClass('mh-reg-form');
+                            $("#step-2").removeClass('d-none').addClass("d-flex");
+                            $("#back").attr('value', 'step-1')
+                            $(this).attr('value', 'step-3')
+                            $("#line").removeClass('step-1').addClass('step-2')
+                            $("#registration-title").text(stepTitle[1])
+                            $("#stepper-2").addClass("active")
                         }
-                        $("#step-1").removeClass('d-flex').addClass("d-none");
-                        $("#member_forms").removeClass('mh-reg-form');
-                        $("#member_forms_con").addClass('mh-reg-form');
-                        $("#step-2").removeClass('d-none').addClass("d-flex");
-                        $("#back").attr('value', 'step-1')
-                        $(this).attr('value', 'step-3')
-                        $("#line").removeClass('step-1').addClass('step-2')
-                        $("#registration-title").text(stepTitle[1])
-                        $("#stepper-2").addClass("active")
                     }
                 }
+            } else {
+                Swal.fire({
+                    title: 'Terms and Conditions!',
+                    text: 'Please check the terms and conditions before you proceed.',
+                    icon: 'warning'
+                });
             }
         } else if (nextValue == 'step-3') {
 
@@ -953,59 +828,63 @@
 
                 }
             }
+        } else if (nextValue == 'step-4') {
+            $("#step-3").removeClass('d-flex').addClass("d-none");
+            $("#step-4").removeClass('d-none').addClass("d-flex");
+            $("#back").attr('value', 'step-3')
+            $("#member_forms_3").removeClass('mh-reg-form');
+            $("#member_forms_4").addClass('mh-reg-form');
+            // $(this).attr('value', 'step-end')
+            $("#line").removeClass('step-3').addClass('step-4')
+            $("#registration-title").text(stepTitle[3])
+            $("#stepper-4").addClass("active")
         }
         scrollToTop()
     });
 
-    $(document).on('submit', '#member_forms_3', function(e) {
+    $(document).on('submit', '#member_forms_4', function(e) {
         e.preventDefault();
-        if ($('#terms').prop('checked')) {
-            $.ajax({
-                method: 'POST',
-                url: "{{ route('add_member_details') }}",
-                data: new FormData(this),
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    if (data.success != '') {
-                        Swal.fire({
-                            title: 'Registration Success!',
-                            text: "Your membership application has been successfully submitted. Check your email for your reference.",
-                            icon: 'success',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // window.open();
-                                var url = "{{ URL::to('/memberform/') }}" + '/' +
-                                    employee_no; //YOUR CHANGES HERE...
-                                window.open(url, 'targetWindow',
-                                    'resizable=yes,width=1000,height=1000');
-                                setTimeout(function() {
-                                    location.reload();
-                                }, 1000);
-                            }
-                        })
-                        $("#step-2").removeClass('d-flex').addClass("d-none");
-                        $("#step-3").removeClass('d-none').addClass("d-flex");
-                        $("#back").attr('value', 'step-2')
-                        $("#member_forms_con").removeClass('mh-reg-form');
-                        $("#member_forms_3").addClass('mh-reg-form');
-                        $(this).attr('value', 'step-end')
-                        $("#line").removeClass('step-2').addClass('step-3')
-                        $("#registration-title").text(stepTitle[2])
-                        $("#stepper-3").addClass("active")
-                    }
+
+        $.ajax({
+            method: 'POST',
+            url: "{{ route('add_member_details') }}",
+            data: new FormData(this),
+            contentType: false,
+            processData: false,
+            success: function(data) {
+                if (data.success != '') {
+                    Swal.fire({
+                        title: 'Registration Success!',
+                        text: "Your membership application has been successfully submitted. Check your email for your reference.",
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // window.open();
+                            var url = "{{ URL::to('/memberform/') }}" + '/' +
+                                employee_no; //YOUR CHANGES HERE...
+                            window.open(url, 'targetWindow',
+                                'resizable=yes,width=1000,height=1000');
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        }
+                    })
+                    $("#step-2").removeClass('d-flex').addClass("d-none");
+                    $("#step-3").removeClass('d-none').addClass("d-flex");
+                    $("#back").attr('value', 'step-2')
+                    $("#member_forms_con").removeClass('mh-reg-form');
+                    $("#member_forms_3").addClass('mh-reg-form');
+                    $(this).attr('value', 'step-end')
+                    $("#line").removeClass('step-2').addClass('step-3')
+                    $("#registration-title").text(stepTitle[2])
+                    $("#stepper-3").addClass("active")
                 }
-            });
-        } else {
-            Swal.fire({
-                title: 'Terms and Conditions!',
-                text: 'Please check the terms and conditions before you proceed.',
-                icon: 'warning'
-            });
-        }
+            }
+        });
+
     });
 
     $(document).on('click', '#add_dependent', function() {
@@ -1115,9 +994,9 @@
             inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             var decimalAdded = inputValue.split(".");
             if (decimalAdded.length > 2) {
-            inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
+                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
             }
-            
+
             if (inputValue == '') {
                 $('#sg_category').val('');
             }
@@ -1167,7 +1046,8 @@
             var myString3 = $('#present_bldg_street').val();
             var myString4 = $('#present_zipcode').val();
             if (myString !== "" && myString1 !== "" && myString2 !== "") {
-                var valueAfterTargetChar = myString3 + ' ' + myString2 + ' ' + myString1 + ' ' + myString + ' ,' + myString4 + ' ';
+                var valueAfterTargetChar = myString3 + ' ' + myString2 + ' ' + myString1 + ' ' + myString +
+                    ' ,' + myString4 + ' ';
                 $('#same_add').val(valueAfterTargetChar);
                 $('.same_div').hide();
             } else {
@@ -1176,7 +1056,7 @@
                     text: 'Thank you!',
                     icon: 'error'
                 });
-                $(this).prop("checked",false);
+                $(this).prop("checked", false);
             }
         } else {
             $('#same_add').val('');
@@ -1383,7 +1263,16 @@
                         .employee_details_ID);
                     $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
                     $("[name='lastname']").val(data.lastname == null ? '' : data.lastname);
-                    $("[name='middlename']").val(data.middlename == null ? '' : data.middlename);
+                    if (data.no_middlename == 1) {
+                        $('#no_middlename').prop('checked', true);
+                        $("[name='middlename']").val('N/A')
+                        $('input[name="middlename"]').prop('disabled', true);
+                    } else {
+                        $('#no_middlename').prop('checked', false);
+                        $('input[name="middlename"]').prop('disabled', false);
+                        $("[name='middlename']").val(data.middlename == null ? '' : data
+                            .middlename);
+                    }
                     $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
                     $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
                     $("[name='date_birth']").val(data.date_birth == null ? '' : data.date_birth);
@@ -1425,20 +1314,28 @@
                     $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
                     $("[name='date_appointment']").val(data.date_appointment == null ? '' : data
                         .date_appointment);
-
+                    var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
+                    var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
+                        ",");
                     $("[name='monthly_salary']").val(formattedNumber);
-                    $("[name='salary_grade']").val(data.salary_grade == null ? '' : data.salary_grade);
+                    $("[name='salary_grade']").val(data.salary_grade == null ? '' : data
+                        .salary_grade);
                     $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
                     $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
+                    present_provcode = data.present_province_code;
                     $('#present_province').val(data.present_province_code).trigger('change');
                     $('#present_province_name').val(data.present_province);
-                    $('#present_city').val(data.present_municipality_code);
                     present_muncode = data.present_municipality_code;
-                    $('#present_municipality_name').val(data.present_municipality);
+                    $('#present_city').val(data.present_municipality_code).trigger('change');
                     present_brgycode = data.present_barangay_code;
+                    $('#present_municipality_name').val(data.present_municipality);
+
                     if (data.same_add == 1) {
                         $('#perm_add_check').prop("checked", true);
-                        var valueAfterTargetChar = data.present_bldg_street + ' ' + data.present_barangay + ' ' + data.present_municipality + ' ' + data.present_province + ', ' + data.present_zipcode + ' ';
+                        var valueAfterTargetChar = (data.bldg_street == null ? '' : data
+                                .bldg_street) + ' ' + data.present_barangay + ' ' + data
+                            .present_municipality + ' ' + data.present_province + ', ' + (data
+                                .present_zipcode == null ? '' : data.present_zipcode) + ' ';
                         $('#same_add').val(valueAfterTargetChar);
                         $('.same_div').hide();
                     } else {
