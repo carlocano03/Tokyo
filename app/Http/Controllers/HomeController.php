@@ -85,6 +85,7 @@ class HomeController extends Controller
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
           'firstname' => strtoupper($request->input('firstname')),
           'date_birth' => $request->input('date_birth'),
           'suffix' => strtoupper($request->input('suffix')),
@@ -117,6 +118,7 @@ class HomeController extends Controller
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
           'firstname' => strtoupper($request->input('firstname')),
           'date_birth' => $request->input('date_birth'),
           'suffix' => strtoupper($request->input('suffix')),
@@ -184,6 +186,7 @@ class HomeController extends Controller
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
           'firstname' => strtoupper($request->input('firstname')),
           'date_birth' => $request->input('date_birth'),
           'suffix' => strtoupper($request->input('suffix')),
@@ -216,6 +219,7 @@ class HomeController extends Controller
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
           'firstname' =>strtoupper($request->input('firstname')),
           'date_birth' => $request->input('date_birth'),
           'suffix' => strtoupper($request->input('suffix')),
@@ -539,6 +543,7 @@ class HomeController extends Controller
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
           'firstname' => strtoupper($request->input('firstname')),
           'date_birth' => $request->input('date_birth'),
           'suffix' => strtoupper($request->input('suffix')),
@@ -571,6 +576,7 @@ class HomeController extends Controller
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
           'firstname' =>strtoupper($request->input('firstname')),
           'date_birth' => $request->input('date_birth'),
           'suffix' => strtoupper($request->input('suffix')),
