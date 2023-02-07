@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cocolife Application Form</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Homemade+Apple&display=swap');
+
         .pdf-container img{
             transform:scale(1.1);
             margin-top:20px;
@@ -308,6 +310,10 @@
             margin-left:250px;
             margin-top: 10px;
         }
+
+        .sign {
+            font-family: 'Homemade Apple', cursive;
+        }
     </style>
 </head>
 <body>
@@ -454,7 +460,8 @@
 
         <div class="signatures">
             
-            <img class="img-2" src="{{ public_path().$coco_details->sign_path }}" width="100" alt="UPPFI">
+            {{-- <img class="img-2" src="{{ public_path().$coco_details->sign_path }}" width="100" alt="UPPFI"> --}}
+            <label class="sign">{{ $member->firstname }} {{ $member->lastname }}</label>
         </div>
     </div>
 </body>

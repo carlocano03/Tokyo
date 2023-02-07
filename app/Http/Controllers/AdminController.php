@@ -74,7 +74,20 @@ class AdminController extends Controller
     );
     echo json_encode($data);
   }
-
+  public function saveAgreement(Request $request) {
+    $datadb = DB::transaction(function () use ($request) {
+        $inserts = array(
+          'user_id' => Auth::user()->id,
+          'agreed_flg' => 1,
+          
+        );
+      $last_id = DB::table('cookies_tbl')->insertGetId($inserts);
+      return [
+        'last_id' => $last_id
+      ];
+    });
+    return response()->json(['success' => $datadb['last_id']]);
+  }
   public function manageAccount()
   {
     return view('admin.settings-config.manage-account');
@@ -89,7 +102,8 @@ class AdminController extends Controller
   }
   public function collegeManagement()
   {
-    return view('admin.settings-config.college-management');
+    $campus = DB::table('campus')->get();
+    return view('admin.settings-config.college-management', compact('campus'));
   }
   public function departmentManagement()
   {
