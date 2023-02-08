@@ -651,13 +651,6 @@
                     icon: 'warning'
                 });
             }
-            } else {
-                Swal.fire({
-                    title: 'Terms and Conditions!',
-                    text: 'Please check the terms and conditions before you proceed.',
-                    icon: 'warning'
-                });
-            }
         } else if (nextValue == 'step-3') {
             var table = $('#dependentTable').DataTable();
             table.draw();

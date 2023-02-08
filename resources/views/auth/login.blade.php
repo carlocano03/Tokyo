@@ -331,7 +331,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Date of Birth</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="date_birth" id="date_birth" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="date_birth" id="date_birth" readonly required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Gender</label>
