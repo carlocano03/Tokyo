@@ -149,19 +149,19 @@
                   <label class="account-info">Allow User to pre-setup manage the employee status and appointments
                   </label>
                   {{ csrf_field() }}
-                  <form id="campus_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+                  <form id="appt_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
 
                     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
-                      <input type="hidden" id="app_trailNo">
+                      <!-- <input type="hidden" id="app_trailNo"> -->
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Appointment Name (descriptions)</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="appointment_name" id="appointment_name" required="">
                       </div>
 
 
 
 
-                      <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_campus" type="submit">
+                      <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_appointment" type="submit">
                         <span>Save Record</span>
                       </a>
                       <a class="up-button-grey btn-md button-animate-right mp-text-center">
@@ -183,12 +183,9 @@
                     <!-- <label>Data Records</label> -->
                   </div>
                   <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                    <table class="members-table" style="height: auto;" width="100%" id="campus_table">
+                    <table class="members-table" style="height: auto;" width="100%" id="appointment_table">
                       <thead>
                         <tr>
-                          <th>
-                            <span>ID</span>
-                          </th>
                           <th>
                             <span>Appointment Name</span>
                           </th>
@@ -196,23 +193,14 @@
                             <span>Status</span>
                           </th>
                           <th>
+                            <span>Created At</span>
+                          </th>
+                          <th>
                             <span>Action</span>
                           </th>
                         </tr>
                       </thead>
                       <tbody>
-                        @for($x=1;$x<=5;$x++) <tr>
-                          <td>1</td>
-                          <td>Permanent</td>
-                          <td>Active</td>
-                          <td>
-                            <label class="switch">
-                              <input type="checkbox" checked>
-                              <span class="slider round"></span>
-                            </label>
-                          </td>
-                          </tr>
-                          @endfor
 
                       </tbody>
                     </table>
@@ -262,5 +250,98 @@
     }
 
   })
+  $(document).on('click', '#save_appointment', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    if($('#appointment_name').val()){
+      var formData = $("#appt_form").serialize();
+
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('save-appointment') }}",
+      data: formData,
+      success: function(data) {
+        if (data.success != '') {
+          Swal.fire({
+            text: 'Appointment has been added Successfully.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok',
+          });
+          $('#appointment_name').val('');
+          tbl_clss.draw();
+        }
+
+      }
+    });
+    }else{
+      Swal.fire('Error', 'Please input Appointment Name. Thank You.', 'error')
+    }
+    
+  });
+  var tbl_clss;
+  $(document).ready(function() {
+    tbl_clss = $('#appointment_table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "{{ route('appt_list') }}",
+        type: 'GET',
+      },
+      columns: [{
+          data: 'appointment_name',
+          name: 'appointment_name'
+        },
+        {
+          data: 'status',
+          name: 'status'
+        },
+        {
+          data: 'time_stamp',
+          name: 'time_stamp'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        },
+      ],
+    });
+  });
+  $(document).on('click', '#up_status', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var data_id = $(this).attr('data-id');
+    if ($(this).prop('checked')) {
+      var status = 1;
+    } else {
+      var status = 0;
+    }
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('update_appstatus') }}",
+      data: {
+        data_id: data_id,
+        status: status
+      },
+      success: function(data) {
+        if (data.success != '') {
+          Swal.fire({
+            text: 'Status has been added Changed.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok',
+          });
+          tbl_clss.draw();
+        }
+
+      }
+    });
+  });
 </script>
 @endsection

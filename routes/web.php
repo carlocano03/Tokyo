@@ -40,6 +40,10 @@ Route::get('/dashboard', [AdminController::class, 'dashboard'])->name('dashboard
 Route::get('/settings', [AdminController::class, 'settings'])->name('settings');
 
 Route::get('/options', [HomeController::class, 'getCampuses']);
+Route::get('/classification', [HomeController::class, 'getClassification']);
+Route::get('/college_unit', [HomeController::class, 'getcollege_unit']);
+Route::get('/department', [HomeController::class, 'getdepartment']);
+Route::get('/appointment', [HomeController::class, 'getappointment']);
 Route::get('/options_psgc', [HomeController::class, 'getpsgc_prov']);
 
 //GET
@@ -129,6 +133,8 @@ Route::post('/save-agreement', [AdminController::class, 'saveAgreement'])->name(
 Route::get('/settings/campus_list', [Settings::class, 'campus_list'])->name('campus_list');
 Route::post('/settings/save_campus', [Settings::class, 'save_campus'])->name('add_campus');
 Route::post('/settings/delete_campus', [Settings::class, 'remove_campus'])->name('delete_campus');
+Route::post('/settings/get_details_campus', [Settings::class, 'get_campus'])->name('get_details_campus');
+Route::post('/settings/update-campus', [Settings::class, 'update_campus'])->name('update-campus');
 // classification
 Route::post('/settings/save-class', [Settings::class, 'save_classif'])->name('save-class');
 Route::get('/settings/class_list', [Settings::class, 'classification_table'])->name('class_list');
@@ -140,4 +146,19 @@ Route::post('/settings/delete_college', [Settings::class, 'remove_college'])->na
 Route::post('/settings/get_details_coll', [Settings::class, 'get_college'])->name('get_details_coll');
 Route::post('/settings/update-college', [Settings::class, 'update_college'])->name('update-college');
 
+// department
+Route::post('/settings/save-department', [Settings::class, 'save_department'])->name('save-department');
+Route::get('/settings/department_list', [Settings::class, 'department_table'])->name('department_list');
+Route::post('/settings/delete_department', [Settings::class, 'remove_department'])->name('delete_department');
+Route::post('/settings/get_details_dept', [Settings::class, 'get_department'])->name('get_details_dept');
+Route::post('/settings/update-department', [Settings::class, 'update_department'])->name('update-department');
+// appointment
+Route::post('/settings/save-appointment', [Settings::class, 'save_appointment'])->name('save-appointment');
+Route::get('/settings/appt_list', [Settings::class, 'appointment_table'])->name('appt_list');
+Route::post('/settings/update_appstatus', [Settings::class, 'up_appstatus'])->name('update_appstatus');
+// salarygrade
+Route::post('/settings/save-salaryg', [Settings::class, 'save_salaryg'])->name('save-salaryg');
+Route::get('/settings/salaryg_list', [Settings::class, 'sg_table'])->name('salaryg_list');
+Route::post('/settings/get_details_sg', [Settings::class, 'get_sg'])->name('get_details_sg');
+Route::post('/settings/update-salaryg', [Settings::class, 'up_salaryg'])->name('update-salaryg');
 

@@ -91,7 +91,7 @@
                   </label>
                   {{ csrf_field() }}
                   <form id="college_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
-                  <input type="hidden" name="cu_no" id="cu_no" value="">
+                    <input type="hidden" name="cu_no" id="cu_no" value="">
                     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">College / Unit Name</label>
@@ -100,81 +100,80 @@
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Campus</label>
                         <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
-                        <option value="">Select Campus</option>
-                        @foreach($campus as $row)
-                            <option value="{{ $row->id }}">{{ $row->name }}</option>
-                        @endforeach
+                          <option value="">Select Campus</option>
+                          @foreach($campus as $row)
+                          <option value="{{ $row->id }}">{{ $row->name }}</option>
+                          @endforeach
                         </select>
                       </div>
 
 
-
-                      <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_college" type="submit">
-                        <span class="save_up">Save Record</span>
-                      </a>
-                      <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_btn">
-                        <span class="clear_txt">Clear</span>
-                      </a>
-                      <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
-
-                    </div>
-
-                  </form>
+                  <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_college" type="submit">
+                    <span class="save_up">Save Record</span>
+                  </a>
+                  <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_btn">
+                    <span class="clear_txt">Clear</span>
+                  </a>
+                  <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
 
                 </div>
 
+                </form>
+
               </div>
 
-              <div class="col-lg-8">
-                <div>
-                  <div class="top-label">
-                    <!-- <label>Data Records</label> -->
-                  </div>
-                  <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                    <table class="college-table" style="height: auto;" width="100%" id="college_table">
-                      <thead>
-                        <tr>
-                          <th>
-                            <span>College / Unit Name</span>
-                          </th>
-                          <th>
-                            <span>Campus</span>
-                          </th>
-                          <th>
-                            <span>Created At</span>
-                          </th>
-                          <th>
-                            <span>Action</span>
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody>                   
-                      </tbody>
-                    </table>
+            </div>
+
+            <div class="col-lg-8">
+              <div>
+                <div class="top-label">
+                  <!-- <label>Data Records</label> -->
+                </div>
+                <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
+                  <table class="members-table" style="height: auto;" width="100%" id="college_table">
+                    <thead>
+                      <tr>
+                        <th>
+                          <span>College / Unit Name</span>
+                        </th>
+                        <th>
+                          <span>Campus</span>
+                        </th>
+                        <th>
+                          <span>Created At</span>
+                        </th>
+                        <th>
+                          <span>Action</span>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                  </table>
 
 
 
-                  </div>
-                  <div class="records-button" style="transform: scale(0.7);">
-                    <a class="up-button btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
-                      <span>Print</span>
-                    </a>
+                </div>
+                <div class="records-button" style="transform: scale(0.7);">
+                  <a class="up-button btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
+                    <span>Print</span>
+                  </a>
 
-                    <a class="up-button-green btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
-                      <span>Download</span>
-                    </a>
-                  </div>
+                  <a class="up-button-green btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
+                    <span>Download</span>
+                  </a>
                 </div>
               </div>
             </div>
-
           </div>
-        </div>
 
+        </div>
       </div>
 
     </div>
+
   </div>
+</div>
 </div>
 
 <script>
@@ -205,64 +204,76 @@
     });
     if ($('#campus').val() && $('#college_name').val()) {
       var formData = $("#college_form").serialize();
-      if($('#cu_no').val() != ''){
+      if ($('#cu_no').val() != '') {
         $.ajax({
-      type: 'POST',
-      url: "{{ route('update-college') }}",
-      data: formData,
-      success: function(data) {
-        if (data.success != '') {
-          Swal.fire({
-            text: 'College/Unit has been Updated Successfully.',
-            icon: 'success',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Ok',
-          });
-          tbl_clss.draw();
-        }
-      }
-    });
-      }else{
-      $.ajax({
-      type: 'POST',
-      url: "{{ route('save-college') }}",
-      data: formData,
-      success: function(data) {
-        if (data.success != '') {
-          Swal.fire({
-            text: 'College/Unit has been added Successfully.',
-            icon: 'success',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Ok',
-          });
-          tbl_clss.draw();
+          type: 'POST',
+          url: "{{ route('update-college') }}",
+          data: formData,
+          success: function(data) {
+            if (data.success != '') {
+              Swal.fire({
+                text: 'College/Unit has been Updated Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+              });
+              $("#college_form")[0].reset();
+              tbl_clss.draw();
+            }
           }
-        }
-      });
+        });
+      } else {
+        $.ajax({
+          type: 'POST',
+          url: "{{ route('save-college') }}",
+          data: formData,
+          success: function(data) {
+            if (data.success != '') {
+              Swal.fire({
+                text: 'College/Unit has been added Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+              });
+              tbl_clss.draw();
+            }
+          }
+        });
       }
-    }else{
-      Swal.fire('Error','Please input College/Unit Name and Campus','error')
+    } else {
+      Swal.fire('Error', 'Please input College/Unit Name and Campus', 'error')
     }
-    
+
   });
   var tbl_clss;
   $(document).ready(function() {
-     tbl_clss = $('#college_table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: "{{ route('college_list') }}",
-            type: 'GET',
+    tbl_clss = $('#college_table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "{{ route('college_list') }}",
+        type: 'GET',
+      },
+      columns: [{
+          data: 'college_unit_name',
+          name: 'college_unit_name'
         },
-        columns: [
-            { data: 'college_unit_name', name: 'college_unit_name' },
-            { data: 'camp_name', name: 'camp_name' },
-            { data: 'time_stamp', name: 'time_stamp' },
-            { data: 'action', name: 'action' },
-        ],
+        {
+          data: 'camp_name',
+          name: 'camp_name'
+        },
+        {
+          data: 'time_stamp',
+          name: 'time_stamp'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        },
+      ],
     });
-});
-$(document).on('click', '.remove_coll', function() {
+  });
+  $(document).on('click', '.remove_coll', function() {
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -301,7 +312,6 @@ $(document).on('click', '.remove_coll', function() {
       }
     });
   });
-  
   $(document).on('click', '#clear_btn', function() {
     // $("#college_form").clear();
     $("#college_form")[0].reset();
@@ -317,23 +327,22 @@ $(document).on('click', '.remove_coll', function() {
       }
     });
     var id_college = $(this).data('id');
-        $.ajax({
-          type: 'POST',
-          url: "{{ route('get_details_coll') }}",
-          data: {
-            id_college: id_college
-          },
-          success: function(data) {
-            $('#cu_no').val(data.cu_no);
-            $('#college_name').val(data.college_unit_name);
-            $('#campus').val(data.camp_id);
-            $('.save_up').text('Update');
-            $('.clear_txt').text('Cancel');
-          }
-        });
-
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('get_details_coll') }}",
+      data: {
+        id_college: id_college
+      },
+      success: function(data) {
+        $('#cu_no').val(data.cu_no);
+        $('#college_name').val(data.college_unit_name);
+        $('#campus').val(data.camp_id);
+        $('.save_up').text('Update');
+        $('.clear_txt').text('Cancel');
+      }
     });
 
+  });
 </script>
 
 @endsection

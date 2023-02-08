@@ -164,7 +164,7 @@
                         <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
                           <option value="1">Active</option>
                           <option value="0">In Active</option>
-                      </select>
+                        </select>
                       </div>
 
 
@@ -193,7 +193,7 @@
                     <!-- <label>Data Records</label> -->
                   </div>
                   <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                    <table class="classif-table" style="height: auto;" width="100%" id="classif-table">
+                    <table class="members-table" style="height: auto;" width="100%" id="classif-table">
                       <thead>
                         <tr>
                           <th>
@@ -202,6 +202,7 @@
                           <th>
                             <span>Status</span>
                           </th>
+
                           <th>
                             <span>Created time</span>
                           </th>
@@ -211,7 +212,10 @@
                         </tr>
                       </thead>
                       <tbody>
-                       
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
 
                       </tbody>
                     </table>
@@ -267,7 +271,7 @@
       }
     });
     var formData = $("#classif_form").serialize();
- 
+
     $.ajax({
       type: 'POST',
       url: "{{ route('save-class') }}",
@@ -288,22 +292,33 @@
   });
   var tbl_clss;
   $(document).ready(function() {
-     tbl_clss = $('.classif-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: {
-            url: "{{ route('class_list') }}",
-            type: 'GET',
+    tbl_clss = $('#classif-table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "{{ route('class_list') }}",
+        type: 'GET',
+      },
+      columns: [{
+          data: 'classification_name',
+          name: 'classification_name'
         },
-        columns: [
-            { data: 'classification_name', name: 'classification_name' },
-            { data: 'status', name: 'status' },
-            { data: 'time_stamp', name: 'time_stamp' },
-            { data: 'action', name: 'action' },
-        ],
+        {
+          data: 'status',
+          name: 'status'
+        },
+        {
+          data: 'time_stamp',
+          name: 'time_stamp'
+        },
+        {
+          data: 'action',
+          name: 'action'
+        },
+      ],
     });
-});
-$(document).on('click', '#up_status', function() {
+  });
+  $(document).on('click', '#up_status', function() {
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -311,14 +326,17 @@ $(document).on('click', '#up_status', function() {
     });
     var data_id = $(this).attr('data-id');
     if ($(this).prop('checked')) {
-    var status = 1;
+      var status = 1;
     } else {
       var status = 0;
     }
     $.ajax({
       type: 'POST',
       url: "{{ route('update_status') }}",
-      data: {data_id:data_id,status:status},
+      data: {
+        data_id: data_id,
+        status: status
+      },
       success: function(data) {
         if (data.success != '') {
           Swal.fire({
@@ -333,7 +351,6 @@ $(document).on('click', '#up_status', function() {
       }
     });
   });
-
 </script>
 
 
