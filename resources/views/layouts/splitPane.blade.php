@@ -182,20 +182,20 @@
     //     };
     // }
 
-    function ckChange(ckType) {
-        var ckName = document.getElementsByClassName(ckType.className);
-        for (var i = 0; i < ckName.length; i++) {
-            if (!ckType.checked) {
-                ckName[i].disabled = false;
-            } else {
-                if (!ckName[i].checked) {
-                    ckName[i].disabled = true;
-                } else {
-                    ckName[i].disabled = false;
-                }
-            }
-        }
-    }
+    // function ckChange(ckType) {
+    //     var ckName = document.getElementsByClassName(ckType.className);
+    //     for (var i = 0; i < ckName.length; i++) {
+    //         if (!ckType.checked) {
+    //             ckName[i].disabled = false;
+    //         } else {
+    //             if (!ckName[i].checked) {
+    //                 ckName[i].disabled = true;
+    //             } else {
+    //                 ckName[i].disabled = false;
+    //             }
+    //         }
+    //     }
+    // }
     // $("#loginform").attr("hidden", true);
     // // var $ids = $('[id="loginForm"]');
 
