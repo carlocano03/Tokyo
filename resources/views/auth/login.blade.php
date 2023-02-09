@@ -331,7 +331,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Date of Birth</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="date_birth" id="date_birth" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="date_birth" id="date_birth" readonly required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Gender</label>
@@ -484,9 +484,9 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Employee Classification</label>
-            <select class="mp-input-group__input mp-text-field" name="classification">
+            <select class="mp-input-group__input mp-text-field" name="classification" id="classification">
                 <option value="">Select Classification</option>
-                <option>Class A </option>
+                {{-- <option>Class A </option> --}}
             </select>
         </div>
         <div class="mp-input-group">
@@ -499,16 +499,16 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">College Unit</label>
-            <select class="mp-input-group__input mp-text-field" name="college_unit">
-                <option>Select Unit</option>
-                <option>Unit </option>
+            <select class="mp-input-group__input mp-text-field" name="college_unit" id="college_unit">
+                <option value="">Select Unit</option>
+                {{-- <option>Unit </option> --}}
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Department</label>
-            <select class="mp-input-group__input mp-text-field" name="department" required>
-                <option>Select Department</option>
-                <option>DEPED </option>
+            <select class="mp-input-group__input mp-text-field" name="department" id="department" required>
+                <option value="">Select Department</option>
+                {{-- <option>DEPED </option> --}}
             </select>
         </div>
         <div class="mp-input-group">
@@ -524,9 +524,9 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Appointment Status</label>
-            <select class="mp-input-group__input mp-text-field" name="appointment" required>
-                <option>Select Status</option>
-                <option>Regular Employee</option>
+            <select class="mp-input-group__input mp-text-field" name="appointment" id="appointment" required>
+                <option value="">Select Status</option>
+                {{-- <option>Regular Employee</option> --}}
             </select>
         </div>
         <div class="mp-input-group">
@@ -627,60 +627,35 @@
             <hr>
         </div> -->
 
-        <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-4" id="next-btn">
+        <a class="up-button btn-md button-animate-right mp-text-center" type="button" value="step-4" id="next-btn">
             <span>Next</span>
         </a>
     </div>
-</form>
+{{-- </form> --}}
 
-<form id="member_forms_4" method="post" enctype="multipart/form-data">
-    @csrf
+{{-- <form id="member_forms_4" method="post" enctype="multipart/form-data">
+    @csrf --}}
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-4">
 
         <div class="mp-input-group">
             <label class="mp-input-group__label">Supporting Document</label>
         </div>
 
-        <div class="supporting_docu">
-            <input type="hidden" name="app_no" id="app_no">
-            <input type="hidden" name="percent_amt" id="percent_amt">
-            <div class="mp-input-group">
-                <label class="mp-input-group__label">
-                    <a href="{{ route('download_coco') }}" class="mp-link link_style">Click here</a><span> to
-                        download Cocolife Form for manual signature (Optional) </span>
-                </label>
-            </div>
-            <div class="mp-input-group">
-                {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="documents[]" required accept="application/pdf" multiple/> --}}
-                <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" id="coco" name="coco" required accept="application/pdf" />
-            </div>
-
-            <div class="mp-input-group">
-                <label class="mp-input-group__label">
-                    <a href="{{ route('download_proxy') }}" class="mp-link link_style">Click here</a><span> to
-                        download Proxy Form for manual signature (Optional) </span>
-                </label>
-            </div>
-            <div class="mp-input-group">
-                {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="documents[]" required accept="application/pdf" multiple/> --}}
-                <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" id="proxy_form" name="proxy" required accept="application/pdf" />
-            </div>
-        </div>
-
-
         <div class="mp-input-group">
-            <div class="d-flex gap-5">
-                <input type="checkbox" id="generateForm" name="generateForm" value="generateForm" />
-                <label class="mp-input-group__label" style="margin-top: 5px;">Generate Cocolife and Proxy Form</label>
-            </div>
-
+            <label class="mp-input-group__label">Input your name as signature</label>
+            <input class="mp-input-group__input mp-text-field" type="text" name="e_sig" id="e_sig" required />
+        </div>
+        <input type="hidden" name="app_no" id="app_no">
+        <input type="hidden" name="percent_amt" id="percent_amt">
+        <div class="mp-input-group">
             <div id="proxy">
-                <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
-                <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
+                {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file" accept="image/png, image/gif, image/jpeg, image/jpg" /> --}}
+                <div class="mp-input-group">
                 <input type="hidden" name="appNo" id="appNo">
                 <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
                     <span>Generate Proxy Form</span>
                 </button>
+                </div>
                 <hr>
                 <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generare Cocolife</button>
             </div>

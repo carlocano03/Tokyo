@@ -13,6 +13,7 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Mail\DemoMail;
 use Illuminate\Support\Facades\Storage;
 use Mail;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -73,21 +74,20 @@ class HomeController extends Controller
         })
         ->rawColumns(['action'])
         ->make(true);
-  
     }
   }
 
   public function add_member(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
-      
+
       if ($request->input('perm_add_check') != 1) {
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
-          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
           'firstname' => strtoupper($request->input('firstname')),
-          'date_birth' => $request->input('date_birth'),
+          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -118,9 +118,9 @@ class HomeController extends Controller
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
-          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
           'firstname' => strtoupper($request->input('firstname')),
-          'date_birth' => $request->input('date_birth'),
+          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -186,9 +186,9 @@ class HomeController extends Controller
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
-          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
           'firstname' => strtoupper($request->input('firstname')),
-          'date_birth' => $request->input('date_birth'),
+          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -219,9 +219,9 @@ class HomeController extends Controller
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
-          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
-          'firstname' =>strtoupper($request->input('firstname')),
-          'date_birth' => $request->input('date_birth'),
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
+          'firstname' => strtoupper($request->input('firstname')),
+          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -302,37 +302,36 @@ class HomeController extends Controller
 
   public function add_member_up_p2(Request $request)
   {
-      $datadb = DB::transaction(function () use ($request) {
-        $inserts = array(
-          'campus' => $request->input('campus'),
-          'classification' => $request->input('classification'),
-          'classification_others' => $request->input('classification_others'),
-          'employee_no' => $request->input('employee_no'),
-          'college_unit' => $request->input('college_unit'),
-          'department' => $request->input('department'),
-          'rank_position' => $request->input('rank_position'),
-          'date_appointment' => $request->input('date_appointment'),
-          'appointment' => $request->input('appointment'),
-          'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
-          'salary_grade' => $request->input('salary_grade'),
-          'sg_category' => $request->input('sg_category'),
-          'tin_no' => $request->input('tin_no'),
-        );
-        DB::table('employee_details')->where('employee_details_ID', $request->input('employee_details_ID'))
-          ->update($inserts);
-        //   $last_id = (DB::getPdo()->lastInsertId()); 
-        $mem_appinst = array(
-          'employee_no' => $request->input('employee_no'),
-        );
-        DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
-          ->update($mem_appinst);
-        return [
-          'last_id' => $request->input('employee_details_ID'),
-          'emp_no' => $request->input('employee_no'),
-        ];
-      });
-      return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
-
+    $datadb = DB::transaction(function () use ($request) {
+      $inserts = array(
+        'campus' => $request->input('campus'),
+        'classification' => $request->input('classification'),
+        'classification_others' => $request->input('classification_others'),
+        'employee_no' => $request->input('employee_no'),
+        'college_unit' => $request->input('college_unit'),
+        'department' => $request->input('department'),
+        'rank_position' => $request->input('rank_position'),
+        'date_appointment' => $request->input('date_appointment'),
+        'appointment' => $request->input('appointment'),
+        'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
+        'salary_grade' => $request->input('salary_grade'),
+        'sg_category' => $request->input('sg_category'),
+        'tin_no' => $request->input('tin_no'),
+      );
+      DB::table('employee_details')->where('employee_details_ID', $request->input('employee_details_ID'))
+        ->update($inserts);
+      //   $last_id = (DB::getPdo()->lastInsertId()); 
+      $mem_appinst = array(
+        'employee_no' => $request->input('employee_no'),
+      );
+      DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
+        ->update($mem_appinst);
+      return [
+        'last_id' => $request->input('employee_details_ID'),
+        'emp_no' => $request->input('employee_no'),
+      ];
+    });
+    return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
   }
 
   public function add_member_p3(Request $request)
@@ -347,42 +346,10 @@ class HomeController extends Controller
         'amount' => $request->input('fixed_amount'),
         'app_no' => $request->input('app_no')
       );
-      
-      if (!$request->hasFile('coco') && !$request->hasFile('proxy')) { 
-        DB::table('membership_details')->insert($insertMemDetails);
-        DB::table('mem_app')->where('app_no', $request->input('app_no'))
-            ->update(array('app_status' => 'SUBMITTED'));
+      DB::table('membership_details')->insert($insertMemDetails);
+      DB::table('mem_app')->where('app_no', $request->input('app_no'))
+        ->update(array('app_status' => 'SUBMITTED'));
 
-      } else {
-        //Cocolife Form
-        $fileName = $request->file('coco')->getClientOriginalName();
-        $newName = $request->input('app_no').'_'.$fileName;
-        $filePath = 'uploaded_forms/' . $newName;
-        $request->file('coco')->storeAs('uploaded_forms', $newName, 'public');
-        $insertCoco = array(
-          'app_no' => $request->input('app_no'),
-          'coco_name' => $newName,
-          'coco_path' => $filePath
-        );
-
-        //Proxy Form
-        $proxyName = $request->file('proxy')->getClientOriginalName();
-        $newProxyName = $request->input('app_no').'_'.$proxyName;
-        $filePathProxy = 'uploaded_forms/' . $newProxyName;
-        $request->file('proxy')->storeAs('uploaded_forms', $newProxyName, 'public');
-        $insertProxy = array(
-          'app_no' => $request->input('app_no'),
-          'form_name' => $newProxyName,
-          'path' => $filePathProxy
-        );
-
-        DB::table('coco_form')->insert($insertCoco);
-        DB::table('proxy_form')->insert($insertProxy);
-        DB::table('membership_details')->insert($insertMemDetails);
-        DB::table('mem_app')->where('app_no', $request->input('app_no'))
-            ->update(array('app_status' => 'SUBMITTED'));
-      }
-      
     } else {
       $insertMemDetails = array(
         'contribution_set' => 'Percentage of Basic Salary',
@@ -390,45 +357,11 @@ class HomeController extends Controller
         'percentage' => $request->input('percentage_bsalary'),
         'app_no' => $request->input('app_no')
       );
-
-      if (!$request->hasFile('coco') && !$request->hasFile('proxy')) { 
-
-        DB::table('membership_details')->insert($insertMemDetails);
-        DB::table('mem_app')->where('app_no', $request->input('app_no'))
-            ->update(array('app_status' => 'SUBMITTED'));
-
-      } else {
-        //Cocolife Form
-        $fileName = $request->file('coco')->getClientOriginalName();
-        $newName = $request->input('app_no').'_'.$fileName;
-        $filePath = 'uploaded_forms/' . $newName;
-        $request->file('coco')->storeAs('uploaded_forms', $newName, 'public');
-        $insertCoco = array(
-          'app_no' => $request->input('app_no'),
-          'coco_name' => $newName,
-          'coco_path' => $filePath
-        );
-
-        //Proxy Form
-        $proxyName = $request->file('proxy')->getClientOriginalName();
-        $newProxyName = $request->input('app_no').'_'.$proxyName;
-        $filePathProxy = 'uploaded_forms/' . $newProxyName;
-        $request->file('proxy')->storeAs('uploaded_forms', $newProxyName, 'public');
-        $insertProxy = array(
-          'app_no' => $request->input('app_no'),
-          'form_name' => $newProxyName,
-          'path' => $filePathProxy
-        );
-
-        DB::table('coco_form')->insert($insertCoco);
-        DB::table('proxy_form')->insert($insertProxy);
-        DB::table('membership_details')->insert($insertMemDetails);
-        DB::table('mem_app')->where('app_no', $request->input('app_no'))
-            ->update(array('app_status' => 'SUBMITTED'));
-      }
-
-      
+      DB::table('membership_details')->insert($insertMemDetails);
+      DB::table('mem_app')->where('app_no', $request->input('app_no'))
+        ->update(array('app_status' => 'SUBMITTED'));
     }
+
   }
 
   public function delete_beneficiary(Request $request)
@@ -441,58 +374,83 @@ class HomeController extends Controller
   public function getCampuses()
   {
     $options = DB::table('campus')->select('campus_key', 'name')->get();
-        return response()->json($options);
+    return response()->json($options);
   }
+
+  public function getClassification()
+  {
+    $options = DB::table('classification')->select('classification_id', 'classification_name')->get();
+    return response()->json($options);
+  }
+
+  public function getcollege_unit()
+  {
+    $options = DB::table('college_unit')->select('cu_no', 'college_unit_name')->get();
+    return response()->json($options);
+  }
+
+  public function getdepartment()
+  {
+    $options = DB::table('department')->select('dept_no', 'department_name')->get();
+    return response()->json($options);
+  }
+
+  public function getappointment()
+  {
+    $options = DB::table('appointment')->select('appoint_id', 'appointment_name')->get();
+    return response()->json($options);
+  }
+
   public function getpsgc_prov()
   {
     $psgc_province = DB::table('psgc_province')->orderBy('name')->get();
-        return response()->json($psgc_province);
+    return response()->json($psgc_province);
   }
 
 
   public function search_app_trail(Request $request)
   {
-      $query = $request->input('query');
-      $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$query'")
+    $query = $request->input('query');
+    $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$query'")
       ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->get()->first();
-    
-      return response()->json($results);
+
+    return response()->json($results);
   }
 
   public function continued_trail_status(Request $request)
   {
-      $query = $request->input('app_trailno');
-      $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$query'")
+    $query = $request->input('app_trailno');
+    $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$query'")
       ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->get()->first();
-    
-      return response()->json($results);
+
+    return response()->json($results);
   }
 
   public function check_sg_bracket(Request $request)
   {
-      $query = str_replace(',', '',$request->input('inputValue'));
-      $results = DB::table('ref_salarygrade')->select('sg_no')->where('min_bracket','<=', $query)
-      ->where('max_bracket','>=', $query)
+    $query = str_replace(',', '', $request->input('inputValue'));
+    $results = DB::table('ref_salarygrade')->select('sg_no')->where('min_bracket', '<=', $query)
+      ->where('max_bracket', '>=', $query)
       ->get()->first();
-      // print_r($query);
-      return response()->json($results);
+    // print_r($query);
+    return response()->json($results);
   }
 
   public function add_proxy(Request $request)
   {
-    $file = $request->file('file');
+    // $file = $request->file('file');
 
-    $fileName = $file->getClientOriginalName();
-    $newName = $request->input('appNo').'_'.$fileName;
-    $path = $file->storeAs('signature', $newName, 'public');
+    // $fileName = $file->getClientOriginalName();
+    // $newName = $request->input('appNo') . '_' . $fileName;
+    // $path = $file->storeAs('signature', $newName, 'public');
 
     $signFile['app_no'] = $request->input('appNo');
-    $signFile['sign'] = $newName;
-    $signFile['sign_path'] = '/storage/'.$path;
+    $signFile['sign'] = $request->input('esig');
+    // $signFile['sign_path'] = '/storage/' . $path;
     DB::table('member_signature')->insert($signFile);
   }
 
@@ -502,11 +460,11 @@ class HomeController extends Controller
     $coco = DB::table('generated_coco')->where('app_number', $appNumber)->count();
 
     if ($coco > 0) {
-        return response()->json(['message' => 'Exist']);
+      return response()->json(['message' => 'Exist']);
     }
 
     if (!$request->hasFile('cocolife_sign')) {
-        return response()->json(['message' => 'File not found']);
+      return response()->json(['message' => 'File not found']);
     }
 
     $file = $request->file('cocolife_sign');
@@ -515,25 +473,24 @@ class HomeController extends Controller
     $path = $file->storeAs('signature', $newName, 'public');
 
     $insertCoco = [
-        'app_number' => $appNumber,
-        'place_birth' => $request->input('place_birth'),
-        'height' => $request->input('height'),
-        'weight' => $request->input('weight'),
-        'amt_isurance' => $request->input('amt_isurance'),
-        'term_coverage' => $request->input('coverage'),
-        'premiums' => $request->input('premiums'),
-        'occupation' => $request->input('occupation'),
-        'nature_work' => $request->input('nature_work'),
-        'seaman' => $request->input('seaman'),
-        'ofw' => $request->input('ofw'),
-        'exceptions' => $request->input('exception'),
-        'sign_path' => $path,
+      'app_number' => $appNumber,
+      'place_birth' => $request->input('place_birth'),
+      'height' => $request->input('height'),
+      'weight' => $request->input('weight'),
+      'amt_isurance' => $request->input('amt_isurance'),
+      'term_coverage' => $request->input('coverage'),
+      'premiums' => $request->input('premiums'),
+      'occupation' => $request->input('occupation'),
+      'nature_work' => $request->input('nature_work'),
+      'seaman' => $request->input('seaman'),
+      'ofw' => $request->input('ofw'),
+      'exceptions' => $request->input('exception'),
+      'sign_path' => $path,
     ];
 
     DB::table('generated_coco')->insert($insertCoco);
 
     return response()->json(['message' => 'Success']);
-    
   }
 
   public function update_trail_member_1(Request $request)
@@ -543,9 +500,9 @@ class HomeController extends Controller
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
-          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
           'firstname' => strtoupper($request->input('firstname')),
-          'date_birth' => date('mm', strtotime($request->input('date_birth'))),
+          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -576,9 +533,9 @@ class HomeController extends Controller
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
-          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1:0,
-          'firstname' =>strtoupper($request->input('firstname')),
-          'date_birth' => $request->input('date_birth'),
+          'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
+          'firstname' => strtoupper($request->input('firstname')),
+          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -619,55 +576,54 @@ class HomeController extends Controller
   }
   public function update_trail_member_2(Request $request)
   {
-      $datadb = DB::transaction(function () use ($request) {
-        $inserts = array(
-          'campus' => $request->input('campus'),
-          'classification' => $request->input('classification'),
-          'classification_others' => $request->input('classification_others'),
-          'employee_no' => $request->input('employee_no'),
-          'college_unit' => $request->input('college_unit'),
-          'department' => $request->input('department'),
-          'rank_position' => $request->input('rank_position'),
-          'date_appointment' => $request->input('date_appointment'),
-          'appointment' => $request->input('appointment'),
-          'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
-          'salary_grade' => $request->input('salary_grade'),
-          'sg_category' => $request->input('sg_category'),
-          'tin_no' => $request->input('tin_no'),
-        );
-        DB::table('employee_details')->where('employee_details_ID', $request->input('employee_details_ID'))
-          ->update($inserts);
-        //   $last_id = (DB::getPdo()->lastInsertId()); 
-        $mem_appinst = array(
-          'employee_no' => $request->input('employee_no'),
-        );
-        DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
-          ->update($mem_appinst);
-        return [
-          'last_id' => $request->input('employee_details_ID'),
-          'emp_no' => $request->input('employee_no'),
-        ];
-      });
-      return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
-
+    $datadb = DB::transaction(function () use ($request) {
+      $inserts = array(
+        'campus' => $request->input('campus'),
+        'classification' => $request->input('classification'),
+        'classification_others' => $request->input('classification_others'),
+        'employee_no' => $request->input('employee_no'),
+        'college_unit' => $request->input('college_unit'),
+        'department' => $request->input('department'),
+        'rank_position' => $request->input('rank_position'),
+        'date_appointment' => $request->input('date_appointment'),
+        'appointment' => $request->input('appointment'),
+        'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
+        'salary_grade' => $request->input('salary_grade'),
+        'sg_category' => $request->input('sg_category'),
+        'tin_no' => $request->input('tin_no'),
+      );
+      DB::table('employee_details')->where('employee_details_ID', $request->input('employee_details_ID'))
+        ->update($inserts);
+      //   $last_id = (DB::getPdo()->lastInsertId()); 
+      $mem_appinst = array(
+        'employee_no' => $request->input('employee_no'),
+      );
+      DB::table('mem_app')->where('mem_app_ID', $request->input('mem_id'))
+        ->update($mem_appinst);
+      return [
+        'last_id' => $request->input('employee_details_ID'),
+        'emp_no' => $request->input('employee_no'),
+      ];
+    });
+    return response()->json(['success' => $datadb['last_id'], 'emp_no' => $datadb['emp_no']]);
   }
 
   public function psgc_munc(Request $request)
-{
+  {
     $codes = $request->input('codes');
     // Perform your database query to get the data based on the $codes variable
     // ...
     // Return the response, for example:
-      $results = DB::table('psgc_municipal')->select('*')->whereRaw("code LIKE '$codes%'")->orderBy('name')->get();
-      return response()->json(['data' => $results]);
-}
-public function psgc_brgy(Request $request)
-{
+    $results = DB::table('psgc_municipal')->select('*')->whereRaw("code LIKE '$codes%'")->orderBy('name')->get();
+    return response()->json(['data' => $results]);
+  }
+  public function psgc_brgy(Request $request)
+  {
     $codes = $request->input('codes');
     // Perform your database query to get the data based on the $codes variable
     // ...
     // Return the response, for example:
-      $results = DB::table('psgc_brgy')->select('*')->whereRaw("code LIKE '$codes%'")->orderBy('name')->get();
-      return response()->json(['data' => $results]);
-}
+    $results = DB::table('psgc_brgy')->select('*')->whereRaw("code LIKE '$codes%'")->orderBy('name')->get();
+    return response()->json(['data' => $results]);
+  }
 }
