@@ -54,7 +54,8 @@ class PDFController extends Controller
         $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.employee_no = '$id'")
         ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
         ->leftjoin('personal_details', 'personal_details.personal_id', '=', 'mem_app.personal_id')
-        // ->leftjoin('beneficiaries', 'beneficiaries.personal_id', '=', 'employee_details.employee_no')
+        ->leftjoin('college_unit', 'college_unit.cu_no', '=', 'employee_details.college_unit')
+        ->leftjoin('department', 'department.dept_no', '=', 'employee_details.department')
         ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
         ->get()->first();
         $benificiary = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$id'")

@@ -320,7 +320,7 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Middle Name</label>
+            <label class="mp-input-group__label">Middle Name (Please input your complete middle name.)</label><br>
             <input type="checkbox" class="options" id="no_middlename" name="no_middlename" value="N/A" onClick="ckChange(this)" />
             <label class="mp-input-group__label" style="margin-top: 5px;">No Middle Name</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
@@ -513,14 +513,11 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Academic Rank/ Position</label>
-            <select class="mp-input-group__input mp-text-field" name="rank_position">
-                <option>Select Unit</option>
-                <option>Top Global Layla </option>
-            </select>
+            <input class="mp-input-group__input mp-text-field" type="text" name="rank_position" id="rank_position" />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Date of Appointment</label>
-            <input class="mp-input-group__input mp-text-field" type="date" name="date_appointment" />
+            <input class="mp-input-group__input mp-text-field" type="text" name="date_appointment" id="date_appointment" />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Appointment Status</label>
@@ -589,6 +586,7 @@
                     )</label>
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="fixed_amount" id="fixed_amount" />
+            <label class="mp-input-group__label" style="margin-top: 5px;">Minimum Contribution:</label> <label class="mp-input-group__label" id="min_contri" style="margin-top: 5px;"></label>
         </div>
         <div class="mp-input-group d-flex gap-5 flex-column">
             <label class="mp-input-group__label">Dependents</label>
@@ -631,10 +629,7 @@
             <span>Next</span>
         </a>
     </div>
-{{-- </form> --}}
 
-{{-- <form id="member_forms_4" method="post" enctype="multipart/form-data">
-    @csrf --}}
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-4">
 
         <div class="mp-input-group">

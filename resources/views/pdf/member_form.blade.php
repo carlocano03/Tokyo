@@ -839,12 +839,12 @@
 
              <div class="college_unit">
                 <label class="e-college_unit title-font">COLLEGE / UNIT</label>
-                <label class="e-college_unit_value value-font">{{$member->college_unit}}</label>
+                <label class="e-college_unit_value value-font">{{$member->college_unit_name}}</label>
              </div>
 
              <div class="department">
                 <label class="e-department title-font">DEPARTMENT</label>
-                <label class="e-department_value value-font">{{$member->department}}</label>
+                <label class="e-department_value value-font">{{$member->department_name}}</label>
              </div>
 
              <div class="academic_rank">
