@@ -607,22 +607,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @for ($i = 0; $i < 100; $i++) <tr>
-                          <td>akosirr</td>
-                          <td>asd</td>
-                          <td>AKO SI RR</td>
-                          <td>UP DILIMAN</td>
-                          <td>Super admin</td>
-                          <td>Pending</td>
-                          <td>
-                            <button class="up-button-green" style="border-radius: 10px;">
-                              view <i class="fa fa-eye" aria-hidden="true"></i>
-                            </button>
-
-                          </td>
-                          </tr>
-
-                          @endfor
+          
                       </tbody>
                     </table>
 

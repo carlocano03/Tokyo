@@ -153,6 +153,14 @@
         }
 
         $('#date_birth').datetimepicker({
+            startDate: new Date(new Date().setFullYear(new Date().getFullYear() - 12)),
+            maxDate: new Date(new Date().setFullYear(new Date().getFullYear() - 12)),
+            timepicker: false, //hide time
+            format: 'F j, Y',
+            autoclose: true
+        });
+        $('#date_appointment').datetimepicker({
+            maxDate: new Date(),
             timepicker: false, //hide time
             format: 'F j, Y',
             autoclose: true
@@ -481,6 +489,9 @@
     var present_brgycode;
     var perm_muncode;
     var perm_brgycode;
+    var college_unit;
+    var dept_no;
+    var print_emp;
     $(document).on('click', '#next-btn', function(e) {
         var table = $('#dependentTable').DataTable();
         table.draw();
@@ -590,7 +601,6 @@
                                 }
                             });
                         } else {
-                            console.log('stepval2');
                             if (originalData !== $("#member_forms").serialize()) {
                                 Swal.fire({
                                     text: 'Do you want to allow these changes on your application?',
@@ -838,8 +848,8 @@
             $("#step-3").removeClass('d-flex').addClass("d-none");
             $("#step-4").removeClass('d-none').addClass("d-flex");
             $("#back").attr('value', 'step-3')
-            $("#member_forms_3").removeClass('mh-reg-form');
-            $("#member_forms_4").addClass('mh-reg-form');
+            // $("#member_forms_3").removeClass('mh-reg-form');
+            // $("#member_forms_4").addClass('mh-reg-form');
             // $(this).attr('value', 'step-end')
             $("#line").removeClass('step-3').addClass('step-4')
             $("#registration-title").text(stepTitle[3])
@@ -857,7 +867,11 @@
             data: new FormData(this),
             contentType: false,
             processData: false,
+            beforeSend: function() {
+                $('#loading').show();
+            },
             success: function(data) {
+                console.log(data);
                 if (data.success != '') {
                     Swal.fire({
                         title: 'Registration Success!',
@@ -1027,12 +1041,23 @@
                             $('#sg_category').val('16-33');
                         }
                     } else {
+                        
                         $('#salary_grade').val('');
                     }
                 }
             });
         });
-
+        $("#monthly_salary").blur(function() {
+            if($('#salary_grade').val() == ''){
+                Swal.fire({
+                            title: 'Salary Grade is not available. Please contact UPPF administratior.',
+                            text: 'Thank you!',
+                            icon: 'error'
+                        });
+                $('#monthly_salary').val('');
+                $('#monthly_salary').focus();
+            }
+        });
         $.getJSON('/options', function(options) {
             $.each(options, function(index, option) {
                 $('#campus').append($('<option>', {
@@ -1050,25 +1075,37 @@
                 }));
             });
         });
-
-        $.getJSON('/college_unit', function(options) {
+    $("#campus").change(function() {
+        var campus_key = $(this).val();
+        $('#college_unit').empty();  
+        $.getJSON('/college_unit',{ campus_key: campus_key }, function(options) {
             $.each(options, function(index, option) {
                 $('#college_unit').append($('<option>', {
-                    value: option.college_unit_name,
+                    value: option.cu_no,
                     text: option.college_unit_name
                 }));
             });
+            $('#college_unit').val(college_unit).change();
         });
-
-        $.getJSON('/department', function(options) {
+       
+    });
+    $("#college_unit").change(function() {
+        if(college_unit){
+            var college_id = college_unit;
+        }else{
+            var college_id = $(this).val();
+        }
+        $('#department').empty();  
+        $.getJSON('/department',{ college_id: college_id }, function(options) {
             $.each(options, function(index, option) {
                 $('#department').append($('<option>', {
-                    value: option.department_name,
+                    value: option.dept_no,
                     text: option.department_name
                 }));
             });
+            $('#department').val(dept_no).change();
         });
-
+    });
         $.getJSON('/appointment', function(options) {
             $.each(options, function(index, option) {
                 $('#appointment').append($('<option>', {
@@ -1117,9 +1154,13 @@
     $(document).on('click', '#fixed_amount_check', function(e) {
         if ($(this).prop("checked")) {
             $('#percentage_bsalary').prop('disabled', true);
+            var amount = $('#monthly_salary').val().replace(/,/g, "");
+            var total = amount * 0.01;
+            $("#min_contri").text(total.toFixed(2));
         } else {
             $('#percentage_bsalary').prop('disabled', false);
             $('#fixed_amount').val('');
+            $("#min_contri").text('');
         }
     });
     $('#fixed_amount').on('blur', function(event) {
@@ -1131,7 +1172,15 @@
             $("#fixed_amount").val('');
         }
     });
-
+    $("#fixed_amount").keyup(function() {
+            var inputValue = $(this).val();
+            inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var decimalAdded = inputValue.split(".");
+            if (decimalAdded.length > 2) {
+                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
+            }
+            $(this).val(inputValue);
+    });
     $('input[name="middlename"]').on("blur", function() {
         var middleName = $(this).val();
         if (middleName.length === 1) {
@@ -1219,12 +1268,14 @@
                         $('#found_remarks').text('Record has been found');
                         $('#found_remarks').css('color', '#1a8981');
                         $('#icon_status').css('color', '#1a8981');
-                        $('#appNo_label').text(data.campus == null ? 'N/A' : data.campus);
+                        print_emp = data.employee_no;
+                        $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
+                        $('#appNo_label').text(data.app_no == null ? 'N/A' : data.app_no);
                         $('#lname_label').text(data.lastname == null ? 'N/A' : data.lastname);
                         $('#mname_label').text(data.middlename == null ? 'N/A' : data.middlename);
                         $('#fname_label').text(data.firstname == null ? 'N/A' : data.firstname);
                         $('#suffix_label').text(data.suffix == null ? 'N/A' : data.suffix);
-                        $('#bdate_label').text(data.date_birth == null ? 'N/A' : data.date_birth);
+                        $('#bdate_label').text(data.date_birth == null ? 'N/A' : moment(data.date_birth).format('MMMM D, YYYY'));
                         $('#appointment_label').text(data.appointment == null ? 'N/A' : data
                             .appointment);
                         $('#tin_no_label').text(data.tin_no == null ? 'N/A' : data.tin_no);
@@ -1276,7 +1327,27 @@
             });
         }
     });
-
+    $(document).on('click', '#print_app', function(e) {
+        Swal.fire({
+                        title: 'Application has been submitted. Subject for review.',
+                        text: "Do you want to print your Membership Application?",
+                        icon: 'success',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // window.open();
+                            var url = "{{ URL::to('/memberform/') }}" + '/' +
+                                print_emp; //YOUR CHANGES HERE...
+                            window.open(url, 'targetWindow',
+                                'resizable=yes,width=1000,height=1000');
+                            setTimeout(function() {
+                                location.reload();
+                            }, 1000);
+                        }
+                    })
+    });
     $(document).on('click', '#cont_app', function(e) {
         $("#resetPasswordForm").attr("hidden", true);
         $("#statusTrailForm").attr("hidden", true);
@@ -1318,7 +1389,7 @@
                     }
                     $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
                     $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
-                    $("[name='date_birth']").val(data.date_birth == null ? '' : data.date_birth);
+                    $("[name='date_birth']").val(data.date_birth == null ? '' : moment(data.date_birth).format('MMMM D, YYYY'));
                     $("[name='gender']").val(data.gender == null ? '' : data.gender);
                     $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
                     if (data.citizenship == 'FILIPINO') {
@@ -1344,19 +1415,19 @@
                     $("[name='email']").val(data.email == null ? '' : data.email);
 
                     $("[name='employee_no']").val(data.employee_no == null ? '' : data.employee_no);
-                    $("[name='campus']").val(data.campus == null ? '' : data.campus);
+                    $("[name='campus']").val(data.campus == null ? '' : data.campus).trigger('change');
                     $("[name='classification']").val(data.classification == null ? '' : data
                         .classification);
                     $("[name='classification_others']").val(data.classification_others == null ?
                         '' : data.classification_others);
-                    $("[name='college_unit']").val(data.college_unit == null ? '' : data
-                        .college_unit);
+                    $("[name='college_unit']").val(data.college_unit == null ? '' : data.college_unit).trigger('change');
+                    college_unit = data.college_unit == null ? '' : data.college_unit;
                     $("[name='rank_position']").val(data.rank_position == null ? '' : data
                         .rank_position);
-                    $("[name='department']").val(data.department == null ? '' : data.department);
+                    $("[name='department']").val(data.department == null ? '' : data.department).trigger('change');
+                    dept_no = data.department == null ? '' : data.department;
                     $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
-                    $("[name='date_appointment']").val(data.date_appointment == null ? '' : data
-                        .date_appointment);
+                    $("[name='date_appointment']").val(data.date_appointment == null ? '' : moment(data.date_appointment).format('MMMM D, YYYY'));
                     var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
                     var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                     $("[name='monthly_salary']").val(formattedNumber);

@@ -632,9 +632,10 @@
                            <div class="d-flex flex-column">
                              
                                    <div class="h-42px d-flex flex-row align-items-center w-full justify-content-end">
-                                    <button class="pb-1px mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small up-button-green">View my
-                                            Profile
+                                    <button class="pb-1px mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small up-button-green">
+                                        View my Profile
                                     </button>
+                                    
                                    </div>
                                    <span>
                                      <label

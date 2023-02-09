@@ -11,6 +11,7 @@ use App\Models\UploadFile;
 use DataTables;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Mail\DemoMail;
+use App\Mail\ApplicationMail;
 use Illuminate\Support\Facades\Storage;
 use Mail;
 use Carbon\Carbon;
@@ -275,7 +276,7 @@ class HomeController extends Controller
           'college_unit' => $request->input('college_unit'),
           'department' => $request->input('department'),
           'rank_position' => $request->input('rank_position'),
-          'date_appointment' => $request->input('date_appointment'),
+          'date_appointment' => date('Y-m-d', strtotime($request->input('date_appointment'))),
           'appointment' => $request->input('appointment'),
           'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
           'salary_grade' => $request->input('salary_grade'),
@@ -311,7 +312,7 @@ class HomeController extends Controller
         'college_unit' => $request->input('college_unit'),
         'department' => $request->input('department'),
         'rank_position' => $request->input('rank_position'),
-        'date_appointment' => $request->input('date_appointment'),
+        'date_appointment' => date('Y-m-d', strtotime($request->input('date_appointment'))),
         'appointment' => $request->input('appointment'),
         'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
         'salary_grade' => $request->input('salary_grade'),
@@ -336,6 +337,8 @@ class HomeController extends Controller
 
   public function add_member_p3(Request $request)
   {
+    DB::enableQueryLog();
+
     $options = $request->input('percentage_check');
     $form = $request->input('generateForm');
     $coco = $request->file('coco');
@@ -343,7 +346,7 @@ class HomeController extends Controller
     if ($options != 'percentage') {
       $insertMemDetails = array(
         'contribution_set' => 'Fixed Amount',
-        'amount' => $request->input('fixed_amount'),
+        'amount' =>  str_replace(',', '', $request->input('fixed_amount')),
         'app_no' => $request->input('app_no')
       );
       DB::table('membership_details')->insert($insertMemDetails);
@@ -361,6 +364,22 @@ class HomeController extends Controller
       DB::table('mem_app')->where('app_no', $request->input('app_no'))
         ->update(array('app_status' => 'SUBMITTED'));
     }
+    $email = DB::table('mem_app')
+            ->where('app_no', $request->input('app_no'))
+            ->value('email_address');
+    $mailData = [
+      'title' => 'Member Application is Submitted',
+      'body' => 'Your application is Submitted and subject for review.',
+      'app_no' => $request->input('app_no')
+    ];
+    if (!empty($email)) {
+      Mail::to($email)->send(new ApplicationMail($mailData));
+    } else {
+      echo $email;
+    }
+    $quries = DB::getQueryLog();
+
+    return response()->json(['success' => $quries]);
 
   }
 
@@ -379,25 +398,34 @@ class HomeController extends Controller
 
   public function getClassification()
   {
-    $options = DB::table('classification')->select('classification_id', 'classification_name')->get();
+    $options = DB::table('classification')->select('classification_id', 'classification_name')->where('status',1)->get();
     return response()->json($options);
   }
 
-  public function getcollege_unit()
+  public function getcollege_unit(Request $request)
   {
-    $options = DB::table('college_unit')->select('cu_no', 'college_unit_name')->get();
+    $campus_key = $request->input('campus_key');
+    $options = DB::table('college_unit')
+    ->join('campus', 'college_unit.campus_id', '=', 'campus.id')
+    ->select('cu_no', 'college_unit_name')
+    ->where('campus_key', $campus_key)->get();
     return response()->json($options);
   }
 
-  public function getdepartment()
+  public function getdepartment(Request $request)
   {
-    $options = DB::table('department')->select('dept_no', 'department_name')->get();
+    $college_id = $request->input('college_id');
+    $options = DB::table('department')
+    ->join('college_unit', 'college_unit.cu_no', '=', 'department.cu_no')
+    ->select('dept_no', 'department_name')
+    ->where('department.cu_no', $college_id)
+    ->get();
     return response()->json($options);
   }
 
   public function getappointment()
   {
-    $options = DB::table('appointment')->select('appoint_id', 'appointment_name')->get();
+    $options = DB::table('appointment')->select('appoint_id', 'appointment_name')->where('status_flag',1)->get();
     return response()->json($options);
   }
 
@@ -585,7 +613,7 @@ class HomeController extends Controller
         'college_unit' => $request->input('college_unit'),
         'department' => $request->input('department'),
         'rank_position' => $request->input('rank_position'),
-        'date_appointment' => $request->input('date_appointment'),
+        'date_appointment' => date('Y-m-d', strtotime($request->input('date_appointment'))),
         'appointment' => $request->input('appointment'),
         'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
         'salary_grade' => $request->input('salary_grade'),

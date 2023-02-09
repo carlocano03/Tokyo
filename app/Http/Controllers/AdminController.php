@@ -48,11 +48,15 @@ class AdminController extends Controller
         $lastLogin = $login->login_date;
       }
     }
-
+    // $user = Auth::user();
     $campuses = DB::table('campus')->get();
     $data = array(
       'login' => $lastLogin,
       'campuses' => $campuses,
+      // 'user_privileges' => DB::table('users')
+      // ->join('user_prev', 'users.id', '=', 'user_prev.users_id')
+      // ->where('users.id', $user->id)
+      // ->get()
     );
     return view('admin.dashboard')->with($data);
   }
