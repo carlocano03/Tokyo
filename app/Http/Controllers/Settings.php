@@ -11,6 +11,7 @@ use App\Models\College;
 use App\Models\Department;
 use App\Models\Appointment;
 use App\Models\Salarygrade;
+use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Setting;
@@ -73,6 +74,7 @@ class Settings extends Controller
         foreach ($campus as $row) {
             $nestedData['campus_key'] = $row->campus_key;
             $nestedData['name'] = $row->name;
+            $nestedData['cluster_id'] = $row->cluster_id;
             $nestedData['action'] = '<a href="javascript:void(0)" class="btn btn-primary btn-sm edit_campus" data-id="' . $row->id . '">Edit</a>
             <a href="javascript:void(0)" class="btn btn-primary btn-sm delete_campus" data-id="' . $row->id . '">Remove</a>';
             
@@ -93,7 +95,7 @@ class Settings extends Controller
           $inserts_campus = array(
             'campus_key' => strtoupper($request->input('campus_key')),
             'name' => strtoupper($request->input('campus_name')),
-            'cluster_id' => 5
+            'cluster_id' => $request->input('cluster_id')
           );
         $last_id = DB::table('campus')->insertGetId($inserts_campus);
         return [
@@ -116,7 +118,7 @@ class Settings extends Controller
             $update_campus = [
               'campus_key' => strtoupper($request->input('campus_key')),
               'name' => strtoupper($request->input('campus_name')),
-              'cluster_id' => 5
+              'cluster_id' => $request->input('cluster_id')
             ];
             return DB::table('campus')->where('id', $request->input('campus_id'))->update($update_campus);
         });
@@ -625,5 +627,160 @@ public function get_sg(Request $request)
             return response()->json(['success' => false]);
         }
     }
+    public function users_table(Request $request)
+    {
+        $columns = [
+            0 => 'email',
+            1 => 'password',
+            2 => 'full_name',
+            3 => 'campus_name',
+            4 => 'user_level',
+            5 => 'status_flag',
+        ];
+        $totalData = Users::count();
+        $limit = $request->input('length');
+        $start = $request->input('start');
+        $order = $columns[$request->input('order.0.column')];
+        $dir = $request->input('order.0.dir');
+        $searchValue = $request->input('search.value');
+
+        $users = Users::when($searchValue, function($query) use ($searchValue) {
+                $query->where('email', 'like', "%{$searchValue}%")
+                ->orWhere('first_name', 'like', "%{$searchValue}%")
+                ->orWhere('middle_name', 'like', "%{$searchValue}%")
+                ->orWhere('last_name', 'like', "%{$searchValue}%");
+            })
+            ->Leftjoin('campus', 'campus.id', '=', 'users.campus_id')
+            ->select('users.*', 'campus.name as camp_name')
+            ->orderBy($order, $dir)
+            ->offset($start)
+            ->limit($limit)
+            ->get();
+
+        $totalFiltered = Users::when($searchValue, function($query) use ($searchValue) {
+          $query->where('email', 'like', "%{$searchValue}%")
+                ->orWhere('first_name', 'like', "%{$searchValue}%")
+                ->orWhere('middle_name', 'like', "%{$searchValue}%")
+                ->orWhere('last_name', 'like', "%{$searchValue}%");
+            })
+            ->Leftjoin('campus', 'campus.id', '=', 'users.campus_id')
+            ->count();
+
+        $data = [];
+
+        foreach ($users as $class) {
+            $nestedData['email'] = $class->email;
+            $nestedData['intial_password'] = $class->intial_password;
+            $nestedData['full_name'] = $class->first_name .' '.$class->middle_name .' '.$class->last_name;
+            $nestedData['camp_name'] = $class->camp_name;
+            $nestedData['user_level'] = $class->user_level;
+            $nestedData['status_flag'] = $class->status_flag== 1 ? 'Active':'In Active';
+            $nestedData['password_set'] = $class->password_set== 1 ? 'Changed Password':'Not yet change';
+            $nestedData['action'] = '<button class="up-button remove_users" style="border-radius: 5px;" data-id='.$class->id.' >
+            <span>
+              <i class="fa fa-trash" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
+            </span>
+          </button>
+          </button>
+          <button class="up-button-green edit_users" style="border-radius: 5px;" data-id='.$class->id.' >
+            <span>
+              <i class="fa fa-edit" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
+            </span>
+          </button>';
+            
+            $data[] = $nestedData;
+        }
+
+        $json_data = [
+            "draw" => intval($request->input('draw')),
+            "recordsTotal" => intval($totalData),
+            "recordsFiltered" => intval($totalFiltered),
+            "data" => $data,
+        ];
+
+        return response()->json($json_data);
+    }
+    public function save_users(Request $request)
+  {
+    $datadb = DB::transaction(function () use ($request) {
+          $inserts_users = array(
+            'first_name' => strtoupper($request->input('firstname')),
+            'middle_name' => strtoupper($request->input('middlename')),
+            'last_name' => strtoupper($request->input('lastname')),
+            'email' => $request->input('email'),
+            'intial_password' => $request->input('initial_pass'),
+            'contact_no' => $request->input('contact_no'),
+            'user_level' => strtoupper($request->input('user_level')),
+            'campus_id' => $request->input('campus'),
+          );
+        $last_id = DB::table('users')->insertGetId($inserts_users);
+        $inserts_user_prev = array(
+          'users_id'=> $last_id,
+          'setting_config' => $request->input('setting_access'),
+          'election_mod' => $request->input('election_access'),
+          'loan_mod' => $request->input('loan_access'),
+          'benifits_mod' => $request->input('benifits_access'),
+          'trans_equity_mod' => $request->input('transaction_access'),
+          'memberapp_mod' => $request->input('memberapp_access'),
+          'member_mod' => $request->input('membermod_access'),
+        );
+        $last_userprev = DB::table('user_prev')->insertGetId($inserts_user_prev);
+        return [
+          'last_id' => $last_id,
+          'prev_id' => $last_userprev
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id'] ,'prev_id' => $datadb['prev_id']]);
+  }
+  public function update_users(Request $request)
+  {
+    $affectedRows = DB::transaction(function () use ($request) {
+          $update_users = array(
+            'first_name' => strtoupper($request->input('firstname')),
+            'middle_name' => strtoupper($request->input('middlename')),
+            'last_name' => strtoupper($request->input('lastname')),
+            'email' => $request->input('email'),
+            'intial_password' => $request->input('initial_pass'),
+            'contact_no' => $request->input('contact_no'),
+            'user_level' => strtoupper($request->input('user_level')),
+            'campus_id' => $request->input('campus'),
+          );
+         DB::table('users')->where('id', $request->input('users_id'))->update($update_users);
+        $update_user_prev = array(
+          'setting_config' => $request->input('setting_access'),
+          'election_mod' => $request->input('election_access'),
+          'loan_mod' => $request->input('loan_access'),
+          'benifits_mod' => $request->input('benifits_access'),
+          'trans_equity_mod' => $request->input('transaction_access'),
+          'memberapp_mod' => $request->input('memberapp_access'),
+          'member_mod' => $request->input('membermod_access'),
+        );
+        return DB::table('user_prev')->where('users_id', $request->input('users_id'))->update($update_user_prev);
+         
+      });
+      if ($affectedRows > 0) {
+        return response()->json(['success' => true]);
+      } else {
+          return response()->json(['success' => false]);
+      }
+  }
+
+  public function get_users(Request $request)
+  {
+      $query = $request->input('users_id');
+      $results = DB::table('users')->whereRaw("users.id = '$query'")
+      ->Leftjoin('user_prev', 'users.id', '=', 'user_prev.users_id')
+      ->select('*')
+      ->get()->first();
+      return response()->json($results);
+  }
+  public function remove_users(Request $request)
+  {
+    $datadb = DB::transaction(function () use ($request) {
+        DB::table('users')->where('id',$request->input('users_id'))->delete();
+        DB::table('user_prev')->where('users_id ',$request->input('users_id'))->delete();
+      });
+      return response()->json(['success' => true]);
+  }
 }
 

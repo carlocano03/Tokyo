@@ -102,6 +102,16 @@
                       <label class="mp-input-group__label">Campus Name</label>
                       <input class="mp-input-group__input mp-text-field" type="text" name="campus_name" id="campus_name" required="">
                     </div>
+                    <div class="mp-input-group">
+                      <label class="mp-input-group__label">Campus Cluster No.</label>
+                      <select class="mp-input-group__input mp-text-field" name="cluster_id" id="cluster_id" required>
+                          <option value="">Select Cluster No.</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                        </select>
+                    </div>
                     <!-- <div class="mp-input-group">
                       <label class="mp-input-group__label">Last Name</label>
                       <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required="">
@@ -139,6 +149,9 @@
                           </th>
                           <th>
                             <span>Name</span>
+                          </th>
+                          <th>
+                            <span>Cluster ID</span>
                           </th>
                           <th>
                             <span>Action</span>
@@ -192,6 +205,10 @@
         {
           data: 'name',
           name: 'name'
+        },
+        {
+          data: 'cluster_id',
+          name: 'cluster_id'
         },
         {
           data: 'action',
@@ -323,6 +340,7 @@
         $('#campus_id').val(data.id);
         $('#campus_key').val(data.campus_key);
         $('#campus_name').val(data.name);
+        $('#cluster_id').val(data.cluster_id);
         $('.save_up').text('Update Record');
         $('.clear_txt').text('Cancel');
       }

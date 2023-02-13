@@ -1095,7 +1095,7 @@
             <div class=" card d-flex justify-content-around w-80 flex-row">
                 <div class="text-center">
                     <div>
-                        <span class="font-bold font-lg">100</span>
+                        <span class="font-bold font-lg">{{$forApproval}}</span>
                     </div>
                     <span class="font-sm">New Application</span>
                 </div>
@@ -1153,7 +1153,7 @@
                                             </select>
                                     </span>
                                     <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap">
-                                        <span>Membership Date</span>
+                                        <span>Application Date</span>
                                         <div class="date_range d-flex">
                                                 <input type="date" id="from" class="radius-1 border-1 date-input outline"
                                                     style="height: 30px;">
@@ -1196,11 +1196,26 @@
                                         HRDO
                                     </option>
                                 </select>
+                                <select name="" id="" class="" style="height: 30px;margin-top: auto;margin-bottom: auto;">
+                                    <option value="">
+                                        Select Action
+                                    </option>
+                                    <option value="">
+                                        Forward to HRDO
+                                    </option>
+                                    <option value="">
+                                        Forward to CFM
+                                    </option>
+                                </select>
+                                <button>Proceed</button>
                             </div>
                             <div class="mp-mt3 table-container">
                                 <table class="members-table" style="height: auto;" width="100%">
                                     <thead>
                                         <tr>
+                                        <th style="width: 48px;">
+                                                <span></span>
+                                            </th>
                                             <th style="width: 48px;">
                                                 <span>Action</span>
                                             </th>

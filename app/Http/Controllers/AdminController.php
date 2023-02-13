@@ -94,7 +94,8 @@ class AdminController extends Controller
   }
   public function manageAccount()
   {
-    return view('admin.settings-config.manage-account');
+    $campus = DB::table('campus')->get();
+    return view('admin.settings-config.manage-account', compact('campus'));
   }
   public function backUpDatabase()
   {
@@ -249,7 +250,8 @@ class AdminController extends Controller
       foreach ($posts as $r) {
         $start++;
         $row = array();
-        $row[] = "<a data-md-tooltip='View Member' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "' style='cursor: pointer'>
+        $row[] = $r->app_status == 'SUBMITTED' ? '<input type="checkbox" name="check[]" id="select_item">':'<input type="checkbox" name="check[]" id="select_item" disabled>';
+        $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "' style='cursor: pointer'>
                     <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
                   </a>";
         $row[] = $r->app_no;
