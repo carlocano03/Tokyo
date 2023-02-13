@@ -162,3 +162,10 @@ Route::get('/settings/salaryg_list', [Settings::class, 'sg_table'])->name('salar
 Route::post('/settings/get_details_sg', [Settings::class, 'get_sg'])->name('get_details_sg');
 Route::post('/settings/update-salaryg', [Settings::class, 'up_salaryg'])->name('update-salaryg');
 
+// users settings
+Route::post('/settings/add_users', [Settings::class, 'save_users'])->name('add_users');
+Route::get('/settings/users_list', [Settings::class, 'users_table'])->name('users_list');
+Route::post('/settings/get_details_user', [Settings::class, 'get_users'])->name('get_details_user');
+Route::post('/settings/update-users', [Settings::class, 'update_users'])->name('update-users');
+Route::post('/settings/delete_users', [Settings::class, 'remove_users'])->name('delete_users');
+

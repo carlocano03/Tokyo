@@ -437,50 +437,53 @@
 
 
                 </div>
-                <form id="member_forms" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+                <form id="users_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
 
                   <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" id="step-1">
-                    <input type="hidden" id="app_trailNo">
+                    <input type="hidden" id="users_id" name="users_id">
                     <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">First Name</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
+                      <input class="mp-input-group__input mp-text-field" type="text" name="firstname" id="firstname" required />
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Middle Name</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
+                      <input class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required />
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Last Name</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
+                      <input class="mp-input-group__input mp-text-field" type="text" name="lastname" id="lastname" required />
                     </div>
 
 
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Contact No.</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" />
+                      <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact_no"/>
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Username/Email</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" required />
+                      <input class="mp-input-group__input mp-text-field" type="email" name="email" id="email" required />
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Password</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" disabled placeholder="AUTO GENERATE" />
+                      <input class="mp-input-group__input mp-text-field" type="text" id="initial_pass" name="initial_pass" readonly placeholder="AUTO GENERATE" />
+                      
                     </div>
+                    <a class="up-button-green btn-md button-animate-right mp-text-center" id="generate_password">
+                      <span>Generate Initial Password</span>
+                    </a>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">User Level</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" required />
+                      <input class="mp-input-group__input mp-text-field" type="text" name="user_level" id="user_level" required />
                     </div>
 
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Select Campus</label>
-                      <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
-                        <option>campus 1</option>
-                        <option>campus 1</option>
-                        <option>campus 1</option>
-                        <option>campus 1</option>
-                        <option>campus 1</option>
+                      <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
+                      <option value="">Select Campus</option>
+                          @foreach($campus as $row)
+                          <option value="{{ $row->id }}">{{ $row->name }}</option>
+                          @endforeach
                       </select>
                     </div>
                     <div class="mp-input-group">
@@ -494,77 +497,77 @@
                         <tr>
                           <td>Settings & Configuration</td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="1" name="setting_access" id="setting_access">
                           </td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="2" name="setting_access" id="setting_access2">
                           </td>
                         </tr>
 
                         <tr>
                           <td>Election Module</td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="1" name="election_access" id="election_access">
                           </td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="2" name="election_access" id="election_access2">
                           </td>
                         </tr>
 
                         <tr>
                           <td>Loan Module</td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="1" name="loan_access" id="loan_access">
                           </td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="2" name="loan_access" id="loan_access2">
                           </td>
                         </tr>
 
                         <tr>
                           <td>Benefits Module</td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="1" name="benifits_access" id="benifits_access">
                           </td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="2" name="benifits_access" id="benifits_access2">
                           </td>
                         </tr>
                         <tr>
                           <td>Transaction & Equity</td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="1" name="transaction_access" id="transaction_access">
                           </td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="2" name="transaction_access" id="transaction_access2">
                           </td>
                         </tr>
                         <tr>
                           <td>Membership Application</td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="1" name="memberapp_access" id="memberapp_access">
                           </td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="2" name="memberapp_access" id="memberapp_access2">
                           </td>
                         </tr>
                         <tr>
                           <td>Members Module</td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="1" name="membermod_access" id="membermod_access">
                           </td>
                           <td>
-                            <input class="checkbox-color" type="checkbox" name="" id="">
+                            <input class="checkbox-color" type="radio" value="2" name="membermod_access" id="membermod_access2">
                           </td>
                         </tr>
                       </table>
 
                     </div>
-                    <a class="up-button-green btn-md button-animate-right mp-text-center" type="submit">
-                      <span>Save Record</span>
+                    <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_users" name="save_users" type="submit">
+                      <span class="save_up">Save Record</span>
                     </a>
-                    <a class="up-button-grey btn-md button-animate-right mp-text-center" type="submit">
-                      <span>Clear</span>
+                    <a class="up-button-grey btn-md button-animate-right mp-text-center" id="cancel">
+                      <span class="clear_txt">Clear</span>
                     </a>
                     <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
 
@@ -579,14 +582,14 @@
                     <label>Data Records</label>
                   </div>
                   <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                    <table class="members-table" style="height: auto;;" width="100%">
+                    <table class="members-table" style="height: auto;;" width="100%" id="users_table">
                       <thead>
                         <tr>
                           <th>
                             <span>Username</span>
                           </th>
                           <th>
-                            <span>Password</span>
+                            <span>Initial Password</span>
                           </th>
                           <th>
                             <span>Fullname</span>
@@ -599,6 +602,9 @@
                           </th>
                           <th>
                             <span>Status</span>
+                          </th>
+                          <th>
+                            <span>Password Status</span>
                           </th>
                           <th>
                             <span>Action</span>
@@ -656,6 +662,233 @@
     }
 
   })
+var users_table;
+$(document).ready(function() {
+  users_table = $('#users_table').DataTable({
+    processing: true,
+    serverSide: true,
+    ajax: {
+      url: "{{ route('users_list') }}",
+      type: 'GET',
+    },
+    columns: [{
+        data: 'email',
+        name: 'email'
+      },
+      {
+        data: 'intial_password',
+        name: 'intial_password'
+      },
+      {
+        data: 'full_name',
+        name: 'full_name'
+      },
+      {
+        data: 'camp_name',
+        name: 'camp_name'
+      },
+      {
+        data: 'user_level',
+        name: 'user_level'
+      },
+      {
+        data: 'status_flag',
+        name: 'status_flag'
+      },
+      {
+        data: 'password_set',
+        name: 'password_set'
+      },
+      {
+        data: 'action',
+        name: 'action',
+
+      },
+    ]
+  });
+});
+$(document).on('click', '#generate_password', function() {
+  function randomString(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+  var random = randomString(6);
+  $("#initial_pass").val(random);
+  
+});
+$(document).on('click', '#save_users', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    if($('#users_id').val()){
+      var formData = $("#users_form").serialize();
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('update-users') }}",
+      data: formData,
+      success: function(data) {
+        if (data.success != '') {
+          Swal.fire({
+            text: 'Users has been added Updated Successfully.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok',
+          });
+          $("#users_form")[0].reset();
+          $('#users_id').val('');
+          $('.save_up').text('Save Record');
+          $('.clear_txt').text('Clear');
+          users_table.draw();
+        }
+
+      }
+    });
+    }else{
+      var formData = $("#users_form").serialize();
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('add_users') }}",
+      data: formData,
+      success: function(data) {
+        if (data.success != '') {
+          Swal.fire({
+            text: 'User has been added Successfully.',
+            icon: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok',
+          });
+          $("#users_form")[0].reset();
+          $('.save_up').text('Save Record');
+          $('.clear_txt').text('Clear');
+          users_table.draw();
+        }
+
+      }
+    });
+    }
+    
+  });
+  $(document).on('click', '.edit_users', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var users_id = $(this).attr('data-id');
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('get_details_user') }}",
+      data: {
+        users_id: users_id
+      },
+      success: function(data) {
+        $('#users_id').val(data.id);
+        $('#email').val(data.email);
+        $('#firstname').val(data.first_name);
+        $('#middlename').val(data.middle_name);
+        $('#lastname').val(data.last_name);
+        $('#contact_no').val(data.contact_no);
+        $('#initial_pass').val(data.intial_password);
+        $('#user_level').val(data.user_level);
+        $('#campus').val(data.campus_id);
+        if(data.setting_config == 1){
+          $('#setting_access').prop('checked', true);
+        }else if(data.setting_config == 2){
+          $('#setting_access2').prop('checked', true);
+        }
+        if(data.election_mod == 1){
+          $('#election_access').prop('checked', true);
+        }else if(data.election_mod == 2){
+          $('#election_access2').prop('checked', true);
+        }
+        if(data.loan_mod == 1){
+          $('#loan_access').prop('checked', true);
+        }else if(data.loan_mod == 2){
+          $('#loan_access2').prop('checked', true);
+        }
+        if(data.benifits_mod == 1){
+          $('#benifits_access').prop('checked', true);
+        }else if(data.benifits_mod == 2){
+          $('#benifits_access2').prop('checked', true);
+        }
+        if(data.trans_equity_mod == 1){
+          $('#transaction_access').prop('checked', true);
+        }else if(data.trans_equity_mod == 2){
+          $('#transaction_access2').prop('checked', true);
+        }
+        if(data.memberapp_mod == 1){
+          $('#memberapp_access').prop('checked', true);
+        }else if(data.memberapp_mod == 2){
+          $('#memberapp_access2').prop('checked', true);
+        }
+        if(data.member_mod == 1){
+          $('#membermod_access').prop('checked', true);
+        }else if(data.member_mod == 2){
+          $('#membermod_access2').prop('checked', true);
+        }
+        $('.save_up').text('Update Record');
+        $('.clear_txt').text('Cancel');
+      }
+    });
+
+  });
+  $(document).on('click', '#cancel', function() {
+    $("#users_form")[0].reset();
+    $('#users_id').val('');
+    $('.save_up').text('Save Record');
+    $('.clear_txt').text('Clear');
+  });
+  $(document).on('click', '.remove_users', function() {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    var users_id = $(this).data('id');
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.value) {
+        $.ajax({
+          type: 'POST',
+          url: "{{ route('delete_users') }}",
+          data: {
+            users_id: users_id
+          },
+          success: function(data) {
+            if (data.success != '') {
+              Swal.fire({
+                text: 'User has been Deleted Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+              });
+              $("#users_form")[0].reset();
+              $('#users_id').val('');
+              $('.save_up').text('Save Record');
+              $('.clear_txt').text('Clear');
+              users_table.draw();
+            }
+          }
+        });
+
+      }
+    });
+
+  });
 </script>
 
 @endsection

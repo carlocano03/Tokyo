@@ -348,7 +348,7 @@
                 <option>Married</option>
                 <option>Widowed</option>
                 <option>Divorced</option>
-                <option>Registered Ppartnership</option>
+                <option>Registered Partnership</option>
             </select>
         </div>
         <div class="mp-input-group ">
