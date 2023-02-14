@@ -777,6 +777,7 @@
     })
 </script>
 <div class="row no-gutter ml-0 mr-0 p-5px mh-content" id="view-member-details">
+
     <div class="w-full">
         <div class="card relative" style="min-height: 200px;">
             <a class="cursor-pointer mp-ph0 mp-pv0 view-member" style="position: absolute; top: 7px; left: 10px; color: black" href="/admin/members/records">
@@ -786,12 +787,14 @@
                 <div class="w-auto">
                     <span class="font-sm">Membership Application Number</span>
                     <br />
-                    <span class="magenta-clr font-bold">asdasdasd-123123-asd</span>
+                    <span class="magenta-clr font-bold">{{$rec->app_no}}</span>
+                  
+
                 </div>
                 <div class="w-auto">
                     <span class="font-sm">Application Date and Time</span>
                     <br />
-                    <span class="magenta-clr font-bold">January 23, 2023 2:22PM</span>
+                    <span class="magenta-clr font-bold">{{ date('F d, Y', strtotime($rec->app_date)) }}</span>
                 </div>
                 <div class="w-auto">
                     <span class="font-sm">Status</span>
@@ -989,7 +992,7 @@
                                                 Name
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                                Dela Cruz, Juan
+                                                {{$rec->lastname}}, {{$rec->firstname}} {{$rec->middlename}}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -997,7 +1000,7 @@
                                                 Birthday
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                                January 19, 1998
+                                            {{ date('F d, Y', strtotime($rec->date_birth)) }}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1005,7 +1008,7 @@
                                                 Gender
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                                Male
+                                                {{$rec->gender}}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1013,7 +1016,7 @@
                                                 Marital Status
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                                Married
+                                                {{$rec->civilstatus}}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1021,7 +1024,7 @@
                                                 Nationality
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                                Filipino
+                                                {{$rec->citizenship}}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1029,7 +1032,7 @@
                                                 Address
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                                Tibag, Pulilan, Bulacan
+                                            {{$rec->bldg_street}}, {{$rec->barangay}}, {{$rec->municipality}}, {{$rec->province}}, {{$rec->zipcode}}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1037,7 +1040,7 @@
                                                 Contact No.
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                                090909090909
+                                            {{$rec->contact_no}}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1045,7 +1048,7 @@
                                                 Email
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                                enrile@gmai.comz
+                                            {{$rec->email}}
                                             </span>
                                         </div>
                                     </div>
@@ -1096,7 +1099,7 @@
                                         Monthly salary
                                     </span>
                                     <span class="font-md color-black">
-                                        ₱ 10,000
+                                    ₱{{ number_format($rec->monthly_salary, 2, '.', ',') }}
                                     </span>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
@@ -1104,7 +1107,7 @@
                                         Salary Grade
                                     </span>
                                     <span class="font-md color-black">
-                                        1-15
+                                    {{ $rec->salary_grade }}
                                     </span>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
@@ -1112,7 +1115,7 @@
                                         Monthly Contributions
                                     </span>
                                     <span class="font-md color-black">
-                                        (A) 1% / (B) Fixed Amount
+                                    {{ $rec->contribution_set }}
                                     </span>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
@@ -1120,7 +1123,7 @@
                                         Equivalent Value
                                     </span>
                                     <span class="font-md color-black">
-                                        130.00 / 140.00
+                                    {{ number_format($rec->amount, 2, '.', ',') }}
                                     </span>
                                 </div>
                             </div>
@@ -1172,14 +1175,14 @@
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Dela Cruz, Juan G.
+                            {{$rec->lastname}}, {{$rec->firstname}} {{$rec->middlename}}
                             </span>
                         </div>
                     </div>
                     <div class="table-form form-header w-full">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Name (Last, First, Middle Suffix)
+                                Date of Birth
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
@@ -1193,14 +1196,14 @@
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Dela Cruz, Juan G.
+                            {{ date('F d, Y', strtotime($rec->date_birth)) }}
                             </span>
                         </div>
                     </div>
                     <div class="table-form form-header w-full">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Name (Last, First, Middle Suffix)
+                               Gender
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
@@ -1214,7 +1217,7 @@
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Dela Cruz, Juan G.
+                            {{$rec->gender}}
                             </span>
                         </div>
                     </div>
