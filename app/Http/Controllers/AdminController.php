@@ -149,11 +149,16 @@ class AdminController extends Controller
     );
     return view('admin.members.records')->with($data);
   }
+  public function members_view_record()
+  {
+    return view('admin.members.view.aavalidation');
+  }
 
   public function members_application_trail()
   {
     return view('admin.members.trail');
   }
+  
 
   public function get_members(Request $request)
   {
