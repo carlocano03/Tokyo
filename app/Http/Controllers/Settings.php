@@ -734,37 +734,65 @@ public function get_sg(Request $request)
   }
   public function update_users(Request $request)
   {
-    $affectedRows = DB::transaction(function () use ($request) {
+      
+      $affectedRows = DB::transaction(function () use ($request) {
+        DB::enableQueryLog(); 
+        $users_id = $request->input('users_id');
+      // Check if the user exists in the user_prev table
+         $userPrevExists = DB::table('user_prev')->where('users_id', $request->input('users_id'))->count();
+         if($request->input('user_level') == 'CFM'){
+          $cfm_clus = $request->input('cfm_cluster');
+         }else{
+          $cfm_clus = 0;
+         }
           $update_users = array(
-            'first_name' => strtoupper($request->input('firstname')),
-            'middle_name' => strtoupper($request->input('middlename')),
-            'last_name' => strtoupper($request->input('lastname')),
-            'email' => $request->input('email'),
-            'intial_password' => $request->input('initial_pass'),
-            'contact_no' => $request->input('contact_no'),
-            'user_level' => strtoupper($request->input('user_level')),
-            'campus_id' => $request->input('campus'),
+              'first_name' => strtoupper($request->input('firstname')),
+              'middle_name' => strtoupper($request->input('middlename')),
+              'last_name' => strtoupper($request->input('lastname')),
+              'email' => $request->input('email'),
+              'intial_password' => $request->input('initial_pass'),
+              'contact_no' => $request->input('contact_no'),
+              'user_level' => $request->input('user_level'),
+              'campus_id' => $request->input('campus'),
           );
-         DB::table('users')->where('id', $request->input('users_id'))->update($update_users);
-        $update_user_prev = array(
-          'setting_config' => $request->input('setting_access'),
-          'election_mod' => $request->input('election_access'),
-          'loan_mod' => $request->input('loan_access'),
-          'benifits_mod' => $request->input('benifits_access'),
-          'trans_equity_mod' => $request->input('transaction_access'),
-          'memberapp_mod' => $request->input('memberapp_access'),
-          'member_mod' => $request->input('membermod_access'),
-        );
-        return DB::table('user_prev')->where('users_id', $request->input('users_id'))->update($update_user_prev);
-         
-      });
-      if ($affectedRows > 0) {
-        return response()->json(['success' => true]);
-      } else {
-          return response()->json(['success' => false]);
-      }
-  }
+           DB::table('users')->where('id', $users_id)->update($update_users);
+          if ($userPrevExists != 0) {
+            $update_user_prev = array(
+              'setting_config' => $request->input('setting_access'),
+              'election_mod' => $request->input('election_access'),
+              'loan_mod' => $request->input('loan_access'),
+              'benifits_mod' => $request->input('benifits_access'),
+              'trans_equity_mod' => $request->input('transaction_access'),
+              'memberapp_mod' => $request->input('memberapp_access'),
+              'member_mod' => $request->input('membermod_access'),
+              'cfm_cluster' => $cfm_clus,
+          );
+          return DB::table('user_prev')->where('users_id', $users_id)->update($update_user_prev);
+            // Insert the user_prev into the user_prev table
+        }else{
+            $update_user_prev = array(
+              'users_id' => $users_id,
+              'setting_config' => $request->input('setting_access'),
+              'election_mod' => $request->input('election_access'),
+              'loan_mod' => $request->input('loan_access'),
+              'benifits_mod' => $request->input('benifits_access'),
+              'trans_equity_mod' => $request->input('transaction_access'),
+              'memberapp_mod' => $request->input('memberapp_access'),
+              'member_mod' => $request->input('membermod_access'),
+              'cfm_cluster' => $cfm_clus,
+          );
+          DB::table('user_prev')->insert($update_user_prev);
+        }
 
+      });
+  
+      // if ($affectedRows > 0) {
+          return response()->json(['success' => $affectedRows]);
+      // } else {
+      //     return response()->json(['success' => false]);
+      // }
+  }
+  
   public function get_users(Request $request)
   {
       $query = $request->input('users_id');

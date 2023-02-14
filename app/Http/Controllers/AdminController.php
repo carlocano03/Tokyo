@@ -178,12 +178,18 @@ class AdminController extends Controller
     $dt_from  = $request->get('dt_from');
     $dt_to  = $request->get('dt_to');
     $search  = $request->get('searchValue');
-
+    $users = Auth::user()->user_level;
+    $aa_1 = '';
+    $aa_2 = '';
+    $aa_3 = '';
+    
     // Total records
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
-      ->where('mem_app.app_no', 'like', '%' . $search . '%');
+      ->where('mem_app.app_no', 'like', '%' . $search . '%')
+      ->where('mem_app.app_status', $aa_1)
+      ->where('mem_app.app_status', $aa_2);
 
     ## Add custom filter conditions
     if (!empty($campus)) {
@@ -223,6 +229,15 @@ class AdminController extends Controller
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
     }
+    if($users == 'AA'){
+      $aa_1 = 'SUBMITTED';
+      // $aa_2 = 'DRAFT APPLICATION';
+      $records->where('mem_app.app_status', $aa_1);
+      // $records->orWhere('mem_app.app_status', $aa_2);
+    }else if($users == 'CFM'){
+      $cfm = 'AA VALIDATED';
+      $records->where('mem_app.app_status', $cfm);
+    }
     $totalRecordswithFilter = $records->count();
 
     // Fetch records
@@ -246,7 +261,15 @@ class AdminController extends Controller
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
     }
-
+    if($users == 'AA'){
+      $aa_1 = 'SUBMITTED';
+      // $aa_2 = 'DRAFT APPLICATION';
+      $records->where('mem_app.app_status', $aa_1);
+      // $records->orWhere('mem_app.app_status', $aa_2);
+    }else if($users == 'CFM'){
+      $cfm = 'AA VALIDATED';
+      $records->where('mem_app.app_status', $cfm);
+    }
     $posts = $records->skip($start)
       ->take($rowperpage)
       ->get();
@@ -255,7 +278,7 @@ class AdminController extends Controller
       foreach ($posts as $r) {
         $start++;
         $row = array();
-        $row[] = $r->app_status == 'SUBMITTED' ? '<input type="checkbox" name="check[]" id="select_item">':'<input type="checkbox" name="check[]" id="select_item" disabled>';
+        $row[] = $r->app_status == 'AA VALIDATED' ? '<input type="checkbox" name="check[]" id="select_item">':'<input type="checkbox" name="check[]" id="select_item" disabled>';
         $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "' style='cursor: pointer'>
                     <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
                   </a>";
@@ -267,7 +290,7 @@ class AdminController extends Controller
         $row[] = $r->rank_position;
         $row[] = '';
         $row[] = $r->app_status;
-        $row[] = $r->app_status;
+        $row[] = $r->validator_remarks;
 
         $data[] = $row;
       }
