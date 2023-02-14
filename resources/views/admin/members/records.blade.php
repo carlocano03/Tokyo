@@ -58,6 +58,11 @@
             overflow: auto;
         }
 
+        .summary-container {
+            max-height: calc(60vh - 220px);
+            overflow: auto;
+        }
+
         .record-container {
             min-height: 65vh;
             max-height: 65vh;
@@ -137,6 +142,7 @@
             padding-left: 5px;
             padding-right: 5px;
         }
+        
 
         .view {
             padding: 0;
@@ -294,6 +300,10 @@
 
         .font-sm {
             font-size: 13px;
+        }
+
+        .font-md {
+            font-size: 15px;
         }
         .text-center {
             text-align: center;
@@ -483,10 +493,250 @@
         .font-lg {
             font-size: 30px;
         }
+
         
+        .opacity-0 {
+            opacity: 0 !important;
+        }
+
+        #summaryModal {
+            position: absolute;
+            width: calc(100vw - 250px);
+            height: 100vh;
+            background-color: rgba(0, 0, 0, .1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .5s;
+            opacity: 1;
+        }
+
+        .modalContent {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            min-width: 400px;
+            width: 40vw;
+            height: auto;
+            background-color: white;
+            margin-bottom: 100px;
+            padding: 0;
+            border-radius: 17px;
+            transition: all .5s;
+            padding-bottom: 30px;
+        }
+
+        .modalBody {
+            height: 90%;
+            display: flex;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .modalFooter {
+            display: flex;
+            justify-content: center;
+            flex-direction: row;
+            gap: 10px;
+        }
+
+        .modalFooter>button {
+            font-size: 25px;
+            padding-left: 20px;
+            padding-right: 20px;
+            background-color: #894168;
+            font-weight: 400;
+            color: white;
+            border-radius: 17px;
+        }
+
+        .modalFooter> #cancel-button {
+            font-size: 25px;
+            padding-left: 20px;
+            padding-right: 20px;
+            background-color: #f0e7ec;
+            font-weight: 400;
+            color: black;
+            border-radius: 17px;
+        }
+
+        .modalHeader {
+            background-color: #1a8981;
+            color: white;
+            border-top-left-radius: 17px;
+            border-top-right-radius: 17px;
+            padding: 10px;
+            padding-left: 20px;
+            padding-right: 20px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+        
+        
+        .table-component {
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            table-layout: fixed;
+            border: 1px solid #ececec;
+        }
+
+        .table-component>thead>tr>th {
+            font-size: 13px;
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: #1a8981;
+            color: white !important;
+            border-left: 1px solid white;
+            font-weight: 500;
+            border-top: 2px solid #1a8981;
+            border-bottom: 2px solid #1a8981;
+            height: auto;
+        }
+
+        .table-component>thead>tr>th:first-child {
+            border-left: 1px solid #1a8981;
+        }
+
+        .table-component>thead>tr>th:last-child {
+            border-right: 1px solid #1a8981;
+        }
+
+        .table-component>thead>tr>th>span {
+            display: flex;
+            height: 100%;
+        }
+
+        .table-component>tbody>tr>td>span {
+            display: flex;
+            padding: 5px 2px;
+
+        }
+
+        .table-component>tbody>tr>td {
+            font-size: 12px;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
 
 
     </style>
+    <!-- <div id="summaryModal" class="">
+       
+        <div class="modalContent">
+            <div class="modalHeader">
+                Summary Result
+                <a class="cursor-pointer mp-ph0 mp-pv0"><i class="fa fa-times-circle-o " aria-hidden="true"></i></a>
+            </div>
+            <div class="modalBody">
+            <div class="mp-mt3 summary-container">
+                <table class="table-component" style="height: auto;" width="100%">
+                    <thead>
+                        <tr>
+                            <th style="width: 30px">
+                                <span></span>
+                            </th>
+                            <th>
+                                <span>Application No.</span>
+                            </th>
+                            <th>
+                                <span>Date of Application</span>
+                            </th>
+                            <th>
+                                <span>Full Name</span>
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <span><input type="checkbox"></span>
+                            </td>
+                            <td>
+                                <span>23781623</span>
+                            </td>
+                            <td>
+                                <span>01-01-2023</span>
+                            </td>
+                            <td>
+                                <span>Devance, Joe</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><input type="checkbox"></span>
+                            </td>
+                            <td>
+                                <span>23781623</span>
+                            </td>
+                            <td>
+                                <span>01-01-2023</span>
+                            </td>
+                            <td>
+                                <span>Devance, Joe</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span><input type="checkbox"></span>
+                            </td>
+                            <td>
+                                <span>23781623</span>
+                            </td>
+                            <td>
+                                <span>01-01-2023</span>
+                            </td>
+                            <td>
+                                <span>Devance, Joe</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="w-full mp-mt3 mp-mb3 mp-pv1 font-md">
+                    <p>
+                        Endorsement Date: <span>February 10, 2021 10:44 AM</span>
+                    </p>
+                    <p>
+                        Endorsed by: <span>Stepen Curry</span>
+                    </p>
+                    <p>
+                        Endorse to: 
+                        <select name="" id="" class="radius-1 outline select-field mp-pr2"
+                            style="height: 30px;margin-top: auto;margin-bottom: auto;">
+                            <option value="">
+                                All Records
+                            </option>
+                            <option value="">
+                                AA
+                            </option>
+                            <option value="">
+                                CFM
+                            </option>
+                            <option value="">
+                                HRDO
+                            </option>
+                        </select>
+                    </p>
+                    <p>
+                        Camppus: <span>UP Diliman HRDO</span>
+                    </p>
+                </div>
+            </div>
+            </div>
+            <div class="modalFooter">
+                <button id="agree">
+                    Proceed
+                </button>
+                <button id="cancel-button">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div> -->
     <div class="filler"></div>
     <script type="text/javascript" src="{{ asset('/dist/loading-bar/loading-bar.js') }}"></script>
     <script>
@@ -512,575 +762,8 @@
                 $("#showLogs").text("Show history logs")
             }
         })
-        $(document).on('click', '#trail-button', function(e) {
-            if ($("#trail-body").hasClass("close-trail")) {
-                $("#trail-body").removeClass("close-trail")
-                $(".trail-details").removeClass("hidden-details")
-                $(".fa-chevron-circle-up").removeClass("d-none")
-                $(".fa-chevron-circle-down").addClass("d-none")
-                
-            } else {
-                $("#trail-body").addClass("close-trail")
-                $(".trail-details").addClass("hidden-details")
-                $(".fa-chevron-circle-down").removeClass("d-none")
-                $(".fa-chevron-circle-up").addClass("d-none")
-            }
-        })
-        $(document).on('click', '.view-member', function(e) {
-            if ($("#view-member-details").hasClass("d-none")) {
-                $("#view-member-details").removeClass("d-none")
-                $("#view-all-members").removeClass("d-none")
-            } else {
-                $("#view-all-members").removeClass("d-none")
-                $("#view-member-details").addClass("d-none")
-            }
-        })
-        // $(document).ready(function () {
-        //     $("#view-member-details").removeClass("d-none")
-        //         $("#view-all-members").removeClass("d-none")
-        // })
     </script>
     <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
-    <div class="row no-gutter ml-0 mr-0 p-5px mh-content d-none" id="view-member-details">
-        <div class="w-full">
-            <div class="card relative" style="min-height: 200px;">
-                <a class="cursor-pointer mp-ph0 mp-pv0 view-member" style="position: absolute; top: 7px; left: 10px">
-                    <i class="fa fa-times-circle-o " aria-hidden="true"></i>
-                </a>
-                <div class="d-flex flex-row mp-pt3 gap-10">
-                   <div class="w-auto">
-                        <span class="font-sm">Membership Application Number</span> 
-                        <br/>
-                        <span class="magenta-clr font-bold">asdasdasd-123123-asd</span> 
-                    </div>
-                    <div class="w-auto">
-                        <span class="font-sm">Application Date and Time</span>
-                        <br/>
-                        <span class="magenta-clr font-bold">January 23, 2023 2:22PM</span> 
-                    </div>
-                    <div class="w-auto">
-                        <span class="font-sm">Status</span>
-                        <br/>
-                        <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">AA - Review Validation</span>
-                    </div>
-                    <div class="w-auto d-flex justify-content-end">
-                        <span>
-                            <button class="f-button">
-                                Print
-                            </button>
-                            <button class="f-button green-bg">
-                                Download
-                            </button>
-                        </span>
-                    </div>
-                </div>
-                <div class="card-container card p-0 mp-mt3">
-                        <div class="card-header maroon-bg items-between d-flex">
-                            <span>
-                                Application Status Trail
-                            </span>
-                            <span>
-                                <a class="cursor-pointer m-0 p-0 mp-mr2" id="trail-button">
-                                    <i class="fa fa-chevron-circle-up " aria-hidden="true"></i>
-                                    <i class="fa fa-chevron-circle-down d-none" aria-hidden="true"></i>
-                                </a>
-                            </span>
-                        </div>
-                        <div class="card-body trail"-trail id="trail-body">
-                            <div class="table-form w-trail mp-pv2 mp-ph3">
-                                <div class="span-2 d-flex flex-column relative">
-                                    <div class="d-flex flex-column absolute top-circle w-full">
-                                        <span class="circle"></span>
-                                    </div>
-                                    <div class="line-trail table-form w-full">
-                                        <span class="line-child span-6 white"></span>
-                                        <span class="line-child span-6"></span>
-                                    </div>
-                                    <div class="table-form">
-                                        <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                            <span class="font-sm">Status</span>
-                                            <span class="mp-mh1">
-                                                <span class="status-title maroon-bg">
-                                                    Pending
-                                                </span> 
-                                            </span>
-                                            <span class="font-sm">Remarks</span>
-                                            <span class="magenta-clr font-bold ">New Application</span>
-                                            <span class="font-sm">Date: <span>January 23, 2023</span></span>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span-2 d-flex flex-column relative">
-                                    <div class="d-flex flex-column absolute top-circle w-full">
-                                        <span class="circle"></span>
-                                    </div>
-                                     <div class="line-trail table-form w-full">
-                                        <span class="line-child span-6"></span>
-                                        <span class="line-child span-6"></span>
-                                    </div>
-                                    <div class="table-form">
-                                        <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                            <span class="font-sm">Status</span>
-                                            <span class="mp-mh1">
-                                                <span class="status-title orage-bg">
-                                                    Processing
-                                                </span> 
-                                            </span>
-                                            <span class="font-sm">Remarks</span>
-                                            <span class="magenta-clr font-bold ">AA - Review Validation</span>
-                                            <span class="font-sm">Date: <span>January 23, 2023</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span-2 d-flex flex-column relative">
-                                    <div class="d-flex flex-column absolute top-circle w-full">
-                                        <span class="circle"></span>
-                                    </div>
-                                     <div class="line-trail table-form w-full">
-                                        <span class="line-child span-6"></span>
-                                        <span class="line-child span-6"></span>
-                                    </div>
-                                    <div class="table-form">
-                                        <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                            <span class="font-sm">Status</span>
-                                            <span class="mp-mh1">
-                                                <span class="status-title orage-bg">
-                                                    Processing
-                                                </span> 
-                                            </span>
-                                            <span class="font-sm">Remarks</span>
-                                            <span class="magenta-clr font-bold ">AA - Verified</span>
-                                            <span class="font-sm">Date: <span>January 23, 2023</span></span>
-                                            
-                                        </div>
-                                    </div>
-                                   
-                                </div>
-                                <div class="span-2 d-flex flex-column relative">
-                                    <div class="d-flex flex-column absolute top-circle w-full">
-                                        <span class="circle"></span>
-                                    </div>
-                                     <div class="line-trail table-form w-full">
-                                        <span class="line-child span-6"></span>
-                                        <span class="line-child span-6"></span>
-                                    </div>
-                                    <div class="table-form">
-                                        <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                            <span class="font-sm">Status</span>
-                                            <span class="mp-mh1">
-                                                <span class="status-title orage-bg">
-                                                    Processing
-                                                </span> 
-                                            </span>
-                                            <span class="font-sm">Remarks</span>
-                                            <span class="magenta-clr font-bold ">CFM - Review Validation</span>
-                                            <span class="font-sm">Date: <span>January 23, 2023</span></span>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span-2 d-flex flex-column relative">
-                                    <div class="d-flex flex-column absolute top-circle w-full">
-                                        <span class="circle"></span>
-                                    </div>
-                                     <div class="line-trail table-form w-full">
-                                        <span class="line-child span-6"></span>
-                                        <span class="line-child span-6"></span>
-                                    </div>
-                                    <div class="table-form">
-                                        <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                            <span class="font-sm">Status</span>
-                                            <span class="mp-mh1">
-                                                <span class="status-title red-bg">
-                                                    Rejected
-                                                </span> 
-                                            </span>
-                                            <span class="font-sm">Remarks</span>
-                                            <span class="magenta-clr font-bold ">Rejected by CFM</span>
-                                            <span class="font-sm">Date: <span>January 23, 2023</span></span>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="span-2 d-flex flex-column relative">
-                                    <div class="d-flex flex-column absolute top-circle w-full">
-                                        <span class="circle"></span>
-                                    </div>
-                                     <div class="line-trail table-form w-full">
-                                        <span class="line-child span-6"></span>
-                                        <span class="line-child span-6 white"></span>
-                                    </div>
-                                    <div class="table-form">
-                                        <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                            <span class="font-sm">Status</span>
-                                            <span class="mp-mh1">
-                                                <span class="status-title blue-bg">
-                                                    Approved
-                                                </span> 
-                                            </span>
-                                            <span class="font-sm">Remarks</span>
-                                            <span class="magenta-clr font-bold ">Approved Application</span>
-                                            <span class="font-sm">Date: <span>January 23, 2023</span></span>
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                <div class="card-container card p-0 mp-mt3 ">
-                        <div class="card-header magenta-bg">
-                            Validation Process
-                        </div>
-                        <div class="card-body mp-pv4 mp-ph3 d-flex flex-column min-h-50vh border-content">
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <span>
-                                        I. Personal Details
-                                    </span>
-                                </div>
-                                <div class="span-9 color-white text-center orage-bg mp-ph1" style="border-bottom: 1px solid gray;">
-                                    <span>
-                                        AA Validation
-                                    </span>
-                                </div>
-                                <div class="span-1 text-center mp-ph1">
-                                    <span>
-                                        Passed
-                                    </span>
-                                </div>
-                                <div class="span-1 text-center mp-ph1">
-                                    <span>
-                                        Failed
-                                    </span>
-                                </div>
-                                <div class="span-7 text-center mp-ph1">
-                                    <span >
-                                        Remarks
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Name (Last, First, Middle Suffix)
-                                    </span>
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="text" class="w-input mp-pv2">
-                                </div>
-                                <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Dela Cruz, Juan G.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Name (Last, First, Middle Suffix)
-                                    </span>
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="text" class="w-input mp-pv2">
-                                </div>
-                                <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Dela Cruz, Juan G.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Name (Last, First, Middle Suffix)
-                                    </span>
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="text" class="w-input mp-pv2">
-                                </div>
-                                <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Dela Cruz, Juan G.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Name (Last, First, Middle Suffix)
-                                    </span>
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="text" class="w-input mp-pv2">
-                                </div>
-                                <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Dela Cruz, Juan G.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Name (Last, First, Middle Suffix)
-                                    </span>
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="text" class="w-input mp-pv2">
-                                </div>
-                                <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Dela Cruz, Juan G.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Name (Last, First, Middle Suffix)
-                                    </span>
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="text" class="w-input mp-pv2">
-                                </div>
-                                <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Dela Cruz, Juan G.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Name (Last, First, Middle Suffix)
-                                    </span>
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="text" class="w-input mp-pv2">
-                                </div>
-                                <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Dela Cruz, Juan G.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Name (Last, First, Middle Suffix)
-                                    </span>
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="text" class="w-input mp-pv2">
-                                </div>
-                                <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Dela Cruz, Juan G.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Name (Last, First, Middle Suffix)
-                                    </span>
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="text" class="w-input mp-pv2">
-                                </div>
-                                <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Dela Cruz, Juan G.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Name (Last, First, Middle Suffix)
-                                    </span>
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="text" class="w-input mp-pv2">
-                                </div>
-                                <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Dela Cruz, Juan G.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Name (Last, First, Middle Suffix)
-                                    </span>
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="checkbox"> 
-                                </div>
-                                <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <input type="text" class="w-input mp-pv2">
-                                </div>
-                                <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                                    <span>
-                                        Dela Cruz, Juan G.
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <span>
-                                        II. Employee Details
-                                    </span>
-                                </div>
-                                <div class="span-1 text-center mp-ph1">
-                                    <span>
-                                        Passed
-                                    </span>
-                                </div>
-                                <div class="span-1 text-center mp-ph1">
-                                    <span>
-                                        Failed
-                                    </span>
-                                </div>
-                                <div class="span-7 text-center mp-ph1">
-                                    <span >
-                                        Remarks
-                                    </span>
-                                </div>
-                            </div>  
-                            <div class="table-form form-header w-full">
-                                <div class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                                    <span>
-                                        III. Members Details
-                                    </span>
-                                </div>
-                                <div class="span-1 text-center mp-ph1">
-                                    <span>
-                                        Passed
-                                    </span>
-                                </div>
-                                <div class="span-1 text-center mp-ph1">
-                                    <span>
-                                        Failed
-                                    </span>
-                                </div>
-                                <div class="span-7 text-center mp-ph1">
-                                    <span >
-                                        Remarks
-                                    </span>
-                                </div>
-                            </div>                          
-                        </div>
-                        <div class="table-form form-header w-full gray-bg">
-                            <div class="span-6 d-flex flex-column mp-pv3 mp-ph3 gap-10">
-                                <span>General Remarks</span>
-                                <div class="table-form">
-                                    <span class="span-6"><input type="checkbox"> Forward to CFM</span>
-                                    <span class="span-6"><input type="checkbox"> Reject Application</span>
-                                </div>
-                                <textarea name="" id="" rows="3" style="resize: none;"></textarea>
-                                <div class="d-flex flex-row items-between mp-pv1">
-                                    <div class="d-flex flex-column">
-                                        <span class="font-sm ">Validated by: Mark Zuckingbird</span>
-                                        <span class="font-sm ">Validated Date: January, 23, 2023</span>
-                                    </div>
-                                    <span class="d-flex">
-                                        <button class="f-button align-self-end">
-                                            Submit
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="span-6 d-flex flex-column mp-pv3 mp-ph3 gap-10">
-                                <span>General Remarks</span>
-                                <div class="table-form">
-                                    <span class="span-6"><input type="checkbox"> Forward to HRDO</span>
-                                    <span class="span-6"><input type="checkbox"> Return to AA</span>
-                                </div>
-                                <textarea name="" id="" rows="3" style="resize: none;"></textarea>
-                                <div class="d-flex flex-row items-between mp-pv1">
-                                    <div class="d-flex flex-column">
-                                        <span class="font-sm ">Validated by: Mark Zuckingbird</span>
-                                        <span class="font-sm ">Validated Date: January, 23, 2023</span>
-                                    </div>
-                                    <span class="d-flex">
-                                        <button class="f-button align-self-end">
-                                            Submit
-                                        </button>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row no-gutter ml-0 mr-0 p-5px mh-content view-all-members">
         <div class="col-12 mp-pv0 mp-pr0 d-flex">
             <span class="d-inline-flex align-items-center ">
