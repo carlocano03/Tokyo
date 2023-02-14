@@ -458,7 +458,7 @@
 
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Contact No.</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact_no"/>
+                      <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact_no" required/>
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Username/Email</label>
@@ -466,7 +466,7 @@
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Password</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" id="initial_pass" name="initial_pass" readonly placeholder="AUTO GENERATE" />
+                      <input class="mp-input-group__input mp-text-field" type="text" id="initial_pass" name="initial_pass" readonly placeholder="AUTO GENERATE" required/>
                       
                     </div>
                     <a class="up-button-green btn-md button-animate-right mp-text-center" id="generate_password">
@@ -474,7 +474,22 @@
                     </a>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">User Level</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="user_level" id="user_level" required />
+                      <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                      <option value="">Select User Level</option>
+                          <option value="AA">AA</option>
+                          <option value="CFM">CFM</option>
+                          <option value="HRDO">HRDO</option>
+                      </select>
+                    </div>
+                    <div class="mp-input-group cfm_div">
+                      <label class="mp-input-group__label">CFM Cluster No.</label>
+                      <select class="mp-input-group__input mp-text-field" name="cfm_cluster" id="cfm_cluster" required>
+                      <option value="">Select User Level</option>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4">4</option>
+                      </select>
                     </div>
 
                     <div class="mp-input-group">
@@ -707,6 +722,14 @@ $(document).ready(function() {
     ]
   });
 });
+$('.cfm_div').hide();
+$(document).on('change', '#user_level', function() {
+  if($(this).val() == 'CFM'){
+    $('.cfm_div').show();
+  }else{
+    $('.cfm_div').hide();
+  }
+});
 $(document).on('click', '#generate_password', function() {
   function randomString(length) {
     var result           = '';
@@ -727,6 +750,17 @@ $(document).on('click', '#save_users', function() {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
+    var empty = $('#users_form').find("input[required]").filter(function() {
+          return !$.trim($(this).val()).length;
+      });
+    if (empty.length) {
+        // var emptyFields = [];
+        // empty.each(function() {
+        // emptyFields.push($(this).attr("id"));
+        // });
+        empty.first().focus();
+        swal.fire("Error!", "Please fill out the required fields", "error");
+    }else{
     if($('#users_id').val()){
       var formData = $("#users_form").serialize();
     $.ajax({
@@ -773,7 +807,7 @@ $(document).on('click', '#save_users', function() {
       }
     });
     }
-    
+  }
   });
   $(document).on('click', '.edit_users', function() {
     $.ajaxSetup({
