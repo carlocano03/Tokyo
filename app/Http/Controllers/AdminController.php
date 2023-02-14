@@ -149,9 +149,19 @@ class AdminController extends Controller
     );
     return view('admin.members.records')->with($data);
   }
-  public function members_view_record()
+  public function members_view_record($id)
   {
-    return view('admin.members.view.aavalidation');
+    // DB::enableQueryLog();
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->where('mem_app.app_no', $id)->first();
+      
+      $data = array(
+        // 'gg' => DB::getQueryLog(),
+        'rec' => $records,
+      );
+    return view('admin.members.view.aavalidation')->with($data);
   }
 
   public function members_application_trail()
@@ -279,7 +289,8 @@ class AdminController extends Controller
         $start++;
         $row = array();
         $row[] = $r->app_status == 'AA VALIDATED' ? '<input type="checkbox" name="check[]" id="select_item">':'<input type="checkbox" name="check[]" id="select_item" disabled>';
-        $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "' style='cursor: pointer'>
+        $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "'
+                  href='/admin/members/records/view/aa/". $r->app_no ."' style='cursor: pointer'>
                     <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
                   </a>";
         $row[] = $r->app_no;
