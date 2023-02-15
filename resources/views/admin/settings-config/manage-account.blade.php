@@ -831,6 +831,13 @@ $(document).on('click', '#save_users', function() {
         $('#contact_no').val(data.contact_no);
         $('#initial_pass').val(data.intial_password);
         $('#user_level').val(data.user_level);
+        if(data.user_level == "CFM"){
+          $('.cfm_div').show();
+          $('#cfm_cluster').val(data.cfm_cluster);
+        }else{
+          $('.cfm_div').hide();
+          $('#cfm_cluster').val('');
+        }
         $('#campus').val(data.campus_id);
         if(data.setting_config == 1){
           $('#setting_access').prop('checked', true);

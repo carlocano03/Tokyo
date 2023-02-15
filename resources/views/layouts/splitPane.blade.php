@@ -1142,23 +1142,27 @@
             $('.same_div').show();
         }
     });
-    $(document).on('click', '#percentage_check', function(e) {
-        if ($(this).prop("checked")) {
+    $(document).on('change', '#percentage_check', function(e) {
+        if ($(this).is(':checked')) {
             $('#fixed_amount').prop('disabled', true);
+            $('#fixed_amount_check').prop('disabled', true);
         } else {
             $('#fixed_amount').prop('disabled', false);
+            $('#fixed_amount_check').prop('disabled', false);
             $('#percentage_bsalary').val('');
             $('#computed_amount').text('');
         }
     });
-    $(document).on('click', '#fixed_amount_check', function(e) {
-        if ($(this).prop("checked")) {
+    $(document).on('change', '#fixed_amount_check', function(e) {
+        if ($(this).is(':checked')) {
             $('#percentage_bsalary').prop('disabled', true);
+            $('#percentage_check').prop('disabled', true);
             var amount = $('#monthly_salary').val().replace(/,/g, "");
             var total = amount * 0.01;
             $("#min_contri").text(total.toFixed(2));
         } else {
             $('#percentage_bsalary').prop('disabled', false);
+            $('#percentage_check').prop('disabled', true);
             $('#fixed_amount').val('');
             $("#min_contri").text('');
         }

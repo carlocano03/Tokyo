@@ -1123,7 +1123,7 @@
                                         Equivalent Value
                                     </span>
                                     <span class="font-md color-black">
-                                    {{ number_format($rec->amount, 2, '.', ',') }}
+                                    {{ $rec->amount }}
                                     </span>
                                 </div>
                             </div>
@@ -1224,7 +1224,7 @@
                     <div class="table-form form-header w-full">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Name (Last, First, Middle Suffix)
+                                Civil Status
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
@@ -1238,14 +1238,14 @@
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Dela Cruz, Juan G.
+                            {{ $rec->civilstatus }}
                             </span>
                         </div>
                     </div>
                     <div class="table-form form-header w-full">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Name (Last, First, Middle Suffix)
+                            Citizenship
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
@@ -1259,14 +1259,14 @@
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Dela Cruz, Juan G.
+                            {{ $rec->citizenship }}
                             </span>
                         </div>
                     </div>
                     <div class="table-form form-header w-full">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Name (Last, First, Middle Suffix)
+                                Current Address
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
@@ -1280,14 +1280,14 @@
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Dela Cruz, Juan G.
+                            {{$rec->present_bldg_street}}, {{$rec->present_barangay}}, {{$rec->present_municipality}}, {{$rec->present_province}}, {{$rec->present_zipcode}}
                             </span>
                         </div>
                     </div>
                     <div class="table-form form-header w-full">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Name (Last, First, Middle Suffix)
+                                Permanent Address
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
@@ -1301,14 +1301,14 @@
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Dela Cruz, Juan G.
+                            {{$rec->bldg_street}}, {{$rec->barangay}}, {{$rec->municipality}}, {{$rec->province}}, {{$rec->zipcode}}
                             </span>
                         </div>
                     </div>
                     <div class="table-form form-header w-full">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Name (Last, First, Middle Suffix)
+                                Contact Number
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
@@ -1322,14 +1322,14 @@
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Dela Cruz, Juan G.
+                            {{$rec->contact_no}}
                             </span>
                         </div>
                     </div>
                     <div class="table-form form-header w-full">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Name (Last, First, Middle Suffix)
+                                Landline Number
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
@@ -1343,14 +1343,14 @@
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Dela Cruz, Juan G.
+                            {{ $rec->landline_no ? $rec->landline_no : 'N/A' }}
                             </span>
                         </div>
                     </div>
                     <div class="table-form form-header w-full">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Name (Last, First, Middle Suffix)
+                                Email Address
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
@@ -1364,28 +1364,7 @@
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
-                                Dela Cruz, Juan G.
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                                Name (Last, First, Middle Suffix)
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
-                        </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                                Dela Cruz, Juan G.
+                            {{$rec->email}}
                             </span>
                         </div>
                     </div>
@@ -1408,6 +1387,258 @@
                         <div class="span-7 text-center mp-ph1">
                             <span>
                                 Remarks
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                                Employee Number
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->employee_no}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                                Campus
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->name}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            Classification
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->classification}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            College/Unit
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->college_unit_name}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            Department
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->department_name}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            Rank/Position
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->rank_position}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            Appointment
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->appointment}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            Appointment Date
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{ date('F d, Y', strtotime($rec->date_appointment)) }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            Monthly Salary
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            ₱{{ number_format($rec->monthly_salary, 2, '.', ',') }}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                             Salary Grade
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->salary_grade}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                             Salary Grade Category
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->sg_category}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                             Tin Number
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="checkbox">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->tin_no}}
                             </span>
                         </div>
                     </div>

@@ -572,7 +572,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" onClick="ckChange(this)" />
+                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage"  />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
                     - 100%)</label>
             </div>
@@ -581,7 +581,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check" onClick="ckChange(this)" />
+                <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check"  />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso
                     )</label>
             </div>
