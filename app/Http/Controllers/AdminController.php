@@ -167,6 +167,24 @@ class AdminController extends Controller
     return view('admin.members.view.aavalidation')->with($data);
   }
 
+  public function hrdo_view_record($id)
+  {
+    // DB::enableQueryLog();
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+      ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+      ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->where('mem_app.app_no', $id)->first();
+      
+      $data = array(
+        // 'gg' => DB::getQueryLog(),
+        'rec' => $records,
+      );
+    return view('admin.members.view.hrdovalidation')->with($data);
+  }
+
   public function members_application_trail()
   {
     return view('admin.members.trail');
