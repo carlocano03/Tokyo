@@ -482,7 +482,7 @@
                       </select>
                     </div>
                     <div class="mp-input-group cfm_div">
-                      <label class="mp-input-group__label">CFM Cluster No.</label>
+                      <label class="mp-input-group__label">AA/CFM Cluster No.</label>
                       <select class="mp-input-group__input mp-text-field" name="cfm_cluster" id="cfm_cluster" required>
                       <option value="">Select User Level</option>
                           <option value="1">1</option>
@@ -726,7 +726,10 @@ $('.cfm_div').hide();
 $(document).on('change', '#user_level', function() {
   if($(this).val() == 'CFM'){
     $('.cfm_div').show();
-  }else{
+  }else if($(this).val() == 'AA'){
+    $('.cfm_div').show();
+  }
+  else{
     $('.cfm_div').hide();
   }
 });
@@ -834,7 +837,11 @@ $(document).on('click', '#save_users', function() {
         if(data.user_level == "CFM"){
           $('.cfm_div').show();
           $('#cfm_cluster').val(data.cfm_cluster);
-        }else{
+        }else if(data.user_level == "AA"){
+          $('.cfm_div').show();
+          $('#cfm_cluster').val(data.cfm_cluster);
+        }
+        else{
           $('.cfm_div').hide();
           $('#cfm_cluster').val('');
         }

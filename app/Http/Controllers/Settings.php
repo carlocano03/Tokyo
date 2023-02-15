@@ -742,7 +742,10 @@ public function get_sg(Request $request)
          $userPrevExists = DB::table('user_prev')->where('users_id', $request->input('users_id'))->count();
          if($request->input('user_level') == 'CFM'){
           $cfm_clus = $request->input('cfm_cluster');
-         }else{
+         }else if($request->input('user_level') == 'AA'){
+          $cfm_clus = $request->input('cfm_cluster');
+         }
+         else{
           $cfm_clus = 0;
          }
           $update_users = array(
