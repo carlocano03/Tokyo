@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Settings;
+use App\Http\Controllers\App_Validation;
 use App\Http\Controllers\Auth\LoginController;
 // use App\Http\Controllers\Member_registration;
 /*
@@ -171,3 +172,5 @@ Route::post('/settings/get_details_user', [Settings::class, 'get_users'])->name(
 Route::post('/settings/update-users', [Settings::class, 'update_users'])->name('update-users');
 Route::post('/settings/delete_users', [Settings::class, 'remove_users'])->name('delete_users');
 
+// aa validation
+Route::post('/save_aa_validation', [App_Validation::class, 'aa_validation_save'])->name('save_aa_validation');

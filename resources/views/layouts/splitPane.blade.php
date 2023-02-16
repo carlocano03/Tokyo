@@ -1342,8 +1342,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // window.open();
-                            var url = "{{ URL::to('/memberform/') }}" + '/' +
-                                print_emp; //YOUR CHANGES HERE...
+                            var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp; 
                             window.open(url, 'targetWindow',
                                 'resizable=yes,width=1000,height=1000');
                             setTimeout(function() {

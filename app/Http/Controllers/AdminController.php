@@ -262,8 +262,10 @@ class AdminController extends Controller
     }
     if($users == 'AA'){
       $aa_1 = 'SUBMITTED';
+      $cfm = 'AA VALIDATED';
       // $aa_2 = 'DRAFT APPLICATION';
       $records->where('mem_app.app_status', $aa_1);
+      $records->orWhere('mem_app.app_status', $cfm);
       // $records->orWhere('mem_app.app_status', $aa_2);
     }else if($users == 'CFM'){
       $cfm = 'AA VALIDATED';
@@ -294,9 +296,10 @@ class AdminController extends Controller
     }
     if($users == 'AA'){
       $aa_1 = 'SUBMITTED';
+      $cfm = 'AA VALIDATED';
       // $aa_2 = 'DRAFT APPLICATION';
       $records->where('mem_app.app_status', $aa_1);
-      // $records->orWhere('mem_app.app_status', $aa_2);
+      $records->orWhere('mem_app.app_status', $cfm);
     }else if($users == 'CFM'){
       $cfm = 'AA VALIDATED';
       $records->where('mem_app.app_status', $cfm);
