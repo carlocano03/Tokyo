@@ -969,9 +969,9 @@
             </div>
             <div class="card-container card p-0 mp-mt3 ">
                 <div class="card-header magenta-bg d-flex items-between">
-                    <span>Validation Process</span>
+                    <span>Validation Process</span><span><button class="f-button">Show Details</button></span>
                 </div>
-                <!-- <div class="mp-pv5 mp-mt3">
+                <div class="mp-pv5 mp-mt3">
                     <div class="card-container card p-0 mp-mt3">
                         <div class="card-header d-flex items-between maroon-bg">
                             <span>Member Details</span><span>
@@ -1129,12 +1129,12 @@
                             </div>
                         </div>
                     </div>
-                </div> -->
+                </div>
                 <div class="card-body mp-pv4 mp-ph3 d-flex flex-column min-h-50vh border-content">
                     <div class="table-form form-header w-full">
                         <div class="span-12 color-white text-center orage-bg mp-ph1" style="border-left: 1px solid gray;">
                             <span>
-                                AA Validation
+                                HRDO Validation
                             </span>
                         </div>
                     </div>
