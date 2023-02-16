@@ -760,22 +760,7 @@
     </div>
 </div>
 <div class="filler"></div>
-<script>
-    $(document).on('click', '#trail-button', function(e) {
-        if ($("#trail-body").hasClass("close-trail")) {
-            $("#trail-body").removeClass("close-trail")
-            $(".trail-details").removeClass("hidden-details")
-            $(".fa-chevron-circle-up").removeClass("d-none")
-            $(".fa-chevron-circle-down").addClass("d-none")
 
-        } else {
-            $("#trail-body").addClass("close-trail")
-            $(".trail-details").addClass("hidden-details")
-            $(".fa-chevron-circle-down").removeClass("d-none")
-            $(".fa-chevron-circle-up").addClass("d-none")
-        }
-    })
-</script>
 <div class="row no-gutter ml-0 mr-0 p-5px mh-content" id="view-member-details">
 
     <div class="w-full">
@@ -1138,7 +1123,10 @@
                             </span>
                         </div>
                     </div>
+                    <form id="aa_validation" >
+                    {{ csrf_field() }}
                     <div class="table-form form-header w-full">
+                        <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}" >
                         <div class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <span>
                                 I. Personal Details
@@ -1148,13 +1136,13 @@
                             <span>
                                 Passed 
                             </span>
-                            <input type="checkbox">
+                            <input type="radio" id="check_allppd" name="check_allpd">
                         </div>
                         <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
                             <span>
                                 Failed
                             </span>
-                            <input type="checkbox">
+                            <input type="radio" id="check_allfpd" name="check_allpd">
                         </div>
                         <div class="span-7 text-center mp-ph1">
                             <span>
@@ -1169,13 +1157,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_name" value= "1" name="pass_name">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_name" value= "2" name="pass_name">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_name">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1190,13 +1178,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                        <input type="radio" id="pass_dob" value= "1" name="pass_dob">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                        <input type="radio" id="fail_dob" value= "2" name="pass_dob">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                        <input type="text" class="w-input mp-pv2" name="remarks_dob">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1211,13 +1199,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_gender" value= "1" name="pass_gender">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_gender" value= "2" name="pass_gender">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                        <input type="text" class="w-input mp-pv2" name="remarks_gender">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1232,13 +1220,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_civilstatus" value= "1" name="pass_civilstatus">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_civilstatus" value= "2" name="pass_civilstatus">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_civilstatus">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1253,13 +1241,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_citizenship" value= "1" name="pass_citizenship">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_citizenship" value= "2" name="pass_citizenship">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_citizenship">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1274,13 +1262,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_currentadd" value= "1" name="pass_currentadd">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_currentadd" value= "2" name="pass_currentadd">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_currentadd">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1295,13 +1283,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_permaadd" value= "1" name="pass_permaadd">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_permaadd" value= "2" name="pass_permaadd">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_permaadd">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1316,13 +1304,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_contactnum" value= "1" name="pass_contactnum">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_contactnum" value= "2" name="pass_contactnum">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="review_contactnum">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1337,13 +1325,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_landline" value= "1" name="pass_landline">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_landline" value= "2" name="pass_landline">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="review_landline">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1358,13 +1346,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_email" value= "1" name="pass_email">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_email" value= "2" name="pass_email">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_email">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1382,13 +1370,13 @@
                             <span>
                                 Passed 
                             </span>
-                            <input type="checkbox">
+                            <input type="radio" id="check_allped" name="check_all_ped">
                         </div>
                         <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
                             <span>
                                 Failed
                             </span>
-                            <input type="checkbox">
+                            <input type="radio" id="check_allfed" name="check_all_ped">
                         </div>
                         <div class="span-7 text-center mp-ph1">
                             <span>
@@ -1403,13 +1391,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_emp_no" value= "1" name="pass_emp_no">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_emp_no" value= "2" name="pass_emp_no">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_emp_no">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1424,13 +1412,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_campus" value= "1" name="pass_campus">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_campus" value= "2" name="pass_campus">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_campus">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1445,13 +1433,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_classification" value= "1" name="pass_classification">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_classification" value= "2" name="pass_classification">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_classification">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1466,13 +1454,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_college_unit" value= "1" name="pass_college_unit">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_college_unit" value= "2" name="pass_college_unit">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_college_unit">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1487,13 +1475,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_department" value= "1" name="pass_department">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_department" value= "2" name="pass_department">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_department">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1508,13 +1496,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_rankpos" value= "1" name="pass_rankpos">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_rankpos" value= "2" name="pass_rankpos">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_rankpos">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1529,13 +1517,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_appointment" value= "1" name="pass_appointment">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_appointment" value= "2" name="pass_appointment">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_appointment">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1550,13 +1538,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_appointdate" value= "1" name="pass_appointdate">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_appointdate" value= "2" name="pass_appointdate">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_appointdate">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1571,13 +1559,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_monthlysalary" value= "1" name="pass_monthlysalary">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_monthlysalary" value= "2" name="pass_monthlysalary">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_monthlysalary">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1592,13 +1580,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_sg" value= "1" name="pass_sg">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_sg" value= "2" name="pass_sg">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_sg">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1613,13 +1601,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_sgcat" value= "1" name="pass_sgcat">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_sgcat" value= "2" name="pass_sgcat">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_sgcat">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1634,13 +1622,13 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="pass_tin_no" value= "1" name="pass_tin_no">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="checkbox">
+                            <input type="radio" id="fail_tin_no" value= "2" name="pass_tin_no">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2">
+                            <input type="text" class="w-input mp-pv2" name="remarks_tin_no">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1658,18 +1646,133 @@
                             <span>
                                 Passed 
                             </span>
-                            <input type="checkbox">
+                            <input type="radio" id="check_allpmd" name="check_all_pmd">
                         </div>
                         <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
                             <span>
                                 Failed
                             </span>
-                            <input type="checkbox">
+                            <input type="radio" id="check_allfmd" name="check_all_pmd">
                         </div>
                         <div class="span-7 text-center mp-ph1">
                             <span>
                                 Remarks
                             </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                             Monthly Contribution
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="radio" id="pass_monthlycontri" value= "1" name="pass_monthlycontri">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="radio" id="fail_monthlycontri" value= "2" name="pass_monthlycontri">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2" name="remarks_monthlycontri">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->contribution_set}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                             Equivalent Value
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="radio" id="pass_equivalent" value= "1" name="pass_equivalent">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="radio" id="fail_equivalent" value= "2" name="pass_equivalent">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2" name="remarks_equivalent">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                            {{$rec->amount}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <span>
+                                IV. Supporting Document
+                            </span>
+                        </div>
+                        <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
+                            <span>
+                                Passed 
+                            </span>
+                            <input type="radio" id="check_allpsd" name="check_all_psd">
+                        </div>
+                        <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
+                            <span>
+                                Failed
+                            </span>
+                            <input type="radio" id="check_allfsd" name="check_all_psd">
+                        </div>
+                        <div class="span-7 text-center mp-ph1">
+                            <span>
+                                Remarks
+                            </span>
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                             Membership Form
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="radio" id="pass_membershipf" value= "1" name="pass_membershipf">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="radio" id="fail_membershipf" value= "2" name="pass_membershipf">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2" name="remarks_membershipf">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <a data-md-tooltip='View Membership Form' class='view_member md-tooltip--right view-member' 
+                            href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
+                            style='cursor: pointer'>
+                            <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
+                            <span>View Membership form</span>
+                        </a>
+                        
+                        </div>
+                    </div>
+                    <div class="table-form form-header w-full">
+                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                            <span>
+                             Proxy form
+                            </span>
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="radio" id="pass_proxyform" value= "1" name="pass_proxyform">
+                        </div>
+                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="radio" id="fail_proxyform" value= "2" name="pass_proxyform">
+                        </div>
+                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <input type="text" class="w-input mp-pv2" name="remarks_proxyform">
+                        </div>
+                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <a data-md-tooltip='View Proxy Form' class='view_member md-tooltip--right view-member' 
+                            href="javascript:void(0)" onclick="window.open('{{ URL::to('/generateProxyForm/') }}/{{ $rec->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
+                            style='cursor: pointer'>
+                            <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
+                            <span>View Proxy form</span>
+                        </a>
                         </div>
                     </div>
                 </div>
@@ -1680,7 +1783,7 @@
                             <span class="span-6"><input type="checkbox"> Forward to CFM</span>
                             <span class="span-6"><input type="checkbox"> Reject Application</span>
                         </div> -->
-                        <textarea name="" id="" rows="3" style="resize: none;"></textarea>
+                        <textarea name="general_remarks" id="general_remarks" rows="3" style="resize: none;"></textarea>
                         <div class="d-flex flex-row items-between mp-pv1">
                             <div class="d-flex flex-column" style="gap: 5px;">
                                 <div class="">
@@ -1688,23 +1791,26 @@
                                 </div>
                                 <div class="d-flex flex-column font-sm">
                                     <div class="d-flex flex-row mp-text-center" style="width: 100px">
-                                            <span>Passed: <span class="font-md font-bold color-black" >30</span></span>
+                                            <span>Passed: <span class="font-md font-bold color-black" id="pass_count"></span></span>
                                            
                                         </div>
                                         <div class="d-flex flex-row mp-text-center" style="width: 100px">
-                                            <span>Failed: <span class="font-md font-bold color-black" >0</span></span>
+                                            <span>Failed: <span class="font-md font-bold color-black" id="failed_count"></span></span>
                                         </div>
                                 </div>
                             </div>
                             <span class="d-flex" style="gap: 10px">
-                                <button class="f-button align-self-end magenta-bg">
+                                <button class="f-button align-self-end magenta-bg" id="return_app">
                                     Return Application
                                 </button>
-                                <button class="f-button align-self-end">
+                                <button class="f-button align-self-end" id="save_record">
                                     Save Record
                                 </button>
                             </span>
+                            
                         </div>
+                        
+                        </form>
                     </div>
                     <!-- <div class="span-6 d-flex flex-column mp-pv3 mp-ph3 gap-10">
                         <span>General Remarks</span>
@@ -1733,60 +1839,146 @@
 
 
 <script>
-    $(document).ready(function() {
-        var tableMemberApp = $('.members-table').DataTable({
-            language: {
-                search: '',
-                searchPlaceholder: "Search Here...",
-                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><br>Loading...',
-            },
-            "ordering": false,
-            "searching": false,
-            "processing": true,
-            "serverSide": true,
-            "scrollX": true,
-            "ajax": {
-                "url": "{{ route('getMembers') }}",
-                "data": function(data) {
-                    data.campus = $('#campuses_select').val();
-                    data.department = $('#department_select').val();
-                    data.dt_from = $('#from').val();
-                    data.dt_to = $('#to').val();
-                    data.searchValue = $('#search_value').val();
-                }
-            },
-        });
-        $('#campuses_select').on('change', function() {
-            tableMemberApp.draw();
-        });
-        $('#search_value').on('change', function() {
-            tableMemberApp.draw();
-        });
-        $('#from').on('change', function() {
-            if ($('#from').val() > $('#to').val() && $('#to').val() != '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Invalid Date Range,Please Check the date. Thank you!',
-                });
-                $('#from').val('');
-            } else {
-                tableMemberApp.draw();
-            }
+     $(document).on('click', '#trail-button', function(e) {
+        if ($("#trail-body").hasClass("close-trail")) {
+            $("#trail-body").removeClass("close-trail")
+            $(".trail-details").removeClass("hidden-details")
+            $(".fa-chevron-circle-up").removeClass("d-none")
+            $(".fa-chevron-circle-down").addClass("d-none")
 
+        } else {
+            $("#trail-body").addClass("close-trail")
+            $(".trail-details").addClass("hidden-details")
+            $(".fa-chevron-circle-down").removeClass("d-none")
+            $(".fa-chevron-circle-up").addClass("d-none")
+        }
+    })
+var passCount = 0;
+var failCount = 0;
+// $(document).ready(function() {
+$('#aa_validation input[type="radio"]').click(function() {
+    passCount = 0;
+    failCount = 0;
+    $('#aa_validation input[type="radio"]').each(function() {
+        if ($(this).is(':checked')) {
+        if ($(this).val() == 1) {
+            passCount++;
+        } else if ($(this).val() == 2) {
+            failCount++;
+        }
+        }
+    });
+    $('#pass_count').text(passCount);
+    $('#failed_count').text(failCount);
+});
+// });
+$('#check_allppd').click(function() {
+  if ($(this).is(':checked')) {
+    $('input[name="pass_name"][value="1"]').prop('checked', true);
+    $('input[name="pass_dob"][value="1"]').prop('checked', true);
+    $('input[name="pass_gender"][value="1"]').prop('checked', true);
+    $('input[name="pass_civilstatus"][value="1"]').prop('checked', true);
+    $('input[name="pass_citizenship"][value="1"]').prop('checked', true);
+    $('input[name="pass_currentadd"][value="1"]').prop('checked', true);
+    $('input[name="pass_permaadd"][value="1"]').prop('checked', true);
+    $('input[name="pass_contactnum"][value="1"]').prop('checked', true);
+    $('input[name="pass_landline"][value="1"]').prop('checked', true);
+    $('input[name="pass_email"][value="1"]').prop('checked', true);
+  }
+});
+$('#check_allped').click(function() {
+  if ($(this).is(':checked')) {
+    $('input[name="pass_emp_no"][value="1"]').prop('checked', true);
+    $('input[name="pass_campus"][value="1"]').prop('checked', true);
+    $('input[name="pass_classification"][value="1"]').prop('checked', true);
+    $('input[name="pass_college_unit"][value="1"]').prop('checked', true);
+    $('input[name="pass_department"][value="1"]').prop('checked', true);
+    $('input[name="pass_rankpos"][value="1"]').prop('checked', true);
+    $('input[name="pass_appointment"][value="1"]').prop('checked', true);
+    $('input[name="pass_appointdate"][value="1"]').prop('checked', true);
+    $('input[name="pass_monthlysalary"][value="1"]').prop('checked', true);
+    $('input[name="pass_sg"][value="1"]').prop('checked', true);
+    $('input[name="pass_sgcat"][value="1"]').prop('checked', true);
+    $('input[name="pass_tin_no"][value="1"]').prop('checked', true);
+  }
+});
+$('#check_allpmd').click(function() {
+  if ($(this).is(':checked')) {
+    $('input[name="pass_monthlycontri"][value="1"]').prop('checked', true);
+    $('input[name="pass_equivalent"][value="1"]').prop('checked', true);
+  }
+});
+$('#check_allpsd').click(function() {
+  if ($(this).is(':checked')) {
+    $('input[name="pass_membershipf"][value="1"]').prop('checked', true);
+    $('input[name="pass_proxyform"][value="1"]').prop('checked', true);
+  }
+});
+$('#check_allfpd').click(function() {
+  if ($(this).is(':checked')) {
+    $('input[name="pass_name"][value="2"]').prop('checked', true);
+    $('input[name="pass_dob"][value="2"]').prop('checked', true);
+    $('input[name="pass_gender"][value="2"]').prop('checked', true);
+    $('input[name="pass_civilstatus"][value="2"]').prop('checked', true);
+    $('input[name="pass_citizenship"][value="2"]').prop('checked', true);
+    $('input[name="pass_currentadd"][value="2"]').prop('checked', true);
+    $('input[name="pass_permaadd"][value="2"]').prop('checked', true);
+    $('input[name="pass_contactnum"][value="2"]').prop('checked', true);
+    $('input[name="pass_landline"][value="2"]').prop('checked', true);
+    $('input[name="pass_email"][value="2"]').prop('checked', true);
+  }
+});
+$('#check_allfed').click(function() {
+  if ($(this).is(':checked')) {
+    $('input[name="pass_emp_no"][value="2"]').prop('checked', true);
+    $('input[name="pass_campus"][value="2"]').prop('checked', true);
+    $('input[name="pass_classification"][value="2"]').prop('checked', true);
+    $('input[name="pass_college_unit"][value="2"]').prop('checked', true);
+    $('input[name="pass_department"][value="2"]').prop('checked', true);
+    $('input[name="pass_rankpos"][value="2"]').prop('checked', true);
+    $('input[name="pass_appointment"][value="2"]').prop('checked', true);
+    $('input[name="pass_appointdate"][value="2"]').prop('checked', true);
+    $('input[name="pass_monthlysalary"][value="2"]').prop('checked', true);
+    $('input[name="pass_sg"][value="2"]').prop('checked', true);
+    $('input[name="pass_sgcat"][value="2"]').prop('checked', true);
+    $('input[name="pass_tin_no"][value="2"]').prop('checked', true);
+  }
+});
+$('#check_allfmd').click(function() {
+  if ($(this).is(':checked')) {
+    $('input[name="pass_monthlycontri"][value="2"]').prop('checked', true);
+    $('input[name="pass_equivalent"][value="2"]').prop('checked', true);
+  }
+});
+$('#check_allfsd').click(function() {
+  if ($(this).is(':checked')) {
+    $('input[name="pass_membershipf"][value="2"]').prop('checked', true);
+    $('input[name="pass_proxyform"][value="2"]').prop('checked', true);
+  }
+});
+$('#save_record').click(function() {
+    event.preventDefault();
+    // alert('gg');
+$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
         });
-        $('#to').on('change', function() {
-            if ($('#to').val() < $('#from').val()) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Invalid Date Range,Please Check the date. Thank you!',
-                });
-                $('#to').val('');
-            } else {
-                tableMemberApp.draw();
+
+        var formDatas = $("#aa_validation").serialize();
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('save_aa_validation') }}",
+            data: formDatas,
+            success: function(data) {
+                if (data.success != '') {
+                    alert('Success');
+                }else{
+                    alert('Failed');
+                }
             }
         });
-    });
+
+});
 </script>
 @endsection
