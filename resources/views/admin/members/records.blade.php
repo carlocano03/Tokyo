@@ -749,6 +749,12 @@
                 }, 500)
                 
                 $("#showLogs").text("Hide history logs")
+                // $(".view-options").removeClass("span-3")
+                // $(".view-options").addClass("span-2")
+                // $(".date-selector").removeClass("span-3")
+                // $(".date-selector").addClass("span-5")
+                // $(".select-dropdown").removeClass("span-3")
+                // $(".select-dropdown").addClass("span-2")
             } else {
                 
                 $(".right-content").addClass("full")
@@ -818,7 +824,7 @@
                             <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
                                 
                                 <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr);">
-                                    <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap">
+                                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                         <span>Campus</span>
                                         <select name="" class="radius-1 outline select-field"
                                                 style="width: 100%; height: 30px" id="campuses_select">
@@ -828,23 +834,40 @@
                                                 @endforeach
                                             </select>
                                     </span>
-                                    <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap">
+                                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                         <span>Department</span>
                                         <select name="" class="radius-1 outline select-field"
                                                 style="width: 100%; height: 30px" id="department_select">
                                                 <option value="">Show All</option>
                                             </select>
                                     </span>
-                                    <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap">
+                                    <span class="d-flex flex-column span-5 mp-pv2 flex-nowrap date-selector">
                                         <span>Application Date</span>
                                         <div class="date_range d-flex">
                                                 <input type="date" id="from" class="radius-1 border-1 date-input outline"
                                                     style="height: 30px;">
                                                 <span for="" class="self_center mv-1"
-                                                    style="margin-left:15px; margin-right:15px;">to</span>
+                                                    style="margin-left:5px; margin-right:5px;">to</span>
                                                 <input type="date" id="to" class="radius-1 border-1 date-input outline"
                                                     style="height: 30px;">
                                             </div>
+                                    </span>
+                                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
+                                        <span>View Option</span>
+                                        <select name="" id="" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;">
+                                            <option value="">
+                                                All Records
+                                            </option>
+                                            <option value="">
+                                                AA
+                                            </option>
+                                            <option value="">
+                                                CFM
+                                            </option>
+                                            <option value="">
+                                                HRDO
+                                            </option>
+                                        </select>
                                     </span>
                                 </div>
                                         <!-- <div class="">
@@ -864,39 +887,28 @@
                         <div class="card d-flex flex-column">
                             <div class="d-flex flex-row items-between">
                                 <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value"/>
-                                <select name="" id="" class="radius-1 outline select-field mp-pr2"
-                                    style="height: 30px;margin-top: auto;margin-bottom: auto;">
-                                    <option value="">
-                                        All Records
-                                    </option>
-                                    <option value="">
-                                        AA
-                                    </option>
-                                    <option value="">
-                                        CFM
-                                    </option>
-                                    <option value="">
-                                        HRDO
-                                    </option>
-                                </select>
-                                <select name="" id="" class="" style="height: 30px;margin-top: auto;margin-bottom: auto;">
-                                    <option value="">
-                                        Select Action
-                                    </option>
-                                    <option value="">
-                                        Forward to HRDO
-                                    </option>
-                                    <option value="">
-                                        Forward to CFM
-                                    </option>
-                                </select>
-                                <button>Proceed</button>
+                                <span class="d-flex flex-row gap-10 justify-content-center align-items-center">
+                                    <select name="" id="" class="radius-1 outline select-field" style="height: 30px">
+                                        <option value="">
+                                            Select Action
+                                        </option>
+                                        <option value="">
+                                            Forward to HRDO
+                                        </option>
+                                        <option value="">
+                                            Forward to CFM
+                                        </option>
+                                    </select>
+                                    <span>
+                                        <button class="f-button mar-bg">Proceed</button>
+                                    </span>
+                                </span>
                             </div>
                             <div class="mp-mt3 table-container">
                                 <table class="members-table" style="height: auto;" width="100%">
                                     <thead>
                                         <tr>
-                                        <th style="width: 48px;">
+                                            <th style="width: 20px;">
                                                 <span></span>
                                             </th>
                                             <th style="width: 48px;">

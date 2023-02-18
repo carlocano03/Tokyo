@@ -446,6 +446,23 @@
         border-left: 0px
     }
 
+    .border-content>form>div {
+        border-top: 1px solid gray;
+        border-right: 1px solid gray;
+    }
+
+    .border-content>form>div:last-child {
+        border-bottom: 1px solid gray;
+    }
+
+    .border-content>form>div>div {
+        border-left: 1px solid gray;
+    }
+
+    .border-content>form>div>div:first-child {
+        border-left: 0px
+    }
+
     .circle {
         height: 15px;
         width: 15px;
@@ -647,6 +664,94 @@
     .color-black {
         color: black;
     }
+
+    /* Default style for radio buttons */
+    input[type="radio"] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #a0a0a1;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    /* Style for checked radio buttons */
+    input[type="radio"]:checked {
+        position: relative;
+    }
+
+    input[type="radio"]:checked:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.2);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #894168;
+        transition: all 0.3s ease;
+    }
+
+    input[type="radio"]:focus,
+    input[type="radio"]:active {
+        outline: none;
+    }
+
+    /* Style for radio button label */
+    .radio-label {
+        margin-left: 10px;
+        font-size: 16px;
+    }
+
+    input[type="radio"]:focus,
+    input[type="radio"]:active {
+        outline: none;
+    }
+
+    .personal-detail {
+        display: none;
+    }
+
+    .personal-detail.open-detail {
+        display: grid;
+    }
+
+    .employee-detail {
+        display: none;
+    }
+
+    .employee-detail.open-detail {
+        display: grid;
+    }
+
+    .members-detail {
+        display: none;
+    }
+
+    .members-detail.open-detail {
+        display: grid;
+    }
+
+    .supporting-detail {
+        display: none;
+        
+    }
+
+    .supporting-detail.open-detail {
+        display: grid;
+    }
+
+    .border-bottom-1 {
+        border-bottom: 1px solid #1a8981;;
+    }
+
+
+
 </style>
 <div id="summaryModal" class="d-none">
     <div class="modalContent">
@@ -744,7 +849,7 @@
                         </select>
                     </p>
                     <p>
-                        Camppus: <span>UP Diliman HRDO</span>
+                        Campus: <span>UP Diliman HRDO</span>
                     </p>
                 </div>
             </div>
@@ -1127,7 +1232,11 @@
                     {{ csrf_field() }}
                     <div class="table-form form-header w-full">
                         <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}" >
-                        <div class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                        <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <a style="padding:0; position:absolute; left:10px; cursor: pointer;" id="personal-toggle">
+                                <i class="fa fa-plus-square d-none personal-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square personal-toggle-minus" aria-hidden="true"></i>
+                            </a>
                             <span>
                                 I. Personal Details
                             </span>
@@ -1136,13 +1245,13 @@
                             <span>
                                 Passed 
                             </span>
-                            <input type="radio" id="check_allppd" name="check_allpd">
+                            <input type="radio" class="input-radio" id="check_allppd" name="check_allpd">
                         </div>
                         <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
                             <span>
                                 Failed
                             </span>
-                            <input type="radio" id="check_allfpd" name="check_allpd">
+                            <input type="radio" class="input-radio" id="check_allfpd" name="check_allpd">
                         </div>
                         <div class="span-7 text-center mp-ph1">
                             <span>
@@ -1150,218 +1259,222 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full personal-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Name (Last, First, Middle Suffix)
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_name" value= "1" name="pass_name">
+                            <input type="radio" class="input-radio" id="pass_name" value= "1" name="pass_name">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_name" value= "2" name="pass_name">
+                            <input type="radio" class="input-radio" id="fail_name" value= "2" name="pass_name">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_name">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->lastname}}, {{$rec->firstname}} {{$rec->middlename}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full personal-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Date of Birth
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                        <input type="radio" id="pass_dob" value= "1" name="pass_dob">
+                        <input type="radio" class="input-radio" id="pass_dob" value= "1" name="pass_dob">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                        <input type="radio" id="fail_dob" value= "2" name="pass_dob">
+                        <input type="radio" class="input-radio" id="fail_dob" value= "2" name="pass_dob">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                         <input type="text" class="w-input mp-pv2" name="remarks_dob">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{ date('F d, Y', strtotime($rec->date_birth)) }}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full personal-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                Gender
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_gender" value= "1" name="pass_gender">
+                            <input type="radio" class="input-radio" id="pass_gender" value= "1" name="pass_gender">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_gender" value= "2" name="pass_gender">
+                            <input type="radio" class="input-radio" id="fail_gender" value= "2" name="pass_gender">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                         <input type="text" class="w-input mp-pv2" name="remarks_gender">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->gender}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full personal-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Civil Status
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_civilstatus" value= "1" name="pass_civilstatus">
+                            <input type="radio" class="input-radio" id="pass_civilstatus" value= "1" name="pass_civilstatus">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_civilstatus" value= "2" name="pass_civilstatus">
+                            <input type="radio" class="input-radio" id="fail_civilstatus" value= "2" name="pass_civilstatus">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_civilstatus">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{ $rec->civilstatus }}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full personal-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Citizenship
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_citizenship" value= "1" name="pass_citizenship">
+                            <input type="radio" class="input-radio" id="pass_citizenship" value= "1" name="pass_citizenship">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_citizenship" value= "2" name="pass_citizenship">
+                            <input type="radio" class="input-radio" id="fail_citizenship" value= "2" name="pass_citizenship">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_citizenship">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{ $rec->citizenship }}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full personal-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Current Address
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_currentadd" value= "1" name="pass_currentadd">
+                            <input type="radio" class="input-radio" id="pass_currentadd" value= "1" name="pass_currentadd">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_currentadd" value= "2" name="pass_currentadd">
+                            <input type="radio" class="input-radio" id="fail_currentadd" value= "2" name="pass_currentadd">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_currentadd">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->present_bldg_street}}, {{$rec->present_barangay}}, {{$rec->present_municipality}}, {{$rec->present_province}}, {{$rec->present_zipcode}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full personal-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Permanent Address
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_permaadd" value= "1" name="pass_permaadd">
+                            <input type="radio" class="input-radio" id="pass_permaadd" value= "1" name="pass_permaadd">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_permaadd" value= "2" name="pass_permaadd">
+                            <input type="radio" class="input-radio" id="fail_permaadd" value= "2" name="pass_permaadd">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_permaadd">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->bldg_street}}, {{$rec->barangay}}, {{$rec->municipality}}, {{$rec->province}}, {{$rec->zipcode}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full personal-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Contact Number
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_contactnum" value= "1" name="pass_contactnum">
+                            <input type="radio" class="input-radio" id="pass_contactnum" value= "1" name="pass_contactnum">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_contactnum" value= "2" name="pass_contactnum">
+                            <input type="radio" class="input-radio" id="fail_contactnum" value= "2" name="pass_contactnum">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="review_contactnum">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->contact_no}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full personal-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Landline Number
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_landline" value= "1" name="pass_landline">
+                            <input type="radio" class="input-radio" id="pass_landline" value= "1" name="pass_landline">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_landline" value= "2" name="pass_landline">
+                            <input type="radio" class="input-radio" id="pass_landline" value= "2" name="pass_landline">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="review_landline">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{ $rec->landline_no ? $rec->landline_no : 'N/A' }}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full personal-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Email Address
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_email" value= "1" name="pass_email">
+                            <input type="radio" class="input-radio" id="pass_email" value= "1" name="pass_email">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_email" value= "2" name="pass_email">
+                            <input type="radio" class="input-radio" id="fail_email" value= "2" name="pass_email">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_email">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->email}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
-                        <div class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                    <div class="table-form form-header w-full open-detail">
+                        <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <a style="padding:0; position:absolute; left:10px; cursor: pointer" id="employee-toggle">
+                                <i class="fa fa-plus-square d-none employee-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square employee-toggle-minus" aria-hidden="true"></i>
+                            </a>    
                             <span>
                                 II. Employee Details
                             </span>
@@ -1370,13 +1483,13 @@
                             <span>
                                 Passed 
                             </span>
-                            <input type="radio" id="check_allped" name="check_all_ped">
+                            <input type="radio" class="input-radio" id="check_allped" name="check_all_ped">
                         </div>
                         <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
                             <span>
                                 Failed
                             </span>
-                            <input type="radio" id="check_allfed" name="check_all_ped">
+                            <input type="radio" class="input-radio" id="check_allfed" name="check_all_ped">
                         </div>
                         <div class="span-7 text-center mp-ph1">
                             <span>
@@ -1384,185 +1497,185 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Employee Number
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_emp_no" value= "1" name="pass_emp_no">
+                            <input type="radio" class="input-radio" id="pass_emp_no" value= "1" name="pass_emp_no">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_emp_no" value= "2" name="pass_emp_no">
+                            <input type="radio" class="input-radio" id="fail_emp_no" value= "2" name="pass_emp_no">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_emp_no">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->employee_no}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Campus
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_campus" value= "1" name="pass_campus">
+                            <input type="radio" class="input-radio" id="pass_campus" value= "1" name="pass_campus">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_campus" value= "2" name="pass_campus">
+                            <input type="radio" class="input-radio" id="fail_campus" value= "2" name="pass_campus">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_campus">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->name}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Classification
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_classification" value= "1" name="pass_classification">
+                            <input type="radio" class="input-radio" id="pass_classification" value= "1" name="pass_classification">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_classification" value= "2" name="pass_classification">
+                            <input type="radio" class="input-radio" id="fail_classification" value= "2" name="pass_classification">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_classification">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->classification}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             College/Unit
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_college_unit" value= "1" name="pass_college_unit">
+                            <input type="radio" class="input-radio" id="pass_college_unit" value= "1" name="pass_college_unit">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_college_unit" value= "2" name="pass_college_unit">
+                            <input type="radio" class="input-radio" id="fail_college_unit" value= "2" name="pass_college_unit">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_college_unit">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->college_unit_name}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Department
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_department" value= "1" name="pass_department">
+                            <input type="radio" class="input-radio" id="pass_department" value= "1" name="pass_department">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_department" value= "2" name="pass_department">
+                            <input type="radio" class="input-radio" id="pass_department" value= "2" name="pass_department">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_department">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->department_name}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Rank/Position
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_rankpos" value= "1" name="pass_rankpos">
+                            <input type="radio" class="input-radio" id="pass_rankpos" value= "1" name="pass_rankpos">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_rankpos" value= "2" name="pass_rankpos">
+                            <input type="radio" class="input-radio" id="fail_rankpos" value= "2" name="pass_rankpos">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_rankpos">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->rank_position}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Appointment
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_appointment" value= "1" name="pass_appointment">
+                            <input type="radio" class="input-radio" id="pass_appointment" value= "1" name="pass_appointment">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_appointment" value= "2" name="pass_appointment">
+                            <input type="radio" class="input-radio" id="fail_appointment" value= "2" name="pass_appointment">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_appointment">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->appointment}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Appointment Date
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_appointdate" value= "1" name="pass_appointdate">
+                            <input type="radio" class="input-radio" id="pass_appointdate" value= "1" name="pass_appointdate">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_appointdate" value= "2" name="pass_appointdate">
+                            <input type="radio" class="input-radio" id="fail_appointdate" value= "2" name="pass_appointdate">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_appointdate">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{ date('F d, Y', strtotime($rec->date_appointment)) }}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Monthly Salary
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_monthlysalary" value= "1" name="pass_monthlysalary">
+                            <input type="radio" class="input-radio" id="pass_monthlysalary" value= "1" name="pass_monthlysalary">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_monthlysalary" value= "2" name="pass_monthlysalary">
+                            <input type="radio" class="input-radio" id="fail_monthlysalary" value= "2" name="pass_monthlysalary">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_monthlysalary">
@@ -1573,71 +1686,75 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Salary Grade
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_sg" value= "1" name="pass_sg">
+                            <input type="radio" class="input-radio" id="pass_sg" value= "1" name="pass_sg">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_sg" value= "2" name="pass_sg">
+                            <input type="radio" class="input-radio" id="fail_sg" value= "2" name="pass_sg">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_sg">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->salary_grade}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Salary Grade Category
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_sgcat" value= "1" name="pass_sgcat">
+                            <input type="radio" class="input-radio" id="pass_sgcat" value= "1" name="pass_sgcat">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_sgcat" value= "2" name="pass_sgcat">
+                            <input type="radio" class="input-radio" id="fail_sgcat" value= "2" name="pass_sgcat">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_sgcat">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->sg_category}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full employee-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Tin Number
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_tin_no" value= "1" name="pass_tin_no">
+                            <input type="radio" class="input-radio" id="pass_tin_no" value= "1" name="pass_tin_no">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_tin_no" value= "2" name="pass_tin_no">
+                            <input type="radio" class="input-radio" id="fail_tin_no" value= "2" name="pass_tin_no">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_tin_no">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->tin_no}}
                             </span>
                         </div>
                     </div>
                     <div class="table-form form-header w-full">
-                        <div class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                        <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <a style="padding:0; position:absolute; left:10px; cursor: pointer" id="members-toggle">
+                                <i class="fa fa-plus-square d-none members-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square members-toggle-minus" aria-hidden="true"></i>
+                            </a>       
                             <span>
                                 III. Members Details
                             </span>
@@ -1646,13 +1763,13 @@
                             <span>
                                 Passed 
                             </span>
-                            <input type="radio" id="check_allpmd" name="check_all_pmd">
+                            <input type="radio" class="input-radio" id="check_allpmd" name="check_all_pmd">
                         </div>
                         <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
                             <span>
                                 Failed
                             </span>
-                            <input type="radio" id="check_allfmd" name="check_all_pmd">
+                            <input type="radio" class="input-radio" id="check_allfmd" name="check_all_pmd">
                         </div>
                         <div class="span-7 text-center mp-ph1">
                             <span>
@@ -1660,50 +1777,54 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full members-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Monthly Contribution
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_monthlycontri" value= "1" name="pass_monthlycontri">
+                            <input type="radio" class="input-radio" id="pass_monthlycontri" value= "1" name="pass_monthlycontri">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_monthlycontri" value= "2" name="pass_monthlycontri">
+                            <input type="radio" class="input-radio" id="fail_monthlycontri" value= "2" name="pass_monthlycontri">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_monthlycontri">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->contribution_set}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full members-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Equivalent Value
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_equivalent" value= "1" name="pass_equivalent">
+                            <input type="radio" class="input-radio" id="pass_equivalent" value= "1" name="pass_equivalent">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_equivalent" value= "2" name="pass_equivalent">
+                            <input type="radio" class="input-radio" id="fail_equivalent" value= "2" name="pass_equivalent">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_equivalent">
                         </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
+                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             {{$rec->amount}}
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
-                        <div class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                    <div class="table-form form-header w-full supporting-border">
+                        <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
+                            <a style="padding:0; position:absolute; left:10px; cursor: pointer" id="supporting-toggle">
+                                <i class="fa fa-plus-square d-none supporting-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square supporting-toggle-minus" aria-hidden="true"></i>
+                            </a>        
                             <span>
                                 IV. Supporting Document
                             </span>
@@ -1712,13 +1833,13 @@
                             <span>
                                 Passed 
                             </span>
-                            <input type="radio" id="check_allpsd" name="check_all_psd">
+                            <input type="radio" class="input-radio" id="check_allpsd" name="check_all_psd">
                         </div>
                         <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
                             <span>
                                 Failed
                             </span>
-                            <input type="radio" id="check_allfsd" name="check_all_psd">
+                            <input type="radio" class="input-radio" id="check_allfsd" name="check_all_psd">
                         </div>
                         <div class="span-7 text-center mp-ph1">
                             <span>
@@ -1726,52 +1847,50 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full supporting-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Membership Form
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_membershipf" value= "1" name="pass_membershipf">
+                            <input type="radio" class="input-radio" id="pass_membershipf" value= "1" name="pass_membershipf">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_membershipf" value= "2" name="pass_membershipf">
+                            <input type="radio" class="input-radio" id="fail_membershipf" value= "2" name="pass_membershipf">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_membershipf">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                        <a data-md-tooltip='View Membership Form' class='view_member md-tooltip--right view-member' 
+                        <a class='view_member view-member' 
                             href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
-                            style='cursor: pointer'>
-                            <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
-                            <span>View Membership form</span>
+                            style='cursor: pointer; padding: 0'>
+                            <span class="mp-link link_style">View Membership form</span>
                         </a>
-                        
                         </div>
                     </div>
-                    <div class="table-form form-header w-full">
+                    <div class="table-form form-header w-full supporting-detail open-detail">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Proxy form
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="pass_proxyform" value= "1" name="pass_proxyform">
+                            <input type="radio" class="input-radio" id="pass_proxyform" value= "1" name="pass_proxyform">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" id="fail_proxyform" value= "2" name="pass_proxyform">
+                            <input type="radio" class="input-radio" id="fail_proxyform" value= "2" name="pass_proxyform">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <input type="text" class="w-input mp-pv2" name="remarks_proxyform">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                        <a data-md-tooltip='View Proxy Form' class='view_member md-tooltip--right view-member' 
+                        <a class='view_member view-member' 
                             href="javascript:void(0)" onclick="window.open('{{ URL::to('/generateProxyForm/') }}/{{ $rec->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
-                            style='cursor: pointer'>
-                            <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
-                            <span>View Proxy form</span>
+                            style='cursor: pointer; padding: 0'>
+                            
+                            <span class="mp-link link_style">View Proxy form</span>
                         </a>
                         </div>
                     </div>
@@ -1853,6 +1972,58 @@
             $(".fa-chevron-circle-up").addClass("d-none")
         }
     })
+
+    $(document).on('click', '#personal-toggle', function(e) {
+        if ($(".personal-detail").hasClass("open-detail")) {
+            $(".personal-detail").removeClass("open-detail")
+            $(".personal-toggle-plus").removeClass("d-none")
+            $(".personal-toggle-minus").addClass("d-none")
+        } else {
+            $(".personal-detail").addClass("open-detail")
+            $(".personal-toggle-plus").addClass("d-none")
+            $(".personal-toggle-minus").removeClass("d-none")
+        }
+    })
+
+    $(document).on('click', '#employee-toggle', function(e) {
+        if ($(".employee-detail").hasClass("open-detail")) {
+            $(".employee-detail").removeClass("open-detail")
+            $(".employee-toggle-plus").removeClass("d-none")
+            $(".employee-toggle-minus").addClass("d-none")
+        } else {
+            $(".employee-detail").addClass("open-detail")
+            $(".employee-toggle-plus").addClass("d-none")
+            $(".employee-toggle-minus").removeClass("d-none")
+        }
+    })
+
+    $(document).on('click', '#members-toggle', function(e) {
+        if ($(".members-detail").hasClass("open-detail")) {
+            $(".members-detail").removeClass("open-detail")
+            $(".members-toggle-plus").removeClass("d-none")
+            $(".members-toggle-minus").addClass("d-none")
+        } else {
+            $(".members-detail").addClass("open-detail")
+            $(".members-toggle-plus").addClass("d-none")
+            $(".members-toggle-minus").removeClass("d-none")
+        }
+    })
+
+    $(document).on('click', '#supporting-toggle', function(e) {
+        if ($(".supporting-detail").hasClass("open-detail")) {
+            $(".supporting-detail").removeClass("open-detail")
+            $(".supporting-toggle-plus").removeClass("d-none")
+            $(".supporting-toggle-minus").addClass("d-none")
+            $(".supporting-border").addClass("border-bottom-1")
+        } else {
+            $(".supporting-detail").addClass("open-detail")
+            $(".supporting-toggle-plus").addClass("d-none")
+            $(".supporting-toggle-minus").removeClass("d-none")
+            $(".supporting-border").removeClass("border-bottom-1")
+        }
+    })
+
+
 var passCount = 0;
 var failCount = 0;
 // $(document).ready(function() {

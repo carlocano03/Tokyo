@@ -647,6 +647,36 @@
     .color-black {
         color: black;
     }
+    .member-detail-title{
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+    }
+    .member-detail-title.open-details {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .member-detail-body{
+        display: none !important;
+    }
+    .member-detail-body.open-details {
+        display: flex !important;
+    }
+
+    .membership-title{
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+    }
+    .membership-title.open-details {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .membership-body{
+        display: none !important;
+    }
+    .membership-body.open-details {
+        display: flex !important;
+    }
+
 </style>
 <div id="summaryModal" class="d-none">
     <div class="modalContent">
@@ -765,16 +795,47 @@
         if ($("#trail-body").hasClass("close-trail")) {
             $("#trail-body").removeClass("close-trail")
             $(".trail-details").removeClass("hidden-details")
-            $(".fa-chevron-circle-up").removeClass("d-none")
-            $(".fa-chevron-circle-down").addClass("d-none")
+            $(".trail-up").removeClass("d-none")
+            $(".trail-down").addClass("d-none")
 
         } else {
             $("#trail-body").addClass("close-trail")
             $(".trail-details").addClass("hidden-details")
-            $(".fa-chevron-circle-down").removeClass("d-none")
-            $(".fa-chevron-circle-up").addClass("d-none")
+            $(".trail-down").removeClass("d-none")
+            $(".trail-up").addClass("d-none")
         }
     })
+
+    $(document).on('click', '#member-detail-toggle', function(e) {
+        if ($(".member-detail-body").hasClass("open-details")) {
+            $(".member-detail-body").removeClass("open-details")
+            $(".member-detail-title").removeClass("open-details")
+            $(".member-up").removeClass("d-none")
+            $(".member-down").addClass("d-none")
+
+        } else {
+            $(".member-detail-body").addClass("open-details")
+            $(".member-detail-title").addClass("open-details")
+            $(".member-down").removeClass("d-none")
+            $(".member-up").addClass("d-none")
+        }
+    })
+
+    $(document).on('click', '#membership-toggle', function(e) {
+        if ($(".membership-body").hasClass("open-details")) {
+            $(".membership-body").removeClass("open-details")
+            $(".membership-title").removeClass("open-details")
+            $(".membership-up").removeClass("d-none")
+            $(".membership-down").addClass("d-none")
+
+        } else {
+            $(".membership-body").addClass("open-details")
+            $(".membership-title").addClass("open-details")
+            $(".membership-down").removeClass("d-none")
+            $(".membership-up").addClass("d-none")
+        }
+    })
+
 </script>
 <div class="row no-gutter ml-0 mr-0 p-5px mh-content" id="view-member-details">
 
@@ -819,12 +880,12 @@
                     </span>
                     <span>
                         <a class="cursor-pointer m-0 p-0 mp-mr2" id="trail-button">
-                            <i class="fa fa-chevron-circle-up " aria-hidden="true"></i>
-                            <i class="fa fa-chevron-circle-down d-none" aria-hidden="true"></i>
+                            <i class="fa fa-chevron-circle-up  trail-up" aria-hidden="true"></i>
+                            <i class="fa fa-chevron-circle-down d-none trail-down" aria-hidden="true"></i>
                         </a>
                     </span>
                 </div>
-                <div class="card-body trail" -trail id="trail-body">
+                <div class="card-body trail" id="trail-body">
                     <div class="table-form w-trail mp-pv2 mp-ph3">
                         <div class="span-2 d-flex flex-column relative">
                             <div class="d-flex flex-column absolute top-circle w-full">
@@ -973,17 +1034,17 @@
                 </div>
                 <div class="mp-pv5 mp-mt3">
                     <div class="card-container card p-0 mp-mt3">
-                        <div class="card-header d-flex items-between maroon-bg">
+                        <div class="card-header d-flex items-between maroon-bg member-detail-title open-details">
                             <span>Member Details</span><span>
                                 <span>
-                                    <a class="cursor-pointer m-0 p-0 mp-mr2" id="trail-button">
-                                        <i class="fa fa-chevron-circle-up " aria-hidden="true"></i>
-                                        <i class="fa fa-chevron-circle-down d-none" aria-hidden="true"></i>
+                                    <a class="cursor-pointer m-0 p-0 mp-mr2" id="member-detail-toggle">
+                                        <i class="fa fa-chevron-circle-up  member-up" aria-hidden="true"></i>
+                                        <i class="fa fa-chevron-circle-down d-none member-down" aria-hidden="true"></i>
                                     </a>
                                 </span>
                             </span>
                         </div>
-                        <div class="card-body mp-pv4 mp-ph3 d-flex flex-column ">
+                        <div class="card-body mp-pv4 mp-ph3 d-flex flex-column member-detail-body open-details">
                             <div class="table-form">
                                 <div class="span-8 font-sm">
                                     <div class="table-form" style="gap: 5px">
@@ -1082,17 +1143,17 @@
                 </div>
                 <div class="mp-pv5 mp-mb3">
                     <div class="card-container card p-0 mp-mt3">
-                        <div class="card-header d-flex items-between maroon-bg">
+                        <div class="card-header d-flex items-between maroon-bg membership-title open-details">
                             <span>Membership Details</span><span>
                                 <span>
-                                    <a class="cursor-pointer m-0 p-0 mp-mr2" id="trail-button">
-                                        <i class="fa fa-chevron-circle-up " aria-hidden="true"></i>
-                                        <i class="fa fa-chevron-circle-down d-none" aria-hidden="true"></i>
+                                    <a class="cursor-pointer m-0 p-0 mp-mr2" id="membership-toggle">
+                                        <i class="fa fa-chevron-circle-up membership-up" aria-hidden="true"></i>
+                                        <i class="fa fa-chevron-circle-down d-none membership-down" aria-hidden="true"></i>
                                     </a>
                                 </span>
                             </span>
                         </div>
-                        <div class="card-body mp-pv4 mp-ph3 d-flex flex-column">
+                        <div class="card-body mp-pv4 mp-ph3 d-flex flex-column membership-body open-details">
                             <div class="d-flex flex-row items-between font-sm" style="gap: 5px">
                                 <div class="d-flex flex-column items-center mp-text-center">
                                     <span>
