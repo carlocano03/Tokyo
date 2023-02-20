@@ -312,7 +312,8 @@ class AdminController extends Controller
       foreach ($posts as $r) {
         $start++;
         $row = array();
-        $row[] = $r->app_status == 'AA VALIDATED' ? '<input type="checkbox" name="check[]" id="select_item">':'<input type="checkbox" name="check[]" id="select_item" disabled>';
+        $row[] = $r->app_status == 'AA VALIDATED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" id="select_item"></span>'
+          :'<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" id="select_item" disabled></span>';
         $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "'
                   href='/admin/members/records/view/aa/". $r->app_no ."' style='cursor: pointer'>
                     <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
