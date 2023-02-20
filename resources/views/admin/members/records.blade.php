@@ -624,7 +624,7 @@
 
 
     </style>
-    <!-- <div id="summaryModal" class="">
+    <div id="summaryModal" class="">
        
         <div class="modalContent">
             <div class="modalHeader">
@@ -731,12 +731,12 @@
                 <button id="agree">
                     Proceed
                 </button>
-                <button id="cancel-button">
+                <button class="cancel_modal" id="cancel-button">
                     Cancel
                 </button>
             </div>
         </div>
-    </div> -->
+    </div>
     <div class="filler"></div>
     <script type="text/javascript" src="{{ asset('/dist/loading-bar/loading-bar.js') }}"></script>
     <script>
@@ -900,7 +900,7 @@
                                         </option>
                                     </select>
                                     <span>
-                                        <button class="f-button mar-bg">Proceed</button>
+                                        <button class="f-button mar-bg" id="modal_proceed">Proceed</button>
                                     </span>
                                 </span>
                             </div>
@@ -933,7 +933,7 @@
                                                 <span>Position</span>
                                             </th>
                                             <th>
-                                                <span>MC</span>
+                                                <span>Campus</span>
                                             </th>
                                             <th>
                                                 <span>Status</span>
@@ -1122,6 +1122,15 @@
                   tableMemberApp.draw();
                 }
             });
+        });
+        $('#modal_proceed').on('click', function() {
+            $('#summaryModal').show();
+        });
+        $(document).ready(function() {
+            $('#summaryModal').hide();
+        });
+        $('.cancel_modal').on('click', function() {
+            $('#summaryModal').hide();
         });
     </script>
 @endsection

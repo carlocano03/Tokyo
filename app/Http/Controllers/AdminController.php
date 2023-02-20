@@ -158,6 +158,7 @@ class AdminController extends Controller
       ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
       ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
       ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
       ->where('mem_app.app_no', $id)->first();
       
       $data = array(
@@ -218,6 +219,7 @@ class AdminController extends Controller
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
       ->where('mem_app.app_no', 'like', '%' . $search . '%')
       ->where('mem_app.app_status', $aa_1)
       ->where('mem_app.app_status', $aa_2);
@@ -243,6 +245,7 @@ class AdminController extends Controller
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
       ->where('mem_app.app_no', 'like', '%' . $search . '%');
 
     ## Add custom filter conditions
@@ -262,13 +265,13 @@ class AdminController extends Controller
     }
     if($users == 'AA'){
       $aa_1 = 'SUBMITTED';
-      $cfm = 'AA VALIDATED';
+      $cfm = 'AA VERIFIED';
       // $aa_2 = 'DRAFT APPLICATION';
       $records->where('mem_app.app_status', $aa_1);
       $records->orWhere('mem_app.app_status', $cfm);
       // $records->orWhere('mem_app.app_status', $aa_2);
     }else if($users == 'CFM'){
-      $cfm = 'AA VALIDATED';
+      $cfm = 'AA VERIFIED';
       $records->where('mem_app.app_status', $cfm);
     }
     $totalRecordswithFilter = $records->count();
@@ -277,6 +280,7 @@ class AdminController extends Controller
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
       ->where('mem_app.app_no', 'like', '%' . $search . '%');
 
     ## Add custom filter conditions
@@ -296,12 +300,12 @@ class AdminController extends Controller
     }
     if($users == 'AA'){
       $aa_1 = 'SUBMITTED';
-      $cfm = 'AA VALIDATED';
+      $cfm = 'AA VERIFIED';
       // $aa_2 = 'DRAFT APPLICATION';
       $records->where('mem_app.app_status', $aa_1);
       $records->orWhere('mem_app.app_status', $cfm);
     }else if($users == 'CFM'){
-      $cfm = 'AA VALIDATED';
+      $cfm = 'AA VERIFIED';
       $records->where('mem_app.app_status', $cfm);
     }
     $posts = $records->skip($start)
@@ -312,7 +316,7 @@ class AdminController extends Controller
       foreach ($posts as $r) {
         $start++;
         $row = array();
-        $row[] = $r->app_status == 'AA VALIDATED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" id="select_item"></span>'
+        $row[] = $r->app_status == 'AA VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" id="select_item"></span>'
           :'<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" id="select_item" disabled></span>';
         $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "'
                   href='/admin/members/records/view/aa/". $r->app_no ."' style='cursor: pointer'>
@@ -324,7 +328,7 @@ class AdminController extends Controller
         $row[] = $r->employee_no;
         $row[] = $r->classification;
         $row[] = $r->rank_position;
-        $row[] = '';
+        $row[] = $r->name;
         $row[] = $r->app_status;
         $row[] = $r->validator_remarks;
 
