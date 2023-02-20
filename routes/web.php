@@ -174,3 +174,4 @@ Route::post('/settings/delete_users', [Settings::class, 'remove_users'])->name('
 
 // aa validation
 Route::post('/save_aa_validation', [App_Validation::class, 'aa_validation_save'])->name('save_aa_validation');
+Route::post('/return_application', [App_Validation::class, 'returnto_application'])->name('return_application');

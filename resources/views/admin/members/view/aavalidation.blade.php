@@ -1266,13 +1266,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_name" value= "1" name="pass_name">
+                            <input type="radio" class="input-radio" id="pass_name" value= "1" 
+                            {{ (isset($rec->pass_name) && $rec->pass_name == 1) ? 'checked' : '' }} name="pass_name">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_name" value= "2" name="pass_name">
+                            <input type="radio" class="input-radio" id="fail_name" value= "2" 
+                            {{ (isset($rec->pass_name) && $rec->pass_name == 2) ? 'checked' : '' }} name="pass_name">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_name">
+                            <input type="text" class="w-input mp-pv2" 
+                            value="{{ (isset($rec->remarks_name) ) ? $rec->remarks_name:'' }}" name="remarks_name">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1287,13 +1290,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                        <input type="radio" class="input-radio" id="pass_dob" value= "1" name="pass_dob">
+                        <input type="radio" class="input-radio" id="pass_dob" value= "1" 
+                        {{ (isset($rec->pass_dob) && $rec->pass_dob == 1) ? 'checked' : '' }} name="pass_dob">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                        <input type="radio" class="input-radio" id="fail_dob" value= "2" name="pass_dob">
+                        <input type="radio" class="input-radio" id="fail_dob" value= "2" 
+                        {{ (isset($rec->pass_dob) && $rec->pass_dob == 2) ? 'checked' : '' }} name="pass_dob">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                        <input type="text" class="w-input mp-pv2" name="remarks_dob">
+                        <input type="text" class="w-input mp-pv2" 
+                        value="{{ (isset($rec->remarks_dob) ) ? $rec->remarks_dob : '' }}" name="remarks_dob">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1308,13 +1314,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_gender" value= "1" name="pass_gender">
+                            <input type="radio" class="input-radio" id="pass_gender" value= "1" 
+                            {{ (isset($rec->pass_gender) && $rec->pass_gender == 1) ? 'checked' : '' }} name="pass_gender">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_gender" value= "2" name="pass_gender">
+                            <input type="radio" class="input-radio" id="fail_gender" value= "2" 
+                            {{ (isset($rec->pass_gender) && $rec->pass_gender == 2) ? 'checked' : '' }} name="pass_gender">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                        <input type="text" class="w-input mp-pv2" name="remarks_gender">
+                        <input type="text" class="w-input mp-pv2" 
+                        value="{{ (isset($rec->remarks_gender) ) ? $rec->remarks_gender : '' }}" name="remarks_gender">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1329,13 +1338,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_civilstatus" value= "1" name="pass_civilstatus">
+                            <input type="radio" class="input-radio" id="pass_civilstatus" value= "1" 
+                            {{ (isset($rec->pass_civilstatus) && $rec->pass_civilstatus == 1) ? 'checked' : '' }} name="pass_civilstatus">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_civilstatus" value= "2" name="pass_civilstatus">
+                            <input type="radio" class="input-radio" id="fail_civilstatus" value= "2" 
+                            {{ (isset($rec->pass_civilstatus) && $rec->pass_civilstatus == 2) ? 'checked' : '' }} name="pass_civilstatus">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_civilstatus">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_civilstatus) ) ? $rec->remarks_civilstatus : '' }}" name="remarks_civilstatus">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1350,13 +1362,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_citizenship" value= "1" name="pass_citizenship">
+                            <input type="radio" class="input-radio" id="pass_citizenship" value= "1"
+                            {{ (isset($rec->pass_citizenship) && $rec->pass_citizenship == 1) ? 'checked' : '' }} name="pass_citizenship">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_citizenship" value= "2" name="pass_citizenship">
+                            <input type="radio" class="input-radio" id="fail_citizenship" value= "2"
+                            {{ (isset($rec->pass_citizenship) && $rec->pass_citizenship == 2) ? 'checked' : '' }} name="pass_citizenship">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_citizenship">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_citizenship) ) ? $rec->remarks_citizenship : '' }}" name="remarks_citizenship">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1371,13 +1386,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_currentadd" value= "1" name="pass_currentadd">
+                            <input type="radio" class="input-radio" id="pass_currentadd" value= "1" 
+                            {{ (isset($rec->pass_currentadd) && $rec->pass_currentadd == 1) ? 'checked' : '' }} name="pass_currentadd">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_currentadd" value= "2" name="pass_currentadd">
+                            <input type="radio" class="input-radio" id="fail_currentadd" value= "2" 
+                            {{ (isset($rec->pass_currentadd) && $rec->pass_currentadd == 2) ? 'checked' : '' }} name="pass_currentadd">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_currentadd">
+                            <input type="text" class="w-input mp-pv2" 
+                            value="{{ (isset($rec->remarks_currentadd) ) ? $rec->remarks_currentadd : '' }}" name="remarks_currentadd">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1392,13 +1410,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_permaadd" value= "1" name="pass_permaadd">
+                            <input type="radio" class="input-radio" id="pass_permaadd" value= "1"
+                            {{ (isset($rec->pass_permaadd) && $rec->pass_permaadd == 1) ? 'checked' : '' }} name="pass_permaadd">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_permaadd" value= "2" name="pass_permaadd">
+                            <input type="radio" class="input-radio" id="fail_permaadd" value= "2"
+                            {{ (isset($rec->pass_permaadd) && $rec->pass_permaadd == 2) ? 'checked' : '' }} name="pass_permaadd">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_permaadd">
+                            <input type="text" class="w-input mp-pv2" 
+                            value="{{ (isset($rec->remarks_permaadd) ) ? $rec->remarks_permaadd : '' }}" name="remarks_permaadd">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1413,13 +1434,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_contactnum" value= "1" name="pass_contactnum">
+                            <input type="radio" class="input-radio" id="pass_contactnum" value= "1"
+                            {{ (isset($rec->pass_contactnum) && $rec->pass_contactnum == 1) ? 'checked' : '' }} name="pass_contactnum">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_contactnum" value= "2" name="pass_contactnum">
+                            <input type="radio" class="input-radio" id="fail_contactnum" value= "2"
+                            {{ (isset($rec->pass_contactnum) && $rec->pass_contactnum == 2) ? 'checked' : '' }} name="pass_contactnum">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="review_contactnum">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->review_contactnum) ) ? $rec->review_contactnum : '' }}" name="review_contactnum">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1434,13 +1458,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_landline" value= "1" name="pass_landline">
+                            <input type="radio" class="input-radio" id="pass_landline" value= "1"
+                            {{ (isset($rec->pass_landline) && $rec->pass_landline == 1) ? 'checked' : '' }} name="pass_landline">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_landline" value= "2" name="pass_landline">
+                            <input type="radio" class="input-radio" id="pass_landline" value= "2"
+                            {{ (isset($rec->pass_landline) && $rec->pass_landline == 2) ? 'checked' : '' }} name="pass_landline">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="review_landline">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->review_landline) ) ? $rec->review_landline : '' }}" name="review_landline">    
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1455,13 +1482,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_email" value= "1" name="pass_email">
+                            <input type="radio" class="input-radio" id="pass_email" value= "1"
+                            {{ (isset($rec->pass_email) && $rec->pass_email == 1) ? 'checked' : '' }} name="pass_email">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_email" value= "2" name="pass_email">
+                            <input type="radio" class="input-radio" id="fail_email" value= "2"
+                            {{ (isset($rec->pass_email) && $rec->pass_email == 2) ? 'checked' : '' }} name="pass_email">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_email">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_email) ) ? $rec->remarks_email : '' }}" name="remarks_email">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1504,13 +1534,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_emp_no" value= "1" name="pass_emp_no">
+                            <input type="radio" class="input-radio" id="pass_emp_no" value= "1"
+                            {{ (isset($rec->pass_emp_no) && $rec->pass_emp_no == 1) ? 'checked' : '' }} name="pass_emp_no">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_emp_no" value= "2" name="pass_emp_no">
+                            <input type="radio" class="input-radio" id="fail_emp_no" value= "2"
+                            {{ (isset($rec->pass_emp_no) && $rec->pass_emp_no == 2) ? 'checked' : '' }} name="pass_emp_no">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_emp_no">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_emp_no) ) ? $rec->remarks_emp_no : '' }}" name="remarks_emp_no">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1525,13 +1558,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_campus" value= "1" name="pass_campus">
+                            <input type="radio" class="input-radio" id="pass_campus" value= "1"
+                            {{ (isset($rec->pass_campus) && $rec->pass_campus == 1) ? 'checked' : '' }} name="pass_campus">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_campus" value= "2" name="pass_campus">
+                            <input type="radio" class="input-radio" id="fail_campus" value= "2"
+                            {{ (isset($rec->pass_campus) && $rec->pass_campus == 2) ? 'checked' : '' }} name="pass_campus">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_campus">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_campus) ) ? $rec->remarks_campus : '' }}" name="remarks_campus">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1546,13 +1582,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_classification" value= "1" name="pass_classification">
+                            <input type="radio" class="input-radio" id="pass_classification" value= "1"
+                            {{ (isset($rec->pass_classification) && $rec->pass_classification == 1) ? 'checked' : '' }} name="pass_classification">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_classification" value= "2" name="pass_classification">
+                            <input type="radio" class="input-radio" id="fail_classification" value= "2"
+                            {{ (isset($rec->pass_classification) && $rec->pass_classification == 2) ? 'checked' : '' }} name="pass_classification">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_classification">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_classification) ) ? $rec->remarks_classification : '' }}" name="remarks_classification">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1567,13 +1606,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_college_unit" value= "1" name="pass_college_unit">
+                            <input type="radio" class="input-radio" id="pass_college_unit" value= "1"
+                            {{ (isset($rec->pass_college_unit) && $rec->pass_college_unit == 1) ? 'checked' : '' }} name="pass_college_unit">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_college_unit" value= "2" name="pass_college_unit">
+                            <input type="radio" class="input-radio" id="fail_college_unit" value= "2"
+                            {{ (isset($rec->pass_college_unit) && $rec->pass_college_unit == 2) ? 'checked' : '' }} name="pass_college_unit">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_college_unit">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_college_unit) ) ? $rec->remarks_college_unit : '' }}" name="remarks_college_unit">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1588,13 +1630,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_department" value= "1" name="pass_department">
+                            <input type="radio" class="input-radio" id="pass_department" value= "1"
+                             {{ (isset($rec->pass_department) && $rec->pass_department == 1) ? 'checked' : '' }} name="pass_department">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_department" value= "2" name="pass_department">
+                            <input type="radio" class="input-radio" id="pass_department" value= "2"
+                             {{ (isset($rec->pass_department) && $rec->pass_department == 2) ? 'checked' : '' }} name="pass_department">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_department">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_department) ) ? $rec->remarks_department : '' }}" name="remarks_department">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1609,13 +1654,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_rankpos" value= "1" name="pass_rankpos">
+                            <input type="radio" class="input-radio" id="pass_rankpos" value= "1"
+                            {{ (isset($rec->pass_rankpos) && $rec->pass_rankpos == 1) ? 'checked' : '' }} name="pass_rankpos">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_rankpos" value= "2" name="pass_rankpos">
+                            <input type="radio" class="input-radio" id="fail_rankpos" value= "2"
+                            {{ (isset($rec->pass_rankpos) && $rec->pass_rankpos == 2) ? 'checked' : '' }} name="pass_rankpos">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_rankpos">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_rankpos) ) ? $rec->remarks_rankpos : '' }}" name="remarks_rankpos">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1630,13 +1678,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_appointment" value= "1" name="pass_appointment">
+                            <input type="radio" class="input-radio" id="pass_appointment" value= "1"
+                            {{ (isset($rec->pass_appointment) && $rec->pass_appointment == 1) ? 'checked' : '' }} name="pass_appointment">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_appointment" value= "2" name="pass_appointment">
+                            <input type="radio" class="input-radio" id="fail_appointment" value= "2"
+                            {{ (isset($rec->pass_appointment) && $rec->pass_appointment == 2) ? 'checked' : '' }} name="pass_appointment">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_appointment">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_appointment) ) ? $rec->remarks_appointment : '' }}" name="remarks_appointment">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1651,13 +1702,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_appointdate" value= "1" name="pass_appointdate">
+                            <input type="radio" class="input-radio" id="pass_appointdate" value= "1"
+                            {{ (isset($rec->pass_appointdate) && $rec->pass_appointdate == 1) ? 'checked' : '' }} name="pass_appointdate">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_appointdate" value= "2" name="pass_appointdate">
+                            <input type="radio" class="input-radio" id="fail_appointdate" value= "2"
+                            {{ (isset($rec->pass_appointdate) && $rec->pass_appointdate == 2) ? 'checked' : '' }} name="pass_appointdate">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_appointdate">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_appointdate) ) ? $rec->remarks_appointdate : '' }}" name="remarks_appointdate">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1672,13 +1726,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_monthlysalary" value= "1" name="pass_monthlysalary">
+                            <input type="radio" class="input-radio" id="pass_monthlysalary" value= "1"
+                            {{ (isset($rec->pass_monthlysalary) && $rec->pass_monthlysalary == 1) ? 'checked' : '' }} name="pass_monthlysalary">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_monthlysalary" value= "2" name="pass_monthlysalary">
+                            <input type="radio" class="input-radio" id="fail_monthlysalary" value= "2"
+                            {{ (isset($rec->pass_monthlysalary) && $rec->pass_monthlysalary == 2) ? 'checked' : '' }} name="pass_monthlysalary">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_monthlysalary">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_monthlysalary) ) ? $rec->remarks_monthlysalary : '' }}" name="remarks_monthlysalary">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1693,13 +1750,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_sg" value= "1" name="pass_sg">
+                            <input type="radio" class="input-radio" id="pass_sg" value= "1"
+                            {{ (isset($rec->pass_sg) && $rec->pass_sg == 1) ? 'checked' : '' }} name="pass_sg">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_sg" value= "2" name="pass_sg">
+                            <input type="radio" class="input-radio" id="fail_sg" value= "2"
+                            {{ (isset($rec->pass_sg) && $rec->pass_sg == 2) ? 'checked' : '' }} name="pass_sg">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_sg">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_sg) ) ? $rec->remarks_sg : '' }}" name="remarks_sg">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1714,13 +1774,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_sgcat" value= "1" name="pass_sgcat">
+                            <input type="radio" class="input-radio" id="pass_sgcat" value= "1"
+                            {{ (isset($rec->pass_sgcat) && $rec->pass_sgcat == 1) ? 'checked' : '' }} name="pass_sgcat">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_sgcat" value= "2" name="pass_sgcat">
+                            <input type="radio" class="input-radio" id="fail_sgcat" value= "2"
+                            {{ (isset($rec->pass_sgcat) && $rec->pass_sgcat == 2) ? 'checked' : '' }} name="pass_sgcat">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_sgcat">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_sgcat) ) ? $rec->remarks_sgcat : '' }}" name="remarks_sgcat">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1735,13 +1798,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_tin_no" value= "1" name="pass_tin_no">
+                            <input type="radio" class="input-radio" id="pass_tin_no" value= "1"
+                            {{ (isset($rec->pass_tin_no) && $rec->pass_tin_no == 1) ? 'checked' : '' }} name="pass_tin_no">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_tin_no" value= "2" name="pass_tin_no">
+                            <input type="radio" class="input-radio" id="fail_tin_no" value= "2"
+                            {{ (isset($rec->pass_tin_no) && $rec->pass_tin_no == 2) ? 'checked' : '' }} name="pass_tin_no">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_tin_no">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_tin_no) ) ? $rec->remarks_tin_no : '' }}" name="remarks_tin_no">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1784,13 +1850,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_monthlycontri" value= "1" name="pass_monthlycontri">
+                            <input type="radio" class="input-radio" id="pass_monthlycontri" value= "1"
+                            {{ (isset($rec->pass_monthlycontri) && $rec->pass_monthlycontri == 1) ? 'checked' : '' }} name="pass_monthlycontri">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_monthlycontri" value= "2" name="pass_monthlycontri">
+                            <input type="radio" class="input-radio" id="fail_monthlycontri" value= "2"
+                            {{ (isset($rec->pass_monthlycontri) && $rec->pass_monthlycontri == 2) ? 'checked' : '' }} name="pass_monthlycontri">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_monthlycontri">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_monthlycontri) ) ? $rec->remarks_monthlycontri : '' }}" name="remarks_monthlycontri">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1805,13 +1874,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_equivalent" value= "1" name="pass_equivalent">
+                            <input type="radio" class="input-radio" id="pass_equivalent" value= "1"
+                            {{ (isset($rec->pass_equivalent) && $rec->pass_equivalent == 1) ? 'checked' : '' }} name="pass_equivalent">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_equivalent" value= "2" name="pass_equivalent">
+                            <input type="radio" class="input-radio" id="fail_equivalent" value= "2"
+                            {{ (isset($rec->pass_equivalent) && $rec->pass_equivalent == 2) ? 'checked' : '' }} name="pass_equivalent">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_equivalent">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_equivalent) ) ? $rec->remarks_equivalent : '' }}" name="remarks_equivalent">
                         </div>
                         <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
@@ -1854,13 +1926,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_membershipf" value= "1" name="pass_membershipf">
+                            <input type="radio" class="input-radio" id="pass_membershipf" value= "1"
+                            {{ (isset($rec->pass_membershipf) && $rec->pass_membershipf == 1) ? 'checked' : '' }} name="pass_membershipf">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_membershipf" value= "2" name="pass_membershipf">
+                            <input type="radio" class="input-radio" id="fail_membershipf" value= "2"
+                            {{ (isset($rec->pass_membershipf) && $rec->pass_membershipf == 2) ? 'checked' : '' }} name="pass_membershipf">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_membershipf">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_membershipf) ) ? $rec->remarks_membershipf : '' }}" name="remarks_membershipf">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                         <a class='view_member view-member' 
@@ -1877,13 +1952,16 @@
                             </span>
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_proxyform" value= "1" name="pass_proxyform">
+                            <input type="radio" class="input-radio" id="pass_proxyform" value= "1"
+                            {{ (isset($rec->pass_proxyform) && $rec->pass_proxyform == 1) ? 'checked' : '' }} name="pass_proxyform">
                         </div>
                         <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_proxyform" value= "2" name="pass_proxyform">
+                            <input type="radio" class="input-radio" id="fail_proxyform" value= "2"
+                            {{ (isset($rec->pass_proxyform) && $rec->pass_proxyform == 2) ? 'checked' : '' }} name="pass_proxyform">
                         </div>
                         <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2" name="remarks_proxyform">
+                            <input type="text" class="w-input mp-pv2"
+                            value="{{ (isset($rec->remarks_proxyform) ) ? $rec->remarks_proxyform : '' }}" name="remarks_proxyform">
                         </div>
                         <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                         <a class='view_member view-member' 
@@ -1902,7 +1980,7 @@
                             <span class="span-6"><input type="checkbox"> Forward to CFM</span>
                             <span class="span-6"><input type="checkbox"> Reject Application</span>
                         </div> -->
-                        <textarea name="general_remarks" id="general_remarks" rows="3" style="resize: none;"></textarea>
+                        <textarea name="general_remarks" id="general_remarks" rows="3" style="resize: none;">{{ (isset($rec->general_remarks)) ? $rec->general_remarks : '' }}</textarea>
                         <div class="d-flex flex-row items-between mp-pv1">
                             <div class="d-flex flex-column" style="gap: 5px;">
                                 <div class="">
@@ -1919,11 +1997,11 @@
                                 </div>
                             </div>
                             <span class="d-flex" style="gap: 10px">
-                                <button class="f-button align-self-end magenta-bg" id="return_app">
-                                    Return Application
+                                <button class="f-button align-self-end magenta-bg" id="return_app" >
+                                    <span id="return_text">Return Application</span>
                                 </button>
-                                <button class="f-button align-self-end" id="save_record">
-                                    Save Record
+                                <button class="f-button align-self-end" id="save_record" >
+                                <span id="save_text">Save Record</span>
                                 </button>
                             </span>
                             
@@ -2026,8 +2104,7 @@
 
 var passCount = 0;
 var failCount = 0;
-// $(document).ready(function() {
-$('#aa_validation input[type="radio"]').click(function() {
+$(document).ready(function() {
     passCount = 0;
     failCount = 0;
     $('#aa_validation input[type="radio"]').each(function() {
@@ -2041,6 +2118,68 @@ $('#aa_validation input[type="radio"]').click(function() {
     });
     $('#pass_count').text(passCount);
     $('#failed_count').text(failCount);
+    if(failCount > 0){
+        $('#return_app').css('background-color', '');
+        $('#return_app').prop('disabled', false);
+    }else{
+        $('#return_app').css('background-color', 'gray');
+        $('#return_app').prop('disabled', true);
+        
+    }
+});
+$(document).ready(function() {
+$('#aa_validation input[type="radio"]').on('change click', function() {
+    passCount = 0;
+    failCount = 0;
+    $('#aa_validation input[type="radio"]').each(function() {
+        if ($(this).is(':checked')) {
+        if ($(this).val() == 1) {
+            passCount++;
+        } else if ($(this).val() == 2) {
+            failCount++;
+        }
+        }
+    });
+    $('#pass_count').text(passCount);
+    $('#failed_count').text(failCount);
+    if(failCount > 0){
+        $('#return_app').css('background-color', '');
+        $('#return_app').prop('disabled', false);
+    }else{
+        $('#return_app').css('background-color', 'gray');
+        $('#return_app').prop('disabled', true);
+        
+    }
+        
+});
+});
+$(document).ready(function() {
+  // Find the button element with id 'return_app' and remove the 'disabled' attribute from it
+  $('#return_app').prop('disabled', true);
+});
+$('#return_app').click(function() {
+    event.preventDefault();
+    // alert('gg');
+$.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+
+        var formDatas = $("#aa_validation").serialize();
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('return_application') }}",
+            data: formDatas,
+            success: function(data) {
+                if (data.success != '') {
+                    alert('Success');
+                }else{
+                    alert('Failed');
+                }
+            }
+        });
+
 });
 // });
 $('#check_allppd').click(function() {
