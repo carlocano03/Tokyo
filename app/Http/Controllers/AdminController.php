@@ -65,7 +65,7 @@ class AdminController extends Controller
   {
     if (request()->has('view')) {
       $total_new = DB::table('mem_app')->count();
-      $forApproval = DB::table('mem_app')->where('app_status', 'SUBMITTED')->count();
+      $forApproval = DB::table('mem_app')->where('app_status', 'NEW APPLICATION')->count();
       $draft = DB::table('mem_app')->where('app_status', 'DRAFT')->count();
       $rejected = DB::table('mem_app')->where('app_status', 'REJECTED')->count();
     }
@@ -135,11 +135,22 @@ class AdminController extends Controller
   public function members_records()
   {
     $total_new = DB::table('mem_app')->count();
-    $forApproval = DB::table('mem_app')->where('app_status', 'SUBMITTED')->count();
+    $forApproval = DB::table('mem_app')->where('app_status', 'NEW APPLICATION')->count();
     $draft = DB::table('mem_app')->where('app_status', 'APPROVED')->count();
     $rejected = DB::table('mem_app')->where('app_status', 'REJECTED')->count();
-
-    $campuses = DB::table('campus')->get();
+    $userId = Auth::user()->id;
+    $cfmCluster = DB::table('user_prev')
+            ->join('users', 'user_prev.users_id', '=', 'users.id')
+            ->select('user_prev.cfm_cluster')
+            ->where('users.id', '=', $userId)
+            ->value('cfm_cluster');
+      $users = Auth::user()->user_level;
+    if($users == 'ADMIN'){
+      $campuses = DB::table('campus')->get();
+    }else{
+      $campuses = DB::table('campus')->where('cluster_id','=',$cfmCluster)->get();
+    }
+    
     $data = array(
       'new_app' => $total_new,
       'forApproval' => $forApproval,
@@ -159,8 +170,14 @@ class AdminController extends Controller
       ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
       ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
       ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->select('campus.*','membership_details.*','personal_details.*','employee_details.*','membership_details.*','campus.*'
+      ,'college_unit.*','department.*','college_unit.*','pass_name', 'pass_dob', 'pass_gender', 'pass_civilstatus', 'pass_citizenship', 'pass_currentadd', 'pass_permaadd', 'pass_contactnum', 'pass_landline', 'pass_email', 'pass_emp_no', 'pass_campus', 'pass_classification', 'pass_college_unit', 'pass_department', 'pass_rankpos', 'pass_appointment', 'pass_appointdate', 'pass_monthlysalary', 'pass_sg', 'pass_sgcat', 'pass_tin_no', 'pass_monthlycontri', 'pass_equivalent', 'pass_membershipf', 'pass_proxyform', 'remarks_name', 'remarks_dob', 'remarks_gender', 'remarks_civilstatus', 'remarks_citizenship', 'remarks_currentadd', 'remarks_permaadd', 'review_contactnum', 'review_landline', 'remarks_email', 'remarks_emp_no', 'remarks_campus', 'remarks_classification', 'remarks_college_unit', 'remarks_department', 'remarks_rankpos', 'remarks_appointment', 'remarks_appointdate', 'remarks_monthlysalary', 'remarks_sg', 'remarks_sgcat', 'remarks_tin_no', 'remarks_monthlycontri', 'remarks_equivalent', 'remarks_membershipf', 'remarks_proxyform', 'general_remarks', 'evaluate_by', 'date_evaluated')
       ->where('mem_app.app_no', $id)->first();
-      
+      $mem_appinst = array(
+        'app_status' => "PROCESSING",
+      );
+      DB::table('mem_app')->where('app_no', $id)
+        ->update($mem_appinst);
       $data = array(
         // 'gg' => DB::getQueryLog(),
         'rec' => $records,
@@ -211,6 +228,12 @@ class AdminController extends Controller
     $dt_to  = $request->get('dt_to');
     $search  = $request->get('searchValue');
     $users = Auth::user()->user_level;
+    $userId = Auth::user()->id;
+    $cfmCluster = DB::table('user_prev')
+            ->join('users', 'user_prev.users_id', '=', 'users.id')
+            ->select('user_prev.cfm_cluster')
+            ->where('users.id', '=', $userId)
+            ->value('cfm_cluster');
     $aa_1 = '';
     $aa_2 = '';
     $aa_3 = '';
@@ -223,7 +246,9 @@ class AdminController extends Controller
       ->where('mem_app.app_no', 'like', '%' . $search . '%')
       ->where('mem_app.app_status', $aa_1)
       ->where('mem_app.app_status', $aa_2);
-
+    if($cfmCluster > 0){
+      $records->where('campus.cluster_id', $cfmCluster);
+    }
     ## Add custom filter conditions
     if (!empty($campus)) {
       $records->where('employee_details.campus', $campus);
@@ -247,7 +272,10 @@ class AdminController extends Controller
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
       ->where('mem_app.app_no', 'like', '%' . $search . '%');
-
+      DB::enableQueryLog();
+    if($cfmCluster > 0){
+      $records->where('campus.cluster_id', $cfmCluster);
+    }
     ## Add custom filter conditions
     if (!empty($campus)) {
       $records->where('employee_details.campus', $campus);
@@ -264,12 +292,15 @@ class AdminController extends Controller
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
     }
     if($users == 'AA'){
-      $aa_1 = 'SUBMITTED';
+      $aa_1 = 'NEW APPLICATION';
       $cfm = 'AA VERIFIED';
-      // $aa_2 = 'DRAFT APPLICATION';
-      $records->where('mem_app.app_status', $aa_1);
-      $records->orWhere('mem_app.app_status', $cfm);
-      // $records->orWhere('mem_app.app_status', $aa_2);
+      $process = 'PROCESSING';
+      $records->where(function ($query) use ($aa_1, $cfm, $process) {
+        $query->where('mem_app.app_status', $aa_1)
+              ->orWhere('mem_app.validator_remarks', $cfm)
+              ->orWhere('mem_app.app_status', $process)
+              ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+      });
     }else if($users == 'CFM'){
       $cfm = 'AA VERIFIED';
       $records->where('mem_app.app_status', $cfm);
@@ -282,7 +313,24 @@ class AdminController extends Controller
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
       ->where('mem_app.app_no', 'like', '%' . $search . '%');
-
+    if($cfmCluster > 0){
+      $records->where('campus.cluster_id', $cfmCluster);
+    }
+    if($users == 'AA'){
+      $aa_1 = 'NEW APPLICATION';
+      $cfm = 'AA VERIFIED';
+      $process = 'PROCESSING';
+      $records->where(function ($query) use ($aa_1, $cfm, $process) {
+        $query->where('mem_app.app_status', $aa_1)
+              ->orWhere('mem_app.validator_remarks', $cfm)
+              ->orWhere('mem_app.app_status', $process)
+              ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+      });
+    }
+    else if($users == 'CFM'){
+      $cfm = 'AA VERIFIED';
+      $records->orWhere('mem_app.app_status', $cfm);
+    }
     ## Add custom filter conditions
     if (!empty($campus)) {
       $records->where('employee_details.campus', $campus);
@@ -298,16 +346,6 @@ class AdminController extends Controller
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
     }
-    if($users == 'AA'){
-      $aa_1 = 'SUBMITTED';
-      $cfm = 'AA VERIFIED';
-      // $aa_2 = 'DRAFT APPLICATION';
-      $records->where('mem_app.app_status', $aa_1);
-      $records->orWhere('mem_app.app_status', $cfm);
-    }else if($users == 'CFM'){
-      $cfm = 'AA VERIFIED';
-      $records->where('mem_app.app_status', $cfm);
-    }
     $posts = $records->skip($start)
       ->take($rowperpage)
       ->get();
@@ -316,8 +354,8 @@ class AdminController extends Controller
       foreach ($posts as $r) {
         $start++;
         $row = array();
-        $row[] = $r->app_status == 'AA VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" id="select_item"></span>'
-          :'<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" id="select_item" disabled></span>';
+        $row[] = $r->validator_remarks == 'AA VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
+          :'<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
         $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "'
                   href='/admin/members/records/view/aa/". $r->app_no ."' style='cursor: pointer'>
                     <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
@@ -335,11 +373,13 @@ class AdminController extends Controller
         $data[] = $row;
       }
     }
+    $dd = DB::getQueryLog();
     $json_data = array(
       "draw" => intval($draw),
       "recordsTotal" => intval($totalRecords),
       "recordsFiltered" => intval($totalRecordswithFilter),
-      "data" => $data
+      "data" => $data,
+      "dataxx" => $dd
     );
     echo json_encode($json_data);
   }

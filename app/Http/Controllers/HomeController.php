@@ -351,7 +351,7 @@ class HomeController extends Controller
       );
       DB::table('membership_details')->insert($insertMemDetails);
       DB::table('mem_app')->where('app_no', $request->input('app_no'))
-        ->update(array('app_status' => 'SUBMITTED'));
+        ->update(array('app_status' => 'NEW APPLICATION'));
 
     } else {
       $insertMemDetails = array(
@@ -362,7 +362,7 @@ class HomeController extends Controller
       );
       DB::table('membership_details')->insert($insertMemDetails);
       DB::table('mem_app')->where('app_no', $request->input('app_no'))
-        ->update(array('app_status' => 'SUBMITTED'));
+        ->update(array('app_status' => 'NEW APPLICATION'));
     }
     $email = DB::table('mem_app')
             ->where('app_no', $request->input('app_no'))

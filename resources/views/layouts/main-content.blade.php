@@ -428,14 +428,14 @@
         <div class="nav-parent ">
           <li><a href="#" id="membersDropdown">
               <i class="fa fa-user"></i>
-              Members
+              Online Application
               <i class="fa fa-caret-right arrow-left" id="arrow" aria-hidden="true"></i>
             </a></li>
         </div>
         <div class="nav-child">
           <div class="dropdown-hide" id="membersDropdown-content">
             <li><a href="/admin/members/records" class="{{ Request::is('admin/members/records') ? 'active-nav' : '' }}"><i class="fa fa-user"></i>View Records</a></li>
-            <li><a href="/admin/members/trail"><i class="fa fa-user"></i>Application Trail</a></li>
+            <!-- <li><a href="/admin/members/trail"><i class="fa fa-user"></i>Application Trail</a></li> -->
             <li><a href="#"><i class="fa fa-user"></i>Generate Report</a></li>
           </div>
         </div>

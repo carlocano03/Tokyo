@@ -633,7 +633,7 @@
             </div>
             <div class="modalBody">
             <div class="mp-mt3 summary-container">
-                <table class="table-component" style="height: auto;" width="100%">
+                <table class="table-component" style="height: auto;" width="100%" id="forward_tbl">
                     <thead>
                         <tr>
                             <th style="width: 30px">
@@ -652,58 +652,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <span><input type="checkbox"></span>
-                            </td>
-                            <td>
-                                <span>23781623</span>
-                            </td>
-                            <td>
-                                <span>01-01-2023</span>
-                            </td>
-                            <td>
-                                <span>Devance, Joe</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span><input type="checkbox"></span>
-                            </td>
-                            <td>
-                                <span>23781623</span>
-                            </td>
-                            <td>
-                                <span>01-01-2023</span>
-                            </td>
-                            <td>
-                                <span>Devance, Joe</span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span><input type="checkbox"></span>
-                            </td>
-                            <td>
-                                <span>23781623</span>
-                            </td>
-                            <td>
-                                <span>01-01-2023</span>
-                            </td>
-                            <td>
-                                <span>Devance, Joe</span>
-                            </td>
-                        </tr>
+                        
                     </tbody>
                 </table>
                 <div class="w-full mp-mt3 mp-mb3 mp-pv1 font-md">
                     <p>
-                        Endorsement Date: <span>February 10, 2021 10:44 AM</span>
+                        Endorsement Date: <span>{{ date('F d,Y H:i:s') }}</span>
                     </p>
                     <p>
                         Endorsed by: <span>Stepen Curry</span>
                     </p>
-                    <p>
+                    <!-- <p>
                         Endorse to: 
                         <select name="" id="" class="radius-1 outline select-field mp-pr2"
                             style="height: 30px;margin-top: auto;margin-bottom: auto;">
@@ -720,9 +679,9 @@
                                 HRDO
                             </option>
                         </select>
-                    </p>
+                    </p> -->
                     <p>
-                        Camppus: <span>UP Diliman HRDO</span>
+                        Campus: <span>UP Diliman HRDO</span>
                     </p>
                 </div>
             </div>
@@ -1132,5 +1091,35 @@
         $('.cancel_modal').on('click', function() {
             $('#summaryModal').hide();
         });
+$(document).ready(function() {
+    $(document).on('change', '.select_item', function() {
+    if($(this).is(':checked')) {
+      var row = $(this).closest('tr');
+      var col3 = row.find('td:eq(2)').text();
+      var col4 = row.find('td:eq(3)').text();
+      var col5 = row.find('td:eq(4)').text();
+      var newRow = '<tr><td></td><td>' + col3 + '</td><td>' + col4 + '</td><td>' + col5 + '</td></tr>';
+      $('#forward_tbl').append(newRow);
+    //   $('.members-table tr').each(function(index) {
+    //         var col9 = $(this).find('td:eq(8)').text();
+    //         if(col9 != "") { // only compare rows that have a value in column 9
+    //         var isDuplicate = false;
+    //         $('.members-table tr').not($(this)).each(function() {
+    //             if($(this).find('td:eq(8)').text() == col9) {
+    //             isDuplicate = true;
+    //             return false; // exit the loop if a duplicate value is found
+    //             }
+    //         });
+    //         if(isDuplicate) {
+    //             $(this).find('.select_item').attr('disabled', 'disabled');
+    //         }
+    //         }
+    //     });
+    }
+    });
+
+});
+
+
     </script>
 @endsection
