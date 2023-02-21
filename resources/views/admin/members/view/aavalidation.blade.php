@@ -1898,7 +1898,7 @@
                                 <i class="fa fa-minus-square supporting-toggle-minus" aria-hidden="true"></i>
                             </a>        
                             <span>
-                                IV. Supporting Document
+                                IV. Forms and Attachment
                             </span>
                         </div>
                         <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
@@ -2111,8 +2111,10 @@ $(document).ready(function() {
         if ($(this).is(':checked')) {
         if ($(this).val() == 1) {
             passCount++;
+            $(this).parent().next().next().find('input[type="text"]').prop('disabled', false);
         } else if ($(this).val() == 2) {
             failCount++;
+            $(this).parent().next().find('input[type="text"]').prop('disabled', true);
         }
         }
     });
@@ -2135,8 +2137,11 @@ $('#aa_validation input[type="radio"]').on('change click', function() {
         if ($(this).is(':checked')) {
         if ($(this).val() == 1) {
             passCount++;
+            $(this).parent().next().next().find('input[type="text"]').prop('disabled', false);
         } else if ($(this).val() == 2) {
             failCount++;
+            $(this).parent().next().find('input[type="text"]').val('');
+            $(this).parent().next().find('input[type="text"]').prop('disabled', true);
         }
         }
     });
@@ -2173,9 +2178,14 @@ $.ajaxSetup({
             data: formDatas,
             success: function(data) {
                 if (data.success != '') {
-                    alert('Success');
+                Swal.fire({
+                        text: 'Application has been successfully returned and subject for compliance.',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Proceed',
+                    });
                 }else{
-                    alert('Failed');
+                    swal.fire("Error!", "Saving failed", "error");
                 }
             }
         });
@@ -2282,7 +2292,12 @@ $.ajaxSetup({
             data: formDatas,
             success: function(data) {
                 if (data.success != '') {
-                    alert('Success');
+                    Swal.fire({
+                        text: 'Application has been save successfully validated and ready to forward.',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Proceed',
+                    });
                 }else{
                     alert('Failed');
                 }
@@ -2290,5 +2305,6 @@ $.ajaxSetup({
         });
 
 });
+
 </script>
 @endsection

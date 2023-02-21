@@ -155,7 +155,7 @@ class App_Validation extends Controller
         }
         
         $mem_appinst = array(
-          'app_status' => "AA VERIFIED",
+          'validator_remarks' => "AA VERIFIED",
         );
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
           ->update($mem_appinst);
@@ -172,9 +172,6 @@ class App_Validation extends Controller
         // $forreturn = DB::table('aa_validation')->where('app_no', $request->input('app_no'))
         // ->select('remarks_name, remarks_dob, remarks_gender, remarks_civilstatus, remarks_citizenship, remarks_currentadd, remarks_permaadd, review_contactnum, review_landline, remarks_email, remarks_emp_no, remarks_campus, remarks_classification, remarks_college_unit, remarks_department, remarks_rankpos, remarks_appointment, remarks_appointdate, remarks_monthlysalary, remarks_sg, remarks_sgcat, remarks_tin_no, remarks_monthlycontri, remarks_equivalent, remarks_membershipf, remarks_proxyform, general_remarks')
         // ->get()->first();
-        $forreturn = DB::table('aa_validation')->where('app_no', $request->input('app_no'))
-        ->select('remarks_name', 'remarks_dob', 'remarks_gender', 'remarks_civilstatus', 'remarks_citizenship', 'remarks_currentadd', 'remarks_permaadd', 'review_contactnum', 'review_landline', 'remarks_email', 'remarks_emp_no', 'remarks_campus', 'remarks_classification', 'remarks_college_unit', 'remarks_department', 'remarks_rankpos', 'remarks_appointment', 'remarks_appointdate', 'remarks_monthlysalary', 'remarks_sg', 'remarks_sgcat', 'remarks_tin_no', 'remarks_monthlycontri', 'remarks_equivalent', 'remarks_membershipf', 'remarks_proxyform', 'general_remarks')
-        ->first();
         $coco = DB::table('aa_validation')->where('app_no', $request->input('app_no'))->count();
         if ($coco > 0) {
           // return response()->json(['message' => 'Exist']);
@@ -300,11 +297,13 @@ class App_Validation extends Controller
 
         $email = DB::table('mem_app')->where('app_no', $request->input('app_no'))->select('email_address')->value('email_address');
         $mem_appinst = array(
-          'app_status' => "FOR CORRECTION",
+          'validator_remarks' => "FOR CORRECTION",
         );
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
           ->update($mem_appinst);
-
+        $forreturn = DB::table('aa_validation')->where('app_no', $request->input('app_no'))
+        ->select('remarks_name', 'remarks_dob', 'remarks_gender', 'remarks_civilstatus', 'remarks_citizenship', 'remarks_currentadd', 'remarks_permaadd', 'review_contactnum', 'review_landline', 'remarks_email', 'remarks_emp_no', 'remarks_campus', 'remarks_classification', 'remarks_college_unit', 'remarks_department', 'remarks_rankpos', 'remarks_appointment', 'remarks_appointdate', 'remarks_monthlysalary', 'remarks_sg', 'remarks_sgcat', 'remarks_tin_no', 'remarks_monthlycontri', 'remarks_equivalent', 'remarks_membershipf', 'remarks_proxyform', 'general_remarks')
+        ->first();
         $mailData = [
           'title' => 'Member Application is for Processing',
           'body' => 'Your application is subject for compliance.',

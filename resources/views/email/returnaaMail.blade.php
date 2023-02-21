@@ -12,12 +12,20 @@
         <b>Application No:</b>{{ $mailData['app_no'] }}<br>
         <b>Status:</b>For Compliance<br>
         <b>List of for completion/compliance:</b><br>
+        <!-- @if(is_array($mailData['for_correction']))
+        @foreach ($mailData['for_correction'] as $key => $value)
+            @if (!empty($value) && $key !== 'general_remarks')
+                <b>{{ $value }}</b><br>
+            @endif
+        @endforeach
+        @endif -->
         @foreach ($mailData['for_correction'] as $key => $value)
         @if (!empty($value) && $key !== 'general_remarks')
             <b>{{ $value }}</b><br>
         @endif
         @endforeach
-        <b>General Remarks: </b>{{ $mailData['for_correction']->general_remarks }}<br>
+        <b>General Remarks:</b> {{ isset($mailData['for_correction']->general_remarks) ? $mailData['for_correction']->general_remarks : '' }}<br>
+
         
     </p>
   

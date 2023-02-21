@@ -532,7 +532,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Monthly Salary</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="monthly_salary" id="monthly_salary" required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="monthly_salary" id="monthly_salary" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Salary Grade</label>
