@@ -23,18 +23,27 @@
     @endif
 </div>
 <!-- <button id="modal_name_pop">Show Modal</button> -->
+<script>
+    // $(document).ready(function(e) {
+    //     $("[data-set=email]>#err-msg").removeClass('d-none')
+    //     $("[data-set=email]>#err-msg").removeClass('d-none').text("Invalid Member's ID number")
+    //     $("[data-set=email]>.input").addClass('input-error')
+    // })
+</script>
 <form id="loginForm" class="mp-pt4 mp-mb5" method="post" action="{{ url('/login') }}">
     {{ csrf_field() }}
-    <div class="mp-pb4 mp-input-group">
+    <div class="mp-pb4 mp-input-group" data-set="email">
         <label class="mp-input-group__label" for="email">
             {{ Request::route()->getName() == 'admin' ? 'Email' : "Member's ID Number" }}
         </label>
         <input type="hidden" name="usertype" value="{{ Request::route()->getName() == 'admin' ? 'admin' : 'member' }}">
-        <input class="mp-input-group__input mp-text-field" type="{{ Request::route()->getName() == 'admin' ? 'email' : 'text' }}" id="{{ Request::route()->getName() == 'admin' ? 'email' : 'memberNo' }}" name="{{ Request::route()->getName() == 'admin' ? 'email' : 'memberNo' }}" maxlength="{{ Request::route()->getName() == 'admin' ? ' ' : '9' }}" value="{{ Session::get('user') }}" autofocus required />
+        <input class="mp-input-group__input mp-text-field input" type="{{ Request::route()->getName() == 'admin' ? 'email' : 'text' }}" id="{{ Request::route()->getName() == 'admin' ? 'email' : 'memberNo' }}" name="{{ Request::route()->getName() == 'admin' ? 'email' : 'memberNo' }}" maxlength="{{ Request::route()->getName() == 'admin' ? ' ' : '9' }}" value="{{ Session::get('user') }}" autofocus required />
+        <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
     </div>
-    <div class="mp-pb4 mp-input-group">
+    <div class="mp-pb4 mp-input-group"  data-set="password">
         <label class="mp-input-group__label" for="password">Password</label>
-        <input class="mp-input-group__input mp-text-field" type="password" id="password" name="password" required />
+        <input class="mp-input-group__input mp-text-field input" type="password" id="password" name="password" required />
+        <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
     </div>
     <div class="col col-auto">
 

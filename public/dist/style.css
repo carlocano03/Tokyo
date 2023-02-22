@@ -25,6 +25,8 @@
     --c-success: #d5fdf0;
     --c-warning: #ffe8ae;
     --c-shadow: rgba(0, 0, 0, .2);
+    --c-red-clr-20: #f04a68;
+    --c-red-clr-80: #de2e4f;
     --font-family: "Fira Sans", sans-serif;
     --fs-xsmall: .75rem;
     --fs-small: .83rem;
@@ -2533,12 +2535,33 @@ ul {
     align-items: stretch
 }
 
+.mp-center-pane {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .mp-split-pane__left {
     background-color: #fff;
     background-color: var(--c-white);
     width: 100%;
     display: flex;
     height: 100%;
+}
+
+.mp-split-pane__center {
+    background-color: #fff;
+    background-color: var(--c-white);
+    width: 100%;
+    display: flex;
+    height: calc(100% - 100px);
+    margin-top: 20px;
+    margin-bottom: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+
 }
 
 .mp-split-pane__right {
@@ -3667,6 +3690,13 @@ tfoot {
 
 .mp-bg--member {
     background-image: url("../assets/images/bg-member.svg")
+}
+
+.mp-bg--registration {
+    background-image: url("../assets/images/background-register.png");
+    background-repeat: no-repeat;
+    /* background-clip: border-box; */
+    background-size:cover;
 }
 
 .mp-bg--admin {
@@ -5605,7 +5635,7 @@ tfoot {
 
 
 .mh-reg-form {
-    height: calc(100% - 258px);
+    height: calc(100% - 299px);
     overflow-y: auto;
 }
 
@@ -6396,3 +6426,16 @@ tfoot {
     padding: 10px;
     border-radius: 20px;
 }
+
+
+.red-clr {
+    color: var(--c-red-clr-80);
+}
+
+.input-error {
+   border-bottom: 2px solid var(--c-red-clr-20);
+}
+
+.input-error:focus {
+    border-bottom: 2px solid var(--c-red-clr-80);
+ }

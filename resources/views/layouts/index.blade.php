@@ -131,6 +131,100 @@
                 text-align: center;
             }
         }
+
+        .cookie-drawer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            border-top: 1px solid #badcd9;
+            padding: 10px 20px;
+            font-size: 14px;
+            transform: translateY(100%);
+            z-index: 20;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .cursor-pointer {
+            cursor: pointer;
+        }
+
+        .transition-drawer {
+            
+        }
+
+        .cookie-drawer.show {
+            transform: translateY(0);
+        }
+
+
+        /* .cookie-accept {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .cookie-accept:hover {
+            background-color: #0062cc;
+        } */
+
+        /* .cookie-learn-more {
+            color: #007bff;
+            text-decoration: none;
+            border-bottom: 1px dotted #007bff;
+            cursor: pointer;
+        }
+
+        .cookie-learn-more:hover {
+            color: #0056b3;
+            border-bottom-style: solid;
+        } */
+
+        .centered-text {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .cookie-body {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            width: 100%;
+        }
+
+        .w-70 {
+            width: 70%;
+        }
+
+        .w-30 {
+            width: 30%;
+        }
+
+        .pl-15 {
+            padding-left: 15px;
+        }
+
+        .cookie-buttons > button {
+            padding-left: 20px;
+            padding-right: 20px;
+            background-color: #894168;
+            color: white;
+            border-radius: 17px;
+        }
+
+        .magenta-bg {
+            background-color: #1a8981 !important;
+        }
+
+
+        
+
     </style>
 
 
@@ -139,28 +233,40 @@
 
 </head>
 <script>
-    $(document).on('click', '#agree', function(e) {
-        $("#modalBackDrop").addClass("opacity-0")
-        setTimeout(function() {
-            $("#modalBackDrop").addClass("d-none")
-        }, 500)
-        sessionStorage.setItem("agreeClicked", true)
-    })
+    // $(document).on('click', '#agree', function(e) {
+    //     $("#modalBackDrop").addClass("opacity-0")
+    //     setTimeout(function() {
+    //         $("#modalBackDrop").addClass("d-none")
+    //     }, 500)
+    //     sessionStorage.setItem("agreeClicked", true)
+    // })
     $(document).ready(function(e) {
         if (sessionStorage.getItem("agreeClicked") == null) {
-            $("#modalBackDrop").removeClass("d-none")
-            setTimeout(function() {
-                $("#modalBackDrop").removeClass("opacity-0")
-            }, 100)
+            setTimeout(()=>{
+                $(".cookie-drawer").addClass("transition-drawer");
+                $(".cookie-drawer").addClass("show");
+            },1000)
+        } else {
+            $(".cookie-drawer").removeClass("transition-drawer");
+            $(".cookie-drawer").removeClass("show");
         }
     })
+    $(document).ready(function() {
+        $(".cookie-close").click(function() {
+            $(".cookie-drawer").removeClass("show");
+        })
+        $(".cookie-accept").click(function() {
+            $(".cookie-drawer").removeClass("show");
+            sessionStorage.setItem("agreeClicked", true)
+        });
+    }); 
 </script>
 
 <body id="uppfi">
     <div id="loading" class="mx-auto" style="display:none;">
         <img id="loading-image" src="{{ asset('/img/logo_gif_blue.gif') }}" alt="Loading..." />
     </div>
-    <div id="modalBackDrop" class="d-none opacity-0">
+    <!-- <div id="modalBackDrop" class="d-none opacity-0">
         <div class="modalContent">
             <div class="modalBody">
                 <p>UPPFI uses a third party service to analyze non-identifiable web traffic for us. This site uses cookies. Data generated is not disclosed not shared with any other party. For more information please see our <a href="#" class="link_style">Privacy Policy</a>.</p>
@@ -171,6 +277,24 @@
                 </button>
             </div>
         </div>
+    </div> -->
+    <div class="cookie-drawer">
+        <div class="d-flex flex-row items-between">
+            <span class="centered-text">
+                <img style="width: 30px; height: 30px; margin-right: 10px" src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI"> <span style="font-size: large; font-weight: 400;"> We use cookies</span>
+            </span>
+            <span>
+                <i class="fa fa-times-circle cursor-pointer cookie-close" aria-hidden="true"></i>
+            </span>
+        </div>
+        <div class="cookie-body">
+            <div class="w-70 mp-pl2 mp-mt3">By clicking "Accept", you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts. <span><a>Privacy and Cookies Policy</a></span></div>
+            <div class="cookie-buttons w-30 d-flex flex-row justify-content-end gap-10 align-items-start mp-pr2">
+                <button class="cookie-accept">Accept</button>
+                <button class="magenta-bg">Learn More</button>
+            </div>
+        </div>
+        
     </div>
     @section('content')
     @extends('layouts/footer')
