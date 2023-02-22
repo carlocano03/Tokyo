@@ -884,7 +884,10 @@
                 <div class="w-auto">
                     <span class="font-sm">Application Date and Time</span>
                     <br />
-                    <span class="magenta-clr font-bold">{{ date('F d, Y', strtotime($rec->app_date)) }}</span>
+                    <span class="magenta-clr font-bold">
+                        {{ date('F d, Y', strtotime($rec->app_date)) }}
+                        
+                    </span>
                 </div>
                 <div class="w-auto">
                     <span class="font-sm">Status</span>
@@ -2164,8 +2167,7 @@ $(document).ready(function() {
 });
 $('#return_app').click(function() {
     event.preventDefault();
-    // alert('gg');
-$.ajaxSetup({
+    $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }

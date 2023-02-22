@@ -134,9 +134,10 @@ class AdminController extends Controller
   }
   public function members_records()
   {
-    $total_new = DB::table('mem_app')->count();
-    $forApproval = DB::table('mem_app')->where('app_status', 'NEW APPLICATION')->count();
-    $draft = DB::table('mem_app')->where('app_status', 'APPROVED')->count();
+    $total_new = DB::table('mem_app')->where('app_status', 'NEW APPLICATION')->count();
+    $forprocessing = DB::table('mem_app')->where('app_status', 'PROCESSING')->where('validator_remarks', '')->count();
+    $Approved = DB::table('mem_app')->where('app_status', 'PROCESSING')->where('validator_remarks', 'FORWARDED TO HRDO')->count();
+    $draft = DB::table('mem_app')->where('app_status', 'DRAFT APPLICATION')->count();
     $rejected = DB::table('mem_app')->where('app_status', 'REJECTED')->count();
     $userId = Auth::user()->id;
     $cfmCluster = DB::table('user_prev')
@@ -152,9 +153,10 @@ class AdminController extends Controller
     }
     
     $data = array(
-      'new_app' => $total_new,
-      'forApproval' => $forApproval,
-      'approved' => $draft,
+      'total_new' => $total_new,
+      'forprocessing' => $forprocessing,
+      'approved' => $Approved,
+      'draft' => $draft,
       'rejected' => $rejected,
       'campuses' => $campuses,
     );
@@ -170,7 +172,7 @@ class AdminController extends Controller
       ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
       ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
       ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
-      ->select('campus.*','membership_details.*','personal_details.*','employee_details.*','membership_details.*','campus.*'
+      ->select('mem_app.*','campus.*','membership_details.*','personal_details.*','employee_details.*','membership_details.*','campus.*'
       ,'college_unit.*','department.*','college_unit.*','pass_name', 'pass_dob', 'pass_gender', 'pass_civilstatus', 'pass_citizenship', 'pass_currentadd', 'pass_permaadd', 'pass_contactnum', 'pass_landline', 'pass_email', 'pass_emp_no', 'pass_campus', 'pass_classification', 'pass_college_unit', 'pass_department', 'pass_rankpos', 'pass_appointment', 'pass_appointdate', 'pass_monthlysalary', 'pass_sg', 'pass_sgcat', 'pass_tin_no', 'pass_monthlycontri', 'pass_equivalent', 'pass_membershipf', 'pass_proxyform', 'remarks_name', 'remarks_dob', 'remarks_gender', 'remarks_civilstatus', 'remarks_citizenship', 'remarks_currentadd', 'remarks_permaadd', 'review_contactnum', 'review_landline', 'remarks_email', 'remarks_emp_no', 'remarks_campus', 'remarks_classification', 'remarks_college_unit', 'remarks_department', 'remarks_rankpos', 'remarks_appointment', 'remarks_appointdate', 'remarks_monthlysalary', 'remarks_sg', 'remarks_sgcat', 'remarks_tin_no', 'remarks_monthlycontri', 'remarks_equivalent', 'remarks_membershipf', 'remarks_proxyform', 'general_remarks', 'evaluate_by', 'date_evaluated')
       ->where('mem_app.app_no', $id)->first();
       $mem_appinst = array(
@@ -260,6 +262,7 @@ class AdminController extends Controller
       $records->orWhere('mem_app.app_no', 'like', '%' . $search . '%');
       $records->orWhere('mem_app.employee_no', 'like', '%' . $search . '%');
       $records->orWhere('personal_details.lastname', 'like', '%' . $search . '%');
+      $records->orWhere('mem_app.validator_remarks', 'like', '%' . $search . '%');
     }
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
@@ -272,7 +275,7 @@ class AdminController extends Controller
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
       ->where('mem_app.app_no', 'like', '%' . $search . '%');
-      DB::enableQueryLog();
+      // DB::enableQueryLog();
     if($cfmCluster > 0){
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -287,6 +290,7 @@ class AdminController extends Controller
       $records->orWhere('mem_app.app_no', 'like', '%' . $search . '%');
       $records->orWhere('mem_app.employee_no', 'like', '%' . $search . '%');
       $records->orWhere('personal_details.lastname', 'like', '%' . $search . '%');
+      $records->orWhere('mem_app.validator_remarks', 'like', '%' . $search . '%');
     }
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
@@ -342,9 +346,15 @@ class AdminController extends Controller
       $records->orWhere('mem_app.app_no', 'like', '%' . $search . '%');
       $records->orWhere('mem_app.employee_no', 'like', '%' . $search . '%');
       $records->orWhere('personal_details.lastname', 'like', '%' . $search . '%');
+      $records->orWhere('mem_app.validator_remarks', 'like', '%' . $search . '%');
     }
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
+    }
+    if($users == 'HRDO'){
+      $href = '/admin/members/records/view/hrdo/';
+    }else{
+      $href = '/admin/members/records/view/aa/';
     }
     $posts = $records->skip($start)
       ->take($rowperpage)
@@ -357,7 +367,7 @@ class AdminController extends Controller
         $row[] = $r->validator_remarks == 'AA VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
           :'<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
         $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "'
-                  href='/admin/members/records/view/aa/". $r->app_no ."' style='cursor: pointer'>
+                  href='".$href."". $r->app_no ."' style='cursor: pointer'>
                     <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
                   </a>";
         $row[] = $r->app_no;
@@ -373,13 +383,13 @@ class AdminController extends Controller
         $data[] = $row;
       }
     }
-    $dd = DB::getQueryLog();
+    // $dd = DB::getQueryLog();
     $json_data = array(
       "draw" => intval($draw),
       "recordsTotal" => intval($totalRecords),
       "recordsFiltered" => intval($totalRecordswithFilter),
       "data" => $data,
-      "dataxx" => $dd
+      // "dataxx" => $dd
     );
     echo json_encode($json_data);
   }

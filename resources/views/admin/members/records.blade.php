@@ -622,7 +622,9 @@
             padding-right: 5px;
         }
 
-
+        #summaryModal {
+        display: none;
+        }
     </style>
     <div id="summaryModal" class="">
        
@@ -636,9 +638,6 @@
                 <table class="table-component" style="height: auto;" width="100%" id="forward_tbl">
                     <thead>
                         <tr>
-                            <th style="width: 30px">
-                                <span></span>
-                            </th>
                             <th>
                                 <span>Application No.</span>
                             </th>
@@ -660,7 +659,7 @@
                         Endorsement Date: <span>{{ date('F d,Y H:i:s') }}</span>
                     </p>
                     <p>
-                        Endorsed by: <span>Stepen Curry</span>
+                        Endorsed by: <span>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</span>
                     </p>
                     <!-- <p>
                         Endorse to: 
@@ -681,13 +680,13 @@
                         </select>
                     </p> -->
                     <p>
-                        Campus: <span>UP Diliman HRDO</span>
+                        Campus: <span id="campus_span"></span>
                     </p>
                 </div>
             </div>
             </div>
             <div class="modalFooter">
-                <button id="agree">
+                <button id="foward_confirm">
                     Proceed
                 </button>
                 <button class="cancel_modal" id="cancel-button">
@@ -743,25 +742,25 @@
             <div class=" card d-flex justify-content-around w-80 flex-row">
                 <div class="text-center">
                     <div>
-                        <span class="font-bold font-lg">{{$forApproval}}</span>
+                        <span class="font-bold font-lg">{{$total_new}}</span>
                     </div>
                     <span class="font-sm">New Application</span>
                 </div>
                 <div class="text-center">
                     <div>
-                        <span class="font-bold font-lg">10</span>
+                        <span class="font-bold font-lg">{{$forprocessing}}</span>
                     </div>
                     <span class="font-sm">Processing Application</span>
                 </div>
                 <div class="text-center">
                     <div>
-                        <span class="font-bold font-lg">1</span>
+                        <span class="font-bold font-lg">{{$approved}}</span>
                     </div>
                     <span class="font-sm">Approved Application</span>
                 </div>
                 <div class="text-center">
                     <div>
-                        <span class="font-bold font-lg">40</span>
+                        <span class="font-bold font-lg">{{$rejected}}</span>
                     </div>
                     <span class="font-sm">Rejected Application</span>
                 </div>
@@ -847,19 +846,20 @@
                             <div class="d-flex flex-row items-between">
                                 <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value"/>
                                 <span class="d-flex flex-row gap-10 justify-content-center align-items-center">
-                                    <select name="" id="" class="radius-1 outline select-field" style="height: 30px">
+                                    <select name="forward_action" id="forward_action" class="radius-1 outline select-field" style="height: 30px">
                                         <option value="">
                                             Select Action
                                         </option>
-                                        <option value="">
-                                            Forward to HRDO
-                                        </option>
-                                        <option value="">
-                                            Forward to CFM
-                                        </option>
+                                        @if(Auth::user()->user_level == 'HRDO')
+                                            <option value="AA">Return to AA</option>
+                                            <option value="CFM">Return to CFM</option>
+                                        @else
+                                            <option value="HRDO">Forward to HRDO</option>
+                                            <option value="CFM">Forward to CFM</option>
+                                        @endif
                                     </select>
                                     <span>
-                                        <button class="f-button mar-bg" id="modal_proceed">Proceed</button>
+                                        <button class="f-button mar-bg proceed_fwd" id="modal_proceed">Proceed</button>
                                     </span>
                                 </span>
                             </div>
@@ -1027,8 +1027,9 @@
    
 
     <script>
+        var tableMemberApp;
         $(document).ready(function() {
-            var tableMemberApp = $('.members-table').DataTable({
+             tableMemberApp = $('.members-table').DataTable({
                 language: {
                     search: '',
                     searchPlaceholder: "Search Here...",
@@ -1083,41 +1084,111 @@
             });
         });
         $('#modal_proceed').on('click', function() {
-            $('#summaryModal').show();
-        });
-        $(document).ready(function() {
-            $('#summaryModal').hide();
+            if($('#forward_action').val()){
+            $('.select_item:checked').each(function() {
+            var row = $(this).closest('tr');
+            var col3 = row.find('td:eq(2)').text();
+            var col4 = row.find('td:eq(3)').text();
+            var col5 = row.find('td:eq(4)').text();
+            var newRow = '<tr class="appended-row"><td>' + col3 + '</td><td>' + col4 + '</td><td>' + col5 + '</td></tr>';
+            $('#forward_tbl').append(newRow);
+            });
+            var campusspan = campus_checked +' '+ $('#forward_action').val();
+            $('#campus_span').text(campusspan);
+            $('#summaryModal').css('display','flex');
+        }else{
+            Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Please select an action. Thank you!',
+                    });
+        }
         });
         $('.cancel_modal').on('click', function() {
-            $('#summaryModal').hide();
+            $('#summaryModal').css('display','none');
+            $('#forward_tbl tbody').empty();
         });
+var campus_checked;
 $(document).ready(function() {
-    $(document).on('change', '.select_item', function() {
-    if($(this).is(':checked')) {
-      var row = $(this).closest('tr');
-      var col3 = row.find('td:eq(2)').text();
-      var col4 = row.find('td:eq(3)').text();
-      var col5 = row.find('td:eq(4)').text();
-      var newRow = '<tr><td></td><td>' + col3 + '</td><td>' + col4 + '</td><td>' + col5 + '</td></tr>';
-      $('#forward_tbl').append(newRow);
-    //   $('.members-table tr').each(function(index) {
-    //         var col9 = $(this).find('td:eq(8)').text();
-    //         if(col9 != "") { // only compare rows that have a value in column 9
-    //         var isDuplicate = false;
-    //         $('.members-table tr').not($(this)).each(function() {
-    //             if($(this).find('td:eq(8)').text() == col9) {
-    //             isDuplicate = true;
-    //             return false; // exit the loop if a duplicate value is found
-    //             }
-    //         });
-    //         if(isDuplicate) {
-    //             $(this).find('.select_item').attr('disabled', 'disabled');
-    //         }
-    //         }
-    //     });
+    $('.proceed_fwd').css('background-color', 'gray');
+    $('.proceed_fwd').prop('disabled', true);
+    $(document).on('change click', '.select_item', function() {
+        var clicked_check = 0;
+        if($(this).is(':checked')) {
+            clicked_check++;
+            var row = $(this).closest('tr');
+            var campusValue = tableMemberApp.cell(row, 8).data();
+            campus_checked = campusValue;
+            // disable checkboxes in other rows that have different "campus" values
+            $('input.select_item').each(function() {
+                var otherRow = $(this).closest('tr');
+                var otherCampusValue = tableMemberApp.cell(otherRow, 8).data();
+                if (otherCampusValue != campusValue) {
+                    $(this).prop('disabled', true);
+                }
+            });
+        }else {
+            clicked_check--;
+            var row = $(this).closest('tr');
+            $('input.select_item').each(function() {
+                var otherRow = $(this).closest('tr');
+                var evaluatedValue = tableMemberApp.cell(row, 10).data();
+                var otherevaluatedValue = tableMemberApp.cell(otherRow, 10).data();
+                if (otherevaluatedValue == evaluatedValue) {
+                    $(this).prop('disabled', false);
+                }
+            });
+        }
+        if(clicked_check > 0){
+        $('.proceed_fwd').css('background-color', '');
+        $('.proceed_fwd').prop('disabled', false);
+    }else{
+        $('.proceed_fwd').css('background-color', 'gray');
+        $('.proceed_fwd').prop('disabled', true);
+        
     }
     });
+    // 
+    $(document).on('click', '#foward_confirm', function() {
+    event.preventDefault();
+    var formDatas = {};
+    var appNos = [];
+    $('#forward_tbl tbody tr').each(function() {
+        var appNo = $(this).find('td:eq(0)').text();
+        appNos.push(appNo);
+    });
+    formDatas.app_nos = appNos;
+    formDatas.forward_action = $('#forward_action').val();
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+        });
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('forward_application') }}",
+            data: formDatas,
+            success: function(data) {
+                if (data.success != '') {
+                Swal.fire({
+                        text: 'Application has been forwarded to '+ $('#forward_action').val() + 'successfully.' ,
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Proceed',
+                    });
+                    tableMemberApp.draw();
+                    $('#summaryModal').css('display','none');;
+                    $('#forward_tbl tbody').empty();
+                    $('#forward_action').val('');
+                    $('.proceed_fwd').css('background-color', 'gray');
+                    $('.proceed_fwd').prop('disabled', true);
+                }else{
+                    swal.fire("Error!", "Saving failed", "error");
+                }
+            }
+        });
 
+    });
 });
 
 

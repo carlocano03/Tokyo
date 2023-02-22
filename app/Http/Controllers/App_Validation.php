@@ -318,5 +318,18 @@ class App_Validation extends Controller
       });
       return response()->json(['success' => $datadb['last_id']]);
     }
-
+    public function forwardto_application(Request $request)
+    {
+      $appNos = $request->input('app_nos');
+      $forwardAction = $request->input('forward_action');
+      $affectedRows = 0;
+      foreach ($appNos as $appNo) {
+          $row = DB::table('mem_app')
+              ->where('app_no', $appNo)
+              ->update(['validator_remarks' => 'FORWARDED TO ' . $forwardAction]);
+          $affectedRows += $row;
+      }
+      
+      return response()->json(['success' => $affectedRows]);
+    }
 }
