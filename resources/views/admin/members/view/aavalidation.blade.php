@@ -2000,6 +2000,9 @@
                                 </div>
                             </div>
                             <span class="d-flex" style="gap: 10px">
+                            <button class="f-button align-self-end red-bg" id="reject_app" >
+                                    <span id="reject_text">Reject Application</span>
+                                </button>
                                 <button class="f-button align-self-end magenta-bg" id="return_app" >
                                     <span id="return_text">Return Application</span>
                                 </button>
@@ -2124,12 +2127,15 @@ $(document).ready(function() {
     $('#pass_count').text(passCount);
     $('#failed_count').text(failCount);
     if(failCount > 0){
-        $('#return_app').css('background-color', '');
+        $('#return_app').css('cssText', 'background-color:  !important;');
         $('#return_app').prop('disabled', false);
+        $('#save_record').css('background-color', 'gray');
+        $('#save_record').prop('disabled', true);
     }else{
-        $('#return_app').css('background-color', 'gray');
+        $('#save_record').css('background-color', '');
+        $('#save_record').prop('disabled', false);
+        $('#return_app').css('cssText', 'background-color: gray !important;');
         $('#return_app').prop('disabled', true);
-        
     }
 });
 $(document).ready(function() {
@@ -2151,12 +2157,15 @@ $('#aa_validation input[type="radio"]').on('change click', function() {
     $('#pass_count').text(passCount);
     $('#failed_count').text(failCount);
     if(failCount > 0){
-        $('#return_app').css('background-color', '');
+        $('#return_app').css('cssText', 'background-color:  !important;');
         $('#return_app').prop('disabled', false);
+        $('#save_record').css('background-color', 'gray');
+        $('#save_record').prop('disabled', true);
     }else{
-        $('#return_app').css('background-color', 'gray');
+        $('#save_record').css('background-color', '');
+        $('#save_record').prop('disabled', false);
+        $('#return_app').css('cssText', 'background-color: gray !important;');
         $('#return_app').prop('disabled', true);
-        
     }
         
 });
@@ -2167,6 +2176,15 @@ $(document).ready(function() {
 });
 $('#return_app').click(function() {
     event.preventDefault();
+    Swal.fire({
+        title: 'Are you sure you want to Return this application?',
+        text: "This will return his/her application and subject for compliance.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+        if (result.isConfirmed) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2178,6 +2196,9 @@ $('#return_app').click(function() {
             type: 'POST',
             url: "{{ route('return_application') }}",
             data: formDatas,
+            beforeSend: function() {
+                $('#loading').show();
+            },
             success: function(data) {
                 if (data.success != '') {
                 Swal.fire({
@@ -2185,13 +2206,18 @@ $('#return_app').click(function() {
                         icon: 'success',
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Proceed',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                        window.location.href = '{{ route('admin.members_records') }}';
+                        }
                     });
                 }else{
                     swal.fire("Error!", "Saving failed", "error");
                 }
             }
         });
-
+    }
+});
 });
 // });
 $('#check_allppd').click(function() {
@@ -2292,6 +2318,9 @@ $.ajaxSetup({
             type: 'POST',
             url: "{{ route('save_aa_validation') }}",
             data: formDatas,
+            beforeSend: function() {
+                $('#loading').show();
+            },
             success: function(data) {
                 if (data.success != '') {
                     Swal.fire({
@@ -2299,6 +2328,10 @@ $.ajaxSetup({
                         icon: 'success',
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Proceed',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                        window.location.href = '{{ route('admin.members_records') }}';
+                        }
                     });
                 }else{
                     alert('Failed');
@@ -2306,6 +2339,50 @@ $.ajaxSetup({
             }
         });
 
+});
+$('#reject_app').click(function() {
+event.preventDefault();
+Swal.fire({
+        title: 'Are you sure to reject this application?',
+        text: "This will reject his/her application.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'OK'
+    }).then((result) => {
+        if (result.isConfirmed) {
+        $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                });
+        var formDatas = $("#aa_validation").serialize();
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('reject_application') }}",
+            data: formDatas,
+            beforeSend: function() {
+                $('#loading').show();
+            },
+            success: function(data) {
+                if (data.success != '') {
+                    Swal.fire({
+                        text: 'Application has been rejected successfully.',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                        window.location.href = '{{ route('admin.members_records') }}';
+                        }
+                    });
+                }else{
+                    alert('Failed');
+                }
+            }
+        });
+    }
+});
 });
 
 </script>

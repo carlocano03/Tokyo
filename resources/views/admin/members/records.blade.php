@@ -681,6 +681,12 @@
                     </p> -->
                     <p>
                         Campus: <span id="campus_span"></span>
+                        <select name="hrdo_user" id="hrdo_user" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;">
+                            <option value="">
+                                Please select
+                            </option>
+                            
+                        </select>
                     </p>
                 </div>
             </div>
@@ -1096,6 +1102,14 @@
             var campusspan = campus_checked +' '+ $('#forward_action').val();
             $('#campus_span').text(campusspan);
             $('#summaryModal').css('display','flex');
+            $.getJSON('/hrdo_user',{ department:campus_checked }, function(options) {
+            $.each(options, function(index, option) {
+                $('#hrdo_user').append($('<option>', {
+                    value: option.id,
+                    text: option.first_name + option.last_name,
+                }));
+            });
+        });
         }else{
             Swal.fire({
                         icon: 'error',

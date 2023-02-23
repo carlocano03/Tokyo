@@ -11,6 +11,7 @@ use Excel;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\processMail;
 
 class AdminController extends Controller
 {
@@ -174,7 +175,7 @@ class AdminController extends Controller
       ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
       ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
       ->select(
-        'campus.*',
+        'mem_app.*',
         'membership_details.*',
         'personal_details.*',
         'employee_details.*',
@@ -240,11 +241,20 @@ class AdminController extends Controller
         'date_evaluated'
       )
       ->where('mem_app.app_no', $id)->first();
-    $mem_appinst = array(
-      'app_status' => "PROCESSING",
-    );
-    DB::table('mem_app')->where('app_no', $id)
+      $email = DB::table('mem_app')->where('app_no', $id)->select('email_address')->value('email_address');
+      $mem_appinst = array(
+        'app_status' => "PROCESSING",
+      );
+    $affected = DB::table('mem_app')->where('app_no', $id)
       ->update($mem_appinst);
+      if(!empty($affected)){
+        $mailData = [
+          'title' => 'Member Application is for Processing',
+          'body' => 'Your application are now processing and subjected for approval.',
+          'app_no' => $id,
+        ];
+        Mail::to($email)->send(new processMail($mailData));
+      }
     $data = array(
       // 'gg' => DB::getQueryLog(),
       'rec' => $records,
@@ -463,5 +473,18 @@ class AdminController extends Controller
   public function election()
   {
     return view('admin.election.election');
+  }
+  public function gethrdo_user()
+  {
+    $userId = Auth::user()->id;
+    $department = $request->input('department');
+    $cfmCluster = DB::table('user_prev')
+      ->join('users', 'user_prev.users_id', '=', 'users.id')
+      ->select('user_prev.cfm_cluster')
+      ->where('users.id', '=', $userId)
+      ->value('cfm_cluster');
+
+    $hrdouser = DB::table('users')->orderBy('id')->where('user_level','HRDO')->get();
+    return response()->json($hrdouser);
   }
 }
