@@ -49,7 +49,7 @@
   <div class="container-fluid">
     <div class="row ">
       <div class="col-lg-2 transition" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
-        <div class="mp-card" style="padding-bottom:150px;">
+        <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
           <div class="settings-tab">
             <div class="top-label">
 
@@ -59,6 +59,12 @@
 
             <div class="settings-buttons">
               <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                <li class="options options-active" onclick="location.href='history-logs'">
+                  <a href="#" class="no-padding options-a-active">History Logs</a><br>
+                  <label class="option-info options-info-active">Allow User to retrieve and monitor user activity using History logs module.
+                    modules
+                  </label>
+                </li>
                 <li class="options" onclick="location.href='manage-account'">
                   <a href="#" class="no-padding">Manage Accounts</a><br>
                   <label class="option-info">Allow User to create and manage system user accounts, You also can manage permissions and
@@ -96,12 +102,7 @@
                     modules
                   </label>
                 </li>
-                <li class="options options-active" onclick="location.href='history-logs'">
-                  <a href="#" class="no-padding options-a-active">History Logs</a><br>
-                  <label class="option-info options-info-active">Allow User to retrieve and monitor user activity using History logs module.
-                    modules
-                  </label>
-                </li>
+
                 <li class="options " onclick="location.href='backup-database'">
                   <a href="#" class="no-padding ">Backup Database</a><br>
                   <label class="option-info ">Allow User to download and backup system database for documentations and risk management

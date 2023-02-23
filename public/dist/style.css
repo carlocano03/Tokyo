@@ -3696,7 +3696,7 @@ tfoot {
     background-image: url("../assets/images/background-register.png");
     background-repeat: no-repeat;
     /* background-clip: border-box; */
-    background-size:cover;
+    background-size: cover;
 }
 
 .mp-bg--admin {
@@ -5713,7 +5713,7 @@ tfoot {
 }
 
 .filler {
-    height: 131px;
+    height: 90px;
     background-color: white;
     /* background: linear-gradient(90deg, rgba(137, 65, 104, 1) 8%, rgba(26, 137, 129, 1) 98%);
     border-bottom: 1px solid #e0e4e8;
@@ -5954,7 +5954,7 @@ tfoot {
 }
 
 .univ-title {
-    font-size: 2.0vw;
+    font-size: 1.5vw;
     margin-left: -20px;
     margin-bottom: -5px;
 }
@@ -6433,9 +6433,13 @@ tfoot {
 }
 
 .input-error {
-   border-bottom: 2px solid var(--c-red-clr-20);
+    border-bottom: 2px solid var(--c-red-clr-20);
 }
 
 .input-error:focus {
     border-bottom: 2px solid var(--c-red-clr-80);
- }
+}
+
+.admin-settingtab {
+    height: 800px;
+}

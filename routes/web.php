@@ -77,6 +77,7 @@ Route::get('/admin/members/trail', [AdminController::class, 'members_application
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
 Route::post('/admin/countApplication', [AdminController::class, 'countApplication'])->name('count_application');
 Route::get('/admin/get_members', [AdminController::class, 'get_members'])->name('getMembers');
+Route::get('/admin/election', [AdminController::class, 'election'])->name('admin.election.election');
 
 //admin settings links
 Route::get('/admin/settings/manage-account', [AdminController::class, 'manageAccount'])->name('admin.settings-config.manage-account');
@@ -88,7 +89,6 @@ Route::get('/admin/settings/employee-classification', [AdminController::class, '
 Route::get('/admin/settings/history-logs', [AdminController::class, 'historyLogs'])->name('admin.settings-config.history-logs');
 Route::get('/admin/settings/sg-modules', [AdminController::class, 'sgModules'])->name('admin.settings-config.sg-modules');
 Route::get('/admin/settings/status-appointment', [AdminController::class, 'statusAppointment'])->name('admin.settings-config.status-appointment');
-
 
 // Route::get('/admin/dashboard', 'AdminController@index');
 

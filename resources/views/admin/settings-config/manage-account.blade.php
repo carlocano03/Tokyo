@@ -359,7 +359,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
-        <div class="mp-card" style="padding-bottom:150px;">
+        <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
           <div class="settings-tab">
             <div class="top-label">
               <label>Settings</label>
@@ -458,7 +458,7 @@
 
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Contact No.</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact_no" required/>
+                      <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact_no" required />
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Username/Email</label>
@@ -466,8 +466,8 @@
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Password</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" id="initial_pass" name="initial_pass" readonly placeholder="AUTO GENERATE" required/>
-                      
+                      <input class="mp-input-group__input mp-text-field" type="text" id="initial_pass" name="initial_pass" readonly placeholder="AUTO GENERATE" required />
+
                     </div>
                     <a class="up-button-green btn-md button-animate-right mp-text-center" id="generate_password">
                       <span>Generate Initial Password</span>
@@ -475,30 +475,30 @@
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">User Level</label>
                       <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                      <option value="">Select User Level</option>
-                          <option value="AA">AA</option>
-                          <option value="CFM">CFM</option>
-                          <option value="HRDO">HRDO</option>
+                        <option value="">Select User Level</option>
+                        <option value="AA">AA</option>
+                        <option value="CFM">CFM</option>
+                        <option value="HRDO">HRDO</option>
                       </select>
                     </div>
                     <div class="mp-input-group cfm_div">
                       <label class="mp-input-group__label">AA/CFM Cluster No.</label>
                       <select class="mp-input-group__input mp-text-field" name="cfm_cluster" id="cfm_cluster" required>
-                      <option value="">Select User Level</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
+                        <option value="">Select User Level</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
                       </select>
                     </div>
 
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Select Campus</label>
                       <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
-                      <option value="">Select Campus</option>
-                          @foreach($campus as $row)
-                          <option value="{{ $row->id }}">{{ $row->name }}</option>
-                          @endforeach
+                        <option value="">Select Campus</option>
+                        @foreach($campus as $row)
+                        <option value="{{ $row->id }}">{{ $row->name }}</option>
+                        @endforeach
                       </select>
                     </div>
                     <div class="mp-input-group">
@@ -628,7 +628,7 @@
                         </tr>
                       </thead>
                       <tbody>
-          
+
                       </tbody>
                     </table>
 
@@ -677,140 +677,139 @@
     }
 
   })
-var users_table;
-$(document).ready(function() {
-  users_table = $('#users_table').DataTable({
-    processing: true,
-    serverSide: true,
-    ajax: {
-      url: "{{ route('users_list') }}",
-      type: 'GET',
-    },
-    columns: [{
-        data: 'email',
-        name: 'email'
+  var users_table;
+  $(document).ready(function() {
+    users_table = $('#users_table').DataTable({
+      processing: true,
+      serverSide: true,
+      ajax: {
+        url: "{{ route('users_list') }}",
+        type: 'GET',
       },
-      {
-        data: 'intial_password',
-        name: 'intial_password'
-      },
-      {
-        data: 'full_name',
-        name: 'full_name'
-      },
-      {
-        data: 'camp_name',
-        name: 'camp_name'
-      },
-      {
-        data: 'user_level',
-        name: 'user_level'
-      },
-      {
-        data: 'status_flag',
-        name: 'status_flag'
-      },
-      {
-        data: 'password_set',
-        name: 'password_set'
-      },
-      {
-        data: 'action',
-        name: 'action',
+      columns: [{
+          data: 'email',
+          name: 'email'
+        },
+        {
+          data: 'intial_password',
+          name: 'intial_password'
+        },
+        {
+          data: 'full_name',
+          name: 'full_name'
+        },
+        {
+          data: 'camp_name',
+          name: 'camp_name'
+        },
+        {
+          data: 'user_level',
+          name: 'user_level'
+        },
+        {
+          data: 'status_flag',
+          name: 'status_flag'
+        },
+        {
+          data: 'password_set',
+          name: 'password_set'
+        },
+        {
+          data: 'action',
+          name: 'action',
 
-      },
-    ]
+        },
+      ]
+    });
   });
-});
-$('.cfm_div').hide();
-$(document).on('change', '#user_level', function() {
-  if($(this).val() == 'CFM'){
-    $('.cfm_div').show();
-  }else if($(this).val() == 'AA'){
-    $('.cfm_div').show();
-  }
-  else{
-    $('.cfm_div').hide();
-  }
-});
-$(document).on('click', '#generate_password', function() {
-  function randomString(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  $('.cfm_div').hide();
+  $(document).on('change', '#user_level', function() {
+    if ($(this).val() == 'CFM') {
+      $('.cfm_div').show();
+    } else if ($(this).val() == 'AA') {
+      $('.cfm_div').show();
+    } else {
+      $('.cfm_div').hide();
     }
-    return result;
-  }
-  var random = randomString(6);
-  $("#initial_pass").val(random);
-  
-});
-$(document).on('click', '#save_users', function() {
+  });
+  $(document).on('click', '#generate_password', function() {
+    function randomString(length) {
+      var result = '';
+      var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      var charactersLength = characters.length;
+      for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      }
+      return result;
+    }
+    var random = randomString(6);
+    $("#initial_pass").val(random);
+
+  });
+  $(document).on('click', '#save_users', function() {
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
     var empty = $('#users_form').find("input[required]").filter(function() {
-          return !$.trim($(this).val()).length;
-      });
+      return !$.trim($(this).val()).length;
+    });
     if (empty.length) {
-        // var emptyFields = [];
-        // empty.each(function() {
-        // emptyFields.push($(this).attr("id"));
-        // });
-        empty.first().focus();
-        swal.fire("Error!", "Please fill out the required fields", "error");
-    }else{
-    if($('#users_id').val()){
-      var formData = $("#users_form").serialize();
-    $.ajax({
-      type: 'POST',
-      url: "{{ route('update-users') }}",
-      data: formData,
-      success: function(data) {
-        if (data.success != '') {
-          Swal.fire({
-            text: 'Users has been added Updated Successfully.',
-            icon: 'success',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Ok',
-          });
-          $("#users_form")[0].reset();
-          $('#users_id').val('');
-          $('.save_up').text('Save Record');
-          $('.clear_txt').text('Clear');
-          users_table.draw();
-        }
+      // var emptyFields = [];
+      // empty.each(function() {
+      // emptyFields.push($(this).attr("id"));
+      // });
+      empty.first().focus();
+      swal.fire("Error!", "Please fill out the required fields", "error");
+    } else {
+      if ($('#users_id').val()) {
+        var formData = $("#users_form").serialize();
+        $.ajax({
+          type: 'POST',
+          url: "{{ route('update-users') }}",
+          data: formData,
+          success: function(data) {
+            if (data.success != '') {
+              Swal.fire({
+                text: 'Users has been added Updated Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+              });
+              $("#users_form")[0].reset();
+              $('#users_id').val('');
+              $('.save_up').text('Save Record');
+              $('.clear_txt').text('Clear');
+              users_table.draw();
+            }
 
-      }
-    });
-    }else{
-      var formData = $("#users_form").serialize();
-    $.ajax({
-      type: 'POST',
-      url: "{{ route('add_users') }}",
-      data: formData,
-      success: function(data) {
-        if (data.success != '') {
-          Swal.fire({
-            text: 'User has been added Successfully.',
-            icon: 'success',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Ok',
-          });
-          $("#users_form")[0].reset();
-          $('.save_up').text('Save Record');
-          $('.clear_txt').text('Clear');
-          users_table.draw();
-        }
+          }
+        });
+      } else {
+        var formData = $("#users_form").serialize();
+        $.ajax({
+          type: 'POST',
+          url: "{{ route('add_users') }}",
+          data: formData,
+          success: function(data) {
+            if (data.success != '') {
+              Swal.fire({
+                text: 'User has been added Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+              });
+              $("#users_form")[0].reset();
+              $('.save_up').text('Save Record');
+              $('.clear_txt').text('Clear');
+              users_table.draw();
+            }
 
+          }
+        });
       }
-    });
     }
-  }
   });
   $(document).on('click', '.edit_users', function() {
     $.ajaxSetup({
@@ -834,51 +833,50 @@ $(document).on('click', '#save_users', function() {
         $('#contact_no').val(data.contact_no);
         $('#initial_pass').val(data.intial_password);
         $('#user_level').val(data.user_level);
-        if(data.user_level == "CFM"){
+        if (data.user_level == "CFM") {
           $('.cfm_div').show();
           $('#cfm_cluster').val(data.cfm_cluster);
-        }else if(data.user_level == "AA"){
+        } else if (data.user_level == "AA") {
           $('.cfm_div').show();
           $('#cfm_cluster').val(data.cfm_cluster);
-        }
-        else{
+        } else {
           $('.cfm_div').hide();
           $('#cfm_cluster').val('');
         }
         $('#campus').val(data.campus_id);
-        if(data.setting_config == 1){
+        if (data.setting_config == 1) {
           $('#setting_access').prop('checked', true);
-        }else if(data.setting_config == 2){
+        } else if (data.setting_config == 2) {
           $('#setting_access2').prop('checked', true);
         }
-        if(data.election_mod == 1){
+        if (data.election_mod == 1) {
           $('#election_access').prop('checked', true);
-        }else if(data.election_mod == 2){
+        } else if (data.election_mod == 2) {
           $('#election_access2').prop('checked', true);
         }
-        if(data.loan_mod == 1){
+        if (data.loan_mod == 1) {
           $('#loan_access').prop('checked', true);
-        }else if(data.loan_mod == 2){
+        } else if (data.loan_mod == 2) {
           $('#loan_access2').prop('checked', true);
         }
-        if(data.benifits_mod == 1){
+        if (data.benifits_mod == 1) {
           $('#benifits_access').prop('checked', true);
-        }else if(data.benifits_mod == 2){
+        } else if (data.benifits_mod == 2) {
           $('#benifits_access2').prop('checked', true);
         }
-        if(data.trans_equity_mod == 1){
+        if (data.trans_equity_mod == 1) {
           $('#transaction_access').prop('checked', true);
-        }else if(data.trans_equity_mod == 2){
+        } else if (data.trans_equity_mod == 2) {
           $('#transaction_access2').prop('checked', true);
         }
-        if(data.memberapp_mod == 1){
+        if (data.memberapp_mod == 1) {
           $('#memberapp_access').prop('checked', true);
-        }else if(data.memberapp_mod == 2){
+        } else if (data.memberapp_mod == 2) {
           $('#memberapp_access2').prop('checked', true);
         }
-        if(data.member_mod == 1){
+        if (data.member_mod == 1) {
           $('#membermod_access').prop('checked', true);
-        }else if(data.member_mod == 2){
+        } else if (data.member_mod == 2) {
           $('#membermod_access2').prop('checked', true);
         }
         $('.save_up').text('Update Record');

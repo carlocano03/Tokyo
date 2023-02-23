@@ -14,7 +14,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
-        <div class="mp-card" style="padding-bottom:150px;">
+        <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
           <div class="settings-tab">
             <div class="top-label">
               <label>Settings</label>
@@ -23,6 +23,12 @@
 
             <div class="settings-buttons">
               <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                <li class="options options-active" onclick="location.href='sg-modules'">
+                  <a href="#" class="no-padding options-a-active">SG Modules</a><br>
+                  <label class="option-info options-info-active">Allow User to pre-setup salary grade range and assign salary grade category for election
+                    modules
+                  </label>
+                </li>
                 <li class="options" onclick="location.href='manage-account'">
                   <a href="#" class="no-padding">Manage Accounts</a><br>
                   <label class="option-info">Allow User to create and manage system user accounts, You also can manage permissions and
@@ -54,12 +60,7 @@
                   <label class="option-info  ">Allow User to pre-setup, manage the employee status and appointments.
                   </label>
                 </li>
-                <li class="options options-active" onclick="location.href='sg-modules'">
-                  <a href="#" class="no-padding options-a-active">SG Modules</a><br>
-                  <label class="option-info options-info-active">Allow User to pre-setup salary grade range and assign salary grade category for election
-                    modules
-                  </label>
-                </li>
+
                 <li class="options " onclick="location.href='history-logs'">
                   <a href="#" class="no-padding ">History Logs</a><br>
                   <label class="option-info">Allow User to retrieve and monitor user activity using History logs module.
@@ -251,74 +252,74 @@
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-    if($('#salaryg_num').val() && $('#salaryg_frm').val() && $('#slaryg_to').val() && $('#salarycat').val()){
-      if($('#ref_sgid').val()){
-      var formData = $("#salaryg_form").serialize();
-    $.ajax({
-      type: 'POST',
-      url: "{{ route('update-salaryg') }}",
-      data: formData,
-      success: function(data) {
-          if (data.error) {
-            Swal.fire({
-              text: 'Salary Grade already exist.',
-              icon: 'error',
-              confirmButtonColor: '#FF0000',
-              confirmButtonText: 'Ok',
-            });
-          } else if (data.success != '') {
-            Swal.fire({
-              text: 'Salary Grade has been Updated Successfully.',
-              icon: 'success',
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'Ok',
-            });
-            $("#salaryg_form")[0].reset();
-            $('#ref_sgid').val('');
-            $('.save_text').text('Save Record');
-            $('.clear_txt').text('Clear');
-            tbl_clss.draw();
+    if ($('#salaryg_num').val() && $('#salaryg_frm').val() && $('#slaryg_to').val() && $('#salarycat').val()) {
+      if ($('#ref_sgid').val()) {
+        var formData = $("#salaryg_form").serialize();
+        $.ajax({
+          type: 'POST',
+          url: "{{ route('update-salaryg') }}",
+          data: formData,
+          success: function(data) {
+            if (data.error) {
+              Swal.fire({
+                text: 'Salary Grade already exist.',
+                icon: 'error',
+                confirmButtonColor: '#FF0000',
+                confirmButtonText: 'Ok',
+              });
+            } else if (data.success != '') {
+              Swal.fire({
+                text: 'Salary Grade has been Updated Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+              });
+              $("#salaryg_form")[0].reset();
+              $('#ref_sgid').val('');
+              $('.save_text').text('Save Record');
+              $('.clear_txt').text('Clear');
+              tbl_clss.draw();
+            }
           }
-        }
-      
-    });
-    }else{
-      var formData = $("#salaryg_form").serialize();
 
-    $.ajax({
-      type: 'POST',
-      url: "{{ route('save-salaryg') }}",
-      data: formData,
-      success: function(data) {
-          if (data.error) {
-            Swal.fire({
-              text: 'Salary Grade already exist.',
-              icon: 'error',
-              confirmButtonColor: '#FF0000',
-              confirmButtonText: 'Ok',
-            });
-          } else if (data.success != '') {
-            Swal.fire({
-              text: 'Salary Grade has been added Successfully.',
-              icon: 'success',
-              confirmButtonColor: '#3085d6',
-              confirmButtonText: 'Ok',
-            });
-            $("#salaryg_form")[0].reset();
-            $('#ref_sgid').val('');
-            $('.save_text').text('Save Record');
-            $('.clear_txt').text('Clear');
-            tbl_clss.draw();
+        });
+      } else {
+        var formData = $("#salaryg_form").serialize();
+
+        $.ajax({
+          type: 'POST',
+          url: "{{ route('save-salaryg') }}",
+          data: formData,
+          success: function(data) {
+            if (data.error) {
+              Swal.fire({
+                text: 'Salary Grade already exist.',
+                icon: 'error',
+                confirmButtonColor: '#FF0000',
+                confirmButtonText: 'Ok',
+              });
+            } else if (data.success != '') {
+              Swal.fire({
+                text: 'Salary Grade has been added Successfully.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+              });
+              $("#salaryg_form")[0].reset();
+              $('#ref_sgid').val('');
+              $('.save_text').text('Save Record');
+              $('.clear_txt').text('Clear');
+              tbl_clss.draw();
+            }
           }
-        }
-      
-    });
-    }
-    }else{
+
+        });
+      }
+    } else {
       Swal.fire('Error', 'Please Complete the Fields', 'error')
     }
-    
-    
+
+
   });
   $(document).on('click', '.update_sg', function() {
     $.ajaxSetup({

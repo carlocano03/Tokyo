@@ -14,7 +14,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
-        <div class="mp-card" style="padding-bottom:150px;">
+        <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
           <div class="settings-tab">
             <div class="top-label">
               <label>Settings</label>
@@ -23,6 +23,11 @@
 
             <div class="settings-buttons">
               <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                <li class="options options-active" onclick="location.href='department-management'">
+                  <a href="#" class="no-padding options-a-active">Department Management</a><br>
+                  <label class="option-info options-info-active">Allow User to manage respective departments per campuses
+                  </label>
+                </li>
                 <li class="options" onclick="location.href='manage-account'">
                   <a href="#" class="no-padding">Manage Accounts</a><br>
                   <label class="option-info">Allow User to create and manage system user accounts, You also can manage permissions and
@@ -44,11 +49,7 @@
                   <label class="option-info">Allow User to manage respective College and units
                   </label>
                 </li>
-                <li class="options options-active" onclick="location.href='department-management'">
-                  <a href="#" class="no-padding options-a-active">Department Management</a><br>
-                  <label class="option-info options-info-active">Allow User to manage respective departments per campuses
-                  </label>
-                </li>
+
                 <li class="options " onclick="location.href='status-appointment'">
                   <a href="#" class="no-padding ">Status and Appointments</a><br>
                   <label class="option-info ">Allow User to pre-setup, manage the employee status and appointments.
