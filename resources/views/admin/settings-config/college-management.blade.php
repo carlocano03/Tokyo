@@ -14,7 +14,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
-        <div class="mp-card" style="padding-bottom:150px;">
+        <div class="mp-card  admin-settingtab" style="padding-bottom:150px;">
           <div class="settings-tab">
             <div class="top-label">
               <label>Settings</label>
@@ -23,6 +23,11 @@
 
             <div class="settings-buttons">
               <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                <li class="options  options-active" onclick="location.href='college-management'">
+                  <a href="#" class="no-padding options-a-active">College / Unit Management</a><br>
+                  <label class="option-info options-info-active">Allow User to manage respective College and units
+                  </label>
+                </li>
                 <li class="options" onclick="location.href='manage-account'">
                   <a href="#" class="no-padding">Manage Accounts</a><br>
                   <label class="option-info">Allow User to create and manage system user accounts, You also can manage permissions and
@@ -39,11 +44,7 @@
                   <label class="option-info">Allow User to add and manage employee Classifications
                   </label>
                 </li>
-                <li class="options  options-active" onclick="location.href='college-management'">
-                  <a href="#" class="no-padding options-a-active">College / Unit Management</a><br>
-                  <label class="option-info options-info-active">Allow User to manage respective College and units
-                  </label>
-                </li>
+
                 <li class="options" onclick="location.href='department-management'">
                   <a href="#" class="no-padding ">Department Management</a><br>
                   <label class="option-info ">Allow User to manage respective departments per campuses
@@ -108,72 +109,72 @@
                       </div>
 
 
-                  <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_college" type="submit">
-                    <span class="save_up">Save Record</span>
-                  </a>
-                  <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_btn">
-                    <span class="clear_txt">Clear</span>
-                  </a>
-                  <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+                      <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_college" type="submit">
+                        <span class="save_up">Save Record</span>
+                      </a>
+                      <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_btn">
+                        <span class="clear_txt">Clear</span>
+                      </a>
+                      <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
+                    </div>
+
+                  </form>
 
                 </div>
-
-                </form>
 
               </div>
 
-            </div>
-
-            <div class="col-lg-8">
-              <div>
-                <div class="top-label">
-                  <!-- <label>Data Records</label> -->
-                </div>
-                <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
-                  <table class="members-table" style="height: auto;" width="100%" id="college_table">
-                    <thead>
-                      <tr>
-                        <th>
-                          <span>College / Unit Name</span>
-                        </th>
-                        <th>
-                          <span>Campus</span>
-                        </th>
-                        <th>
-                          <span>Created At</span>
-                        </th>
-                        <th>
-                          <span>Action</span>
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                  </table>
+              <div class="col-lg-8">
+                <div>
+                  <div class="top-label">
+                    <!-- <label>Data Records</label> -->
+                  </div>
+                  <div class="mp-mt3 table-container" style="height:calc(100%-100px) !important;">
+                    <table class="members-table" style="height: auto;" width="100%" id="college_table">
+                      <thead>
+                        <tr>
+                          <th>
+                            <span>College / Unit Name</span>
+                          </th>
+                          <th>
+                            <span>Campus</span>
+                          </th>
+                          <th>
+                            <span>Created At</span>
+                          </th>
+                          <th>
+                            <span>Action</span>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
 
 
 
-                </div>
-                <div class="records-button" style="transform: scale(0.7);">
-                  <a class="up-button btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
-                    <span>Print</span>
-                  </a>
+                  </div>
+                  <div class="records-button" style="transform: scale(0.7);">
+                    <a class="up-button btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
+                      <span>Print</span>
+                    </a>
 
-                  <a class="up-button-green btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
-                    <span>Download</span>
-                  </a>
+                    <a class="up-button-green btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
+                      <span>Download</span>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
+
           </div>
-
         </div>
+
       </div>
 
     </div>
-
   </div>
-</div>
 </div>
 
 <script>
