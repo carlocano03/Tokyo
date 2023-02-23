@@ -96,7 +96,7 @@
   }
 
   .wrapper .main_content .info {
-    margin: 20px;
+    /* margin: 20px; */
     color: #717171;
     line-height: 25px;
   }
@@ -443,7 +443,8 @@
       <li><a href="#"><i class="fa fa-line-chart"></i>Loan </a></li>
       <li><a href="#"><i class="fa fa-comment-o"></i>Benefits </a></li>
       <li><a href="#"><i class="fa fa-line-chart"></i>Transacton </a></li>
-      <li><a href="#"><i class="fa fa-address-book"></i>Election</a></li>
+      <li><a href="/admin/election" class="{{ Request::is('admin/election')  ? 'active-nav' : '' }}">
+          <i class="fa fa-address-book"></i>Election</a></li>
       <li><a href="/admin/settings/manage-account" class="{{ Request::is('admin/settings/manage-account')  ? 'active-nav' : '' }}">
           <i class="fa fa-gears"></i>Settings & Configuration</a>
       </li>
@@ -458,7 +459,7 @@
     <div class="header">
       <div class="info">
         <a href="/">
-          <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+          <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" style="transform: scale(.7);" alt="UPPFI">
         </a>
         <a class="univ-title" href="/">
           University of the Philippines Provident Fund Inc.
