@@ -249,7 +249,7 @@
             </div>
             <div class="col-12 status-title">
                 <Label>Remarks : </Label>
-                <label class="status-text"></label>
+                <label class="status-text" id="validator_status"></label>
             </div>
         </div>
 

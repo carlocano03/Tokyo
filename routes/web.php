@@ -46,6 +46,7 @@ Route::get('/college_unit', [HomeController::class, 'getcollege_unit']);
 Route::get('/department', [HomeController::class, 'getdepartment']);
 Route::get('/appointment', [HomeController::class, 'getappointment']);
 Route::get('/options_psgc', [HomeController::class, 'getpsgc_prov']);
+Route::get('/hrdo_user', [AdminController::class, 'gethrdo_user']);
 
 //GET
 Route::get('/home', [HomeController::class, 'index'])->name('home');
@@ -174,4 +175,6 @@ Route::post('/settings/delete_users', [Settings::class, 'remove_users'])->name('
 
 // aa validation
 Route::post('/save_aa_validation', [App_Validation::class, 'aa_validation_save'])->name('save_aa_validation');
+Route::post('/reject_application', [App_Validation::class, 'aa_validation_rejected'])->name('reject_application');
 Route::post('/return_application', [App_Validation::class, 'returnto_application'])->name('return_application');
+Route::post('/forward_application', [App_Validation::class, 'forwardto_application'])->name('forward_application');

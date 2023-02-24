@@ -11,6 +11,7 @@ use Excel;
 use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\processMail;
 
 class AdminController extends Controller
 {
@@ -135,9 +136,10 @@ class AdminController extends Controller
   }
   public function members_records()
   {
-    $total_new = DB::table('mem_app')->count();
-    $forApproval = DB::table('mem_app')->where('app_status', 'NEW APPLICATION')->count();
-    $draft = DB::table('mem_app')->where('app_status', 'APPROVED')->count();
+    $total_new = DB::table('mem_app')->where('app_status', 'NEW APPLICATION')->count();
+    $forprocessing = DB::table('mem_app')->where('app_status', 'PROCESSING')->where('validator_remarks', '')->count();
+    $Approved = DB::table('mem_app')->where('app_status', 'PROCESSING')->where('validator_remarks', 'FORWARDED TO HRDO')->count();
+    $draft = DB::table('mem_app')->where('app_status', 'DRAFT APPLICATION')->count();
     $rejected = DB::table('mem_app')->where('app_status', 'REJECTED')->count();
     $userId = Auth::user()->id;
     $cfmCluster = DB::table('user_prev')
@@ -153,9 +155,10 @@ class AdminController extends Controller
     }
 
     $data = array(
-      'new_app' => $total_new,
-      'forApproval' => $forApproval,
-      'approved' => $draft,
+      'total_new' => $total_new,
+      'forprocessing' => $forprocessing,
+      'approved' => $Approved,
+      'draft' => $draft,
       'rejected' => $rejected,
       'campuses' => $campuses,
     );
@@ -172,7 +175,7 @@ class AdminController extends Controller
       ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
       ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
       ->select(
-        'campus.*',
+        'mem_app.*',
         'membership_details.*',
         'personal_details.*',
         'employee_details.*',
@@ -238,11 +241,20 @@ class AdminController extends Controller
         'date_evaluated'
       )
       ->where('mem_app.app_no', $id)->first();
-    $mem_appinst = array(
-      'app_status' => "PROCESSING",
-    );
-    DB::table('mem_app')->where('app_no', $id)
+      $email = DB::table('mem_app')->where('app_no', $id)->select('email_address')->value('email_address');
+      $mem_appinst = array(
+        'app_status' => "PROCESSING",
+      );
+    $affected = DB::table('mem_app')->where('app_no', $id)
       ->update($mem_appinst);
+      if(!empty($affected)){
+        $mailData = [
+          'title' => 'Member Application is for Processing',
+          'body' => 'Your application are now processing and subjected for approval.',
+          'app_no' => $id,
+        ];
+        Mail::to($email)->send(new processMail($mailData));
+      }
     $data = array(
       // 'gg' => DB::getQueryLog(),
       'rec' => $records,
@@ -325,6 +337,7 @@ class AdminController extends Controller
       $records->orWhere('mem_app.app_no', 'like', '%' . $search . '%');
       $records->orWhere('mem_app.employee_no', 'like', '%' . $search . '%');
       $records->orWhere('personal_details.lastname', 'like', '%' . $search . '%');
+      $records->orWhere('mem_app.validator_remarks', 'like', '%' . $search . '%');
     }
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
@@ -352,6 +365,7 @@ class AdminController extends Controller
       $records->orWhere('mem_app.app_no', 'like', '%' . $search . '%');
       $records->orWhere('mem_app.employee_no', 'like', '%' . $search . '%');
       $records->orWhere('personal_details.lastname', 'like', '%' . $search . '%');
+      $records->orWhere('mem_app.validator_remarks', 'like', '%' . $search . '%');
     }
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
@@ -406,9 +420,15 @@ class AdminController extends Controller
       $records->orWhere('mem_app.app_no', 'like', '%' . $search . '%');
       $records->orWhere('mem_app.employee_no', 'like', '%' . $search . '%');
       $records->orWhere('personal_details.lastname', 'like', '%' . $search . '%');
+      $records->orWhere('mem_app.validator_remarks', 'like', '%' . $search . '%');
     }
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
+    }
+    if($users == 'HRDO'){
+      $href = '/admin/members/records/view/hrdo/';
+    }else{
+      $href = '/admin/members/records/view/aa/';
     }
     $posts = $records->skip($start)
       ->take($rowperpage)
@@ -421,7 +441,7 @@ class AdminController extends Controller
         $row[] = $r->validator_remarks == 'AA VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
           : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
         $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "'
-                  href='/admin/members/records/view/aa/" . $r->app_no . "' style='cursor: pointer'>
+                  href='".$href."". $r->app_no ."' style='cursor: pointer'>
                     <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
                   </a>";
         $row[] = $r->app_no;
@@ -437,13 +457,13 @@ class AdminController extends Controller
         $data[] = $row;
       }
     }
-    $dd = DB::getQueryLog();
+    // $dd = DB::getQueryLog();
     $json_data = array(
       "draw" => intval($draw),
       "recordsTotal" => intval($totalRecords),
       "recordsFiltered" => intval($totalRecordswithFilter),
       "data" => $data,
-      "dataxx" => $dd
+      // "dataxx" => $dd
     );
     echo json_encode($json_data);
   }
@@ -453,5 +473,18 @@ class AdminController extends Controller
   public function election()
   {
     return view('admin.election.election');
+  }
+  public function gethrdo_user()
+  {
+    $userId = Auth::user()->id;
+    $department = $request->input('department');
+    $cfmCluster = DB::table('user_prev')
+      ->join('users', 'user_prev.users_id', '=', 'users.id')
+      ->select('user_prev.cfm_cluster')
+      ->where('users.id', '=', $userId)
+      ->value('cfm_cluster');
+
+    $hrdouser = DB::table('users')->orderBy('id')->where('user_level','HRDO')->get();
+    return response()->json($hrdouser);
   }
 }

@@ -475,10 +475,11 @@
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">User Level</label>
                       <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                        <option value="">Select User Level</option>
-                        <option value="AA">AA</option>
-                        <option value="CFM">CFM</option>
-                        <option value="HRDO">HRDO</option>
+                      <option value="">Select User Level</option>
+                          <option value="AA">AA</option>
+                          <option value="CFM">CFM</option>
+                          <option value="HRDO">HRDO</option>
+                          <option value="ADMIN">ADMIN</option>
                       </select>
                     </div>
                     <div class="mp-input-group cfm_div">
