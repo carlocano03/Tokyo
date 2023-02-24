@@ -99,12 +99,25 @@
 </div>
 <div class="mp-center-pane mp-bg--registration">
     <div class="mp-split-pane__center transition-all d-flex flex-column mw-600 w-600" id="leftsection">
-        
-        <div id="statusTrailForm" hidden="hidden" class="container-fluid relative pv-3">
+
+        <!-- <div id="statusTrailForm" hidden="hidden" class="container-fluid relative pv-3">
             @section('status-trail-form')
             @show
+        </div> -->
+        <div class="ft-card border-bottom-0">
+            <div class="mp-pb2 mp-text-center d-flex flex-row mp-pv3 mp-ph3 relative">
+                <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI" style="width: 50px; height: 50px" class="absolute">
+                <div class="d-flex flex-column mp-text-center" style="color: white; width: 100%">
+                    <span>
+                        University of the Philippines Provident Fund Inc.
+                    </span>
+                    <span>
+                        Online Membership Application
+                    </span>
+                </div>
+            </div>
+            
         </div>
-
         <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto" style="height: calc(100% - 0px)">
             @section('registration-personal-form')
             @show
@@ -429,19 +442,19 @@
             $("#member_forms_3").removeClass('mh-reg-form');
             $("#member_forms_con").addClass('mh-reg-form');
         } else {
-            $("#registrationform").attr("hidden", true);
-            $("#statusTrailForm").attr("hidden", true);
-            $("#loginform").removeAttr("hidden");
-            $("#next-btn").attr('value', 'step-2');
-            $("#leftsection").removeClass("mw-600").removeClass("w-600");
-            $("#control").removeClass("d-flex").addClass("d-none");
+            // $("#registrationform").attr("hidden", true);
+            // $("#statusTrailForm").attr("hidden", true);
+            // $("#loginform").removeAttr("hidden");
+            // $("#next-btn").attr('value', 'step-2');
+            // $("#leftsection").removeClass("mw-600").removeClass("w-600");
+            // $("#control").removeClass("d-flex").addClass("d-none");
 
-            if ($(window).width() < 768) {
-                $('.mobile-header').show();
-            }
-            setTimeout(function() {
-                $('.mobile-header').hide(300);
-            }, 1000);
+            // if ($(window).width() < 768) {
+            //     $('.mobile-header').show();
+            // }
+            // setTimeout(function() {
+            //     $('.mobile-header').hide(300);
+            // }, 1000);
         }
         scrollToTop()
     })
@@ -509,6 +522,7 @@
                                     $("#line").removeClass('step-1').addClass('step-2');
                                     $("#registration-title").text(stepTitle[1]);
                                     $("#stepper-2").addClass("active");
+                                    // $("#back").removeClass("disabled");
                                 }
                             }
                         });
@@ -1010,19 +1024,19 @@
                             $('#sg_category').val('16-33');
                         }
                     } else {
-                        
+
                         $('#salary_grade').val('');
                     }
                 }
             });
         });
         $("#monthly_salary").blur(function() {
-            if($('#salary_grade').val() == ''){
+            if ($('#salary_grade').val() == '') {
                 Swal.fire({
-                            title: 'Salary Grade is not available. Please contact UPPF administratior.',
-                            text: 'Thank you!',
-                            icon: 'error'
-                        });
+                    title: 'Salary Grade is not available. Please contact UPPF administratior.',
+                    text: 'Thank you!',
+                    icon: 'error'
+                });
                 $('#monthly_salary').val('');
                 $('#monthly_salary').focus();
             }
@@ -1044,37 +1058,41 @@
                 }));
             });
         });
-    $("#campus").change(function() {
-        var campus_key = $(this).val();
-        $('#college_unit').empty();  
-        $.getJSON('/college_unit',{ campus_key: campus_key }, function(options) {
-            $.each(options, function(index, option) {
-                $('#college_unit').append($('<option>', {
-                    value: option.cu_no,
-                    text: option.college_unit_name
-                }));
+        $("#campus").change(function() {
+            var campus_key = $(this).val();
+            $('#college_unit').empty();
+            $.getJSON('/college_unit', {
+                campus_key: campus_key
+            }, function(options) {
+                $.each(options, function(index, option) {
+                    $('#college_unit').append($('<option>', {
+                        value: option.cu_no,
+                        text: option.college_unit_name
+                    }));
+                });
+                $('#college_unit').val(college_unit).change();
             });
-            $('#college_unit').val(college_unit).change();
+
         });
-       
-    });
-    $("#college_unit").change(function() {
-        if(college_unit){
-            var college_id = college_unit;
-        }else{
-            var college_id = $(this).val();
-        }
-        $('#department').empty();  
-        $.getJSON('/department',{ college_id: college_id }, function(options) {
-            $.each(options, function(index, option) {
-                $('#department').append($('<option>', {
-                    value: option.dept_no,
-                    text: option.department_name
-                }));
+        $("#college_unit").change(function() {
+            if (college_unit) {
+                var college_id = college_unit;
+            } else {
+                var college_id = $(this).val();
+            }
+            $('#department').empty();
+            $.getJSON('/department', {
+                college_id: college_id
+            }, function(options) {
+                $.each(options, function(index, option) {
+                    $('#department').append($('<option>', {
+                        value: option.dept_no,
+                        text: option.department_name
+                    }));
+                });
+                $('#department').val(dept_no).change();
             });
-            $('#department').val(dept_no).change();
         });
-    });
         $.getJSON('/appointment', function(options) {
             $.each(options, function(index, option) {
                 $('#appointment').append($('<option>', {
@@ -1146,13 +1164,13 @@
         }
     });
     $("#fixed_amount").keyup(function() {
-            var inputValue = $(this).val();
-            inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            var decimalAdded = inputValue.split(".");
-            if (decimalAdded.length > 2) {
-                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
-            }
-            $(this).val(inputValue);
+        var inputValue = $(this).val();
+        inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        var decimalAdded = inputValue.split(".");
+        if (decimalAdded.length > 2) {
+            inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
+        }
+        $(this).val(inputValue);
     });
     $('input[name="middlename"]').on("blur", function() {
         var middleName = $(this).val();
@@ -1302,23 +1320,23 @@
     });
     $(document).on('click', '#print_app', function(e) {
         Swal.fire({
-                        title: 'Application has been submitted. Subject for review.',
-                        text: "Do you want to print your Membership Application?",
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // window.open();
-                            var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp; 
-                            window.open(url, 'targetWindow',
-                                'resizable=yes,width=1000,height=1000');
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
-                        }
-                    })
+            title: 'Application has been submitted. Subject for review.',
+            text: "Do you want to print your Membership Application?",
+            icon: 'success',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // window.open();
+                var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp;
+                window.open(url, 'targetWindow',
+                    'resizable=yes,width=1000,height=1000');
+                setTimeout(function() {
+                    location.reload();
+                }, 1000);
+            }
+        })
     });
     $(document).on('click', '#cont_app', function(e) {
         $("#resetPasswordForm").attr("hidden", true);
@@ -1354,7 +1372,7 @@
                         $('#no_middlename').prop('checked', true);
                         $("[name='middlename']").val('N/A')
                         $('input[name="middlename"]').prop('disabled', true);
-                    }else{
+                    } else {
                         $('#no_middlename').prop('checked', false);
                         $('input[name="middlename"]').prop('disabled', false);
                         $("[name='middlename']").val(data.middlename == null ? '' : data.middlename);

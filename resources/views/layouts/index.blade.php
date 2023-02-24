@@ -28,6 +28,7 @@
     <script type="text/javascript" src="{!! asset('dist/jquery.datetimepicker.js') !!}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+    <script src="https://kit.fontawesome.com/f9fec12609.js" crossorigin="anonymous"></script>
     <script>
         WebFont.load({
             google: {
@@ -150,10 +151,6 @@
             cursor: pointer;
         }
 
-        .transition-drawer {
-            
-        }
-
         .cookie-drawer.show {
             transform: translateY(0);
         }
@@ -241,7 +238,7 @@
     //     sessionStorage.setItem("agreeClicked", true)
     // })
     $(document).ready(function(e) {
-        if (sessionStorage.getItem("agreeClicked") == null) {
+        if (sessionStorage.getItem("cookieClicked") == null) {
             setTimeout(()=>{
                 $(".cookie-drawer").addClass("transition-drawer");
                 $(".cookie-drawer").addClass("show");
@@ -257,7 +254,11 @@
         })
         $(".cookie-accept").click(function() {
             $(".cookie-drawer").removeClass("show");
-            sessionStorage.setItem("agreeClicked", true)
+            sessionStorage.setItem("cookieClicked", true)
+        });
+        $(".cookie-decline").click(function() {
+            $(".cookie-drawer").removeClass("show");
+            sessionStorage.setItem("cookieClicked", "declined")
         });
     }); 
 </script>
@@ -281,7 +282,7 @@
     <div class="cookie-drawer">
         <div class="d-flex flex-row items-between">
             <span class="centered-text">
-                <img style="width: 30px; height: 30px; margin-right: 10px" src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI"> <span style="font-size: large; font-weight: 400;"> We use cookies</span>
+                <img style="width: 30px; height: 30px; margin-right: 10px" src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI"> <span style="font-size: large; font-weight: 700;"> We use cookies</span>
             </span>
             <span>
                 <i class="fa fa-times-circle cursor-pointer cookie-close" aria-hidden="true"></i>
@@ -291,7 +292,7 @@
             <div class="w-70 mp-pl2 mp-mt3">By clicking "Accept", you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts. <span><a>Privacy and Cookies Policy</a></span></div>
             <div class="cookie-buttons w-30 d-flex flex-row justify-content-end gap-10 align-items-start mp-pr2">
                 <button class="cookie-accept">Accept</button>
-                <button class="magenta-bg">Learn More</button>
+                <button class="magenta-bg cookie-decline">I do not accept</button>
             </div>
         </div>
         
