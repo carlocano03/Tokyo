@@ -417,11 +417,7 @@
     })
 
     $(document).on('click', '#register', function(e) {
-        $("#loginform").attr("hidden", true);
-        $("#registrationform").removeAttr("hidden");
-        $("#leftsection").addClass("mw-600").addClass("w-600");
-        $("#control").removeClass("d-none").addClass("d-flex");
-
+        window.location.href = '/register';
     })
 
     //Continue Application
