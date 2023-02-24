@@ -290,11 +290,18 @@
             $.each(options, function(index, option) {
                 $('#present_province').append($('<option>', {
                     value: option.code,
-                    text: option.name.toUpperCase()
+                    text: option.name.toUpperCase(),
                 }));
             });
         });
     });
+
+//     $(document).ready(function() {
+//   $(document).on('mouseover', '#present_province option', function() {
+//     var value = $(this).val();
+//     console.log('Value:', value);
+//   });
+// });
 
 
     $(document).on('change', '#province', function() {
