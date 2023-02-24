@@ -680,7 +680,7 @@
                         </select>
                     </p> -->
                     <p>
-                        Campus: <span id="campus_span"></span>
+                        Campus:
                         <select name="hrdo_user" id="hrdo_user" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;">
                             <option value="">
                                 Please select
@@ -1100,13 +1100,13 @@
             $('#forward_tbl').append(newRow);
             });
             var campusspan = campus_checked +' '+ $('#forward_action').val();
-            $('#campus_span').text(campusspan);
+            var forward_action = $('#forward_action').val();
             $('#summaryModal').css('display','flex');
-            $.getJSON('/hrdo_user',{ department:campus_checked }, function(options) {
+            $.getJSON('/hrdo_user',{ department:campus_checked,forward_action:forward_action }, function(options) {
             $.each(options, function(index, option) {
                 $('#hrdo_user').append($('<option>', {
                     value: option.id,
-                    text: option.first_name + option.last_name,
+                    text: campus_checked + ' ' + forward_action + ' ' + option.first_name + option.last_name,
                 }));
             });
         });
@@ -1172,6 +1172,8 @@ $(document).ready(function() {
         appNos.push(appNo);
     });
     formDatas.app_nos = appNos;
+    formDatas.app_nos = appNos;
+    formDatas.hrdo_user = $('#hrdo_user').val();
     formDatas.forward_action = $('#forward_action').val();
     $.ajaxSetup({
         headers: {
@@ -1196,6 +1198,7 @@ $(document).ready(function() {
                     $('#forward_action').val('');
                     $('.proceed_fwd').css('background-color', 'gray');
                     $('.proceed_fwd').prop('disabled', true);
+                    $('#hrdo_user').empty().append('<option value="">Please select</option>');
                 }else{
                     swal.fire("Error!", "Saving failed", "error");
                 }

@@ -474,7 +474,7 @@ class AdminController extends Controller
   {
     return view('admin.election.election');
   }
-  public function gethrdo_user()
+  public function gethrdo_user(Request $request)
   {
     $userId = Auth::user()->id;
     $department = $request->input('department');
@@ -483,8 +483,20 @@ class AdminController extends Controller
       ->select('user_prev.cfm_cluster')
       ->where('users.id', '=', $userId)
       ->value('cfm_cluster');
+      if($request->input('forward_action') == 'CFM'){
+        $hrdouser = DB::table('users')->orderBy('users.id')
+        ->select('users.id','first_name','middle_name','last_name' )
+        ->leftjoin('user_prev', 'user_prev.users_id', '=', 'users.ID')
+        ->where('cfm_cluster',$cfmCluster)
+        ->where('user_level','CFM')->get();
+      }else{
+        $hrdouser = DB::table('users')->orderBy('users.id')
+        ->select('users.id','first_name','middle_name','last_name' )
+        ->leftjoin('campus', 'campus.id', '=', 'users.campus_id')
+        ->where('name',$department)
+        ->where('user_level','HRDO')->get();
+      }
 
-    $hrdouser = DB::table('users')->orderBy('id')->where('user_level','HRDO')->get();
     return response()->json($hrdouser);
   }
 }
