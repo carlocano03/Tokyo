@@ -118,6 +118,17 @@
             </div>
             
         </div>
+        <button class="scroll-top-button" id="up-scroll">
+            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+        </button>
+        <script>
+            $("#up-scroll").on("click", function() {
+                $('html, body, .mp-center-pane').animate({
+                    scrollTop: 0
+                }, '300');
+                
+            });
+        </script>
         <div id="registrationform" hidden="hidden" class="container-fluid relative pv-3-auto" style="height: calc(100% - 0px)">
             @section('registration-personal-form')
             @show
