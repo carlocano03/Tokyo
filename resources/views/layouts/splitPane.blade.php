@@ -290,11 +290,18 @@
             $.each(options, function(index, option) {
                 $('#present_province').append($('<option>', {
                     value: option.code,
-                    text: option.name.toUpperCase()
+                    text: option.name.toUpperCase(),
                 }));
             });
         });
     });
+
+//     $(document).ready(function() {
+//   $(document).on('mouseover', '#present_province option', function() {
+//     var value = $(this).val();
+//     console.log('Value:', value);
+//   });
+// });
 
 
     $(document).on('change', '#province', function() {
@@ -417,11 +424,7 @@
     })
 
     $(document).on('click', '#register', function(e) {
-        $("#loginform").attr("hidden", true);
-        $("#registrationform").removeAttr("hidden");
-        $("#leftsection").addClass("mw-600").addClass("w-600");
-        $("#control").removeClass("d-none").addClass("d-flex");
-
+        window.location.href = '/register';
     })
 
     //Continue Application
@@ -1306,8 +1309,8 @@
                         $('#landlineno_label').text(data.landline_no == null ? 'N/A' : data
                             .landline_no);
                         $('#email_add_label').text(data.email == null ? 'N/A' : data.email);
-                        $('#application_status').text(data.app_status == null ? 'N/A' : data
-                            .app_status);
+                        $('#application_status').text(data.app_status == null ? 'N/A' : data.app_status);
+                        $('#validator_status').text(data.validator_remarks == null ? 'N/A' : data.validator_remarks);
                         if (data.app_status == "DRAFT APPLICATION") {
                             $('#cont_app').show();
                             $('#print_app').hide();

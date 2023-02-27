@@ -479,6 +479,7 @@
                         <option value="AA">AA</option>
                         <option value="CFM">CFM</option>
                         <option value="HRDO">HRDO</option>
+                        <option value="ADMIN">ADMIN</option>
                       </select>
                     </div>
                     <div class="mp-input-group cfm_div">

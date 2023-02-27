@@ -19,6 +19,7 @@ use App\Models\UploadFile;
 use DataTables;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Mail\returnaaMail;
+use App\Mail\rejectedMail;
 use Illuminate\Support\Facades\Storage;
 use Mail;
 class App_Validation extends Controller
@@ -310,7 +311,6 @@ class App_Validation extends Controller
           'app_no' => $request->input('app_no'),
           'for_correction' => $forreturn
         ];
-
         Mail::to($email)->send(new returnaaMail($mailData));
         return [
           'last_id' => $last_id,
@@ -318,5 +318,42 @@ class App_Validation extends Controller
       });
       return response()->json(['success' => $datadb['last_id']]);
     }
-
+    public function forwardto_application(Request $request)
+    {
+      $appNos = $request->input('app_nos');
+      $forwardAction = $request->input('forward_action');
+      $forwarded_user = $request->input('hrdo_user');
+      $affectedRows = 0;
+      foreach ($appNos as $appNo) {
+          $row = DB::table('mem_app')
+              ->where('app_no', $appNo)
+              ->update(['validator_remarks' => 'FORWARDED TO ' . $forwardAction,
+                        'forwarded_user' => $forwarded_user]);
+          $affectedRows += $row;
+      }
+      
+      return response()->json(['success' => $affectedRows]);
+    }
+    public function aa_validation_rejected(Request $request)
+    {
+      $datadb = DB::transaction(function () use ($request) {
+        $mem_appinst = array(
+          'validator_remarks' => "REJECTED",
+          'app_status' => "REJECTED",
+        );
+        $email = DB::table('mem_app')->where('app_no', $request->input('app_no'))->select('email_address')->value('email_address');
+        $last_id = DB::table('mem_app')->where('app_no', $request->input('app_no'))
+          ->update($mem_appinst);
+          $mailData = [
+            'title' => 'Member Application is REJECTED',
+            'body' => 'Your application has been REJECTED.',
+            'app_no' => $request->input('app_no'),
+          ];
+          Mail::to($email)->send(new rejectedMail($mailData));
+        return [
+          'last_id' => $last_id,
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id']]);
+    }
 }
