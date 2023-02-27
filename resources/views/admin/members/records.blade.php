@@ -680,7 +680,7 @@
                         </select>
                     </p> -->
                     <p>
-                        Campus: <span id="campus_span"></span>
+                        Campus:
                         <select name="hrdo_user" id="hrdo_user" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;">
                             <option value="">
                                 Please select
@@ -803,6 +803,9 @@
                                         <select name="" class="radius-1 outline select-field"
                                                 style="width: 100%; height: 30px" id="department_select">
                                                 <option value="">Show All</option>
+                                                @foreach ($department as $row)
+                                                <option value="{{ $row->dept_no }}">{{ $row->department_name }}</option> 
+                                                @endforeach
                                             </select>
                                     </span>
                                     <span class="d-flex flex-column span-5 mp-pv2 flex-nowrap date-selector">
@@ -818,20 +821,13 @@
                                     </span>
                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
                                         <span>View Option</span>
-                                        <select name="" id="" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;">
-                                            <option value="">
-                                                All Records
-                                            </option>
-                                            <option value="">
-                                                AA
-                                            </option>
-                                            <option value="">
-                                                CFM
-                                            </option>
-                                            <option value="">
-                                                HRDO
-                                            </option>
+                                        <select name="view_all" id="view_all" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;" <?= Auth::user()->user_level != 'ADMIN' ? 'disabled' : '' ?>>
+                                            <option value="">All Records</option>
+                                            <option value="AA" <?=  Auth::user()->user_level == 'AA' ? 'selected' : '' ?>>AA</option>
+                                            <option value="CFM" <?=  Auth::user()->user_level == 'CFM' ? 'selected' : '' ?>>CFM</option>
+                                            <option value="HRDO" <?=  Auth::user()->user_level == 'HRDO' ? 'selected' : '' ?>>HRDO</option>
                                         </select>
+                                        
                                     </span>
                                 </div>
                                         <!-- <div class="">
@@ -857,6 +853,7 @@
                                             Select Action
                                         </option>
                                         @if(Auth::user()->user_level == 'HRDO')
+                                            <option value="AA">Forward to Fund manager</option>
                                             <option value="AA">Return to AA</option>
                                             <option value="CFM">Return to CFM</option>
                                         @else
@@ -1060,6 +1057,9 @@
             $('#campuses_select').on('change', function() {
               tableMemberApp.draw();
             });
+            $('#department_select').on('change', function() {
+              tableMemberApp.draw();
+            });
             $('#search_value').on('change', function() {
               tableMemberApp.draw();
             });
@@ -1100,13 +1100,13 @@
             $('#forward_tbl').append(newRow);
             });
             var campusspan = campus_checked +' '+ $('#forward_action').val();
-            $('#campus_span').text(campusspan);
+            var forward_action = $('#forward_action').val();
             $('#summaryModal').css('display','flex');
-            $.getJSON('/hrdo_user',{ department:campus_checked }, function(options) {
+            $.getJSON('/hrdo_user',{ department:campus_checked,forward_action:forward_action }, function(options) {
             $.each(options, function(index, option) {
                 $('#hrdo_user').append($('<option>', {
                     value: option.id,
-                    text: option.first_name + option.last_name,
+                    text: campus_checked + ' ' + forward_action + ' ' + option.first_name + ' ' + option.last_name,
                 }));
             });
         });
@@ -1172,6 +1172,8 @@ $(document).ready(function() {
         appNos.push(appNo);
     });
     formDatas.app_nos = appNos;
+    formDatas.app_nos = appNos;
+    formDatas.hrdo_user = $('#hrdo_user').val();
     formDatas.forward_action = $('#forward_action').val();
     $.ajaxSetup({
         headers: {
@@ -1196,6 +1198,7 @@ $(document).ready(function() {
                     $('#forward_action').val('');
                     $('.proceed_fwd').css('background-color', 'gray');
                     $('.proceed_fwd').prop('disabled', true);
+                    $('#hrdo_user').empty().append('<option value="">Please select</option>');
                 }else{
                     swal.fire("Error!", "Saving failed", "error");
                 }

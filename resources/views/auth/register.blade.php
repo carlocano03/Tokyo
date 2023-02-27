@@ -33,7 +33,7 @@
         <input class="mp-input-group__input mp-text-field input" type="{{ Request::route()->getName() == 'admin' ? 'email' : 'text' }}" id="{{ Request::route()->getName() == 'admin' ? 'email' : 'memberNo' }}" name="{{ Request::route()->getName() == 'admin' ? 'email' : 'memberNo' }}" maxlength="{{ Request::route()->getName() == 'admin' ? ' ' : '9' }}" value="{{ Session::get('user') }}" autofocus required />
         <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
     </div>
-    <div class="mp-pb4 mp-input-group"  data-set="password">
+    <div class="mp-pb4 mp-input-group" data-set="password">
         <label class="mp-input-group__label" for="password">Password</label>
         <input class="mp-input-group__input mp-text-field input" type="password" id="password" name="password" required />
         <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
@@ -270,6 +270,11 @@
 @endsection
 
 @section('registration-personal-form')
+<script>
+     $(document).on('click', '#back-to-home', function(e) {
+        window.location.href = '/login';
+     })
+</script>
 <div class="d-flex gap-10 mp-pt2 bg-white flex-column ">
     <!-- <div style="width: 100%;" class="d-flex gap-10">
                         <div class="ml-auto">
@@ -280,17 +285,19 @@
                             <span>Online Membership Application</span>
                         </div>
                     </div> -->
-    <div class="mp-mt2 mp-mt2 ">
-        <!-- <a class="up-color" id="back" value="">
-                                   <span > <i class="fa fa-chevron-left" aria-hidden="true"></i> Back</span>
-                        </a>  -->
+    <div class="mp-mt2 mp-mt2 d-flex items-between">
+        <button class="d-flex flex-row align-items-center up-button mp-pl2 mp-pr2" id="back" value="" style="gap: 5px; font-size: 13px; border-radius: 10px; padding-top: 2px; padding-bottom: 2px">
+            <span> <i class="fa fa-chevron-left " aria-hidden="true"></i> Back</span>
+        </button>
+        <button id="back-to-home" class="d-flex flex-row align-items-center up-button" style="gap: 5px; font-size: 13px; border-radius: 10px; padding-top: 2px; padding-bottom: 2px"><span>Back to Login </span> <i class="fa fa-home" aria-hidden="true" style="font-size: 15px; cursor: pointer;"></i></button>
     </div>
-    <div class="mp-mt2 up-color reg-title mp-text-center">
+    <!-- <div class="mp-mt2 up-color reg-title mp-text-center">
         <div class="mp-pb2 mp-text-center">
             <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
         </div>
         Online Membership Application
-    </div>
+    </div> -->
+    <span class="mp-pt2">Step 3: Membership Details</span>
     <div class="relative mp-mt2 w-90 d-flex ml-auto mr-auto">
         <ul class="d-flex flex-row items-between w-100 stepper">
             <li class="circle active" id="stepper-1">1</li>
@@ -331,8 +338,29 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="suffix" />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Date of Birth</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="date_birth" id="date_birth" readonly required />
+            <label class="mp-input-group__label mp-mb1">Date of Birth</label>
+            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Month</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">January</option>
+                    </select>
+                </div>
+                <span><br/>-</span>
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Day</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">01</option>
+                    </select>
+                </div>
+                <span><br/>-</span>
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Year</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">1998</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Gender</label>
@@ -517,8 +545,29 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="rank_position" id="rank_position" />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Date of Appointment</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="date_appointment" id="date_appointment" />
+            <label class="mp-input-group__label mp-mb1">Date of Appointment</label>
+            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Month</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">January</option>
+                    </select>
+                </div>
+                <span><br/>-</span>
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Day</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">01</option>
+                    </select>
+                </div>
+                <span><br/>-</span>
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Year</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">1998</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Appointment Status</label>
@@ -573,7 +622,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage"  />
+                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
                     - 100%)</label>
             </div>
@@ -582,7 +631,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check"  />
+                <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso
                     )</label>
             </div>
@@ -590,9 +639,34 @@
             <label class="mp-input-group__label" style="margin-top: 5px;">Minimum Contribution:</label> <label class="mp-input-group__label" id="min_contri" style="margin-top: 5px;"></label>
         </div>
         <div class="mp-input-group d-flex gap-5 flex-column">
+            <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
             <label class="mp-input-group__label">Dependents</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Name" />
-            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_bday" onfocus="(this.type='date')" placeholder="Birthday" />
+            <div class="mp-input-group">
+            <label class="mp-input-group__label mp-mb1">Birthday</label>
+            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Month</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">January</option>
+                    </select>
+                </div>
+                <span><br/>-</span>
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Day</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">01</option>
+                    </select>
+                </div>
+                <span><br/>-</span>
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Year</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">1998</option>
+                    </select>
+                </div>
+            </div>
+        </div>
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" placeholder="Relationship" />
             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
                 <span id="add_dependent">Add Dependent</span> </a>
@@ -647,17 +721,17 @@
             <div id="proxy">
                 {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file" accept="image/png, image/gif, image/jpeg, image/jpg" /> --}}
                 <div class="mp-input-group">
-                <input type="hidden" name="appNo" id="appNo">
-                <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
-                    <span>Generate Proxy Form</span>
-                </button>
+                    <input type="hidden" name="appNo" id="appNo">
+                    <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
+                        <span>Generate Proxy Form</span>
+                    </button>
                 </div>
                 <hr>
                 <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generare Cocolife</button>
             </div>
         </div>
 
-        
+
         <button class="up-button btn-md button-animate-right mp-text-center" type="submit" id="next-btn">
             <span>Submit</span>
         </button>
@@ -720,5 +794,5 @@
 
 @section('scripts')
 <script src="{{ asset('/dist/dashboard.js') }}"></script>
-<script></script>
+
 @endsection

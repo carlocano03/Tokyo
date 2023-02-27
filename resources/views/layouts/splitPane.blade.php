@@ -290,11 +290,18 @@
             $.each(options, function(index, option) {
                 $('#present_province').append($('<option>', {
                     value: option.code,
-                    text: option.name.toUpperCase()
+                    text: option.name.toUpperCase(),
                 }));
             });
         });
     });
+
+//     $(document).ready(function() {
+//   $(document).on('mouseover', '#present_province option', function() {
+//     var value = $(this).val();
+//     console.log('Value:', value);
+//   });
+// });
 
 
     $(document).on('change', '#province', function() {
@@ -417,11 +424,7 @@
     })
 
     $(document).on('click', '#register', function(e) {
-        $("#loginform").attr("hidden", true);
-        $("#registrationform").removeAttr("hidden");
-        $("#leftsection").addClass("mw-600").addClass("w-600");
-        $("#control").removeClass("d-none").addClass("d-flex");
-
+        window.location.href = '/register';
     })
 
     //Continue Application

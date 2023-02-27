@@ -322,11 +322,13 @@ class App_Validation extends Controller
     {
       $appNos = $request->input('app_nos');
       $forwardAction = $request->input('forward_action');
+      $forwarded_user = $request->input('hrdo_user');
       $affectedRows = 0;
       foreach ($appNos as $appNo) {
           $row = DB::table('mem_app')
               ->where('app_no', $appNo)
-              ->update(['validator_remarks' => 'FORWARDED TO ' . $forwardAction]);
+              ->update(['validator_remarks' => 'FORWARDED TO ' . $forwardAction,
+                        'forwarded_user' => $forwarded_user]);
           $affectedRows += $row;
       }
       
