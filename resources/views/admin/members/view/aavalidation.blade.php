@@ -2000,7 +2000,7 @@
                                 </div>
                             </div>
                             <span class="d-flex" style="gap: 10px">
-                            <button class="f-button align-self-end red-bg" id="reject_app" >
+                                <button class="f-button align-self-end red-bg" id="reject_app" >
                                     <span id="reject_text">Reject Application</span>
                                 </button>
                                 <button class="f-button align-self-end magenta-bg" id="return_app" >
@@ -2147,10 +2147,10 @@ $('#aa_validation input[type="radio"]').on('change click', function() {
         if ($(this).is(':checked')) {
         if ($(this).val() == 1) {
             passCount++;
+            $(this).parent().next().next().find('input[type="text"]').val('');
             $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
         } else if ($(this).val() == 2) {
             failCount++;
-            $(this).parent().next().find('input[type="text"]').val('');
             $(this).parent().next().find('input[type="text"]').prop('disabled', false);
         }
         }

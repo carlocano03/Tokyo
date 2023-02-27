@@ -847,13 +847,16 @@
                         <div class="card d-flex flex-column">
                             <div class="d-flex flex-row items-between">
                                 <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value"/>
+                                <span>
+                                    <button class="f-button mar-bg" id="check_all" disabled>Checkall</button>
+                                </span>
                                 <span class="d-flex flex-row gap-10 justify-content-center align-items-center">
                                     <select name="forward_action" id="forward_action" class="radius-1 outline select-field" style="height: 30px">
                                         <option value="">
                                             Select Action
                                         </option>
                                         @if(Auth::user()->user_level == 'HRDO')
-                                            <option value="AA">Forward to Fund manager</option>
+                                            <option value="FM">Forward to Fund manager</option>
                                             <option value="AA">Return to AA</option>
                                             <option value="CFM">Return to CFM</option>
                                         @else
@@ -908,7 +911,9 @@
                                     <tbody>
 
                                     </tbody>
+                                    
                                 </table>
+                                
                             </div>
                         </div>
                     </div>
@@ -1053,9 +1058,50 @@
                         data.searchValue = $('#search_value').val();
                     }
                 },
+                "drawCallback": function(settings) {
+                    if (tableMemberApp.data().length > 0) {
+                        if($('#campuses_select').val() != ''){
+                        $('#check_all').css('background-color', '');
+                        $('#check_all').prop('disabled', false);
+                        campus_checked = $('#campuses_select').find(":selected").text();
+                        clicked_check = 0;
+                        }else{
+                        $('#check_all').css('background-color', 'gray');
+                        $('#check_all').prop('disabled', true);
+                        clicked_check = 0;
+                        }
+                    } else {
+                        $('#check_all').css('background-color', 'gray');
+                        $('#check_all').prop('disabled', true);
+                        clicked_check = 0;
+                    }
+                }
             });
+            $('#check_all').click(function() {
+                // Loop through all checkboxes in the table body
+                $('.members-table tbody input[type="checkbox"]').each(function() {
+                    // Check the checkbox if it is not disabled
+                    if (!$(this).prop('disabled')) {
+                        if (!$(this).prop('checked')) {
+                            $(this).prop('checked', true);
+                            clicked_check++;
+                        }
+                        if (clicked_check > 0) {
+                            $('.proceed_fwd').css('background-color', '');
+                            $('.proceed_fwd').prop('disabled', false);
+                        } else {
+                            $('.proceed_fwd').css('background-color', 'gray');
+                            $('.proceed_fwd').prop('disabled', true);
+                        }
+                    } else if ($(this).prop('checked')) {
+                        clicked_check--;
+                    }
+                });
+            });
+
             $('#campuses_select').on('change', function() {
-              tableMemberApp.draw();
+                tableMemberApp.draw();
+                campus_checked = $(this).find(":selected").text();
             });
             $('#department_select').on('change', function() {
               tableMemberApp.draw();
@@ -1124,11 +1170,14 @@
             $('#hrdo_user').empty().append('<option value="">Please select</option>');
         });
 var campus_checked;
+var clicked_check = 0;
 $(document).ready(function() {
     $('.proceed_fwd').css('background-color', 'gray');
     $('.proceed_fwd').prop('disabled', true);
+    $('#check_all').css('background-color', 'gray');
+    $('#check_all').prop('disabled', true);
     $(document).on('change click', '.select_item', function() {
-        var clicked_check = 0;
+         clicked_check = 0;
         if($(this).is(':checked')) {
             clicked_check++;
             var row = $(this).closest('tr');
@@ -1157,17 +1206,18 @@ $(document).ready(function() {
         if(clicked_check > 0){
         $('.proceed_fwd').css('background-color', '');
         $('.proceed_fwd').prop('disabled', false);
-    }else{
+        }else{
         $('.proceed_fwd').css('background-color', 'gray');
         $('.proceed_fwd').prop('disabled', true);
         
-    }
+        }
     });
     // 
     $(document).on('click', '#foward_confirm', function() {
     event.preventDefault();
     var formDatas = {};
     var appNos = [];
+    if($('#hrdo_user').val()){
     $('#forward_tbl tbody tr').each(function() {
         var appNo = $(this).find('td:eq(0)').text();
         appNos.push(appNo);
@@ -1205,8 +1255,11 @@ $(document).ready(function() {
                 }
             }
         });
-
+    }else{
+        swal.fire("Error!", "Please select an user to forward this transaction.", "error");
+    }
     });
+    
 });
 
 
