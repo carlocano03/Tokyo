@@ -150,10 +150,9 @@ class AdminController extends Controller
     $users = Auth::user()->user_level;
     if ($users == 'ADMIN') {
       $campuses = DB::table('campus')->get();
-    }elseif($users == 'HRDO'){
+    } elseif ($users == 'HRDO') {
       $campuses = DB::table('campus')->where('id', '=', Auth::user()->campus_id)->get();
-    }
-     else {
+    } else {
       $campuses = DB::table('campus')->where('cluster_id', '=', $cfmCluster)->get();
     }
     $department = DB::table('department')->get();
@@ -245,20 +244,20 @@ class AdminController extends Controller
         'date_evaluated'
       )
       ->where('mem_app.app_no', $id)->first();
-      $email = DB::table('mem_app')->where('app_no', $id)->select('email_address')->value('email_address');
-      $mem_appinst = array(
-        'app_status' => "PROCESSING",
-      );
+    $email = DB::table('mem_app')->where('app_no', $id)->select('email_address')->value('email_address');
+    $mem_appinst = array(
+      'app_status' => "PROCESSING",
+    );
     $affected = DB::table('mem_app')->where('app_no', $id)
       ->update($mem_appinst);
-      if(!empty($affected)){
-        $mailData = [
-          'title' => 'Member Application is for Processing',
-          'body' => 'Your application are now processing and subjected for approval.',
-          'app_no' => $id,
-        ];
-        Mail::to($email)->send(new processMail($mailData));
-      }
+    if (!empty($affected)) {
+      $mailData = [
+        'title' => 'Member Application is for Processing',
+        'body' => 'Your application are now processing and subjected for approval.',
+        'app_no' => $id,
+      ];
+      Mail::to($email)->send(new processMail($mailData));
+    }
     $data = array(
       // 'gg' => DB::getQueryLog(),
       'rec' => $records,
@@ -354,7 +353,7 @@ class AdminController extends Controller
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
       ->where('mem_app.app_no', 'like', '%' . $search . '%');
-    
+    DB::enableQueryLog();
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -393,8 +392,7 @@ class AdminController extends Controller
         $query->where('mem_app.forwarded_user', $aa_1)
           ->orWhere('mem_app.validator_remarks', $cfm);
       });
-    }
-     else if ($users == 'CFM') {
+    } else if ($users == 'CFM') {
       $cfm = 'AA VERIFIED';
       $records->where('mem_app.app_status', $cfm);
     }
@@ -425,13 +423,12 @@ class AdminController extends Controller
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
       $process = 'PROCESSING';
-      
+
       $records->where(function ($query) use ($aa_1, $cfm, $process) {
         $query->where('mem_app.forwarded_user', $aa_1)
           ->orWhere('mem_app.validator_remarks', $cfm);
       });
-    }
-     else if ($users == 'CFM') {
+    } else if ($users == 'CFM') {
       $aa_1 = 'NEW APPLICATION';
       $cfm = 'AA VERIFIED';
       $process = 'PROCESSING';
@@ -458,9 +455,9 @@ class AdminController extends Controller
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
     }
-    if($users == 'HRDO'){
+    if ($users == 'HRDO') {
       $href = '/admin/members/records/view/hrdo/';
-    }else{
+    } else {
       $href = '/admin/members/records/view/aa/';
     }
     $posts = $records->skip($start)
@@ -474,7 +471,7 @@ class AdminController extends Controller
         $row[] = $r->validator_remarks == 'AA VERIFIED' || $r->validator_remarks == 'HRDO VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
           : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
         $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "'
-                  href='".$href."". $r->app_no ."' style='cursor: pointer'>
+                  href='" . $href . "" . $r->app_no . "' style='cursor: pointer'>
                     <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
                   </a>";
         $row[] = $r->app_no;
@@ -516,19 +513,19 @@ class AdminController extends Controller
       ->select('user_prev.cfm_cluster')
       ->where('users.id', '=', $userId)
       ->value('cfm_cluster');
-      if($request->input('forward_action') == 'CFM'){
-        $hrdouser = DB::table('users')->orderBy('users.id')
-        ->select('users.id','first_name','middle_name','last_name' )
+    if ($request->input('forward_action') == 'CFM') {
+      $hrdouser = DB::table('users')->orderBy('users.id')
+        ->select('users.id', 'first_name', 'middle_name', 'last_name')
         ->leftjoin('user_prev', 'user_prev.users_id', '=', 'users.ID')
-        ->where('cfm_cluster',$cfmCluster)
-        ->where('user_level','CFM')->get();
-      }else if($request->input('forward_action') == 'HRDO'){
-        $hrdouser = DB::table('users')->orderBy('users.id')
-        ->select('users.id','first_name','middle_name','last_name' )
+        ->where('cfm_cluster', $cfmCluster)
+        ->where('user_level', 'CFM')->get();
+    } else if ($request->input('forward_action') == 'HRDO') {
+      $hrdouser = DB::table('users')->orderBy('users.id')
+        ->select('users.id', 'first_name', 'middle_name', 'last_name')
         ->leftjoin('campus', 'campus.id', '=', 'users.campus_id')
-        ->where('name',$department)
-        ->where('user_level','HRDO')->get();
-      }
+        ->where('name', $department)
+        ->where('user_level', 'HRDO')->get();
+    }
     return response()->json($hrdouser);
   }
 }
