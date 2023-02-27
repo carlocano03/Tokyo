@@ -545,8 +545,29 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="rank_position" id="rank_position" />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Date of Appointment</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="date_appointment" id="date_appointment" />
+            <label class="mp-input-group__label mp-mb1">Date of Appointment</label>
+            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Month</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">January</option>
+                    </select>
+                </div>
+                <span><br/>-</span>
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Day</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">01</option>
+                    </select>
+                </div>
+                <span><br/>-</span>
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Year</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">1998</option>
+                    </select>
+                </div>
+            </div>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Appointment Status</label>
@@ -621,7 +642,31 @@
             <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
             <label class="mp-input-group__label">Dependents</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Name" />
-            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_bday" onfocus="(this.type='date')" placeholder="Birthday" />
+            <div class="mp-input-group">
+            <label class="mp-input-group__label mp-mb1">Birthday</label>
+            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Month</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">January</option>
+                    </select>
+                </div>
+                <span><br/>-</span>
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Day</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">01</option>
+                    </select>
+                </div>
+                <span><br/>-</span>
+                <div class="d-flex flex-column" style="gap: 3px">
+                    <label class="mp-input-group__label">Year</label>
+                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="01">1998</option>
+                    </select>
+                </div>
+            </div>
+        </div>
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" placeholder="Relationship" />
             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
                 <span id="add_dependent">Add Dependent</span> </a>
