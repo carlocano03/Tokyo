@@ -1121,6 +1121,7 @@
         $('.cancel_modal').on('click', function() {
             $('#summaryModal').css('display','none');
             $('#forward_tbl tbody').empty();
+            $('#hrdo_user').empty().append('<option value="">Please select</option>');
         });
 var campus_checked;
 $(document).ready(function() {

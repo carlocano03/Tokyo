@@ -2117,10 +2117,11 @@ $(document).ready(function() {
         if ($(this).is(':checked')) {
         if ($(this).val() == 1) {
             passCount++;
-            $(this).parent().next().next().find('input[type="text"]').prop('disabled', false);
+            $(this).parent().next().find('input[type="text"]').val('');
+            $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
         } else if ($(this).val() == 2) {
             failCount++;
-            $(this).parent().next().find('input[type="text"]').prop('disabled', true);
+            $(this).parent().next().find('input[type="text"]').prop('disabled', false);
         }
         }
     });
@@ -2146,11 +2147,11 @@ $('#aa_validation input[type="radio"]').on('change click', function() {
         if ($(this).is(':checked')) {
         if ($(this).val() == 1) {
             passCount++;
-            $(this).parent().next().next().find('input[type="text"]').prop('disabled', false);
+            $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
         } else if ($(this).val() == 2) {
             failCount++;
             $(this).parent().next().find('input[type="text"]').val('');
-            $(this).parent().next().find('input[type="text"]').prop('disabled', true);
+            $(this).parent().next().find('input[type="text"]').prop('disabled', false);
         }
         }
     });

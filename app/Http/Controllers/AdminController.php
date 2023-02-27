@@ -455,9 +455,9 @@ class AdminController extends Controller
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
     }
-    if ($users == 'HRDO') {
+    if($users == 'HRDO'){
       $href = '/admin/members/records/view/hrdo/';
-    } else {
+    }else{
       $href = '/admin/members/records/view/aa/';
     }
     $posts = $records->skip($start)
@@ -487,7 +487,7 @@ class AdminController extends Controller
         $data[] = $row;
       }
     }
-    $dd = DB::getQueryLog();
+    // $dd = DB::getQueryLog();
     $json_data = array(
       "draw" => intval($draw),
       "recordsTotal" => intval($totalRecords),
