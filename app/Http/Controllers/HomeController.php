@@ -37,7 +37,10 @@ class HomeController extends Controller
   {
     return view('home');
   }
-
+  public function returned_application($id)
+  {
+    return view('auth.returnedapp');
+  }
   public function add_benefeciaries(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
