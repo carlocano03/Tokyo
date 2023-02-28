@@ -287,6 +287,7 @@
         <div class="modalContent">
             <div class="modalBody">
                 <div class="d-flex flex-column gap-10"> <span style="font-weight: bold; font-size: x-large">Data Privacy Notice</span>
+
                     <span>
                         <span style="color:#1a8981; font-weight: bold">U.P. Provident Fund (UPPF)</span> upholds the <span style="font-style: italic; font-weight: bold">Data Privacy Act</span>, and is committed to the protection of the privacy rights of its members, employees, officers, or stakeholders from whom it processes personal information and sensitive personal information, guided all the time by the principles of legitimacy, transparency, and proportionality. 
                         <br/><br/>Thus, <span style="font-weight: bold">UPPF</span> has instituted strict measures to safeguard the sanctity and confidentiality of those data/information. The Company strictly adheres to the duties and responsibilities (before, during, and after processing of information), mandated by Republic Act 10173 and allied government regulations. <br/><br/> 
