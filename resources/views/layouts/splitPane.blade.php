@@ -144,6 +144,7 @@
 </div>
 <script>
     $(document).ready(function() {
+        console.log('sss');
         if ($(window).width() < 768) {
             $('.transition-background').hide();
             $("#loading").show();
@@ -304,6 +305,7 @@
 // });
 
 
+
     $(document).on('change', '#province', function() {
         var codes = $(this).val();
         var subss = codes.substring(0, 4);
@@ -423,9 +425,9 @@
         }, 400)
     })
 
-    $(document).on('click', '#register', function(e) {
-        window.location.href = '/register';
-    })
+    // $(document).on('click', '#register', function(e) {
+    //     window.location.href = '/register';
+    // })
 
     //Continue Application
     $(document).on('click', '#cont_app', function(e) {

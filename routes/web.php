@@ -178,3 +178,7 @@ Route::post('/save_aa_validation', [App_Validation::class, 'aa_validation_save']
 Route::post('/reject_application', [App_Validation::class, 'aa_validation_rejected'])->name('reject_application');
 Route::post('/return_application', [App_Validation::class, 'returnto_application'])->name('return_application');
 Route::post('/forward_application', [App_Validation::class, 'forwardto_application'])->name('forward_application');
+Route::get('/returned_application/{id}', [HomeController::class, 'returned_application'])->name('returned_application');
+
+// hrdo validation 
+Route::post('/save_hrdo_validation', [App_Validation::class, 'hrdo_validation_save'])->name('save_hrdo_validation');

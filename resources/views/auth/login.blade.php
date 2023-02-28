@@ -75,7 +75,7 @@
                 </a>
                 @else
                 <label class="mp-text-fs-small">
-                    <span>If you are not yet a member? </span><span class="mp-link link_style" id="register">Click
+                    <span>If you are not yet a member? </span><span class="mp-link link_style" id="register-link">Click
                         here</span>
                 </label>
                 <label class="mp-text-fs-small">

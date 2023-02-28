@@ -274,6 +274,46 @@ class AdminController extends Controller
       ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
       ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
       ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->leftjoin('hrdo_validation', 'mem_app.app_no', '=', 'hrdo_validation.app_no')
+      ->select(
+        'mem_app.*',
+        'membership_details.*',
+        'personal_details.*',
+        'employee_details.*',
+        'membership_details.*',
+        'campus.*',
+        'college_unit.*',
+        'department.*',
+        'college_unit.*',
+        'pass_emp_no',
+        'pass_campus',
+        'pass_classification',
+        'pass_college_unit',
+        'pass_department',
+        'pass_rankpos',
+        'pass_appointment',
+        'pass_appointdate',
+        'pass_monthlysalary',
+        'pass_sg',
+        'pass_sgcat',
+        'pass_tin_no',
+        
+        'remarks_emp_no',
+        'remarks_campus',
+        'remarks_classification',
+        'remarks_college_unit',
+        'remarks_department',
+        'remarks_rankpos',
+        'remarks_appointment',
+        'remarks_appointdate',
+        'remarks_monthlysalary',
+        'remarks_sg',
+        'remarks_sgcat',
+        'remarks_tin_no',
+        'general_remarks',
+        'evaluate_by',
+        'date_evaluated'
+      )
       ->where('mem_app.app_no', $id)->first();
 
     $data = array(
@@ -487,7 +527,7 @@ class AdminController extends Controller
         $data[] = $row;
       }
     }
-    $dd = DB::getQueryLog();
+    // $dd = DB::getQueryLog();
     $json_data = array(
       "draw" => intval($draw),
       "recordsTotal" => intval($totalRecords),

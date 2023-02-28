@@ -210,7 +210,6 @@
     // // });
 
     var stepTitle = ["Personal Information", "Employment Details", "Membership Details", "Cocolife Forms"]
-    var steps = ["Step 1: ", "Step 2: ", "Step 3: ", "Step 4: "]
     var present_provcode;
     $(document).on('change', '#present_province', function() {
         if (present_provcode) {
@@ -439,7 +438,6 @@
             $("#next-btn").attr('value', 'step-2')
             $("#line").removeClass('step-2').addClass('step-1')
             $("#registration-title").text(stepTitle[0])
-            $("#step-title").text(`${steps[0]}${stepTitle[0]}`)
             $("#stepper-2").removeClass("active")
             $("#member_forms_con").removeClass('mh-reg-form');
             $("#member_forms").addClass('mh-reg-form');
@@ -451,7 +449,6 @@
             $("#next-btn").attr('value', 'step-3')
             $("#line").removeClass('step-3').addClass('step-2')
             $("#registration-title").text(stepTitle[1])
-            $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
             $("#stepper-3").removeClass("active");
             $("#member_forms_3").removeClass('mh-reg-form');
             $("#member_forms_con").addClass('mh-reg-form');
@@ -535,7 +532,6 @@
                                     $(this).attr('value', 'step-3');
                                     $("#line").removeClass('step-1').addClass('step-2');
                                     $("#registration-title").text(stepTitle[1]);
-                                    $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
                                     $("#stepper-2").addClass("active");
                                     // $("#back").removeClass("disabled");
                                 }
@@ -593,7 +589,6 @@
                                     $(this).attr('value', 'step-3');
                                     $("#line").removeClass('step-1').addClass('step-2');
                                     $("#registration-title").text(stepTitle[1]);
-                                    $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
                                     $("#stepper-2").addClass("active");
                                 } else {
                                     swal.fire("You cancelled your transaction.");
@@ -649,7 +644,6 @@
                             $(this).attr('value', 'step-3')
                             $("#line").removeClass('step-1').addClass('step-2')
                             $("#registration-title").text(stepTitle[1])
-                            $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
                             $("#stepper-2").addClass("active")
                         }
                     }
@@ -709,7 +703,6 @@
                                 $("#line").removeClass('step-2').addClass(
                                     'step-3')
                                 $("#registration-title").text(stepTitle[2])
-                                $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                                 $("#stepper-3").addClass("active")
                             } else {
                                 Swal.fire({
@@ -746,7 +739,6 @@
                                     // $(this).attr('value', 'step-end')
                                     $("#line").removeClass('step-2').addClass('step-3')
                                     $("#registration-title").text(stepTitle[2])
-                                    $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                                     $("#stepper-3").addClass("active")
                                 } else {
                                     Swal.fire({
@@ -803,7 +795,6 @@
                                                 $("#line").removeClass('step-2').addClass(
                                                     'step-3')
                                                 $("#registration-title").text(stepTitle[2])
-                                                $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                                                 $("#stepper-3").addClass("active")
                                             } else {
                                                 Swal.fire({
@@ -826,7 +817,6 @@
                                     // $(this).attr('value', 'step-end')
                                     $("#line").removeClass('step-2').addClass('step-3')
                                     $("#registration-title").text(stepTitle[2])
-                                    $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                                     $("#stepper-3").addClass("active")
                                 }
                             });
@@ -840,7 +830,6 @@
                             // $(this).attr('value', 'step-end')
                             $("#line").removeClass('step-2').addClass('step-3')
                             $("#registration-title").text(stepTitle[2])
-                            $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                             $("#stepper-3").addClass("active")
                             // console.log($("#back").val());
                         }
@@ -858,7 +847,6 @@
             // $(this).attr('value', 'step-end')
             $("#line").removeClass('step-3').addClass('step-4')
             $("#registration-title").text(stepTitle[3])
-            $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
             $("#stepper-4").addClass("active")
         }
         scrollToTop()
@@ -906,7 +894,6 @@
                     $(this).attr('value', 'step-end')
                     $("#line").removeClass('step-2').addClass('step-3')
                     $("#registration-title").text(stepTitle[2])
-                    $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                     $("#stepper-3").addClass("active")
                 }
             }
