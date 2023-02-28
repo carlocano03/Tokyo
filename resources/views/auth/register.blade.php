@@ -297,7 +297,7 @@
         </div>
         Online Membership Application
     </div> -->
-    <span class="mp-pt2">Step 3: Membership Details</span>
+    <span class="mp-pt2" id="step-title">Step 1: Personal Information</span>
     <div class="relative mp-mt2 w-90 d-flex ml-auto mr-auto">
         <ul class="d-flex flex-row items-between w-100 stepper">
             <li class="circle active" id="stepper-1">1</li>

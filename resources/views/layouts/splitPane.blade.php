@@ -425,9 +425,9 @@
         }, 400)
     })
 
-    $(document).on('click', '#register', function(e) {
-        window.location.href = '/register';
-    })
+    // $(document).on('click', '#register', function(e) {
+    //     window.location.href = '/register';
+    // })
 
     //Continue Application
     $(document).on('click', '#cont_app', function(e) {
