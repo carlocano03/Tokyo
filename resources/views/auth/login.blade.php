@@ -97,10 +97,10 @@
     <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
 </div>
 <div class="mp-pb4 mp-text-fs-large mp-text-center mp-split-pane__title mp-text-c-primary">
-    Application Status Trail
+    Continue your application / Check your application status
 </div>
 
-{{-- <label class="mp-text-fs-medium">
+<!-- <label class="mp-text-fs-medium">
         Abutin ang pangarap kasama ang
         <a href="https://www.upprovidentfund.com/" target="_blank">
             UP PROVIDENT FUND INC.
@@ -111,11 +111,13 @@
     <label class="mp-input-group__label">Scan QR</label>
     <br>
     <img src="{!! asset('assets/icons/qr-icon.svg') !!}" alt="UPPFI">
-</div>
+</div> -->
 
 <div class="mp-input-group mp-mt2" id="input-app">
-    <label class="mp-input-group__label">Application Number</label>
-    <input class="mp-input-group__input mp-text-field" type="text" id="app_no_trail" required />
+    <label class="mp-input-group__label">Enter your application number.<br> Make sure to use the format xxxx-xxxx <br>ex. 2023-0024</label>
+    <br><br><br><input class="mp-input-group__input mp-text-field" type="text" id="app_no_trail" placeholder="Enter your Application Number XXXX-XXXX"required />
+    <label class="mp-input-group__label">(Your application number was emailed to your emailed provided at signup.)</label>
+  
 </div>
 
 <div class="col col-auto">
@@ -573,10 +575,14 @@
                 MONTHLY CONTRIBUTION
             </label>
             <label class="mp-input-group__label">
-                (Contribution will be deducted from your salary every month; Choose between: (a) Percentage of basic
-                salary, minimum of 1%; or (b) Fixed amount;
-                You may change this anytime by filling out the Member’s Data Updating Form; Amount is subject to the DBM
-                rule on net take-home pay threshold.)
+                (The amount that you decide here will serve as your monthly contribution to your UP Provident
+                Fund account, and will be deducted from your salary every month. Choose between:<br><br>
+                (a) Percentage of Basic Salary, minimum of 1%; or <br>
+                (b) A Fixed amount <br><br>
+                You may change this anytime by filling out the Member's Data Updating Form at any of our offices.
+                <br><br>
+                Amount is subject to the DBM rule on net take-home pay threshold.
+                (Your net pay must not fall below P5,000 after all deductions).)
             </label>
         </div>
         <div class="mp-input-group">

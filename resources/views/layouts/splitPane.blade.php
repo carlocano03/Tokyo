@@ -574,7 +574,7 @@
                                                 mem_id = data.mem_id;
                                                 personnel_id = data.success;
                                                 Swal.fire({
-                                                    text: 'Notice, please copy your system generated application no.:' +
+                                                    text: 'Your application number is' +
                                                         ' ' +
                                                         reference_no,
                                                     icon: 'success',
