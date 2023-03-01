@@ -820,13 +820,16 @@
                                             </div>
                                     </span>
                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
-                                        <span>View Option</span>
+                                        @if(Auth::user()->user_level == 'ADMIN')
+                                        <span>View User Option</span>
                                         <select name="view_all" id="view_all" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;" <?= Auth::user()->user_level != 'ADMIN' ? 'disabled' : '' ?>>
                                             <option value="">All Records</option>
                                             <option value="AA" <?=  Auth::user()->user_level == 'AA' ? 'selected' : '' ?>>AA</option>
                                             <option value="CFM" <?=  Auth::user()->user_level == 'CFM' ? 'selected' : '' ?>>CFM</option>
                                             <option value="HRDO" <?=  Auth::user()->user_level == 'HRDO' ? 'selected' : '' ?>>HRDO</option>
                                         </select>
+                                        @endif
+                                        
                                         
                                     </span>
                                 </div>
@@ -847,9 +850,7 @@
                         <div class="card d-flex flex-column">
                             <div class="d-flex flex-row items-between">
                                 <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value"/>
-                                <span>
-                                    <button class="f-button mar-bg" id="check_all" disabled>Checkall</button>
-                                </span>
+                                
                                 <span class="d-flex flex-row gap-10 justify-content-center align-items-center">
                                     <select name="forward_action" id="forward_action" class="radius-1 outline select-field" style="height: 30px">
                                         <option value="">
@@ -858,10 +859,10 @@
                                         @if(Auth::user()->user_level == 'HRDO')
                                             <option value="FM">Forward to Fund manager</option>
                                             <option value="AA">Return to AA</option>
-                                            <option value="CFM">Return to CFM</option>
+                                            {{-- <option value="CFM">Return to CFM</option> --}}
                                         @else
                                             <option value="HRDO">Forward to HRDO</option>
-                                            <option value="CFM">Forward to CFM</option>
+                                            {{-- <option value="CFM">Forward to CFM</option> --}}
                                         @endif
                                     </select>
                                     <span>
@@ -874,7 +875,7 @@
                                     <thead>
                                         <tr>
                                             <th style="width: 20px;">
-                                                <span></span>
+                                                <span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check_all"  id="check_all"></span>
                                             </th>
                                             <th style="width: 48px;">
                                                 <span>Action</span>
