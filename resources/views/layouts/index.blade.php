@@ -267,10 +267,16 @@
     <div id="loading" class="mx-auto" style="display:none;">
         <img id="loading-image" src="{{ asset('/img/logo_gif_blue.gif') }}" alt="Loading..." />
     </div>
-    <!-- <div id="modalBackDrop" class="d-none opacity-0">
+     <div id="modalBackDrop" class="d-none opacity-0">
         <div class="modalContent">
             <div class="modalBody">
-                <p>UPPFI uses a third party service to analyze non-identifiable web traffic for us. This site uses cookies. Data generated is not disclosed not shared with any other party. For more information please see our <a href="#" class="link_style">Privacy Policy</a>.</p>
+                <p>U.P. Provident Fund (UPPF) upholds the Data Privacy Act, and is committed to the protection of the privacy rights of its members, employees, officers, or stakeholders from whom it processes personal information and sensitive personal information, guided all the time by the principles of legitimacy, transparency, and proportionality. <br>
+
+                    Thus, UPPF has instituted strict measures to safeguard the sanctity and confidentiality of those data/information. The Company strictly adheres to the duties and responsibilities (before, during, and after processing of information), mandated by Republic Act 10173 and allied government regulations. <br>
+                    Kindly sign below to signify your free, prior, and informed consent for UPPF to proceed with this personal data processing, and to allow UPPF to use the information for 
+(i)the appropriate delivery of its products and services,
+(ii) necessary documentation or submission, and/ or (iii) pursuance of transactions expected from its position. 
+                       <!--<a href="#" class="link_style">Privacy Policy</a>.--></p>
             </div>
             <div class="modalFooter">
                 <button id="agree">
@@ -278,7 +284,7 @@
                 </button>
             </div>
         </div>
-    </div> -->
+    </div> 
     <div class="cookie-drawer">
         <div class="d-flex flex-row items-between">
             <span class="centered-text">
