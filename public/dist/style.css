@@ -5715,8 +5715,8 @@ tfoot {
 }
 
 .filler {
-    height: 90px;
-    background-color: white;
+    height: 20px;
+    background-color: var(--c-accent);
     /* background: linear-gradient(90deg, rgba(137, 65, 104, 1) 8%, rgba(26, 137, 129, 1) 98%);
     border-bottom: 1px solid #e0e4e8;
     border-bottom: 1px solid #e0e4e8; */
@@ -6004,9 +6004,10 @@ tfoot {
 }
 
 .members-table>tbody>tr>td {
+    overflow-wrap: break-word;
     font-size: 12px;
-    padding-left: 5px;
-    padding-right: 5px;
+    /* padding-left: 5px;
+    padding-right: 5px; */
 }
 
 .text-green {
@@ -6109,8 +6110,9 @@ tfoot {
 
 .table-container {
     min-height: calc(65vh - 219px);
-    max-height: calc(100vh - 219px);
+    max-height: calc(100vh - 50px);
     overflow: auto;
+    overflow-x: hidden;
 }
 
 .record-container {
@@ -6406,7 +6408,7 @@ tfoot {
 }
 
 .mh-content {
-    height: calc(100vh - 158px) !important;
+    height: calc(100vh - 50px) !important;
     overflow-y: auto !important;
 }
 
@@ -6443,7 +6445,7 @@ tfoot {
 }
 
 .admin-settingtab {
-    height: 800px;
+    height: 1500px;
 }
 
 
@@ -6462,4 +6464,9 @@ tfoot {
     border-radius: 50%;
     width: 40px;
     height: 40px;
+}
+
+#disagree {
+    background-color: var(--c-base-25);
+    color: var(--c-base);
 }

@@ -1237,8 +1237,8 @@
                         <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}" >
                         <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <a style="padding:0; position:absolute; left:10px; cursor: pointer;" id="personal-toggle">
-                                <i class="fa fa-plus-square d-none personal-toggle-plus" aria-hidden="true"></i>
-                                <i class="fa fa-minus-square personal-toggle-minus" aria-hidden="true"></i>
+                                <i class="fa fa-plus-square personal-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square d-none personal-toggle-minus" aria-hidden="true"></i>
                             </a>
                             <span>
                                 I. Personal Details
@@ -1262,7 +1262,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Name (Last, First, Middle Suffix)
@@ -1286,7 +1286,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Date of Birth
@@ -1310,7 +1310,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                Gender
@@ -1334,7 +1334,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Civil Status
@@ -1358,7 +1358,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Citizenship
@@ -1382,7 +1382,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Current Address
@@ -1406,7 +1406,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Permanent Address
@@ -1430,7 +1430,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Contact Number
@@ -1454,7 +1454,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Landline Number
@@ -1478,7 +1478,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Email Address
@@ -1502,11 +1502,11 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full open-detail">
+                    <div class="table-form form-header w-full ">
                         <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <a style="padding:0; position:absolute; left:10px; cursor: pointer" id="employee-toggle">
-                                <i class="fa fa-plus-square d-none employee-toggle-plus" aria-hidden="true"></i>
-                                <i class="fa fa-minus-square employee-toggle-minus" aria-hidden="true"></i>
+                                <i class="fa fa-plus-square employee-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square d-none employee-toggle-minus" aria-hidden="true"></i>
                             </a>    
                             <span>
                                 II. Employee Details
@@ -1530,7 +1530,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Employee Number
@@ -1554,7 +1554,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Campus
@@ -1578,7 +1578,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Classification
@@ -1602,7 +1602,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             College/Unit
@@ -1626,7 +1626,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Department
@@ -1650,7 +1650,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Rank/Position
@@ -1674,7 +1674,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Appointment
@@ -1698,7 +1698,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Appointment Date
@@ -1722,7 +1722,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Monthly Salary
@@ -1746,7 +1746,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Salary Grade
@@ -1770,7 +1770,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Salary Grade Category
@@ -1794,7 +1794,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Tin Number
@@ -1821,8 +1821,8 @@
                     <div class="table-form form-header w-full">
                         <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <a style="padding:0; position:absolute; left:10px; cursor: pointer" id="members-toggle">
-                                <i class="fa fa-plus-square d-none members-toggle-plus" aria-hidden="true"></i>
-                                <i class="fa fa-minus-square members-toggle-minus" aria-hidden="true"></i>
+                                <i class="fa fa-plus-square members-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square d-none members-toggle-minus" aria-hidden="true"></i>
                             </a>       
                             <span>
                                 III. Members Details
@@ -1846,7 +1846,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full members-detail open-detail">
+                    <div class="table-form form-header w-full members-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Monthly Contribution
@@ -1870,7 +1870,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full members-detail open-detail">
+                    <div class="table-form form-header w-full members-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Equivalent Value
@@ -1894,11 +1894,11 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full supporting-border">
+                    <div class="table-form form-header w-full supporting-border border-bottom-1">
                         <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <a style="padding:0; position:absolute; left:10px; cursor: pointer" id="supporting-toggle">
-                                <i class="fa fa-plus-square d-none supporting-toggle-plus" aria-hidden="true"></i>
-                                <i class="fa fa-minus-square supporting-toggle-minus" aria-hidden="true"></i>
+                                <i class="fa fa-plus-square supporting-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square d-none supporting-toggle-minus" aria-hidden="true"></i>
                             </a>        
                             <span>
                                 IV. Forms and Attachment
@@ -1922,7 +1922,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full supporting-detail open-detail">
+                    <div class="table-form form-header w-full supporting-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Membership Form
@@ -1948,7 +1948,7 @@
                         </a>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full supporting-detail open-detail">
+                    <div class="table-form form-header w-full supporting-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Proxy form

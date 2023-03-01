@@ -457,16 +457,18 @@
   </div>
   <div class="main_content">
     <div class="header">
+
       <div class="info">
-        <a href="/">
+        <p class="mp-input-group__label_footer" style="margin-left: 20px; color: white; margin-bottom: 2px;">
+          University of the Philippines Provident Fund Inc.
+        </p>
+        <!-- <a href="/">
           <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" style="transform: scale(.7);" alt="UPPFI">
         </a>
         <a class="univ-title" href="/">
           University of the Philippines Provident Fund Inc.
-        </a>
-        <!-- <a href="#">
-          <strong><a href="{{ url('/logout') }}" class="logout">Log out</a> </strong>
         </a> -->
+
       </div>
 
 
@@ -528,15 +530,16 @@
   <div class="main_content">
     <div class="header">
       <div class="info">
-        <a href="/">
-          <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+        <p class="mp-input-group__label_footer" style="margin-left: 20px; color: white; margin-bottom: 2px;">
+          University of the Philippines Provident Fund Inc.
+        </p>
+        <!-- <a href="/">
+          <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" style="transform: scale(.7);" alt="UPPFI">
         </a>
         <a class="univ-title" href="/">
           University of the Philippines Provident Fund Inc.
-        </a>
-        <!-- <a href="#">
-          <strong><a href="#" class="logout">Log out</a> </strong>
         </a> -->
+
       </div>
 
 
