@@ -319,17 +319,44 @@
     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" id="step-1">
         <input type="hidden" id="app_trailNo">
         <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
-          <div class="mp-input-group">
+        <div class="mp-input-group">
             <label class="mp-input-group__label">First Name *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
         </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Last Name
+                <div class="tooltip">
+                    <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
+                    <div class="right">
+
+                        <div class="text-content">
+                            <h3>Proxy Form</h3>
+                            <ul>
+                                <li>
+
+                                    The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
+
+                                    In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
+
+                                    For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.</li>
+
+                            </ul>
+                        </div>
+                        <i></i>
+                    </div>
+                </div>
+
+            </label>
+            <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
+        </div>
+
         <div class="mp-input-group">
 
             <label class="mp-input-group__label">Last Name
             </label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
         </div>
-      
+
 
         <div class="mp-input-group">
             <label class="mp-input-group__label">Middle Name * (Please input your complete middle name.)</label><br>
@@ -342,8 +369,8 @@
             <label class="mp-input-group__label">Last Name *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
         </div>
-       
-       
+
+
         <div class="mp-input-group">
             <label class="mp-input-group__label">Suffix</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="suffix" />
@@ -407,6 +434,7 @@
         </div>
         <div class="mp-input-group">
 
+
             <label class="mp-input-group__label">Present Address *</label><br>
             <label class="mp-input-group__label">Province
 
@@ -426,7 +454,6 @@
                     </div>
                 </div>
             </label>
-
             <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
                 <option value="">Select Province</option>
                 {{-- @foreach ($psgc_prov as $row)
@@ -509,10 +536,10 @@
             <input class="mp-input-group__input mp-text-field" type="email" name="email" required />
         </div>
         <div class="mp-input-group">
-           <div class="mp-input-group mp-mt5">
+            <div class="mp-input-group mp-mt5">
                 <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms">
                 Sign up for emails to get updates on products, offers and member benefits.
-                 <!--<a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
+                <!--<a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>-->
                 </label>
             </div>
@@ -552,29 +579,29 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="classification_others" />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Employee Number  *</label>
+            <label class="mp-input-group__label">Employee Number *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="employee_no" required />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">College Unit  *</label>
+            <label class="mp-input-group__label">College Unit *</label>
             <select class="mp-input-group__input mp-text-field" name="college_unit" id="college_unit">
                 <option value="">Select Unit</option>
                 {{-- <option>Unit </option> --}}
             </select>
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Department  *</label>
+            <label class="mp-input-group__label">Department *</label>
             <select class="mp-input-group__input mp-text-field" name="department" id="department" required>
                 <option value="">Select Department</option>
                 {{-- <option>DEPED </option> --}}
             </select>
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Academic Rank/ Position  *</label>
+            <label class="mp-input-group__label">Academic Rank/ Position *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="rank_position" id="rank_position" />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label mp-mb1">Date of Appointment  *</label>
+            <label class="mp-input-group__label mp-mb1">Date of Appointment *</label>
             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Month</label>
@@ -599,7 +626,7 @@
             </div>
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Appointment Status  *</label>
+            <label class="mp-input-group__label">Appointment Status *</label>
             <select class="mp-input-group__input mp-text-field" name="appointment" id="appointment" required>
                 <option value="">Select Status</option>
                 {{-- <option>Regular Employee</option> --}}
@@ -611,7 +638,7 @@
         </div>
         <div class="mp-input-group">
 
-            <label class="mp-input-group__label">Monthly Salary  *</label>
+            <label class="mp-input-group__label">Monthly Salary *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="monthly_salary" id="monthly_salary" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
 
         </div>
@@ -628,7 +655,7 @@
                 </select> --}}
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Taxpayer Identification Number (TIN)  *</label>
+            <label class="mp-input-group__label">Taxpayer Identification Number (TIN) *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
         </div>
         <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-3" id="next-btn">
@@ -642,10 +669,10 @@
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-3">
         <div class="mp-input-group">
             <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
-                MONTHLY CONTRIBUTION 
+                MONTHLY CONTRIBUTION
             </label>
             <label class="mp-input-group__label">
-            (The amount that you decide here will serve as your monthly contribution to your UP Provident
+                (The amount that you decide here will serve as your monthly contribution to your UP Provident
                 Fund account, and will be deducted from your salary every month. Choose between:<br><br>
                 (a) Percentage of Basic Salary, minimum of 1%; or <br>
                 (b) A Fixed amount <br><br>
@@ -743,7 +770,29 @@
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-4">
 
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Supporting Document </label>
+            <label class="mp-input-group__label">Supporting Document
+                <div class="tooltip">
+                    <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
+                    <div class="right">
+
+                        <div class="text-content">
+                            <h3>Sample Tooltip</h3>
+                            <ul>
+                                <li>Proxy Form
+
+                                    The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
+
+                                    In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
+
+                                    For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.</li>
+
+                            </ul>
+                        </div>
+                        <i></i>
+                    </div>
+                </div>
+            </label>
+
         </div>
 
         <div class="mp-input-group">
