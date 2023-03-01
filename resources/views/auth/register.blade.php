@@ -271,9 +271,9 @@
 
 @section('registration-personal-form')
 <script>
-     $(document).on('click', '#back-to-home', function(e) {
+    $(document).on('click', '#back-to-home', function(e) {
         window.location.href = '/login';
-     })
+    })
 </script>
 <div class="d-flex gap-10 mp-pt2 bg-white flex-column ">
     <!-- <div style="width: 100%;" class="d-flex gap-10">
@@ -320,7 +320,10 @@
         <input type="hidden" id="app_trailNo">
         <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Last Name</label>
+            <label class="mp-input-group__label">Last Name
+
+
+            </label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
         </div>
         <div class="mp-input-group">
@@ -346,14 +349,14 @@
                         <option value="01">January</option>
                     </select>
                 </div>
-                <span><br/>-</span>
+                <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Day</label>
                     <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
                         <option value="01">01</option>
                     </select>
                 </div>
-                <span><br/>-</span>
+                <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Year</label>
                     <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
@@ -396,7 +399,24 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Present Address</label><br>
-            <label class="mp-input-group__label">Province</label>
+            <label class="mp-input-group__label">Province
+
+                <div class="tooltip">
+                    <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
+                    <div class="right">
+
+                        <div class="text-content">
+                            <h3>Sample Tooltip</h3>
+                            <ul>
+                                <li>qwewqeqwewq</li>
+                                <li>zxcxzcx.</li>
+                                <li>Other demos are using display property<em>(none or block)</em> for the toggle.</li>
+                            </ul>
+                        </div>
+                        <i></i>
+                    </div>
+                </div>
+            </label>
             <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
                 <option value="">Select Province</option>
                 {{-- @foreach ($psgc_prov as $row)
@@ -553,14 +573,14 @@
                         <option value="01">January</option>
                     </select>
                 </div>
-                <span><br/>-</span>
+                <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Day</label>
                     <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
                         <option value="01">01</option>
                     </select>
                 </div>
-                <span><br/>-</span>
+                <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Year</label>
                     <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
@@ -643,30 +663,30 @@
             <label class="mp-input-group__label">Dependents</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Name" />
             <div class="mp-input-group">
-            <label class="mp-input-group__label mp-mb1">Birthday</label>
-            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
-                <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Month</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">January</option>
-                    </select>
-                </div>
-                <span><br/>-</span>
-                <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Day</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">01</option>
-                    </select>
-                </div>
-                <span><br/>-</span>
-                <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Year</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">1998</option>
-                    </select>
+                <label class="mp-input-group__label mp-mb1">Birthday</label>
+                <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
+                    <div class="d-flex flex-column" style="gap: 3px">
+                        <label class="mp-input-group__label">Month</label>
+                        <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                            <option value="01">January</option>
+                        </select>
+                    </div>
+                    <span><br />-</span>
+                    <div class="d-flex flex-column" style="gap: 3px">
+                        <label class="mp-input-group__label">Day</label>
+                        <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                            <option value="01">01</option>
+                        </select>
+                    </div>
+                    <span><br />-</span>
+                    <div class="d-flex flex-column" style="gap: 3px">
+                        <label class="mp-input-group__label">Year</label>
+                        <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                            <option value="01">1998</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" placeholder="Relationship" />
             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
                 <span id="add_dependent">Add Dependent</span> </a>
@@ -708,7 +728,7 @@
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-4">
 
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Supporting Document</label>
+            <label class="mp-input-group__label">Supporting Document </label>
         </div>
 
         <div class="mp-input-group">
