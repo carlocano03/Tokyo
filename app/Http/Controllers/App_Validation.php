@@ -160,6 +160,17 @@ class App_Validation extends Controller
         );
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
           ->update($mem_appinst);
+      $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+      if($appcount > 0){
+        $apptrail = array(
+          'status_remarks' => "AA - VERIFIED",
+          'app_no' => $id,
+          'updateby' => Auth::user()->id,
+          'user_level' => Auth::user()->user_level,
+        );
+        DB::table('app_trailing')->where('app_no', $id)
+          ->insert($apptrail);
+      }
         return [
           'last_id' => $last_id,
         ];
@@ -344,6 +355,17 @@ class App_Validation extends Controller
         $email = DB::table('mem_app')->where('app_no', $request->input('app_no'))->select('email_address')->value('email_address');
         $last_id = DB::table('mem_app')->where('app_no', $request->input('app_no'))
           ->update($mem_appinst);
+        $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+        if($appcount > 0){
+          $apptrail = array(
+            'status_remarks' => "AA - REJECTED",
+            'app_no' => $id,
+            'updateby' => Auth::user()->id,
+            'user_level' => Auth::user()->user_level,
+          );
+          DB::table('app_trailing')->where('app_no', $id)
+            ->insert($apptrail);
+        }
           $mailData = [
             'title' => 'Member Application is REJECTED',
             'body' => 'Your application has been REJECTED.',
@@ -359,7 +381,7 @@ class App_Validation extends Controller
     public function hrdo_validation_save(Request $request)
     {
       $datadb = DB::transaction(function () use ($request) {
-        $coco = DB::table('hrdo_validation')->where('app_no', $request->input('app_no'))->count();
+        $coco = DB::table('aa_validation')->where('app_no', $request->input('app_no'))->count();
         if ($coco > 0) {
           // return response()->json(['message' => 'Exist']);
           $inserts = array(
@@ -392,42 +414,9 @@ class App_Validation extends Controller
             'general_remarks' => $request->input('general_remarks'), 
             'evaluate_by' => Auth::user()->id
         );
-         $last_id = DB::table('hrdo_validation')->where('app_no', $request->input('app_no'))
+         $last_id = DB::table('aa_validation')->where('app_no', $request->input('app_no'))
         ->update($inserts);
-        }else{
-          $inserts = array(
-            'app_no' => $request->input('app_no'),
-            'pass_emp_no' => $request->input('pass_emp_no'),
-            'pass_campus' => $request->input('pass_campus'),
-            'pass_classification' => $request->input('pass_classification'),
-            'pass_college_unit' => $request->input('pass_college_unit'),
-            'pass_department' => $request->input('pass_department'),
-            'pass_rankpos' => $request->input('pass_rankpos'),
-            'pass_appointment' => $request->input('pass_appointment'),
-            'pass_appointdate' => $request->input('pass_appointdate'),
-            'pass_monthlysalary' => $request->input('pass_monthlysalary'),
-            'pass_sg' => $request->input('pass_sg'),
-            'pass_sgcat' => $request->input('pass_sgcat'),
-            'pass_tin_no' => $request->input('pass_tin_no'),
-
-            'remarks_emp_no' => $request->input('remarks_emp_no'),
-            'remarks_campus' => $request->input('remarks_campus'),
-            'remarks_classification' => $request->input('remarks_classification'),
-            'remarks_college_unit' => $request->input('remarks_college_unit'),
-            'remarks_department' => $request->input('remarks_department'),
-            'remarks_rankpos' => $request->input('remarks_rankpos'),
-            'remarks_appointment' => $request->input('remarks_appointment'),
-            'remarks_appointdate' => $request->input('remarks_appointdate'),
-            'remarks_monthlysalary' => $request->input('remarks_monthlysalary'),
-            'remarks_sg' => $request->input('remarks_sg'),
-            'remarks_sgcat' => $request->input('remarks_sgcat'),
-            'remarks_tin_no' => $request->input('remarks_tin_no'),
-            'general_remarks' => $request->input('general_remarks'), 
-            'evaluate_by' => Auth::user()->id
-        );
-        $last_id = DB::table('hrdo_validation')->insertGetId($inserts);
         }
-        
         $mem_appinst = array(
           'validator_remarks' => "HRDO VERIFIED",
         );
@@ -437,6 +426,6 @@ class App_Validation extends Controller
           'last_id' => $last_id,
         ];
       });
-      return response()->json(['success' => $datadb['last_id']]);
+      return response()->json(['success' => true]);
     }
 }

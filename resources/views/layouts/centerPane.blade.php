@@ -1048,21 +1048,38 @@
                             $('#sg_category').val('16-33');
                         }
                     } else {
-
+                        errorDisplayed = false;
                         $('#salary_grade').val('');
                     }
                 }
             });
         });
+        var errorDisplayed = false; // flag variable to keep track of whether the error message has been displayed
         $("#monthly_salary").blur(function() {
-            if ($('#salary_grade').val() == '') {
-                Swal.fire({
-                    title: 'Salary Grade is not available. Please contact UPPF administratior.',
-                    text: 'Thank you!',
-                    icon: 'error'
-                });
+            var inputValue = $(this).val();
+            inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var decimalAdded = inputValue.split(".");
+            if (decimalAdded.length > 2) {
+                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
+            }
+
+            if (inputValue == '') {
+                $('#sg_category').val('');
+            }
+            $(this).val(inputValue);
+            if($('#salary_grade').val() == '') {
+                if (!errorDisplayed) {
+                    Swal.fire({
+                        title: 'Salary Grade is not available. Please contact UPPF administratior.',
+                        text: 'Thank you!',
+                        icon: 'error'
+                    });
+                    errorDisplayed = true; // set the flag variable to true to indicate that the error message has been displayed
+                }
                 $('#monthly_salary').val('');
                 $('#monthly_salary').focus();
+            } else {
+                errorDisplayed = false; // reset the flag variable to false
             }
         });
         $.getJSON('/options', function(options) {
