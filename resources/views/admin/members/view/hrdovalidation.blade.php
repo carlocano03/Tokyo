@@ -1626,9 +1626,13 @@
                                 </div>
                             </div>
                             <span class="d-flex" style="gap: 10px">
+                                <button class="f-button align-self-end magenta-bg" id="return_app" >
+                                    <span id="return_text">Return Application</span>
+                                </button>
                                 <button class="f-button align-self-end" id="save_record" >
                                 <span id="save_text">Save Record</span>
                                 </button>
+                                
                             </span>
                         </form>
                         </div>

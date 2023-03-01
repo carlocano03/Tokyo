@@ -157,18 +157,19 @@ class App_Validation extends Controller
         
         $mem_appinst = array(
           'validator_remarks' => "AA VERIFIED",
+          'aa_cfm_user' => Auth::user()->id,
         );
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
           ->update($mem_appinst);
-      $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+      $appcount = DB::table('app_trailing')->where('app_no', $request->input('app_no'))->count();
       if($appcount > 0){
         $apptrail = array(
           'status_remarks' => "AA - VERIFIED",
-          'app_no' => $id,
+          'app_no' => $request->input('app_no'),
           'updateby' => Auth::user()->id,
           'user_level' => Auth::user()->user_level,
         );
-        DB::table('app_trailing')->where('app_no', $id)
+        DB::table('app_trailing')->where('app_no', $request->input('app_no'))
           ->insert($apptrail);
       }
         return [
@@ -310,6 +311,7 @@ class App_Validation extends Controller
         $email = DB::table('mem_app')->where('app_no', $request->input('app_no'))->select('email_address')->value('email_address');
         $mem_appinst = array(
           'validator_remarks' => "FOR CORRECTION",
+          'aa_cfm_user' => Auth::user()->id,
         );
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
           ->update($mem_appinst);
@@ -340,9 +342,15 @@ class App_Validation extends Controller
               ->where('app_no', $appNo)
               ->update(['validator_remarks' => 'FORWARDED TO ' . $forwardAction,
                         'forwarded_user' => $forwarded_user]);
+          $rows = DB::table('app_trailing')
+                ->insert(['status_remarks' => 'HRDO - REVIEW VALIDATION',
+                          'updateby' => Auth::user()->id,
+                          'user_level' => 'HRDO',
+                          'app_no'=> $appNo]);
           $affectedRows += $row;
       }
-      
+
+
       return response()->json(['success' => $affectedRows]);
     }
     public function aa_validation_rejected(Request $request)
@@ -355,15 +363,15 @@ class App_Validation extends Controller
         $email = DB::table('mem_app')->where('app_no', $request->input('app_no'))->select('email_address')->value('email_address');
         $last_id = DB::table('mem_app')->where('app_no', $request->input('app_no'))
           ->update($mem_appinst);
-        $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+        $appcount = DB::table('app_trailing')->where('app_no', $request->input('app_no'))->count();
         if($appcount > 0){
           $apptrail = array(
             'status_remarks' => "AA - REJECTED",
-            'app_no' => $id,
+            'app_no' => $request->input('app_no'),
             'updateby' => Auth::user()->id,
             'user_level' => Auth::user()->user_level,
           );
-          DB::table('app_trailing')->where('app_no', $id)
+          DB::table('app_trailing')->where('app_no', $request->input('app_no'))
             ->insert($apptrail);
         }
           $mailData = [
@@ -422,10 +430,49 @@ class App_Validation extends Controller
         );
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
           ->update($mem_appinst);
+        $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+        if($appcount > 0){
+          $apptrail = array(
+            'status_remarks' => "HRDO - VERIFIED",
+            'app_no' => $id,
+            'updateby' => Auth::user()->id,
+            'user_level' => Auth::user()->user_level,
+          );
+          DB::table('app_trailing')->where('app_no', $id)
+            ->insert($apptrail);
+        }
         return [
           'last_id' => $last_id,
         ];
       });
       return response()->json(['success' => true]);
     }
+    // 
+    public function validate_step_aa(Request $request)
+    {
+      $user_step = DB::table('app_trailing')
+      ->where('app_no', $request->input('app_no'))
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('user_level');
+      if($user_step == Auth::user()->user_level){
+        $affectedRows = 1;
+      }else{
+        $affectedRows = 0;
+      }
+      return response()->json(['success' => $affectedRows]);
+    }
+    public function validate_step_reject(Request $request)
+    {
+      $user_step = DB::table('app_trailing')
+      ->where('app_no', $request->input('app_no'))
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('user_level');
+      if($user_step == Auth::user()->user_level){
+        $affectedRows = 1;
+      }else{
+        $affectedRows = 0;
+      }
+      return response()->json(['success' => $affectedRows]);
+    }
+    
 }
