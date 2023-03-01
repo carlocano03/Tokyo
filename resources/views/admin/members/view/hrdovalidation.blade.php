@@ -676,6 +676,22 @@
     .membership-body.open-details {
         display: flex !important;
     }
+    
+
+    .forms_attachment-title{
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+    }
+    .forms_attachment-title.open-details {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .forms_attachment-body{
+        display: none !important;
+    }
+    .forms_attachment-body.open-details {
+        display: flex !important;
+    }
 
 </style>
 <div id="summaryModal" class="d-none">
@@ -833,6 +849,20 @@
             $(".membership-title").addClass("open-details")
             $(".membership-down").removeClass("d-none")
             $(".membership-up").addClass("d-none")
+        }
+    })
+    $(document).on('click', '#forms_attachment-toggle', function(e) {
+        if ($(".forms_attachment-body").hasClass("open-details")) {
+            $(".forms_attachment-body").removeClass("open-details")
+            $(".forms_attachment-title").removeClass("open-details")
+            $(".forms_attachment-up").removeClass("d-none")
+            $(".forms_attachment-down").addClass("d-none")
+
+        } else {
+            $(".forms_attachment-body").addClass("open-details")
+            $(".forms_attachment-title").addClass("open-details")
+            $(".forms_attachment-down").removeClass("d-none")
+            $(".forms_attachment-up").addClass("d-none")
         }
     })
 
@@ -1036,7 +1066,7 @@
                 
                     <div class="card-container card p-0 mp-mt3">
                         <div class="card-header d-flex items-between maroon-bg member-detail-title open-details">
-                            <span>Member Details</span><span>
+                            <span>Personal Details</span><span>
                                 <span>
                                     <a class="cursor-pointer m-0 p-0 mp-mr2" id="member-detail-toggle">
                                         <i class="fa fa-chevron-circle-up  member-up" aria-hidden="true"></i>
@@ -1127,7 +1157,7 @@
                                         Evaluated by
                                         <br>
                                         <span class="font-md font-bold">
-                                            AA/FCM Account
+                                            AA Account
                                         </span>
                                     </p>
                                     <p class="mp-text-right">
@@ -1146,7 +1176,6 @@
                 <div class="mp-pv5 mp-mb3">
                     <div class="card-container card p-0 mp-mt3">
                         <div class="card-header d-flex items-between maroon-bg membership-title open-details">
-                        
                             <span>Membership Details</span><span>
                                 <span>
                                     <a class="cursor-pointer m-0 p-0 mp-mr2" id="membership-toggle">
@@ -1194,6 +1223,56 @@
                         </div>
                     </div>
                 </div>
+                <div class="mp-pv5 mp-mb3">
+                    <div class="card-container card p-0 mp-mt3">
+                        <div class="card-header d-flex items-between maroon-bg forms_attachment-title open-details">
+                            <span>Forms and Attachment</span><span>
+                                <span>
+                                    <a class="cursor-pointer m-0 p-0 mp-mr2" id="forms_attachment-toggle">
+                                        <i class="fa fa-chevron-circle-up forms_attachment-up" aria-hidden="true"></i>
+                                        <i class="fa fa-chevron-circle-down d-none forms_attachment-down" aria-hidden="true"></i>
+                                    </a>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="card-body mp-pv4 mp-ph3 d-flex flex-column forms_attachment-body open-details">
+                            <div class="d-flex flex-row items-between font-sm" style="gap: 5px">
+                                <div class="d-flex flex-column items-center mp-text-center">
+                                    <span>
+                                        Membership Form
+                                    </span>
+                                    <a class='view_member view-member' 
+                                    href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
+                                    style='cursor: pointer; padding: 0'>
+                                    <span class="mp-link link_style">View Membership form</span>
+                                </a>
+                                </div>
+                                <div class="d-flex flex-column items-center mp-text-center">
+                                    <span>
+                                        Proxy Form
+                                    </span>
+                                    <a class='view_member view-member' 
+                                    href="javascript:void(0)" onclick="window.open('{{ URL::to('/generateProxyForm/') }}/{{ $rec->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
+                                    style='cursor: pointer; padding: 0'>
+                                    
+                                    <span class="mp-link link_style">View Proxy form</span>
+                                </a>
+                                </div>
+                                <div class="d-flex flex-column items-center mp-text-center">
+                                    <span>
+                                        AXA Form
+                                    </span>
+                                    <a class='view_member view-member' 
+                                    href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
+                                    style='cursor: pointer; padding: 0'>
+                                    <span class="mp-link link_style">View AXA form</span>
+                                </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="card-body mp-pv4 mp-ph3 d-flex flex-column min-h-50vh border-content">
                     <div class="table-form form-header w-full">
                         <div class="span-12 color-white text-center orage-bg mp-ph1" style="border-left: 1px solid gray;">
@@ -1212,7 +1291,7 @@
                                 <i class="fa fa-minus-square employee-toggle-minus" aria-hidden="true"></i>
                             </a>    
                             <span>
-                                II. Employee Details
+                                 Employee Details
                             </span>
                         </div>
                         <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">

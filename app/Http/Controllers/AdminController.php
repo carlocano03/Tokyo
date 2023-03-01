@@ -250,6 +250,19 @@ class AdminController extends Controller
     );
     $affected = DB::table('mem_app')->where('app_no', $id)
       ->update($mem_appinst);
+      
+    $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+    if($appcount == 0){
+      $apptrail = array(
+        'status_remarks' => "AA - Review Validation",
+        'app_no' => $id,
+        'updateby' => Auth::user()->id,
+        'user_level' => Auth::user()->user_level,
+      );
+       DB::table('app_trailing')->where('app_no', $id)
+        ->insert($apptrail);
+    }
+    
     if (!empty($affected)) {
       $mailData = [
         'title' => 'Member Application is for Processing',
@@ -274,7 +287,7 @@ class AdminController extends Controller
       ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
       ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
       ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
-      ->leftjoin('hrdo_validation', 'mem_app.app_no', '=', 'hrdo_validation.app_no')
+      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
       ->select(
         'mem_app.*',
         'membership_details.*',
@@ -452,10 +465,12 @@ class AdminController extends Controller
       $aa_1 = 'NEW APPLICATION';
       $cfm = 'AA VERIFIED';
       $process = 'PROCESSING';
-      $records->where('mem_app.forwarded_user', 0);
-      $records->where(function ($query) use ($aa_1, $cfm, $process) {
+      $query_serch = 'DRAFT APPLICATION';
+      // $records->where('mem_app.forwarded_user', 0);
+      $records->where(function ($query) use ($aa_1, $cfm, $process,$query_serch) {
         $query->where('mem_app.app_status', $aa_1)
           ->orWhere('mem_app.validator_remarks', $cfm)
+          ->orWhere('mem_app.app_status', $query_serch)
           ->orWhere('mem_app.app_status', $process)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
       });
@@ -495,9 +510,9 @@ class AdminController extends Controller
     if (!empty($dt_from) && !empty($dt_to)) {
       $records->whereBetween(DB::raw('DATE(mem_app.app_date)'), array($dt_from, $dt_to));
     }
-    if ($users == 'HRDO') {
+    if($users == 'HRDO'){
       $href = '/admin/members/records/view/hrdo/';
-    } else {
+    }else{
       $href = '/admin/members/records/view/aa/';
     }
     $posts = $records->skip($start)
@@ -508,10 +523,18 @@ class AdminController extends Controller
       foreach ($posts as $r) {
         $start++;
         $row = array();
-        $row[] = $r->validator_remarks == 'AA VERIFIED' || $r->validator_remarks == 'HRDO VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
+        if($users == 'AA'){
+          $checkbox_users = $r->validator_remarks == 'AA VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
           : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
+        }else if($users == 'HRDO'){
+          $checkbox_users = $r->validator_remarks == 'HRDO VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
+          : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
+        }
+        $row[] = $checkbox_users;
         $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "'
-                  href='" . $href . "" . $r->app_no . "' style='cursor: pointer'>
+                   " . 
+                  ($r->app_status == 'DRAFT APPLICATION' ? '' : "href='" . $href . "" . $r->app_no . "'") . " 
+                  style='cursor: pointer'>
                     <i class='mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large'></i>
                   </a>";
         $row[] = $r->app_no;
