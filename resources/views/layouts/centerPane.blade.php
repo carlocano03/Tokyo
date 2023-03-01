@@ -112,7 +112,7 @@
                         University of the Philippines Provident Fund Inc.
                     </span>
                     <span>
-                        Online Membership Application
+                       Become a UP Provident Fund Member
                     </span>
                 </div>
             </div>
@@ -209,7 +209,7 @@
     // //     $(e).removeAttr("hidden");
     // // });
 
-    var stepTitle = ["Personal Information", "Employment Details", "Membership Details", "Cocolife Forms"]
+    var stepTitle = ["Enter your Personal Information", "Enter your Employment Details", "Enter your Membership Details", "Forms & Attachment-"]
     var steps = ["Step 1: ", "Step 2: ", "Step 3: ", "Step 4: "]
     var present_provcode;
     $(document).on('change', '#present_province', function() {
@@ -567,9 +567,11 @@
                                                 mem_id = data.mem_id;
                                                 personnel_id = data.success;
                                                 Swal.fire({
-                                                    text: 'Notice, please copy your system generated application no.:' +
+                                                    text: ' Your application number is' +
                                                         ' ' +
-                                                        reference_no,
+                                                        reference_no + '  ' + 'Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.' +
+                                                        ' ' + ' We have emailed your application number to the email you provided in the previous step. You may also take a screeshot or copy this number for future reference.',
+                                                        
                                                     icon: 'success',
                                                     confirmButtonColor: '#3085d6',
                                                     confirmButtonText: 'Proceed',
@@ -1048,21 +1050,37 @@
                             $('#sg_category').val('16-33');
                         }
                     } else {
-
                         $('#salary_grade').val('');
                     }
                 }
             });
         });
+        var errorDisplayed = false; // flag variable to keep track of whether the error message has been displayed
         $("#monthly_salary").blur(function() {
-            if ($('#salary_grade').val() == '') {
-                Swal.fire({
-                    title: 'Salary Grade is not available. Please contact UPPF administratior.',
-                    text: 'Thank you!',
-                    icon: 'error'
-                });
+            var inputValue = $(this).val();
+            inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var decimalAdded = inputValue.split(".");
+            if (decimalAdded.length > 2) {
+                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
+            }
+
+            if (inputValue == '') {
+                $('#sg_category').val('');
+            }
+            $(this).val(inputValue);
+            if($('#salary_grade').val() == '') {
+                if (!errorDisplayed) {
+                    Swal.fire({
+                        title: 'Salary Grade is not available. Please contact UPPF administratior.',
+                        text: 'Thank you!',
+                        icon: 'error'
+                    });
+                    errorDisplayed = true; // set the flag variable to true to indicate that the error message has been displayed
+                }
                 $('#monthly_salary').val('');
                 $('#monthly_salary').focus();
+            } else {
+                errorDisplayed = false; // reset the flag variable to false
             }
         });
         $.getJSON('/options', function(options) {
