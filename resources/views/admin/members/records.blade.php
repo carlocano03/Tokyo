@@ -808,7 +808,7 @@
                                                 @endforeach
                                             </select>
                                     </span>
-                                    <span class="d-flex flex-column span-5 mp-pv2 flex-nowrap date-selector">
+                                    <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
                                         <span>Application Date</span>
                                         <div class="date_range d-flex">
                                                 <input type="date" id="from" class="radius-1 border-1 date-input outline"
@@ -818,6 +818,28 @@
                                                 <input type="date" id="to" class="radius-1 border-1 date-input outline"
                                                     style="height: 30px;">
                                             </div>
+                                    </span>
+                                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                        <span>Status</span>
+                                        <select name="" class="radius-1 outline select-field"
+                                                style="width: 100%; height: 30px" id="status_select">
+                                                <option value="">Show All</option>
+                                                <option value="DRAFT APPLICATION">DRAFT APPLICATION</option>
+                                                <option value="NEW APPLICATION">NEW APPLICATION</option>
+                                                <option value="PROCESSING">PROCESSING</option>
+                                                <option value="REJECTED">REJECTED</option>  
+                                            </select>
+                                    </span>
+                                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                        <span>Remarks</span>
+                                        <select name="" class="radius-1 outline select-field"
+                                                style="width: 100%; height: 30px" id="remarks_select">
+                                                <option value="">Show All</option>
+                                                <option value="AA VERIFIED">AA VERIFIED</option>  
+                                                <option value="FORWARDED TO HRDO">FORWARDED TO HRDO</option>
+                                                <option value="FORWARDED TO FM">FORWARDED TO FM</option>
+                                                <option value="HRDO RETURNED APPLICATIONS">HRDO RETURNED APPLICATIONS</option>    
+                                            </select>
                                     </span>
                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
                                         @if(Auth::user()->user_level == 'ADMIN')
@@ -1057,6 +1079,8 @@
                         data.dt_from = $('#from').val();
                         data.dt_to = $('#to').val();
                         data.searchValue = $('#search_value').val();
+                        data.status = $('#status_select').val();
+                        data.remarks = $('#remarks_select').val();
                     }
                 },
                 "drawCallback": function(settings) {
@@ -1111,6 +1135,12 @@
               tableMemberApp.draw();
             });
             $('#search_value').on('change', function() {
+              tableMemberApp.draw();
+            });
+            $('#status_select').on('change', function() {
+              tableMemberApp.draw();
+            });
+            $('#remarks_select').on('change', function() {
               tableMemberApp.draw();
             });
             $('#from').on('change', function() {
