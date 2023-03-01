@@ -614,10 +614,14 @@
                 MONTHLY CONTRIBUTION
             </label>
             <label class="mp-input-group__label">
-                (Contribution will be deducted from your salary every month; Choose between: (a) Percentage of basic
-                salary, minimum of 1%; or (b) Fixed amount;
-                You may change this anytime by filling out the Member’s Data Updating Form; Amount is subject to the DBM
-                rule on net take-home pay threshold.)
+            (The amount that you decide here will serve as your monthly contribution to your UP Provident
+                Fund account, and will be deducted from your salary every month. Choose between:<br><br>
+                (a) Percentage of Basic Salary, minimum of 1%; or <br>
+                (b) A Fixed amount <br><br>
+                You may change this anytime by filling out the Member's Data Updating Form at any of our offices.
+                <br><br>
+                Amount is subject to the DBM rule on net take-home pay threshold.
+                (Your net pay must not fall below P5,000 after all deductions).)
             </label>
         </div>
         <div class="mp-input-group">

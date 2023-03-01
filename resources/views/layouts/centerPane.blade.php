@@ -112,7 +112,7 @@
                         University of the Philippines Provident Fund Inc.
                     </span>
                     <span>
-                        Online Membership Application
+                       Become a UP Provident Fund Member
                     </span>
                 </div>
             </div>
@@ -209,7 +209,7 @@
     // //     $(e).removeAttr("hidden");
     // // });
 
-    var stepTitle = ["Personal Information", "Employment Details", "Membership Details", "Cocolife Forms"]
+    var stepTitle = ["Enter your Personal Information", "Enter your Employment Details", "Enter your Membership Details", "Forms & Attachment-"]
     var steps = ["Step 1: ", "Step 2: ", "Step 3: ", "Step 4: "]
     var present_provcode;
     $(document).on('change', '#present_province', function() {
@@ -567,9 +567,11 @@
                                                 mem_id = data.mem_id;
                                                 personnel_id = data.success;
                                                 Swal.fire({
-                                                    text: 'Notice, please copy your system generated application no.:' +
+                                                    text: ' Your application number is' +
                                                         ' ' +
-                                                        reference_no,
+                                                        reference_no + '  ' + 'Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.' +
+                                                        ' ' + ' We have emailed your application number to the email you provided in the previous step. You may also take a screeshot or copy this number for future reference.',
+                                                        
                                                     icon: 'success',
                                                     confirmButtonColor: '#3085d6',
                                                     confirmButtonText: 'Proceed',
