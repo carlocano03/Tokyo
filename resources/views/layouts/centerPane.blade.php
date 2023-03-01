@@ -1048,7 +1048,6 @@
                             $('#sg_category').val('16-33');
                         }
                     } else {
-                        
                         $('#salary_grade').val('');
                     }
                 }

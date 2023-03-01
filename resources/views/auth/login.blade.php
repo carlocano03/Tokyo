@@ -75,12 +75,12 @@
                 </a>
                 @else
                 <label class="mp-text-fs-small">
-                    <span>If you are not yet a member? </span><span class="mp-link link_style" id="register-link">Click
-                        here</span>
+                    <span>Not yet a member? </span><span class="mp-link link_style" id="register-link">Sign up</span>
                 </label>
                 <label class="mp-text-fs-small">
-                    <span>Do you want to check your application status? </span><span class="mp-link link_style" id="status_trail">Click here</span>
+                    <span>Want to continue your application or check your application status? </span><span class="mp-link link_style" id="status_trail">Click here</span>
                 </label>
+                <br>
                 <a class="mp-text-fs-small mp-link link_style" href="https://www.upprovidentfund.com/">
                     Back to www.upprovidentfund.com
                 </a>
