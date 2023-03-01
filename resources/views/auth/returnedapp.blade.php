@@ -1,4 +1,4 @@
-@extends('layouts/centerPane')
+@extends('layouts/returnedappPane')
 
 @section('loginForm')
 <div class="logo-title">
@@ -297,7 +297,7 @@
         </div>
         Online Membership Application
     </div> -->
-    <span class="mp-pt2" id="step-title">Step 1: Personal Information</span>
+    <span class="mp-pt2">Step 3: Membership Details</span>
     <div class="relative mp-mt2 w-90 d-flex ml-auto mr-auto">
         <ul class="d-flex flex-row items-between w-100 stepper">
             <li class="circle active" id="stepper-1">1</li>
@@ -478,7 +478,7 @@
             <label class="mp-input-group__label">Email Address</label>
             <input class="mp-input-group__input mp-text-field" type="email" name="email" required />
         </div>
-        <div class="mp-input-group">
+        <!-- <div class="mp-input-group">
             <div class="mp-input-group mp-mt5">
                 <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms">
                 By signing up, you agree to University of the Philippines
@@ -489,7 +489,7 @@
             </div>
             {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
             <hr>
-        </div>
+        </div> -->
         <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-2" id="next-btn">
             <span>Next</span>
         </a>

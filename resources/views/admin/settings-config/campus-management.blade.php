@@ -7,6 +7,7 @@
 
 
 
+
 <div class="filler"></div>
 <div class="col-12  mp-text-fs-large mp-text-c-accent  dashboard mh-content" style="padding:0px !important;">
 
@@ -191,6 +192,12 @@
 <script>
   var campus_table;
 
+  function change_button() {
+
+  }
+
+  window.onload = change_button();
+
   $(document).ready(function() {
     campus_table = $('#campus_table').DataTable({
       processing: true,
@@ -368,4 +375,6 @@
 
   })
 </script>
+
+
 @endsection
