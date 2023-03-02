@@ -146,19 +146,6 @@
             }, 1000);
         }
 
-        $('#date_birth').datetimepicker({
-            startDate: new Date(new Date().setFullYear(new Date().getFullYear() - 12)),
-            maxDate: new Date(new Date().setFullYear(new Date().getFullYear() - 12)),
-            timepicker: false, //hide time
-            format: 'F j, Y',
-            autoclose: true
-        });
-        $('#date_appointment').datetimepicker({
-            maxDate: new Date(),
-            timepicker: false, //hide time
-            format: 'F j, Y',
-            autoclose: true
-        });
     });
     // window.onload = function() {
     //     $('#loading').show();
@@ -239,6 +226,18 @@
                     var mun_code = present_muncode;
                     $("#present_city").val(mun_code).change();
                 }
+                if($('#present_province').val() != ""){
+                    var listItems = '';
+                    $.each(data.data, function(index, item) {
+                        listItems += '<li>' + item.name.toUpperCase() + '</li>';
+                    });
+                    $('#list-container').html(listItems);
+                    $("#province_text").text($("#present_province").find("option:selected").text());
+                }else{
+                    $('#list-container').empty();
+                    $("#province_text").text('Municipality List');
+                }
+                
             }
         });
     });
@@ -917,8 +916,15 @@
     });
 
     $(document).on('click', '#add_dependent', function() {
+        var year = $('#date_birth_dependent_years').val();
+        var month = $('#date_birth_dependent_month').val();
+        var day = $('#date_birth_dependent_days').val();
+        // create a new date object with the year, month, and day values
+        var date = new Date(year, month - 1, day);
+        // format the date string as yyyy-mm-dd
+        var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
         var name = $('#dependent_name').val();
-        var bday = $('#dependent_bday').val();
+        var bday = formattedDate;
         var relation = $('#dependent_relation').val();
         // var member_id = mem_id
 
@@ -1227,7 +1233,7 @@
             $('#d_citizen').prop('disabled', false);
         } else {
             $('#d_citizen').prop('disabled', true);
-            $('#d_citizen').val('');
+            $('#d_citizen').val('N/A');
         }
     });
 

@@ -503,7 +503,7 @@
                       </select>
                     </div>
                     <div class="mp-input-group">
-                      <label class="mp-input-group__label">Mange Permission</label>
+                      <label class="mp-input-group__label">Manage Permission</label>
                       <table class="permission-table">
                         <tr>
                           <th>Modules</th>
