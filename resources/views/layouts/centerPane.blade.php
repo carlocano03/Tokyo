@@ -147,6 +147,121 @@
         }
 
     });
+    $(document).ready(function() {
+        const searchParams = new URLSearchParams(window.location.search);
+        var  app_trailno = searchParams.get('draft'); 
+        if(app_trailno) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+        $.ajax({
+            url: "{{ route('continued_trail') }}",
+            data: {
+                app_trailno: app_trailno,
+            },
+            method: "POST",
+            success: function(data) {
+                if (Object.keys(data).length > 0) {
+                    pers_id = data.personal_id;
+                    mems_id = data.employee_details_ID;
+                    mem_id = data.mem_app_ID;
+                    $('#employee_details_ID').val(data.employee_details_ID == null ? '' : data
+                        .employee_details_ID);
+                    $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
+                    $("[name='lastname']").val(data.lastname == null ? '' : data.lastname);
+                    if (data.no_middlename == 1) {
+                        $('#no_middlename').prop('checked', true);
+                        $("[name='middlename']").val('N/A')
+                        $('input[name="middlename"]').prop('disabled', true);
+                    }else{
+                        $('#no_middlename').prop('checked', false);
+                        $('input[name="middlename"]').prop('disabled', false);
+                        $("[name='middlename']").val(data.middlename == null ? '' : data.middlename);
+                    }
+                    $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
+                    $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
+                    $("[name='date_birth']").val(data.date_birth == null ? '' : moment(data.date_birth).format('MMMM D, YYYY'));
+                    $("[name='gender']").val(data.gender == null ? '' : data.gender);
+                    $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
+                    if (data.citizenship == 'FILIPINO') {
+                        $('input[name="citizenship"][value="FILIPINO"]').prop('checked', true);
+                    } else if (data.citizenship == 'DUAL CITIZENSHIP') {
+                        $('input[name="citizenship"][value="DUAL CITIZENSHIP"]').prop('checked',
+                            true);
+                    } else if (data.citizenship == 'OTHERS') {
+                        $('input[name="citizenship"][value="OTHERS"]').prop('checked', true);
+                    }
+                    // $("[name='citizenship']").val(data.citizenship == null ? '' : data.citizenship).prop('checked', true);
+                    // $('input[name="citizenship"][value="'+(data.citizenship == null ? '' : data.citizenship)+'"]').prop('checked', true);
+                    $("[name='dual_citizenship']").val(data.dual_citizenship == null ? '' : data
+                        .dual_citizenship);
+                    $("[name='present_bldg_street']").val(data.present_bldg_street == null ? '' :
+                        data.present_bldg_street);
+                    $("[name='present_zipcode']").val(data.present_zipcode == null ? '' : data
+                        .present_zipcode);
+                    $("[name='bldg_street']").val(data.bldg_street == null ? '' : data.bldg_street);
+                    $("[name='zipcode']").val(data.zipcode == null ? '' : data.zipcode);
+                    $("[name='contact_no']").val(data.contact_no == null ? '' : data.contact_no);
+                    $("[name='landline_no']").val(data.landline_no == null ? '' : data.landline_no);
+                    $("[name='email']").val(data.email == null ? '' : data.email);
+
+                    $("[name='employee_no']").val(data.employee_no == null ? '' : data.employee_no);
+                    $("[name='campus']").val(data.campus == null ? '' : data.campus).trigger('change');
+                    $("[name='classification']").val(data.classification == null ? '' : data
+                        .classification);
+                    $("[name='classification_others']").val(data.classification_others == null ?
+                        '' : data.classification_others);
+                    $("[name='college_unit']").val(data.college_unit == null ? '' : data.college_unit).trigger('change');
+                    college_unit = data.college_unit == null ? '' : data.college_unit;
+                    $("[name='rank_position']").val(data.rank_position == null ? '' : data
+                        .rank_position);
+                    $("[name='department']").val(data.department == null ? '' : data.department).trigger('change');
+                    dept_no = data.department == null ? '' : data.department;
+                    $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
+                    $("[name='date_appointment']").val(data.date_appointment == null ? '' : moment(data.date_appointment).format('MMMM D, YYYY'));
+                    var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
+                    var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    $("[name='monthly_salary']").val(formattedNumber);
+                    $("[name='salary_grade']").val(data.salary_grade == null ? '' : data
+                        .salary_grade);
+                    $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
+                    $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
+                    present_provcode = data.present_province_code;
+                    $('#present_province').val(data.present_province_code).trigger('change');
+                    $('#present_province_name').val(data.present_province);
+                    present_muncode = data.present_municipality_code;
+                    $('#present_city').val(data.present_municipality_code).trigger('change');
+                    present_brgycode = data.present_barangay_code;
+                    $('#present_municipality_name').val(data.present_municipality);
+
+                    if (data.same_add == 1) {
+                        $('#perm_add_check').prop("checked", true);
+                        var valueAfterTargetChar = (data.bldg_street == null ? '' : data
+                                .bldg_street) + ' ' + data.present_barangay + ' ' + data
+                            .present_municipality + ' ' + data.present_province + ', ' + (data
+                                .present_zipcode == null ? '' : data.present_zipcode) + ' ';
+                        $('#same_add').val(valueAfterTargetChar);
+                        $('.same_div').hide();
+                    } else {
+                        $('#perm_add_check').prop("checked", false);
+                        $('#same_add').val('');
+                        $('.same_div').show();
+                        $('#province').val(data.province_code).trigger('change');
+                        $('#province_name').val(data.province);
+                        $('#city').val(data.municipality_code);
+                        perm_muncode = data.municipality_code;
+                        $('#municipality_name').val(data.municipality);
+                        perm_brgycode = data.barangay_code;
+                        $('#bldg_street').val(data.bldg_street);
+                        $('#zipcode').val(data.zipcode);
+                    }
+                }
+            }
+        });
+        }
+    });
     // window.onload = function() {
     //     $('#loading').show();
     //     setTimeout(function() {
@@ -895,7 +1010,7 @@
                             window.open(url, 'targetWindow',
                                 'resizable=yes,width=1000,height=1000');
                             setTimeout(function() {
-                                location.reload();
+                                window.location.href="/login";
                             }, 1000);
                         }
                     })
