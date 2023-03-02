@@ -297,7 +297,7 @@
         </div>
         Online Membership Application
     </div> -->
-    <span class="mp-pt2" id="step-title">Step 1: Personal Information</span>
+    <span class="mp-pt2" id="step-title">Step 1: Enter your Personal Information</span>
     <div class="relative mp-mt2 w-90 d-flex ml-auto mr-auto">
         <ul class="d-flex flex-row items-between w-100 stepper">
             <li class="circle active" id="stepper-1">1</li>
@@ -324,7 +324,13 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Last Name
+            <label class="mp-input-group__label">Middle Name * (Please input your complete middle name.)</label><br>
+            <input type="checkbox" class="options" id="no_middlename" name="no_middlename" value="N/A" onClick="ckChange(this)" />
+            <label class="mp-input-group__label" style="margin-top: 5px;">No Middle Name</label>
+            <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
+        </div>
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Last Name *
                 <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
@@ -347,26 +353,6 @@
                 </div>
 
             </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
-        </div>
-
-        <div class="mp-input-group">
-
-            <label class="mp-input-group__label">Last Name
-            </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
-        </div>
-
-
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Middle Name * (Please input your complete middle name.)</label><br>
-            <input type="checkbox" class="options" id="no_middlename" name="no_middlename" value="N/A" onClick="ckChange(this)" />
-            <label class="mp-input-group__label" style="margin-top: 5px;">No Middle Name</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
-        </div>
-
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Last Name *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
         </div>
 

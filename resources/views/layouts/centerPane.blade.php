@@ -461,6 +461,7 @@
         $("#barangay_name").val($("#barangay").find("option:selected").text());
     });
     $(document).ready(function() {
+       
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -682,15 +683,14 @@
                                                 mem_id = data.mem_id;
                                                 personnel_id = data.success;
                                                 Swal.fire({
-                                                    text: ' Your application number is' +
-                                                        ' ' +
-                                                        reference_no + '  ' + 'Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.' +
-                                                        ' ' + ' We have emailed your application number to the email you provided in the previous step. You may also take a screeshot or copy this number for future reference.',
-                                                        
+                                                    html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>"+reference_no+"</span><br><span>Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.</span>" +
+                                                    "<br><span>We have emailed your application number to the email you provided in the previous step. You may also take a screenshot or copy this number for future reference.</span>" +
+                                                    "</div>",
                                                     icon: 'success',
                                                     confirmButtonColor: '#3085d6',
                                                     confirmButtonText: 'Proceed',
                                                 });
+                                                
                                                 $('.applicationNo').show(200);
                                                 $('#application_no').text(reference_no);
                                                 $('#app_no').val(reference_no);
