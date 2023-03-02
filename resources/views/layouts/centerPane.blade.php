@@ -112,7 +112,7 @@
                         University of the Philippines Provident Fund Inc.
                     </span>
                     <span>
-                        Online Membership Application
+                       Become a UP Provident Fund Member
                     </span>
                 </div>
             </div>
@@ -209,7 +209,8 @@
     // //     $(e).removeAttr("hidden");
     // // });
 
-    var stepTitle = ["Personal Information", "Employment Details", "Membership Details", "Cocolife Forms"]
+    var stepTitle = ["Enter your Personal Information", "Enter your Employment Details", "Enter your Membership Details", "Forms & Attachment-"]
+    var steps = ["Step 1: ", "Step 2: ", "Step 3: ", "Step 4: "]
     var present_provcode;
     $(document).on('change', '#present_province', function() {
         if (present_provcode) {
@@ -438,6 +439,7 @@
             $("#next-btn").attr('value', 'step-2')
             $("#line").removeClass('step-2').addClass('step-1')
             $("#registration-title").text(stepTitle[0])
+            $("#step-title").text(`${steps[0]}${stepTitle[0]}`)
             $("#stepper-2").removeClass("active")
             $("#member_forms_con").removeClass('mh-reg-form');
             $("#member_forms").addClass('mh-reg-form');
@@ -449,6 +451,7 @@
             $("#next-btn").attr('value', 'step-3')
             $("#line").removeClass('step-3').addClass('step-2')
             $("#registration-title").text(stepTitle[1])
+            $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
             $("#stepper-3").removeClass("active");
             $("#member_forms_3").removeClass('mh-reg-form');
             $("#member_forms_con").addClass('mh-reg-form');
@@ -532,6 +535,7 @@
                                     $(this).attr('value', 'step-3');
                                     $("#line").removeClass('step-1').addClass('step-2');
                                     $("#registration-title").text(stepTitle[1]);
+                                    $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
                                     $("#stepper-2").addClass("active");
                                     // $("#back").removeClass("disabled");
                                 }
@@ -563,9 +567,11 @@
                                                 mem_id = data.mem_id;
                                                 personnel_id = data.success;
                                                 Swal.fire({
-                                                    text: 'Notice, please copy your system generated application no.:' +
+                                                    text: ' Your application number is' +
                                                         ' ' +
-                                                        reference_no,
+                                                        reference_no + '  ' + 'Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.' +
+                                                        ' ' + ' We have emailed your application number to the email you provided in the previous step. You may also take a screeshot or copy this number for future reference.',
+                                                        
                                                     icon: 'success',
                                                     confirmButtonColor: '#3085d6',
                                                     confirmButtonText: 'Proceed',
@@ -589,6 +595,7 @@
                                     $(this).attr('value', 'step-3');
                                     $("#line").removeClass('step-1').addClass('step-2');
                                     $("#registration-title").text(stepTitle[1]);
+                                    $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
                                     $("#stepper-2").addClass("active");
                                 } else {
                                     swal.fire("You cancelled your transaction.");
@@ -644,6 +651,7 @@
                             $(this).attr('value', 'step-3')
                             $("#line").removeClass('step-1').addClass('step-2')
                             $("#registration-title").text(stepTitle[1])
+                            $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
                             $("#stepper-2").addClass("active")
                         }
                     }
@@ -703,6 +711,7 @@
                                 $("#line").removeClass('step-2').addClass(
                                     'step-3')
                                 $("#registration-title").text(stepTitle[2])
+                                $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                                 $("#stepper-3").addClass("active")
                             } else {
                                 Swal.fire({
@@ -739,6 +748,7 @@
                                     // $(this).attr('value', 'step-end')
                                     $("#line").removeClass('step-2').addClass('step-3')
                                     $("#registration-title").text(stepTitle[2])
+                                    $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                                     $("#stepper-3").addClass("active")
                                 } else {
                                     Swal.fire({
@@ -795,6 +805,7 @@
                                                 $("#line").removeClass('step-2').addClass(
                                                     'step-3')
                                                 $("#registration-title").text(stepTitle[2])
+                                                $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                                                 $("#stepper-3").addClass("active")
                                             } else {
                                                 Swal.fire({
@@ -817,6 +828,7 @@
                                     // $(this).attr('value', 'step-end')
                                     $("#line").removeClass('step-2').addClass('step-3')
                                     $("#registration-title").text(stepTitle[2])
+                                    $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                                     $("#stepper-3").addClass("active")
                                 }
                             });
@@ -830,6 +842,7 @@
                             // $(this).attr('value', 'step-end')
                             $("#line").removeClass('step-2').addClass('step-3')
                             $("#registration-title").text(stepTitle[2])
+                            $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                             $("#stepper-3").addClass("active")
                             // console.log($("#back").val());
                         }
@@ -847,6 +860,7 @@
             // $(this).attr('value', 'step-end')
             $("#line").removeClass('step-3').addClass('step-4')
             $("#registration-title").text(stepTitle[3])
+            $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
             $("#stepper-4").addClass("active")
         }
         scrollToTop()
@@ -894,6 +908,7 @@
                     $(this).attr('value', 'step-end')
                     $("#line").removeClass('step-2').addClass('step-3')
                     $("#registration-title").text(stepTitle[2])
+                    $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
                     $("#stepper-3").addClass("active")
                 }
             }
@@ -1035,21 +1050,37 @@
                             $('#sg_category').val('16-33');
                         }
                     } else {
-
                         $('#salary_grade').val('');
                     }
                 }
             });
         });
+        var errorDisplayed = false; // flag variable to keep track of whether the error message has been displayed
         $("#monthly_salary").blur(function() {
-            if ($('#salary_grade').val() == '') {
-                Swal.fire({
-                    title: 'Salary Grade is not available. Please contact UPPF administratior.',
-                    text: 'Thank you!',
-                    icon: 'error'
-                });
+            var inputValue = $(this).val();
+            inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var decimalAdded = inputValue.split(".");
+            if (decimalAdded.length > 2) {
+                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
+            }
+
+            if (inputValue == '') {
+                $('#sg_category').val('');
+            }
+            $(this).val(inputValue);
+            if($('#salary_grade').val() == '') {
+                if (!errorDisplayed) {
+                    Swal.fire({
+                        title: 'Salary Grade is not available. Please contact UPPF administratior.',
+                        text: 'Thank you!',
+                        icon: 'error'
+                    });
+                    errorDisplayed = true; // set the flag variable to true to indicate that the error message has been displayed
+                }
                 $('#monthly_salary').val('');
                 $('#monthly_salary').focus();
+            } else {
+                errorDisplayed = false; // reset the flag variable to false
             }
         });
         $.getJSON('/options', function(options) {

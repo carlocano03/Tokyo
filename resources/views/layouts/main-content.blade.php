@@ -413,21 +413,21 @@
         <!-- <img src="https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.6435-9/207187111_3997130053703269_3727726365217478114_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=174925&_nc_eui2=AeHnFnqZfxQAti6y9Nu31yIJpu92jMzPbxmm73aMzM9vGam2k3k7JFrwECdfoG8nsnn8Nw5TBnNTYzeViCwahNkZ&_nc_ohc=KkRv57b4p-sAX_DTHss&_nc_ht=scontent.fcrk1-2.fna&oh=00_AfBtUiem2TkNP3AjA-zXbSwJ3zCJtyeq6xaGBNIaFpc4yA&oe=63EDB659" alt=""> -->
       </div>
       <div class="profile-details">
-        <div class="name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div>
-        <div class="role">Up Diliman | Midlaner</div>
+        <div class="name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div><br>
+        <div class="role">Cluster + Campus / User Level</div>
         <div class="logout-button">
-          <strong><a href="{{ url('/logout') }}">Log out</a> </strong>
+          <strong><a href="{{ url('/logout') }}">Log out </a> </strong>
         </div>
       </div>
     </div>
     <ul>
       <li>
-        <a href="/admin/dashboard" class="{{ Request::is('admin/dashboard') ? 'active-nav' : '' }}"><i class="fa fa-home "></i>Dashboard</a>
+        <a href="/admin/dashboard" class="{{ Request::is('admin/dashboard') ? 'active-nav' : '' }}"><i class="fa fa-dashboard"></i>My Dashboard</a>
       </li>
       <div class="dropdown" id="dropdown">
         <div class="nav-parent ">
           <li><a href="#" id="membersDropdown">
-              <i class="fa fa-user"></i>
+              <i class="fa fa-users"></i>
               Online Application
               <i class="fa fa-caret-right arrow-left" id="arrow" aria-hidden="true"></i>
             </a></li>
@@ -440,13 +440,14 @@
           </div>
         </div>
       </div>
-      <li><a href="#"><i class="fa fa-line-chart"></i>Loan </a></li>
-      <li><a href="#"><i class="fa fa-comment-o"></i>Benefits </a></li>
-      <li><a href="#"><i class="fa fa-line-chart"></i>Transacton </a></li>
+      <li><a href="#"><i class="fa fa-address-book"></i>Members Module</a></li>
+      <li><a href="#"><i class="fa fa-credit-card"></i>Loan Module</a></li>
+      <li><a href="#"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
+      <li><a href="#"><i class="fa fa-bar-chart"></i>Transaction & Equity </a></li>
       <li><a href="/admin/election" class="{{ Request::is('admin/election')  ? 'active-nav' : '' }}">
-          <i class="fa fa-address-book"></i>Election</a></li>
+          <i class="fa fa-flash"></i>Election Module</a></li>
       <li><a href="/admin/settings/manage-account" class="{{ Request::is('admin/settings/manage-account')  ? 'active-nav' : '' }}">
-          <i class="fa fa-gears"></i>Settings & Configuration</a>
+          <i class="fa fa-cogs"></i>Settings & Configuration</a>
       </li>
 
       <!-- <a href="#">
@@ -457,16 +458,18 @@
   </div>
   <div class="main_content">
     <div class="header">
+
       <div class="info">
-        <a href="/">
+        <p class="mp-input-group__label_footer" style="margin-left: 20px; color: white; margin-bottom: 2px;">
+          University of the Philippines Provident Fund Inc.
+        </p>
+        <!-- <a href="/">
           <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" style="transform: scale(.7);" alt="UPPFI">
         </a>
         <a class="univ-title" href="/">
           University of the Philippines Provident Fund Inc.
-        </a>
-        <!-- <a href="#">
-          <strong><a href="{{ url('/logout') }}" class="logout">Log out</a> </strong>
         </a> -->
+
       </div>
 
 
@@ -528,15 +531,16 @@
   <div class="main_content">
     <div class="header">
       <div class="info">
-        <a href="/">
-          <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+        <p class="mp-input-group__label_footer" style="margin-left: 20px; color: white; margin-bottom: 2px;">
+          University of the Philippines Provident Fund Inc.
+        </p>
+        <!-- <a href="/">
+          <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" style="transform: scale(.7);" alt="UPPFI">
         </a>
         <a class="univ-title" href="/">
           University of the Philippines Provident Fund Inc.
-        </a>
-        <!-- <a href="#">
-          <strong><a href="#" class="logout">Log out</a> </strong>
         </a> -->
+
       </div>
 
 

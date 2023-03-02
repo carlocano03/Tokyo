@@ -892,7 +892,7 @@
                 <div class="w-auto">
                     <span class="font-sm">Status</span>
                     <br />
-                    <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">AA - Review Validation</span>
+                    <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
                 </div>
                 <div class="w-auto d-flex justify-content-end">
                     <span>
@@ -1237,8 +1237,8 @@
                         <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}" >
                         <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <a style="padding:0; position:absolute; left:10px; cursor: pointer;" id="personal-toggle">
-                                <i class="fa fa-plus-square d-none personal-toggle-plus" aria-hidden="true"></i>
-                                <i class="fa fa-minus-square personal-toggle-minus" aria-hidden="true"></i>
+                                <i class="fa fa-plus-square personal-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square d-none personal-toggle-minus" aria-hidden="true"></i>
                             </a>
                             <span>
                                 I. Personal Details
@@ -1262,7 +1262,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Name (Last, First, Middle Suffix)
@@ -1286,7 +1286,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Date of Birth
@@ -1310,7 +1310,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                Gender
@@ -1334,7 +1334,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Civil Status
@@ -1358,7 +1358,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Citizenship
@@ -1382,7 +1382,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Current Address
@@ -1406,7 +1406,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Permanent Address
@@ -1430,7 +1430,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Contact Number
@@ -1454,7 +1454,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Landline Number
@@ -1478,7 +1478,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full personal-detail open-detail">
+                    <div class="table-form form-header w-full personal-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Email Address
@@ -1502,11 +1502,11 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full open-detail">
+                    <div class="table-form form-header w-full ">
                         <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <a style="padding:0; position:absolute; left:10px; cursor: pointer" id="employee-toggle">
-                                <i class="fa fa-plus-square d-none employee-toggle-plus" aria-hidden="true"></i>
-                                <i class="fa fa-minus-square employee-toggle-minus" aria-hidden="true"></i>
+                                <i class="fa fa-plus-square employee-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square d-none employee-toggle-minus" aria-hidden="true"></i>
                             </a>    
                             <span>
                                 II. Employee Details
@@ -1530,7 +1530,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Employee Number
@@ -1554,7 +1554,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                                 Campus
@@ -1578,7 +1578,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Classification
@@ -1602,7 +1602,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             College/Unit
@@ -1626,7 +1626,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Department
@@ -1650,7 +1650,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Rank/Position
@@ -1674,7 +1674,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Appointment
@@ -1698,7 +1698,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Appointment Date
@@ -1722,7 +1722,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                             Monthly Salary
@@ -1746,7 +1746,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Salary Grade
@@ -1770,7 +1770,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Salary Grade Category
@@ -1794,7 +1794,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
+                    <div class="table-form form-header w-full employee-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Tin Number
@@ -1821,8 +1821,8 @@
                     <div class="table-form form-header w-full">
                         <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <a style="padding:0; position:absolute; left:10px; cursor: pointer" id="members-toggle">
-                                <i class="fa fa-plus-square d-none members-toggle-plus" aria-hidden="true"></i>
-                                <i class="fa fa-minus-square members-toggle-minus" aria-hidden="true"></i>
+                                <i class="fa fa-plus-square members-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square d-none members-toggle-minus" aria-hidden="true"></i>
                             </a>       
                             <span>
                                 III. Members Details
@@ -1846,7 +1846,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full members-detail open-detail">
+                    <div class="table-form form-header w-full members-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Monthly Contribution
@@ -1870,7 +1870,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full members-detail open-detail">
+                    <div class="table-form form-header w-full members-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Equivalent Value
@@ -1894,11 +1894,11 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full supporting-border">
+                    <div class="table-form form-header w-full supporting-border border-bottom-1">
                         <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
                             <a style="padding:0; position:absolute; left:10px; cursor: pointer" id="supporting-toggle">
-                                <i class="fa fa-plus-square d-none supporting-toggle-plus" aria-hidden="true"></i>
-                                <i class="fa fa-minus-square supporting-toggle-minus" aria-hidden="true"></i>
+                                <i class="fa fa-plus-square supporting-toggle-plus" aria-hidden="true"></i>
+                                <i class="fa fa-minus-square d-none supporting-toggle-minus" aria-hidden="true"></i>
                             </a>        
                             <span>
                                 IV. Forms and Attachment
@@ -1922,7 +1922,7 @@
                             </span>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full supporting-detail open-detail">
+                    <div class="table-form form-header w-full supporting-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Membership Form
@@ -1948,7 +1948,7 @@
                         </a>
                         </div>
                     </div>
-                    <div class="table-form form-header w-full supporting-detail open-detail">
+                    <div class="table-form form-header w-full supporting-detail ">
                         <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
                             <span>
                              Proxy form
@@ -2007,7 +2007,7 @@
                                     <span id="return_text">Return Application</span>
                                 </button>
                                 <button class="f-button align-self-end" id="save_record" >
-                                <span id="save_text">Save Record</span>
+                                <span id="save_text">Save Record </span>
                                 </button>
                             </span>
                             
@@ -2117,11 +2117,67 @@ $(document).ready(function() {
         if ($(this).is(':checked')) {
         if ($(this).val() == 1) {
             passCount++;
-            $(this).parent().next().find('input[type="text"]').val('');
+            $(this).parent().next().next().find('input[type="text"]').val('');
             $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
+            var totalpd = $('.personal-detail input[type="radio"][value="1"]').length;
+            var selectedpd = $('.personal-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedpd == totalpd) {
+                $('#check_allppd').prop('checked', true);
+            }else {
+                $('#check_allppd').prop('checked', false);
+            }
+            var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
+            var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
+            if (selecteded == totaled) {
+                $('#check_allped').prop('checked', true);
+            }else {
+                $('#check_allped').prop('checked', false);
+            }
+            var totalmd = $('.members-detail input[type="radio"][value="1"]').length;
+            var selectedmd = $('.members-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedmd == totalmd) {
+                $('#check_allpmd').prop('checked', true);
+            }else {
+                $('#check_allpmd').prop('checked', false);
+            }
+            var totalsd = $('.supporting-detail input[type="radio"][value="1"]').length;
+            var selectedsd = $('.supporting-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedsd == totalsd) {
+                $('#check_allpsd').prop('checked', true);
+            }else {
+                $('#check_allpsd').prop('checked', false);
+            }
         } else if ($(this).val() == 2) {
             failCount++;
             $(this).parent().next().find('input[type="text"]').prop('disabled', false);
+            var totalpd = $('.personal-detail input[type="radio"][value="2"]').length;
+            var selectedpd = $('.personal-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedpd == totalpd) {
+                $('#check_allfpd').prop('checked', true);
+            }else {
+                $('#check_allfpd').prop('checked', false);
+            }
+            var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
+            var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
+            if (selecteded == totaled) {
+                $('#check_allfed').prop('checked', true);
+            }else {
+                $('#check_allfed').prop('checked', false);
+            }
+            var totalmd = $('.members-detail input[type="radio"][value="2"]').length;
+            var selectedmd = $('.members-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedmd == totalmd) {
+                $('#check_allfmd').prop('checked', true);
+            }else {
+                $('#check_allfmd').prop('checked', false);
+            }
+            var totalsd = $('.supporting-detail input[type="radio"][value="2"]').length;
+            var selectedsd = $('.supporting-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedsd == totalsd) {
+                $('#check_allfsd').prop('checked', true);
+            }else {
+                $('#check_allfsd').prop('checked', false);
+            }
         }
         }
     });
@@ -2149,9 +2205,65 @@ $('#aa_validation input[type="radio"]').on('change click', function() {
             passCount++;
             $(this).parent().next().next().find('input[type="text"]').val('');
             $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
+            var totalpd = $('.personal-detail input[type="radio"][value="1"]').length;
+            var selectedpd = $('.personal-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedpd == totalpd) {
+                $('#check_allppd').prop('checked', true);
+            }else {
+                $('#check_allppd').prop('checked', false);
+            }
+            var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
+            var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
+            if (selecteded == totaled) {
+                $('#check_allped').prop('checked', true);
+            }else {
+                $('#check_allped').prop('checked', false);
+            }
+            var totalmd = $('.members-detail input[type="radio"][value="1"]').length;
+            var selectedmd = $('.members-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedmd == totalmd) {
+                $('#check_allpmd').prop('checked', true);
+            }else {
+                $('#check_allpmd').prop('checked', false);
+            }
+            var totalsd = $('.supporting-detail input[type="radio"][value="1"]').length;
+            var selectedsd = $('.supporting-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedsd == totalsd) {
+                $('#check_allpsd').prop('checked', true);
+            }else {
+                $('#check_allpsd').prop('checked', false);
+            }
         } else if ($(this).val() == 2) {
             failCount++;
             $(this).parent().next().find('input[type="text"]').prop('disabled', false);
+            var totalpd = $('.personal-detail input[type="radio"][value="2"]').length;
+            var selectedpd = $('.personal-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedpd == totalpd) {
+                $('#check_allfpd').prop('checked', true);
+            }else {
+                $('#check_allfpd').prop('checked', false);
+            }
+            var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
+            var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
+            if (selecteded == totaled) {
+                $('#check_allfed').prop('checked', true);
+            }else {
+                $('#check_allfed').prop('checked', false);
+            }
+            var totalmd = $('.members-detail input[type="radio"][value="2"]').length;
+            var selectedmd = $('.members-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedmd == totalmd) {
+                $('#check_allfmd').prop('checked', true);
+            }else {
+                $('#check_allfmd').prop('checked', false);
+            }
+            var totalsd = $('.supporting-detail input[type="radio"][value="2"]').length;
+            var selectedsd = $('.supporting-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedsd == totalsd) {
+                $('#check_allfsd').prop('checked', true);
+            }else {
+                $('#check_allfsd').prop('checked', false);
+            }
         }
         }
     });
@@ -2313,32 +2425,44 @@ $.ajaxSetup({
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
         });
-
+        // validate_step
         var formDatas = $("#aa_validation").serialize();
         $.ajax({
             type: 'POST',
-            url: "{{ route('save_aa_validation') }}",
+            url: "{{ route('validate_step') }}",
             data: formDatas,
-            beforeSend: function() {
-                $('#loading').show();
-            },
             success: function(data) {
-                if (data.success != '') {
-                    Swal.fire({
-                        text: 'Application has been save successfully validated and ready to forward.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Proceed',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        window.location.href = '{{ route('admin.members_records') }}';
+                if (data.success == 1) {
+                    $.ajax({
+                    type: 'POST',
+                    url: "{{ route('save_aa_validation') }}",
+                    data: formDatas,
+                    beforeSend: function() {
+                        $('#loading').show();
+                    },
+                    success: function(data) {
+                        if (data.success != '') {
+                            Swal.fire({
+                                text: 'Application has been save successfully validated and ready to forward.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Proceed',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                window.location.href = '{{ route('admin.members_records') }}';
+                                }
+                            });
+                        }else{
+                            alert('Failed');
                         }
+                      }
                     });
                 }else{
-                    alert('Failed');
+                    swal.fire("Error!", "You already forwarded this application to HRDO.", "error");
                 }
             }
         });
+        
 
 });
 $('#reject_app').click(function() {
@@ -2360,25 +2484,36 @@ Swal.fire({
         var formDatas = $("#aa_validation").serialize();
         $.ajax({
             type: 'POST',
-            url: "{{ route('reject_application') }}",
+            url: "{{ route('validate_step_reject') }}",
             data: formDatas,
-            beforeSend: function() {
-                $('#loading').show();
-            },
             success: function(data) {
-                if (data.success != '') {
-                    Swal.fire({
-                        text: 'Application has been rejected successfully.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Ok',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        window.location.href = '{{ route('admin.members_records') }}';
-                        }
+                if (data.success == 1) {
+                    $.ajax({
+                    type: 'POST',
+                    url: "{{ route('reject_application') }}",
+                    data: formDatas,
+                    beforeSend: function() {
+                        $('#loading').show();
+                    },
+                    success: function(data) {
+                        if (data.success != '') {
+                            Swal.fire({
+                                text: 'Application has been rejected successfully.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Ok',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                window.location.href = '{{ route('admin.members_records') }}';
+                                }
+                            });
+                            }else{
+                                alert('Failed');
+                            }
+                         }
                     });
                 }else{
-                    alert('Failed');
+                    swal.fire("Error!", "You already forwarded this application to HRDO and cannot be rejected.", "error");
                 }
             }
         });

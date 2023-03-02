@@ -91,12 +91,12 @@
             display: flex;
             flex-direction: column;
             width: 70vw;
-            height: 23vh;
             background-color: white;
             margin-bottom: 100px;
             padding: 40px;
             border-radius: 17px;
             transition: all .5s;
+            gap: 30px;
         }
 
         .modalBody {
@@ -230,14 +230,30 @@
 
 </head>
 <script>
-    // $(document).on('click', '#agree', function(e) {
-    //     $("#modalBackDrop").addClass("opacity-0")
-    //     setTimeout(function() {
-    //         $("#modalBackDrop").addClass("d-none")
-    //     }, 500)
-    //     sessionStorage.setItem("agreeClicked", true)
-    // })
+    $(document).on('click', '#agree', function(e) {
+        window.location.href = '/register';
+        // $("#modalBackDrop").addClass("opacity-0")
+        // setTimeout(function() {
+        //     $("#modalBackDrop").addClass("d-none")
+        // }, 500)
+        // sessionStorage.setItem("agreeClicked", true)
+    })
+    $(document).on('click', '#disagree', function(e) {
+        $("#modalBackDrop").addClass("opacity-0")
+        setTimeout(function() {
+            $("#modalBackDrop").addClass("d-none")
+        }, 1000)
+    })
+
+    $(document).on('click', '#register-link', function(e) {
+        $("#modalBackDrop").removeClass("d-none")
+        setTimeout(function() {
+            $("#modalBackDrop").removeClass("opacity-0")
+        }, 100)
+    })
+    
     $(document).ready(function(e) {
+        
         if (sessionStorage.getItem("cookieClicked") == null) {
             setTimeout(()=>{
                 $(".cookie-drawer").addClass("transition-drawer");
@@ -267,18 +283,30 @@
     <div id="loading" class="mx-auto" style="display:none;">
         <img id="loading-image" src="{{ asset('/img/logo_gif_blue.gif') }}" alt="Loading..." />
     </div>
-    <!-- <div id="modalBackDrop" class="d-none opacity-0">
+    <div id="modalBackDrop" class="d-none opacity-0">
         <div class="modalContent">
             <div class="modalBody">
-                <p>UPPFI uses a third party service to analyze non-identifiable web traffic for us. This site uses cookies. Data generated is not disclosed not shared with any other party. For more information please see our <a href="#" class="link_style">Privacy Policy</a>.</p>
+                <div class="d-flex flex-column gap-10"> <span style="font-weight: bold; font-size: x-large">Data Privacy Notice</span>
+
+                    <span>
+                        <span style="color:#1a8981; font-weight: bold">U.P. Provident Fund (UPPF)</span> upholds the <span style="font-style: italic; font-weight: bold">Data Privacy Act</span>, and is committed to the protection of the privacy rights of its members, employees, officers, or stakeholders from whom it processes personal information and sensitive personal information, guided all the time by the principles of legitimacy, transparency, and proportionality. 
+                        <br/><br/>Thus, <span style="font-weight: bold">UPPF</span> has instituted strict measures to safeguard the sanctity and confidentiality of those data/information. The Company strictly adheres to the duties and responsibilities (before, during, and after processing of information), mandated by Republic Act 10173 and allied government regulations. <br/><br/> 
+                        Kindly sign below to signify your free, prior, and informed consent for <span style="font-weight: bold">UPPF</span> to proceed with this personal data processing, and to allow <span style="font-weight: bold">UPPF</span> to use the information for 
+                        (i)the appropriate delivery of its products and services,
+                        (ii) necessary documentation or submission, and/ or (iii) pursuance of transactions expected from its position.
+                    </span>
+                </div>
             </div>
-            <div class="modalFooter">
+            <div class="modalFooter gap-10">
                 <button id="agree">
                     I Agree
                 </button>
+                <button id="disagree">
+                    I do not Agree
+                </button>
             </div>
         </div>
-    </div> -->
+    </div>
     <div class="cookie-drawer">
         <div class="d-flex flex-row items-between">
             <span class="centered-text">
