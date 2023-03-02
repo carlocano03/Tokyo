@@ -881,7 +881,7 @@
                                         @if(Auth::user()->user_level == 'HRDO')
                                             <option value="FM">Forward to Fund manager</option>
                                             <option value="AA">Return to AA</option>
-                                            {{-- <option value="CFM">Return to CFM</option> --}}
+                                            <!-- {{-- <option value="CFM">Return to CFM</option> --}} -->
                                         @else
                                             <option value="HRDO">Forward to HRDO</option>
                                             {{-- <option value="CFM">Forward to CFM</option> --}}
@@ -1127,9 +1127,6 @@
             $('#campuses_select').on('change', function() {
                 tableMemberApp.draw();
                 campus_checked = $(this).find(":selected").text();
-            });
-            $('#department_select').on('change', function() {
-              tableMemberApp.draw();
             });
             $('#department_select').on('change', function() {
               tableMemberApp.draw();

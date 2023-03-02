@@ -380,23 +380,41 @@
             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Month</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">January</option>
+                    <select name="date_birth_month" id="date_birth_month" class="radius-1 outline select-field" style="font-size: normal;">
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
                     </select>
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Day</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">01</option>
+                    <select name="date_birth_days" id="date_birth_days" class="radius-1 outline select-field" style="font-size: normal;">
+                        @for($day = 1; $day <= 31; $day++)
+                            <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
+                        @endfor
                     </select>
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Year</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">1998</option>
+                    <select name="date_birth_years" id="date_birth_years" class="radius-1 outline select-field" style="font-size: normal;">
+                    <!-- options for years from 12 years ago until 70 years before the current year -->
+                    @for ($i = date('Y') - 12; $i >= date('Y') - 70; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
                     </select>
+
+
                 </div>
             </div>
         </div>
@@ -441,13 +459,10 @@
                 <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
-
                         <div class="text-content">
-                            <h3>Sample Tooltip</h3>
-                            <ul>
-                                <li>qwewqeqwewq</li>
-                                <li>zxcxzcx.</li>
-                                <li>Other demos are using display property<em>(none or block)</em> for the toggle.</li>
+                            <h3 id="province_text">Municipality List</h3>
+                            <ul id="list-container">
+                                
                             </ul>
                         </div>
                         <i></i>
@@ -605,22 +620,40 @@
             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Month</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">January</option>
+                    <select name="date_appoint_months" id="date_appoint_months" class="radius-1 outline select-field" style="font-size: normal;">
+                            <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
                     </select>
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Day</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">01</option>
+                    <select name="date_appoint_days" id="date_appoint_days" class="radius-1 outline select-field" style="font-size: normal;">
+                        @for($day = 1; $day <= 31; $day++)
+                            <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
+                        @endfor
                     </select>
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Year</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">1998</option>
+                    <select name="date_appoint_years" id="date_appoint_years" class="radius-1 outline select-field" style="font-size: normal;">
+                    <!-- options for years from 12 years ago until 70 years before the current year -->
+                    <option value="{{ date('Y') }}">Current Year</option>
+                    <!-- options for years from current year down to 70 years ago -->
+                    @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
                     </select>
                 </div>
             </div>
@@ -709,23 +742,43 @@
                 <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                     <div class="d-flex flex-column" style="gap: 3px">
                         <label class="mp-input-group__label">Month</label>
-                        <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                        <select name="date_birth_dependent_month" id="date_birth_dependent_month" class="radius-1 outline select-field" style="font-size: normal;">
                             <option value="01">January</option>
+                            <option value="02">February</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
                         </select>
                     </div>
                     <span><br />-</span>
                     <div class="d-flex flex-column" style="gap: 3px">
                         <label class="mp-input-group__label">Day</label>
-                        <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                            <option value="01">01</option>
+                        <select name="date_birth_dependent_days" id="date_birth_dependent_days" class="radius-1 outline select-field" style="font-size: normal;">
+                        @for($day = 1; $day <= 31; $day++)
+                            <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
+                        @endfor
                         </select>
                     </div>
                     <span><br />-</span>
                     <div class="d-flex flex-column" style="gap: 3px">
                         <label class="mp-input-group__label">Year</label>
-                        <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                            <option value="01">1998</option>
+                        <select name="date_birth_dependent_years" id="date_birth_dependent_years" class="radius-1 outline select-field" style="font-size: normal;">
+                        <!-- option for current year -->
+                        <option value="{{ date('Y') }}">Current Year</option>
+
+                        <!-- options for years from current year down to 70 years ago -->
+                        @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
+                            <option value="{{ $i }}">{{ $i }}</option>
+                        @endfor
                         </select>
+
                     </div>
                 </div>
             </div>

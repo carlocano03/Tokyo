@@ -84,14 +84,18 @@ class HomeController extends Controller
   public function add_member(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
-
+      $bdyear = $request->input('date_birth_years');
+      $bdmonth = $request->input('date_birth_month');
+      $bdday = $request->input('date_birth_days');
+      // create a date string in the format YYYY-MM-DD
+      $dateOfBirth = sprintf('%04d-%02d-%02d', $bdyear, $bdmonth, $bdday);
       if ($request->input('perm_add_check') != 1) {
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
           'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
           'firstname' => strtoupper($request->input('firstname')),
-          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
+          'date_birth' => $dateOfBirth,
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -124,7 +128,7 @@ class HomeController extends Controller
           'middlename' => strtoupper($request->input('middlename')),
           'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
           'firstname' => strtoupper($request->input('firstname')),
-          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
+          'date_birth' => $dateOfBirth,
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -186,13 +190,18 @@ class HomeController extends Controller
   public function add_member_update1(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
+      $bdyear = $request->input('date_birth_years');
+      $bdmonth = $request->input('date_birth_month');
+      $bdday = $request->input('date_birth_days');
+      // create a date string in the format YYYY-MM-DD
+      $dateOfBirth = sprintf('%04d-%02d-%02d', $bdyear, $bdmonth, $bdday);
       if ($request->input('perm_add_check') != 1) {
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
           'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
           'firstname' => strtoupper($request->input('firstname')),
-          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
+          'date_birth' => $dateOfBirth,
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -225,7 +234,7 @@ class HomeController extends Controller
           'middlename' => strtoupper($request->input('middlename')),
           'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
           'firstname' => strtoupper($request->input('firstname')),
-          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
+          'date_birth' => $dateOfBirth,
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -271,6 +280,11 @@ class HomeController extends Controller
       return response()->json(['success' => '']);
     } else {
       $datadb = DB::transaction(function () use ($request) {
+        $appointyear = $request->input('date_appoint_years');
+      $appointmonth = $request->input('date_appoint_months');
+      $appointday = $request->input('date_appoint_days');
+      // create a date string in the format YYYY-MM-DD
+      $dateOfappoint = sprintf('%04d-%02d-%02d', $appointyear, $appointmonth, $appointday);
         $inserts = array(
           'campus' => $request->input('campus'),
           'classification' => $request->input('classification'),
@@ -279,7 +293,7 @@ class HomeController extends Controller
           'college_unit' => $request->input('college_unit'),
           'department' => $request->input('department'),
           'rank_position' => $request->input('rank_position'),
-          'date_appointment' => date('Y-m-d', strtotime($request->input('date_appointment'))),
+          'date_appointment' => $dateOfappoint,
           'appointment' => $request->input('appointment'),
           'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
           'salary_grade' => $request->input('salary_grade'),
@@ -307,6 +321,11 @@ class HomeController extends Controller
   public function add_member_up_p2(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
+      $appointyear = $request->input('date_appoint_years');
+      $appointmonth = $request->input('date_appoint_months');
+      $appointday = $request->input('date_appoint_days');
+      // create a date string in the format YYYY-MM-DD
+      $dateOfappoint = sprintf('%04d-%02d-%02d', $appointyear, $appointmonth, $appointday);
       $inserts = array(
         'campus' => $request->input('campus'),
         'classification' => $request->input('classification'),
@@ -315,7 +334,7 @@ class HomeController extends Controller
         'college_unit' => $request->input('college_unit'),
         'department' => $request->input('department'),
         'rank_position' => $request->input('rank_position'),
-        'date_appointment' => date('Y-m-d', strtotime($request->input('date_appointment'))),
+        'date_appointment' => $dateOfappoint,
         'appointment' => $request->input('appointment'),
         'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
         'salary_grade' => $request->input('salary_grade'),
@@ -367,6 +386,12 @@ class HomeController extends Controller
       DB::table('mem_app')->where('app_no', $request->input('app_no'))
         ->update(array('app_status' => 'NEW APPLICATION'));
     }
+    $apptrail = array(
+      'status_remarks' => "NEW APPLICATION",
+      'app_no' => $request->input('app_no'),
+    );
+    DB::table('app_trailing')->where('app_no', $request->input('app_no'))
+      ->insert($apptrail);
     $email = DB::table('mem_app')
             ->where('app_no', $request->input('app_no'))
             ->value('email_address');
@@ -527,13 +552,24 @@ class HomeController extends Controller
   public function update_trail_member_1(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
+      $bdyear = $request->input('date_birth_years');
+      $bdmonth = $request->input('date_birth_month');
+      $bdday = $request->input('date_birth_days');
+      // create a date string in the format YYYY-MM-DD
+      $dateOfBirth = sprintf('%04d-%02d-%02d', $bdyear, $bdmonth, $bdday);
+
+      $appointyear = $request->input('date_appoint_years');
+      $appointmonth = $request->input('date_appoint_months');
+      $appointday = $request->input('date_appoint_days');
+      // create a date string in the format YYYY-MM-DD
+      $dateOfappoint = sprintf('%04d-%02d-%02d', $appointyear, $appointmonth, $appointday);
       if ($request->input('perm_add_check') != 1) {
         $inserts = array(
           'lastname' => strtoupper($request->input('lastname')),
           'middlename' => strtoupper($request->input('middlename')),
           'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
           'firstname' => strtoupper($request->input('firstname')),
-          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
+          'date_birth' => $dateOfBirth,
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -566,7 +602,7 @@ class HomeController extends Controller
           'middlename' => strtoupper($request->input('middlename')),
           'no_middlename' => $request->input('no_middlename') == 'N/A' ? 1 : 0,
           'firstname' => strtoupper($request->input('firstname')),
-          'date_birth' => date('Y-m-d', strtotime($request->input('date_birth'))),
+          'date_birth' => $dateOfBirth,
           'suffix' => strtoupper($request->input('suffix')),
           'gender' => $request->input('gender'),
           'civilstatus' => $request->input('civilstatus'),
@@ -608,6 +644,11 @@ class HomeController extends Controller
   public function update_trail_member_2(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
+      $appointyear = $request->input('date_appoint_years');
+      $appointmonth = $request->input('date_appoint_months');
+      $appointday = $request->input('date_appoint_days');
+      // create a date string in the format YYYY-MM-DD
+      $dateOfappoint = sprintf('%04d-%02d-%02d', $appointyear, $appointmonth, $appointday);
       $inserts = array(
         'campus' => $request->input('campus'),
         'classification' => $request->input('classification'),
@@ -616,7 +657,7 @@ class HomeController extends Controller
         'college_unit' => $request->input('college_unit'),
         'department' => $request->input('department'),
         'rank_position' => $request->input('rank_position'),
-        'date_appointment' => date('Y-m-d', strtotime($request->input('date_appointment'))),
+        'date_appointment' => $dateOfappoint,
         'appointment' => $request->input('appointment'),
         'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
         'salary_grade' => $request->input('salary_grade'),

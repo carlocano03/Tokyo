@@ -426,19 +426,20 @@ class App_Validation extends Controller
         ->update($inserts);
         }
         $mem_appinst = array(
-          'validator_remarks' => "HRDO VERIFIED",
+          'validator_remarks' => "APPROVED APPLICATION",
+          'app_status' => "APPROVED APPLICATION",
         );
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
           ->update($mem_appinst);
-        $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+        $appcount = DB::table('app_trailing')->where('app_no', $request->input('app_no'))->count();
         if($appcount > 0){
           $apptrail = array(
-            'status_remarks' => "HRDO - VERIFIED",
-            'app_no' => $id,
+            'status_remarks' => "HRDO - APPROVED",
+            'app_no' => $request->input('app_no'),
             'updateby' => Auth::user()->id,
             'user_level' => Auth::user()->user_level,
           );
-          DB::table('app_trailing')->where('app_no', $id)
+          DB::table('app_trailing')->where('app_no', $request->input('app_no'))
             ->insert($apptrail);
         }
         return [
@@ -474,5 +475,65 @@ class App_Validation extends Controller
       }
       return response()->json(['success' => $affectedRows]);
     }
-    
+    public function returnto_aa_application(Request $request)
+    {
+        $datadb = DB::transaction(function () use ($request) {
+        $coco = DB::table('aa_validation')->where('app_no', $request->input('app_no'))->count();
+        if ($coco > 0) {
+          // return response()->json(['message' => 'Exist']);
+          $inserts = array(
+            'app_no' => $request->input('app_no'),
+            'pass_emp_no' => $request->input('pass_emp_no'),
+            'pass_campus' => $request->input('pass_campus'),
+            'pass_classification' => $request->input('pass_classification'),
+            'pass_college_unit' => $request->input('pass_college_unit'),
+            'pass_department' => $request->input('pass_department'),
+            'pass_rankpos' => $request->input('pass_rankpos'),
+            'pass_appointment' => $request->input('pass_appointment'),
+            'pass_appointdate' => $request->input('pass_appointdate'),
+            'pass_monthlysalary' => $request->input('pass_monthlysalary'),
+            'pass_sg' => $request->input('pass_sg'),
+            'pass_sgcat' => $request->input('pass_sgcat'),
+            'pass_tin_no' => $request->input('pass_tin_no'),
+            'remarks_emp_no' => $request->input('remarks_emp_no'),
+            'remarks_campus' => $request->input('remarks_campus'),
+            'remarks_classification' => $request->input('remarks_classification'),
+            'remarks_college_unit' => $request->input('remarks_college_unit'),
+            'remarks_department' => $request->input('remarks_department'),
+            'remarks_rankpos' => $request->input('remarks_rankpos'),
+            'remarks_appointment' => $request->input('remarks_appointment'),
+            'remarks_appointdate' => $request->input('remarks_appointdate'),
+            'remarks_monthlysalary' => $request->input('remarks_monthlysalary'),
+            'remarks_sg' => $request->input('remarks_sg'),
+            'remarks_sgcat' => $request->input('remarks_sgcat'),
+            'remarks_tin_no' => $request->input('remarks_tin_no'),
+            'general_remarks' => $request->input('general_remarks'), 
+            'hrdo_evaluate_by' => Auth::user()->id
+        );
+         $last_id = DB::table('aa_validation')->where('app_no', $request->input('app_no'))
+        ->update($inserts);
+        }
+        $mem_appinst = array(
+          'validator_remarks' => "HRDO RETURNED APPLICATION",
+          'forwarded_user' => 0,
+        );
+        DB::table('mem_app')->where('app_no', $request->input('app_no'))
+          ->update($mem_appinst);
+          $appcount = DB::table('app_trailing')->where('app_no', $request->input('app_no'))->count();
+      if($appcount > 0){
+        $apptrail = array(
+          'status_remarks' => "HRDO - RETURNED APPLICATION",
+          'app_no' => $request->input('app_no'),
+          'updateby' => Auth::user()->id,
+          'user_level' => 'AA',
+        );
+        DB::table('app_trailing')->where('app_no', $request->input('app_no'))
+          ->insert($apptrail);
+        }
+        return [
+          'last_id' => $last_id,
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id']]);
+    }
 }
