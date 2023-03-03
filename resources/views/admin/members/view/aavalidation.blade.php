@@ -892,7 +892,11 @@
                 <div class="w-auto">
                     <span class="font-sm">Status</span>
                     <br />
-                    <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">AA - Review Validation</span>
+                    @if ($status === 'HRDO - APPROVED')
+                    <span class="status-title green-bg">Approved Application</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
+                    @else
+                    <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
+                    @endif
                 </div>
                 <div class="w-auto d-flex justify-content-end">
                     <span>
@@ -919,144 +923,52 @@
                 </div>
                 <div class="card-body trail" -trail id="trail-body">
                     <div class="table-form w-trail mp-pv2 mp-ph3">
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6 white"></span>
-                                <span class="line-child span-6"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title maroon-bg">
-                                            Pending
+                    @php
+                            $counter = 0;
+                            $total = count($trailing);
+                        @endphp
+                        @foreach ($trailing as $data)
+                        @php
+                            $counter++;
+                        @endphp
+                            <div class="span-2 d-flex flex-column relative">
+                                <div class="d-flex flex-column absolute top-circle w-full">
+                                    <span class="circle"></span>
+                                </div>
+                                <div class="line-trail table-form w-full">
+                                    <span class="line-child span-6 {{ $counter == 1 ? 'white' : '' }}"></span>
+                                    <span class="line-child span-6 {{ $counter == $total ? 'white' : '' }}"></span>
+                                </div>
+                                <div class="table-form">
+                                    <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
+                                        <span class="font-sm">Status</span>
+                                        <span class="mp-mh1">
+                                        @if ($data->status_remarks === 'HRDO - APPROVED')
+                                            <span class="status-title green-bg">
+                                                APPROVED
+                                            </span>
+                                        @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                            <span class="status-title orage-bg">
+                                                PROCESSING
+                                            </span>
+                                        @else
+                                            <span class="status-title maroon-bg">
+                                                NEW APPLICATION
+                                            </span>
+                                        @endif
                                         </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">New Application</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-
+                                        <span class="font-sm">Remarks</span>
+                                        <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
+                                        <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6"></span>
-                                <span class="line-child span-6"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title orage-bg">
-                                            Processing
-                                        </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">AA - Review Validation</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6"></span>
-                                <span class="line-child span-6"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title orage-bg">
-                                            Processing
-                                        </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">AA - Verified</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6"></span>
-                                <span class="line-child span-6"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title orage-bg">
-                                            Processing
-                                        </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">CFM - Review Validation</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6"></span>
-                                <span class="line-child span-6"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title red-bg">
-                                            Rejected
-                                        </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">Rejected by CFM</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6"></span>
-                                <span class="line-child span-6 white"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title blue-bg">
-                                            Approved
-                                        </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">Approved Application</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach   
+                        
+                        
+                        
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -2007,7 +1919,7 @@
                                     <span id="return_text">Return Application</span>
                                 </button>
                                 <button class="f-button align-self-end" id="save_record" >
-                                <span id="save_text">Save Record</span>
+                                <span id="save_text">Save Record </span>
                                 </button>
                             </span>
                             
@@ -2117,26 +2029,86 @@ $(document).ready(function() {
         if ($(this).is(':checked')) {
         if ($(this).val() == 1) {
             passCount++;
-            $(this).parent().next().find('input[type="text"]').val('');
+            $(this).parent().next().next().find('input[type="text"]').val('');
             $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
+            var totalpd = $('.personal-detail input[type="radio"][value="1"]').length;
+            var selectedpd = $('.personal-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedpd == totalpd) {
+                $('#check_allppd').prop('checked', true);
+            }else {
+                $('#check_allppd').prop('checked', false);
+            }
+            var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
+            var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
+            if (selecteded == totaled) {
+                $('#check_allped').prop('checked', true);
+            }else {
+                $('#check_allped').prop('checked', false);
+            }
+            var totalmd = $('.members-detail input[type="radio"][value="1"]').length;
+            var selectedmd = $('.members-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedmd == totalmd) {
+                $('#check_allpmd').prop('checked', true);
+            }else {
+                $('#check_allpmd').prop('checked', false);
+            }
+            var totalsd = $('.supporting-detail input[type="radio"][value="1"]').length;
+            var selectedsd = $('.supporting-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedsd == totalsd) {
+                $('#check_allpsd').prop('checked', true);
+            }else {
+                $('#check_allpsd').prop('checked', false);
+            }
         } else if ($(this).val() == 2) {
             failCount++;
             $(this).parent().next().find('input[type="text"]').prop('disabled', false);
+            var totalpd = $('.personal-detail input[type="radio"][value="2"]').length;
+            var selectedpd = $('.personal-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedpd == totalpd) {
+                $('#check_allfpd').prop('checked', true);
+            }else {
+                $('#check_allfpd').prop('checked', false);
+            }
+            var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
+            var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
+            if (selecteded == totaled) {
+                $('#check_allfed').prop('checked', true);
+            }else {
+                $('#check_allfed').prop('checked', false);
+            }
+            var totalmd = $('.members-detail input[type="radio"][value="2"]').length;
+            var selectedmd = $('.members-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedmd == totalmd) {
+                $('#check_allfmd').prop('checked', true);
+            }else {
+                $('#check_allfmd').prop('checked', false);
+            }
+            var totalsd = $('.supporting-detail input[type="radio"][value="2"]').length;
+            var selectedsd = $('.supporting-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedsd == totalsd) {
+                $('#check_allfsd').prop('checked', true);
+            }else {
+                $('#check_allfsd').prop('checked', false);
+            }
         }
         }
     });
     $('#pass_count').text(passCount);
     $('#failed_count').text(failCount);
     if(failCount > 0){
-        $('#return_app').css('cssText', 'background-color:  !important;');
-        $('#return_app').prop('disabled', false);
+        // $('#return_app').css('cssText', 'background-color:  !important;');
+        // $('#return_app').prop('disabled', false);
         $('#save_record').css('background-color', 'gray');
         $('#save_record').prop('disabled', true);
+        $('#reject_app').css('cssText', 'background-color:  !important;');
+        $('#reject_app').prop('disabled', false);
     }else{
         $('#save_record').css('background-color', '');
         $('#save_record').prop('disabled', false);
-        $('#return_app').css('cssText', 'background-color: gray !important;');
-        $('#return_app').prop('disabled', true);
+        // $('#return_app').css('cssText', 'background-color: gray !important;');
+        // $('#return_app').prop('disabled', true);
+        $('#reject_app').css('cssText', 'background-color: gray !important;');
+        $('#reject_app').prop('disabled', true);
     }
 });
 $(document).ready(function() {
@@ -2149,9 +2121,65 @@ $('#aa_validation input[type="radio"]').on('change click', function() {
             passCount++;
             $(this).parent().next().next().find('input[type="text"]').val('');
             $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
+            var totalpd = $('.personal-detail input[type="radio"][value="1"]').length;
+            var selectedpd = $('.personal-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedpd == totalpd) {
+                $('#check_allppd').prop('checked', true);
+            }else {
+                $('#check_allppd').prop('checked', false);
+            }
+            var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
+            var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
+            if (selecteded == totaled) {
+                $('#check_allped').prop('checked', true);
+            }else {
+                $('#check_allped').prop('checked', false);
+            }
+            var totalmd = $('.members-detail input[type="radio"][value="1"]').length;
+            var selectedmd = $('.members-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedmd == totalmd) {
+                $('#check_allpmd').prop('checked', true);
+            }else {
+                $('#check_allpmd').prop('checked', false);
+            }
+            var totalsd = $('.supporting-detail input[type="radio"][value="1"]').length;
+            var selectedsd = $('.supporting-detail input[type="radio"][value="1"]:checked').length;
+            if (selectedsd == totalsd) {
+                $('#check_allpsd').prop('checked', true);
+            }else {
+                $('#check_allpsd').prop('checked', false);
+            }
         } else if ($(this).val() == 2) {
             failCount++;
             $(this).parent().next().find('input[type="text"]').prop('disabled', false);
+            var totalpd = $('.personal-detail input[type="radio"][value="2"]').length;
+            var selectedpd = $('.personal-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedpd == totalpd) {
+                $('#check_allfpd').prop('checked', true);
+            }else {
+                $('#check_allfpd').prop('checked', false);
+            }
+            var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
+            var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
+            if (selecteded == totaled) {
+                $('#check_allfed').prop('checked', true);
+            }else {
+                $('#check_allfed').prop('checked', false);
+            }
+            var totalmd = $('.members-detail input[type="radio"][value="2"]').length;
+            var selectedmd = $('.members-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedmd == totalmd) {
+                $('#check_allfmd').prop('checked', true);
+            }else {
+                $('#check_allfmd').prop('checked', false);
+            }
+            var totalsd = $('.supporting-detail input[type="radio"][value="2"]').length;
+            var selectedsd = $('.supporting-detail input[type="radio"][value="2"]:checked').length;
+            if (selectedsd == totalsd) {
+                $('#check_allfsd').prop('checked', true);
+            }else {
+                $('#check_allfsd').prop('checked', false);
+            }
         }
         }
     });
@@ -2162,11 +2190,15 @@ $('#aa_validation input[type="radio"]').on('change click', function() {
         $('#return_app').prop('disabled', false);
         $('#save_record').css('background-color', 'gray');
         $('#save_record').prop('disabled', true);
+        $('#reject_app').css('cssText', 'background-color:  !important;');
+        $('#reject_app').prop('disabled', false);
     }else{
         $('#save_record').css('background-color', '');
         $('#save_record').prop('disabled', false);
         $('#return_app').css('cssText', 'background-color: gray !important;');
         $('#return_app').prop('disabled', true);
+        $('#reject_app').css('cssText', 'background-color: gray !important;');
+        $('#reject_app').prop('disabled', true);
     }
         
 });
@@ -2313,32 +2345,44 @@ $.ajaxSetup({
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
         });
-
+        // validate_step
         var formDatas = $("#aa_validation").serialize();
         $.ajax({
             type: 'POST',
-            url: "{{ route('save_aa_validation') }}",
+            url: "{{ route('validate_step') }}",
             data: formDatas,
-            beforeSend: function() {
-                $('#loading').show();
-            },
             success: function(data) {
-                if (data.success != '') {
-                    Swal.fire({
-                        text: 'Application has been save successfully validated and ready to forward.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Proceed',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        window.location.href = '{{ route('admin.members_records') }}';
+                if (data.success == 1) {
+                    $.ajax({
+                    type: 'POST',
+                    url: "{{ route('save_aa_validation') }}",
+                    data: formDatas,
+                    beforeSend: function() {
+                        $('#loading').show();
+                    },
+                    success: function(data) {
+                        if (data.success != '') {
+                            Swal.fire({
+                                text: 'Application has been save successfully validated and ready to forward.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Proceed',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                window.location.href = '{{ route('admin.members_records') }}';
+                                }
+                            });
+                        }else{
+                            swal.fire("Error!", "No changed was made on Validation proccess.", "error");
                         }
+                      }
                     });
                 }else{
-                    alert('Failed');
+                    swal.fire("Error!", "You already forwarded this application to HRDO.", "error");
                 }
             }
         });
+        
 
 });
 $('#reject_app').click(function() {
@@ -2360,25 +2404,36 @@ Swal.fire({
         var formDatas = $("#aa_validation").serialize();
         $.ajax({
             type: 'POST',
-            url: "{{ route('reject_application') }}",
+            url: "{{ route('validate_step_reject') }}",
             data: formDatas,
-            beforeSend: function() {
-                $('#loading').show();
-            },
             success: function(data) {
-                if (data.success != '') {
-                    Swal.fire({
-                        text: 'Application has been rejected successfully.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Ok',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        window.location.href = '{{ route('admin.members_records') }}';
-                        }
+                if (data.success == 1) {
+                    $.ajax({
+                    type: 'POST',
+                    url: "{{ route('reject_application') }}",
+                    data: formDatas,
+                    beforeSend: function() {
+                        $('#loading').show();
+                    },
+                    success: function(data) {
+                        if (data.success != '') {
+                            Swal.fire({
+                                text: 'Application has been rejected successfully.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Ok',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                window.location.href = '{{ route('admin.members_records') }}';
+                                }
+                            });
+                            }else{
+                                alert('Failed');
+                            }
+                         }
                     });
                 }else{
-                    alert('Failed');
+                    swal.fire("Error!", "You already forwarded this application to HRDO and cannot be rejected.", "error");
                 }
             }
         });
