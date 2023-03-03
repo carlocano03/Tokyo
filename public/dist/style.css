@@ -6414,14 +6414,14 @@ tfoot {
 
 @media (max-width:1244px) {
     .mh-content {
-        height: calc(100vh - 179px) !important;
+        height: calc(100vh - 100px) !important;
         overflow-y: scroll !important;
     }
 }
 
 @media (max-width:655px) {
     .mh-content {
-        height: calc(100vh - 131px) !important;
+        height: calc(100vh - 0px) !important;
         overflow-y: scroll !important;
     }
 }
@@ -6538,4 +6538,17 @@ tfoot {
     transform: translate(50%, -50%) rotate(-45deg);
     background-color: #444444;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+.bypass-color {
+    color: grey;
+}
+
+#bypass-color {
+    color: grey;
+}
+
+.minus-margin {
+    margin-top: -5px !important;
+    margin-bottom: -15px !important;
 }

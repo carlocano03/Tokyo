@@ -323,33 +323,7 @@
             <label class="mp-input-group__label">First Name *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
         </div>
-        <div class="mp-input-group">
 
-            <label class="mp-input-group__label">Last Name
-                <div class="tooltip">
-                    <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
-                    <div class="right">
-
-                        <div class="text-content">
-                            <h3>Proxy Form</h3>
-                            <ul>
-                                <li>
-
-                                    The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
-
-                                    In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
-
-                                    For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.</li>
-
-                            </ul>
-                        </div>
-                        <i></i>
-                    </div>
-                </div>
-
-            </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
-        </div>
 
         <div class="mp-input-group">
 
@@ -367,29 +341,7 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Last Name *
-                <div class="tooltip">
-                    <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
-                    <div class="right">
-
-                        <div class="text-content">
-                            <h3>Proxy Form</h3>
-                            <ul>
-                                <li>
-
-                                    The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
-
-                                    In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
-
-                                    For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.</li>
-
-                            </ul>
-                        </div>
-                        <i></i>
-                    </div>
-                </div>
-
-            </label>
+            <label class="mp-input-group__label">Last Name * </label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
         </div>
 
@@ -850,33 +802,32 @@
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-4">
 
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Supporting Document
+            <label class="mp-input-group__label">Supporting Document</label>
+
+        </div>
+
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Input your name as signature
                 <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
 
                         <div class="text-content">
-                            <h3>Sample Tooltip</h3>
+                            <h3>Electronic Signature</h3>
                             <ul>
-                                <li>Proxy Form
-
-                                    The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
-
-                                    In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
-
-                                    For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.</li>
-
+                                <li>
+                                    Electronic signatures have been expressly recognized as legally binding (Republic Act 8792).
+                                    <br> <br>
+                                    Electronic signature on the electronic document shall be equivalent to the signature of a person on a written document.
+                                    <br> <br>
+                                    By writing, typing your full name and the date, it is good as affixing your e-signature and agreeing to the above stipulations.
+                                </li>
                             </ul>
                         </div>
-                        <i></i>
+
                     </div>
                 </div>
             </label>
-
-        </div>
-
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Input your name as signature</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="e_sig" id="e_sig" required />
         </div>
         <input type="hidden" name="app_no" id="app_no">
@@ -889,9 +840,50 @@
                     <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
                         <span>Generate Proxy Form</span>
                     </button>
+                    <div class="tooltip">
+                        <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
+                        <div class="right">
+
+                            <div class="text-content">
+                                <h3>Proxy Form</h3>
+                                <ul>
+                                    <li>
+
+                                        The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
+                                        <br> <br>
+                                        In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
+                                        <br> <br>
+                                        For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
                 <hr>
                 <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generare AXA Insurance Form</button>
+                <div class="tooltip">
+                    <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
+                    <div class="right">
+
+                        <div class="text-content">
+                            <h3>Insurance Form</h3>
+                            <ul>
+                                <li>
+                                    Effective 01 January 2023, UPPF Members will now be covered by new Insurance Provider, i.e., AXA Philippines.
+                                    <br> <br>
+                                    All UPPF Members are required to fill out this Enrolment Form, as soon as possible, for records purposes.
+                                    <br> <br>
+                                    Your utmost cooperation and understanding is much appreciated.
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
 
