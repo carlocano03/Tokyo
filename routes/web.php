@@ -65,7 +65,7 @@ Route::post('/login/update_trail_member_1', [HomeController::class, 'update_trai
 
 Route::post('/login/add_proxy', [HomeController::class, 'add_proxy'])->name('add_proxyForm');
 Route::post('/login/addcocolife', [HomeController::class, 'addcocolife'])->name('add_cocolife');
-
+Route::get('/axaform', [PDFController::class, 'axaForm'])->name('pdf.axa_form');
 Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciaries'])->name('add_benefeciaries');
 
 
