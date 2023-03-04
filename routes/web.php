@@ -79,6 +79,7 @@ Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin
 Route::post('/admin/countApplication', [AdminController::class, 'countApplication'])->name('count_application');
 Route::get('/admin/get_members', [AdminController::class, 'get_members'])->name('getMembers');
 Route::get('/admin/election', [AdminController::class, 'election'])->name('admin.election.election');
+Route::get('/admin/election/create-election', [AdminController::class, 'createElection'])->name('admin.election.create-election');
 
 //admin settings links
 Route::get('/admin/settings/manage-account', [AdminController::class, 'manageAccount'])->name('admin.settings-config.manage-account');
