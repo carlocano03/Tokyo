@@ -184,4 +184,5 @@ Route::post('/validate_step_reject', [App_Validation::class, 'validate_step_reje
 
 // hrdo validation 
 Route::post('/save_hrdo_validation', [App_Validation::class, 'hrdo_validation_save'])->name('save_hrdo_validation');
+Route::post('/save_drafthrdo_validation', [App_Validation::class, 'hrdo_validation_draft'])->name('save_drafthrdo_validation');
 Route::post('/return_application_aa', [App_Validation::class, 'returnto_aa_application'])->name('return_application_aa');

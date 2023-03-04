@@ -479,6 +479,7 @@
                         <option value="AA">AA</option>
                         <option value="CFM">CFM</option>
                         <option value="HRDO">HRDO</option>
+                        <option value="FM">FM</option>
                         <option value="ADMIN">ADMIN</option>
                       </select>
                     </div>

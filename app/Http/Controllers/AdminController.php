@@ -566,7 +566,9 @@ class AdminController extends Controller
       $approved = 'APPROVED APPLICATION';
       $records->where('mem_app.forwarded_user', $aa_1);
       $records->where('mem_app.validator_remarks', $cfm);
+      $records->where('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
+      $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
     } else if ($users == 'CFM') {
       $aa_1 = 'NEW APPLICATION';
       $cfm = 'AA VERIFIED';
@@ -681,6 +683,10 @@ class AdminController extends Controller
         ->leftjoin('campus', 'campus.id', '=', 'users.campus_id')
         ->where('name', $department)
         ->where('user_level', 'HRDO')->get();
+    }else if ($request->input('forward_action') == 'FM') {
+      $hrdouser = DB::table('users')->orderBy('users.id')
+        ->select('users.id', 'first_name', 'middle_name', 'last_name')
+        ->where('user_level', 'FM')->get();
     }
     return response()->json($hrdouser);
   }
