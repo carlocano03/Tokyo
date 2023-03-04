@@ -13,73 +13,77 @@ use Carbon\Carbon;
 
 
 class PDFController extends Controller
- {
+{
 
     // public function __construct()
     // {
     //     $this->middleware( 'auth' );
     // }
     /**
-    * Display a listing of the resource.
-    *
-    * @return \Illuminate\Http\Response
-    */
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
 
-    public function generateCocolife($id) {
+    public function generateCocolife($id)
+    {
         $data['member']  = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$id'")
-        ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
-        ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
-        ->leftjoin('member_signature', 'mem_app.app_no', '=', 'member_signature.app_no')
-        ->get()->first();
+            ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+            ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+            ->leftjoin('member_signature', 'mem_app.app_no', '=', 'member_signature.app_no')
+            ->get()->first();
 
         $employee_no = $data['member']->employee_no;
 
         $data['benificiary'] = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$employee_no'")
-        ->get();
+            ->get();
 
         $data['coco_details'] = DB::table('generated_coco')->select('*')->whereRaw("app_number = '$id'")
-        ->get()->first();
+            ->get()->first();
 
-        $pdf = PDF::loadView( 'pdf.cocolife_proxyform', $data );
-        $pdf->setPaper( 'A4', 'portrait' );
+        $pdf = PDF::loadView('pdf.cocolife_proxyform', $data);
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
-    public function proxyForm() {
-        $pdf = PDF::loadView( 'pdf.cocolife_proxyform' );
-        $pdf->setPaper( 'A4', 'portrait' );
+    public function proxyForm()
+    {
+        $pdf = PDF::loadView('pdf.cocolife_proxyform');
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
-    
-    public function memberform($id) {
+
+    public function memberform($id)
+    {
         $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.employee_no = '$id'")
-        ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
-        ->leftjoin('personal_details', 'personal_details.personal_id', '=', 'mem_app.personal_id')
-        ->leftjoin('college_unit', 'college_unit.cu_no', '=', 'employee_details.college_unit')
-        ->leftjoin('department', 'department.dept_no', '=', 'employee_details.department')
-        ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
-        ->get()->first();
+            ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+            ->leftjoin('personal_details', 'personal_details.personal_id', '=', 'mem_app.personal_id')
+            ->leftjoin('college_unit', 'college_unit.cu_no', '=', 'employee_details.college_unit')
+            ->leftjoin('department', 'department.dept_no', '=', 'employee_details.department')
+            ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
+            ->get()->first();
         $benificiary = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$id'")
-        ->get();
+            ->get();
 
         $data['member'] = $results;
         $data['benificiary'] = $benificiary;
         // print_r($data);
-        $pdf = PDF::loadView( 'pdf.member_form',$data );
-        $pdf->setPaper( 'A4', 'portrait' );
+        $pdf = PDF::loadView('pdf.member_form', $data);
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
-    
-    public function generateProxyForm($id) {
+
+    public function generateProxyForm($id)
+    {
         $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$id'")
-        ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
-        ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
-        ->leftjoin('member_signature', 'mem_app.app_no', '=', 'member_signature.app_no')
-        ->get()->first();
+            ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+            ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+            ->leftjoin('member_signature', 'mem_app.app_no', '=', 'member_signature.app_no')
+            ->get()->first();
 
         $data['member'] = $results;
 
-        $pdf = PDF::loadView( 'pdf.proxy_form', $data );
-        $pdf->setPaper( 'A4', 'portrait' );
+        $pdf = PDF::loadView('pdf.proxy_form', $data);
+        $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
 
@@ -108,5 +112,12 @@ class PDFController extends Controller
     {
         $path = public_path('forms/PROXY_FORM.pdf');
         return response()->download($path);
+    }
+
+    public function axaForm()
+    {
+        $pdf = PDF::loadView('pdf.axa_form');
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream();
     }
 }

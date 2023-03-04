@@ -892,7 +892,11 @@
                 <div class="w-auto">
                     <span class="font-sm">Status</span>
                     <br />
+                    @if ($status === 'HRDO - APPROVED')
+                    <span class="status-title green-bg">Approved Application</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
+                    @else
                     <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
+                    @endif
                 </div>
                 <div class="w-auto d-flex justify-content-end">
                     <span>
@@ -919,144 +923,52 @@
                 </div>
                 <div class="card-body trail" -trail id="trail-body">
                     <div class="table-form w-trail mp-pv2 mp-ph3">
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6 white"></span>
-                                <span class="line-child span-6"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title maroon-bg">
-                                            Pending
+                    @php
+                            $counter = 0;
+                            $total = count($trailing);
+                        @endphp
+                        @foreach ($trailing as $data)
+                        @php
+                            $counter++;
+                        @endphp
+                            <div class="span-2 d-flex flex-column relative">
+                                <div class="d-flex flex-column absolute top-circle w-full">
+                                    <span class="circle"></span>
+                                </div>
+                                <div class="line-trail table-form w-full">
+                                    <span class="line-child span-6 {{ $counter == 1 ? 'white' : '' }}"></span>
+                                    <span class="line-child span-6 {{ $counter == $total ? 'white' : '' }}"></span>
+                                </div>
+                                <div class="table-form">
+                                    <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
+                                        <span class="font-sm">Status</span>
+                                        <span class="mp-mh1">
+                                        @if ($data->status_remarks === 'HRDO - APPROVED')
+                                            <span class="status-title green-bg">
+                                                APPROVED
+                                            </span>
+                                        @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                            <span class="status-title orage-bg">
+                                                PROCESSING
+                                            </span>
+                                        @else
+                                            <span class="status-title maroon-bg">
+                                                NEW APPLICATION
+                                            </span>
+                                        @endif
                                         </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">New Application</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-
+                                        <span class="font-sm">Remarks</span>
+                                        <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
+                                        <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6"></span>
-                                <span class="line-child span-6"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title orage-bg">
-                                            Processing
-                                        </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">AA - Review Validation</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6"></span>
-                                <span class="line-child span-6"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title orage-bg">
-                                            Processing
-                                        </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">AA - Verified</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6"></span>
-                                <span class="line-child span-6"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title orage-bg">
-                                            Processing
-                                        </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">CFM - Review Validation</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6"></span>
-                                <span class="line-child span-6"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title red-bg">
-                                            Rejected
-                                        </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">Rejected by CFM</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="span-2 d-flex flex-column relative">
-                            <div class="d-flex flex-column absolute top-circle w-full">
-                                <span class="circle"></span>
-                            </div>
-                            <div class="line-trail table-form w-full">
-                                <span class="line-child span-6"></span>
-                                <span class="line-child span-6 white"></span>
-                            </div>
-                            <div class="table-form">
-                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                    <span class="font-sm">Status</span>
-                                    <span class="mp-mh1">
-                                        <span class="status-title blue-bg">
-                                            Approved
-                                        </span>
-                                    </span>
-                                    <span class="font-sm">Remarks</span>
-                                    <span class="magenta-clr font-bold ">Approved Application</span>
-                                    <span class="font-sm">Date: <span>January 23, 2023</span></span>
-
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach   
+                        
+                        
+                        
+                        
+                        
                     </div>
                 </div>
             </div>
@@ -2184,15 +2096,19 @@ $(document).ready(function() {
     $('#pass_count').text(passCount);
     $('#failed_count').text(failCount);
     if(failCount > 0){
-        $('#return_app').css('cssText', 'background-color:  !important;');
-        $('#return_app').prop('disabled', false);
+        // $('#return_app').css('cssText', 'background-color:  !important;');
+        // $('#return_app').prop('disabled', false);
         $('#save_record').css('background-color', 'gray');
         $('#save_record').prop('disabled', true);
+        $('#reject_app').css('cssText', 'background-color:  !important;');
+        $('#reject_app').prop('disabled', false);
     }else{
         $('#save_record').css('background-color', '');
         $('#save_record').prop('disabled', false);
-        $('#return_app').css('cssText', 'background-color: gray !important;');
-        $('#return_app').prop('disabled', true);
+        // $('#return_app').css('cssText', 'background-color: gray !important;');
+        // $('#return_app').prop('disabled', true);
+        $('#reject_app').css('cssText', 'background-color: gray !important;');
+        $('#reject_app').prop('disabled', true);
     }
 });
 $(document).ready(function() {
@@ -2274,11 +2190,15 @@ $('#aa_validation input[type="radio"]').on('change click', function() {
         $('#return_app').prop('disabled', false);
         $('#save_record').css('background-color', 'gray');
         $('#save_record').prop('disabled', true);
+        $('#reject_app').css('cssText', 'background-color:  !important;');
+        $('#reject_app').prop('disabled', false);
     }else{
         $('#save_record').css('background-color', '');
         $('#save_record').prop('disabled', false);
         $('#return_app').css('cssText', 'background-color: gray !important;');
         $('#return_app').prop('disabled', true);
+        $('#reject_app').css('cssText', 'background-color: gray !important;');
+        $('#reject_app').prop('disabled', true);
     }
         
 });
@@ -2453,7 +2373,7 @@ $.ajaxSetup({
                                 }
                             });
                         }else{
-                            alert('Failed');
+                            swal.fire("Error!", "No changed was made on Validation proccess.", "error");
                         }
                       }
                     });

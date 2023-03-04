@@ -65,7 +65,7 @@ Route::post('/login/update_trail_member_1', [HomeController::class, 'update_trai
 
 Route::post('/login/add_proxy', [HomeController::class, 'add_proxy'])->name('add_proxyForm');
 Route::post('/login/addcocolife', [HomeController::class, 'addcocolife'])->name('add_cocolife');
-
+Route::get('/axaform', [PDFController::class, 'axaForm'])->name('pdf.axa_form');
 Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciaries'])->name('add_benefeciaries');
 
 
@@ -184,3 +184,4 @@ Route::post('/validate_step_reject', [App_Validation::class, 'validate_step_reje
 
 // hrdo validation 
 Route::post('/save_hrdo_validation', [App_Validation::class, 'hrdo_validation_save'])->name('save_hrdo_validation');
+Route::post('/return_application_aa', [App_Validation::class, 'returnto_aa_application'])->name('return_application_aa');
