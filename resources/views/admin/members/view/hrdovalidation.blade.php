@@ -897,7 +897,7 @@
                 <div class="w-auto">
                     <span class="font-sm">Status</span>
                     <br />
-                    @if ($status === 'HRDO - APPROVED')
+                    @if ($status === 'HRDO - APPROVED' || $status === 'FORWARDED TO FM')
                     <span class="status-title green-bg">Approved Application</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
                     @else
                     <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
@@ -949,7 +949,7 @@
                                     <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
                                         <span class="font-sm">Status</span>
                                         <span class="mp-mh1">
-                                        @if ($data->status_remarks === 'HRDO - APPROVED')
+                                            @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
                                             <span class="status-title green-bg">
                                                 APPROVED
                                             </span>
@@ -1680,17 +1680,17 @@ $(document).ready(function() {
     });
     $('#pass_count').text(passCount);
     $('#failed_count').text(failCount);
-    if(failCount > 0){
-        // $('#return_app').css('cssText', 'background-color:  !important;');
-        // $('#return_app').prop('disabled', false);
-        $('#save_record').css('background-color', 'gray');
-        $('#save_record').prop('disabled', true);
-    }else{
-        $('#save_record').css('background-color', '');
-        $('#save_record').prop('disabled', false);
-        // $('#return_app').css('cssText', 'background-color: gray !important;');
-        // $('#return_app').prop('disabled', true);
-    }
+    // if(failCount > 0){
+    //     // $('#return_app').css('cssText', 'background-color:  !important;');
+    //     // $('#return_app').prop('disabled', false);
+    //     $('#save_record').css('background-color', 'gray');
+    //     $('#save_record').prop('disabled', true);
+    // }else{
+    //     $('#save_record').css('background-color', '');
+    //     $('#save_record').prop('disabled', false);
+    //     // $('#return_app').css('cssText', 'background-color: gray !important;');
+    //     // $('#return_app').prop('disabled', true);
+    // }
 
 });
 $(document).ready(function() {
@@ -1725,17 +1725,17 @@ $('#hrdo_validation input[type="radio"]').on('change click', function() {
     });
     $('#pass_count').text(passCount);
     $('#failed_count').text(failCount);
-    if(failCount > 0){
-        // $('#return_app').css('cssText', 'background-color:  !important;');
-        // $('#return_app').prop('disabled', false);
-        $('#save_record').css('background-color', 'gray');
-        $('#save_record').prop('disabled', true);
-    }else{
-        $('#save_record').css('background-color', '');
-        $('#save_record').prop('disabled', false);
-        // $('#return_app').css('cssText', 'background-color: gray !important;');
-        // $('#return_app').prop('disabled', true);
-    }
+    // if(failCount > 0){
+    //     // $('#return_app').css('cssText', 'background-color:  !important;');
+    //     // $('#return_app').prop('disabled', false);
+    //     $('#save_record').css('background-color', 'gray');
+    //     $('#save_record').prop('disabled', true);
+    // }else{
+    //     $('#save_record').css('background-color', '');
+    //     $('#save_record').prop('disabled', false);
+    //     // $('#return_app').css('cssText', 'background-color: gray !important;');
+    //     // $('#return_app').prop('disabled', true);
+    // }
 });
 });
 $('#check_allped').click(function() {
@@ -1778,32 +1778,81 @@ $.ajaxSetup({
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
         });
-
         var formDatas = $("#hrdo_validation").serialize();
-        $.ajax({
+        if(failCount > 0){
+            $.ajax({
             type: 'POST',
-            url: "{{ route('save_hrdo_validation') }}",
+            url: "{{ route('validate_step_reject') }}",
             data: formDatas,
-            beforeSend: function() {
-                $('#loading').show();
-            },
             success: function(data) {
-                if (data.success != '') {
-                    Swal.fire({
-                        text: 'Application has been save successfully validated and ready to forward.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Proceed',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        window.location.href = '{{ route('admin.members_records') }}';
+                if (data.success == 1) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('save_drafthrdo_validation') }}",
+                        data: formDatas,
+                        beforeSend: function() {
+                            $('#loading').show();
+                        },
+                        success: function(data) {
+                            if (data.success != '') {
+                                Swal.fire({
+                                    text: 'Application has been save as draft and can verified later.',
+                                    icon: 'success',
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'Proceed',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                    window.location.href = '{{ route('admin.members_records') }}';
+                                    }
+                                });
+                            }else{
+                                alert('Failed');
+                            }
                         }
                     });
                 }else{
-                    alert('Failed');
-                }
-            }
-        });
+                        swal.fire("Error!", "You already forwarded this application to FM and cannot be changes.", "error");
+                    }
+                },
+             });
+             
+        }else{
+            $.ajax({
+            type: 'POST',
+            url: "{{ route('validate_step_reject') }}",
+            data: formDatas,
+            success: function(data) {
+                if (data.success == 1) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('save_hrdo_validation') }}",
+                    data: formDatas,
+                    beforeSend: function() {
+                        $('#loading').show();
+                    },
+                    success: function(data) {
+                        if (data.success != '') {
+                            Swal.fire({
+                                text: 'Application has been save successfully validated and ready to forward.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Proceed',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                window.location.href = '{{ route('admin.members_records') }}';
+                                }
+                            });
+                        }else{
+                            alert('Failed');
+                        }
+                    }
+                });
+            }else{
+                        swal.fire("Error!", "You already forwarded this application to FM and cannot be changes.", "error");
+                    }
+                },
+             });
+        }
 
 });
 $('#return_app').click(function() {
@@ -1826,25 +1875,36 @@ $('#return_app').click(function() {
         var formDatas = $("#hrdo_validation").serialize();
         $.ajax({
             type: 'POST',
-            url: "{{ route('return_application_aa') }}",
+            url: "{{ route('validate_step_reject') }}",
             data: formDatas,
-            beforeSend: function() {
-                $('#loading').show();
-            },
             success: function(data) {
-                if (data.success != '') {
-                Swal.fire({
-                        text: 'Application has been successfully returned and subject for compliance.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Proceed',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        window.location.href = '{{ route('admin.members_records') }}';
+                if (data.success == 1) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('return_application_aa') }}",
+                        data: formDatas,
+                        beforeSend: function() {
+                            $('#loading').show();
+                        },
+                        success: function(data) {
+                            if (data.success != '') {
+                            Swal.fire({
+                                    text: 'Application has been successfully returned and subject for compliance.',
+                                    icon: 'success',
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'Proceed',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                    window.location.href = '{{ route('admin.members_records') }}';
+                                    }
+                                });
+                            }else{
+                                swal.fire("Error!", "Saving failed", "error");
+                            }
                         }
                     });
                 }else{
-                    swal.fire("Error!", "Saving failed", "error");
+                    swal.fire("Error!", "You already forwarded this application to FM and cannot be returned.", "error");
                 }
             }
         });

@@ -892,7 +892,7 @@
                 <div class="w-auto">
                     <span class="font-sm">Status</span>
                     <br />
-                    @if ($status === 'HRDO - APPROVED')
+                    @if ($status === 'HRDO - APPROVED' || $status === 'FORWARDED TO FM')
                     <span class="status-title green-bg">Approved Application</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
                     @else
                     <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
@@ -943,7 +943,7 @@
                                     <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
                                         <span class="font-sm">Status</span>
                                         <span class="mp-mh1">
-                                        @if ($data->status_remarks === 'HRDO - APPROVED')
+                                        @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
                                             <span class="status-title green-bg">
                                                 APPROVED
                                             </span>
