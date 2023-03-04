@@ -895,7 +895,7 @@
                                     </option>
                                     @if(Auth::user()->user_level == 'HRDO')
                                     <option value="FM">Forward to Fund manager</option>
-                                    
+
                                     @else
                                     <option value="HRDO">Forward to HRDO</option>
                                     {{-- <option value="CFM">Forward to CFM</option> --}}
@@ -1194,12 +1194,12 @@
             var campusspan = campus_checked + ' ' + $('#forward_action').val();
             var forward_action = $('#forward_action').val();
             $('#summaryModal').css('display', 'flex');
-            if($('#forward_action').val() == 'FM'){
+            if ($('#forward_action').val() == 'FM') {
                 $('#campus_userlevel').text('User:');
-                    $.getJSON('/hrdo_user', {
+                $.getJSON('/hrdo_user', {
                     department: campus_checked,
                     forward_action: forward_action
-                    }, function(options) {
+                }, function(options) {
                     $.each(options, function(index, option) {
                         $('#hrdo_user').append($('<option>', {
                             value: option.id,
@@ -1207,11 +1207,11 @@
                         }));
                     });
                 });
-            }else{
+            } else {
                 $('#campus_userlevel').text('Campus:');
                 $.getJSON('/hrdo_user', {
-                department: campus_checked,
-                forward_action: forward_action
+                    department: campus_checked,
+                    forward_action: forward_action
                 }, function(options) {
                     $.each(options, function(index, option) {
                         $('#hrdo_user').append($('<option>', {
@@ -1220,7 +1220,7 @@
                         }));
                     });
                 });
-                }
+            }
         } else {
             Swal.fire({
                 icon: 'error',
