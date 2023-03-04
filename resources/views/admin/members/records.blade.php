@@ -702,7 +702,7 @@
                         </select>
                     </p> -->
                     <p>
-                        Campus:
+                        <span id="campus_userlevel">Campus:</span>
                         <select name="hrdo_user" id="hrdo_user" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;">
                             <option value="">
                                 Please select
@@ -895,8 +895,7 @@
                                     </option>
                                     @if(Auth::user()->user_level == 'HRDO')
                                     <option value="FM">Forward to Fund manager</option>
-                                    <option value="AA">Return to AA</option>
-                                    <!-- {{-- <option value="CFM">Return to CFM</option> --}} -->
+                                    
                                     @else
                                     <option value="HRDO">Forward to HRDO</option>
                                     {{-- <option value="CFM">Forward to CFM</option> --}}
@@ -1195,17 +1194,33 @@
             var campusspan = campus_checked + ' ' + $('#forward_action').val();
             var forward_action = $('#forward_action').val();
             $('#summaryModal').css('display', 'flex');
-            $.getJSON('/hrdo_user', {
+            if($('#forward_action').val() == 'FM'){
+                $('#campus_userlevel').text('User:');
+                    $.getJSON('/hrdo_user', {
+                    department: campus_checked,
+                    forward_action: forward_action
+                    }, function(options) {
+                    $.each(options, function(index, option) {
+                        $('#hrdo_user').append($('<option>', {
+                            value: option.id,
+                            text: forward_action + ' ' + option.first_name + ' ' + option.last_name,
+                        }));
+                    });
+                });
+            }else{
+                $('#campus_userlevel').text('Campus:');
+                $.getJSON('/hrdo_user', {
                 department: campus_checked,
                 forward_action: forward_action
-            }, function(options) {
-                $.each(options, function(index, option) {
-                    $('#hrdo_user').append($('<option>', {
-                        value: option.id,
-                        text: campus_checked + ' ' + forward_action + ' ' + option.first_name + ' ' + option.last_name,
-                    }));
+                }, function(options) {
+                    $.each(options, function(index, option) {
+                        $('#hrdo_user').append($('<option>', {
+                            value: option.id,
+                            text: campus_checked + ' ' + forward_action + ' ' + option.first_name + ' ' + option.last_name,
+                        }));
+                    });
                 });
-            });
+                }
         } else {
             Swal.fire({
                 icon: 'error',
@@ -1288,7 +1303,7 @@
                     success: function(data) {
                         if (data.success != '') {
                             Swal.fire({
-                                text: 'Application has been forwarded to ' + $('#forward_action').val() + 'successfully.',
+                                text: 'Application has been forwarded to ' + $('#forward_action').val() + ' successfully.',
                                 icon: 'success',
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: 'Proceed',
