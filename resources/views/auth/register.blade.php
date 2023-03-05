@@ -327,7 +327,7 @@
 
         <div class="mp-input-group">
 
-            <label class="mp-input-group__label">Last Name
+            <label class="mp-input-group__label">Last Name *
             </label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
         </div>
@@ -347,14 +347,14 @@
 
 
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Suffix</label>
+            <label class="mp-input-group__label">Suffix *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="suffix" />
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label mp-mb1">Date of Birth *</label>
             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Month</label>
+                    <label class="mp-input-group__label">Month *</label>
                     <select name="date_birth_month" id="date_birth_month" class="radius-1 outline select-field" style="font-size: normal;">
                         <option value="01">January</option>
                         <option value="02">February</option>
@@ -372,7 +372,7 @@
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Day</label>
+                    <label class="mp-input-group__label">Day *</label>
                     <select name="date_birth_days" id="date_birth_days" class="radius-1 outline select-field" style="font-size: normal;">
                         @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
                             @endfor
@@ -380,7 +380,7 @@
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Year</label>
+                    <label class="mp-input-group__label">Year *</label>
                     <select name="date_birth_years" id="date_birth_years" class="radius-1 outline select-field" style="font-size: normal;">
                         <!-- options for years from 12 years ago until 70 years before the current year -->
                         @for ($i = date('Y') - 12; $i >= date('Y') - 70; $i--)
@@ -428,13 +428,13 @@
 
 
             <label class="mp-input-group__label">Present Address *</label><br>
-            <label class="mp-input-group__label">Province
+            <label class="mp-input-group__label">Province *
 
                 <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
                         <div class="text-content">
-                            <h3 id="province_text">Municipality List</h3>
+                            <h3 id="province_text">Municipality List *</h3>
                             <ul id="list-container">
 
                             </ul>
@@ -444,7 +444,7 @@
                 </div>
             </label>
             <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
-                <option value="">Select Province</option>
+                <option value="">Select Province *</option>
                 {{-- @foreach ($psgc_prov as $row)
                     <option value="{{ $row->code }}">{{ mb_strtoupper($row->name) }}</option>
                 @endforeach --}}
@@ -466,11 +466,11 @@
             <input type="hidden" id="present_barangay_name" name="present_barangay_name">
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Bldg No. St. No.</label>
+            <label class="mp-input-group__label">Bldg No. St. No. *</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="present_bldg_street" name="present_bldg_street" />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Zipcode</label>
+            <label class="mp-input-group__label">Zipcode *</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="present_zipcode" name="present_zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
         </div>
 
@@ -505,11 +505,11 @@
             <input type="hidden" id="barangay_name" name="barangay_name">
         </div>
         <div class="mp-input-group same_div">
-            <label class="mp-input-group__label">Bldg No. St. No.</label>
+            <label class="mp-input-group__label">Bldg No. St. No. *</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="bldg_street" name="bldg_street" />
         </div>
         <div class="mp-input-group same_div">
-            <label class="mp-input-group__label">Zipcode</label>
+            <label class="mp-input-group__label">Zipcode *</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="zipcode" name="zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
         </div>
         <div class="mp-input-group">
@@ -517,7 +517,7 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Landline Number</label>
+            <label class="mp-input-group__label">Landline Number *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="landline_no" />
         </div>
         <div class="mp-input-group">
@@ -566,7 +566,7 @@
             </select>
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Other Classification (Please Specify)</label>
+            <label class="mp-input-group__label">Other Classification (Please Specify)*</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="classification_others" />
         </div>
         <div class="mp-input-group">
@@ -595,7 +595,7 @@
             <label class="mp-input-group__label mp-mb1">Date of Appointment *</label>
             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Month</label>
+                    <label class="mp-input-group__label">Month *</label>
                     <select name="date_appoint_months" id="date_appoint_months" class="radius-1 outline select-field" style="font-size: normal;">
                         <option value="01">January</option>
                         <option value="02">February</option>
@@ -613,7 +613,7 @@
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Day</label>
+                    <label class="mp-input-group__label">Day *</label>
                     <select name="date_appoint_days" id="date_appoint_days" class="radius-1 outline select-field" style="font-size: normal;">
                         @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
                             @endfor
@@ -621,10 +621,10 @@
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Year</label>
+                    <label class="mp-input-group__label">Year *</label>
                     <select name="date_appoint_years" id="date_appoint_years" class="radius-1 outline select-field" style="font-size: normal;">
                         <!-- options for years from 12 years ago until 70 years before the current year -->
-                        <option value="{{ date('Y') }}">Current Year</option>
+                        <option value="{{ date('Y') }}">Current Year *</option>
                         <!-- options for years from current year down to 70 years ago -->
                         @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
@@ -641,7 +641,7 @@
             </select>
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Other Status (Please Specify)</label>
+            <label class="mp-input-group__label">Other Status (Please Specify) *</label>
             <input class="mp-input-group__input mp-text-field" type="text" />
         </div>
         <div class="mp-input-group">
@@ -651,11 +651,11 @@
 
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Salary Grade</label>
+            <label class="mp-input-group__label">Salary Grade *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="salary_grade" id="salary_grade" readonly />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Salary Grade Category</label>
+            <label class="mp-input-group__label">Salary Grade Category *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="sg_category" id="sg_category" readonly />
             {{-- <select class="mp-input-group__input mp-text-field" name="sg_category">
                     <option>Select Category</option>
@@ -680,7 +680,7 @@
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-3">
         <div class="mp-input-group">
             <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
-                MONTHLY CONTRIBUTION
+                MONTHLY CONTRIBUTION *
             </label>
             <label class="mp-input-group__label">
                 (The amount that you decide here will serve as your monthly contribution to your UP Provident
@@ -697,7 +697,7 @@
             <div class="d-flex gap-5">
                 <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
-                    - 100%)</label>
+                    - 100%) *</label>
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="percentage_bsalary" id="percentage_bsalary" />
             <label class="mp-input-group__label" style="margin-top: 5px;">Equivalent:</label> <label class="mp-input-group__label" id="computed_amount" style="margin-top: 5px;"></label>
@@ -706,20 +706,20 @@
             <div class="d-flex gap-5">
                 <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso
-                    )</label>
+                    )*</label>
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="fixed_amount" id="fixed_amount" />
             <label class="mp-input-group__label" style="margin-top: 5px;">Minimum Contribution:</label> <label class="mp-input-group__label" id="min_contri" style="margin-top: 5px;"></label>
         </div>
         <div class="mp-input-group d-flex gap-5 flex-column">
             <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
-            <label class="mp-input-group__label">Dependents</label>
+            <label class="mp-input-group__label">Dependents *</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Name" />
             <div class="mp-input-group">
-                <label class="mp-input-group__label mp-mb1">Birthday</label>
+                <label class="mp-input-group__label mp-mb1">Birthday *</label>
                 <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                     <div class="d-flex flex-column" style="gap: 3px">
-                        <label class="mp-input-group__label">Month</label>
+                        <label class="mp-input-group__label">Month *</label>
                         <select name="date_birth_dependent_month" id="date_birth_dependent_month" class="radius-1 outline select-field" style="font-size: normal;">
                             <option value="01">January</option>
                             <option value="02">February</option>
@@ -737,7 +737,7 @@
                     </div>
                     <span><br />-</span>
                     <div class="d-flex flex-column" style="gap: 3px">
-                        <label class="mp-input-group__label">Day</label>
+                        <label class="mp-input-group__label">Day *</label>
                         <select name="date_birth_dependent_days" id="date_birth_dependent_days" class="radius-1 outline select-field" style="font-size: normal;">
                             @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
                                 @endfor
@@ -745,10 +745,10 @@
                     </div>
                     <span><br />-</span>
                     <div class="d-flex flex-column" style="gap: 3px">
-                        <label class="mp-input-group__label">Year</label>
+                        <label class="mp-input-group__label">Year *</label>
                         <select name="date_birth_dependent_years" id="date_birth_dependent_years" class="radius-1 outline select-field" style="font-size: normal;">
                             <!-- option for current year -->
-                            <option value="{{ date('Y') }}">Current Year</option>
+                            <option value="{{ date('Y') }}">Current Year *</option>
 
                             <!-- options for years from current year down to 70 years ago -->
                             @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
@@ -802,12 +802,12 @@
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-4">
 
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Supporting Document</label>
+            <label class="mp-input-group__label">Supporting Document *</label>
 
         </div>
 
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Input your name as signature
+            <label class="mp-input-group__label">Input your name as signature *
                 <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
