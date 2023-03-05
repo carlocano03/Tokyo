@@ -460,6 +460,13 @@ class AdminController extends Controller
     } else if ($users == 'CFM') {
       $cfm = 'AA VERIFIED';
       $records->where('mem_app.app_status', $cfm);
+    } else if ($users == 'FM') {
+      $process = 'FORWARDED TO FM';
+      $approved = 'APPROVED APPLICATION';
+      $records->where(function ($query) use ($process, $approved) {
+        $query->where('mem_app.validator_remarks', $process)
+          ->orWhere('mem_app.app_status', $approved);
+      });
     }
     $totalRecords = $records->count();
 
@@ -529,6 +536,13 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $process)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
       });
+    } else if ($users == 'FM') {
+      $process = 'FORWARDED TO FM';
+      $approved = 'APPROVED APPLICATION';
+      $records->where(function ($query) use ($process, $approved) {
+        $query->where('mem_app.validator_remarks', $process)
+          ->orWhere('mem_app.app_status', $approved);
+      });
     }
 
     $totalRecordswithFilter = $records->count();
@@ -542,7 +556,6 @@ class AdminController extends Controller
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
-
     if ($users == 'AA') {
       $aa_1 = 'NEW APPLICATION';
       $cfm = 'AA VERIFIED';
@@ -581,6 +594,13 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $approved)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
       });
+    } else if ($users == 'FM') {
+      $process = 'FORWARDED TO FM';
+      $approved = 'APPROVED APPLICATION';
+      $records->where(function ($query) use ($process, $approved) {
+        $query->where('mem_app.validator_remarks', $process)
+          ->orWhere('mem_app.app_status', $approved);
+      });
     }
     $dd = DB::getQueryLog();
     ## Add custom filter conditions
@@ -607,8 +627,10 @@ class AdminController extends Controller
     }
     if ($users == 'HRDO') {
       $href = '/admin/members/records/view/hrdo/';
-    } else {
+    } else if ($users == 'AA') {
       $href = '/admin/members/records/view/aa/';
+    } else if ($users == 'FM') {
+      $href = '';
     }
 
     $posts = $records->skip($start)
@@ -625,6 +647,8 @@ class AdminController extends Controller
         } else if ($users == 'HRDO') {
           $checkbox_users = $r->validator_remarks == 'APPROVED APPLICATION' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
             : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
+        } else {
+          $checkbox_users = '';
         }
         $row[] = $checkbox_users;
         $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "'

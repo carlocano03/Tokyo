@@ -895,7 +895,6 @@
                                     </option>
                                     @if(Auth::user()->user_level == 'HRDO')
                                     <option value="FM">Forward to Fund manager</option>
-
                                     @else
                                     <option value="HRDO">Forward to HRDO</option>
                                     {{-- <option value="CFM">Forward to CFM</option> --}}

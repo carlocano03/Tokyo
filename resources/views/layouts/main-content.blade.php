@@ -422,7 +422,7 @@
       </div>
       <div class="profile-details">
         <div class="name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div><br>
-        <div class="role">Cluster + Campus / User Level</div>
+        <div class="role">Cluster + Campus / {{ Auth::user()->user_level }}</div>
         <div class="logout-button">
           <strong><a href="{{ url('/logout') }}">Log out </a> </strong>
         </div>
