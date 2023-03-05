@@ -803,10 +803,20 @@
                 }
 
                 var contact = $('#member_forms').find("[name=contact_no]")
-                empty.push(contact[0])
+                const mobile_number = contact.val()
+                if (mobile_number.length === 11 && mobile_number.substring(0, 3) === "090" || mobile_number.substring(0, 3) === "091" || mobile_number.substring(0, 3) === "092" || mobile_number.substring(0, 3) === "093" || mobile_number.substring(0, 3) === "094" || mobile_number.substring(0, 3) === "095" || mobile_number.substring(0, 3) === "096" || mobile_number.substring(0, 3) === "097" || mobile_number.substring(0, 3) === "098") {
+                } else {
+                    empty.push(contact[0])
+                }
+                
                 var email = $('#member_forms').find("[name=email]")
-                empty.push(email[0])
+                if (!isValidEmail(email.val())) {
+                    empty.push(email[0])
+                    return
+                }
+                
         
+                console.log(empty)
 
                 if (empty.length) {
                     // var emptyFields = [];
@@ -818,7 +828,7 @@
                         if(name == 'contact_no') {
                             const mobile_number = $(element).val()
                             if (mobile_number.length === 11 && mobile_number.substring(0, 3) === "090" || mobile_number.substring(0, 3) === "091" || mobile_number.substring(0, 3) === "092" || mobile_number.substring(0, 3) === "093" || mobile_number.substring(0, 3) === "094" || mobile_number.substring(0, 3) === "095" || mobile_number.substring(0, 3) === "096" || mobile_number.substring(0, 3) === "097" || mobile_number.substring(0, 3) === "098") {
-                                $("[data-set="+name+"]>#err-msg").addCLass('d-none')
+                                $("[data-set="+name+"]>#err-msg").addClass('d-none')
                                 $("[data-set="+name+"]>select").removeClass('input-error')
                                 return 
                             } else {
