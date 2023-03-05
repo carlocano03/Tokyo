@@ -604,7 +604,11 @@ html {
     color: var(--c-accent-10);
 }
 
+
+
 @media (min-width:656px) {
+
+
     .container {
         max-width: 656px
     }
@@ -6420,6 +6424,12 @@ tfoot {
 }
 
 @media (max-width:655px) {
+    .top-items {
+        font-size: 12px !important;
+        margin-left: 20px;
+
+    }
+
     .mh-content {
         height: calc(100vh - 0px) !important;
         overflow-y: scroll !important;
@@ -6458,6 +6468,7 @@ tfoot {
 
 
 .scroll-top-button {
+    z-index: 99999;
     position: absolute;
     right: 30px;
     bottom: 50px;
