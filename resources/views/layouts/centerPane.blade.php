@@ -718,6 +718,26 @@
     var college_unit;
     var dept_no;
     var print_emp;
+    function isValidEmail(email) {
+        // Regular expression for email validation
+        if(email.length == 0){
+            return false
+        }
+        var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+        return emailRegex.test(email);
+    }
+    function clearErrorField(names) {
+        names.map((name)=> {
+            try {
+                $("[data-set="+name+"]>#err-msg").addClass('d-none')
+                $("[data-set="+name+"]>select").removeClass('input-error')
+                $("[data-set="+name+"]>.input").removeClass('input-error')
+                $("[data-set="+name+"]>input").removeClass('input-error')
+            } catch(e){
+                console.log(e)
+            }
+        })
+    }
     $(document).on('click', '#next-btn', function(e) {
         var table = $('#dependentTable').DataTable();
         table.draw();
@@ -731,14 +751,132 @@
                     }
                 });
                 var empty = $('#member_forms').find("input[required]").filter(function() {
-                    return !$.trim($(this).val()).length;
+                    return (!$.trim($(this).val()).length);
                 });
-                console.log(personnel_id);
+                
+                clearErrorField([
+                    'firstname',
+                    'middlename',
+                    'lastname',
+                    'gender',
+                    'present_province',
+                    'present_municipality',
+                    'present_barangay',
+                    'province',
+                    'municipality',
+                    'barangay',
+                    'contact_no',
+                    'email',
+                ])
+                
+                var gender = $('#member_forms').find("[name=gender]")
+                if(gender.val() == "") {
+                    empty.push(gender[0])
+                }
+                var province = $('#member_forms').find("[name=present_province]")
+                if(province.val() == "" || province.val() == null || province.val() == undefined) {
+                    empty.push(province[0])
+                }
+                var municipality = $('#member_forms').find("[name=present_municipality]")
+                if(municipality.val() == "" || municipality.val() == null || municipality.val() == undefined) {
+                    empty.push(municipality[0])
+                }
+                var barangay = $('#member_forms').find("[name=present_barangay]")
+                if(barangay.val() == "" || barangay.val() == null || barangay.val() == undefined) {
+                    empty.push(barangay[0])
+                }
+                
+                var sameAddress = $("#perm_add_check").prop('checked')
+                if(sameAddress == false) {
+                    var per_province = $('#member_forms').find("[name=province]")
+                    if((per_province.val() == "" || per_province.val() == null || per_province.val() == undefined)) {
+                        empty.push(per_province[0])
+                    }
+                    var per_municipality = $('#member_forms').find("[name=municipality]")
+                    if((per_municipality.val() == "" || per_municipality.val() == null || per_municipality.val() == undefined)) {
+                        empty.push(per_municipality[0])
+                    }
+                    var per_barangay = $('#member_forms').find("[name=barangay]")
+                    if((per_barangay.val() == "" || per_barangay.val() == null || per_barangay.val() == undefined)) {
+                        empty.push(per_barangay[0])
+                    }
+                }
+
+                var contact = $('#member_forms').find("[name=contact_no]")
+                empty.push(contact[0])
+                var email = $('#member_forms').find("[name=email]")
+                empty.push(email[0])
+        
+
                 if (empty.length) {
                     // var emptyFields = [];
                     // empty.each(function() {
                     // emptyFields.push($(this).attr("id"));
                     // });
+                    empty.map((index,element) => {
+                        const name = $(element).attr("name")
+                        if(name == 'contact_no') {
+                            const mobile_number = $(element).val()
+                            if (mobile_number.length === 11 && mobile_number.substring(0, 3) === "090" || mobile_number.substring(0, 3) === "091" || mobile_number.substring(0, 3) === "092" || mobile_number.substring(0, 3) === "093" || mobile_number.substring(0, 3) === "094" || mobile_number.substring(0, 3) === "095" || mobile_number.substring(0, 3) === "096" || mobile_number.substring(0, 3) === "097" || mobile_number.substring(0, 3) === "098") {
+                                $("[data-set="+name+"]>#err-msg").addCLass('d-none')
+                                $("[data-set="+name+"]>select").removeClass('input-error')
+                                return 
+                            } else {
+                                $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please input valid cellphone number (Ex. 09xx-xxx-xxxx).")
+                                $("[data-set="+name+"]>select").addClass('input-error')
+                                return 
+                            }
+                        }
+                        if(name == 'email') {
+                            const email = $(element).val()
+                            if (!isValidEmail(email)) {
+                                $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Invalid input, please check your email address. (email address must contain @sample.com).")
+                                $("[data-set="+name+"]>select").addClass('input-error')
+                                return
+                            }
+                            $("[data-set="+name+"]>#err-msg").addClass('d-none')
+                            $("[data-set="+name+"]>select").removeClass('input-error')
+                            return
+                        }
+                        if(name == 'gender'){
+                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select gender.")
+                            $("[data-set="+name+"]>select").addClass('input-error')
+                            return 
+                        }
+                        if(name == 'province'){
+                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your province.")
+                            $("[data-set="+name+"]>select").addClass('input-error')
+                            return 
+                        }
+                        if(name == 'present_province'){
+                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your province.")
+                            $("[data-set="+name+"]>select").addClass('input-error')
+                            return 
+                        }
+                        if(name == 'present_municipality'){
+                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your municipality.")
+                            $("[data-set="+name+"]>select").addClass('input-error')
+                            return 
+                        }
+                        if(name == 'municipality'){
+                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your municipality.")
+                            $("[data-set="+name+"]>select").addClass('input-error')
+                            return 
+                        }
+                        if(name == 'present_barangay'){
+                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your barangay.")
+                            $("[data-set="+name+"]>select").addClass('input-error')
+                            return 
+                        }
+                        if(name == 'barangay'){
+                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your barangay.")
+                            $("[data-set="+name+"]>select").addClass('input-error')
+                            return 
+                        }
+                        $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please fill out this field.")
+                        $("[data-set="+name+"]>input").addClass('input-error')
+                        $("[data-set="+name+"]>.input").addClass('input-error')
+                    })
                     empty.first().focus();
                     swal.fire("Error!", "Please fill out the required fields", "error");
                 } else {

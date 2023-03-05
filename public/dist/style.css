@@ -6447,11 +6447,11 @@ tfoot {
 }
 
 .input-error {
-    border-bottom: 2px solid var(--c-red-clr-20);
+    border-bottom: 2px solid var(--c-red-clr-20) !important;
 }
 
 .input-error:focus {
-    border-bottom: 2px solid var(--c-red-clr-80);
+    border-bottom: 2px solid var(--c-red-clr-80) !important;
 }
 
 .admin-settingtab {
