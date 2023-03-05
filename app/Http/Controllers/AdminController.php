@@ -460,7 +460,7 @@ class AdminController extends Controller
     } else if ($users == 'CFM') {
       $cfm = 'AA VERIFIED';
       $records->where('mem_app.app_status', $cfm);
-    }else if ($users == 'FM') {
+    } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
       $approved = 'APPROVED APPLICATION';
       $records->where(function ($query) use ($process, $approved) {
@@ -536,7 +536,7 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $process)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
       });
-    }else if ($users == 'FM') {
+    } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
       $approved = 'APPROVED APPLICATION';
       $records->where(function ($query) use ($process, $approved) {
@@ -594,7 +594,7 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $approved)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
       });
-    }else if ($users == 'FM') {
+    } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
       $approved = 'APPROVED APPLICATION';
       $records->where(function ($query) use ($process, $approved) {
@@ -627,9 +627,9 @@ class AdminController extends Controller
     }
     if ($users == 'HRDO') {
       $href = '/admin/members/records/view/hrdo/';
-    } else if($users == 'AA') {
+    } else if ($users == 'AA') {
       $href = '/admin/members/records/view/aa/';
-    } else if($users == 'FM') {
+    } else if ($users == 'FM') {
       $href = '';
     }
 
@@ -647,7 +647,7 @@ class AdminController extends Controller
         } else if ($users == 'HRDO') {
           $checkbox_users = $r->validator_remarks == 'APPROVED APPLICATION' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
             : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
-        }else{
+        } else {
           $checkbox_users = '';
         }
         $row[] = $checkbox_users;
