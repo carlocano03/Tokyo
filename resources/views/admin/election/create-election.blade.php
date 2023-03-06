@@ -95,7 +95,7 @@
     }
 
     .candidate-button-container>div {
-        background-color: #f1f1f1;
+        /* background-color: #f1f1f1; */
         width: 100%;
         margin: 1px;
         text-align: center;
