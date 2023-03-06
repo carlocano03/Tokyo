@@ -605,6 +605,11 @@
            margin-top:2px;
            margin-left:682px;
         }
+        .value_sign {
+            /* margin-bottom:50px; */
+            margin-top:-30px;
+            margin-right:440px;
+        }
     </style>
 </head> 
 <body>
@@ -754,52 +759,52 @@
                 <div class="e-univ_value value-font">
                     <div class="col-1">
                         <div class="choices">
-                           <input type="checkbox" {{ $member->campus == 'Baguio' ? 'checked' : '' }}>
+                           <input type="checkbox" {{ $member->campus_key == 'UPB' ? 'checked' : '' }}>
                            <label class="title-font">Baguio</label>
                         </div>
                         <div class="choices">
-                           <input type="checkbox" {{ $member->campus == 'Diliman' ? 'checked' : '' }}>
+                           <input type="checkbox" {{ $member->campus_key == 'UPD' ? 'checked' : '' }}>
                            <label class="title-font">Diliman</label>
                         </div>
                         <div class="choices">
-                           <input type="checkbox" {{ $member->campus == 'System Admin' ? 'checked' : '' }}>
+                           <input type="checkbox" {{ $member->campus_key == 'System Admin' ? 'checked' : '' }}>
                            <label class="title-font">System Admin</label>
                         </div>
                     </div>
 
                     <div class="col-2">
                         <div class="choices">
-                           <input type="checkbox" {{ $member->campus == 'Manila' ? 'checked' : '' }}>
+                           <input type="checkbox" {{ $member->campus_key == 'UPM' ? 'checked' : '' }}>
                            <label class="title-font">Manila</label>
                         </div>
                         <div class="choices">
-                           <input type="checkbox" {{ $member->campus == 'PGH' ? 'checked' : '' }}>
+                           <input type="checkbox" {{ $member->campus_key == 'PGH' ? 'checked' : '' }}>
                            <label class="title-font">PGH</label>
                         </div>
                     </div>
 
                     <div class="col-3">
                          <div class="choices">
-                           <input type="checkbox" {{ $member->campus == 'Los Baños' ? 'checked' : '' }}>
+                           <input type="checkbox" {{ $member->campus_key == 'UPLB' ? 'checked' : '' }}>
                            <label class="title-font">Los Baños</label>
                         </div>
                         <div class="choices">
-                           <input type="checkbox" {{ $member->campus == 'Open University' ? 'checked' : '' }}>
+                           <input type="checkbox" {{ $member->campus_key == 'UPOU' ? 'checked' : '' }}>
                            <label class="title-font">Open University</label>
                         </div>
                     </div>
 
                     <div class="col-4">
                         <div class="choices">
-                          <input type="checkbox" {{ $member->campus == 'Cebu' ? 'checked' : '' }}>
+                          <input type="checkbox" {{ $member->campus == 'UPC' ? 'checked' : '' }}>
                           <label class="title-font">Cebu</label> 
                         </div>
                         <div class="choices">
-                          <input type="checkbox" {{ $member->campus == 'Mindanao' ? 'checked' : '' }}>
+                          <input type="checkbox" {{ $member->campus == 'UPMIN' ? 'checked' : '' }}>
                           <label class="title-font">Mindanao</label> 
                         </div>
                         <div class="choices">
-                           <input type="checkbox" {{ $member->campus == 'Visayas' ? 'checked' : '' }}>
+                           <input type="checkbox" {{ $member->campus == 'UPV' ? 'checked' : '' }}>
                           <label class="title-font">Visayas</label> 
                         </div>
                  </div>
@@ -855,23 +860,23 @@
                 <label class="e-status_appointment title-font">STATUS APPOINTMENT</label>
                 <div class="col-1">
                         <div class="choices">
-                          <input type="checkbox" {{ $member->appointment == 'Permanent' ? 'checked' : '' }}>
+                          <input type="checkbox" {{ $member->appointment_name == 'PERMANENT' ? 'checked' : '' }}>
                           <label class="title-font"> Permanent</label> 
                         </div>
                         <div class="choices">
-                          <input type="checkbox" {{ $member->appointment == 'Temporary' ? 'checked' : '' }}>
+                          <input type="checkbox" {{ $member->appointment_name == 'TEMPORARY' ? 'checked' : '' }}>
                           <label class="title-font">Temporary</label> 
                         </div>
                 </div>
                 <div class="col-2">
                         <div class="choices">
-                          <input type="checkbox" {{ $member->appointment == 'Contractual' ? 'checked' : '' }}>
+                          <input type="checkbox" {{ $member->appointment_name == 'CONTRACTUAL' ? 'checked' : '' }}>
                           <label class="title-font"> Contractual</label> 
                         </div>
                         <div class="choices">
-                          <input type="checkbox" {{ $member->appointment == 'Contractual' ? 'checked' : '' }}>
+                          <input type="checkbox" {{ $member->appointment_name == 'OTHERS' ? 'checked' : '' }}>
                           <label class="title-font">Others</label> 
-                          <label class="choices_others_value value-font">{{ $member->appointment == 'Others' ?  $member->classification_others : '_____________' }}</label>
+                          <label class="choices_others_value value-font">{{ $member->appointment_name == 'OTHERS' ?  $member->appointment_name : '_____________' }}</label>
                         </div>
                 </div>
 
@@ -1088,6 +1093,7 @@
                     <div class="signatures">
                         <label for="e-sig">
                             <img class="value" src="{{ public_path().'/assets/images/uppfi-logo.png' }}" width="50px" alt="UPPFI">
+                            <label class="value_sign value-font">{{ $member->sign }}</label>
                             <label class="title title-font">SIGNATURE OVER PRINTED NAME</label>
                         </label>
                     </div>

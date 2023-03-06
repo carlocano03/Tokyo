@@ -109,254 +109,255 @@
     </div>
     <div class="value-container">
         <div class="col-1">
-            <label class="lastname_value">gomez</label>
-            <label class="firstname_value">mark</label>
-            <label class="middlename_value">ramirez</label>
+            <label class="lastname_value">{{$member->lastname}}</label>
+            <label class="firstname_value" style="margin-left:210px;">{{$member->firstname}}</label>
+            <label class="middlename_value">{{$member->middlename}}</label>
         </div>
         <div class="col-2">
-            <label class="sex_value">male</label>
-            <label class="civilstatus_value" style="margin-left:37px;">single</label>
-            <label class="dob_value" style="margin-left:30px;">05/06/1999</label>
-            <label class="age" style="margin-left:100px;">72</label>
-            <label class="pob_value" style="margin-left:35px; font-size:10px;">Nueva Ecija</label>
-            <label class="nationality_value" style="margin-left:120px;">Filipino</label>
+            <label class="sex_value">{{$member->gender}}</label>
+            <label class="civilstatus_value" style="margin-left:24px;">{{$member->civilstatus}}</label>
+            <label class="dob_value" style="margin-left:30px;">{{ date('m/d/Y', strtotime($member->date_birth)) }}</label>
+            <label class="age" style="margin-left:100px;">{{ \Carbon\Carbon::parse($member->date_birth)->age }}</label>
+            <label class="pob_value" style="margin-left:35px;">{{$member->place_birth}}</label>
+            <label class="nationality_value" style="margin-left:120PX;">{{$member->citizenship}}</label>
 
 
         </div>
         <div class="col-3">
-            <label class="address_value">Purok 5 Sapang Jaen Nueva Ecija</label>
+            <label class="address_value">{{$member->bldg_street}} {{ $member->barangay}} {{ $member->municipality}} {{ $member->province}} {{$member->zipcode}}</label>
 
         </div>
         <div class="col-4">
-            <label class="email_value">markdennebg@gmail.com</label>
-            <label class="contactNo_value" style="margin-left:100px;">092626266262</label>
-            <label class="mobileNo_value" style="margin-left:160px;">092626266262</label>
+            <label class="email_value">{{$member->email}}</label>
+            <label class="contactNo_value" style="margin-left:100px;">{{$member->contact_no}}</label>
+            <label class="mobileNo_value" style="margin-left:180px;">{{$member->contact_no}}</label>
         </div>
         <div class="col-5">
-            <label class="lastname_value">gomez</label>
-            <label class="firstname_value">mark</label>
-            <label class="middlename_value">ramirez</label>
+            <label class="lastname_value">{{$member->emp_union_assoc}}</label>
+            <label class="firstname_value" style="margin-left:200px;" >{{$member->occupation}}</label>
+            <label class="middlename_value" style="margin-left:60px;">{{$member->tin_no}}</label>
+            <label class="middlename_value" style="margin-left:120px;">{{$member->sss_gsis}}</label>
         </div>
         <div class="col-6">
-            <label class="">spouse name</label>
-            <label class="" style="margin-left:285px">maiden name</label>
+            <label class="">{{$member->spouse_name}}</label>
+            <label class="" style="margin-left:290px">{{$member->maiden_name}}</label>
         </div>
         <div class="col-7">
-            <input type="radio" style="margin-left:103px;" checked>
-            <input type="radio" style="margin-left:192px;" checked>
-            <input type="radio" style="margin-left:325px;" checked>
-            <input type="radio" style="margin-left:528px;" checked>
-            <input type="radio" style="margin-left:608px;" checked>
+            <input type="radio" style="margin-left:103px;" {{ $member->monthly_salary < 25000 ? 'checked' : '' }}>
+            <input type="radio" style="margin-left:192px;" {{ $member->monthly_salary > 25000 && $member->monthly_salary <= 50000 ? 'checked' : '' }}>
+            <input type="radio" style="margin-left:325px;" {{ $member->monthly_salary > 50000 ? 'checked' : '' }}>
+            <input type="radio" style="margin-left:528px;" {{ $member->insuted_type == 'INSURED' ? 'checked' : '' }}>
+            <input type="radio" style="margin-left:608px;" {{ $member->insuted_type == 'DEPENDENT' ? 'checked' : '' }}>
         </div>
         <div class="col-8">
-            <label class="">gomez</label>
-            <label class="" style="margin-left:200px;">mark</label>
-            <label class="" style="margin-left:206px;">ramirez</label>
+            <label class="">{{$member->last_name}}</label>
+            <label class="" style="margin-left:180px;">{{$member->first_name}}</label>
+            <label class="" style="margin-left:180px;">{{$member->middle_name}}</label>
         </div>
         <div class="col-9">
-            <label class="">gomez</label>
-            <label class="" style="margin-left:200px;">mark</label>
-            <label class="" style="margin-left:206px;">ramirez</label>
+            <label class="">{{$member->relationship_tomember}}</label>
+            <label class="" style="margin-left:200px;">{{$member->contact_no}}</label>
+            <label class="" style="margin-left:180px;">{{$member->email_add}}</label>
         </div>
 
         <div class="col-10" style="font-size:11px;">
             <div class="col-1">
                 <label class="b_lastname_value">
-                    lastname value
+                    
                 </label>
                 <label class="b_firstname_value" style="margin-left:40px;">
-                    firstname value
+                   
                 </label>
                 <label class="b_initials_value" style="margin-left:35px;">
-                    Dg
+                    
                 </label>
                 <label class="b_dob_value" style="margin-left:12px;">
-                    05/06/1999
+                    
                 </label>
                 <label class="b_relationship_value" style="margin-left:10px;">
-                    Daugther
+                    
                 </label>
                 <label class="b_benifit_value" style="margin-left:50px;">
-                    benifit value
+                    
                 </label>
                 <label class="b_primary_value" style="margin-left:8px;">
-                    primary
+                    
                 </label>
                 <label class="b_secondary_value" style="margin-left:8px;">
-                    secondary
+                    
                 </label>
                 <label class="b_revocable_value" style="margin-left:5px;">
-                    revocable
+                    
                 </label>
                 <label class="b_irrevocable_value" style="margin-left:2px;">
-                    irrevocable
+                    
                 </label>
 
             </div>
             <div class="col">
                 <label class="b_lastname_value">
-                    lastname value
+                    
                 </label>
                 <label class="b_firstname_value" style="margin-left:40px;">
-                    firstname value
+                   
                 </label>
                 <label class="b_initials_value" style="margin-left:35px;">
-                    Dg
+                    
                 </label>
                 <label class="b_dob_value" style="margin-left:12px;">
-                    05/06/1999
+                    
                 </label>
                 <label class="b_relationship_value" style="margin-left:10px;">
-                    Daugther
+                    
                 </label>
                 <label class="b_benifit_value" style="margin-left:50px;">
-                    benifit value
+                    
                 </label>
                 <label class="b_primary_value" style="margin-left:8px;">
-                    primary
+                    
                 </label>
                 <label class="b_secondary_value" style="margin-left:8px;">
-                    secondary
+                    
                 </label>
                 <label class="b_revocable_value" style="margin-left:5px;">
-                    revocable
+                    
                 </label>
                 <label class="b_irrevocable_value" style="margin-left:2px;">
-                    irrevocable
-                </label>
-
-            </div>
-
-            <div class="col">
-                <label class="b_lastname_value">
-                    lastname value
-                </label>
-                <label class="b_firstname_value" style="margin-left:40px;">
-                    firstname value
-                </label>
-                <label class="b_initials_value" style="margin-left:35px;">
-                    Dg
-                </label>
-                <label class="b_dob_value" style="margin-left:12px;">
-                    05/06/1999
-                </label>
-                <label class="b_relationship_value" style="margin-left:10px;">
-                    Daugther
-                </label>
-                <label class="b_benifit_value" style="margin-left:50px;">
-                    benifit value
-                </label>
-                <label class="b_primary_value" style="margin-left:8px;">
-                    primary
-                </label>
-                <label class="b_secondary_value" style="margin-left:8px;">
-                    secondary
-                </label>
-                <label class="b_revocable_value" style="margin-left:5px;">
-                    revocable
-                </label>
-                <label class="b_irrevocable_value" style="margin-left:2px;">
-                    irrevocable
+                    
                 </label>
 
             </div>
 
             <div class="col">
                 <label class="b_lastname_value">
-                    lastname value
+                    
                 </label>
                 <label class="b_firstname_value" style="margin-left:40px;">
-                    firstname value
+                   
                 </label>
                 <label class="b_initials_value" style="margin-left:35px;">
-                    Dg
+                    
                 </label>
                 <label class="b_dob_value" style="margin-left:12px;">
-                    05/06/1999
+                    
                 </label>
                 <label class="b_relationship_value" style="margin-left:10px;">
-                    Daugther
+                    
                 </label>
                 <label class="b_benifit_value" style="margin-left:50px;">
-                    benifit value
+                    
                 </label>
                 <label class="b_primary_value" style="margin-left:8px;">
-                    primary
+                    
                 </label>
                 <label class="b_secondary_value" style="margin-left:8px;">
-                    secondary
+                    
                 </label>
                 <label class="b_revocable_value" style="margin-left:5px;">
-                    revocable
+                    
                 </label>
                 <label class="b_irrevocable_value" style="margin-left:2px;">
-                    irrevocable
+                    
+                </label>
+
+            </div>
+
+            <div class="col">
+                <label class="b_lastname_value">
+                    
+                </label>
+                <label class="b_firstname_value" style="margin-left:40px;">
+                   
+                </label>
+                <label class="b_initials_value" style="margin-left:35px;">
+                    
+                </label>
+                <label class="b_dob_value" style="margin-left:12px;">
+                    
+                </label>
+                <label class="b_relationship_value" style="margin-left:10px;">
+                    
+                </label>
+                <label class="b_benifit_value" style="margin-left:50px;">
+                    
+                </label>
+                <label class="b_primary_value" style="margin-left:8px;">
+                    
+                </label>
+                <label class="b_secondary_value" style="margin-left:8px;">
+                    
+                </label>
+                <label class="b_revocable_value" style="margin-left:5px;">
+                    
+                </label>
+                <label class="b_irrevocable_value" style="margin-left:2px;">
+                    
                 </label>
 
             </div>
             <div class="col">
                 <label class="b_lastname_value">
-                    lastname value
+                    
                 </label>
                 <label class="b_firstname_value" style="margin-left:40px;">
-                    firstname value
+                   
                 </label>
                 <label class="b_initials_value" style="margin-left:35px;">
-                    Dg
+                    
                 </label>
                 <label class="b_dob_value" style="margin-left:12px;">
-                    05/06/1999
+                    
                 </label>
                 <label class="b_relationship_value" style="margin-left:10px;">
-                    Daugther
+                    
                 </label>
                 <label class="b_benifit_value" style="margin-left:50px;">
-                    benifit value
+                    
                 </label>
                 <label class="b_primary_value" style="margin-left:8px;">
-                    primary
+                    
                 </label>
                 <label class="b_secondary_value" style="margin-left:8px;">
-                    secondary
+                    
                 </label>
                 <label class="b_revocable_value" style="margin-left:5px;">
-                    revocable
+                    
                 </label>
                 <label class="b_irrevocable_value" style="margin-left:2px;">
-                    irrevocable
+                    
                 </label>
 
             </div>
             <div class="col">
                 <label class="b_lastname_value">
-                    lastname value
+                    
                 </label>
                 <label class="b_firstname_value" style="margin-left:40px;">
-                    firstname value
+                   
                 </label>
                 <label class="b_initials_value" style="margin-left:35px;">
-                    Dg
+                    
                 </label>
                 <label class="b_dob_value" style="margin-left:12px;">
-                    05/06/1999
+                    
                 </label>
                 <label class="b_relationship_value" style="margin-left:10px;">
-                    Daugther
+                    
                 </label>
                 <label class="b_benifit_value" style="margin-left:50px;">
-                    benifit value
+                    
                 </label>
                 <label class="b_primary_value" style="margin-left:8px;">
-                    primary
+                    
                 </label>
                 <label class="b_secondary_value" style="margin-left:8px;">
-                    secondary
+                    
                 </label>
                 <label class="b_revocable_value" style="margin-left:5px;">
-                    revocable
+                    
                 </label>
                 <label class="b_irrevocable_value" style="margin-left:2px;">
-                    irrevocable
+                    
                 </label>
 
             </div>
@@ -366,13 +367,13 @@
             <div class="col-1">
                 <img src="{{ public_path().'/assets/images/uppfi-logo.png' }}" width="50px" height="50px" alt="UPPFI">
                 <br>
-                <label>Printed Name</label>
+                <label>{{ $member->sign }}</label>
             </div>
 
             <div class="col-2">
                 <!-- <img src="{{ public_path().'/assets/images/uppfi-logo.png' }}" width="50px" height="50px" alt="UPPFI">
                 <br> -->
-                <label>05/06/1999</label>
+                <label>{{ date('m/d/Y', strtotime($member->time_stamp_datesigned)) }}</label>
             </div>
         </div>
     </div>
