@@ -40,7 +40,7 @@
         <input class="mp-input-group__input mp-text-field input" type="{{ Request::route()->getName() == 'admin' ? 'email' : 'text' }}" id="{{ Request::route()->getName() == 'admin' ? 'email' : 'memberNo' }}" name="{{ Request::route()->getName() == 'admin' ? 'email' : 'memberNo' }}" maxlength="{{ Request::route()->getName() == 'admin' ? ' ' : '9' }}" value="{{ Session::get('user') }}" autofocus required />
         <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
     </div>
-    <div class="mp-pb4 mp-input-group"  data-set="password">
+    <div class="mp-pb4 mp-input-group" data-set="password">
         <label class="mp-input-group__label" for="password">Password</label>
         <input class="mp-input-group__input mp-text-field input" type="password" id="password" name="password" required />
         <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>

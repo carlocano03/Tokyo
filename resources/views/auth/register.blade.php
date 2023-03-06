@@ -319,30 +319,26 @@
     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" id="step-1">
         <input type="hidden" id="app_trailNo">
         <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="firstname">
             <label class="mp-input-group__label">First Name *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
 
 
-        <div class="mp-input-group">
-
-            <label class="mp-input-group__label">Last Name *
-            </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
-        </div>
-
-
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="middlename">
 
             <label class="mp-input-group__label">Middle Name * (Please input your complete middle name.)</label><br>
             <input type="checkbox" class="options" id="no_middlename" name="no_middlename" value="N/A" onClick="ckChange(this)" />
             <label class="mp-input-group__label" style="margin-top: 5px;">No Middle Name</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Last Name * </label>
+
+        <div class="mp-input-group" data-set="lastname">
+            <label class="mp-input-group__label">Last Name *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
 
 
@@ -350,7 +346,8 @@
             <label class="mp-input-group__label">Suffix *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="suffix" />
         </div>
-        <div class="mp-input-group">
+
+        <div class="mp-input-group input" data-set="birthday">
             <label class="mp-input-group__label mp-mb1">Date of Birth *</label>
             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                 <div class="d-flex flex-column" style="gap: 3px">
@@ -391,14 +388,16 @@
 
                 </div>
             </div>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group input" data-set="gender">
             <label class="mp-input-group__label">Gender *</label>
-            <select class="mp-input-group__input mp-text-field" name="gender" required>
-                <option>Select Gender</option>
-                <option>Male</option>
-                <option>Female</option>
+            <select class="mp-input-group__input mp-text-field" name="gender">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
             </select>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Civil Status *</label>
@@ -424,46 +423,47 @@
             <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" id="d_citizen" disabled />
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="present_province">
 
 
             <label class="mp-input-group__label">Present Address *</label><br>
             <label class="mp-input-group__label">Province *
-
                 <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
                         <div class="text-content">
                             <h3 id="province_text">Municipality List *</h3>
                             <ul id="list-container">
-
                             </ul>
                         </div>
                         <i></i>
                     </div>
                 </div>
             </label>
-            <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
+            <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province">
                 <option value="">Select Province *</option>
                 {{-- @foreach ($psgc_prov as $row)
                     <option value="{{ $row->code }}">{{ mb_strtoupper($row->name) }}</option>
                 @endforeach --}}
             </select>
             <input type="hidden" id="present_province_name" name="present_province_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="present_municipality">
             <label class="mp-input-group__label">Municipality *</label>
             <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality" required>
                 <option value=""></option>
             </select>
             <input type="hidden" id="present_municipality_name" name="present_municipality_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="present_barangay">
             <label class="mp-input-group__label">Barangay *</label>
             <select class="mp-input-group__input mp-text-field" id="present_barangay" name="present_barangay" required>
                 <option></option>
             </select>
             <input type="hidden" id="present_barangay_name" name="present_barangay_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Bldg No. St. No. *</label>
@@ -482,27 +482,31 @@
 
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="same_add" id="same_add" readonly />
+
         </div>
-        <div class="mp-input-group same_div">
+        <div class="mp-input-group same_div" data-set="province">
             <label class="mp-input-group__label">Province *</label>
             <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
                 <option></option>
             </select>
             <input type="hidden" id="province_name" name="province_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group same_div">
+        <div class="mp-input-group same_div" data-set="municipality">
             <label class="mp-input-group__label">Municipality *</label>
             <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
                 <option></option>
             </select>
             <input type="hidden" id="municipality_name" name="municipality_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group same_div">
+        <div class="mp-input-group same_div" data-set="barangay">
             <label class="mp-input-group__label">Barangay *</label>
             <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
                 <option></option>
             </select>
             <input type="hidden" id="barangay_name" name="barangay_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group same_div">
             <label class="mp-input-group__label">Bldg No. St. No. *</label>
@@ -512,17 +516,19 @@
             <label class="mp-input-group__label">Zipcode *</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="zipcode" name="zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="contact_no">
             <label class="mp-input-group__label">Cellphone Number *</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Landline Number *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="landline_no" />
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="email">
             <label class="mp-input-group__label">Email Address *</label>
-            <input class="mp-input-group__input mp-text-field" type="email" name="email" required />
+            <input class="mp-input-group__input mp-text-field" type="email" name="email" />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
             <div class="mp-input-group mp-mt5 mp-input-group__label">
