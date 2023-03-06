@@ -327,14 +327,14 @@
 
 
         <div class="mp-input-group" data-set="middlename">
-            
+
             <label class="mp-input-group__label">Middle Name * (Please input your complete middle name.)</label><br>
             <input type="checkbox" class="options" id="no_middlename" name="no_middlename" value="N/A" onClick="ckChange(this)" />
             <label class="mp-input-group__label" style="margin-top: 5px;">No Middle Name</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-    
+
         <div class="mp-input-group" data-set="lastname">
             <label class="mp-input-group__label">Last Name *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
@@ -482,7 +482,7 @@
 
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="same_add" id="same_add" readonly />
-            
+
         </div>
         <div class="mp-input-group same_div" data-set="province">
             <label class="mp-input-group__label">Province *</label>
