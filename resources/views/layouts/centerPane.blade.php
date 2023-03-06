@@ -753,6 +753,8 @@
                 var empty = $('#member_forms').find("input[required]").filter(function() {
                     return (!$.trim($(this).val()).length);
                 });
+
+                
                 
                 clearErrorField([
                     'firstname',
@@ -768,7 +770,7 @@
                     'contact_no',
                     'email',
                 ])
-                
+               
                 var gender = $('#member_forms').find("[name=gender]")
                 if(gender.val() == "") {
                     empty.push(gender[0])
@@ -802,8 +804,12 @@
                     }
                 }
 
+              
+
                 var contact = $('#member_forms').find("[name=contact_no]")
+               
                 const mobile_number = contact.val()
+                
                 if (mobile_number.length === 11 && mobile_number.substring(0, 3) === "090" || mobile_number.substring(0, 3) === "091" || mobile_number.substring(0, 3) === "092" || mobile_number.substring(0, 3) === "093" || mobile_number.substring(0, 3) === "094" || mobile_number.substring(0, 3) === "095" || mobile_number.substring(0, 3) === "096" || mobile_number.substring(0, 3) === "097" || mobile_number.substring(0, 3) === "098") {
                 } else {
                     empty.push(contact[0])
@@ -812,12 +818,8 @@
                 var email = $('#member_forms').find("[name=email]")
                 if (!isValidEmail(email.val())) {
                     empty.push(email[0])
-                    return
                 }
                 
-        
-                console.log(empty)
-
                 if (empty.length) {
                     // var emptyFields = [];
                     // empty.each(function() {
@@ -1049,13 +1051,88 @@
                 }
             });
 
+            clearErrorField([
+                'campus',
+                'classification',
+                'college_unit',
+                'appointment',
+                'date_appoint_months',
+                'monthly_salary',
+                'tin_no',
+                'employee_no'
+                
+            ])
+
             var empty = $('#member_forms_con').find("input[required]").filter(function() {
                 return !$.trim($(this).val()).length;
             });
+            
             console.log(mem_id);
             console.log(employee_details_ID);
-            if (empty.length) {
 
+            var campus = $('#member_forms_con').find("[name=campus]")
+            if(campus.val() == "") {
+                empty.push(campus[0])
+            }
+            var classification = $('#member_forms_con').find("[name=classification]")
+            if(classification.val() == "") {
+                empty.push(classification[0])
+            }
+            var college_unit = $('#member_forms_con').find("[name=college_unit]")
+            if(college_unit.val() == "") {
+                empty.push(college_unit[0])
+            }
+            var appointment = $('#member_forms_con').find("[name=appointment]")
+            if(appointment.val() == "") {
+                empty.push(appointment[0])
+            }
+
+            var selectedDate = new Date($("#date_appoint_months").val() + " " + $("#date_appoint_days").val() + ", " + $("#date_appoint_years").val());
+            var currentDate = new Date();
+            console.log($("[data-set=date_appoint_months]>.input"),'123')
+            if (selectedDate > currentDate) {
+                $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none').text("Invalid appointment date, please check")
+                $("[data-set=date_appoint_months]>.input").addClass('input-error')
+            } else {
+                $("[data-set=date_appoint_months]>#err-msg").addClass('d-none')
+                $("[data-set=date_appoint_months]>.input").removeClass('input-error')
+            }
+            
+            if (empty.length) {
+                empty.map((index,element) => {
+                //     'campus',
+                // 'classification',
+                // 'college_unit',
+                // '',
+                // 'date_appoint_months',
+                // '',
+                // '',
+                // ''
+                    const name = $(element).attr("name")
+                    $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please fill out this field.")
+                    $("[data-set="+name+"]>select").addClass('input-error')
+                    $("[data-set="+name+"]>input").addClass('input-error')
+                    $("[data-set="+name+"]>.input").addClass('input-error')
+                    if(name == 'campus') {
+                        $("[data-set="+name+"]>#err-msg").text("Please select a campus.")
+                    }
+                    if(name == 'classification') {
+                        $("[data-set="+name+"]>#err-msg").text("Please select an employee classification.")
+                    }
+                    if(name == 'employee_no') {
+                        $("[data-set="+name+"]>#err-msg").text("Please input your employee number.")
+                    }
+                    if(name == 'monthly_salary') {
+                        $("[data-set="+name+"]>#err-msg").text("Please input your salary.")
+                    }
+                    if(name == 'tin_no') {
+                        $("[data-set="+name+"]>#err-msg").text("Please input your TIN number.")
+                    }
+                    if(name == 'appointment') {
+                        $("[data-set="+name+"]>#err-msg").text("Please select an appointment status.")
+                    }
+                    
+                })
                 empty.first().focus();
                 swal.fire("Error!", "Please fill out the required fields", "error");
             } else {
