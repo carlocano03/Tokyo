@@ -56,10 +56,14 @@ class PDFController extends Controller
     {
         $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.employee_no = '$id'")
             ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+            ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+            ->leftjoin('appointment', 'employee_details.appointment', '=', 'appointment.appoint_id')
             ->leftjoin('personal_details', 'personal_details.personal_id', '=', 'mem_app.personal_id')
+            
             ->leftjoin('college_unit', 'college_unit.cu_no', '=', 'employee_details.college_unit')
             ->leftjoin('department', 'department.dept_no', '=', 'employee_details.department')
             ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
+            ->leftjoin('member_signature', 'mem_app.app_no', '=', 'member_signature.app_no')
             ->get()->first();
         $benificiary = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$id'")
             ->get();
@@ -114,9 +118,29 @@ class PDFController extends Controller
         return response()->download($path);
     }
 
-    public function axaForm()
+    public function axaForm($id)
     {
-        $pdf = PDF::loadView('pdf.axa_form');
+        $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$id'")
+            ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+            ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+            ->leftjoin('appointment', 'employee_details.appointment', '=', 'appointment.appoint_id')
+            ->leftjoin('personal_details', 'personal_details.personal_id', '=', 'mem_app.personal_id')
+            ->leftjoin('axa_form', 'mem_app.app_no', '=', 'mem_app.app_no')
+            ->leftjoin('college_unit', 'college_unit.cu_no', '=', 'employee_details.college_unit')
+            ->leftjoin('department', 'department.dept_no', '=', 'employee_details.department')
+            ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
+            ->leftjoin('member_signature', 'mem_app.app_no', '=', 'member_signature.app_no')
+            ->get()->first();
+        $empNO = DB::table('mem_app')
+        ->where('app_no', $id)
+        ->value('employee_no');    
+        $benificiary = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$empNO'")
+            ->get();
+
+        $data['member'] = $results;
+        $data['benificiary'] = $benificiary;
+        // print_r($data);
+        $pdf = PDF::loadView('pdf.axa_form', $data);
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }

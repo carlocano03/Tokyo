@@ -389,6 +389,7 @@ class HomeController extends Controller
     $apptrail = array(
       'status_remarks' => "NEW APPLICATION",
       'app_no' => $request->input('app_no'),
+      'user_level' => 'AA',
     );
     DB::table('app_trailing')->where('app_no', $request->input('app_no'))
       ->insert($apptrail);
@@ -481,6 +482,7 @@ class HomeController extends Controller
     $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$query'")
       ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
       ->get()->first();
 
     return response()->json($results);
@@ -505,46 +507,65 @@ class HomeController extends Controller
     // $path = $file->storeAs('signature', $newName, 'public');
 
     $signFile['app_no'] = $request->input('appNo');
-    $signFile['sign'] = $request->input('esig');
+    $signFile['sign'] = strtoupper($request->input('esig'));
     // $signFile['sign_path'] = '/storage/' . $path;
     DB::table('member_signature')->insert($signFile);
   }
 
-  public function addcocolife(Request $request)
+  public function addaxa_form(Request $request)
   {
     $appNumber = $request->input('app_number');
-    $coco = DB::table('generated_coco')->where('app_number', $appNumber)->count();
-
-    if ($coco > 0) {
+    $coco = DB::table('member_signature')->where('app_no', $appNumber)->count();
+    $axa_exist = DB::table('axa_form')->where('app_no', $appNumber)->count();
+    if($axa_exist > 0){
       return response()->json(['message' => 'Exist']);
+    }else{
+    if ($coco > 0) {
+      $insertCoco = [
+        'app_no' => $appNumber,
+        'personal_id' => $request->input('personnel_id'),
+        'place_birth' => strtoupper($request->input('place_birth')),
+        'emp_union_assoc' => strtoupper($request->input('emp_union_assoc')),
+        'occupation' => strtoupper($request->input('occupation')),
+        'sss_gsis' => $request->input('sss_gsis'),
+        'spouse_name' => strtoupper($request->input('spouse_name')),
+        'maiden_name' => strtoupper($request->input('maiden_name')),
+        'insuted_type' => $request->input('insuted_type'),
+        'last_name' => strtoupper($request->input('last_name')),
+        'first_name' => strtoupper($request->input('first_name')),
+        'middle_name' => strtoupper($request->input('middle_name')),
+        'relationship_tomember' => strtoupper($request->input('relationship_tomember')),
+        'contact_no' => $request->input('axa_contact_no'),
+        'email_add' => $request->input('email_add'),
+      ];
+      DB::table('axa_form')->insert($insertCoco);
+    }else{
+      $signFile['app_no'] = $appNumber;
+      $signFile['sign'] = strtoupper($request->input('e_sig'));
+      DB::table('member_signature')->insert($signFile);
+      $insertCoco = [
+        'app_no' => $appNumber,
+        'personal_id' => $request->input('personnel_id'),
+        'place_birth' => strtoupper($request->input('place_birth')),
+        'emp_union_assoc' => strtoupper($request->input('emp_union_assoc')),
+        'occupation' => strtoupper($request->input('occupation')),
+        'sss_gsis' => $request->input('sss_gsis'),
+        'spouse_name' => strtoupper($request->input('spouse_name')),
+        'maiden_name' => strtoupper($request->input('maiden_name')),
+        'insuted_type' => $request->input('insuted_type'),
+        'last_name' => strtoupper($request->input('last_name')),
+        'first_name' => strtoupper($request->input('first_name')),
+        'middle_name' => strtoupper($request->input('middle_name')),
+        'relationship_tomember' => strtoupper($request->input('relationship_tomember')),
+        'contact_no' => $request->input('axacontact_no'),
+        'email_add' => $request->input('email_add'),
+      ];
+      DB::table('axa_form')->insert($insertCoco);
     }
-
-    if (!$request->hasFile('cocolife_sign')) {
-      return response()->json(['message' => 'File not found']);
     }
+    
 
-    $file = $request->file('cocolife_sign');
-    $fileName = $file->getClientOriginalName();
-    $newName = "{$appNumber}_coco_{$fileName}";
-    $path = $file->storeAs('signature', $newName, 'public');
-
-    $insertCoco = [
-      'app_number' => $appNumber,
-      'place_birth' => $request->input('place_birth'),
-      'height' => $request->input('height'),
-      'weight' => $request->input('weight'),
-      'amt_isurance' => $request->input('amt_isurance'),
-      'term_coverage' => $request->input('coverage'),
-      'premiums' => $request->input('premiums'),
-      'occupation' => $request->input('occupation'),
-      'nature_work' => $request->input('nature_work'),
-      'seaman' => $request->input('seaman'),
-      'ofw' => $request->input('ofw'),
-      'exceptions' => $request->input('exception'),
-      'sign_path' => $path,
-    ];
-
-    DB::table('generated_coco')->insert($insertCoco);
+   
 
     return response()->json(['message' => 'Success']);
   }
@@ -697,5 +718,56 @@ class HomeController extends Controller
     // Return the response, for example:
     $results = DB::table('psgc_brgy')->select('*')->whereRaw("code LIKE '$codes%'")->orderBy('name')->get();
     return response()->json(['data' => $results]);
+  }
+  public function save_draft_step3(Request $request)
+  {
+    $datadb = DB::transaction(function () use ($request) {
+      $options = $request->input('percentage_check');
+      $couuunt = DB::table('membership_details')->where('app_no', $request->input('app_no'))->count();
+
+    if ($couuunt > 0) {
+      if ($options != 'percentage') {
+        $insertMemDetails = array(
+          'contribution_set' => 'Fixed Amount',
+          'amount' =>  str_replace(',', '', $request->input('fixed_amount')),
+          'app_no' => $request->input('app_no')
+        );
+        $last_id = DB::table('membership_details')->where('app_no', $request->input('app_no'))->update($insertMemDetails);
+      } else {
+        $insertMemDetails = array(
+          'contribution_set' => 'Percentage of Basic Salary',
+          'amount' => $request->input('percent_amt'),
+          'percentage' => $request->input('percentage_bsalary'),
+          'app_no' => $request->input('app_no')
+        );
+        $last_id = DB::table('membership_details')->where('app_no', $request->input('app_no'))->update($insertMemDetails);
+      }
+    }else{
+      if ($options != 'percentage') {
+        $insertMemDetails = array(
+          'contribution_set' => 'Fixed Amount',
+          'amount' =>  str_replace(',', '', $request->input('fixed_amount')),
+          'app_no' => $request->input('app_no'),
+          'percentage' => '',
+        );
+        $last_id = DB::table('membership_details')->insert($insertMemDetails);
+      } else {
+        $insertMemDetails = array(
+          'contribution_set' => 'Percentage of Basic Salary',
+          'amount' => $request->input('percent_amt'),
+          'percentage' => $request->input('percentage_bsalary'),
+          'app_no' => $request->input('app_no')
+        );
+        $last_id = DB::table('membership_details')->insert($insertMemDetails);
+      }
+    }
+      
+      //  DB::table('membership_details')->insertGetId($inserts);
+      //   $last_id = (DB::getPdo()->lastInsertId()); 
+      return [
+        'last_id' => $last_id
+      ];
+    });
+    return response()->json(['success' => $datadb['last_id']]);
   }
 }

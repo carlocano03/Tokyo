@@ -62,10 +62,11 @@ Route::post('/login/add_member_con_up', [HomeController::class, 'add_member_up_p
 Route::post('/login/add_member_update', [HomeController::class, 'add_member_update1'])->name('add_member_update');
 Route::post('/login/update_trail_member', [HomeController::class, 'update_trail_member_1'])->name('update_trail_member');
 Route::post('/login/update_trail_member_1', [HomeController::class, 'update_trail_member_2'])->name('update_trail_member_1');
+Route::post('/login/draft_step3', [HomeController::class, 'save_draft_step3'])->name('draft_step3');
 
 Route::post('/login/add_proxy', [HomeController::class, 'add_proxy'])->name('add_proxyForm');
-Route::post('/login/addcocolife', [HomeController::class, 'addcocolife'])->name('add_cocolife');
-Route::get('/axaform', [PDFController::class, 'axaForm'])->name('pdf.axa_form');
+Route::post('/login/addcocolife', [HomeController::class, 'addaxa_form'])->name('add_cocolife');
+// Route::get('/axaform', [PDFController::class, 'axaForm'])->name('pdf.axa_form');
 Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciaries'])->name('add_benefeciaries');
 
 
@@ -112,6 +113,7 @@ Route::get('/member/update-password', [MemberController::class, 'updatepassword'
 //PDF Generation
 Route::get('/generateCocolife/{id}', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
 Route::get('/generateProxyForm/{id}', [PDFController::class, 'generateProxyForm']);
+Route::get('/axaform/{id}', [PDFController::class, 'axaForm']);
 Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('download_form');
 Route::get('/downloadCoco', [PDFController::class, 'downloadCoco'])->name('download_coco');
 Route::get('/downloadProxy', [PDFController::class, 'downloadProxy'])->name('download_proxy');

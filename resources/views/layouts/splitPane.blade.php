@@ -431,10 +431,10 @@
 
     //Continue Application
     $(document).on('click', '#cont_app', function(e) {
-        $("#loginform").attr("hidden", true);
-        $("#registrationform").removeAttr("hidden");
-        $("#leftsection").addClass("mw-600").addClass("w-600");
-        $("#control").removeClass("d-none").addClass("d-flex");
+        // $("#loginform").attr("hidden", true);
+        // $("#registrationform").removeAttr("hidden");
+        // $("#leftsection").addClass("mw-600").addClass("w-600");
+        // $("#control").removeClass("d-none").addClass("d-flex");
     });
 
     var reference_code;
@@ -1547,71 +1547,7 @@
     // });
 
     $(document).on('click', '#btn-coco', function() {
-        var id = $('#app_number').val();
-        var place_birth = $('#place_birth').val();
-        var height = $('#height').val();
-        var weight = $('#weight').val();
-        var amt_isurance = $('#amt_isurance').val();
-        var term_coverage = $('#term_coverage').val();
-        var premiums = $('#premiums').val();
-        var occupation = $('#occupation').val();
-        var nature_work = $('#nature_work').val();
-        var seaman = $('#seaman').val();
-        var ofw = $('#ofw').val();
-        var exceptions = $('#exceptions').val();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        var files = $('#cocolife_sign')[0].files;
-
-        var fd = new FormData();
-        fd.append('cocolife_sign', files[0]);
-        fd.append('app_number', id);
-        fd.append('place_birth', place_birth);
-        fd.append('height', height);
-        fd.append('weight', weight);
-        fd.append('amt_isurance', amt_isurance);
-        fd.append('term_coverage', term_coverage);
-        fd.append('premiums', premiums);
-        fd.append('occupation', occupation);
-        fd.append('nature_work', nature_work);
-        fd.append('seaman', seaman);
-        fd.append('ofw', ofw);
-        fd.append('exceptions', exceptions);
-        $.ajax({
-            url: "{{ route('add_cocolife') }}",
-            method: "POST",
-            data: fd,
-            contentType: false,
-            processData: false,
-            beforeSend: function() {
-                $('#loading').show();
-            },
-            success: function(data) {
-                if (data.message == 'Exist') {
-                    Swal.fire({
-                        title: 'Error!',
-                        text: 'Cocolife form already generated.',
-                        icon: 'error'
-                    });
-                    $("#modal_name").addClass("not-visible")
-                    $("#modal_name").removeClass("visible")
-                } else {
-                    var url = "{{ URL::to('/generateCocolife/') }}" + '/' +
-                        id; //YOUR CHANGES HERE...
-                    window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
-                    $('#generateCoco').trigger('reset');
-                    $("#modal_name").addClass("not-visible")
-                    $("#modal_name").removeClass("visible")
-                }
-            },
-            complete: function() {
-                $('#loading').hide();
-            }
-        });
+   
     })
     $(document).on('click', '#no_middlename', function() {
         if ($(this).is(':checked')) {

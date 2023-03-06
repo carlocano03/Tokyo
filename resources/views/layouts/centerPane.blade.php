@@ -26,56 +26,65 @@
                 Generate Cocolife Form
             </div>
             <div class="modal-body">
-                {{-- <form id="generateCoco" method="POST" enctype="multipart/form-data">
-                        @csrf --}}
+                <form id="generateAxa" enctype="multipart/form-data">
+                {{ csrf_field() }}
                 <input type="hidden" name="app_number" id="app_number">
                 <div class="mp-input-group">
                     <label class="mp-input-group__label">Place of Birth</label>
                     <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth" />
                 </div>
                 <div class="mp-input-group">
-                    <label class="mp-input-group__label">Height</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="height" id="height" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Weight</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="weight" id="weight" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Amount of Insurance</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="amt_isurance" id="amt_isurance" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Term of Coverage</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="coverage" id="coverage" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Premiums</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="premiums" id="premiums" />
+                    <label class="mp-input-group__label">Employer/Union/Association</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="emp_union_assoc" id="emp_union_assoc" />
                 </div>
                 <div class="mp-input-group">
                     <label class="mp-input-group__label">Occupation</label>
                     <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" />
                 </div>
                 <div class="mp-input-group">
-                    <label class="mp-input-group__label">Nature of Work</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="nature_work" id="nature_work" />
+                    <label class="mp-input-group__label">SSS/GSIS No.</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="sss_gsis" id="sss_gsis" />
                 </div>
                 <div class="mp-input-group">
-                    <label class="mp-input-group__label">If seaman, port of entry</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="seaman" id="seaman" />
+                    <label class="mp-input-group__label">Name of Spouse</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="spouse_name" id="spouse_name" />
                 </div>
                 <div class="mp-input-group">
-                    <label class="mp-input-group__label">If OCW/OFW,destination country</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="ofw" id="ofw" />
+                    <label class="mp-input-group__label">Monther's Maiden Name</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="maiden_name" id="maiden_name" />
                 </div>
                 <div class="mp-input-group">
-                    <label class="mp-input-group__label">Exceptions</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="exception" id="exceptions" />
+                    <label class="mp-input-group__label">Insured Type</label>
+                    <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
+                    <select name="insuted_type" id="insuted_type" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="INSURED">INSURED</option>
+                        <option value="DEPENDENT">DEPENDENT</option>
+                    </select>
                 </div>
                 <div class="mp-input-group">
-                    <label class="mp-input-group__label" style="margin-top: 5px;">Upload Signature</label>
-                    <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="cocolife_sign" id="cocolife_sign" accept="image/png, image/gif, image/jpeg, image/jpg" />
+                    <label class="mp-input-group__label">PERSON TO BE CONTACED IN CASE OF EMERGENCY</label><br>
+                    <label class="mp-input-group__label">Last Name</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="last_name" id="last_name" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">First Name</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Middle Name</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="middle_name" id="middle_name" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Relationship to the member</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Contact No.</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="axa_contact_no" id="axa_contact_no" />
+                </div>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Email Address</label>
+                    <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
                 </div>
 
             </div>
@@ -86,10 +95,10 @@
                         <button class="up-button btn-md " id="modal_name_close" type="button">
                             <span>Close</span>
                         </button>
-                        <button class="up-button btn-md" type="button" id="btn-coco">
+                        <button class="up-button btn-md" type="button" id="btn-axa">
                             <span>Generate</span>
                         </button>
-                        {{-- </form> --}}
+                     </form>
                     </div>
                 </div>
 
@@ -147,6 +156,7 @@
         }
 
     });
+
     $(document).ready(function() {
         const searchParams = new URLSearchParams(window.location.search);
         var app_trailno = searchParams.get('draft');
@@ -156,6 +166,47 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+            $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                    $('#present_province').append($('<option>', {
+                        value: option.code,
+                        text: option.name.toUpperCase()
+                    }));
+                });
+            });
+            $.getJSON('/options', function(options) {
+            $.each(options, function(index, option) {
+                $('#campus').append($('<option>', {
+                    value: option.campus_key,
+                    text: option.name
+                }));
+            });
+        });
+
+        $.getJSON('/classification', function(options) {
+            $.each(options, function(index, option) {
+                $('#classification').append($('<option>', {
+                    value: option.classification_name,
+                    text: option.classification_name
+                }));
+            });
+        });
+        $.getJSON('/appointment', function(options) {
+            $.each(options, function(index, option) {
+                $('#appointment').append($('<option>', {
+                    value: option.appoint_id,
+                    text: option.appointment_name
+                }));
+            });
+        });
+        $.getJSON('/options_psgc', function(options) {
+            $.each(options, function(index, option) {
+                $('#province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
+            });
+        });
             $.ajax({
                 url: "{{ route('continued_trail') }}",
                 data: {
@@ -167,6 +218,9 @@
                         pers_id = data.personal_id;
                         mems_id = data.employee_details_ID;
                         mem_id = data.mem_app_ID;
+                        employee_no = data.employee_no == null ? '' : data.employee_no;
+                        reference_no = data.app_no == null ? '' : data.app_no;
+                        $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
                         $('#employee_details_ID').val(data.employee_details_ID == null ? '' : data
                             .employee_details_ID);
                         $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
@@ -182,7 +236,11 @@
                         }
                         $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
                         $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
-                        $("[name='date_birth']").val(data.date_birth == null ? '' : moment(data.date_birth).format('MMMM D, YYYY'));
+                        var date_bd = new Date(data.date_birth);
+                        $("[name='date_birth_years']").val(date_bd.getFullYear());
+                        $("[name='date_birth_month']").val((date_bd.getMonth() + 1).toString().padStart(2, '0'));
+                        $("[name='date_birth_days']").val(date_bd.getDate().toString().padStart(2, '0'));
+
                         $("[name='gender']").val(data.gender == null ? '' : data.gender);
                         $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
                         if (data.citizenship == 'FILIPINO') {
@@ -220,6 +278,11 @@
                         $("[name='department']").val(data.department == null ? '' : data.department).trigger('change');
                         dept_no = data.department == null ? '' : data.department;
                         $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
+                        var date_appoint = new Date(data.date_appointment);
+                        $("[name='date_appoint_years']").val(date_appoint.getFullYear());
+                        $("[name='date_appoint_months']").val((date_appoint.getMonth() + 1).toString().padStart(2, '0'));
+                        $("[name='date_appoint_days']").val(date_appoint.getDate().toString().padStart(2, '0'));
+
                         $("[name='date_appointment']").val(data.date_appointment == null ? '' : moment(data.date_appointment).format('MMMM D, YYYY'));
                         var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
                         var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -229,7 +292,8 @@
                         $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
                         $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
                         present_provcode = data.present_province_code;
-                        $('#present_province').val(data.present_province_code).trigger('change');
+                        $('#present_province').trigger('change');
+                        $('#present_province').val(data.present_province_code);
                         $('#present_province_name').val(data.present_province);
                         present_muncode = data.present_municipality_code;
                         $('#present_city').val(data.present_municipality_code).trigger('change');
@@ -257,120 +321,16 @@
                             $('#bldg_street').val(data.bldg_street);
                             $('#zipcode').val(data.zipcode);
                         }
-                    }
-                }
-            });
-        }
-    });
-    $(document).ready(function() {
-        const searchParams = new URLSearchParams(window.location.search);
-        var app_trailno = searchParams.get('draft');
-        if (app_trailno) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.ajax({
-                url: "{{ route('continued_trail') }}",
-                data: {
-                    app_trailno: app_trailno,
-                },
-                method: "POST",
-                success: function(data) {
-                    if (Object.keys(data).length > 0) {
-                        pers_id = data.personal_id;
-                        mems_id = data.employee_details_ID;
-                        mem_id = data.mem_app_ID;
-                        $('#employee_details_ID').val(data.employee_details_ID == null ? '' : data
-                            .employee_details_ID);
-                        $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
-                        $("[name='lastname']").val(data.lastname == null ? '' : data.lastname);
-                        if (data.no_middlename == 1) {
-                            $('#no_middlename').prop('checked', true);
-                            $("[name='middlename']").val('N/A')
-                            $('input[name="middlename"]').prop('disabled', true);
+                        if (data.contribution_set == 'Percentage of Basic Salary') {
+                            $('#percentage_check').prop("checked", true);
+                            $('#percentage_bsalary').val(data.percentage == null ? '' : data.percentage);
+                            $('#computed_amount').text(data.amount == null ? '' : data.amount);
                         } else {
-                            $('#no_middlename').prop('checked', false);
-                            $('input[name="middlename"]').prop('disabled', false);
-                            $("[name='middlename']").val(data.middlename == null ? '' : data.middlename);
-                        }
-                        $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
-                        $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
-                        $("[name='date_birth']").val(data.date_birth == null ? '' : moment(data.date_birth).format('MMMM D, YYYY'));
-                        $("[name='gender']").val(data.gender == null ? '' : data.gender);
-                        $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
-                        if (data.citizenship == 'FILIPINO') {
-                            $('input[name="citizenship"][value="FILIPINO"]').prop('checked', true);
-                        } else if (data.citizenship == 'DUAL CITIZENSHIP') {
-                            $('input[name="citizenship"][value="DUAL CITIZENSHIP"]').prop('checked',
-                                true);
-                        } else if (data.citizenship == 'OTHERS') {
-                            $('input[name="citizenship"][value="OTHERS"]').prop('checked', true);
-                        }
-                        // $("[name='citizenship']").val(data.citizenship == null ? '' : data.citizenship).prop('checked', true);
-                        // $('input[name="citizenship"][value="'+(data.citizenship == null ? '' : data.citizenship)+'"]').prop('checked', true);
-                        $("[name='dual_citizenship']").val(data.dual_citizenship == null ? '' : data
-                            .dual_citizenship);
-                        $("[name='present_bldg_street']").val(data.present_bldg_street == null ? '' :
-                            data.present_bldg_street);
-                        $("[name='present_zipcode']").val(data.present_zipcode == null ? '' : data
-                            .present_zipcode);
-                        $("[name='bldg_street']").val(data.bldg_street == null ? '' : data.bldg_street);
-                        $("[name='zipcode']").val(data.zipcode == null ? '' : data.zipcode);
-                        $("[name='contact_no']").val(data.contact_no == null ? '' : data.contact_no);
-                        $("[name='landline_no']").val(data.landline_no == null ? '' : data.landline_no);
-                        $("[name='email']").val(data.email == null ? '' : data.email);
-
-                        $("[name='employee_no']").val(data.employee_no == null ? '' : data.employee_no);
-                        $("[name='campus']").val(data.campus == null ? '' : data.campus).trigger('change');
-                        $("[name='classification']").val(data.classification == null ? '' : data
-                            .classification);
-                        $("[name='classification_others']").val(data.classification_others == null ?
-                            '' : data.classification_others);
-                        $("[name='college_unit']").val(data.college_unit == null ? '' : data.college_unit).trigger('change');
-                        college_unit = data.college_unit == null ? '' : data.college_unit;
-                        $("[name='rank_position']").val(data.rank_position == null ? '' : data
-                            .rank_position);
-                        $("[name='department']").val(data.department == null ? '' : data.department).trigger('change');
-                        dept_no = data.department == null ? '' : data.department;
-                        $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
-                        $("[name='date_appointment']").val(data.date_appointment == null ? '' : moment(data.date_appointment).format('MMMM D, YYYY'));
-                        var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
-                        var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                        $("[name='monthly_salary']").val(formattedNumber);
-                        $("[name='salary_grade']").val(data.salary_grade == null ? '' : data
-                            .salary_grade);
-                        $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
-                        $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
-                        present_provcode = data.present_province_code;
-                        $('#present_province').val(data.present_province_code).trigger('change');
-                        $('#present_province_name').val(data.present_province);
-                        present_muncode = data.present_municipality_code;
-                        $('#present_city').val(data.present_municipality_code).trigger('change');
-                        present_brgycode = data.present_barangay_code;
-                        $('#present_municipality_name').val(data.present_municipality);
-
-                        if (data.same_add == 1) {
-                            $('#perm_add_check').prop("checked", true);
-                            var valueAfterTargetChar = (data.bldg_street == null ? '' : data
-                                    .bldg_street) + ' ' + data.present_barangay + ' ' + data
-                                .present_municipality + ' ' + data.present_province + ', ' + (data
-                                    .present_zipcode == null ? '' : data.present_zipcode) + ' ';
-                            $('#same_add').val(valueAfterTargetChar);
-                            $('.same_div').hide();
-                        } else {
-                            $('#perm_add_check').prop("checked", false);
-                            $('#same_add').val('');
-                            $('.same_div').show();
-                            $('#province').val(data.province_code).trigger('change');
-                            $('#province_name').val(data.province);
-                            $('#city').val(data.municipality_code);
-                            perm_muncode = data.municipality_code;
-                            $('#municipality_name').val(data.municipality);
-                            perm_brgycode = data.barangay_code;
-                            $('#bldg_street').val(data.bldg_street);
-                            $('#zipcode').val(data.zipcode);
+                            $('#fixed_amount_check').prop("checked", true);
+                            $('#fixed_amount').val(data.amount == null ? '' : data.amount);
+                            var amount = $('#monthly_salary').val().replace(/,/g, "");
+                            var total = amount * 0.01;
+                            $("#min_contri").text(total.toFixed(2));
                         }
                     }
                 }
@@ -456,17 +416,17 @@
                     var mun_code = present_muncode;
                     $("#present_city").val(mun_code).change();
                 }
-                if ($('#present_province').val() != "") {
-                    var listItems = '';
-                    $.each(data.data, function(index, item) {
-                        listItems += '<li>' + item.name.toUpperCase() + '</li>';
-                    });
-                    $('#list-container').html(listItems);
-                    $("#province_text").text($("#present_province").find("option:selected").text());
-                } else {
-                    $('#list-container').empty();
-                    $("#province_text").text('Municipality List');
-                }
+                // if ($('#present_province').val() != "") {
+                //     var listItems = '';
+                //     $.each(data.data, function(index, item) {
+                //         listItems += '<li>' + item.name.toUpperCase() + '</li>';
+                //     });
+                //     $('#list-container').html(listItems);
+                //     $("#province_text").text($("#present_province").find("option:selected").text());
+                // } else {
+                //     $('#list-container').empty();
+                //     $("#province_text").text('Municipality List');
+                // }
 
             }
         });
@@ -510,14 +470,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        $.getJSON('/options_psgc', function(options) {
-            $.each(options, function(index, option) {
-                $('#present_province').append($('<option>', {
-                    value: option.code,
-                    text: option.name.toUpperCase()
-                }));
-            });
-        });
+       
     });
 
 
@@ -574,22 +527,7 @@
     $(document).on('change', '#barangay', function() {
         $("#barangay_name").val($("#barangay").find("option:selected").text());
     });
-    $(document).ready(function() {
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        $.getJSON('/options_psgc', function(options) {
-            $.each(options, function(index, option) {
-                $('#province').append($('<option>', {
-                    value: option.code,
-                    text: option.name.toUpperCase()
-                }));
-            });
-        });
-    });
+    
 
     $(document).on('click', '#modal_name_pop', function(e) {
         var appNo = query;
@@ -1369,7 +1307,109 @@
         });
 
     });
+    $(document).on('click', '#save_second', function() {
+        if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' &&
+                    continued_trail == 0) {
+                    var formData = $("#member_forms_con").serialize();
+                    var additionalData = {
+                        'mem_id': mem_id,
+                        'employee_details_ID': $('#employee_details_ID').val(),
+                    };
+                    formData += '&' + $.param(additionalData);
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('update_trail_member_1') }}",
+                        data: formData,
+                        success: function(data) {
+                            if (data.success != '') {
+                                employee_no = data.emp_no;
+                                employee_details_ID = data.success;
+                                continued_trail = 1;
+                                Swal.fire({
+                                        title: 'Application successfully save as DRAFT.',
+                                        text: "You can use the Application No. emailed to you to continue your application.",
+                                        icon: 'success'
+                                    });
+                                setTimeout(function() {
+                                    window.location.href = "/login";
+                                }, 2000);
+                            } else {
+                                Swal.fire({
+                                    title: 'Employee No are already used.',
+                                    icon: 'error'
+                                });
 
+                                $('#employee_no').focus();
+                            }
+                        }
+                    });
+                } else {
+                    if (!employee_details_ID) {
+                        var table = $('#dependentTable').DataTable();
+                        table.draw();
+                        var formData = $("#member_forms_con").serialize();
+                        var additionalData = {
+                            'mem_id': mem_id,
+                        };
+                        formData += '&' + $.param(additionalData);
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('add_member_con') }}",
+                            data: formData,
+                            success: function(data) {
+                                if (data.success != '') {
+                                    employee_no = data.emp_no;
+                                    employee_details_ID = data.success;
+                                    Swal.fire({
+                                        title: 'Application successfully save as DRAFT.',
+                                        text: "You can use the Application No. emailed to you to continue your application.",
+                                        icon: 'success'
+                                    });
+                                    setTimeout(function() {
+                                    window.location.href = "/login";
+                                     }, 2000);
+                                } else {
+                                    Swal.fire({
+                                        title: 'Employee No are already used.',
+                                        icon: 'error'
+                                    });
+                                    $('#employee_no').focus();
+                                }
+                            }
+                        });
+                    }
+
+                }
+    });
+    $(document).on('click', '#save_third', function() {
+        // member_forms_3
+        var formData = $("#member_forms_3").serialize();
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('draft_step3') }}",
+            data: formData,
+            success: function(data) {
+                if (data.success != '') {
+                    Swal.fire({
+                        title: 'Application successfully save as DRAFT.',
+                        text: "You can use the Application No. emailed to you to continue your application.",
+                        icon: 'success'
+                    });
+                    setTimeout(function() {
+                    window.location.href = "/login";
+                        }, 2000);
+                } else {
+                    Swal.fire({
+                        title: 'ERROR SAVING AS DRAFT.',
+                        icon: 'error'
+                    });
+                    // $('#employee_no').focus();
+                }
+            }
+        });
+
+    });  
+    // save_third
     $(document).on('click', '#add_dependent', function() {
         var year = $('#date_birth_dependent_years').val();
         var month = $('#date_birth_dependent_month').val();
@@ -1544,23 +1584,7 @@
                 errorDisplayed = false; // reset the flag variable to false
             }
         });
-        $.getJSON('/options', function(options) {
-            $.each(options, function(index, option) {
-                $('#campus').append($('<option>', {
-                    value: option.campus_key,
-                    text: option.name
-                }));
-            });
-        });
-
-        $.getJSON('/classification', function(options) {
-            $.each(options, function(index, option) {
-                $('#classification').append($('<option>', {
-                    value: option.classification_name,
-                    text: option.classification_name
-                }));
-            });
-        });
+        
         $("#campus").change(function() {
             var campus_key = $(this).val();
             $('#college_unit').empty();
@@ -1764,6 +1788,7 @@
                         $('#icon_status').css('color', '#1a8981');
                         print_emp = data.employee_no;
                         $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
+                        // $('#app_nox').val(data.app_no == null ? 'N/A' : data.app_no);
                         $('#appNo_label').text(data.app_no == null ? 'N/A' : data.app_no);
                         $('#lname_label').text(data.lastname == null ? 'N/A' : data.lastname);
                         $('#mname_label').text(data.middlename == null ? 'N/A' : data.middlename);
@@ -1906,7 +1931,7 @@
                     $("[name='contact_no']").val(data.contact_no == null ? '' : data.contact_no);
                     $("[name='landline_no']").val(data.landline_no == null ? '' : data.landline_no);
                     $("[name='email']").val(data.email == null ? '' : data.email);
-
+                    employee_no = data.employee_no == null ? '' : data.employee_no;
                     $("[name='employee_no']").val(data.employee_no == null ? '' : data.employee_no);
                     $("[name='campus']").val(data.campus == null ? '' : data.campus).trigger('change');
                     $("[name='classification']").val(data.classification == null ? '' : data
@@ -1929,7 +1954,8 @@
                     $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
                     $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
                     present_provcode = data.present_province_code;
-                    $('#present_province').val(data.present_province_code).trigger('change');
+                    $('#present_province').trigger('change');
+                    $('#present_province').val(data.present_province_code);
                     $('#present_province_name').val(data.present_province);
                     present_muncode = data.present_municipality_code;
                     $('#present_city').val(data.present_municipality_code).trigger('change');
@@ -1956,6 +1982,17 @@
                         perm_brgycode = data.barangay_code;
                         $('#bldg_street').val(data.bldg_street);
                         $('#zipcode').val(data.zipcode);
+                    }
+                    if (data.contribution_set == 'Percentage of Basic Salary') {
+                            $('#percentage_check').prop("checked", true);
+                            $('#percentage_bsalary').val(data.percentage == null ? '' : data.percentage);
+                            $('#computed_amount').text(data.amount == null ? '' : data.amount);
+                    } else {
+                        $('#fixed_amount_check').prop("checked", true);
+                        $('#fixed_amount').val(data.amount == null ? '' : data.amount);
+                        var amount = $('#monthly_salary').val().replace(/,/g, "");
+                        var total = amount * 0.01;
+                        $("#min_contri").text(total.toFixed(2));
                     }
                 }
             }
@@ -2024,47 +2061,28 @@
     //     }
     // });
 
-    $(document).on('click', '#btn-coco', function() {
-        var id = $('#app_number').val();
-        var place_birth = $('#place_birth').val();
-        var height = $('#height').val();
-        var weight = $('#weight').val();
-        var amt_isurance = $('#amt_isurance').val();
-        var term_coverage = $('#term_coverage').val();
-        var premiums = $('#premiums').val();
-        var occupation = $('#occupation').val();
-        var nature_work = $('#nature_work').val();
-        var seaman = $('#seaman').val();
-        var ofw = $('#ofw').val();
-        var exceptions = $('#exceptions').val();
+    $(document).on('click', '#btn-axa', function() {
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-        var files = $('#cocolife_sign')[0].files;
-
-        var fd = new FormData();
-        fd.append('cocolife_sign', files[0]);
-        fd.append('app_number', id);
-        fd.append('place_birth', place_birth);
-        fd.append('height', height);
-        fd.append('weight', weight);
-        fd.append('amt_isurance', amt_isurance);
-        fd.append('term_coverage', term_coverage);
-        fd.append('premiums', premiums);
-        fd.append('occupation', occupation);
-        fd.append('nature_work', nature_work);
-        fd.append('seaman', seaman);
-        fd.append('ofw', ofw);
-        fd.append('exceptions', exceptions);
+        var id = pers_id;
+        // generateAxa
+        var formDatas = $("#generateAxa").serialize();
+        var additionalData = {
+            'e_sig': $('#e_sig').val(),
+            'personnel_id': pers_id,
+        };
+        formDatas += '&' + $.param(additionalData);
+        console.log(formDatas);
         $.ajax({
             url: "{{ route('add_cocolife') }}",
             method: "POST",
-            data: fd,
-            contentType: false,
-            processData: false,
+            data: formDatas,
+            // contentType: false,
+            // processData: false,
             beforeSend: function() {
                 $('#loading').show();
             },
@@ -2072,16 +2090,16 @@
                 if (data.message == 'Exist') {
                     Swal.fire({
                         title: 'Error!',
-                        text: 'Cocolife form already generated.',
+                        text: 'AXA form already generated.',
                         icon: 'error'
                     });
                     $("#modal_name").addClass("not-visible")
                     $("#modal_name").removeClass("visible")
                 } else {
-                    var url = "{{ URL::to('/generateCocolife/') }}" + '/' +
-                        id; //YOUR CHANGES HERE...
+                    var url = "{{ URL::to('/axaform/') }}" + '/' +
+                        $('#app_number').val(); //YOUR CHANGES HERE...
                     window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
-                    $('#generateCoco').trigger('reset');
+                    // $('#generateAxa').trigger('reset');
                     $("#modal_name").addClass("not-visible")
                     $("#modal_name").removeClass("visible")
                 }

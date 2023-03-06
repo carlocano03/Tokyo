@@ -633,7 +633,6 @@
                     <label class="mp-input-group__label">Year *</label>
                     <select name="date_appoint_years" id="date_appoint_years" class="radius-1 outline select-field" style="font-size: normal;">
                         <!-- options for years from 12 years ago until 70 years before the current year -->
-                        <option value="{{ date('Y') }}">Current Year *</option>
                         <!-- options for years from current year down to 70 years ago -->
                         @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
@@ -678,7 +677,7 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
+        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_second">
             <span>Save as draft</span>
         </a>
         <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-3" id="next-btn">
@@ -760,8 +759,6 @@
                         <label class="mp-input-group__label">Year *</label>
                         <select name="date_birth_dependent_years" id="date_birth_dependent_years" class="radius-1 outline select-field" style="font-size: normal;">
                             <!-- option for current year -->
-                            <option value="{{ date('Y') }}">Current Year *</option>
-
                             <!-- options for years from current year down to 70 years ago -->
                             @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
                             <option value="{{ $i }}">{{ $i }}</option>
@@ -803,7 +800,7 @@
             {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
             <hr>
         </div> -->
-        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
+        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_third">
             <span>Save as draft</span>
         </a>
         <a class="up-button btn-md button-animate-right mp-text-center" type="button" value="step-4" id="next-btn">
@@ -876,7 +873,7 @@
 
                 </div>
                 <hr>
-                <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generare AXA Insurance Form</button>
+                <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generate AXA Insurance Form</button>
                 <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
@@ -899,9 +896,9 @@
             </div>
         </div>
 
-        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
+        <!-- <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
             <span>Save as draft</span>
-        </a>
+        </a> -->
         <button class="up-button btn-md button-animate-right mp-text-center" type="submit" id="next-btn">
             <span>Submit</span>
         </button>
