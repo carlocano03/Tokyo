@@ -65,7 +65,7 @@ Route::post('/login/update_trail_member_1', [HomeController::class, 'update_trai
 
 Route::post('/login/add_proxy', [HomeController::class, 'add_proxy'])->name('add_proxyForm');
 Route::post('/login/addcocolife', [HomeController::class, 'addcocolife'])->name('add_cocolife');
-
+Route::get('/axaform', [PDFController::class, 'axaForm'])->name('pdf.axa_form');
 Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciaries'])->name('add_benefeciaries');
 
 
@@ -79,6 +79,7 @@ Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin
 Route::post('/admin/countApplication', [AdminController::class, 'countApplication'])->name('count_application');
 Route::get('/admin/get_members', [AdminController::class, 'get_members'])->name('getMembers');
 Route::get('/admin/election', [AdminController::class, 'election'])->name('admin.election.election');
+Route::get('/admin/election/create-election', [AdminController::class, 'createElection'])->name('admin.election.create-election');
 
 //admin settings links
 Route::get('/admin/settings/manage-account', [AdminController::class, 'manageAccount'])->name('admin.settings-config.manage-account');
@@ -184,4 +185,5 @@ Route::post('/validate_step_reject', [App_Validation::class, 'validate_step_reje
 
 // hrdo validation 
 Route::post('/save_hrdo_validation', [App_Validation::class, 'hrdo_validation_save'])->name('save_hrdo_validation');
+Route::post('/save_drafthrdo_validation', [App_Validation::class, 'hrdo_validation_draft'])->name('save_drafthrdo_validation');
 Route::post('/return_application_aa', [App_Validation::class, 'returnto_aa_application'])->name('return_application_aa');

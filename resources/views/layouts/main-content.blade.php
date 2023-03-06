@@ -152,7 +152,7 @@
   }
 
   .arrow-rotate {
-    margin-top: 10px;
+    margin-top: -10px;
     margin-right: 10px;
     transform: rotateZ(90deg);
   }
@@ -393,6 +393,14 @@
   .width-0 {
     width: 0%;
   }
+
+  .bypass-color {
+    color: grey;
+  }
+
+  #bypass-color {
+    color: grey;
+  }
 </style>
 <div class="toggle-container" id="toggle-container">
   <button href="#" class="menu-toggle" id="menu-toggle"><span></span></button>
@@ -414,7 +422,7 @@
       </div>
       <div class="profile-details">
         <div class="name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div><br>
-        <div class="role">Cluster + Campus / User Level</div>
+        <div class="role">Cluster + Campus / {{ Auth::user()->user_level }}</div>
         <div class="logout-button">
           <strong><a href="{{ url('/logout') }}">Log out </a> </strong>
         </div>
@@ -434,9 +442,9 @@
         </div>
         <div class="nav-child">
           <div class="dropdown-hide" id="membersDropdown-content">
-            <li><a href="/admin/members/records" class="{{ Request::is('admin/members/records') ? 'active-nav' : '' }}"><i class="fa fa-user"></i>View Records</a></li>
+            <li><a href="/admin/members/records" id="bypass-color" class=" {{ Request::is('admin/members/records') ? 'active-nav' : '' }} "><i class="fa fa-user"></i>View Records</a></li>
             <!-- <li><a href="/admin/members/trail"><i class="fa fa-user"></i>Application Trail</a></li> -->
-            <li><a href="#"><i class="fa fa-user"></i>Generate Report</a></li>
+            <li><a href="#" class="bypass-color"><i class="fa fa-user"></i>Generate Report</a></li>
           </div>
         </div>
       </div>

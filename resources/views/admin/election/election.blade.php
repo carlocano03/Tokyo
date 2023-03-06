@@ -697,9 +697,9 @@
     </div>
     <div class="col-12 mp-pr0" style="width: 100%;">
         <div class="create-button">
-            <button class="f-button magenta-bg">CREATE NEW ELECTION</button>
+            <button class="f-button magenta-bg" onclick="location.href='election/create-election'">CREATE NEW ELECTION</button>
         </div>
-        <div class="w-full d-flex flex-row justify-content-center mp-mh3">
+        <div class=" w-full d-flex flex-row justify-content-center mp-mh3">
             <div class=" card d-flex justify-content-around w-80 flex-row">
                 <div class="text-center">
                     <div>

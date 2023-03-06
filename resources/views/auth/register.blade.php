@@ -297,7 +297,7 @@
         </div>
         Online Membership Application
     </div> -->
-    <span class="mp-pt2" id="step-title">Step 1: Personal Information</span>
+    <span class="mp-pt2" id="step-title">Step 1: Enter your Personal Information</span>
     <div class="relative mp-mt2 w-90 d-flex ml-auto mr-auto">
         <ul class="d-flex flex-row items-between w-100 stepper">
             <li class="circle active" id="stepper-1">1</li>
@@ -319,112 +319,85 @@
     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" id="step-1">
         <input type="hidden" id="app_trailNo">
         <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="firstname">
             <label class="mp-input-group__label">First Name *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
-        </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Last Name
-                <div class="tooltip">
-                    <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
-                    <div class="right">
-
-                        <div class="text-content">
-                            <h3>Proxy Form</h3>
-                            <ul>
-                                <li>
-
-                                    The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
-
-                                    In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
-
-                                    For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.</li>
-
-                            </ul>
-                        </div>
-                        <i></i>
-                    </div>
-                </div>
-
-            </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
-        </div>
-
-        <div class="mp-input-group">
-
-            <label class="mp-input-group__label">Last Name
-            </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
 
 
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="middlename">
+
             <label class="mp-input-group__label">Middle Name * (Please input your complete middle name.)</label><br>
             <input type="checkbox" class="options" id="no_middlename" name="no_middlename" value="N/A" onClick="ckChange(this)" />
             <label class="mp-input-group__label" style="margin-top: 5px;">No Middle Name</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="middlename" required />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
 
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="lastname">
             <label class="mp-input-group__label">Last Name *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
 
 
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Suffix</label>
+            <label class="mp-input-group__label">Suffix *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="suffix" />
         </div>
-        <div class="mp-input-group">
+
+        <div class="mp-input-group input" data-set="birthday">
             <label class="mp-input-group__label mp-mb1">Date of Birth *</label>
             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Month</label>
+                    <label class="mp-input-group__label">Month *</label>
                     <select name="date_birth_month" id="date_birth_month" class="radius-1 outline select-field" style="font-size: normal;">
-                            <option value="01">January</option>
-                            <option value="02">February</option>
-                            <option value="03">March</option>
-                            <option value="04">April</option>
-                            <option value="05">May</option>
-                            <option value="06">June</option>
-                            <option value="07">July</option>
-                            <option value="08">August</option>
-                            <option value="09">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
                     </select>
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Day</label>
+                    <label class="mp-input-group__label">Day *</label>
                     <select name="date_birth_days" id="date_birth_days" class="radius-1 outline select-field" style="font-size: normal;">
-                        @for($day = 1; $day <= 31; $day++)
-                            <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
-                        @endfor
+                        @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
+                            @endfor
                     </select>
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Year</label>
+                    <label class="mp-input-group__label">Year *</label>
                     <select name="date_birth_years" id="date_birth_years" class="radius-1 outline select-field" style="font-size: normal;">
-                    <!-- options for years from 12 years ago until 70 years before the current year -->
-                    @for ($i = date('Y') - 12; $i >= date('Y') - 70; $i--)
+                        <!-- options for years from 12 years ago until 70 years before the current year -->
+                        @for ($i = date('Y') - 12; $i >= date('Y') - 70; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
-                    @endfor
+                        @endfor
                     </select>
 
 
                 </div>
             </div>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group input" data-set="gender">
             <label class="mp-input-group__label">Gender *</label>
-            <select class="mp-input-group__input mp-text-field" name="gender" required>
-                <option>Select Gender</option>
-                <option>Male</option>
-                <option>Female</option>
+            <select class="mp-input-group__input mp-text-field" name="gender">
+                <option value="">Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
             </select>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Civil Status *</label>
@@ -450,53 +423,54 @@
             <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" id="d_citizen" disabled />
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="present_province">
 
 
             <label class="mp-input-group__label">Present Address *</label><br>
-            <label class="mp-input-group__label">Province
-
+            <label class="mp-input-group__label">Province *
                 <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
                         <div class="text-content">
-                            <h3 id="province_text">Municipality List</h3>
+                            <h3 id="province_text">Municipality List *</h3>
                             <ul id="list-container">
-                                
                             </ul>
                         </div>
                         <i></i>
                     </div>
                 </div>
             </label>
-            <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
-                <option value="">Select Province</option>
+            <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province">
+                <option value="">Select Province *</option>
                 {{-- @foreach ($psgc_prov as $row)
                     <option value="{{ $row->code }}">{{ mb_strtoupper($row->name) }}</option>
                 @endforeach --}}
             </select>
             <input type="hidden" id="present_province_name" name="present_province_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="present_municipality">
             <label class="mp-input-group__label">Municipality *</label>
             <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality" required>
                 <option value=""></option>
             </select>
             <input type="hidden" id="present_municipality_name" name="present_municipality_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="present_barangay">
             <label class="mp-input-group__label">Barangay *</label>
             <select class="mp-input-group__input mp-text-field" id="present_barangay" name="present_barangay" required>
                 <option></option>
             </select>
             <input type="hidden" id="present_barangay_name" name="present_barangay_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Bldg No. St. No.</label>
+            <label class="mp-input-group__label">Bldg No. St. No. *</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="present_bldg_street" name="present_bldg_street" />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Zipcode</label>
+            <label class="mp-input-group__label">Zipcode *</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="present_zipcode" name="present_zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
         </div>
 
@@ -508,51 +482,57 @@
 
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="same_add" id="same_add" readonly />
+
         </div>
-        <div class="mp-input-group same_div">
+        <div class="mp-input-group same_div" data-set="province">
             <label class="mp-input-group__label">Province *</label>
             <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
                 <option></option>
             </select>
             <input type="hidden" id="province_name" name="province_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group same_div">
+        <div class="mp-input-group same_div" data-set="municipality">
             <label class="mp-input-group__label">Municipality *</label>
             <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
                 <option></option>
             </select>
             <input type="hidden" id="municipality_name" name="municipality_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group same_div">
+        <div class="mp-input-group same_div" data-set="barangay">
             <label class="mp-input-group__label">Barangay *</label>
             <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
                 <option></option>
             </select>
             <input type="hidden" id="barangay_name" name="barangay_name">
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group same_div">
-            <label class="mp-input-group__label">Bldg No. St. No.</label>
+            <label class="mp-input-group__label">Bldg No. St. No. *</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="bldg_street" name="bldg_street" />
         </div>
         <div class="mp-input-group same_div">
-            <label class="mp-input-group__label">Zipcode</label>
+            <label class="mp-input-group__label">Zipcode *</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="zipcode" name="zipcode" maxlength="5" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="contact_no">
             <label class="mp-input-group__label">Cellphone Number *</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
+            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Landline Number</label>
+            <label class="mp-input-group__label">Landline Number *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="landline_no" />
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="email">
             <label class="mp-input-group__label">Email Address *</label>
-            <input class="mp-input-group__input mp-text-field" type="email" name="email" required />
+            <input class="mp-input-group__input mp-text-field" type="email" name="email" />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
-            <div class="mp-input-group mp-mt5">
-                <input type="checkbox" class="checkbox-color margin-10" id="terms" name="terms">
+            <div class="mp-input-group mp-mt5 mp-input-group__label">
+                <input type="checkbox" id="terms" name="terms" />
                 Sign up for emails to get updates on products, offers and member benefits.
                 <!--<a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>-->
@@ -561,9 +541,11 @@
             {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
             <hr>
         </div>
-        <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-2" id="next-btn">
+
+        <a class="up-button btn-md button-animate-right mp-text-center" style="width: 100%" type="submit" value="step-2" id="next-btn">
             <span>Next</span>
         </a>
+
         <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
 
     </div>
@@ -590,7 +572,7 @@
             </select>
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Other Classification (Please Specify)</label>
+            <label class="mp-input-group__label">Other Classification (Please Specify)*</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="classification_others" />
         </div>
         <div class="mp-input-group">
@@ -619,41 +601,40 @@
             <label class="mp-input-group__label mp-mb1">Date of Appointment *</label>
             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Month</label>
+                    <label class="mp-input-group__label">Month *</label>
                     <select name="date_appoint_months" id="date_appoint_months" class="radius-1 outline select-field" style="font-size: normal;">
-                            <option value="01">January</option>
-                            <option value="02">February</option>
-                            <option value="03">March</option>
-                            <option value="04">April</option>
-                            <option value="05">May</option>
-                            <option value="06">June</option>
-                            <option value="07">July</option>
-                            <option value="08">August</option>
-                            <option value="09">September</option>
-                            <option value="10">October</option>
-                            <option value="11">November</option>
-                            <option value="12">December</option>
+                        <option value="01">January</option>
+                        <option value="02">February</option>
+                        <option value="03">March</option>
+                        <option value="04">April</option>
+                        <option value="05">May</option>
+                        <option value="06">June</option>
+                        <option value="07">July</option>
+                        <option value="08">August</option>
+                        <option value="09">September</option>
+                        <option value="10">October</option>
+                        <option value="11">November</option>
+                        <option value="12">December</option>
                     </select>
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Day</label>
+                    <label class="mp-input-group__label">Day *</label>
                     <select name="date_appoint_days" id="date_appoint_days" class="radius-1 outline select-field" style="font-size: normal;">
-                        @for($day = 1; $day <= 31; $day++)
-                            <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
-                        @endfor
+                        @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
+                            @endfor
                     </select>
                 </div>
                 <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Year</label>
+                    <label class="mp-input-group__label">Year *</label>
                     <select name="date_appoint_years" id="date_appoint_years" class="radius-1 outline select-field" style="font-size: normal;">
-                    <!-- options for years from 12 years ago until 70 years before the current year -->
-                    <option value="{{ date('Y') }}">Current Year</option>
-                    <!-- options for years from current year down to 70 years ago -->
-                    @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
+                        <!-- options for years from 12 years ago until 70 years before the current year -->
+                        <option value="{{ date('Y') }}">Current Year *</option>
+                        <!-- options for years from current year down to 70 years ago -->
+                        @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
-                    @endfor
+                        @endfor
                     </select>
                 </div>
             </div>
@@ -666,7 +647,7 @@
             </select>
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Other Status (Please Specify)</label>
+            <label class="mp-input-group__label">Other Status (Please Specify) *</label>
             <input class="mp-input-group__input mp-text-field" type="text" />
         </div>
         <div class="mp-input-group">
@@ -676,11 +657,11 @@
 
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Salary Grade</label>
+            <label class="mp-input-group__label">Salary Grade *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="salary_grade" id="salary_grade" readonly />
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Salary Grade Category</label>
+            <label class="mp-input-group__label">Salary Grade Category *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="sg_category" id="sg_category" readonly />
             {{-- <select class="mp-input-group__input mp-text-field" name="sg_category">
                     <option>Select Category</option>
@@ -691,6 +672,9 @@
             <label class="mp-input-group__label">Taxpayer Identification Number (TIN) *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
         </div>
+        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
+            <span>Save as draft</span>
+        </a>
         <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-3" id="next-btn">
             <span>Next</span>
         </a>
@@ -702,7 +686,7 @@
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-3">
         <div class="mp-input-group">
             <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
-                MONTHLY CONTRIBUTION
+                MONTHLY CONTRIBUTION *
             </label>
             <label class="mp-input-group__label">
                 (The amount that you decide here will serve as your monthly contribution to your UP Provident
@@ -719,7 +703,7 @@
             <div class="d-flex gap-5">
                 <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
-                    - 100%)</label>
+                    - 100%) *</label>
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="percentage_bsalary" id="percentage_bsalary" />
             <label class="mp-input-group__label" style="margin-top: 5px;">Equivalent:</label> <label class="mp-input-group__label" id="computed_amount" style="margin-top: 5px;"></label>
@@ -728,20 +712,20 @@
             <div class="d-flex gap-5">
                 <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso
-                    )</label>
+                    )*</label>
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="fixed_amount" id="fixed_amount" />
             <label class="mp-input-group__label" style="margin-top: 5px;">Minimum Contribution:</label> <label class="mp-input-group__label" id="min_contri" style="margin-top: 5px;"></label>
         </div>
         <div class="mp-input-group d-flex gap-5 flex-column">
             <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
-            <label class="mp-input-group__label">Dependents</label>
+            <label class="mp-input-group__label">Dependents *</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Name" />
             <div class="mp-input-group">
-                <label class="mp-input-group__label mp-mb1">Birthday</label>
+                <label class="mp-input-group__label mp-mb1">Birthday *</label>
                 <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                     <div class="d-flex flex-column" style="gap: 3px">
-                        <label class="mp-input-group__label">Month</label>
+                        <label class="mp-input-group__label">Month *</label>
                         <select name="date_birth_dependent_month" id="date_birth_dependent_month" class="radius-1 outline select-field" style="font-size: normal;">
                             <option value="01">January</option>
                             <option value="02">February</option>
@@ -759,24 +743,23 @@
                     </div>
                     <span><br />-</span>
                     <div class="d-flex flex-column" style="gap: 3px">
-                        <label class="mp-input-group__label">Day</label>
+                        <label class="mp-input-group__label">Day *</label>
                         <select name="date_birth_dependent_days" id="date_birth_dependent_days" class="radius-1 outline select-field" style="font-size: normal;">
-                        @for($day = 1; $day <= 31; $day++)
-                            <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
-                        @endfor
+                            @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
+                                @endfor
                         </select>
                     </div>
                     <span><br />-</span>
                     <div class="d-flex flex-column" style="gap: 3px">
-                        <label class="mp-input-group__label">Year</label>
+                        <label class="mp-input-group__label">Year *</label>
                         <select name="date_birth_dependent_years" id="date_birth_dependent_years" class="radius-1 outline select-field" style="font-size: normal;">
-                        <!-- option for current year -->
-                        <option value="{{ date('Y') }}">Current Year</option>
+                            <!-- option for current year -->
+                            <option value="{{ date('Y') }}">Current Year *</option>
 
-                        <!-- options for years from current year down to 70 years ago -->
-                        @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
+                            <!-- options for years from current year down to 70 years ago -->
+                            @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
                             <option value="{{ $i }}">{{ $i }}</option>
-                        @endfor
+                            @endfor
                         </select>
 
                     </div>
@@ -814,7 +797,9 @@
             {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
             <hr>
         </div> -->
-
+        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
+            <span>Save as draft</span>
+        </a>
         <a class="up-button btn-md button-animate-right mp-text-center" type="button" value="step-4" id="next-btn">
             <span>Next</span>
         </a>
@@ -823,33 +808,32 @@
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-4">
 
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Supporting Document
+            <label class="mp-input-group__label">Supporting Document *</label>
+
+        </div>
+
+        <div class="mp-input-group">
+            <label class="mp-input-group__label">Input your name as signature *
                 <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
 
                         <div class="text-content">
-                            <h3>Sample Tooltip</h3>
+                            <h3>Electronic Signature</h3>
                             <ul>
-                                <li>Proxy Form
-
-                                    The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
-
-                                    In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
-
-                                    For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.</li>
-
+                                <li>
+                                    Electronic signatures have been expressly recognized as legally binding (Republic Act 8792).
+                                    <br> <br>
+                                    Electronic signature on the electronic document shall be equivalent to the signature of a person on a written document.
+                                    <br> <br>
+                                    By writing, typing your full name and the date, it is good as affixing your e-signature and agreeing to the above stipulations.
+                                </li>
                             </ul>
                         </div>
-                        <i></i>
+
                     </div>
                 </div>
             </label>
-
-        </div>
-
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Input your name as signature</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="e_sig" id="e_sig" required />
         </div>
         <input type="hidden" name="app_no" id="app_no">
@@ -862,13 +846,56 @@
                     <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
                         <span>Generate Proxy Form</span>
                     </button>
+                    <div class="tooltip">
+                        <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
+                        <div class="right">
+
+                            <div class="text-content">
+                                <h3>Proxy Form</h3>
+                                <ul>
+                                    <li>
+
+                                        The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
+                                        <br> <br>
+                                        In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
+                                        <br> <br>
+                                        For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.
+                                    </li>
+
+                                </ul>
+                            </div>
+
+                        </div>
+                    </div>
+
                 </div>
                 <hr>
                 <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generare AXA Insurance Form</button>
+                <div class="tooltip">
+                    <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
+                    <div class="right">
+
+                        <div class="text-content">
+                            <h3>Insurance Form</h3>
+                            <ul>
+                                <li>
+                                    Effective 01 January 2023, UPPF Members will now be covered by new Insurance Provider, i.e., AXA Philippines.
+                                    <br> <br>
+                                    All UPPF Members are required to fill out this Enrolment Form, as soon as possible, for records purposes.
+                                    <br> <br>
+                                    Your utmost cooperation and understanding is much appreciated.
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
             </div>
         </div>
 
-
+        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
+            <span>Save as draft</span>
+        </a>
         <button class="up-button btn-md button-animate-right mp-text-center" type="submit" id="next-btn">
             <span>Submit</span>
         </button>

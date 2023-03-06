@@ -604,7 +604,11 @@ html {
     color: var(--c-accent-10);
 }
 
+
+
 @media (min-width:656px) {
+
+
     .container {
         max-width: 656px
     }
@@ -6414,14 +6418,20 @@ tfoot {
 
 @media (max-width:1244px) {
     .mh-content {
-        height: calc(100vh - 179px) !important;
+        height: calc(100vh - 100px) !important;
         overflow-y: scroll !important;
     }
 }
 
 @media (max-width:655px) {
+    .top-items {
+        font-size: 12px !important;
+        margin-left: 20px;
+
+    }
+
     .mh-content {
-        height: calc(100vh - 131px) !important;
+        height: calc(100vh - 0px) !important;
         overflow-y: scroll !important;
     }
 }
@@ -6437,11 +6447,11 @@ tfoot {
 }
 
 .input-error {
-    border-bottom: 2px solid var(--c-red-clr-20);
+    border-bottom: 2px solid var(--c-red-clr-20) !important;
 }
 
 .input-error:focus {
-    border-bottom: 2px solid var(--c-red-clr-80);
+    border-bottom: 2px solid var(--c-red-clr-80) !important;
 }
 
 .admin-settingtab {
@@ -6458,6 +6468,7 @@ tfoot {
 
 
 .scroll-top-button {
+    z-index: 99999;
     position: absolute;
     right: 30px;
     bottom: 50px;
@@ -6538,4 +6549,17 @@ tfoot {
     transform: translate(50%, -50%) rotate(-45deg);
     background-color: #444444;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+}
+
+.bypass-color {
+    color: grey;
+}
+
+#bypass-color {
+    color: grey;
+}
+
+.minus-margin {
+    margin-top: -5px !important;
+    margin-bottom: -15px !important;
 }
