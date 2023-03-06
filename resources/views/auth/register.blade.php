@@ -555,7 +555,7 @@
     <!-- <label class="mp-text-fs-medium">Employment Details</label> -->
     <input type="hidden" id="employee_details_ID">
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form mp-pv2 shadow-inset-1" id="step-2">
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="campus">
             <label class="mp-input-group__label">Campus *</label>
             <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
                 <option value="">Select Campus</option>
@@ -563,21 +563,24 @@
                     <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
                 @endforeach --}}
             </select>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="classification">
             <label class="mp-input-group__label">Employee Classification *</label>
             <select class="mp-input-group__input mp-text-field" name="classification" id="classification">
                 <option value="">Select Classification</option>
                 {{-- <option>Class A </option> --}}
             </select>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Other Classification (Please Specify)*</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="classification_others" />
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="employee_no">
             <label class="mp-input-group__label">Employee Number *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="employee_no" required />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">College Unit *</label>
@@ -597,9 +600,9 @@
             <label class="mp-input-group__label">Academic Rank/ Position *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="rank_position" id="rank_position" />
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="date_appoint_months">
             <label class="mp-input-group__label mp-mb1">Date of Appointment *</label>
-            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
+            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field input">
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Month *</label>
                     <select name="date_appoint_months" id="date_appoint_months" class="radius-1 outline select-field" style="font-size: normal;">
@@ -638,23 +641,25 @@
                     </select>
                 </div>
             </div>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="appointment">
             <label class="mp-input-group__label">Appointment Status *</label>
             <select class="mp-input-group__input mp-text-field" name="appointment" id="appointment" required>
                 <option value="">Select Status</option>
                 {{-- <option>Regular Employee</option> --}}
             </select>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Other Status (Please Specify) *</label>
             <input class="mp-input-group__input mp-text-field" type="text" />
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="monthly_salary">
 
             <label class="mp-input-group__label">Monthly Salary *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="monthly_salary" id="monthly_salary" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
-
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>        
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Salary Grade *</label>
@@ -668,9 +673,10 @@
                     <option>Yayamanin</option>
                 </select> --}}
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="tin_no">
             <label class="mp-input-group__label">Taxpayer Identification Number (TIN) *</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
             <span>Save as draft</span>
