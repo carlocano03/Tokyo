@@ -701,7 +701,12 @@
                 You may change this anytime by filling out the Member's Data Updating Form at any of our offices.
                 <br><br>
                 Amount is subject to the DBM rule on net take-home pay threshold.
-                (Your net pay must not fall below P5,000 after all deductions).)
+                (Your net pay must not fall below P5,000 after all deductions)
+            </label><br><br>
+            <label class="mp-input-group__label">
+                Your Monthly Salary is: 
+            </label>
+            <label class="mp-input-group__label" id="month_sal_text">
             </label>
         </div>
         <div class="mp-input-group" data-set="percentage_check">

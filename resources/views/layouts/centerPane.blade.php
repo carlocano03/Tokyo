@@ -23,7 +23,7 @@
     <div class="modal-container">
         <div class="modal-content">
             <div class="modal-header">
-                Generate Cocolife Form
+                Generate AXA Form
             </div>
             <div class="modal-body">
                 <form id="generateAxa" enctype="multipart/form-data">
@@ -1243,6 +1243,8 @@
 
                 }
             }
+            console.log($('#monthly_salary').val());
+            $('#month_sal_text').text($('#monthly_salary').val());
         } else if (nextValue == 'step-4') {
 
             $("[data-set=percentage_check]>#err-msg").addClass('d-none')
@@ -1287,7 +1289,7 @@
             $("#registration-title").text(stepTitle[3])
             $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
             $("#stepper-4").addClass("active")
-        
+           
             
         }
         scrollToTop()
@@ -1486,6 +1488,7 @@
                         } else {
                             $('#sg_category').val('16-33');
                         }
+                        $('#month_sal_text').text(inputValue);
                     } else {
                         $('#salary_grade').val('');
                     }
