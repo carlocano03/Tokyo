@@ -117,7 +117,9 @@
         <div class="row">
 
             <div class="col-lg-12 mp-mt5 gap-10" id="settingsContent">
-                <div class="mp-card  mp-ph2 mp-pv2">
+                <label style="margin-left: 50px;
+                font-size: 50px;">Under Development</label>
+                <!-- <div class="mp-card  mp-ph2 mp-pv2">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-4">
@@ -182,7 +184,6 @@
                                                 <span>CLEAR SETUP</span>
                                             </a>
 
-                                            <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
 
                                         </div>
 
@@ -255,7 +256,7 @@
                                             </a>
 
 
-                                            <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
 
                                         </div>
 
@@ -353,7 +354,7 @@
                         </div>
                     </div>
 
-                </div>
+                </div> -->
 
             </div>
         </div>
