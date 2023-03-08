@@ -624,7 +624,17 @@
             $("#stepper-3").removeClass("active");
             $("#member_forms_3").removeClass('mh-reg-form');
             $("#member_forms_con").addClass('mh-reg-form');
-        } else {
+        } else if (backValue == 'step-3') {
+            $("#step-3").addClass('d-flex').removeClass("d-none");
+            $("#step-4").addClass('d-none').removeClass("d-flex");
+            $("#back").attr('value', 'step-2')
+            // $("#member_forms_3").removeClass('mh-reg-form');
+            // $("#member_forms_4").addClass('mh-reg-form');
+            // $(this).attr('value', 'step-end')
+            $("#line").addClass('step-3').removeClass('step-4')
+            $("#registration-title").text(stepTitle[2])
+            $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
+            $("#stepper-4").removeClass("active")
             // $("#registrationform").attr("hidden", true);
             // $("#statusTrailForm").attr("hidden", true);
             // $("#loginform").removeAttr("hidden");
@@ -638,6 +648,8 @@
             // setTimeout(function() {
             //     $('.mobile-header').hide(300);
             // }, 1000);
+        } else {
+            window.location.href = "/login";
         }
         scrollToTop()
     })
@@ -829,7 +841,7 @@
                         $("[data-set="+name+"]>.input").addClass('input-error')
                     })
                     empty.first().focus();
-                    swal.fire("Error!", "Please fill out the required fields", "error");
+                    // swal.fire("Error!", "Please fill out the required fields", "error");
                 } else {
                     if ($('#app_trailNo').val() !== '' && personnel_id == undefined) {
                         var formDatas = $("#member_forms").serialize();
@@ -863,62 +875,48 @@
                     } else {
 
                         if (!personnel_id) {
-                            Swal.fire({
-                                title: 'Are you sure you want to proceed this registration?',
-                                text: 'By clicking yes, the system will automatically send via email your application number.',
-                                icon: 'warning',
-                                showCancelButton: true,
-                                confirmButtonColor: '#3085d6',
-                                cancelButtonColor: '#d33',
-                                confirmButtonText: 'Proceed',
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    $.ajax({
-                                        type: 'POST',
-                                        url: "{{ route('add_member') }}",
-                                        data: $('#member_forms').serialize(),
-                                        beforeSend: function() {
-                                            $('#loading').show();
-                                        },
-                                        success: function(data) {
-                                            if (data.success != '') {
-                                                reference_no = data.randomnum;
-                                                mem_id = data.mem_id;
-                                                personnel_id = data.success;
-                                                Swal.fire({
-                                                    html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>" + reference_no + "</span><br><span>Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.</span>" +
-                                                        "<br><span>We have emailed your application number to the email you provided in the previous step. You may also take a screenshot or copy this number for future reference.</span>" +
-                                                        "</div>",
-                                                    icon: 'success',
-                                                    confirmButtonColor: '#3085d6',
-                                                    confirmButtonText: 'Proceed',
-                                                });
+                            $.ajax({
+                                type: 'POST',
+                                url: "{{ route('add_member') }}",
+                                data: $('#member_forms').serialize(),
+                                beforeSend: function() {
+                                    $('#loading').show();
+                                },
+                                success: function(data) {
+                                    if (data.success != '') {
+                                        reference_no = data.randomnum;
+                                        mem_id = data.mem_id;
+                                        personnel_id = data.success;
+                                        Swal.fire({
+                                            html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>" + reference_no + "</span><br><span>Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.</span>" +
+                                                "<br><span>We have emailed your application number to the email you provided in the previous step. You may also take a screenshot or copy this number for future reference.</span>" +
+                                                "</div>",
+                                            icon: 'success',
+                                            confirmButtonColor: '#3085d6',
+                                            confirmButtonText: 'Proceed',
+                                        });
 
-                                                $('.applicationNo').show(200);
-                                                $('#application_no').text(reference_no);
-                                                $('#app_no').val(reference_no);
-                                                $('#appNo').val(reference_no);
-                                                $('#test').val(reference_no);
-                                            }
-                                        },
-                                        complete: function(data) {
-                                            $('#loading').hide();
-                                        },
-                                    });
-                                    $("#step-1").removeClass('d-flex').addClass("d-none");
-                                    $("#member_forms").removeClass('mh-reg-form');
-                                    $("#member_forms_con").addClass('mh-reg-form');
-                                    $("#step-2").removeClass('d-none').addClass("d-flex");
-                                    $("#back").attr('value', 'step-1');
-                                    $(this).attr('value', 'step-3');
-                                    $("#line").removeClass('step-1').addClass('step-2');
-                                    $("#registration-title").text(stepTitle[1]);
-                                    $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
-                                    $("#stepper-2").addClass("active");
-                                } else {
-                                    swal.fire("You cancelled your transaction.");
-                                }
+                                        $('.applicationNo').show(200);
+                                        $('#application_no').text(reference_no);
+                                        $('#app_no').val(reference_no);
+                                        $('#appNo').val(reference_no);
+                                        $('#test').val(reference_no);
+                                    }
+                                },
+                                complete: function(data) {
+                                    $('#loading').hide();
+                                },
                             });
+                            $("#step-1").removeClass('d-flex').addClass("d-none");
+                            $("#member_forms").removeClass('mh-reg-form');
+                            $("#member_forms_con").addClass('mh-reg-form');
+                            $("#step-2").removeClass('d-none').addClass("d-flex");
+                            $("#back").attr('value', 'step-1');
+                            $(this).attr('value', 'step-3');
+                            $("#line").removeClass('step-1').addClass('step-2');
+                            $("#registration-title").text(stepTitle[1]);
+                            $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
+                            $("#stepper-2").addClass("active");
                         } else {
                             if (originalData !== $("#member_forms").serialize()) {
                                 Swal.fire({
@@ -1072,7 +1070,7 @@
                     
                 })
                 empty.first().focus();
-                swal.fire("Error!", "Please fill out the required fields", "error");
+                // swal.fire("Error!", "Please fill out the required fields", "error");
             } else {
                 if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' &&
                     continued_trail == 0) {
@@ -1257,11 +1255,6 @@
             const fixed_amount_check = $('#fixed_amount_check').prop("checked");
             const fixed_amount = $('#fixed_amount').val();
 
-            console.log(percentage_check,
-            percentage_bsalary,
-            fixed_amount_check,
-            fixed_amount,'testest')
-
             let hasError = false
 
             if(percentage_check && percentage_bsalary.trim() == "") {
@@ -1275,7 +1268,7 @@
                 hasError = true
             }
             if(hasError || (!percentage_check && !fixed_amount_check)) {
-                swal.fire("Error!", "Please fill out the required fields", "error");
+                // swal.fire("Error!", "Please fill out the required fields", "error");
                 return false
             }
 
