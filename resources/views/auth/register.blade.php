@@ -704,7 +704,7 @@
                 (Your net pay must not fall below P5,000 after all deductions).)
             </label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="percentage_check">
             <div class="d-flex gap-5">
                 <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
@@ -712,8 +712,10 @@
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="percentage_bsalary" id="percentage_bsalary" />
             <label class="mp-input-group__label" style="margin-top: 5px;">Equivalent:</label> <label class="mp-input-group__label" id="computed_amount" style="margin-top: 5px;"></label>
+            <br/>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="fixed_amount_check">
             <div class="d-flex gap-5">
                 <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso
@@ -721,6 +723,8 @@
             </div>
             <input class="mp-input-group__input mp-text-field" type="text" name="fixed_amount" id="fixed_amount" />
             <label class="mp-input-group__label" style="margin-top: 5px;">Minimum Contribution:</label> <label class="mp-input-group__label" id="min_contri" style="margin-top: 5px;"></label>
+            <br/>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group d-flex gap-5 flex-column">
             <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>

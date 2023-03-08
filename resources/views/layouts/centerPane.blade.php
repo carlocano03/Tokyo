@@ -1027,7 +1027,6 @@
 
             var selectedDate = new Date($("#date_appoint_months").val() + " " + $("#date_appoint_days").val() + ", " + $("#date_appoint_years").val());
             var currentDate = new Date();
-            console.log($("[data-set=date_appoint_months]>.input"),'123')
             if (selectedDate > currentDate) {
                 $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none').text("Invalid appointment date, please check")
                 $("[data-set=date_appoint_months]>.input").addClass('input-error')
@@ -1107,7 +1106,7 @@
                                 $("#stepper-3").addClass("active")
                             } else {
                                 Swal.fire({
-                                    title: 'Employee No are already used.',
+                                    title: 'Employee number has already been used.',
                                     icon: 'error'
                                 });
 
@@ -1144,7 +1143,7 @@
                                     $("#stepper-3").addClass("active")
                                 } else {
                                     Swal.fire({
-                                        title: 'Employee No are already used.',
+                                        title: 'Employee number has already been used.',
                                         icon: 'error'
                                     });
 
@@ -1201,7 +1200,7 @@
                                                 $("#stepper-3").addClass("active")
                                             } else {
                                                 Swal.fire({
-                                                    title: 'Employee No are already used.',
+                                                    title: 'Employee number has already been used.',
                                                     icon: 'error'
                                                 });
 
@@ -1244,6 +1243,39 @@
                 }
             }
         } else if (nextValue == 'step-4') {
+
+            $("[data-set=percentage_check]>#err-msg").addClass('d-none')
+            $("[data-set=percentage_check]>input").removeClass('input-error')
+            $("[data-set=fixed_amount_check]>#err-msg").addClass('d-none')
+            $("[data-set=fixed_amount_check]>input").removeClass('input-error')
+            
+            const percentage_check = $('#percentage_check').prop("checked");
+            const percentage_bsalary = $('#percentage_bsalary').val();
+            const fixed_amount_check = $('#fixed_amount_check').prop("checked");
+            const fixed_amount = $('#fixed_amount').val();
+
+            console.log(percentage_check,
+            percentage_bsalary,
+            fixed_amount_check,
+            fixed_amount,'testest')
+
+            let hasError = false
+
+            if(percentage_check && percentage_bsalary.trim() == "") {
+                $("[data-set=percentage_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly contribution.")
+                $("[data-set=percentage_check]>input").addClass('input-error')
+                hasError = true
+            }
+            if(fixed_amount_check && fixed_amount.trim() == "") {
+                $("[data-set=fixed_amount_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly contribution.")
+                $("[data-set=fixed_amount_check]>input").addClass('input-error')
+                hasError = true
+            }
+            if(hasError || (!percentage_check && !fixed_amount_check)) {
+                swal.fire("Error!", "Please fill out the required fields", "error");
+                return false
+            }
+
             $("#step-3").removeClass('d-flex').addClass("d-none");
             $("#step-4").removeClass('d-none').addClass("d-flex");
             $("#back").attr('value', 'step-3')
@@ -1254,6 +1286,8 @@
             $("#registration-title").text(stepTitle[3])
             $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
             $("#stepper-4").addClass("active")
+        
+            
         }
         scrollToTop()
     });
@@ -1261,7 +1295,10 @@
     $(document).on('submit', '#member_forms_3', function(e) {
         e.preventDefault();
 
-        $.ajax({
+
+
+       
+            $.ajax({
             method: 'POST',
             url: "{{ route('add_member_details') }}",
             data: new FormData(this),
@@ -1307,109 +1344,7 @@
         });
 
     });
-    $(document).on('click', '#save_second', function() {
-        if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' &&
-                    continued_trail == 0) {
-                    var formData = $("#member_forms_con").serialize();
-                    var additionalData = {
-                        'mem_id': mem_id,
-                        'employee_details_ID': $('#employee_details_ID').val(),
-                    };
-                    formData += '&' + $.param(additionalData);
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('update_trail_member_1') }}",
-                        data: formData,
-                        success: function(data) {
-                            if (data.success != '') {
-                                employee_no = data.emp_no;
-                                employee_details_ID = data.success;
-                                continued_trail = 1;
-                                Swal.fire({
-                                        title: 'Application successfully save as DRAFT.',
-                                        text: "You can use the Application No. emailed to you to continue your application.",
-                                        icon: 'success'
-                                    });
-                                setTimeout(function() {
-                                    window.location.href = "/login";
-                                }, 2000);
-                            } else {
-                                Swal.fire({
-                                    title: 'Employee No are already used.',
-                                    icon: 'error'
-                                });
 
-                                $('#employee_no').focus();
-                            }
-                        }
-                    });
-                } else {
-                    if (!employee_details_ID) {
-                        var table = $('#dependentTable').DataTable();
-                        table.draw();
-                        var formData = $("#member_forms_con").serialize();
-                        var additionalData = {
-                            'mem_id': mem_id,
-                        };
-                        formData += '&' + $.param(additionalData);
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{ route('add_member_con') }}",
-                            data: formData,
-                            success: function(data) {
-                                if (data.success != '') {
-                                    employee_no = data.emp_no;
-                                    employee_details_ID = data.success;
-                                    Swal.fire({
-                                        title: 'Application successfully save as DRAFT.',
-                                        text: "You can use the Application No. emailed to you to continue your application.",
-                                        icon: 'success'
-                                    });
-                                    setTimeout(function() {
-                                    window.location.href = "/login";
-                                     }, 2000);
-                                } else {
-                                    Swal.fire({
-                                        title: 'Employee No are already used.',
-                                        icon: 'error'
-                                    });
-                                    $('#employee_no').focus();
-                                }
-                            }
-                        });
-                    }
-
-                }
-    });
-    $(document).on('click', '#save_third', function() {
-        // member_forms_3
-        var formData = $("#member_forms_3").serialize();
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('draft_step3') }}",
-            data: formData,
-            success: function(data) {
-                if (data.success != '') {
-                    Swal.fire({
-                        title: 'Application successfully save as DRAFT.',
-                        text: "You can use the Application No. emailed to you to continue your application.",
-                        icon: 'success'
-                    });
-                    setTimeout(function() {
-                    window.location.href = "/login";
-                        }, 2000);
-                } else {
-                    Swal.fire({
-                        title: 'ERROR SAVING AS DRAFT.',
-                        icon: 'error'
-                    });
-                    // $('#employee_no').focus();
-                }
-            }
-        });
-
-    });  
-    // save_third
     $(document).on('click', '#add_dependent', function() {
         var year = $('#date_birth_dependent_years').val();
         var month = $('#date_birth_dependent_month').val();
