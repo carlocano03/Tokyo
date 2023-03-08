@@ -160,13 +160,7 @@
     $(document).ready(function() {
         const searchParams = new URLSearchParams(window.location.search);
         var app_trailno = searchParams.get('draft');
-        if (app_trailno) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.getJSON('/options_psgc', function(options) {
+        $.getJSON('/options_psgc', function(options) {
             $.each(options, function(index, option) {
                     $('#present_province').append($('<option>', {
                         value: option.code,
@@ -207,6 +201,13 @@
                 }));
             });
         });
+        if (app_trailno) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+           
             $.ajax({
                 url: "{{ route('continued_trail') }}",
                 data: {
@@ -416,17 +417,17 @@
                     var mun_code = present_muncode;
                     $("#present_city").val(mun_code).change();
                 }
-                // if ($('#present_province').val() != "") {
-                //     var listItems = '';
-                //     $.each(data.data, function(index, item) {
-                //         listItems += '<li>' + item.name.toUpperCase() + '</li>';
-                //     });
-                //     $('#list-container').html(listItems);
-                //     $("#province_text").text($("#present_province").find("option:selected").text());
-                // } else {
-                //     $('#list-container').empty();
-                //     $("#province_text").text('Municipality List');
-                // }
+                if ($('#present_province').val() != "") {
+                    var listItems = '';
+                    $.each(data.data, function(index, item) {
+                        listItems += '<li>' + item.name.toUpperCase() + '</li>';
+                    });
+                    $('#list-container').html(listItems);
+                    $("#province_text").text($("#present_province").find("option:selected").text());
+                } else {
+                    $('#list-container').empty();
+                    $("#province_text").text('Municipality List');
+                }
 
             }
         });
