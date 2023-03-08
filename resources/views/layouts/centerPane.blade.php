@@ -160,13 +160,7 @@
     $(document).ready(function() {
         const searchParams = new URLSearchParams(window.location.search);
         var app_trailno = searchParams.get('draft');
-        if (app_trailno) {
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-            $.getJSON('/options_psgc', function(options) {
+        $.getJSON('/options_psgc', function(options) {
             $.each(options, function(index, option) {
                     $('#present_province').append($('<option>', {
                         value: option.code,
@@ -207,6 +201,13 @@
                 }));
             });
         });
+        if (app_trailno) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+           
             $.ajax({
                 url: "{{ route('continued_trail') }}",
                 data: {
@@ -416,17 +417,17 @@
                     var mun_code = present_muncode;
                     $("#present_city").val(mun_code).change();
                 }
-                // if ($('#present_province').val() != "") {
-                //     var listItems = '';
-                //     $.each(data.data, function(index, item) {
-                //         listItems += '<li>' + item.name.toUpperCase() + '</li>';
-                //     });
-                //     $('#list-container').html(listItems);
-                //     $("#province_text").text($("#present_province").find("option:selected").text());
-                // } else {
-                //     $('#list-container').empty();
-                //     $("#province_text").text('Municipality List');
-                // }
+                if ($('#present_province').val() != "") {
+                    var listItems = '';
+                    $.each(data.data, function(index, item) {
+                        listItems += '<li>' + item.name.toUpperCase() + '</li>';
+                    });
+                    $('#list-container').html(listItems);
+                    $("#province_text").text($("#present_province").find("option:selected").text());
+                } else {
+                    $('#list-container').empty();
+                    $("#province_text").text('Municipality List');
+                }
 
             }
         });
@@ -1342,112 +1343,9 @@
                 }
             }
         });
-       
 
     });
-    $(document).on('click', '#save_second', function() {
-        if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' &&
-                    continued_trail == 0) {
-                    var formData = $("#member_forms_con").serialize();
-                    var additionalData = {
-                        'mem_id': mem_id,
-                        'employee_details_ID': $('#employee_details_ID').val(),
-                    };
-                    formData += '&' + $.param(additionalData);
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('update_trail_member_1') }}",
-                        data: formData,
-                        success: function(data) {
-                            if (data.success != '') {
-                                employee_no = data.emp_no;
-                                employee_details_ID = data.success;
-                                continued_trail = 1;
-                                Swal.fire({
-                                        title: 'Application successfully save as DRAFT.',
-                                        text: "You can use the Application No. emailed to you to continue your application.",
-                                        icon: 'success'
-                                    });
-                                setTimeout(function() {
-                                    window.location.href = "/login";
-                                }, 2000);
-                            } else {
-                                Swal.fire({
-                                    title: 'Employee number has already been used.',
-                                    icon: 'error'
-                                });
 
-                                $('#employee_no').focus();
-                            }
-                        }
-                    });
-                } else {
-                    if (!employee_details_ID) {
-                        var table = $('#dependentTable').DataTable();
-                        table.draw();
-                        var formData = $("#member_forms_con").serialize();
-                        var additionalData = {
-                            'mem_id': mem_id,
-                        };
-                        formData += '&' + $.param(additionalData);
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{ route('add_member_con') }}",
-                            data: formData,
-                            success: function(data) {
-                                if (data.success != '') {
-                                    employee_no = data.emp_no;
-                                    employee_details_ID = data.success;
-                                    Swal.fire({
-                                        title: 'Application successfully save as DRAFT.',
-                                        text: "You can use the Application No. emailed to you to continue your application.",
-                                        icon: 'success'
-                                    });
-                                    setTimeout(function() {
-                                    window.location.href = "/login";
-                                     }, 2000);
-                                } else {
-                                    Swal.fire({
-                                        title: 'Employee number has already been used.',
-                                        icon: 'error'
-                                    });
-                                    $('#employee_no').focus();
-                                }
-                            }
-                        });
-                    }
-
-                }
-    });
-    $(document).on('click', '#save_third', function() {
-        // member_forms_3
-        var formData = $("#member_forms_3").serialize();
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('draft_step3') }}",
-            data: formData,
-            success: function(data) {
-                if (data.success != '') {
-                    Swal.fire({
-                        title: 'Application successfully save as DRAFT.',
-                        text: "You can use the Application No. emailed to you to continue your application.",
-                        icon: 'success'
-                    });
-                    setTimeout(function() {
-                    window.location.href = "/login";
-                        }, 2000);
-                } else {
-                    Swal.fire({
-                        title: 'ERROR SAVING AS DRAFT.',
-                        icon: 'error'
-                    });
-                    // $('#employee_no').focus();
-                }
-            }
-        });
-
-    });  
-    // save_third
     $(document).on('click', '#add_dependent', function() {
         var year = $('#date_birth_dependent_years').val();
         var month = $('#date_birth_dependent_month').val();
