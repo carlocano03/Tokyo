@@ -236,6 +236,9 @@
             .modalFooter>button {
                 font-size: medium;
             }
+            .modalFooter {
+                padding-bottom: 30px;
+            }
         }
 
         
