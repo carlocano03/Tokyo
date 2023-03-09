@@ -121,13 +121,6 @@
         }
 
         @media (max-width:500px) {
-            .modalContent {
-                width: 90vw;
-                height: 30vh;
-                padding: 20px;
-                padding-bottom: 30px;
-            }
-
             .modalBody {
                 text-align: center;
             }
@@ -232,12 +225,13 @@
                 padding-top: 10px;
             }
             .modalContent {
-                height: auto;
+                width: 100%;
                 margin-bottom: 0;
             }
             #modalBackDrop {
-                overflow: auto;
+                overflow-x: auto;
                 padding-top: 220px;
+                background-color: white;
             }
             .modalFooter>button {
                 font-size: medium;
