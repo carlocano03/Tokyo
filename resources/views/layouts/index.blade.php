@@ -121,13 +121,6 @@
         }
 
         @media (max-width:500px) {
-            .modalContent {
-                width: 90vw;
-                height: 30vh;
-                padding: 20px;
-                padding-bottom: 30px;
-            }
-
             .modalBody {
                 text-align: center;
             }
@@ -219,6 +212,34 @@
             background-color: #1a8981 !important;
         }
 
+        @media (max-width:500px) {
+            .cookie-details {
+                width: 100%;
+            }
+            .cookie-body {
+                flex-direction: column;
+            }
+            .cookie-buttons {
+                justify-content: center !important;
+                width: 100%;
+                padding-top: 10px;
+            }
+            .modalContent {
+                width: 100%;
+                margin-bottom: 0;
+            }
+            #modalBackDrop {
+                overflow-x: auto;
+                padding-top: 220px;
+                background-color: white;
+            }
+            .modalFooter>button {
+                font-size: medium;
+            }
+            .modalFooter {
+                padding-bottom: 30px;
+            }
+        }
 
         
 
@@ -317,7 +338,7 @@
             </span>
         </div>
         <div class="cookie-body">
-            <div class="w-70 mp-pl2 mp-mt3">By clicking "Accept", you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts. <span><a>Privacy and Cookies Policy</a></span></div>
+            <div class="w-70 mp-pl2 mp-mt3 cookie-details">By clicking "Accept", you agree to the storing of cookies on your device to enhance site navigation, analyze site usage, and assist in our marketing efforts. <span><a>Privacy and Cookies Policy</a></span></div>
             <div class="cookie-buttons w-30 d-flex flex-row justify-content-end gap-10 align-items-start mp-pr2">
                 <button class="cookie-accept">Accept</button>
                 <button class="magenta-bg cookie-decline">I do not accept</button>
