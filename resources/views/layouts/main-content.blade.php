@@ -448,7 +448,7 @@
           </div>
         </div>
       </div>
-      <li><a href="#"><i class="fa fa-address-book"></i>Members Module</a></li>
+      <li><a href="/admin/members" class="{{ Request::is('admin/members')  ? 'active-nav' : '' }}"><i class="fa fa-address-book"></i>Members Module</a></li>
       <li><a href="#"><i class="fa fa-credit-card"></i>Loan Module</a></li>
       <li><a href="#"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
       <li><a href="#"><i class="fa fa-bar-chart"></i>Transaction & Equity </a></li>

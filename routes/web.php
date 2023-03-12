@@ -72,6 +72,8 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 
 //admin
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+Route::get('/admin/members', [AdminController::class, 'memberlist'])->name('admin.memberlist');
+Route::get('/admin/membersData', 'AdminController@memberData')->name('dataProcessing');
 Route::get('/admin/members/records', [AdminController::class, 'members_records'])->name('admin.members_records');
 Route::get('/admin/members/records/view/aa/{id}', [AdminController::class, 'members_view_record'])->name('admin.members_view_record');
 Route::get('/admin/members/records/view/hrdo/{id}', [AdminController::class, 'hrdo_view_record'])->name('admin.hrdo_view_record');
@@ -81,6 +83,9 @@ Route::post('/admin/countApplication', [AdminController::class, 'countApplicatio
 Route::get('/admin/get_members', [AdminController::class, 'get_members'])->name('getMembers');
 Route::get('/admin/election', [AdminController::class, 'election'])->name('admin.election.election');
 Route::get('/admin/election/create-election', [AdminController::class, 'createElection'])->name('admin.election.create-election');
+
+// Route::get('/admin/members', 'AdminController@memberlist');
+
 
 //admin settings links
 Route::get('/admin/settings/manage-account', [AdminController::class, 'manageAccount'])->name('admin.settings-config.manage-account');
