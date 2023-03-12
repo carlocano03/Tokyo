@@ -82,7 +82,9 @@ Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin
 Route::post('/admin/countApplication', [AdminController::class, 'countApplication'])->name('count_application');
 Route::get('/admin/get_members', [AdminController::class, 'get_members'])->name('getMembers');
 Route::get('/admin/election', [AdminController::class, 'election'])->name('admin.election.election');
-Route::get('/admin/election/create-election', [AdminController::class, 'createElection'])->name('admin.election.create-election');
+Route::get('/admin/create-election', [AdminController::class, 'createElection'])->name('admin.election.create-election');
+Route::get('/admin/election-record', [AdminController::class, 'electionRecord'])->name('admin.election.election-election');
+Route::get('/admin/election-analytics', [AdminController::class, 'electionAnalytics'])->name('admin.election.election-analytics');
 
 // Route::get('/admin/members', 'AdminController@memberlist');
 

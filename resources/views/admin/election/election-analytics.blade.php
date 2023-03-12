@@ -830,9 +830,14 @@
 
                         <div class="settings-buttons">
                             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
-                                <li class="options options-active" onclick="location.href='create-election'">
-                                    <a href="#" class="no-padding options-a-active">Create New Election</a><br>
-                                    <label class="option-info options-info-active">Allow User to create new election
+                                <li class="options options-active" onclick="location.href='election-analytics'">
+                                    <a href="#" class="no-padding options-a-active">Election Day Analytics</a><br>
+                                    <label class="option-info options-info-active">Allow User to view election day analytics
+                                    </label>
+                                </li>
+                                <li class="options " onclick="location.href='create-election'">
+                                    <a href="#" class="no-padding ">Create New Election</a><br>
+                                    <label class="option-info ">Allow User to create new election
                                     </label>
                                 </li>
                                 <li class="options" onclick="location.href='election-record'">
@@ -841,11 +846,7 @@
                                     </label>
                                 </li>
 
-                                <li class="options" onclick="location.href='election-analytics'">
-                                    <a href="#" class="no-padding">Election Day Analytics</a><br>
-                                    <label class="option-info">Allow User to view election day analytics
-                                    </label>
-                                </li>
+
 
                             </ul>
                         </div>
