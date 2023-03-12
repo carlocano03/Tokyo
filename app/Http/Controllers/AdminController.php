@@ -71,7 +71,7 @@ class AdminController extends Controller
     return view('admin.memberlist')->with($data);
   }
 
-  
+
 
   public function countApplication()
   {
@@ -701,6 +701,14 @@ class AdminController extends Controller
   {
     return view('admin.election.create-election');
   }
+  public function electionRecord()
+  {
+    return view('admin.election.election-record');
+  }
+  public function electionAnalytics()
+  {
+    return view('admin.election.election-analytics');
+  }
   public function gethrdo_user(Request $request)
   {
     $userId = Auth::user()->id;
@@ -729,9 +737,4 @@ class AdminController extends Controller
     }
     return response()->json($hrdouser);
   }
-
-  
-  
-
-  
 }

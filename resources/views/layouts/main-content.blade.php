@@ -452,7 +452,7 @@
       <li><a href="#"><i class="fa fa-credit-card"></i>Loan Module</a></li>
       <li><a href="#"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
       <li><a href="#"><i class="fa fa-bar-chart"></i>Transaction & Equity </a></li>
-      <li><a href="/admin/election" class="{{ Request::is('admin/election')  ? 'active-nav' : '' }}">
+      <li><a href="/admin/election-record" class="{{ Request::is('admin/election')  ? 'active-nav' : '' }}">
           <i class="fa fa-flash"></i>Election Module</a></li>
       <li><a href="/admin/settings/manage-account" class="{{ Request::is('admin/settings/manage-account')  ? 'active-nav' : '' }}">
           <i class="fa fa-cogs"></i>Settings & Configuration</a>
