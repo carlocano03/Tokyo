@@ -12,7 +12,7 @@ use DataTables;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\processMail;
-
+// use Illuminate\Support\Facades\Log;
 class AdminController extends Controller
 {
 
@@ -61,6 +61,17 @@ class AdminController extends Controller
     );
     return view('admin.dashboard')->with($data);
   }
+
+  public function memberlist()
+  {
+    $data['department'] = DB::table('department')->get();
+
+    $data['campuses'] = DB::table('campus')->get();
+
+    return view('admin.memberlist')->with($data);
+  }
+
+  
 
   public function countApplication()
   {
@@ -718,4 +729,9 @@ class AdminController extends Controller
     }
     return response()->json($hrdouser);
   }
+
+  
+  
+
+  
 }
