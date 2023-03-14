@@ -958,7 +958,7 @@
                                             <h4 style="color: white;
                                             padding: 15px;
                                             background-color: var(--c-active-hover-bg);
-                                            margin: 0;width: 100%;">Election Details
+                                            margin: 0;width: 100%;">Salary Grade 1-15
                                             </h4>
                                             <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
                                                 <input type="hidden" id="app_trailNo">
