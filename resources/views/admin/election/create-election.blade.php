@@ -1,4 +1,177 @@
 @extends('layouts/main')
+<div id="modalBackDrop" class="d-none opacity-0">
+    <div class="modalContent">
+
+        <div class="d-none opacity-0" id="electionModal">
+            <div class="modalBody">
+
+                <div class="d-flex flex-column gap-10" style="width: 700px;"> <span style="font-weight: bold; font-size: x-large"></span>
+                    <label class="close-button" id="closeModal">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </label>
+                    <div class="">
+                        <label>Setup New Election Module</label>
+                        <br>
+                        <label class="account-info">Allow user to create Election
+                        </label>
+                        {{ csrf_field() }}
+                        <form id="classif_form" class=" form-border-bottom" style="height: calc(100% - 100px) !important;">
+
+                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
+
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Election Reference No:</label>
+                                    <label class="mp-input-group__label">102-2912</label>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Select Cluster</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">Cluster 1</option>
+                                        <option value="0">Cluster 2</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Election Year</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">2020</option>
+                                        <option value="0">2021</option>
+                                    </select>
+                                </div>
+
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Election Date</label>
+                                    <input type="date" id="from" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Time Open</label>
+                                    <input type="time" id="from" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Time Close</label>
+                                    <input type="time" id="from" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+
+                                <div class="mp-input-group">
+                                    <input type="checkbox" class="checkbox-color " style="margin-left:2px;margin-right:3px;" id="terms" name="terms">
+                                    <label class="mp-input-group__label">Open Time / User Access</label>
+                                </div>
+
+
+
+
+                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
+                                    <span>OPEN THIS ELECTION</span>
+                                </a>
+                                <a class="up-button btn-md button-animate-right mp-text-center">
+                                    <span>SAVE DRAFT ELECTION</span>
+                                </a>
+                                <a class="up-button-grey btn-md button-animate-right mp-text-center">
+                                    <span>CLEAR SETUP</span>
+                                </a>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="d-none opacity-0" id="candidateModal">
+            <div class="modalBody">
+
+                <div class="d-flex flex-column gap-10" style="width: 700px;"> <span style="font-weight: bold; font-size: x-large"></span>
+                    <label class="close-button" id="closeModal">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </label>
+                    <div class="top-label">
+                        <label>Manage Candidates</label>
+                        <br>
+                        <button class="mp-input-group__label button-active button-menu">1-15 Category</button>
+                        <button class="mp-input-group__label button-menu">16 Above Category</button>
+                        {{ csrf_field() }}
+                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+
+                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
+                                <input type="hidden" id="app_trailNo">
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Salary Grade</label>
+                                    <label class="mp-input-group__label">1-15 Category</label>
+
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Select Candidate Name</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">Name 1</option>
+                                        <option value="0">Name 2</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Select Cluster</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">Cluster 1</option>
+                                        <option value="0">Cluster 2</option>
+                                    </select>
+                                </div>
+
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Select Running Position</label>
+                                    <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Select Campus</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">Campus 1</option>
+                                        <option value="0">Campus 2</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Select Candidate Image/Photo *</label>
+                                    <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">File Attachment</label>
+                                    <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+
+
+
+
+
+
+
+                                <a class="up-button btn-md button-animate-right mp-text-center">
+                                    <span>ADD CANDIDATE</span>
+                                </a>
+
+
+
+
+                            </div>
+
+                        </form>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="modalFooter gap-10">
+            <button id="agree">
+                I Agree
+            </button>
+            <button id="disagree">
+                I do not Agree
+            </button>
+        </div> -->
+    </div>
+</div>
 @section('content_body')
 
 <style>
@@ -701,6 +874,7 @@
         height: auto;
         background-color: white;
         margin-bottom: 100px;
+        margin-top: 20px;
         padding: 0;
         border-radius: 17px;
         transition: all .5s;
@@ -809,12 +983,43 @@
     .create-button button {
         padding: 11px;
     }
+
+    .profile-text span {
+        margin-bottom: -10px;
+    }
+
+    .profile-text {
+        display: inline-grid;
+        margin-bottom: 20px;
+    }
+
+    .profile-button {
+        display: inline-flex;
+        font-size: 15px;
+        gap: 5px;
+    }
+
+    .profile-button button {
+        padding-left: 10px;
+        padding-right: 10px;
+
+        border-radius: 12px;
+    }
+
+    .close-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 10px;
+        font-size: 25px;
+    }
 </style>
 
 
 
 
 <div class="filler"></div>
+
 <div class="col-12  mp-text-fs-large mp-text-c-accent  dashboard mh-content" style="padding:0px !important;">
 
 
@@ -860,20 +1065,20 @@
                 <div class="mp-card  mp-ph2 mp-pv2">
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-4">
+                            <div class="col-lg-4">
                                 <div class="top-label">
                                     <label>New Election Module</label>
                                     <br>
-                                    <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
+                                    <button class="up-button-green btn-md button-animate-right mp-text-center" type="button" id="setupElection">
                                         <span>Setup</span>
-                                    </a>
+                                    </button>
                                     <br>
                                     <br>
                                     <div class="setup-election">
 
 
                                         {{ csrf_field() }}
-                                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+                                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;">
                                             <h4 style="color: white;
                                             padding: 15px;
                                             background-color: var(--c-active-hover-bg);
@@ -944,123 +1149,226 @@
 
                                 </div>
                             </div>
-                            <div class="col-8">
+                            <div class="col-lg-8">
 
                                 <div class="top-label">
-                                    <label>Setup New Election Module</label>
+                                    <label>Candidates</label>
                                     <br>
-                                    <div class="setup-election">
+                                    <button class="up-button btn-md button-animate-right mp-text-center" id="addCandidates" type="button">
+                                        <span>Add</span>
+                                    </button>
 
+                                    <div class="setup-election">
+                                        <br>
 
                                         {{ csrf_field() }}
-                                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+                                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;">
                                             <h4 style="color: white;
                                             padding: 15px;
-                                            background-color: var(--c-active-hover-bg);
-                                            margin: 0;width: 100%;">Election Details
+                                            background-color: var(--c-accent);
+                                            margin: 0;width: 100%;">Salary Grade 1-15
                                             </h4>
-                                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
-                                                <input type="hidden" id="app_trailNo">
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Election Reference No:</label>
-                                                    <label class="mp-input-group__label">102-2912</label>
+
+
+                                            <div class="container-fluid">
+                                                <div class="row" style="padding: 25px;">
+                                                    <div class="col-4">
+
+                                                        <div class="profile-img">
+                                                            <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="profile-text">
+                                                            <span>Denneb Gomez</span>
+                                                            <span> 1231231312</span>
+                                                            <span> Up Losbanos / Farm Worker</span>
+
+                                                        </div>
+                                                        <div class="profile-button">
+
+                                                            <button class="up-button">View Attachment</button>
+                                                            <button class="up-button-green">Change</button>
+                                                            <button class="up-button-red">Remove</button>
+
+                                                        </div>
+
+                                                    </div>
                                                 </div>
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Cluster:</label>
-                                                    <label class="mp-input-group__label">1 Up Diliman/ System Admin / Baguio</label>
+                                            </div>
+
+                                            <div class="container-fluid">
+                                                <div class="row" style="padding: 25px;">
+                                                    <div class="col-4">
+
+                                                        <div class="profile-img">
+                                                            <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-8">
+                                                        <div class="profile-text">
+                                                            <span>Denneb Gomez</span>
+                                                            <span> 1231231312</span>
+                                                            <span> Up Losbanos / Farm Worker</span>
+
+                                                        </div>
+                                                        <div class="profile-button">
+
+                                                            <button class="up-button">View Attachment</button>
+                                                            <button class="up-button-green">Change</button>
+                                                            <button class="up-button-red">Remove</button>
+
+                                                        </div>
+
+                                                    </div>
                                                 </div>
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Election Year:</label>
-                                                    <label class="mp-input-group__label">2022</label>
-                                                </div>
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Election Date:</label>
-                                                    <label class="mp-input-group__label">March 2, 2023</label>
-                                                </div>
-                                                <div class="mp-input-group">
-
-
-                                                    <label class="mp-input-group__label">Time Open: </label>
-                                                    <label class="mp-input-group__label">10:00 am</label>
-
-                                                    <label class="mp-input-group__label">Time Closed: </label>
-                                                    <label class="mp-input-group__label">10:00 pm</label>
-
-                                                </div>
-
-                                                <div class="mp-input-group">
-
-
-                                                    <label class="mp-input-group__label">Status:</label>
-                                                    <label class="mp-input-group__label">Open Time</label>
-
-
-                                                </div>
-                                                <div class="mp-input-group">
-
-
-                                                    <label class="mp-input-group__label">Salary Grade Category:</label>
-                                                    <label class="mp-input-group__label">Both SG 1-15 and SG 16 Above</label>
-
-
-                                                </div>
-                                                <br>
-
-
-                                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
-                                                    <span>Create Election</span>
-                                                </a>
-
-                                                <a class="up-button-grey btn-md button-animate-right mp-text-center">
-                                                    <span>Reset Data</span>
-                                                </a>
-
-
                                             </div>
 
                                         </form>
                                     </div>
 
 
+                                    <br>
+
+                                    {{ csrf_field() }}
+                                    <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;">
+                                        <h4 style="color: white;
+                                            padding: 15px;
+                                            background-color: var(--c-accent);
+                                            margin: 0;width: 100%;">Salary Grade 16-above
+                                        </h4>
+
+                                        <br>
+                                        <div class="container-fluid">
+                                            <div class="row" style="padding: 25px;">
+                                                <div class="col-4">
+
+                                                    <div class="profile-img">
+                                                        <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-8">
+                                                    <div class="profile-text">
+                                                        <span>Denneb Gomez</span>
+                                                        <span> 1231231312</span>
+                                                        <span> Up Losbanos / Farm Worker</span>
+
+                                                    </div>
+                                                    <div class="profile-button">
+
+                                                        <button class="up-button">View Attachment</button>
+                                                        <button class="up-button-green">Change</button>
+                                                        <button class="up-button-red">Remove</button>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="container-fluid">
+                                            <div class="row" style="padding: 25px;">
+                                                <div class="col-4">
+
+                                                    <div class="profile-img">
+                                                        <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-8">
+                                                    <div class="profile-text">
+                                                        <span>Denneb Gomez</span>
+                                                        <span> 1231231312</span>
+                                                        <span> Up Losbanos / Farm Worker</span>
+
+                                                    </div>
+                                                    <div class="profile-button">
+
+                                                        <button class="up-button">View Attachment</button>
+                                                        <button class="up-button-green">Change</button>
+                                                        <button class="up-button-red">Remove</button>
+
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </form>
                                 </div>
 
+
                             </div>
+
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
     </div>
+</div>
 
 
-    <script>
-        $(document).on('click', '#showSettings', function(e) {
-            if ($("#settingsTab").hasClass("col-lg-2")) {
-                $("#settingsTab").addClass("d-none");
-                $("#settingsTab").removeClass("col-lg-2");
-                $("#settingsContent").removeClass("col-lg-10");
-                $("#settingsContent").addClass("col-lg-12");
+<script>
+    $(document).on('click', '#closeModal', function(e) {
+        $("#modalBackDrop").addClass("opacity-0")
+        setTimeout(function() {
+            $("#modalBackDrop").addClass("d-none")
+        }, 1000)
+    })
 
-                $("#showSettings").text("Show Tab")
+    $(document).on('click', '#setupElection', function(e) {
 
-            } else {
-                $("#settingsTab").removeClass("d-none");
-                $("#settingsTab").addClass("col-lg-2");
-                $("#settingsContent").removeClass("col-lg-12");
-                $("#settingsContent").addClass("col-lg-10");
+        $("#modalBackDrop").removeClass("d-none")
+        $("#candidateModal").addClass("d-none")
+        $("#candidateModal").addClass("opacity-0")
+        $("#electionModal").removeClass("d-none")
+        $("#electionModal").removeClass("opacity-0")
+        setTimeout(function() {
+            $("#modalBackDrop").removeClass("opacity-0")
+        }, 100)
+    })
 
-                $("#showSettings").text("Hide Tab")
-            }
+    $(document).on('click', '#addCandidates', function(e) {
 
-        })
+        $("#modalBackDrop").removeClass("d-none")
+        $("#electionModal").addClass("d-none")
+        $("#electionModal").addClass("opacity-0")
+        $("#candidateModal").removeClass("d-none")
+        $("#candidateModal").removeClass("opacity-0")
+        setTimeout(function() {
+            $("#modalBackDrop").removeClass("opacity-0")
+        }, 100)
+    })
+    $(document).on('click', '#showSettings', function(e) {
+        if ($("#settingsTab").hasClass("col-lg-2")) {
+            $("#settingsTab").addClass("d-none");
+            $("#settingsTab").removeClass("col-lg-2");
+            $("#settingsContent").removeClass("col-lg-10");
+            $("#settingsContent").addClass("col-lg-12");
 
-        document.querySelector("input[type=number]")
-            .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
-    </script>
+            $("#showSettings").text("Show Tab")
+
+        } else {
+            $("#settingsTab").removeClass("d-none");
+            $("#settingsTab").addClass("col-lg-2");
+            $("#settingsContent").removeClass("col-lg-12");
+            $("#settingsContent").addClass("col-lg-10");
+
+            $("#showSettings").text("Hide Tab")
+        }
+
+    })
+
+    document.querySelector("input[type=number]")
+        .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
+</script>
 
 
-    <!-- <div class="mp-card  mp-ph2 mp-pv2">
+<!-- <div class="mp-card  mp-ph2 mp-pv2">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-4">
@@ -1300,4 +1608,4 @@
 
 
 
-    @endsection
+@endsection
