@@ -809,12 +809,641 @@
     .create-button button {
         padding: 11px;
     }
+
+    .voters-text label {
+        font-size: 12px;
+        margin-bottom: -8px !important;
+    }
+
+    .card-header {
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+        background-color: gray;
+        padding: 5px 10px;
+        color: white;
+    }
+
+    .dashboard {
+        height: calc(100% - 131px);
+        overflow-x: hidden;
+    }
+
+    /* .calendar>.wrapper {
+                width: 100%;
+                background: #fff;
+                border-radius: 10px;
+                box-shadow: 0 0px 5px rgba(0, 0, 0, 0.12);
+                display: flex;
+                flex-direction: column;
+              }
+
+              .calendar>.wrapper header {
+                display: flex;
+                align-items: center;
+                padding: 25px 30px 10px;
+                justify-content: space-between;
+              } */
+
+    header .icons {
+        display: flex;
+    }
+
+    header .icons span {
+        height: 38px;
+        width: 38px;
+        margin: 0 1px;
+        cursor: pointer;
+        color: #878787;
+        text-align: center;
+        line-height: 38px;
+        font-size: 1.9rem;
+        user-select: none;
+        border-radius: 50%;
+    }
+
+    .p-0 {
+        padding: 0;
+    }
+
+    .font-bold {
+        font-weight: 500;
+    }
+
+    .font-lg {
+        font-size: 30px;
+    }
+
+
+    .icons span:last-child {
+        margin-right: -10px;
+    }
+
+    header .icons span:hover {
+        background: #f2f2f2;
+    }
+
+    header .current-date {
+        font-size: 1.45rem;
+        font-weight: 500;
+    }
+
+    /*
+              .calendar ul {
+                display: flex;
+                flex-wrap: wrap;
+                list-style: none;
+                text-align: center;
+              }
+
+              .calendar .days {
+                margin-bottom: 20px;
+              }
+
+              .calendar li {
+                color: #333;
+                width: calc(100% / 7);
+                font-size: 1.07rem;
+              }
+
+              .calendar .weeks li {
+                font-weight: 500;
+                cursor: default;
+              }
+
+              .calendar .days li {
+                z-index: 1;
+                cursor: pointer;
+                position: relative;
+                margin-top: 30px;
+              }
+
+              .calendar>.days li.default {
+                color: #aaa;
+              }
+
+              .calendar>.days li.selected {
+                color: #fff;
+              }
+
+              .calendar>.days li::before {
+                position: absolute;
+                content: "";
+                left: 50%;
+                top: 50%;
+                height: 40px;
+                width: 40px;
+                z-index: -1;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+              }
+
+              .calendar>.days li.selected::before {
+                background: #6c1242;
+              }
+
+              .calendar>.days li:not(.selected):hover::before {
+                background: #f2f2f2;
+              } */
+
+    .side-dashboard {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .right-dashboard {
+        padding-left: 0;
+    }
+
+    .user-details {
+        grid-template-columns: 2fr 1fr;
+    }
+
+
+
+    .highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 310px;
+        max-width: 800px;
+        margin: 1em auto;
+    }
+
+    #container {
+        height: 400px;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+
+    #container {
+        width: 100%;
+    }
+
+    text.highcharts-credits {
+        display: none;
+    }
+
+    .main-dashboard {
+        grid-template-columns: repeat(12, 1fr);
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .campus-content {
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    .col-campus:nth-child(1) {
+        grid-column: span 4;
+    }
+
+    .col-campus:nth-child(2) {
+        grid-column: span 4;
+    }
+
+    .col-campus:nth-child(3) {
+        grid-column: span 4;
+    }
+
+
+    .col {
+        padding: 0
+    }
+
+    .col:nth-child(1) {
+        grid-column: span 9;
+    }
+
+    .col:nth-child(2) {
+        grid-column: span 3;
+    }
+
+    .col:nth-child(3) {
+        grid-column: span 6;
+    }
+
+    .col:nth-child(4) {
+        grid-column: span 6;
+    }
+
+    .content-right {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .ml-auto {
+        margin-left: auto;
+    }
+
+    .total-loans {
+        display: flex;
+    }
+
+    .total-loans-child:nth-child(1) {
+        grid-column: span 2;
+    }
+
+    .total-loans-child:nth-child(2) {
+        grid-column: span 5;
+    }
+
+    .total-loans-child:nth-child(3) {
+        grid-column: span 12;
+    }
+
+    @media (max-width:1300px) {
+        .col:nth-child(2) {
+            grid-column: span 12;
+        }
+
+        .col:nth-child(1) {
+            grid-column: span 12;
+        }
+
+        .right-dashboard {
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .total-loans {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .title-total {
+            text-align: center;
+        }
+
+        .total-loans>.ml-auto {
+            margin-left: 0;
+            margin-bottom: 10px;
+        }
+
+
+        .col-campus:nth-child(1) {
+            grid-column: span 12;
+        }
+
+        .col-campus:nth-child(2) {
+            grid-column: span 6;
+        }
+
+        .col-campus:nth-child(3) {
+            grid-column: span 6;
+        }
+
+        #campusSelector {
+            display: flex;
+            justify-content: center;
+        }
+
+        .side-dashboard {
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+        }
+
+        .side-dashboard>.card>.content-right {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+
+        .side-dashboard>.card>.content-right>label {
+            margin-bottom: 0px;
+            margin-top: 0px !important;
+        }
+    }
+
+
+    @media (max-width:984px) {
+
+
+        .right-dashboard {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 15px;
+            margin-top: 10px;
+            margin-bottom: 25px;
+        }
+
+        .col:nth-child(2) {
+            grid-column: span 12;
+        }
+
+        .col:nth-child(1) {
+            grid-column: span 12;
+        }
+
+
+    }
+
+
+    @media (max-width:700px) {
+
+        .col:nth-child(1) {
+            grid-column: span 12;
+        }
+
+        .col:nth-child(2) {
+            grid-column: span 12;
+        }
+
+        .col:nth-child(3) {
+            grid-column: span 12;
+        }
+
+        .col:nth-child(4) {
+            grid-column: span 12;
+        }
+    }
+
+
+    @media (max-width:500px) {
+        .user-details {
+            grid-template-columns: 1fr;
+        }
+
+        .details {
+            grid-template-columns: 1fr;
+            grid-row: 2;
+
+        }
+
+        .image-profile {
+            display: none;
+        }
+
+        .side-dashboard>.card>.content-right {
+            margin-top: 0px;
+            padding-left: 10px;
+            padding-right: 10px;
+
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+
+        .side-dashboard>.card>.content-right>label {
+            margin-bottom: 0px;
+            margin-top: 0px !important;
+        }
+
+
+    }
+
+    .right-dashboard {
+        padding-left: 0;
+    }
+
+    .user-details {
+        grid-template-columns: 2fr 1fr;
+    }
+
+
+    @media (max-width:500px) {
+        .user-details {
+            grid-template-columns: 1fr;
+        }
+
+        .details {
+            grid-template-columns: 1fr;
+            grid-row: 2;
+
+        }
+
+        .image-profile {
+            grid-row: 1;
+        }
+
+    }
+
+    .highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 310px;
+        max-width: 800px;
+        margin: 1em auto;
+    }
+
+    #container {
+        height: 400px;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+
+    #container {
+        width: 100%;
+    }
+
+    text.highcharts-credits {
+        display: none;
+    }
+
+    .w-full {
+        width: 100%;
+    }
+
+    .pb-1px {
+        padding-bottom: 1px;
+    }
+
+    .h-42px {
+        height: 42px;
+    }
+
+    .green.ldBar path.mainline {
+        stroke-width: 10;
+        stroke: #39b74d;
+        stroke-linecap: round;
+    }
+
+    .magenta.ldBar path.mainline {
+        stroke-width: 10;
+        stroke: #1a8981;
+        stroke-linecap: round;
+    }
+
+    .maroon.ldBar path.mainline {
+        stroke-width: 10;
+        stroke: #894168;
+        stroke-linecap: round;
+    }
+
+    .red.ldBar path.mainline {
+        stroke-width: 10;
+        stroke: #de2e4f;
+        stroke-linecap: round;
+    }
+
+    .ldBar path.baseline {
+        stroke-width: 10;
+        stroke: #f1f2f3;
+        stroke-linecap: round;
+    }
+
+    .button-view {
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+        color: white;
+    }
+
+    .magenta-bg {
+        background-color: #1a8981;
+    }
+
+    .maroon-bg {
+        background-color: #894168;
+    }
+
+    .red-bg {
+        background-color: #de2e4f;
+    }
+
+    .green-bg {
+        background-color: #39b74d;
+        color: white;
+    }
+
+    .red-clr {
+        color: #de2e4f;
+    }
+
+    .green-clr {
+        color: #39b74d;
+    }
+
+    .maroon-clr {
+        color: #894168;
+    }
+
+    .magenta-clr {
+        color: #1a8981;
+    }
+
+
+    .font-sm {
+        font-size: 13px;
+    }
+
+    .card-body {
+        display: flex;
+        flex-direction: row;
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+        padding: 5px 10px;
+        background-color: white;
+        height: 100%;
+        align-items: center;
+    }
+
+    .card-body>span {
+        font-size: 20px;
+    }
+
+    .card-body>h1 {
+        width: 60px;
+    }
+
+
+    .ldBar-label {
+        font-size: 17px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .winner-info {
+        text-align: center;
+    }
+
+    .name label {
+        font-size: 40px;
+        color: var(--c-accent);
+    }
+
+    .campus-role label {
+        font-size: 15px;
+    }
 </style>
 
 
 
-
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="{{ asset('/dist/adminDashboard.js') }}"></script>
+<script type="text/javascript" src="{{ asset('/dist/loading-bar/loading-bar.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}">
 <div class="filler"></div>
+
 <div class="col-12  mp-text-fs-large mp-text-c-accent  dashboard mh-content" style="padding:0px !important;">
 
 
@@ -854,179 +1483,287 @@
 
                 </div>
             </div>
-            <div class="col-lg-10 mp-mt3 gap-10" id="settingsContent">
+            <div class="col-lg-10 mp-mt3 " id="settingsContent">
                 <div class="button-container mp-mb3">
                     <button class="f-button magenta-bg" id="showSettings">Hide Tab</button>
                 </div>
                 <div class="mp-card  mp-ph2 mp-pv2">
-                    <div class="container-fluid">
-                        <div class="row">
+                    <div class="top-label">
+                        <div class="mp-pt3 d-flex  flex-column mp-pb3 mp-pv2  ">
+                            <input type="hidden" id="app_trailNo">
+                            <div class="mp-input-group">
+                                <label class="mp-input-group__label">Election Reference No:</label>
+                                <label class="mp-input-group__label">102-2912</label>
+                            </div>
+                            <div class="mp-input-group">
+                                <label class="mp-input-group__label">Cluster:</label>
+                                <label class="mp-input-group__label">1 Up Diliman/ System Admin / Baguio</label>
+                            </div>
+                            <div class="mp-input-group">
+                                <label class="mp-input-group__label">Election Year:</label>
+                                <label class="mp-input-group__label">2022</label>
+                            </div>
+                            <div class="mp-input-group">
+                                <label class="mp-input-group__label">Election Date:</label>
+                                <label class="mp-input-group__label">March 2, 2023</label>
+                            </div>
+                            <div class="mp-input-group">
+
+
+                                <label class="mp-input-group__label">Time Open: </label>
+                                <label class="mp-input-group__label">10:00 am</label>
+
+                                <label class="mp-input-group__label">Time Closed: </label>
+                                <label class="mp-input-group__label">10:00 pm</label>
+
+                            </div>
+
+                            <div class="mp-input-group">
+
+
+                                <label class="mp-input-group__label">Status:</label>
+                                <label class="mp-input-group__label">Open Time</label>
+
+
+                            </div>
+                            <div class="mp-input-group">
+
+
+                                <label class="mp-input-group__label">Salary Grade Category:</label>
+                                <label class="mp-input-group__label">Both SG 1-15 and SG 16 Above</label>
+
+
+                            </div>
+
+
+                            <div class="buttons" style="display: flex;justify-content: right;gap: 10px;">
+                                <button class="f-button font-bold" style="width: 100px; background-color: var(--c-primary);">Print</button>
+                                <button class="f-button font-bold" style=" width: 100px;">Download</button>
+                            </div>
+
+                        </div>
+                        <div class="row  mp-mb4">
                             <div class="col-4">
-                                <div class="top-label">
-                                    <label>New Election Module</label>
-                                    <br>
-                                    <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
-                                        <span>Setup</span>
-                                    </a>
-                                    <br>
-                                    <br>
-                                    <div class="setup-election">
+                                <div class="mp-card  mp-ph2 mp-pv2" style="border: solid var(--c-primary) 1px;">
+                                    <div class="row">
+                                        <div class="col-lg-6">
 
 
-                                        {{ csrf_field() }}
-                                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
-                                            <h4 style="color: white;
-                                            padding: 15px;
-                                            background-color: var(--c-active-hover-bg);
-                                            margin: 0;width: 100%;">Election Details
-                                            </h4>
-                                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
-                                                <input type="hidden" id="app_trailNo">
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Election Reference No:</label>
-                                                    <label class="mp-input-group__label">102-2912</label>
-                                                </div>
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Cluster:</label>
-                                                    <label class="mp-input-group__label">1 Up Diliman/ System Admin / Baguio</label>
-                                                </div>
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Election Year:</label>
-                                                    <label class="mp-input-group__label">2022</label>
-                                                </div>
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Election Date:</label>
-                                                    <label class="mp-input-group__label">March 2, 2023</label>
-                                                </div>
-                                                <div class="mp-input-group">
-
-
-                                                    <label class="mp-input-group__label">Time Open: </label>
-                                                    <label class="mp-input-group__label">10:00 am</label>
-
-                                                    <label class="mp-input-group__label">Time Closed: </label>
-                                                    <label class="mp-input-group__label">10:00 pm</label>
-
-                                                </div>
-
-                                                <div class="mp-input-group">
-
-
-                                                    <label class="mp-input-group__label">Status:</label>
-                                                    <label class="mp-input-group__label">Open Time</label>
-
-
-                                                </div>
-                                                <div class="mp-input-group">
-
-
-                                                    <label class="mp-input-group__label">Salary Grade Category:</label>
-                                                    <label class="mp-input-group__label">Both SG 1-15 and SG 16 Above</label>
-
-
-                                                </div>
+                                            <div class="voters-text">
+                                                <label>Summary Of Voters
+                                                    <br>(Members)</label>
                                                 <br>
-
-
-                                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
-                                                    <span>Create Election</span>
-                                                </a>
-
-                                                <a class="up-button-grey btn-md button-animate-right mp-text-center">
-                                                    <span>Reset Data</span>
-                                                </a>
-
-
+                                                <label>UP Manila</label>
+                                                <label>- 1054</label>
+                                                <br>
+                                                <label>PGH</label>
+                                                <label>- 3015</label>
                                             </div>
 
-                                        </form>
+                                        </div>
+                                        <div class="col-lg-6" style="text-align:center;">
+                                            <i style="margin: 0px !important;float: none; font-size: 50px;" class="fa fa-users" aria-hidden="true"></i>
+                                            <br>
+                                            <label> Total Members <br>
+                                                1000
+                                            </label>
+                                        </div>
                                     </div>
-
 
                                 </div>
                             </div>
-                            <div class="col-8">
 
-                                <div class="top-label">
-                                    <label>Setup New Election Module</label>
-                                    <br>
-                                    <div class="setup-election">
-
-
-                                        {{ csrf_field() }}
-                                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
-                                            <h4 style="color: white;
-                                            padding: 15px;
-                                            background-color: var(--c-active-hover-bg);
-                                            margin: 0;width: 100%;">Salary Grade 1-15
-                                            </h4>
-                                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
-                                                <input type="hidden" id="app_trailNo">
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Election Reference No:</label>
-                                                    <label class="mp-input-group__label">102-2912</label>
-                                                </div>
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Cluster:</label>
-                                                    <label class="mp-input-group__label">1 Up Diliman/ System Admin / Baguio</label>
-                                                </div>
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Election Year:</label>
-                                                    <label class="mp-input-group__label">2022</label>
-                                                </div>
-                                                <div class="mp-input-group">
-                                                    <label class="mp-input-group__label">Election Date:</label>
-                                                    <label class="mp-input-group__label">March 2, 2023</label>
-                                                </div>
-                                                <div class="mp-input-group">
-
-
-                                                    <label class="mp-input-group__label">Time Open: </label>
-                                                    <label class="mp-input-group__label">10:00 am</label>
-
-                                                    <label class="mp-input-group__label">Time Closed: </label>
-                                                    <label class="mp-input-group__label">10:00 pm</label>
-
-                                                </div>
-
-                                                <div class="mp-input-group">
-
-
-                                                    <label class="mp-input-group__label">Status:</label>
-                                                    <label class="mp-input-group__label">Open Time</label>
-
-
-                                                </div>
-                                                <div class="mp-input-group">
-
-
-                                                    <label class="mp-input-group__label">Salary Grade Category:</label>
-                                                    <label class="mp-input-group__label">Both SG 1-15 and SG 16 Above</label>
-
-
-                                                </div>
+                            <div class="col-4">
+                                <div class="mp-card  mp-ph2 mp-pv2" style="border: solid var(--c-primary) 1px; color: var(--c-primary);">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="voters-text">
+                                                <label>Total Voted
+                                                    <br>4,050</label>
                                                 <br>
-
-
-                                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
-                                                    <span>Create Election</span>
-                                                </a>
-
-                                                <a class="up-button-grey btn-md button-animate-right mp-text-center">
-                                                    <span>Reset Data</span>
-                                                </a>
-
-
+                                                <label>Voted SG 1-15</label>
+                                                <label>- 1054</label>
+                                                <br>
+                                                <label>Voted SG 16-Above</label>
+                                                <label>- 3015</label>
                                             </div>
 
-                                        </form>
+                                        </div>
+                                        <div class="col-lg-6" style="text-align:center;">
+                                            <i style="margin: 0px !important;float: none; font-size: 50px;" class="fa fa-users" aria-hidden="true"></i>
+                                            <br>
+                                            <label> Total Votes <br>
+                                                4050
+                                            </label>
+                                        </div>
                                     </div>
 
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="mp-card  mp-ph2 mp-pv2" style="color: var(--c-accent);border: solid var(--c-accent) 1px;">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="voters-text">
+                                                <label>Total Voters
+                                                    <br>4090</label>
+                                                <br>
+                                                <label>Total Members No</label>
+                                                <br>
+                                                <label>UP Manila</label>
+                                                <label>- 1054</label>
+                                                <br>
+                                                <label>PGH</label>
+                                                <label>- 3015</label>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-lg-6" style="text-align:center;">
+                                            <i style="margin: 0px !important;float: none; font-size: 50px;" class="fa fa-users" aria-hidden="true"></i>
+                                            <br>
+                                            <label> Total Members <br>
+                                                1000
+                                            </label>
+                                        </div>
+                                    </div>
 
                                 </div>
 
                             </div>
                         </div>
+
+                        <div class="tally">
+                            {{ csrf_field() }}
+                            <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+                                <h4 style="color: white;
+                                            padding: 15px;
+                                            background-color: var(--c-active-hover-bg);
+                                            margin: 0;width: 100%;">Vote Tally Reports - Real Time Analytics
+                                </h4>
+                                <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
+
+
+                                    <figure class="highcharts-figure" style="width: 100%">
+                                        <div id="container">
+                                            <div id="chart-members" style="width: 100%">
+
+                                            </div>
+                                        </div>
+                                    </figure>
+
+                                    <div class="row  mp-mb4">
+                                        <div class="col-4">
+                                            <div class="mp-card  mp-ph2 mp-pv2" style="border: solid var(--c-primary) 1px;">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+
+
+                                                        <div class="voters-text">
+                                                            <label>Summary Of Voters
+                                                                <br>(Members)</label>
+                                                            <br>
+                                                            <label>UP Manila</label>
+                                                            <label>- 1054</label>
+                                                            <br>
+                                                            <label>PGH</label>
+                                                            <label>- 3015</label>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-lg-6" style="text-align:center;">
+                                                        <i style="margin: 0px !important;float: none; font-size: 50px;" class="fa fa-users" aria-hidden="true"></i>
+                                                        <br>
+                                                        <label> Total Members <br>
+                                                            1000
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <div class="mp-card  mp-ph2 mp-pv2" style="border: solid var(--c-primary) 1px; color: var(--c-primary);">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="voters-text">
+                                                            <label>Total Voted
+                                                                <br>4,050</label>
+                                                            <br>
+                                                            <label>Voted SG 1-15</label>
+                                                            <label>- 1054</label>
+                                                            <br>
+                                                            <label>Voted SG 16-Above</label>
+                                                            <label>- 3015</label>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-lg-6" style="text-align:center;">
+                                                        <i style="margin: 0px !important;float: none; font-size: 50px;" class="fa fa-users" aria-hidden="true"></i>
+                                                        <br>
+                                                        <label> Total Votes <br>
+                                                            4050
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="mp-card  mp-ph2 mp-pv2" style="color: var(--c-accent);border: solid var(--c-accent) 1px;">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="voters-text">
+                                                            <label>Total Voters
+                                                                <br>4090</label>
+                                                            <br>
+                                                            <label>Total Members No</label>
+                                                            <br>
+                                                            <label>UP Manila</label>
+                                                            <label>- 1054</label>
+                                                            <br>
+                                                            <label>PGH</label>
+                                                            <label>- 3015</label>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-lg-6" style="text-align:center;">
+                                                        <i style="margin: 0px !important;float: none; font-size: 50px;" class="fa fa-users" aria-hidden="true"></i>
+                                                        <br>
+                                                        <label> Total Members <br>
+                                                            1000
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="results">
+                                        <div class="winner-info">
+                                            <div class="congrats">
+                                                <label>Congratulations, you are now the newly Elected official of UP Provident Func Inc</label>
+                                            </div>
+                                            <div class="name">
+                                                <label>GUANIO, VA</label>
+                                            </div>
+
+                                            <div class="campus-role">
+                                                <label>UP Manila / System Admin</label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+
+                                </div>
+
+                            </form>
+                        </div>
+
+
                     </div>
                 </div>
 
@@ -1056,8 +1793,94 @@
 
         })
 
+
+        Highcharts.chart('chart-members', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Salary Grade 1-15',
+                align: 'left'
+            },
+            // subtitle: {
+            //   text: 'Source: <a ' +
+            //     'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
+            //     'target="_blank">Wikipedia.org</a>',
+            //   align: 'left'
+            // },
+            xAxis: {
+                categories: [
+
+                    'Dela Cruz, ABCD',
+                    'Guanio, Va',
+                    'Tani Mang Mang',
+                    'Manolo, Borgi',
+
+                ],
+                title: {
+                    text: null
+                }
+            },
+            // yAxis: {
+            //   min: 0,
+            //   title: {
+            //     text: 'Population (members)',
+            //     align: 'high'
+            //   },
+            //   labels: {
+            //     overflow: 'justify'
+            //   }
+            // },
+            tooltip: {
+                valueSuffix: ' Votes'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 80,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Votes',
+                color: 'rgb(124, 181, 236)',
+                data: [{
+                        y: 631,
+                        color: 'rgb(247, 163, 92)'
+                    },
+                    {
+                        y: 1300,
+                        color: '#1a8981'
+                    },
+                    {
+                        y: 3202,
+                        color: 'rgb(124, 181, 236)'
+                    },
+                    {
+                        y: 721,
+                        color: 'rgb(247, 163, 92)'
+                    },
+
+
+                ]
+            }, ]
+        });
         document.querySelector("input[type=number]")
-            .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
+            .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1));
     </script>
 
 
