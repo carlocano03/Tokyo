@@ -115,9 +115,9 @@
 
 <div class="mp-input-group mp-mt2" id="input-app">
     <label class="mp-input-group__label">Enter your application number.<br> Make sure to use the format xxxx-xxxx <br>ex. 2023-0024</label>
-    <br><br><br><input class="mp-input-group__input mp-text-field" type="text" id="app_no_trail" placeholder="Enter your Application Number XXXX-XXXX"required />
+    <br><br><br><input class="mp-input-group__input mp-text-field" type="text" id="app_no_trail" placeholder="Enter your Application Number XXXX-XXXX" required />
     <label class="mp-input-group__label">(Your application number was emailed to your emailed provided at signup.)</label>
-  
+
 </div>
 
 <div class="col col-auto">
@@ -135,147 +135,84 @@
 </div>
 
 <div class="status-result">
-    <div class="status-title">
+    
+<div class="d-flex flex-column">
+    <div class="ft-card border-bottom-0 mp-pv2 mp-ph2 fs-large">
         Online Membership Application Status
-        <br>
-        <div class="status-icon">
-            <i class="fa fa-frown-o" aria-hidden="true" id="icon_status"></i>
+    </div>
+    <div class="card-body d-flex flex-column card border-top-0 gap-5">
+        <div class="d-flex flex-row gap-10">
+            <span>Status : </span>
+            <span class="font-bold" id="application_status"></span>
         </div>
-        <div class="status-text">
-            <span id="found_remarks">Not Found</span>
+        <div class="d-flex flex-row gap-10">
+            <span>Remarks : </span>
+            <span class="font-bold" id="validator_status"></span>
+        </div>
+        <div class="d-flex flex-row gap-10">
+            <span>Application No. : </span>
+            <span class="font-bold" id="appNo_label"></span>
+        </div>
+        <div class="d-flex flex-row gap-10">
+            <span>First Name : </span>
+            <span class="font-bold" id="fname_label"></span>
+        </div>
+        <div class="d-flex flex-row gap-10">
+            <span>Middle Name : </span>
+            <span class="font-bold" id="mname_label"></span>
+        </div>
+        <div class="d-flex flex-row gap-10">
+            <span>Last Name : </span>
+            <span class="font-bold" id="lname_label"></span>
+        </div>
+        <div class="d-flex flex-row gap-10">
+            <span>Suffix : </span>
+            <span class="font-bold" id="suffix_label"></span>
+        </div>
+        <div class="d-flex flex-row gap-10">
+            <span>Birth date : </span>
+            <span class="font-bold" id="bdate_label"></span>
+        </div>
+        <div class="d-flex flex-row gap-10">
+            <span>Appointment : </span>
+            <span class="font-bold" id="appointment_label"></span>
+        </div>
+        <div class="d-flex flex-row gap-10">
+            <span>Tin No : </span>
+            <span class="font-bold" id="tin_no_label"></span>
+        </div>
+        <div class="d-flex flex-row gap-10">
+            <span>Contact No. : </span>
+            <span class="font-bold" id="contact_no_label"></span>
+        </div>
+        <div class="d-flex flex-row gap-10">
+            <span>Land line no. : </span>
+            <span class="font-bold" id="landlineno_label"></span>
+        </div>
+        <div class="d-flex flex-row gap-10">
+            <span>Email Address : </span>
+            <span class="font-bold" id="email_add_label"></span>
         </div>
     </div>
-    <div class="status-info">
-        <div class="row">
-            <div class="col">
-                <label>Application No. : </label>
-            </div>
-            <div class="col">
-                <label id="appNo_label"></label>
-            </div>
+</div>
+
+
+    <div class="mp-mt5 d-flex flex-row items-between">
+                <button class="up-button btn-md mp-mt3 mp-mb3" id="fp_back" value="">
+                    <span>Print</span>
+                </button>
+
+                <button class="up-button btn-md mp-mt3 mp-mb3" id="print_app">Print</button>
+                <button class="up-button btn-md mp-mt3 mp-mb3 magenta-bg" id="cont_app">Continue the
+                    application</button>
         </div>
 
-        <div class="row">
-            <div class="col">
-                <label>First Name : </label>
-            </div>
-            <div class="col">
-                <label id="fname_label"></label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>Middle Name : </label>
-            </div>
-            <div class="col">
-                <label id="mname_label"></label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>Last Name : </label>
-            </div>
-            <div class="col">
-                <label id="lname_label"></label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>Suffix : </label>
-            </div>
-            <div class="col">
-                <label id="suffix_label"></label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>Birth date : </label>
-            </div>
-            <div class="col">
-                <label id="bdate_label"></label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>Appointment : </label>
-            </div>
-            <div class="col">
-                <label id="appointment_label"></label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>Tin No : </label>
-            </div>
-            <div class="col">
-                <label id="tin_no_label"></label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>Contact No. : </label>
-            </div>
-            <div class="col">
-                <label id="contact_no_label"></label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label>Land line no. : </label>
-            </div>
-            <div class="col">
-                <label id="landlineno_label"></label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <label>Email Address : </label>
-            </div>
-            <div class="col">
-                <label id="email_add_label"></label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12 status-title" style="margin-bottom: -20px;">
-                <Label>Status : </Label>
-                <label class="status-text" id="application_status"></label>
-            </div>
-            <div class="col-12 status-title">
-                <Label>Remarks : </Label>
-                <label class="status-text" id="validator_status"></label>
-            </div>
-        </div>
-
-
-        <div class="container" style="text-align:center;">
-            <div class="row">
-                <div class="col-6">
-                    <button class="up-button btn-md mp-mt3  hover-back" id="fp_back" value="" style="float:right;">
-                        <span>Close</span>
-                    </button>
-                </div>
-
-                <div class="col-6">
-                    <button class="up-button btn-md mp-mt3 mp-mb3" style="float:left;" id="print_app">Print</button>
-                    <button class="up-button btn-md mp-mt3 mp-mb3" style="float:left;" id="cont_app">Continue the
-                        application</button>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
+    
 
 </div>
+    
+
+
 @endsection
 
 @section('registration-personal-form')
@@ -587,7 +524,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage"  />
+                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
                     - 100%)</label>
             </div>
@@ -596,7 +533,7 @@
         </div>
         <div class="mp-input-group">
             <div class="d-flex gap-5">
-                <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check"  />
+                <input type="checkbox" class="options" id="fixed_amount_check" name="fixed_amount_check" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Fixed Amount ( In Philippine Peso
                     )</label>
             </div>
@@ -661,17 +598,17 @@
             <div id="proxy">
                 {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file" accept="image/png, image/gif, image/jpeg, image/jpg" /> --}}
                 <div class="mp-input-group">
-                <input type="hidden" name="appNo" id="appNo">
-                <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
-                    <span>Generate Proxy Form</span>
-                </button>
+                    <input type="hidden" name="appNo" id="appNo">
+                    <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
+                        <span>Generate Proxy Form</span>
+                    </button>
                 </div>
                 <hr>
                 <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generare Cocolife</button>
             </div>
         </div>
 
-        
+
         <button class="up-button btn-md button-animate-right mp-text-center" type="submit" id="next-btn">
             <span>Submit</span>
         </button>

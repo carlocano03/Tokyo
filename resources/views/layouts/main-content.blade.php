@@ -432,22 +432,7 @@
       <li>
         <a href="/admin/dashboard" class="{{ Request::is('admin/dashboard') ? 'active-nav' : '' }}"><i class="fa fa-dashboard"></i>My Dashboard</a>
       </li>
-      <div class="dropdown" id="dropdown">
-        <div class="nav-parent ">
-          <li><a href="#" id="membersDropdown">
-              <i class="fa fa-users"></i>
-              Online Application
-              <i class="fa fa-caret-right arrow-left" id="arrow" aria-hidden="true"></i>
-            </a></li>
-        </div>
-        <div class="nav-child">
-          <div class="dropdown-hide" id="membersDropdown-content">
-            <li><a href="/admin/members/records" id="bypass-color" class=" {{ Request::is('admin/members/records') ? 'active-nav' : '' }} "><i class="fa fa-user"></i>View Records</a></li>
-            <!-- <li><a href="/admin/members/trail"><i class="fa fa-user"></i>Application Trail</a></li> -->
-            <li><a href="#" class="bypass-color"><i class="fa fa-user"></i>Generate Report</a></li>
-          </div>
-        </div>
-      </div>
+      <li><a href="/admin/members/records" class=" {{ Request::is('admin/members/records') ? 'active-nav' : '' }} "><i class="fa fa-users"></i>Online Application</a></li>
       <li><a href="/admin/members" class="{{ Request::is('admin/members')  ? 'active-nav' : '' }}"><i class="fa fa-address-book"></i>Members Module</a></li>
       <li><a href="#"><i class="fa fa-credit-card"></i>Loan Module</a></li>
       <li><a href="#"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
