@@ -75,6 +75,9 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('adm
 Route::get('/admin/members', [AdminController::class, 'memberlist'])->name('admin.memberlist');
 Route::get('/admin/membersData', 'AdminController@memberData')->name('dataProcessing');
 Route::get('/admin/members/records', [AdminController::class, 'members_records'])->name('admin.members_records');
+Route::get('/admin/members/records/payroll', [AdminController::class, 'members_payroll']);
+Route::get('/admin/members/records/movement', [AdminController::class, 'members_movement']);
+Route::get('/admin/members/records/analytics', [AdminController::class, 'members_analytics']);
 Route::get('/admin/members/records/view/aa/{id}', [AdminController::class, 'members_view_record'])->name('admin.members_view_record');
 Route::get('/admin/members/records/view/hrdo/{id}', [AdminController::class, 'hrdo_view_record'])->name('admin.hrdo_view_record');
 Route::get('/admin/members/trail', [AdminController::class, 'members_application_trail'])->name('admin.members_application_trail');

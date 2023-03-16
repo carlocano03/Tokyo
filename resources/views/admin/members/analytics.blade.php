@@ -836,7 +836,6 @@
     })
 
     $(document).on('click', '.toggle-icon', function(e) {
-        console.log('123')
         if( $(".fa-chevron-circle-right").hasClass("d-none")) {
             $(".fa-chevron-circle-right").removeClass("d-none")
             $(".fa-chevron-circle-left").addClass("d-none")
@@ -856,6 +855,10 @@
     })
 
 </script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
 <div class="members-module">
     <div class="siderbar d-flex flex-column showed" style="position:relative">
@@ -866,7 +869,7 @@
         <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
             Membership Application 
         </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="0">
+        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="0">
             <span>
                 Application Records
             </span>
@@ -890,7 +893,7 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
             </span>
         </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
+        <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="3">
             <span>
                 Application Analytics
             </span>
@@ -901,65 +904,17 @@
     </div>
     <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
         <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
-            Application Records 
-        </div>
-        <div class="card d-flex justify-content-around w-full flex-row">
-            <div class="text-center">
-                <div>
-                    <span class="font-bold font-lg">{{$total_new}}</span>
-                </div>
-                <span class="font-sm">New Application</span>
-            </div>
-            <div class="text-center">
-                <div>
-                    <span class="font-bold font-lg">{{$forprocessing}}</span>
-                </div>
-                <span class="font-sm">Processing Application</span>
-            </div>
-            <div class="text-center">
-                <div>
-                    <span class="font-bold font-lg">{{$approved}}</span>
-                </div>
-                <span class="font-sm">Approved Application</span>
-            </div>
-            <div class="text-center">
-                <div>
-                    <span class="font-bold font-lg">{{$rejected}}</span>
-                </div>
-                <span class="font-sm">Rejected Application</span>
-            </div>
+            Application Analytics Reports
         </div>
         <div class="card-container card p-0">
-            <div class="card-header filtering items-between d-flex">
+            <div class="card-header filtering items-between d-flex magenta-bg">
                 <span>Filtering Section</span>
-                <span class="mp-pr2">
-                    <button class="f-button font-bold">Export</button>
-                    <button class="f-button font-bold">Print</button>
-                </span>
             </div>
 
 
             <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
 
                 <div class="w-full d-flex flex-row flex-wrap gap-10">
-                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                        <span>Campus</span>
-                        <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="campuses_select">
-                            <option value="">Show All</option>
-                            @foreach ($campuses as $row)
-                            <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
-                            @endforeach
-                        </select>
-                    </span>
-                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                        <span>Department</span>
-                        <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="department_select">
-                            <option value="">Show All</option>
-                            @foreach ($department as $row)
-                            <option value="{{ $row->dept_no }}">{{ $row->department_name }}</option>
-                            @endforeach
-                        </select>
-                    </span>
                     <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
                         <span>Application Date</span>
                         <div class="date_range d-flex">
@@ -969,17 +924,7 @@
                         </div>
                     </span>
                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                        <span>Status</span>
-                        <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="status_select">
-                            <option value="">Show All</option>
-                            <option value="DRAFT APPLICATION">DRAFT APPLICATION</option>
-                            <option value="NEW APPLICATION">NEW APPLICATION</option>
-                            <option value="PROCESSING">PROCESSING</option>
-                            <option value="REJECTED">REJECTED</option>
-                        </select>
-                    </span>
-                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                        <span>Remarks</span>
+                        <span>Select Cluster</span>
                         <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="remarks_select">
                             <option value="">Show All</option>
                             <option value="AA VERIFIED">AA VERIFIED</option>
@@ -988,19 +933,17 @@
                             <option value="HRDO RETURNED APPLICATIONS">HRDO RETURNED APPLICATIONS</option>
                         </select>
                     </span>
-                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
-                        @if(Auth::user()->user_level == 'ADMIN')
-                        <span>View User Option</span>
-                        <select name="view_all" id="view_all" class="radius-1 outline select-field mp-pr2" style="width: 200px; height: 30px;margin-top: auto;margin-bottom: auto;" <?= Auth::user()->user_level != 'ADMIN' ? 'disabled' : '' ?>>
-                            <option value="">All Records</option>
-                            <option value="AA" <?= Auth::user()->user_level == 'AA' ? 'selected' : '' ?>>AA</option>
-                            <option value="CFM" <?= Auth::user()->user_level == 'CFM' ? 'selected' : '' ?>>CFM</option>
-                            <option value="HRDO" <?= Auth::user()->user_level == 'HRDO' ? 'selected' : '' ?>>HRDO</option>
+                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                        <span>Select Campus</span>
+                        <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="remarks_select">
+                            <option value="">Show All</option>
+                            <option value="AA VERIFIED">AA VERIFIED</option>
+                            <option value="FORWARDED TO HRDO">FORWARDED TO HRDO</option>
+                            <option value="FORWARDED TO FM">FORWARDED TO FM</option>
+                            <option value="HRDO RETURNED APPLICATIONS">HRDO RETURNED APPLICATIONS</option>
                         </select>
-                        @endif
-
-
                     </span>
+                   
                 </div>
                 <!-- <div class="">
                                 <label for="row">Membership Date</label>
@@ -1016,71 +959,67 @@
 
             </div>
         </div>
-        <div class="card">
-            <div class="d-flex flex-row items-between flex-wrap mp-mb3">
-                <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value" />
-
-                <span class="d-flex flex-row gap-10 justify-content-center align-items-center">
-                    <select name="forward_action" id="forward_action" class="radius-1 outline select-field" style="height: 30px">
-                        <option value="">
-                            Select Action
-                        </option>
-                        @if(Auth::user()->user_level == 'HRDO')
-                        <option value="FM">Forward to Fund manager</option>
-                        @else
-                        <option value="HRDO">Forward to HRDO</option>
-                        {{-- <option value="CFM">Forward to CFM</option> --}}
-                        @endif
-                    </select>
-                    <span>
-                        <button class="f-button mar-bg proceed_fwd" id="modal_proceed">Proceed</button>
-                    </span>
-                </span>
-            </div>
-            <div class="table-container">
-                <table class="members-table" style="height: auto;" width="100%">
-                    <thead>
-                        <tr>
-                            <th style="width: 20px;">
-                                <span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check_all" id="check_all"></span>
-                            </th>
-                            <th style="width: 48px;">
-                                <span>Action</span>
-                            </th>
-                            <th>
-                                <span>Application No.</span>
-                            </th>
-                            <th>
-                                <span>Date of Application</span>
-                            </th>
-                            <th>
-                                <span>Full Name</span>
-                            </th>
-                            <th>
-                                <span>Employee No</span>
-                            </th>
-                            <th>
-                                <span>Class</span>
-                            </th>
-                            <th>
-                                <span>Position</span>
-                            </th>
-                            <th>
-                                <span>Campus</span>
-                            </th>
-                            <th>
-                                <span>Status</span>
-                            </th>
-                            <th>
-                                <span>Remarks</span>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                    </tbody>
-                </table>
-            </div>
+        <div>
+        <figure class="highcharts-figure">
+            <div id="container"></div>
+        </figure>
+        <script>
+            Highcharts.chart('container', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
+            title: {
+                text: '',
+                align: 'left'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                valueSuffix: '%'
+                }
+            },
+            plotOptions: {
+                pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: false
+                },
+                showInLegend: true
+                }
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                name: 'New',
+                    y: 74.77,
+                    // sliced: true,
+                    // selected: true
+                },  {
+                    name: 'Processing',
+                    y: 12.82
+                },  {
+                    name: 'Approved',
+                    y: 4.63
+                }, {
+                    name: 'Draft',
+                    y: 2.44
+                }, {
+                    name: 'Returned',
+                    y: 2.02
+                }, {
+                    name: 'Rejected',
+                    y: 3.28
+                }]
+            }]
+            });
+        </script>
         </div>
     </div>
 </div>
