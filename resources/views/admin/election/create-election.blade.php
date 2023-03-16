@@ -149,7 +149,7 @@
         </div>
 
         <!-- change attachment modal -->
-        <div class="" id="changeModal">
+        <div class="d-none opacity-0" id="changeModal">
             <div class="modalBody">
 
                 <div class="d-flex flex-column gap-10" style="width: 700px;"> <span style="font-weight: bold; font-size: x-large"></span>
@@ -1406,7 +1406,7 @@
             $("#electionModal").addClass("d-none")
             $("#viewAttachmentModal").addClass("d-none")
             $("#changeModal").addClass("d-none")
-        }, 1000)
+        }, 100)
     })
 
     $(document).on('click', '#setupElection', function(e) {
@@ -1447,9 +1447,10 @@
 
         $("#modalBackDrop").removeClass("d-none")
         $("#changeModal").removeClass("d-none")
-        $("#changeModal").removeClass("opacity-0")
+
         setTimeout(function() {
             $("#modalBackDrop").removeClass("opacity-0")
+            $("#changeModal").removeClass("opacity-0")
         }, 100)
     })
 
