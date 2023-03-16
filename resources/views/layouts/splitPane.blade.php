@@ -549,7 +549,6 @@
                             }
                         });
                     } else {
-
                         if (!personnel_id) {
                             Swal.fire({
                                 title: 'Are you sure you want to proceed this registration?',
@@ -1376,6 +1375,7 @@
     });
     $(document).on('click', '#cont_app', function(e) {
         window.location.href = `/register?draft=${query}`;
+        
         // var app_trailno = query;
         // $.ajax({
         //     url: "{{ route('continued_trail') }}",

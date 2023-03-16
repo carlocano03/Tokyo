@@ -160,6 +160,7 @@
     $(document).ready(function() {
         const searchParams = new URLSearchParams(window.location.search);
         var app_trailno = searchParams.get('draft');
+        
         $.getJSON('/options_psgc', function(options) {
             $.each(options, function(index, option) {
                 $('#present_province').append($('<option>', {
@@ -220,11 +221,14 @@
                         mems_id = data.employee_details_ID;
                         mem_id = data.mem_app_ID;
                         employee_no = data.employee_no == null ? '' : data.employee_no;
-                        reference_no = data.app_no == null ? '' : data.app_no;
-                        $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
+                        // reference_no = data.app_no == null ? '' : data.app_no;
+                        reference_no = app_trailno == '' ? 'N/A' : app_trailno;
+                        // $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
+                        $('#app_no').val(app_trailno == '' ? 'N/A' : app_trailno);
                         $('#employee_details_ID').val(data.employee_details_ID == null ? '' : data
                             .employee_details_ID);
-                        $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
+                        // $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
+                        $('#app_trailNo').val(app_trailno == '' ? 'N/A' : app_trailno);
                         $("[name='lastname']").val(data.lastname == null ? '' : data.lastname);
                         if (data.no_middlename == 1) {
                             $('#no_middlename').prop('checked', true);
@@ -387,7 +391,7 @@
     // //     $(e).removeAttr("hidden");
     // // });
 
-    var stepTitle = ["Step 1: Enter your Personal Information", "Step 2: Enter your Employment Details", "Step 3: Enter your Membership Details", "Step 4: Forms & Attachment"]
+    var stepTitle = ["Step 1: Enter your Personal Information", "Step 2: Enter your Employment Details", "Step 3: Enter your Membership Details", "Step 4: Forms & Attachment-"]
     var steps = ["Step 1: ", "Step 2: ", "Step 3: ", "Step 4: "]
     var present_provcode;
     $(document).on('change', '#present_province', function() {
@@ -707,8 +711,6 @@
                     return (!$.trim($(this).val()).length);
                 });
 
-
-
                 clearErrorField([
                     'firstname',
                     'middlename',
@@ -874,7 +876,6 @@
                             }
                         });
                     } else {
-
                         if (!personnel_id) {
                             $.ajax({
                                 type: 'POST',
@@ -1609,7 +1610,7 @@
             $("#min_contri").text(total.toFixed(2));
         } else {
             $('#percentage_bsalary').prop('disabled', false);
-            $('#percentage_check').prop('disabled', true);
+            $('#percentage_check').prop('disabled', false);
             $('#fixed_amount').val('');
             $("#min_contri").text('');
         }
@@ -1814,6 +1815,7 @@
         $('.status-result').hide();
         $('#app_no_trail').val('');
         var app_trailno = query;
+        console.log(app_trailno);
         $.ajax({
             url: "{{ route('continued_trail') }}",
             data: {

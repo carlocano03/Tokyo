@@ -50,8 +50,11 @@ class HomeController extends Controller
         'relationship' => strtoupper($request->input('relation')),
         'personal_id'  => $request->input('employee_no'),
       );
-      $dependent = Beneficiaries::where('fullname', strtoupper($request->input('name')));
-      if ($dependent->first()) {
+      $dependent = Beneficiaries::where('fullname', strtoupper($request->input('name')))
+                   ->where('personal_id', $request->input('employee_no'))
+                   ->where('date_birth', $request->input('bday'))
+                   ->first();
+      if ($dependent) {
         $message = 'Exists';
       } else {
         DB::table('beneficiaries')->insert($addBeneficiaries);
@@ -507,7 +510,7 @@ class HomeController extends Controller
     // $path = $file->storeAs('signature', $newName, 'public');
 
     $signFile['app_no'] = $request->input('appNo');
-    $signFile['sign'] = strtoupper($request->input('esig'));
+    $signFile['sign'] = $request->input('esig');
     // $signFile['sign_path'] = '/storage/' . $path;
     DB::table('member_signature')->insert($signFile);
   }
