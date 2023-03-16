@@ -932,13 +932,8 @@
                 <div class="card-header filtering items-between d-flex">
                     <span>Filtering Section</span>
                 </div>
-<<<<<<< HEAD
                 <div class="card-body filtering-section-body justify-content-center gap-10 flex-column h-100">
                     <div class="w-full d-flex flex-row flex-wrap gap-10">
-=======
-                <div class="card-body filtering-section-body justify-content-center gap-10 flex-row h-100">
-                    <div class="w-full d-flex flex-column gap-10">
->>>>>>> f7a3b5da56cde20e6d0f64585e174023c2dcedc3
                         <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
                             <span>Date Range</span>
                             <div class="date_range d-flex">
