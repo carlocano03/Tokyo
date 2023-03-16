@@ -138,29 +138,111 @@
                                     <label class="mp-input-group__label">File Attachment</label>
                                     <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
                                 </div>
-
-
-
-
-
-
-
                                 <a class="up-button btn-md button-animate-right mp-text-center">
                                     <span>ADD CANDIDATE</span>
                                 </a>
-
-
-
-
                             </div>
-
                         </form>
-
-
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- change attachment modal -->
+        <div class="d-none opacity-0" id="changeModal">
+            <div class="modalBody">
+
+                <div class="d-flex flex-column gap-10" style="width: 700px;"> <span style="font-weight: bold; font-size: x-large"></span>
+                    <label class="close-button" id="closeModal">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </label>
+                    <div class="top-label">
+                        <label>Edit Info</label>
+                        <br>
+                        {{ csrf_field() }}
+                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+
+                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
+                                <input type="hidden" id="app_trailNo">
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change Salary Grade</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">1-15 Category</option>
+                                        <option value="0">16-above Category</option>
+                                    </select>
+
+
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change Candidate Name</label>
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="first_name" />
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change Cluster</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">Cluster 1</option>
+                                        <option value="0">Cluster 2</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change Campus</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">Campus 1</option>
+                                        <option value="0">Campus 2</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change Candidate Image/Photo *</label>
+                                    <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change File Attachment</label>
+                                    <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+                                <a class="up-button btn-md button-animate-right mp-text-center">
+                                    <span>Change</span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- view attachment modal end -->
+
+        <!-- view attachment modal -->
+        <div class="d-none opacity-0" id="viewAttachmentModal">
+            <div class="modalBody">
+
+                <div class="d-flex flex-column gap-10" style="width: 700px;"> <span style="font-weight: bold; font-size: x-large"></span>
+                    <label class="close-button" id="closeModal">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </label>
+                    <div class="top-label">
+                        <label>Denneb Gomez - President | Attachment</label>
+                        <br>
+                        {{ csrf_field() }}
+                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+
+                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
+                                <input type="hidden" id="app_trailNo">
+                                <div class="mp-input-group" style="text-align:center;">
+                                    <label class="mp-input-group__label">Attachment Info</label>
+                                </div>
+                                <i class="fa fa-database db-text" style="text-align:center; margin:0px;" aria-hidden="true"></i>
+                                <!-- <a id="closeModal" class="up-button btn-md button-animate-right mp-text-center">
+                                    <span>Close</span>
+                                </a> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- view attachment modal end -->
+
 
         <!-- <div class="modalFooter gap-10">
             <button id="agree">
@@ -874,7 +956,7 @@
         height: auto;
         background-color: white;
         margin-bottom: 100px;
-        margin-top: 20px;
+        margin-top: 100px;
         padding: 0;
         border-radius: 17px;
         transition: all .5s;
@@ -1187,9 +1269,9 @@
                                                         </div>
                                                         <div class="profile-button">
 
-                                                            <button class="up-button">View Attachment</button>
-                                                            <button class="up-button-green">Change</button>
-                                                            <button class="up-button-red">Remove</button>
+                                                            <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
+                                                            <button type="button" class="up-button-green" id="changeButton">Change</button>
+                                                            <button type="button" class="up-button-red" id="removeButton">Remove</button>
 
                                                         </div>
 
@@ -1213,11 +1295,9 @@
 
                                                         </div>
                                                         <div class="profile-button">
-
-                                                            <button class="up-button">View Attachment</button>
-                                                            <button class="up-button-green">Change</button>
-                                                            <button class="up-button-red">Remove</button>
-
+                                                            <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
+                                                            <button type="button" class="up-button-green" id="changeButton">Change</button>
+                                                            <button type="button" class="up-button-red" id="removeButton">Remove</button>
                                                         </div>
 
                                                     </div>
@@ -1256,9 +1336,9 @@
                                                     </div>
                                                     <div class="profile-button">
 
-                                                        <button class="up-button">View Attachment</button>
-                                                        <button class="up-button-green">Change</button>
-                                                        <button class="up-button-red">Remove</button>
+                                                        <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
+                                                        <button type="button" class="up-button-green" id="changeButton">Change</button>
+                                                        <button type="button" class="up-button-red" id="removeButton">Remove</button>
 
                                                     </div>
 
@@ -1282,9 +1362,9 @@
                                                     </div>
                                                     <div class="profile-button">
 
-                                                        <button class="up-button">View Attachment</button>
-                                                        <button class="up-button-green">Change</button>
-                                                        <button class="up-button-red">Remove</button>
+                                                        <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
+                                                        <button type="button" class="up-button-green" id="changeButton">Change</button>
+                                                        <button type="button" class="up-button-red" id="removeButton">Remove</button>
 
                                                     </div>
 
@@ -1315,9 +1395,18 @@
 <script>
     $(document).on('click', '#closeModal', function(e) {
         $("#modalBackDrop").addClass("opacity-0")
+        $("#electionModal").addClass("opacity-0")
+        $("#candidateModal").addClass("opacity-0")
+        $("#viewAttachmentModal").addClass("opacity-0")
+        $("#changeModal").addClass("opacity-0")
+
         setTimeout(function() {
             $("#modalBackDrop").addClass("d-none")
-        }, 1000)
+            $("#candidateModal").addClass("d-none")
+            $("#electionModal").addClass("d-none")
+            $("#viewAttachmentModal").addClass("d-none")
+            $("#changeModal").addClass("d-none")
+        }, 100)
     })
 
     $(document).on('click', '#setupElection', function(e) {
@@ -1343,6 +1432,44 @@
             $("#modalBackDrop").removeClass("opacity-0")
         }, 100)
     })
+
+    $(document).on('click', '#viewAttachmentButton', function(e) {
+
+        $("#modalBackDrop").removeClass("d-none")
+        $("#viewAttachmentModal").removeClass("d-none")
+        $("#viewAttachmentModal").removeClass("opacity-0")
+        setTimeout(function() {
+            $("#modalBackDrop").removeClass("opacity-0")
+        }, 100)
+    })
+
+    $(document).on('click', '#changeButton', function(e) {
+
+        $("#modalBackDrop").removeClass("d-none")
+        $("#changeModal").removeClass("d-none")
+
+        setTimeout(function() {
+            $("#modalBackDrop").removeClass("opacity-0")
+            $("#changeModal").removeClass("opacity-0")
+        }, 100)
+    })
+
+    $(document).on('click', '#removeButton', function(e) {
+        Swal.fire({
+            title: 'Do you want to delete this candidate?',
+            showDenyButton: true,
+            showCancelButton: true,
+            showConfirmButton: false,
+            denyButtonText: `Delete`,
+        }).then((result) => {
+
+            if (result.isDenied) {
+                Swal.fire('Deleted!', '', 'success')
+            }
+        })
+
+    })
+
     $(document).on('click', '#showSettings', function(e) {
         if ($("#settingsTab").hasClass("col-lg-2")) {
             $("#settingsTab").addClass("d-none");

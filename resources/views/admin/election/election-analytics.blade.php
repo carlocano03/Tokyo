@@ -1431,6 +1431,20 @@
     .campus-role label {
         font-size: 15px;
     }
+
+    .cluster-tab-button {
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border: 1px solid #cec7c7;
+        margin-right: -5px !important;
+    }
+
+    .cluster-button-active {
+        background-color: var(--c-accent) !important;
+        color: white !important;
+    }
 </style>
 
 
@@ -1487,6 +1501,14 @@
                 <div class="button-container mp-mb3">
                     <button class="f-button magenta-bg" id="showSettings">Hide Tab</button>
                 </div>
+
+                <button class="cluster-button-active cluster-tab-button">Cluster 1</button>
+                <button class=" cluster-tab-button">Cluster 2</button>
+                <button class=" cluster-tab-button">Cluster 3</button>
+                <button class=" cluster-tab-button">Cluster 4</button>
+
+
+
                 <div class="mp-card  mp-ph2 mp-pv2">
                     <div class="top-label">
                         <div class="mp-pt3 d-flex  flex-column mp-pb3 mp-pv2  ">
