@@ -932,8 +932,8 @@
                 <div class="card-header filtering items-between d-flex">
                     <span>Filtering Section</span>
                 </div>
-                <div class="card-body filtering-section-body justify-content-center gap-10 flex-row h-100">
-                    <div class="w-full d-flex flex-column gap-10">
+                <div class="card-body filtering-section-body justify-content-center gap-10 flex-column h-100">
+                    <div class="w-full d-flex flex-row flex-wrap gap-10">
                         <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
                             <span>Date Range</span>
                             <div class="date_range d-flex">
@@ -962,6 +962,9 @@
                                 <option value="REJECTED">REJECTED</option>
                             </select>
                         </span>
+                    </div>
+                    <br>
+                    <div class="w-full d-flex flex-column flex-wrap gap-10 h-100">
                         <button class="f-button mp-text-fs-medium gray-bg" style="margin-top: auto">CLEAR ALL</button>
                         <button class="f-button magenta-bg mp-text-fs-medium">GENERATE REPORTS</button>
                     </div>
