@@ -178,6 +178,52 @@ class AdminController extends Controller
     );
     return view('admin.members.records')->with($data);
   }
+
+  public function members_movement()
+  {
+    $total_new = DB::table('mem_app')->where('app_status', 'NEW APPLICATION')->count();
+    $forprocessing = DB::table('mem_app')->where('app_status', 'PROCESSING')->where('validator_remarks', '')->count();
+    $Approved = DB::table('mem_app')->where('app_status', 'PROCESSING')->where('validator_remarks', 'FORWARDED TO HRDO')->count();
+    $draft = DB::table('mem_app')->where('app_status', 'DRAFT APPLICATION')->count();
+    $rejected = DB::table('mem_app')->where('app_status', 'REJECTED')->count();
+    $userId = Auth::user()->id;
+    $cfmCluster = DB::table('user_prev')
+      ->join('users', 'user_prev.users_id', '=', 'users.id')
+      ->select('user_prev.cfm_cluster')
+      ->where('users.id', '=', $userId)
+      ->value('cfm_cluster');
+    $users = Auth::user()->user_level;
+    if ($users == 'ADMIN') {
+      $campuses = DB::table('campus')->get();
+    } elseif ($users == 'HRDO') {
+      $campuses = DB::table('campus')->where('id', '=', Auth::user()->campus_id)->get();
+    } else {
+      $campuses = DB::table('campus')->where('cluster_id', '=', $cfmCluster)->get();
+    }
+    $department = DB::table('department')->get();
+    $data = array(
+      'total_new' => $total_new,
+      'forprocessing' => $forprocessing,
+      'approved' => $Approved,
+      'draft' => $draft,
+      'rejected' => $rejected,
+      'campuses' => $campuses,
+      'department' => $department,
+    );
+    return view('admin.members.movement')->with($data);
+  }
+
+  public function members_payroll()
+  {
+    return view('admin.members.payroll');
+  }
+
+  public function members_analytics()
+  {
+    return view('admin.members.analytics');
+  }
+
+
   public function members_view_record($id)
   {
     // DB::enableQueryLog();
@@ -302,7 +348,7 @@ class AdminController extends Controller
       'rec' => $records,
       'trailing' => $trailing
     );
-    return view('admin.members.view.aavalidation')->with($data);
+    return view('admin.members.view.aavalidation.personal-details')->with($data);
   }
 
   public function hrdo_view_record($id)

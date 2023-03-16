@@ -866,7 +866,7 @@
         <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
             Membership Application 
         </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="0">
+        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="0">
             <span>
                 Application Records
             </span>
@@ -882,7 +882,7 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
             </span>
         </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="2">
+        <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="2">
             <span>
                 Application Movement Reports
             </span>
@@ -898,36 +898,10 @@
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
             </span>
         </div>
-    </div>
+    </div>  
     <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
         <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
-            Application Records 
-        </div>
-        <div class="card d-flex justify-content-around w-full flex-row">
-            <div class="text-center">
-                <div>
-                    <span class="font-bold font-lg">{{$total_new}}</span>
-                </div>
-                <span class="font-sm">New Application</span>
-            </div>
-            <div class="text-center">
-                <div>
-                    <span class="font-bold font-lg">{{$forprocessing}}</span>
-                </div>
-                <span class="font-sm">Processing Application</span>
-            </div>
-            <div class="text-center">
-                <div>
-                    <span class="font-bold font-lg">{{$approved}}</span>
-                </div>
-                <span class="font-sm">Approved Application</span>
-            </div>
-            <div class="text-center">
-                <div>
-                    <span class="font-bold font-lg">{{$rejected}}</span>
-                </div>
-                <span class="font-sm">Rejected Application</span>
-            </div>
+            Application Movement Reports
         </div>
         <div class="card-container card p-0">
             <div class="card-header filtering items-between d-flex">
