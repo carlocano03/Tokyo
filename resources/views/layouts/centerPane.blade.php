@@ -27,65 +27,65 @@
             </div>
             <div class="modal-body">
                 <form id="generateAxa" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                <input type="hidden" name="app_number" id="app_number">
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Place of Birth</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Employer/Union/Association</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="emp_union_assoc" id="emp_union_assoc" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Occupation</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">SSS/GSIS No.</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="sss_gsis" id="sss_gsis" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Name of Spouse</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="spouse_name" id="spouse_name" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Monther's Maiden Name</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="maiden_name" id="maiden_name" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Insured Type</label>
-                    <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
-                    <select name="insuted_type" id="insuted_type" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="INSURED">INSURED</option>
-                        <option value="DEPENDENT">DEPENDENT</option>
-                    </select>
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">PERSON TO BE CONTACED IN CASE OF EMERGENCY</label><br>
-                    <label class="mp-input-group__label">Last Name</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="last_name" id="last_name" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">First Name</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Middle Name</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="middle_name" id="middle_name" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Relationship to the member</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Contact No.</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="axa_contact_no" id="axa_contact_no" />
-                </div>
-                <div class="mp-input-group">
-                    <label class="mp-input-group__label">Email Address</label>
-                    <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
-                </div>
+                    {{ csrf_field() }}
+                    <input type="hidden" name="app_number" id="app_number">
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Place of Birth</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Employer/Union/Association</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="emp_union_assoc" id="emp_union_assoc" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Occupation</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">SSS/GSIS No.</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="sss_gsis" id="sss_gsis" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Name of Spouse</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="spouse_name" id="spouse_name" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Monther's Maiden Name</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="maiden_name" id="maiden_name" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Insured Type</label>
+                        <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
+                        <select name="insuted_type" id="insuted_type" class="radius-1 outline select-field" style="font-size: normal;">
+                            <option value="INSURED">INSURED</option>
+                            <option value="DEPENDENT">DEPENDENT</option>
+                        </select>
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">PERSON TO BE CONTACED IN CASE OF EMERGENCY</label><br>
+                        <label class="mp-input-group__label">Last Name</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="last_name" id="last_name" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">First Name</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Middle Name</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="middle_name" id="middle_name" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Relationship to the member</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Contact No.</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="axa_contact_no" id="axa_contact_no" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Email Address</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                    </div>
 
             </div>
 
@@ -98,7 +98,7 @@
                         <button class="up-button btn-md" type="button" id="btn-axa">
                             <span>Generate</span>
                         </button>
-                     </form>
+                        </form>
                     </div>
                 </div>
 
@@ -162,13 +162,13 @@
         var app_trailno = searchParams.get('draft');
         $.getJSON('/options_psgc', function(options) {
             $.each(options, function(index, option) {
-                    $('#present_province').append($('<option>', {
-                        value: option.code,
-                        text: option.name.toUpperCase()
-                    }));
-                });
+                $('#present_province').append($('<option>', {
+                    value: option.code,
+                    text: option.name.toUpperCase()
+                }));
             });
-            $.getJSON('/options', function(options) {
+        });
+        $.getJSON('/options', function(options) {
             $.each(options, function(index, option) {
                 $('#campus').append($('<option>', {
                     value: option.campus_key,
@@ -207,7 +207,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-           
+
             $.ajax({
                 url: "{{ route('continued_trail') }}",
                 data: {
@@ -387,7 +387,7 @@
     // //     $(e).removeAttr("hidden");
     // // });
 
-    var stepTitle = ["Enter your Personal Information", "Enter your Employment Details", "Enter your Membership Details", "Forms & Attachment-"]
+    var stepTitle = ["Step 1: Enter your Personal Information", "Step 2: Enter your Employment Details", "Step 3: Enter your Membership Details", "Step 4: Forms & Attachment"]
     var steps = ["Step 1: ", "Step 2: ", "Step 3: ", "Step 4: "]
     var present_provcode;
     $(document).on('change', '#present_province', function() {
@@ -471,7 +471,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-       
+
     });
 
 
@@ -528,7 +528,7 @@
     $(document).on('change', '#barangay', function() {
         $("#barangay_name").val($("#barangay").find("option:selected").text());
     });
-    
+
 
     $(document).on('click', '#modal_name_pop', function(e) {
         var appNo = query;
@@ -669,22 +669,24 @@
     var college_unit;
     var dept_no;
     var print_emp;
+
     function isValidEmail(email) {
         // Regular expression for email validation
-        if(email.length == 0){
+        if (email.length == 0) {
             return false
         }
         var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
         return emailRegex.test(email);
     }
+
     function clearErrorField(names) {
-        names.map((name)=> {
+        names.map((name) => {
             try {
-                $("[data-set="+name+"]>#err-msg").addClass('d-none')
-                $("[data-set="+name+"]>select").removeClass('input-error')
-                $("[data-set="+name+"]>.input").removeClass('input-error')
-                $("[data-set="+name+"]>input").removeClass('input-error')
-            } catch(e){
+                $("[data-set=" + name + "]>#err-msg").addClass('d-none')
+                $("[data-set=" + name + "]>select").removeClass('input-error')
+                $("[data-set=" + name + "]>.input").removeClass('input-error')
+                $("[data-set=" + name + "]>input").removeClass('input-error')
+            } catch (e) {
                 console.log(e)
             }
         })
@@ -705,8 +707,8 @@
                     return (!$.trim($(this).val()).length);
                 });
 
-                
-                
+
+
                 clearErrorField([
                     'firstname',
                     'middlename',
@@ -721,124 +723,123 @@
                     'contact_no',
                     'email',
                 ])
-               
+
                 var gender = $('#member_forms').find("[name=gender]")
-                if(gender.val() == "") {
+                if (gender.val() == "") {
                     empty.push(gender[0])
                 }
                 var province = $('#member_forms').find("[name=present_province]")
-                if(province.val() == "" || province.val() == null || province.val() == undefined) {
+                if (province.val() == "" || province.val() == null || province.val() == undefined) {
                     empty.push(province[0])
                 }
                 var municipality = $('#member_forms').find("[name=present_municipality]")
-                if(municipality.val() == "" || municipality.val() == null || municipality.val() == undefined) {
+                if (municipality.val() == "" || municipality.val() == null || municipality.val() == undefined) {
                     empty.push(municipality[0])
                 }
                 var barangay = $('#member_forms').find("[name=present_barangay]")
-                if(barangay.val() == "" || barangay.val() == null || barangay.val() == undefined) {
+                if (barangay.val() == "" || barangay.val() == null || barangay.val() == undefined) {
                     empty.push(barangay[0])
                 }
-                
+
                 var sameAddress = $("#perm_add_check").prop('checked')
-                if(sameAddress == false) {
+                if (sameAddress == false) {
                     var per_province = $('#member_forms').find("[name=province]")
-                    if((per_province.val() == "" || per_province.val() == null || per_province.val() == undefined)) {
+                    if ((per_province.val() == "" || per_province.val() == null || per_province.val() == undefined)) {
                         empty.push(per_province[0])
                     }
                     var per_municipality = $('#member_forms').find("[name=municipality]")
-                    if((per_municipality.val() == "" || per_municipality.val() == null || per_municipality.val() == undefined)) {
+                    if ((per_municipality.val() == "" || per_municipality.val() == null || per_municipality.val() == undefined)) {
                         empty.push(per_municipality[0])
                     }
                     var per_barangay = $('#member_forms').find("[name=barangay]")
-                    if((per_barangay.val() == "" || per_barangay.val() == null || per_barangay.val() == undefined)) {
+                    if ((per_barangay.val() == "" || per_barangay.val() == null || per_barangay.val() == undefined)) {
                         empty.push(per_barangay[0])
                     }
                 }
 
-              
+
 
                 var contact = $('#member_forms').find("[name=contact_no]")
-               
+
                 const mobile_number = contact.val()
-                
-                if (mobile_number.length === 11 && mobile_number.substring(0, 3) === "090" || mobile_number.substring(0, 3) === "091" || mobile_number.substring(0, 3) === "092" || mobile_number.substring(0, 3) === "093" || mobile_number.substring(0, 3) === "094" || mobile_number.substring(0, 3) === "095" || mobile_number.substring(0, 3) === "096" || mobile_number.substring(0, 3) === "097" || mobile_number.substring(0, 3) === "098") {
-                } else {
+
+                if (mobile_number.length === 11 && mobile_number.substring(0, 3) === "090" || mobile_number.substring(0, 3) === "091" || mobile_number.substring(0, 3) === "092" || mobile_number.substring(0, 3) === "093" || mobile_number.substring(0, 3) === "094" || mobile_number.substring(0, 3) === "095" || mobile_number.substring(0, 3) === "096" || mobile_number.substring(0, 3) === "097" || mobile_number.substring(0, 3) === "098") {} else {
                     empty.push(contact[0])
                 }
-                
+
                 var email = $('#member_forms').find("[name=email]")
                 if (!isValidEmail(email.val())) {
                     empty.push(email[0])
                 }
-                
+
                 if (empty.length) {
                     // var emptyFields = [];
                     // empty.each(function() {
                     // emptyFields.push($(this).attr("id"));
                     // });
-                    empty.map((index,element) => {
+                    empty.map((index, element) => {
                         const name = $(element).attr("name")
-                        if(name == 'contact_no') {
+                        if (name == 'contact_no') {
                             const mobile_number = $(element).val()
                             if (mobile_number.length === 11 && mobile_number.substring(0, 3) === "090" || mobile_number.substring(0, 3) === "091" || mobile_number.substring(0, 3) === "092" || mobile_number.substring(0, 3) === "093" || mobile_number.substring(0, 3) === "094" || mobile_number.substring(0, 3) === "095" || mobile_number.substring(0, 3) === "096" || mobile_number.substring(0, 3) === "097" || mobile_number.substring(0, 3) === "098") {
-                                $("[data-set="+name+"]>#err-msg").addClass('d-none')
-                                $("[data-set="+name+"]>select").removeClass('input-error')
-                                return 
+                                $("[data-set=" + name + "]>#err-msg").addClass('d-none')
+                                $("[data-set=" + name + "]>select").removeClass('input-error')
+                                return
                             } else {
-                                $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please input valid cellphone number (Ex. 09xx-xxx-xxxx).")
-                                $("[data-set="+name+"]>select").addClass('input-error')
-                                return 
-                            }
-                        }
-                        if(name == 'email') {
-                            const email = $(element).val()
-                            if (!isValidEmail(email)) {
-                                $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Invalid input, please check your email address. (email address must contain @sample.com).")
-                                $("[data-set="+name+"]>select").addClass('input-error')
+                                $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please input valid cellphone number (Ex. 09xx-xxx-xxxx).")
+                                $("[data-set=" + name + "]>select").addClass('input-error')
                                 return
                             }
-                            $("[data-set="+name+"]>#err-msg").addClass('d-none')
-                            $("[data-set="+name+"]>select").removeClass('input-error')
+                        }
+                        if (name == 'email') {
+                            const email = $(element).val()
+                            if (!isValidEmail(email)) {
+                                $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid input, please check your email address. (email address must contain @sample.com).")
+                                $("[data-set=" + name + "]>select").addClass('input-error')
+                                return
+                            }
+                            $("[data-set=" + name + "]>#err-msg").addClass('d-none')
+                            $("[data-set=" + name + "]>select").removeClass('input-error')
                             return
                         }
-                        if(name == 'gender'){
-                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select gender.")
-                            $("[data-set="+name+"]>select").addClass('input-error')
-                            return 
+                        if (name == 'gender') {
+                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select gender.")
+                            $("[data-set=" + name + "]>select").addClass('input-error')
+                            return
                         }
-                        if(name == 'province'){
-                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your province.")
-                            $("[data-set="+name+"]>select").addClass('input-error')
-                            return 
+                        if (name == 'province') {
+                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your province.")
+                            $("[data-set=" + name + "]>select").addClass('input-error')
+                            return
                         }
-                        if(name == 'present_province'){
-                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your province.")
-                            $("[data-set="+name+"]>select").addClass('input-error')
-                            return 
+                        if (name == 'present_province') {
+                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your province.")
+                            $("[data-set=" + name + "]>select").addClass('input-error')
+                            return
                         }
-                        if(name == 'present_municipality'){
-                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your municipality.")
-                            $("[data-set="+name+"]>select").addClass('input-error')
-                            return 
+                        if (name == 'present_municipality') {
+                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your municipality.")
+                            $("[data-set=" + name + "]>select").addClass('input-error')
+                            return
                         }
-                        if(name == 'municipality'){
-                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your municipality.")
-                            $("[data-set="+name+"]>select").addClass('input-error')
-                            return 
+                        if (name == 'municipality') {
+                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your municipality.")
+                            $("[data-set=" + name + "]>select").addClass('input-error')
+                            return
                         }
-                        if(name == 'present_barangay'){
-                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your barangay.")
-                            $("[data-set="+name+"]>select").addClass('input-error')
-                            return 
+                        if (name == 'present_barangay') {
+                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your barangay.")
+                            $("[data-set=" + name + "]>select").addClass('input-error')
+                            return
                         }
-                        if(name == 'barangay'){
-                            $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please select your barangay.")
-                            $("[data-set="+name+"]>select").addClass('input-error')
-                            return 
+                        if (name == 'barangay') {
+                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your barangay.")
+                            $("[data-set=" + name + "]>select").addClass('input-error')
+                            return
                         }
-                        $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please fill out this field.")
-                        $("[data-set="+name+"]>input").addClass('input-error')
-                        $("[data-set="+name+"]>.input").addClass('input-error')
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please fill out this field.")
+                        $("[data-set=" + name + "]>input").addClass('input-error')
+                        $("[data-set=" + name + "]>.input").addClass('input-error')
                     })
                     empty.first().focus();
                     // swal.fire("Error!", "Please fill out the required fields", "error");
@@ -997,30 +998,30 @@
                 'monthly_salary',
                 'tin_no',
                 'employee_no'
-                
+
             ])
 
             var empty = $('#member_forms_con').find("input[required]").filter(function() {
                 return !$.trim($(this).val()).length;
             });
-            
+
             console.log(mem_id);
             console.log(employee_details_ID);
 
             var campus = $('#member_forms_con').find("[name=campus]")
-            if(campus.val() == "") {
+            if (campus.val() == "") {
                 empty.push(campus[0])
             }
             var classification = $('#member_forms_con').find("[name=classification]")
-            if(classification.val() == "") {
+            if (classification.val() == "") {
                 empty.push(classification[0])
             }
             var college_unit = $('#member_forms_con').find("[name=college_unit]")
-            if(college_unit.val() == "") {
+            if (college_unit.val() == "") {
                 empty.push(college_unit[0])
             }
             var appointment = $('#member_forms_con').find("[name=appointment]")
-            if(appointment.val() == "") {
+            if (appointment.val() == "") {
                 empty.push(appointment[0])
             }
 
@@ -1033,41 +1034,41 @@
                 $("[data-set=date_appoint_months]>#err-msg").addClass('d-none')
                 $("[data-set=date_appoint_months]>.input").removeClass('input-error')
             }
-            
+
             if (empty.length) {
-                empty.map((index,element) => {
-                //     'campus',
-                // 'classification',
-                // 'college_unit',
-                // '',
-                // 'date_appoint_months',
-                // '',
-                // '',
-                // ''
+                empty.map((index, element) => {
+                    //     'campus',
+                    // 'classification',
+                    // 'college_unit',
+                    // '',
+                    // 'date_appoint_months',
+                    // '',
+                    // '',
+                    // ''
                     const name = $(element).attr("name")
-                    $("[data-set="+name+"]>#err-msg").removeClass('d-none').text("Please fill out this field.")
-                    $("[data-set="+name+"]>select").addClass('input-error')
-                    $("[data-set="+name+"]>input").addClass('input-error')
-                    $("[data-set="+name+"]>.input").addClass('input-error')
-                    if(name == 'campus') {
-                        $("[data-set="+name+"]>#err-msg").text("Please select a campus.")
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please fill out this field.")
+                    $("[data-set=" + name + "]>select").addClass('input-error')
+                    $("[data-set=" + name + "]>input").addClass('input-error')
+                    $("[data-set=" + name + "]>.input").addClass('input-error')
+                    if (name == 'campus') {
+                        $("[data-set=" + name + "]>#err-msg").text("Please select a campus.")
                     }
-                    if(name == 'classification') {
-                        $("[data-set="+name+"]>#err-msg").text("Please select an employee classification.")
+                    if (name == 'classification') {
+                        $("[data-set=" + name + "]>#err-msg").text("Please select an employee classification.")
                     }
-                    if(name == 'employee_no') {
-                        $("[data-set="+name+"]>#err-msg").text("Please input your employee number.")
+                    if (name == 'employee_no') {
+                        $("[data-set=" + name + "]>#err-msg").text("Please input your employee number.")
                     }
-                    if(name == 'monthly_salary') {
-                        $("[data-set="+name+"]>#err-msg").text("Please input your salary.")
+                    if (name == 'monthly_salary') {
+                        $("[data-set=" + name + "]>#err-msg").text("Please input your salary.")
                     }
-                    if(name == 'tin_no') {
-                        $("[data-set="+name+"]>#err-msg").text("Please input your TIN number.")
+                    if (name == 'tin_no') {
+                        $("[data-set=" + name + "]>#err-msg").text("Please input your TIN number.")
                     }
-                    if(name == 'appointment') {
-                        $("[data-set="+name+"]>#err-msg").text("Please select an appointment status.")
+                    if (name == 'appointment') {
+                        $("[data-set=" + name + "]>#err-msg").text("Please select an appointment status.")
                     }
-                    
+
                 })
                 empty.first().focus();
                 // swal.fire("Error!", "Please fill out the required fields", "error");
@@ -1249,7 +1250,7 @@
             $("[data-set=percentage_check]>input").removeClass('input-error')
             $("[data-set=fixed_amount_check]>#err-msg").addClass('d-none')
             $("[data-set=fixed_amount_check]>input").removeClass('input-error')
-            
+
             const percentage_check = $('#percentage_check').prop("checked");
             const percentage_bsalary = $('#percentage_bsalary').val();
             const fixed_amount_check = $('#fixed_amount_check').prop("checked");
@@ -1257,17 +1258,17 @@
 
             let hasError = false
 
-            if(percentage_check && percentage_bsalary.trim() == "") {
+            if (percentage_check && percentage_bsalary.trim() == "") {
                 $("[data-set=percentage_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly contribution.")
                 $("[data-set=percentage_check]>input").addClass('input-error')
                 hasError = true
             }
-            if(fixed_amount_check && fixed_amount.trim() == "") {
+            if (fixed_amount_check && fixed_amount.trim() == "") {
                 $("[data-set=fixed_amount_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly contribution.")
                 $("[data-set=fixed_amount_check]>input").addClass('input-error')
                 hasError = true
             }
-            if(hasError || (!percentage_check && !fixed_amount_check)) {
+            if (hasError || (!percentage_check && !fixed_amount_check)) {
                 // swal.fire("Error!", "Please fill out the required fields", "error");
                 return false
             }
@@ -1282,8 +1283,8 @@
             $("#registration-title").text(stepTitle[3])
             $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
             $("#stepper-4").addClass("active")
-           
-            
+
+
         }
         scrollToTop()
     });
@@ -1293,8 +1294,8 @@
 
 
 
-       
-            $.ajax({
+
+        $.ajax({
             method: 'POST',
             url: "{{ route('add_member_details') }}",
             data: new FormData(this),
@@ -1516,7 +1517,7 @@
                 errorDisplayed = false; // reset the flag variable to false
             }
         });
-        
+
         $("#campus").change(function() {
             var campus_key = $(this).val();
             $('#college_unit').empty();
@@ -1916,9 +1917,9 @@
                         $('#zipcode').val(data.zipcode);
                     }
                     if (data.contribution_set == 'Percentage of Basic Salary') {
-                            $('#percentage_check').prop("checked", true);
-                            $('#percentage_bsalary').val(data.percentage == null ? '' : data.percentage);
-                            $('#computed_amount').text(data.amount == null ? '' : data.amount);
+                        $('#percentage_check').prop("checked", true);
+                        $('#percentage_bsalary').val(data.percentage == null ? '' : data.percentage);
+                        $('#computed_amount').text(data.amount == null ? '' : data.amount);
                     } else {
                         $('#fixed_amount_check').prop("checked", true);
                         $('#fixed_amount').val(data.amount == null ? '' : data.amount);
