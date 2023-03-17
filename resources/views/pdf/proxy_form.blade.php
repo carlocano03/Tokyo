@@ -6,6 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Proxy Form</title>
     <style>
+        /* Define your custom font */
+        @font-face {
+            font-family: 'MyCustomFont';
+            src: url({{ storage_path("fonts/AuthenticSignature400.ttf") }}) format("truetype");
+        }
+
         body {
             font-family: 'Fira Sans', sans-serif;
             margin-left: 40px;
@@ -18,7 +24,8 @@
         }
 
         .sign {
-            font-family: 'Droid Sans';
+            font-family: 'MyCustomFont';
+            font-size: 30px;
         }
     </style>
 </head>
@@ -57,8 +64,8 @@
     <div style="text-align: right;">
 
         {{-- <img src="{{ public_path().$member->sign_path }}" width="15%" alt="UPPFI"> --}}
-        <label class="sign">{{ $member->sign }}</label>
-        <hr style="width: 50%; margin-right: 0px; margin-bottom:1px;">
+        <label class="sign">{{ ucwords($member->sign) }}</label>
+        <hr style="width: 50%; margin-right: 0px; margin-bottom:1px; margin-top:-5px;">
         Signature of Member
         <br><br><br>
 
