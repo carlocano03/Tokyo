@@ -146,6 +146,43 @@
 
 </div>
 <script>
+const inputField = document.querySelector('#contact-number-input');
+
+function formatInput() {
+  let input = inputField.value;
+  let formattedInput = input.replace(/\D/g, '');
+
+  // Set placeholder
+  inputField.placeholder = "XXXXXXXXXX";
+
+  if (formattedInput === '') {
+    // If the input is empty, display the "+63 " prefix
+    formattedInput = '+63 ';
+  } else if (formattedInput.startsWith('63')) {
+    // If the input starts with "63", replace it with "+63 "
+    formattedInput = '+63 ' + formattedInput.slice(2);
+  } else if (formattedInput.length >= 4) {
+    // If the input has at least 4 digits, add the country code and separate the digits with spaces
+    formattedInput = '+63 ' + formattedInput.slice(0, 3) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
+  } else if (formattedInput.length >= 1) {
+    // If the input has at least 1 digit, add the country code
+    formattedInput = '+63 ' + formattedInput;
+  }
+
+  // Limit the formatted input to 10 digits
+  formattedInput = formattedInput.slice(0, 14);
+
+  inputField.value = formattedInput;
+}
+
+document.addEventListener('DOMContentLoaded', formatInput);
+inputField.addEventListener('input', formatInput);
+
+
+
+
+
+
     $(document).ready(function() {
         if ($(window).width() < 768) {
             $('.transition-background').hide();
@@ -239,8 +276,17 @@
                             $('input[name="middlename"]').prop('disabled', false);
                             $("[name='middlename']").val(data.middlename == null ? '' : data.middlename);
                         }
+                        if (data.no_suffix == 1) {
+                            $('#no_suffix').prop('checked', true);
+                            $("[name='suffix']").val('N/A')
+                            $('input[name="suffix"]').prop('disabled', true);
+                        } else {
+                            $('#no_suffix').prop('checked', false);
+                            $('input[name="suffix"]').prop('disabled', false);
+                            $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
+                        }
                         $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
-                        $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
+                        
                         var date_bd = new Date(data.date_birth);
                         $("[name='date_birth_years']").val(date_bd.getFullYear());
                         $("[name='date_birth_month']").val((date_bd.getMonth() + 1).toString().padStart(2, '0'));
@@ -391,7 +437,7 @@
     // //     $(e).removeAttr("hidden");
     // // });
 
-    var stepTitle = ["Step 1: Enter your Personal Information", "Step 2: Enter your Employment Details", "Step 3: Enter your Membership Details", "Step 4: Forms & Attachment"]
+    var stepTitle = ["Step 1: Enter your Personal Information", "Step 2: Enter your Employment Details", "Step 3: Enter your Membership Details", "Step 4: Forms & Attachment-"]
     var steps = ["Step 1: ", "Step 2: ", "Step 3: ", "Step 4: "]
     var present_provcode;
     $(document).on('change', '#present_province', function() {
@@ -701,7 +747,7 @@
         var nextValue = $(this).attr('value');
         console.log($(this).attr('value'));
         if (nextValue == 'step-2') {
-            if ($('#terms').prop('checked')) {
+            // if ($('#terms').prop('checked')) {
                 $.ajaxSetup({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -781,18 +827,18 @@
                     // });
                     empty.map((index, element) => {
                         const name = $(element).attr("name")
-                        if (name == 'contact_no') {
-                            const mobile_number = $(element).val()
-                            if (mobile_number.length === 11 && mobile_number.substring(0, 3) === "090" || mobile_number.substring(0, 3) === "091" || mobile_number.substring(0, 3) === "092" || mobile_number.substring(0, 3) === "093" || mobile_number.substring(0, 3) === "094" || mobile_number.substring(0, 3) === "095" || mobile_number.substring(0, 3) === "096" || mobile_number.substring(0, 3) === "097" || mobile_number.substring(0, 3) === "098") {
-                                $("[data-set=" + name + "]>#err-msg").addClass('d-none')
-                                $("[data-set=" + name + "]>select").removeClass('input-error')
-                                return
-                            } else {
-                                $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please input valid cellphone number (Ex. 09xx-xxx-xxxx).")
-                                $("[data-set=" + name + "]>select").addClass('input-error')
-                                return
-                            }
-                        }
+                        // if (name == 'contact_no') {
+                        //     const mobile_number = $(element).val()
+                        //     if (mobile_number.length === 11 && mobile_number.substring(0, 3) === "090" || mobile_number.substring(0, 3) === "091" || mobile_number.substring(0, 3) === "092" || mobile_number.substring(0, 3) === "093" || mobile_number.substring(0, 3) === "094" || mobile_number.substring(0, 3) === "095" || mobile_number.substring(0, 3) === "096" || mobile_number.substring(0, 3) === "097" || mobile_number.substring(0, 3) === "098") {
+                        //         $("[data-set=" + name + "]>#err-msg").addClass('d-none')
+                        //         $("[data-set=" + name + "]>select").removeClass('input-error')
+                        //         return
+                        //     } else {
+                        //         $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please input valid cellphone number (Ex. 09xx-xxx-xxxx).")
+                        //         $("[data-set=" + name + "]>select").addClass('input-error')
+                        //         return
+                        //     }
+                        // }
                         if (name == 'email') {
                             const email = $(element).val()
                             if (!isValidEmail(email)) {
@@ -974,13 +1020,13 @@
                         }
                     }
                 }
-            } else {
-                Swal.fire({
-                    title: 'Terms and Conditions!',
-                    text: 'Please check the terms and conditions before you proceed.',
-                    icon: 'warning'
-                });
-            }
+            // } else {
+            //     Swal.fire({
+            //         title: 'Terms and Conditions!',
+            //         text: 'Please check the terms and conditions before you proceed.',
+            //         icon: 'warning'
+            //     });
+            // }
         } else if (nextValue == 'step-3') {
             var table = $('#dependentTable').DataTable();
             table.draw();
@@ -1840,8 +1886,17 @@
                         $('input[name="middlename"]').prop('disabled', false);
                         $("[name='middlename']").val(data.middlename == null ? '' : data.middlename);
                     }
+                    if (data.no_suffix == 1) {
+                        $('#no_suffix').prop('checked', true);
+                        $("[name='suffix']").val('N/A')
+                        $('input[name="suffix"]').prop('disabled', true);
+                    } else {
+                        $('#no_suffix').prop('checked', false);
+                        $('input[name="suffix"]').prop('disabled', false);
+                        $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
+                    }
                     $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
-                    $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
+                    
                     $("[name='date_birth']").val(data.date_birth == null ? '' : moment(data.date_birth).format('MMMM D, YYYY'));
                     $("[name='gender']").val(data.gender == null ? '' : data.gender);
                     $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
@@ -2052,9 +2107,18 @@
             $('input[name="middlename"]').val('');
             $('input[name="middlename"]').prop('disabled', false);
         }
-
-
     });
+
+    $(document).on('click', '#no_suffix', function() {
+        if ($(this).is(':checked')) {
+            $('input[name="suffix"]').val('N/A');
+            $('input[name="suffix"]').prop('disabled', true);
+        } else {
+            $('input[name="suffix"]').val('');
+            $('input[name="suffix"]').prop('disabled', false);
+        }
+    });
+
     // $(document).on('submit', '#generateCoco', function(event) {
     //     event.preventDefault();
     //     var id = $('#app_number').val();
