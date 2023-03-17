@@ -73,6 +73,7 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 //admin
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin/members', [AdminController::class, 'memberlist'])->name('admin.memberlist.memberlist');
+Route::get('/admin/members/member-details', [AdminController::class, 'memberDetails'])->name('admin.memberlist.member-details');
 Route::get('/admin/membersData', 'AdminController@memberData')->name('dataProcessing');
 Route::get('/admin/members/records', [AdminController::class, 'members_records'])->name('admin.members_records');
 Route::get('/admin/members/records/payroll', [AdminController::class, 'members_payroll']);

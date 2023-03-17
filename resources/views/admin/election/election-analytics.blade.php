@@ -1386,6 +1386,10 @@
         color: #1a8981;
     }
 
+    .bayabas-bg {
+        background-color: var(--c-primary);
+        color: white;
+    }
 
     .font-sm {
         font-size: 13px;
