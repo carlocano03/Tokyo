@@ -96,7 +96,7 @@
         background-color: #894168;
     }
 
-    .members-table {
+    /* .members-table {
         border-collapse: collapse;
         margin: 0;
         padding: 0;
@@ -141,7 +141,7 @@
         font-size: 12px;
         padding-left: 5px;
         padding-right: 5px;
-    }
+    } */
 
 
     .view {
@@ -647,6 +647,85 @@
     #summaryModal {
         display: none;
     }
+
+    .members-module {
+        height: 100%;
+        width: 100%;
+        min-height: 95vh;
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+        position: relative;
+        gap: 5px;
+    }
+
+    @media (max-width:652px) {
+        .members-module {
+            margin-top: 53px;
+        }
+
+        .siderbar {
+            position: absolute;
+            height: 100%;
+            min-height: 95vh;
+            z-index: 100;
+        }
+    }
+
+    .siderbar {
+        max-width: 15px;
+        min-width: 15px;
+        height: auto;
+        background-color: white;
+    }
+
+    .siderbar.showed {
+        max-width: 250px;
+        min-width: 250px;
+        height: auto;
+        background-color: white;
+    }
+
+    .siderbar.showed div {
+        display: flex;
+    }
+
+    .siderbar>div {
+        border: 1px solid #e9dfdf;
+        display: none;
+    }
+
+    .siderbar>.item {
+        cursor: pointer;
+    }
+
+    .siderbar>.item:hover {
+        background-color: #f6f6f6;
+    }
+
+    .members-content {
+        width: 100%;
+        height: auto;
+    }
+
+    .item.active {
+        background-color: #6c1242;
+        color: white;
+    }
+
+    .item.active:hover {
+        background-color: #6c1242;
+        color: white;
+    }
+
+    .toggle-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        position: absolute;
+        right: -7px;
+        top: 20px;
+    }
 </style>
 <div id="summaryModal" class="">
 
@@ -751,162 +830,231 @@
             }, 200)
 
 
-           
+            $("#showLogs").text("Show history logs")
         }
+    })
+
+    $(document).on('click', '.toggle-icon', function(e) {
+        console.log('123')
+        if ($(".fa-chevron-circle-right").hasClass("d-none")) {
+            $(".fa-chevron-circle-right").removeClass("d-none")
+            $(".fa-chevron-circle-left").addClass("d-none")
+            $(".siderbar").removeClass("showed")
+            return
+        }
+        $(".fa-chevron-circle-right").addClass("d-none")
+        $(".fa-chevron-circle-left").removeClass("d-none")
+        $(".siderbar").addClass("showed")
+    })
+
+    const links = ['', '/payroll', '/movement', '/analytics']
+
+    $(document).on('click', '#sider-item', function(e) {
+        const dataSet = $(this).attr('data-set')
+        window.location.href = '/admin/members/records' + links[dataSet]
     })
 </script>
 <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
-<div class="no-gutter ml-0 mr-0 p-5px mh-content view-all-members ">
-    <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
-        <span class="d-inline-flex align-items-center ">
-            <a href="/dashboard" class="link-style">Dashboard</a>/ &nbsp; Members Record
+<div class="members-module">
+    <div class="siderbar d-flex flex-column showed" style="position:relative">
+        <span class="toggle-icon" style="cursor: pointer">
+            <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
+            <i class="fa fa-chevron-circle-right mp-text-fs-base magenta-clr d-none" style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
         </span>
-       
+        <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
+            Membership Application
+        </div>
+        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="0">
+            <span>
+                Application Records
+            </span>
+            <span class="mp-text-fs-small">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
+            </span>
+        </div>
+        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="1">
+            <span>
+                Payroll Advise Reports
+            </span>
+            <span class="mp-text-fs-small">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
+            </span>
+        </div>
+        <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="2">
+            <span>
+                Application Movement Reports
+            </span>
+            <span class="mp-text-fs-small">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
+            </span>
+        </div>
+        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
+            <span>
+                Application Analytics
+            </span>
+            <span class="mp-text-fs-small">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
+            </span>
+        </div>
     </div>
-    <div class="col-12 mp-pr0" style="width: 100%;">
-       
-        <div class="w-full justify-content-center d-flex">
-            <div class="d-flex flex-row w-80 gap-10">
-                <div class="d-flex flex-column gap-10 middle-content full">
-                    <div class="card-container card p-0">
-                        <div class="card-header filtering items-between d-flex">
-                            <span>Filtering Section</span>
-                            <span class="mp-pr2">
-                                <button class="f-button font-bold">Export</button>
-                                <button class="f-button font-bold">Print</button>
-                            </span>
+    <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
+        <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
+            Application Movement Reports
+        </div>
+        <div class="card-container card p-0">
+            <div class="card-header filtering items-between d-flex">
+                <span>Filtering Section</span>
+                <span class="mp-pr2">
+                    <button class="f-button font-bold">Export</button>
+                    <button class="f-button font-bold">Print</button>
+                </span>
+            </div>
+
+
+            <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
+                <div class="w-full d-flex flex-row flex-wrap gap-10">
+                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                        <span>Campus</span>
+                        <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="campuses_select">
+                            <option value="">Show All</option>
+                            @foreach ($campuses as $row)
+                            <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
+                            @endforeach
+                        </select>
+                    </span>
+                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                        <span>Department</span>
+                        <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="department_select">
+                            <option value="">Show All</option>
+                            @foreach ($department as $row)
+                            <option value="{{ $row->dept_no }}">{{ $row->department_name }}</option>
+                            @endforeach
+                        </select>
+                    </span>
+                    <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
+                        <span>Application Date</span>
+                        <div class="date_range d-flex">
+                            <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                            <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
+                            <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
                         </div>
+                    </span>
+                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                        <span>Status</span>
+                        <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="status_select">
+                            <option value="">Show All</option>
+                            <option value="DRAFT APPLICATION">DRAFT APPLICATION</option>
+                            <option value="NEW APPLICATION">NEW APPLICATION</option>
+                            <option value="PROCESSING">PROCESSING</option>
+                            <option value="REJECTED">REJECTED</option>
+                        </select>
+                    </span>
+                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                        <span>Remarks</span>
+                        <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="remarks_select">
+                            <option value="">Show All</option>
+                            <option value="AA VERIFIED">AA VERIFIED</option>
+                            <option value="FORWARDED TO HRDO">FORWARDED TO HRDO</option>
+                            <option value="FORWARDED TO FM">FORWARDED TO FM</option>
+                            <option value="HRDO RETURNED APPLICATIONS">HRDO RETURNED APPLICATIONS</option>
+                        </select>
+                    </span>
+                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
+                        @if(Auth::user()->user_level == 'ADMIN')
+                        <span>View User Option</span>
+                        <select name="view_all" id="view_all" class="radius-1 outline select-field mp-pr2" style="width: 200px; height: 30px;margin-top: auto;margin-bottom: auto;" <?= Auth::user()->user_level != 'ADMIN' ? 'disabled' : '' ?>>
+                            <option value="">All Records</option>
+                            <option value="AA" <?= Auth::user()->user_level == 'AA' ? 'selected' : '' ?>>AA</option>
+                            <option value="CFM" <?= Auth::user()->user_level == 'CFM' ? 'selected' : '' ?>>CFM</option>
+                            <option value="HRDO" <?= Auth::user()->user_level == 'HRDO' ? 'selected' : '' ?>>HRDO</option>
+                        </select>
+                        @endif
 
 
-                        <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
-
-                            <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr);">
-                                <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                    <span>Campus</span>
-                                    <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campuses_select">
-                                        <option value="">Show All</option>
-                                        @foreach ($campuses as $row)
-                                        <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </span>
-                                <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                    <span>Department</span>
-                                    <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
-                                        <option value="">Show All</option>
-                                        @foreach ($department as $row)
-                                        <option value="{{ $row->dept_no }}">{{ $row->department_name }}</option>
-                                        @endforeach
-                                    </select>
-                                </span>
-                                <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                                    <span>Application Date</span>
-                                    <div class="date_range d-flex">
-                                        <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                        <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                        <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                    </div>
-                                </span>
-                                <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                    <span>Status</span>
-                                    <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status_select">
-                                        <option value="">Show All</option>
-                                        <option value="DRAFT APPLICATION">DRAFT APPLICATION</option>
-                                        <option value="NEW APPLICATION">NEW APPLICATION</option>
-                                        <option value="PROCESSING">PROCESSING</option>
-                                        <option value="REJECTED">REJECTED</option>
-                                    </select>
-                                </span>
-                                <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                    <span>Remarks</span>
-                                    <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="remarks_select">
-                                        <option value="">Show All</option>
-                                        <option value="AA VERIFIED">AA VERIFIED</option>
-                                        <option value="FORWARDED TO HRDO">FORWARDED TO HRDO</option>
-                                        <option value="FORWARDED TO FM">FORWARDED TO FM</option>
-                                        <option value="HRDO RETURNED APPLICATIONS">HRDO RETURNED APPLICATIONS</option>
-                                    </select>
-                                </span>
-                                <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
-                                    @if(Auth::user()->user_level == 'ADMIN')
-                                    <span>View User Option</span>
-                                    <select name="view_all" id="view_all" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;" <?= Auth::user()->user_level != 'ADMIN' ? 'disabled' : '' ?>>
-                                        <option value="">All Records</option>
-                                        <option value="AA" <?= Auth::user()->user_level == 'AA' ? 'selected' : '' ?>>AA</option>
-                                        <option value="CFM" <?= Auth::user()->user_level == 'CFM' ? 'selected' : '' ?>>CFM</option>
-                                        <option value="HRDO" <?= Auth::user()->user_level == 'HRDO' ? 'selected' : '' ?>>HRDO</option>
-                                    </select>
-                                    @endif
-
-
-                                </span>
-                            </div>
-                            <!-- <div class="">
-                                            <label for="row">Membership Date</label>
-                                            <div class="row date_range">
-                                                <input type="date" id="from" class="radius-1 border-1 date-input outline"
-                                                    style="height: 30px;">
-                                                <span for="" class="self_center mv-1"
-                                                    style="margin-left:15px; margin-right:15px;">to</span>
-                                                <input type="date" id="to" class="radius-1 border-1 date-input outline"
-                                                    style="height: 30px;">
-                                            </div>
-                                        </div> -->
-
-                        </div>
-                    </div>
-                    <div class="card d-flex flex-column">
-                        <div class="d-flex flex-row items-between">
-                            <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value" />
-
-                          
-                        </div>
-                        <div class="mp-mt3 table-container">
-                            <table class="members-table" style="height: auto;" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th style="width: 48px;">
-                                            <span>Action</span>
-                                        </th>
-                                        <th>
-                                            <span>Members ID</span>
-                                        </th>
-                                        <th>
-                                            <span>Member Name</span>
-                                        </th>
-                                        <th>
-                                            <span>Membership Date</span>
-                                        </th>
-                                        <th>
-                                            <span>Campus</span>
-                                        </th>
-                                        <th>
-                                            <span>Class</span>
-                                        </th>
-                                        <th>
-                                            <span>Position</span>
-                                        </th>
-                                        <th>
-                                            <span>Created At</span>
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                </tbody>
-
-
-
-                            </table>
-
-                        </div>
-                    </div>
+                    </span>
                 </div>
+                <!-- <div class="">
+                                <label for="row">Membership Date</label>
+                                <div class="row date_range">
+                                    <input type="date" id="from" class="radius-1 border-1 date-input outline"
+                                        style="height: 30px;">
+                                    <span for="" class="self_center mv-1"
+                                        style="margin-left:15px; margin-right:15px;">to</span>
+                                    <input type="date" id="to" class="radius-1 border-1 date-input outline"
+                                        style="height: 30px;">
+                                </div>
+                            </div> -->
+
+            </div>
+        </div>
+        <div class="card">
+            <div class="d-flex flex-row items-between flex-wrap mp-mb3">
+                <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value" />
+
+                <span class="d-flex flex-row gap-10 justify-content-center align-items-center">
+                    <select name="forward_action" id="forward_action" class="radius-1 outline select-field" style="height: 30px">
+                        <option value="">
+                            Select Action
+                        </option>
+                        @if(Auth::user()->user_level == 'HRDO')
+                        <option value="FM">Forward to Fund manager</option>
+                        @else
+                        <option value="HRDO">Forward to HRDO</option>
+                        {{-- <option value="CFM">Forward to CFM</option> --}}
+                        @endif
+                    </select>
+                    <span>
+                        <button class="f-button mar-bg proceed_fwd" id="modal_proceed">Proceed</button>
+                    </span>
+                </span>
+            </div>
+            <div class="table-container">
+                <table class="members-table" style="height: auto;" width="100%">
+                    <thead>
+                        <tr>
+                            <th style="width: 20px;">
+                                <span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check_all" id="check_all"></span>
+                            </th>
+                            <th style="width: 48px;">
+                                <span>Action</span>
+                            </th>
+                            <th>
+                                <span>Application No.</span>
+                            </th>
+                            <th>
+                                <span>Date of Application</span>
+                            </th>
+                            <th>
+                                <span>Full Name</span>
+                            </th>
+                            <th>
+                                <span>Employee No</span>
+                            </th>
+                            <th>
+                                <span>Class</span>
+                            </th>
+                            <th>
+                                <span>Position</span>
+                            </th>
+                            <th>
+                                <span>Campus</span>
+                            </th>
+                            <th>
+                                <span>Status</span>
+                            </th>
+                            <th>
+                                <span>Remarks</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
-
 
 
 <script>

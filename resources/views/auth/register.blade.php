@@ -320,7 +320,7 @@
         <input type="hidden" id="app_trailNo">
         <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
         <div class="mp-input-group" data-set="firstname">
-            <label class="mp-input-group__label">First Name </label>
+            <label class="mp-input-group__label">First Name (Please input your complete first name/s)</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
@@ -336,14 +336,16 @@
         </div>
 
         <div class="mp-input-group" data-set="lastname">
-            <label class="mp-input-group__label">Last Name </label>
+            <label class="mp-input-group__label">Last Name (Please input your complete last name/s)</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
 
 
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Suffix </label>
+            <label class="mp-input-group__label">Suffix </label><br>
+            <input type="checkbox" class="options" id="no_suffix" name="no_suffix" value="N/A"/>
+            <label class="mp-input-group__label" style="margin-top: 5px;">No Suffix</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="suffix" />
         </div>
 
@@ -353,6 +355,7 @@
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Month </label>
                     <select name="date_birth_month" id="date_birth_month" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="">Month</option>
                         <option value="01">January</option>
                         <option value="02">February</option>
                         <option value="03">March</option>
@@ -371,6 +374,7 @@
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Day </label>
                     <select name="date_birth_days" id="date_birth_days" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="">Day</option>
                         @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
                             @endfor
                     </select>
@@ -380,6 +384,7 @@
                     <label class="mp-input-group__label">Year </label>
                     <select name="date_birth_years" id="date_birth_years" class="radius-1 outline select-field" style="font-size: normal;">
                         <!-- options for years from 12 years ago until 70 years before the current year -->
+                        <option value="">Year</option>
                         @for ($i = date('Y') - 12; $i >= date('Y') - 70; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
                         @endfor
@@ -518,7 +523,8 @@
         </div>
         <div class="mp-input-group" data-set="contact_no">
             <label class="mp-input-group__label">Cellphone Number </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
+            <!-- <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' /> -->
+            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact-number-input" />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
@@ -531,8 +537,9 @@
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
-            <div class="mp-input-group mp-mt5 mp-input-group__label">
-                <input type="checkbox" id="terms" name="terms" />
+            <div class="mp-input-group mp-mt5 mp-input-group__label text-center">
+                By clicking Next, you agree to UP Provident Fund Inc.’s <b>Terms of Use</b> and <b>Privacy Policy</b>.<br>
+                <!-- <input type="checkbox" id="terms" name="terms" /> -->
                 Sign up for emails to get updates on products, offers and member benefits.
                 <!--<a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>-->
@@ -711,7 +718,7 @@
         </div>
         <div class="mp-input-group" data-set="percentage_check">
             <div class="d-flex gap-5">
-                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" disabled/>
+                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" disabled />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
                     - 100%) </label>
             </div>
@@ -734,7 +741,14 @@
         <div class="mp-input-group d-flex gap-5 flex-column">
             <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
 
-            <label class="mp-input-group__label" style="padding-top: 20px; border-top: 1px solid #8c8b8b;">Dependents </label>
+            <label class="mp-input-group__label" style="
+                background-color: var(--c-active-hover-bg);
+                color: white;
+                padding: 10px;
+                margin-left: -8px;
+                font-size: 15px;
+                margin-right: -8px;">
+                Dependents </label>
 
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Name" />
             <div class="mp-input-group">
@@ -837,7 +851,14 @@
                     By writing, typing your full name and the date, it is good as affixing your e-signature and agreeing to the above stipulations.
                 </li>
             </ul>
-            <label class="mp-input-group__label">Input your name as signature
+            <label class="mp-input-group__label" style="width: 100%;
+                                                        background-color: var(--c-active-hover-bg);
+                                                        color: white;
+                                                        padding: 10px;
+                                                        font-size: 15px;
+                                                        margin-right: -2px;
+                                                        margin-top: 20px;">
+                Input your name as signature
 
 
                 <!-- <div class="tooltip">
@@ -860,13 +881,13 @@
                     </div>
                 </div> -->
             </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="e_sig" id="e_sig" required />
+            <input class="mp-input-group__input mp-text-field" style="margin-top: 5px;" type="text" name="e_sig" id="e_sig" required />
             <br>
         </div>
         <input type="hidden" name="app_no" id="app_no">
         <input type="hidden" name="percent_amt" id="percent_amt">
         <div class="mp-input-group">
-            <div id="proxy">
+            <div id="proxy" style="margin-bottom: 20px;">
                 {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file" accept="image/png, image/gif, image/jpeg, image/jpg" /> --}}
                 <div class="mp-input-group">
                     <h3>Proxy Form</h3>

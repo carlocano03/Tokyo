@@ -6468,6 +6468,13 @@ tfoot {
     color: var(--c-base-50) !important
 }
 
+.gray-bg {
+    background-color: #969696 !important;
+    color: #ececec !important;
+    color: var(--c-base-10) !important
+}
+
+
 
 .scroll-top-button {
     z-index: 99999;
@@ -6572,4 +6579,12 @@ tfoot {
 
 .fs-large {
     font-size: larger;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+text.highcharts-credits {
+    display: none;
 }
