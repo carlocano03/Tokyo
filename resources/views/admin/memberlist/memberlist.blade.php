@@ -1479,11 +1479,11 @@
         $(".siderbar").addClass("showed")
     })
 
-    const links = ['', '/payroll', '/movement', '/analytics']
+    const links = ['', '', '', '']
 
     $(document).on('click', '#sider-item', function(e) {
         const dataSet = $(this).attr('data-set')
-        window.location.href = '/admin/members/records' + links[dataSet]
+        window.location.href = '/admin/members/' + links[dataSet]
     })
 </script>
 <div class="filler"></div>
@@ -1501,7 +1501,7 @@
                 New Members
             </span>
             <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
+                Lorem ipsum dolor sit am
             </span>
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="1">
@@ -1509,7 +1509,7 @@
                 Master List
             </span>
             <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
+                Lorem ipsum dolor sit amet
             </span>
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3 " id="sider-item" data-set="2">
@@ -1517,7 +1517,7 @@
                 Members Summary Reports
             </span>
             <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
+                Lorem ipsum dolor sit amet
             </span>
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
@@ -1525,7 +1525,7 @@
                 Contribution Reports
             </span>
             <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
+                Lorem ipsum dolor sit amet
             </span>
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
@@ -1533,7 +1533,7 @@
                 Insurance Reports
             </span>
             <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
+                Lorem ipsum dolor sit amet
             </span>
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
@@ -1541,7 +1541,7 @@
                 Members Voter List
             </span>
             <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
+                Lorem ipsum dolor sit amet
             </span>
         </div>
     </div>
@@ -1552,7 +1552,9 @@
                 <div class="col-lg-12 mp-mt3 gap-10" id="settingsContent">
                     <div class="no-gutter ml-0 mr-0 p-5px mh-content view-all-members ">
                         <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
-                            <span class="d-inline-flex align-items-center ">
+                            <span class="d-inline-flex align-items-center " style="color: black;
+                                font-weight: bold;
+                                margin-bottom: 10px;">
                                 Members Module</a> > &nbsp; Master List
                             </span>
 
@@ -1560,7 +1562,7 @@
                         <div class="col-12 mp-pr0" style="width: 100%;">
 
                             <div class="w-full justify-content-center d-flex">
-                                <div class="d-flex flex-row w-80 gap-10">
+                                <div class="d-flex flex-row w-full gap-10">
                                     <div class="d-flex flex-column gap-10 middle-content full">
                                         <div class="card-container card p-0">
                                             <div class="card-header filtering items-between d-flex">
@@ -1659,8 +1661,8 @@
                                                 <table class="members-table" style="height: auto;" width="100%">
                                                     <thead>
                                                         <tr>
-                                                            <th>
-                                                                <span>Select</span>
+                                                            <th style="width:40px">
+                                                                <span> </span>
                                                             </th>
                                                             <th>
                                                                 <span>Action</span>
@@ -1688,7 +1690,57 @@
                                                             </th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody style="width:100% !important;">
+
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <span>
+                                                                    <input type="checkbox" name="check[]" class="select_item" id="select_item">
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span>
+                                                                    <a href="/admin/members/member-details" data-md-tooltip="Review Application" class="view_member md-tooltip--right view-member" style="cursor: pointer">
+                                                                        <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+                                                                    </a>
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span>
+                                                                    1231232
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span>
+                                                                    Member Name
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span>
+                                                                    January 20, 1999
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span>
+                                                                    January 20, 1999
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span>
+                                                                    Class A
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span>
+                                                                    President
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <span>
+                                                                    Up Diliman
+                                                                </span>
+                                                            </td>
+                                                        </tr>
 
                                                     </tbody>
 
@@ -1720,7 +1772,7 @@
 <script>
     var tableMemberApp;
     $(document).ready(function() {
-        tableMemberApp = $('.members-table').DataTable({
+        tableMemberApp = $('.members-table2').DataTable({
             language: {
                 search: '',
                 searchPlaceholder: "Search Here...",

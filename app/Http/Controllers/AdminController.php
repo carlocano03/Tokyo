@@ -73,6 +73,13 @@ class AdminController extends Controller
 
 
 
+  public function memberDetails()
+  {
+
+    return view('admin.memberlist.member-details');
+  }
+
+
   public function countApplication()
   {
     if (request()->has('view')) {
