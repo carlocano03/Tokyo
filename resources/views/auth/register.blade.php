@@ -320,7 +320,7 @@
         <input type="hidden" id="app_trailNo">
         <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
         <div class="mp-input-group" data-set="firstname">
-            <label class="mp-input-group__label">First Name </label>
+            <label class="mp-input-group__label">First Name (Please input your complete first name/s)</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="firstname" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
@@ -336,14 +336,16 @@
         </div>
 
         <div class="mp-input-group" data-set="lastname">
-            <label class="mp-input-group__label">Last Name </label>
+            <label class="mp-input-group__label">Last Name (Please input your complete last name/s)</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
 
 
         <div class="mp-input-group">
-            <label class="mp-input-group__label">Suffix </label>
+            <label class="mp-input-group__label">Suffix </label><br>
+            <input type="checkbox" class="options" id="no_suffix" name="no_suffix" value="N/A"/>
+            <label class="mp-input-group__label" style="margin-top: 5px;">No Suffix</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="suffix" />
         </div>
 
@@ -353,6 +355,7 @@
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Month </label>
                     <select name="date_birth_month" id="date_birth_month" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="">Month</option>
                         <option value="01">January</option>
                         <option value="02">February</option>
                         <option value="03">March</option>
@@ -371,6 +374,7 @@
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Day </label>
                     <select name="date_birth_days" id="date_birth_days" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="">Day</option>
                         @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
                             @endfor
                     </select>
@@ -380,6 +384,7 @@
                     <label class="mp-input-group__label">Year </label>
                     <select name="date_birth_years" id="date_birth_years" class="radius-1 outline select-field" style="font-size: normal;">
                         <!-- options for years from 12 years ago until 70 years before the current year -->
+                        <option value="">Year</option>
                         @for ($i = date('Y') - 12; $i >= date('Y') - 70; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
                         @endfor
@@ -518,7 +523,8 @@
         </div>
         <div class="mp-input-group" data-set="contact_no">
             <label class="mp-input-group__label">Cellphone Number </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' />
+            <!-- <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" maxlength="11" onkeypress='return event.charCode >= 48 && event.charCode <= 57' /> -->
+            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact-number-input" />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
@@ -531,8 +537,9 @@
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
-            <div class="mp-input-group mp-mt5 mp-input-group__label">
-                <input type="checkbox" id="terms" name="terms" />
+            <div class="mp-input-group mp-mt5 mp-input-group__label text-center">
+                By clicking Next, you agree to UP Provident Fund Inc.’s <b>Terms of Use</b> and <b>Privacy Policy</b>.<br>
+                <!-- <input type="checkbox" id="terms" name="terms" /> -->
                 Sign up for emails to get updates on products, offers and member benefits.
                 <!--<a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>-->
