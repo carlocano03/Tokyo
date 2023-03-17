@@ -104,30 +104,27 @@
 
                                 </div>
                                 <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Select Candidate Name</label>
-                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                        <option value="1">Name 1</option>
-                                        <option value="0">Name 2</option>
-                                    </select>
-                                </div>
-                                <div class="mp-input-group">
                                     <label class="mp-input-group__label">Select Cluster</label>
                                     <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
                                         <option value="1">Cluster 1</option>
                                         <option value="0">Cluster 2</option>
                                     </select>
                                 </div>
-
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Select Running Position</label>
-                                    <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
-                                </div>
-
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Select Campus</label>
                                     <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
                                         <option value="1">Campus 1</option>
                                         <option value="0">Campus 2</option>
+                                    </select>
+                                </div>
+
+
+
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Select Candidate Name</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">Name 1</option>
+                                        <option value="0">Name 2</option>
                                     </select>
                                 </div>
                                 <div class="mp-input-group">

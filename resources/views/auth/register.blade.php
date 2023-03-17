@@ -711,7 +711,7 @@
         </div>
         <div class="mp-input-group" data-set="percentage_check">
             <div class="d-flex gap-5">
-                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" disabled/>
+                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" disabled />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
                     - 100%) </label>
             </div>
@@ -734,7 +734,14 @@
         <div class="mp-input-group d-flex gap-5 flex-column">
             <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
 
-            <label class="mp-input-group__label" style="padding-top: 20px; border-top: 1px solid #8c8b8b;">Dependents </label>
+            <label class="mp-input-group__label" style="
+                background-color: var(--c-active-hover-bg);
+                color: white;
+                padding: 10px;
+                margin-left: -8px;
+                font-size: 15px;
+                margin-right: -8px;">
+                Dependents </label>
 
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Name" />
             <div class="mp-input-group">
@@ -837,7 +844,14 @@
                     By writing, typing your full name and the date, it is good as affixing your e-signature and agreeing to the above stipulations.
                 </li>
             </ul>
-            <label class="mp-input-group__label">Input your name as signature
+            <label class="mp-input-group__label" style="width: 100%;
+                                                        background-color: var(--c-active-hover-bg);
+                                                        color: white;
+                                                        padding: 10px;
+                                                        font-size: 15px;
+                                                        margin-right: -2px;
+                                                        margin-top: 20px;">
+                Input your name as signature
 
 
                 <!-- <div class="tooltip">
@@ -860,13 +874,13 @@
                     </div>
                 </div> -->
             </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="e_sig" id="e_sig" required />
+            <input class="mp-input-group__input mp-text-field" style="margin-top: 5px;" type="text" name="e_sig" id="e_sig" required />
             <br>
         </div>
         <input type="hidden" name="app_no" id="app_no">
         <input type="hidden" name="percent_amt" id="percent_amt">
         <div class="mp-input-group">
-            <div id="proxy">
+            <div id="proxy" style="margin-bottom: 20px;">
                 {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file" accept="image/png, image/gif, image/jpeg, image/jpg" /> --}}
                 <div class="mp-input-group">
                     <h3>Proxy Form</h3>
