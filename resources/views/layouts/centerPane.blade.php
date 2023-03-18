@@ -179,10 +179,6 @@ document.addEventListener('DOMContentLoaded', formatInput);
 inputField.addEventListener('input', formatInput);
 
 
-
-
-
-
     $(document).ready(function() {
         if ($(window).width() < 768) {
             $('.transition-background').hide();
@@ -807,13 +803,13 @@ inputField.addEventListener('input', formatInput);
 
 
 
-                var contact = $('#member_forms').find("[name=contact_no]")
+                // var contact = $('#member_forms').find("[name=contact_no]")
 
-                const mobile_number = contact.val()
+                // const mobile_number = contact.val()
 
-                if (mobile_number.length === 11 && mobile_number.substring(0, 3) === "090" || mobile_number.substring(0, 3) === "091" || mobile_number.substring(0, 3) === "092" || mobile_number.substring(0, 3) === "093" || mobile_number.substring(0, 3) === "094" || mobile_number.substring(0, 3) === "095" || mobile_number.substring(0, 3) === "096" || mobile_number.substring(0, 3) === "097" || mobile_number.substring(0, 3) === "098") {} else {
-                    empty.push(contact[0])
-                }
+                // if (mobile_number.length === 11 && mobile_number.substring(0, 3) === "090" || mobile_number.substring(0, 3) === "091" || mobile_number.substring(0, 3) === "092" || mobile_number.substring(0, 3) === "093" || mobile_number.substring(0, 3) === "094" || mobile_number.substring(0, 3) === "095" || mobile_number.substring(0, 3) === "096" || mobile_number.substring(0, 3) === "097" || mobile_number.substring(0, 3) === "098") {} else {
+                //     empty.push(contact[0])
+                // }
 
                 var email = $('#member_forms').find("[name=email]")
                 if (!isValidEmail(email.val())) {
@@ -935,15 +931,24 @@ inputField.addEventListener('input', formatInput);
                                         reference_no = data.randomnum;
                                         mem_id = data.mem_id;
                                         personnel_id = data.success;
+                                        // Swal.fire({
+                                        //     html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>" + reference_no + "</span><br><span>Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.</span>" +
+                                        //         "<br><span>We have emailed your application number to the email you provided in the previous step. You may also take a screenshot or copy this number for future reference.</span>" +
+                                        //         "</div>",
+                                        //     icon: 'success',
+                                        //     confirmButtonColor: '#3085d6',
+                                        //     confirmButtonText: 'Proceed',
+                                        // });
                                         Swal.fire({
-                                            html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>" + reference_no + "</span><br><span>Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.</span>" +
-                                                "<br><span>We have emailed your application number to the email you provided in the previous step. You may also take a screenshot or copy this number for future reference.</span>" +
+                                            html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>" + reference_no + "</span><br><span style='color:red'>Please screenshot or copy this number for future reference.</span>" +
+                                                    "<br><span><b>Use this number to:</b><br>&#x2713; Resume your application at any time<br> &#x2713; Check the status of your application</span>" +
+                                                    "<br><span>We have also emailed your application number to the email you provided in Step 1.</span>" +
                                                 "</div>",
-                                            icon: 'success',
-                                            confirmButtonColor: '#3085d6',
-                                            confirmButtonText: 'Proceed',
+                                                icon: 'success',
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: 'Proceed',
                                         });
-
+                                        window.open('http://127.0.0.1:8000/login', '_blank');
                                         $('.applicationNo').show(200);
                                         $('#application_no').text(reference_no);
                                         $('#app_no').val(reference_no);
@@ -1559,6 +1564,7 @@ inputField.addEventListener('input', formatInput);
                     errorDisplayed = true; // set the flag variable to true to indicate that the error message has been displayed
                 }
                 $('#monthly_salary').val('');
+                $('#sg_category').val('');
                 $('#monthly_salary').focus();
             } else {
                 errorDisplayed = false; // reset the flag variable to false
