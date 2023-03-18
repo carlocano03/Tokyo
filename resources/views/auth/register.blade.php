@@ -407,6 +407,7 @@
         <div class="mp-input-group">
             <label class="mp-input-group__label">Civil Status </label>
             <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
+                <option value="">Select Status</option>
                 <option>Single</option>
                 <option>Married</option>
                 <option>Widowed</option>
@@ -585,12 +586,12 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="classification_others" />
         </div>
         <div class="mp-input-group" data-set="employee_no">
-            <label class="mp-input-group__label">Employee Number </label>
+            <label class="mp-input-group__label">Employee Number (Please refer to your UP ID)</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="employee_no" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
-            <label class="mp-input-group__label">College Unit </label>
+            <label class="mp-input-group__label">College / Unit </label>
             <select class="mp-input-group__input mp-text-field" name="college_unit" id="college_unit">
                 <option value="">Select Unit</option>
                 {{-- <option>Unit </option> --}}
@@ -608,11 +609,12 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="rank_position" id="rank_position" />
         </div>
         <div class="mp-input-group" data-set="date_appoint_months">
-            <label class="mp-input-group__label mp-mb1">Date of Appointment </label>
+            <label class="mp-input-group__label mp-mb1">Date of Appointment (Please refer to your appointment papers)</label>
             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field input">
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Month </label>
                     <select name="date_appoint_months" id="date_appoint_months" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="">Month</option>
                         <option value="01">January</option>
                         <option value="02">February</option>
                         <option value="03">March</option>
@@ -631,6 +633,7 @@
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Day </label>
                     <select name="date_appoint_days" id="date_appoint_days" class="radius-1 outline select-field" style="font-size: normal;">
+                        <option value="">Day</option>
                         @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
                             @endfor
                     </select>
@@ -641,6 +644,7 @@
                     <select name="date_appoint_years" id="date_appoint_years" class="radius-1 outline select-field" style="font-size: normal;">
                         <!-- options for years from 12 years ago until 70 years before the current year -->
                         <!-- options for years from current year down to 70 years ago -->
+                        <option value="">Year</option>
                         @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
                         <option value="{{ $i }}">{{ $i }}</option>
                         @endfor
@@ -663,7 +667,7 @@
         </div>
         <div class="mp-input-group" data-set="monthly_salary">
 
-            <label class="mp-input-group__label">Monthly Salary </label>
+            <label class="mp-input-group__label">Monthly Salary (Please refer to the basic salary on your pay slip)</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="monthly_salary" id="monthly_salary" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
@@ -757,6 +761,7 @@
                     <div class="d-flex flex-column" style="gap: 3px">
                         <label class="mp-input-group__label">Month </label>
                         <select name="date_birth_dependent_month" id="date_birth_dependent_month" class="radius-1 outline select-field" style="font-size: normal;">
+                            <option value="">Month</option>
                             <option value="01">January</option>
                             <option value="02">February</option>
                             <option value="03">March</option>
@@ -775,6 +780,7 @@
                     <div class="d-flex flex-column" style="gap: 3px">
                         <label class="mp-input-group__label">Day </label>
                         <select name="date_birth_dependent_days" id="date_birth_dependent_days" class="radius-1 outline select-field" style="font-size: normal;">
+                            <option value="">Day</option>
                             @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
                                 @endfor
                         </select>
@@ -785,6 +791,7 @@
                         <select name="date_birth_dependent_years" id="date_birth_dependent_years" class="radius-1 outline select-field" style="font-size: normal;">
                             <!-- option for current year -->
                             <!-- options for years from current year down to 70 years ago -->
+                            <option value="">Year</option>
                             @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
                             <option value="{{ $i }}">{{ $i }}</option>
                             @endfor
