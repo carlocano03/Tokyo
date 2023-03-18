@@ -516,7 +516,7 @@
     }
 
 
-    .gray-bg {
+    .light-gray-bg {
         background-color: #ececec;
     }
 
@@ -1019,7 +1019,7 @@
                     </div>
                 </div>
             </div>
-            <div class="table-form form-header w-full gray-bg shadow-1">
+            <div class="table-form form-header w-full light-gray-bg shadow-1">
                         <div class="span-12 d-flex flex-column mp-pv3 mp-ph3 gap-10">
                             <span>General Remarks</span>
                             <!-- <div class="table-form">
