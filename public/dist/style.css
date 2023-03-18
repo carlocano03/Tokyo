@@ -6588,3 +6588,61 @@ tfoot {
 text.highcharts-credits {
     display: none;
 }
+
+.tab-component {
+    display: flex;
+    flex-direction: column;
+}
+
+.tab-component > .header-tabs {
+    display: flex;
+    flex-direction: row;
+}
+
+.tab-component > .header-tabs > span {
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-left: 1px solid white;
+    border-top: 10px solid #ececec;
+    padding-bottom: 6px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    background-color: var(--c-base-10);
+    color: #414042;
+    color: var(--c-base-80);
+    font-size: .83rem !important;
+    font-size: var(--fs-small) !important
+}
+
+.tab-component > .header-tabs > span:first-child {
+    border-left: 0;
+}
+
+.tab-component > .header-tabs > span.active {
+    color: white;
+    background-color: #1a8981;
+    border-top: 10px solid #1a8981;
+}
+
+.tab-body {
+    border: 1px solid #ececec;
+    padding: 20px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 2000px;
+    justify-self: center;
+    gap: 20px;
+}
+
+.tab-item {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: calc(50% - 10px);
+    min-width: 300px;
+}
