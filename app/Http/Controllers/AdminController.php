@@ -1066,7 +1066,7 @@ class AdminController extends Controller
     if ($users == 'HRDO') {
       $href = '/admin/members/records/view/hrdo/';
     } else if ($users == 'AA') {
-      $href = '/admin/members/records/view/personal/aa/';
+      $href = '/admin/members/records/view/aa/personal/';
     } else if ($users == 'FM') {
       $href = '';
     }
