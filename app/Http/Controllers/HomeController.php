@@ -444,7 +444,9 @@ class HomeController extends Controller
     $options = DB::table('college_unit')
     ->join('campus', 'college_unit.campus_id', '=', 'campus.id')
     ->select('cu_no', 'college_unit_name')
-    ->where('campus_key', $campus_key)->get();
+    ->where('campus_key', $campus_key)
+    ->orderBy('college_unit_name', 'asc')
+    ->get();
     return response()->json($options);
   }
 
@@ -522,57 +524,79 @@ class HomeController extends Controller
   public function addaxa_form(Request $request)
   {
     $appNumber = $request->input('app_number');
-    $coco = DB::table('member_signature')->where('app_no', $appNumber)->count();
-    $axa_exist = DB::table('axa_form')->where('app_no', $appNumber)->count();
-    if($axa_exist > 0){
-      return response()->json(['message' => 'Exist']);
-    }else{
-    if ($coco > 0) {
-      $insertCoco = [
-        'app_no' => $appNumber,
-        'personal_id' => $request->input('personnel_id'),
-        'place_birth' => strtoupper($request->input('place_birth')),
-        'emp_union_assoc' => strtoupper($request->input('emp_union_assoc')),
-        'occupation' => strtoupper($request->input('occupation')),
-        'sss_gsis' => $request->input('sss_gsis'),
-        'spouse_name' => strtoupper($request->input('spouse_name')),
-        'maiden_name' => strtoupper($request->input('maiden_name')),
-        'insuted_type' => $request->input('insuted_type'),
-        'last_name' => strtoupper($request->input('last_name')),
-        'first_name' => strtoupper($request->input('first_name')),
-        'middle_name' => strtoupper($request->input('middle_name')),
-        'relationship_tomember' => strtoupper($request->input('relationship_tomember')),
-        'contact_no' => $request->input('axa_contact_no'),
-        'email_add' => $request->input('email_add'),
-      ];
-      DB::table('axa_form')->insert($insertCoco);
-    }else{
-      $signFile['app_no'] = $appNumber;
-      $signFile['sign'] = strtoupper($request->input('e_sig'));
-      DB::table('member_signature')->insert($signFile);
-      $insertCoco = [
-        'app_no' => $appNumber,
-        'personal_id' => $request->input('personnel_id'),
-        'place_birth' => strtoupper($request->input('place_birth')),
-        'emp_union_assoc' => strtoupper($request->input('emp_union_assoc')),
-        'occupation' => strtoupper($request->input('occupation')),
-        'sss_gsis' => $request->input('sss_gsis'),
-        'spouse_name' => strtoupper($request->input('spouse_name')),
-        'maiden_name' => strtoupper($request->input('maiden_name')),
-        'insuted_type' => $request->input('insuted_type'),
-        'last_name' => strtoupper($request->input('last_name')),
-        'first_name' => strtoupper($request->input('first_name')),
-        'middle_name' => strtoupper($request->input('middle_name')),
-        'relationship_tomember' => strtoupper($request->input('relationship_tomember')),
-        'contact_no' => $request->input('axacontact_no'),
-        'email_add' => $request->input('email_add'),
-      ];
-      DB::table('axa_form')->insert($insertCoco);
-    }
-    }
-    
 
-   
+    $file = $request->file('esig');
+    $fileName = $file->getClientOriginalName();
+    $newName = $request->input('app_number') . '_' . $fileName;
+    $path = $file->storeAs('signature', $newName, 'public');
+
+    $insertCoco = [
+      'app_no' => $appNumber,
+      'personal_id' => $request->input('personnel_id'),
+      'place_birth' => strtoupper($request->input('place_birth')),
+      'emp_union_assoc' => strtoupper($request->input('emp_union_assoc')),
+      'occupation' => strtoupper($request->input('occupation')),
+      'sss_gsis' => $request->input('sss_gsis'),
+      'spouse_name' => strtoupper($request->input('spouse_name')),
+      'maiden_name' => strtoupper($request->input('maiden_name')),
+      'insuted_type' => $request->input('insuted_type'),
+      'last_name' => strtoupper($request->input('last_name')),
+      'first_name' => strtoupper($request->input('first_name')),
+      'middle_name' => strtoupper($request->input('middle_name')),
+      'relationship_tomember' => strtoupper($request->input('relationship_tomember')),
+      'contact_no' => $request->input('axa_contact_no'),
+      'email_add' => $request->input('email_add'),
+      'signature' => '/storage/' . $path
+    ];
+    DB::table('axa_form')->insert($insertCoco);
+    // $coco = DB::table('member_signature')->where('app_no', $appNumber)->count();
+    // $axa_exist = DB::table('axa_form')->where('app_no', $appNumber)->count();
+    // if($axa_exist > 0){
+    //   return response()->json(['message' => 'Exist']);
+    // }else{
+    // if ($coco > 0) {
+    //   $insertCoco = [
+    //     'app_no' => $appNumber,
+    //     'personal_id' => $request->input('personnel_id'),
+    //     'place_birth' => strtoupper($request->input('place_birth')),
+    //     'emp_union_assoc' => strtoupper($request->input('emp_union_assoc')),
+    //     'occupation' => strtoupper($request->input('occupation')),
+    //     'sss_gsis' => $request->input('sss_gsis'),
+    //     'spouse_name' => strtoupper($request->input('spouse_name')),
+    //     'maiden_name' => strtoupper($request->input('maiden_name')),
+    //     'insuted_type' => $request->input('insuted_type'),
+    //     'last_name' => strtoupper($request->input('last_name')),
+    //     'first_name' => strtoupper($request->input('first_name')),
+    //     'middle_name' => strtoupper($request->input('middle_name')),
+    //     'relationship_tomember' => strtoupper($request->input('relationship_tomember')),
+    //     'contact_no' => $request->input('axa_contact_no'),
+    //     'email_add' => $request->input('email_add'),
+    //   ];
+    //   DB::table('axa_form')->insert($insertCoco);
+    // }else{
+    //   $signFile['app_no'] = $appNumber;
+    //   $signFile['sign'] = strtoupper($request->input('e_sig'));
+    //   DB::table('member_signature')->insert($signFile);
+    //   $insertCoco = [
+    //     'app_no' => $appNumber,
+    //     'personal_id' => $request->input('personnel_id'),
+    //     'place_birth' => strtoupper($request->input('place_birth')),
+    //     'emp_union_assoc' => strtoupper($request->input('emp_union_assoc')),
+    //     'occupation' => strtoupper($request->input('occupation')),
+    //     'sss_gsis' => $request->input('sss_gsis'),
+    //     'spouse_name' => strtoupper($request->input('spouse_name')),
+    //     'maiden_name' => strtoupper($request->input('maiden_name')),
+    //     'insuted_type' => $request->input('insuted_type'),
+    //     'last_name' => strtoupper($request->input('last_name')),
+    //     'first_name' => strtoupper($request->input('first_name')),
+    //     'middle_name' => strtoupper($request->input('middle_name')),
+    //     'relationship_tomember' => strtoupper($request->input('relationship_tomember')),
+    //     'contact_no' => $request->input('axacontact_no'),
+    //     'email_add' => $request->input('email_add'),
+    //   ];
+    //   DB::table('axa_form')->insert($insertCoco);
+    // }
+  // }
 
     return response()->json(['message' => 'Success']);
   }
