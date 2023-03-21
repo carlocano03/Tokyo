@@ -499,7 +499,7 @@
     }
 
 
-    .gray-bg {
+    .remarks-gray-bg {
         background-color: #ececec;
     }
 
@@ -692,6 +692,23 @@
     .forms_attachment-body.open-details {
         display: flex !important;
     }
+
+
+    .employee-title{
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+    }
+    .employee-title.open-details {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+    .employee-body{
+        display: none !important;
+    }
+    .employee-body.open-details {
+        display: flex !important;
+    }
+
     .employee-detail {
         display: none;
     }
@@ -870,6 +887,21 @@
             $(".forms_attachment-title").addClass("open-details")
             $(".forms_attachment-down").removeClass("d-none")
             $(".forms_attachment-up").addClass("d-none")
+        }
+    })
+
+    $(document).on('click', '#employee-toggle', function(e) {
+        if ($(".employee-body").hasClass("open-details")) {
+            $(".employee-body").removeClass("open-details")
+            $(".employee-title").removeClass("open-details")
+            $(".employee-up").removeClass("d-none")
+            $(".employee-down").addClass("d-none")
+
+        } else {
+            $(".employee-body").addClass("open-details")
+            $(".employee-title").addClass("open-details")
+            $(".employee-down").removeClass("d-none")
+            $(".employee-up").addClass("d-none")
         }
     })
 
@@ -1190,336 +1222,167 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body mp-pv4 mp-ph3 d-flex flex-column min-h-50vh border-content">
-                    <div class="table-form form-header w-full">
-                        <div class="span-12 color-white text-center orage-bg mp-ph1" style="border-left: 1px solid gray;">
-                            <span>
-                                HRDO Validation
+                <div class="mp-pv5 mp-mb3">
+                    <div class="card-container card p-0 mp-mt3">
+                        <div class="card-header d-flex items-between maroon-bg employee-title open-details">
+                            <span>Employee Details</span><span>
+                                <span>
+                                    <a class="cursor-pointer m-0 p-0 mp-mr2" id="employee-toggle">
+                                        <i class="fa fa-chevron-circle-up employee-up" aria-hidden="true"></i>
+                                        <i class="fa fa-chevron-circle-down d-none employee-down" aria-hidden="true"></i>
+                                    </a>
+                                </span>
                             </span>
+                        </div>
+                        <div class="card-body mp-pv4 mp-ph3 d-flex flex-column employee-body open-details">
+                            <div class="tab-body border-0">
+                                <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Employee Number
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            123
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Campus
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            UP CEBU
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Classification
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            Class A
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            College/Unit
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            ASD
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Department
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            ASD
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Rank/Position
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            SAMPLO
+                                        </span>
+                                    </div>
+                                </div>
+                                <!-- <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-row flex-wrap gap-10">
+                                        <div class="d-flex flex-column" style="min-width: 200px">
+                                            <span class="mp-text-fs-small">
+                                                Contact Number
+                                            </span>
+                                            <span class="mp-text-fw-medium">
+                                                092323232323232
+                                            </span>
+                                        </div>
+                                        <div class="d-flex flex-column" style="min-width: 200px">
+                                            <span class="mp-text-fs-small">
+                                                Landline Number
+                                            </span>
+                                            <span class="mp-text-fw-medium">
+                                                1267835123675
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Appointment Date
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            January 10, 2023
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Monthly Salary
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            ₱43,333.00
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Salary Grade
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            17
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Salary Grade Category
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            16-33
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Tin Number
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            312312
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <form id="hrdo_validation" >
-                    {{ csrf_field() }}
-                    <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}" >
-                    <div class="table-form form-header w-full ">
-                        <div style="position:relative" class="span-3 magenta-bg color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <a style="padding:0; position:absolute; left:10px; cursor: pointer" id="employee-toggle">
-                                <i class="fa fa-plus-square employee-toggle-plus" aria-hidden="true"></i>
-                                <i class="fa fa-minus-square d-none employee-toggle-minus" aria-hidden="true"></i>
-                            </a>        
-                            <span>
-                                 Employee Details
-                            </span>
-                        </div>
-                        <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
-                            <span>
-                                Passed 
-                            </span>
-                            <input type="radio" class="input-radio" id="check_allped" name="check_all_ped">
-                        </div>
-                        <div class="span-1 text-center mp-ph1 d-flex align-items-center justify-content-center" style="gap: 5px">
-                            <span>
-                                Failed
-                            </span>
-                            <input type="radio" class="input-radio" id="check_allfed" name="check_all_ped">
-                        </div>
-                        <div class="span-7 text-center mp-ph1">
-                            <span>
-                                Remarks
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                                Employee Number
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_emp_no" value= "1"
-                            {{ (isset($rec->pass_emp_no) && $rec->pass_emp_no == 1) ? 'checked' : '' }} name="pass_emp_no">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_emp_no" value= "2"
-                            {{ (isset($rec->pass_emp_no) && $rec->pass_emp_no == 2) ? 'checked' : '' }} name="pass_emp_no">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_emp_no) ) ? $rec->remarks_emp_no : '' }}" name="remarks_emp_no">
-                        </div>
-                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            {{$rec->employee_no}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                                Campus
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_campus" value= "1"
-                            {{ (isset($rec->pass_campus) && $rec->pass_campus == 1) ? 'checked' : '' }} name="pass_campus">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_campus" value= "2"
-                            {{ (isset($rec->pass_campus) && $rec->pass_campus == 2) ? 'checked' : '' }} name="pass_campus">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_campus) ) ? $rec->remarks_campus : '' }}" name="remarks_campus">
-                        </div>
-                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            {{$rec->name}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            Classification
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_classification" value= "1"
-                            {{ (isset($rec->pass_classification) && $rec->pass_classification == 1) ? 'checked' : '' }} name="pass_classification">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_classification" value= "2"
-                            {{ (isset($rec->pass_classification) && $rec->pass_classification == 2) ? 'checked' : '' }} name="pass_classification">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_classification) ) ? $rec->remarks_classification : '' }}" name="remarks_classification">
-                        </div>
-                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            {{$rec->classification}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            College/Unit
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_college_unit" value= "1"
-                            {{ (isset($rec->pass_college_unit) && $rec->pass_college_unit == 1) ? 'checked' : '' }} name="pass_college_unit">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_college_unit" value= "2"
-                            {{ (isset($rec->pass_college_unit) && $rec->pass_college_unit == 2) ? 'checked' : '' }} name="pass_college_unit">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_college_unit) ) ? $rec->remarks_college_unit : '' }}" name="remarks_college_unit">
-                        </div>
-                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            {{$rec->college_unit_name}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            Department
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_department" value= "1"
-                             {{ (isset($rec->pass_department) && $rec->pass_department == 1) ? 'checked' : '' }} name="pass_department">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_department" value= "2"
-                             {{ (isset($rec->pass_department) && $rec->pass_department == 2) ? 'checked' : '' }} name="pass_department">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_department) ) ? $rec->remarks_department : '' }}" name="remarks_department">
-                        </div>
-                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            {{$rec->department_name}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            Rank/Position
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_rankpos" value= "1"
-                            {{ (isset($rec->pass_rankpos) && $rec->pass_rankpos == 1) ? 'checked' : '' }} name="pass_rankpos">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_rankpos" value= "2"
-                            {{ (isset($rec->pass_rankpos) && $rec->pass_rankpos == 2) ? 'checked' : '' }} name="pass_rankpos">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_rankpos) ) ? $rec->remarks_rankpos : '' }}" name="remarks_rankpos">
-                        </div>
-                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            {{$rec->rank_position}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            Appointment
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_appointment" value= "1"
-                            {{ (isset($rec->pass_appointment) && $rec->pass_appointment == 1) ? 'checked' : '' }} name="pass_appointment">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_appointment" value= "2"
-                            {{ (isset($rec->pass_appointment) && $rec->pass_appointment == 2) ? 'checked' : '' }} name="pass_appointment">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_appointment) ) ? $rec->remarks_appointment : '' }}" name="remarks_appointment">
-                        </div>
-                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            {{$rec->appointment}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            Appointment Date
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_appointdate" value= "1"
-                            {{ (isset($rec->pass_appointdate) && $rec->pass_appointdate == 1) ? 'checked' : '' }} name="pass_appointdate">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_appointdate" value= "2"
-                            {{ (isset($rec->pass_appointdate) && $rec->pass_appointdate == 2) ? 'checked' : '' }} name="pass_appointdate">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_appointdate) ) ? $rec->remarks_appointdate : '' }}" name="remarks_appointdate">
-                        </div>
-                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            {{ date('F d, Y', strtotime($rec->date_appointment)) }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            Monthly Salary
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_monthlysalary" value= "1"
-                            {{ (isset($rec->pass_monthlysalary) && $rec->pass_monthlysalary == 1) ? 'checked' : '' }} name="pass_monthlysalary">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_monthlysalary" value= "2"
-                            {{ (isset($rec->pass_monthlysalary) && $rec->pass_monthlysalary == 2) ? 'checked' : '' }} name="pass_monthlysalary">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_monthlysalary) ) ? $rec->remarks_monthlysalary : '' }}" name="remarks_monthlysalary">
-                        </div>
-                        <div class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            ₱{{ number_format($rec->monthly_salary, 2, '.', ',') }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                             Salary Grade
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_sg" value= "1"
-                            {{ (isset($rec->pass_sg) && $rec->pass_sg == 1) ? 'checked' : '' }} name="pass_sg">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_sg" value= "2"
-                            {{ (isset($rec->pass_sg) && $rec->pass_sg == 2) ? 'checked' : '' }} name="pass_sg">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_sg) ) ? $rec->remarks_sg : '' }}" name="remarks_sg">
-                        </div>
-                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            {{$rec->salary_grade}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                             Salary Grade Category
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_sgcat" value= "1"
-                            {{ (isset($rec->pass_sgcat) && $rec->pass_sgcat == 1) ? 'checked' : '' }} name="pass_sgcat">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_sgcat" value= "2"
-                            {{ (isset($rec->pass_sgcat) && $rec->pass_sgcat == 2) ? 'checked' : '' }} name="pass_sgcat">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_sgcat) ) ? $rec->remarks_sgcat : '' }}" name="remarks_sgcat">
-                        </div>
-                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            {{$rec->sg_category}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="table-form form-header w-full employee-detail open-detail">
-                        <div class="span-3 maroon-bg color-white text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                             Tin Number
-                            </span>
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="pass_tin_no" value= "1"
-                            {{ (isset($rec->pass_tin_no) && $rec->pass_tin_no == 1) ? 'checked' : '' }} name="pass_tin_no">
-                        </div>
-                        <div class="span-1 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="radio" class="input-radio" id="fail_tin_no" value= "2"
-                            {{ (isset($rec->pass_tin_no) && $rec->pass_tin_no == 2) ? 'checked' : '' }} name="pass_tin_no">
-                        </div>
-                        <div class="span-7 color-white text-center mp-ph1 d-flex align-items-center justify-content-center" style="grid-row: span 2 / span 1;">
-                            <input type="text" class="w-input mp-pv2"
-                            value="{{ (isset($rec->remarks_tin_no) ) ? $rec->remarks_tin_no : '' }}" name="remarks_tin_no">
-                        </div>
-                        <div style="min-height: 27.5px" class="span-3 text-center mp-ph1 font-sm d-flex align-items-center justify-content-center">
-                            <span>
-                            {{$rec->tin_no}}
-                            </span>
-                        </div>
-                    </div>
-                    
                 </div>
-                <div class="table-form form-header w-full gray-bg">
+                <div class="table-form form-header w-full remarks-gray-bg">
                     <div class="span-12 d-flex flex-column mp-pv3 mp-ph3 gap-10">
                         <span>General Remarks</span>
                         <!-- <div class="table-form">
