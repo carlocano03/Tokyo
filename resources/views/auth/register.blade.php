@@ -538,9 +538,9 @@
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
-            <div class="mp-input-group mp-mt5 mp-input-group__label text-center">
+            <div class="mp-input-group mp-mt5 mp-input-group__label">
                 By clicking Next, you agree to UP Provident Fund Inc.’s <b>Terms of Use</b> and <b>Privacy Policy</b>.<br>
-                <!-- <input type="checkbox" id="terms" name="terms" /> -->
+                <input type="checkbox" id="terms" name="terms" />
                 Sign up for emails to get updates on products, offers and member benefits.
                 <!--<a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>-->
