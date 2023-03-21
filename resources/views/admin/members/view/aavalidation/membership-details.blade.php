@@ -979,13 +979,13 @@
                 <div class="card-body mp-pv4 mp-ph3 d-flex flex-column">
                     <div class="tab-component">
                         <div class="header-tabs">
-                            <span class=" active" data-set="0">
+                            <span class="" data-set="0">
                                 1. Personal Details
                             </span>
                             <span class="" data-set="1">
                                 2. Employee Details
                             </span>
-                            <span class="" data-set="2">
+                            <span class="active" data-set="2">
                                 3. Membership Details
                             </span>
                             <span class="" data-set="3">
@@ -997,10 +997,10 @@
                                 <input type="checkbox">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
-                                        Full Name
+                                        Monthly Contribution
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Joe De Vance
+                                        Percentage of Basic Salary
                                     </span>
                                 </div>
                             </div>
@@ -1008,97 +1008,10 @@
                                 <input type="checkbox">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
-                                        Date of Birth
+                                        Equivalent Value
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        March 20, 1999
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Current Address
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        Tibag, Pulilan, Lubakan
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Gender
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        Male
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Permanent Address
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        Tibag, Pulilan, Lubakan
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Civil Status
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        Married
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox">
-                                <div class="d-flex flex-row flex-wrap gap-10">
-                                    <div class="d-flex flex-column" style="min-width: 200px">
-                                        <span class="mp-text-fs-small">
-                                            Contact Number
-                                        </span>
-                                        <span class="mp-text-fw-medium">
-                                            092323232323232
-                                        </span>
-                                    </div>
-                                    <div class="d-flex flex-column" style="min-width: 200px">
-                                        <span class="mp-text-fs-small">
-                                            Landline Number
-                                        </span>
-                                        <span class="mp-text-fw-medium">
-                                            1267835123675
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Citizenship
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        Filipino
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Email Address
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        JOe@gmail.com
+                                        ₱2,166.65
                                     </span>
                                 </div>
                             </div>

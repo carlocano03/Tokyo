@@ -300,7 +300,7 @@ class HomeController extends Controller
           'college_unit' => $request->input('college_unit'),
           'department' => $request->input('department'),
           'rank_position' => $request->input('rank_position'),
-          'date_appointment' => $dateOfappoint,
+          'date_appointment' => date('Y-m-d', strtotime($dateOfappoint)),
           'appointment' => $request->input('appointment'),
           'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
           'salary_grade' => $request->input('salary_grade'),
