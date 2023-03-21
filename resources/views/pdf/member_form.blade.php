@@ -8,6 +8,15 @@
     <title>Membership Form</title>
 
     <style>
+        @font-face {
+            font-family: 'TestFont';
+            src: url({{ storage_path("fonts/AuthenticSignature400.ttf") }}) format("truetype");
+        }
+        #sign {
+            font-family: 'TestFont';
+            font-size: 30px;
+        }
+
         .pdf-container img{
             transform:scale(1.2);
             margin-top:20px;
@@ -16,8 +25,6 @@
         body {
             font-family: 'Fira Sans', sans-serif;
             font-weight:bold;
-          
-        
         }
 
         .text-container {
@@ -974,7 +981,7 @@
                         <div class="title">
                             <label class="no_1 title-font">{{ $count }}</label>
                             <label class="full_name title-font">Full Name</label>
-                            <label class="full_name_value value-font">{{ $ben->fullname }}</label>
+                            <label class="full_name_value value-font" style="margin-top:25px;">{{ $ben->fullname }}</label>
                             <label class="date_of_birth title-font">Date of Birth </label>
                             <label class="date_of_birth_value value-font">{{ $ben->date_birth }} </label>
                             <label class="relationship title-font">Relationship </label>
@@ -1092,8 +1099,7 @@
                     </div>
                     <div class="signatures">
                         <label for="e-sig">
-                            <img class="value" src="{{ public_path().'/assets/images/uppfi-logo.png' }}" width="50px" alt="UPPFI">
-                            <label class="value_sign value-font">{{ $member->sign }}</label>
+                            <label class="value_sign value-font" id="sign">{{ $member->sign }}</label>
                             <label class="title title-font">SIGNATURE OVER PRINTED NAME</label>
                         </label>
                     </div>

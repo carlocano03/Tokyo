@@ -62,8 +62,6 @@
     </div>
     <br>
     <div style="text-align: right;">
-
-        {{-- <img src="{{ public_path().$member->sign_path }}" width="15%" alt="UPPFI"> --}}
         <label class="sign">{{ ucwords($member->sign) }}</label>
         <hr style="width: 50%; margin-right: 0px; margin-bottom:1px; margin-top:-5px;">
         Signature of Member

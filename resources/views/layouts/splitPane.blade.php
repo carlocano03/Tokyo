@@ -1354,24 +1354,30 @@
         }
     });
     $(document).on('click', '#print_app', function(e) {
-        Swal.fire({
-                        title: 'Application has been submitted. Subject for review.',
-                        text: "Do you want to print your Membership Application?",
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // window.open();
-                            var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp; 
+        // Swal.fire({
+        //                 title: 'Application has been submitted. Subject for review.',
+        //                 text: "Do you want to print your Membership Application?",
+        //                 icon: 'success',
+        //                 showCancelButton: true,
+        //                 confirmButtonColor: '#3085d6',
+        //                 confirmButtonText: 'OK'
+        //             }).then((result) => {
+        //                 if (result.isConfirmed) {
+        //                     // window.open();
+        //                     var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp; 
+        //                     window.open(url, 'targetWindow',
+        //                         'resizable=yes,width=1000,height=1000');
+        //                     setTimeout(function() {
+        //                         location.reload();
+        //                     }, 1000);
+        //                 }
+        //             })
+        var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp; 
                             window.open(url, 'targetWindow',
                                 'resizable=yes,width=1000,height=1000');
                             setTimeout(function() {
                                 location.reload();
                             }, 1000);
-                        }
-                    })
     });
     $(document).on('click', '#cont_app', function(e) {
         window.location.href = `/register?draft=${query}`;
