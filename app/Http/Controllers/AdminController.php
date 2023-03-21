@@ -68,16 +68,9 @@ class AdminController extends Controller
 
     $data['campuses'] = DB::table('campus')->get();
 
-    return view('admin.memberlist.memberlist')->with($data);
+    return view('admin.memberlist')->with($data);
   }
 
-
-
-  public function memberDetails()
-  {
-
-    return view('admin.memberlist.member-details');
-  }
 
 
   public function countApplication()
@@ -231,7 +224,7 @@ class AdminController extends Controller
   }
 
 
-  public function members_view_record($id)
+  public function members_view_record_personal($id)
   {
     // DB::enableQueryLog();
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
@@ -356,6 +349,387 @@ class AdminController extends Controller
       'trailing' => $trailing
     );
     return view('admin.members.view.aavalidation.personal-details')->with($data);
+  }
+
+  public function members_view_record_employee($id)
+  {
+    // DB::enableQueryLog();
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+      ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+      ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->select(
+        'mem_app.*',
+        'membership_details.*',
+        'personal_details.*',
+        'employee_details.*',
+        'membership_details.*',
+        'campus.*',
+        'college_unit.*',
+        'department.*',
+        'college_unit.*',
+        'pass_name',
+        'pass_dob',
+        'pass_gender',
+        'pass_civilstatus',
+        'pass_citizenship',
+        'pass_currentadd',
+        'pass_permaadd',
+        'pass_contactnum',
+        'pass_landline',
+        'pass_email',
+        'pass_emp_no',
+        'pass_campus',
+        'pass_classification',
+        'pass_college_unit',
+        'pass_department',
+        'pass_rankpos',
+        'pass_appointment',
+        'pass_appointdate',
+        'pass_monthlysalary',
+        'pass_sg',
+        'pass_sgcat',
+        'pass_tin_no',
+        'pass_monthlycontri',
+        'pass_equivalent',
+        'pass_membershipf',
+        'pass_proxyform',
+        'remarks_name',
+        'remarks_dob',
+        'remarks_gender',
+        'remarks_civilstatus',
+        'remarks_citizenship',
+        'remarks_currentadd',
+        'remarks_permaadd',
+        'review_contactnum',
+        'review_landline',
+        'remarks_email',
+        'remarks_emp_no',
+        'remarks_campus',
+        'remarks_classification',
+        'remarks_college_unit',
+        'remarks_department',
+        'remarks_rankpos',
+        'remarks_appointment',
+        'remarks_appointdate',
+        'remarks_monthlysalary',
+        'remarks_sg',
+        'remarks_sgcat',
+        'remarks_tin_no',
+        'remarks_monthlycontri',
+        'remarks_equivalent',
+        'remarks_membershipf',
+        'remarks_proxyform',
+        'general_remarks',
+        'evaluate_by',
+        'date_evaluated'
+      )
+      ->where('mem_app.app_no', $id)->first();
+    $email = DB::table('mem_app')->where('app_no', $id)->select('email_address')->value('email_address');
+    $app_stat = DB::table('mem_app')->where('app_no', $id)->select('app_status')->value('app_status');
+    if ($app_stat == 'NEW APPLICATION') {
+      $mem_appinst = array(
+        'app_status' => "PROCESSING",
+      );
+      $affected = DB::table('mem_app')->where('app_no', $id)
+        ->update($mem_appinst);
+    }
+
+
+    $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+    if ($appcount == 0) {
+      $apptrail = array(
+        'status_remarks' => "AA - Review Validation",
+        'app_no' => $id,
+        'updateby' => Auth::user()->id,
+        'user_level' => Auth::user()->user_level,
+      );
+      DB::table('app_trailing')->where('app_no', $id)
+        ->insert($apptrail);
+    }
+
+    if (!empty($affected)) {
+      $mailData = [
+        'title' => 'Member Application is for Processing',
+        'body' => 'Your application are now processing and subjected for approval.',
+        'app_no' => $id,
+      ];
+      Mail::to($email)->send(new processMail($mailData));
+    }
+    $status = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('time_stamp', 'desc')
+      ->value('status_remarks');
+    $user_step = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('user_level');
+    $trailing = DB::table('app_trailing')
+      ->where('app_no', $id)->orderBy('time_stamp', 'asc')->get();
+    $data = array(
+      'status' => $status,
+      'user_step' => $user_step,
+      'rec' => $records,
+      'trailing' => $trailing
+    );
+    return view('admin.members.view.aavalidation.employee-details')->with($data);
+  }
+
+  public function members_view_record_membership($id)
+  {
+    // DB::enableQueryLog();
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+      ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+      ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->select(
+        'mem_app.*',
+        'membership_details.*',
+        'personal_details.*',
+        'employee_details.*',
+        'membership_details.*',
+        'campus.*',
+        'college_unit.*',
+        'department.*',
+        'college_unit.*',
+        'pass_name',
+        'pass_dob',
+        'pass_gender',
+        'pass_civilstatus',
+        'pass_citizenship',
+        'pass_currentadd',
+        'pass_permaadd',
+        'pass_contactnum',
+        'pass_landline',
+        'pass_email',
+        'pass_emp_no',
+        'pass_campus',
+        'pass_classification',
+        'pass_college_unit',
+        'pass_department',
+        'pass_rankpos',
+        'pass_appointment',
+        'pass_appointdate',
+        'pass_monthlysalary',
+        'pass_sg',
+        'pass_sgcat',
+        'pass_tin_no',
+        'pass_monthlycontri',
+        'pass_equivalent',
+        'pass_membershipf',
+        'pass_proxyform',
+        'remarks_name',
+        'remarks_dob',
+        'remarks_gender',
+        'remarks_civilstatus',
+        'remarks_citizenship',
+        'remarks_currentadd',
+        'remarks_permaadd',
+        'review_contactnum',
+        'review_landline',
+        'remarks_email',
+        'remarks_emp_no',
+        'remarks_campus',
+        'remarks_classification',
+        'remarks_college_unit',
+        'remarks_department',
+        'remarks_rankpos',
+        'remarks_appointment',
+        'remarks_appointdate',
+        'remarks_monthlysalary',
+        'remarks_sg',
+        'remarks_sgcat',
+        'remarks_tin_no',
+        'remarks_monthlycontri',
+        'remarks_equivalent',
+        'remarks_membershipf',
+        'remarks_proxyform',
+        'general_remarks',
+        'evaluate_by',
+        'date_evaluated'
+      )
+      ->where('mem_app.app_no', $id)->first();
+    $email = DB::table('mem_app')->where('app_no', $id)->select('email_address')->value('email_address');
+    $app_stat = DB::table('mem_app')->where('app_no', $id)->select('app_status')->value('app_status');
+    if ($app_stat == 'NEW APPLICATION') {
+      $mem_appinst = array(
+        'app_status' => "PROCESSING",
+      );
+      $affected = DB::table('mem_app')->where('app_no', $id)
+        ->update($mem_appinst);
+    }
+
+
+    $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+    if ($appcount == 0) {
+      $apptrail = array(
+        'status_remarks' => "AA - Review Validation",
+        'app_no' => $id,
+        'updateby' => Auth::user()->id,
+        'user_level' => Auth::user()->user_level,
+      );
+      DB::table('app_trailing')->where('app_no', $id)
+        ->insert($apptrail);
+    }
+
+    if (!empty($affected)) {
+      $mailData = [
+        'title' => 'Member Application is for Processing',
+        'body' => 'Your application are now processing and subjected for approval.',
+        'app_no' => $id,
+      ];
+      Mail::to($email)->send(new processMail($mailData));
+    }
+    $status = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('time_stamp', 'desc')
+      ->value('status_remarks');
+    $user_step = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('user_level');
+    $trailing = DB::table('app_trailing')
+      ->where('app_no', $id)->orderBy('time_stamp', 'asc')->get();
+    $data = array(
+      'status' => $status,
+      'user_step' => $user_step,
+      'rec' => $records,
+      'trailing' => $trailing
+    );
+    return view('admin.members.view.aavalidation.membership-details')->with($data);
+  }
+
+  public function members_view_record_forms($id)
+  {
+    // DB::enableQueryLog();
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+      ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+      ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->select(
+        'mem_app.*',
+        'membership_details.*',
+        'personal_details.*',
+        'employee_details.*',
+        'membership_details.*',
+        'campus.*',
+        'college_unit.*',
+        'department.*',
+        'college_unit.*',
+        'pass_name',
+        'pass_dob',
+        'pass_gender',
+        'pass_civilstatus',
+        'pass_citizenship',
+        'pass_currentadd',
+        'pass_permaadd',
+        'pass_contactnum',
+        'pass_landline',
+        'pass_email',
+        'pass_emp_no',
+        'pass_campus',
+        'pass_classification',
+        'pass_college_unit',
+        'pass_department',
+        'pass_rankpos',
+        'pass_appointment',
+        'pass_appointdate',
+        'pass_monthlysalary',
+        'pass_sg',
+        'pass_sgcat',
+        'pass_tin_no',
+        'pass_monthlycontri',
+        'pass_equivalent',
+        'pass_membershipf',
+        'pass_proxyform',
+        'remarks_name',
+        'remarks_dob',
+        'remarks_gender',
+        'remarks_civilstatus',
+        'remarks_citizenship',
+        'remarks_currentadd',
+        'remarks_permaadd',
+        'review_contactnum',
+        'review_landline',
+        'remarks_email',
+        'remarks_emp_no',
+        'remarks_campus',
+        'remarks_classification',
+        'remarks_college_unit',
+        'remarks_department',
+        'remarks_rankpos',
+        'remarks_appointment',
+        'remarks_appointdate',
+        'remarks_monthlysalary',
+        'remarks_sg',
+        'remarks_sgcat',
+        'remarks_tin_no',
+        'remarks_monthlycontri',
+        'remarks_equivalent',
+        'remarks_membershipf',
+        'remarks_proxyform',
+        'general_remarks',
+        'evaluate_by',
+        'date_evaluated'
+      )
+      ->where('mem_app.app_no', $id)->first();
+    $email = DB::table('mem_app')->where('app_no', $id)->select('email_address')->value('email_address');
+    $app_stat = DB::table('mem_app')->where('app_no', $id)->select('app_status')->value('app_status');
+    if ($app_stat == 'NEW APPLICATION') {
+      $mem_appinst = array(
+        'app_status' => "PROCESSING",
+      );
+      $affected = DB::table('mem_app')->where('app_no', $id)
+        ->update($mem_appinst);
+    }
+
+
+    $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+    if ($appcount == 0) {
+      $apptrail = array(
+        'status_remarks' => "AA - Review Validation",
+        'app_no' => $id,
+        'updateby' => Auth::user()->id,
+        'user_level' => Auth::user()->user_level,
+      );
+      DB::table('app_trailing')->where('app_no', $id)
+        ->insert($apptrail);
+    }
+
+    if (!empty($affected)) {
+      $mailData = [
+        'title' => 'Member Application is for Processing',
+        'body' => 'Your application are now processing and subjected for approval.',
+        'app_no' => $id,
+      ];
+      Mail::to($email)->send(new processMail($mailData));
+    }
+    $status = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('time_stamp', 'desc')
+      ->value('status_remarks');
+    $user_step = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('user_level');
+    $trailing = DB::table('app_trailing')
+      ->where('app_no', $id)->orderBy('time_stamp', 'asc')->get();
+    $data = array(
+      'status' => $status,
+      'user_step' => $user_step,
+      'rec' => $records,
+      'trailing' => $trailing
+    );
+    return view('admin.members.view.aavalidation.forms-attachment')->with($data);
   }
 
   public function hrdo_view_record($id)
@@ -692,7 +1066,7 @@ class AdminController extends Controller
     if ($users == 'HRDO') {
       $href = '/admin/members/records/view/hrdo/';
     } else if ($users == 'AA') {
-      $href = '/admin/members/records/view/aa/';
+      $href = '/admin/members/records/view/aa/personal/';
     } else if ($users == 'FM') {
       $href = '';
     }

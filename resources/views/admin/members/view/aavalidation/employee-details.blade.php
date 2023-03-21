@@ -979,10 +979,10 @@
                 <div class="card-body mp-pv4 mp-ph3 d-flex flex-column">
                     <div class="tab-component">
                         <div class="header-tabs">
-                            <span class=" active" data-set="0">
+                            <span class="" data-set="0">
                                 1. Personal Details
                             </span>
-                            <span class="" data-set="1">
+                            <span class="active" data-set="1">
                                 2. Employee Details
                             </span>
                             <span class="" data-set="2">
@@ -997,10 +997,10 @@
                                 <input type="checkbox">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
-                                        Full Name
+                                        Employee Number
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Joe De Vance
+                                        123
                                     </span>
                                 </div>
                             </div>
@@ -1008,10 +1008,10 @@
                                 <input type="checkbox">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
-                                        Date of Birth
+                                        Campus
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        March 20, 1999
+                                        UP CEBU
                                     </span>
                                 </div>
                             </div>
@@ -1019,10 +1019,10 @@
                                 <input type="checkbox">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
-                                        Current Address
+                                        Classification
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Tibag, Pulilan, Lubakan
+                                        Class A
                                     </span>
                                 </div>
                             </div>
@@ -1030,10 +1030,10 @@
                                 <input type="checkbox">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
-                                        Gender
+                                        College/Unit
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Male
+                                        ASD
                                     </span>
                                 </div>
                             </div>
@@ -1041,10 +1041,10 @@
                                 <input type="checkbox">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
-                                        Permanent Address
+                                        Department
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Tibag, Pulilan, Lubakan
+                                        ASD
                                     </span>
                                 </div>
                             </div>
@@ -1052,14 +1052,14 @@
                                 <input type="checkbox">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
-                                        Civil Status
+                                        Rank/Position
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Married
+                                        SAMPLO
                                     </span>
                                 </div>
                             </div>
-                            <div class="tab-item">
+                            <!-- <div class="tab-item">
                                 <input type="checkbox">
                                 <div class="d-flex flex-row flex-wrap gap-10">
                                     <div class="d-flex flex-column" style="min-width: 200px">
@@ -1079,15 +1079,15 @@
                                         </span>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="tab-item">
                                 <input type="checkbox">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
-                                        Citizenship
+                                        Appointment Date
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Filipino
+                                        January 10, 2023
                                     </span>
                                 </div>
                             </div>
@@ -1095,10 +1095,43 @@
                                 <input type="checkbox">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
-                                        Email Address
+                                        Monthly Salary
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        JOe@gmail.com
+                                        ₱43,333.00
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="tab-item">
+                                <input type="checkbox">
+                                <div class="d-flex flex-column">
+                                    <span class="mp-text-fs-small">
+                                        Salary Grade
+                                    </span>
+                                    <span class="mp-text-fw-medium">
+                                        17
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="tab-item">
+                                <input type="checkbox">
+                                <div class="d-flex flex-column">
+                                    <span class="mp-text-fs-small">
+                                        Salary Grade Category
+                                    </span>
+                                    <span class="mp-text-fw-medium">
+                                        16-33
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="tab-item">
+                                <input type="checkbox">
+                                <div class="d-flex flex-column">
+                                    <span class="mp-text-fs-small">
+                                        Tin Number
+                                    </span>
+                                    <span class="mp-text-fw-medium">
+                                        312312
                                     </span>
                                 </div>
                             </div>
