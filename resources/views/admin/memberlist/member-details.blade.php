@@ -1667,49 +1667,37 @@
             <span>
                 New Members
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit am
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="1">
             <span>
                 Master List
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3 " id="sider-item" data-set="2">
             <span>
                 Members Summary Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
             <span>
                 Contribution Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
             <span>
                 Insurance Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
             <span>
                 Members Voter List
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet
-            </span>
+
         </div>
     </div>
     <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
@@ -1907,7 +1895,9 @@
 
                                 </div>
                             </div>
-                            <div class="col-lg-7 mp-pr0 mp-mt2" style="width: 100%;">
+
+
+                            <div class="col-lg-7 mp-pr0 mp-mt2 d-none opacity-0" id="statementDiv" style="width: 100%;">
                                 <div class="mp-card mp-p4" style="padding:20px;">
 
                                     <div style="color: white;
@@ -2114,19 +2104,221 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
+                            </div>
+
+                            <div class="col-lg-7 mp-pr0 mp-mt2 d-none opacity-0" id="beneficiariesDiv" style="width: 100%;">
+                                <div style="color: white;
+                                            padding: 15px;
+                                            background-color: var(--c-accent);
+                                            margin: 0;width: 100%;">Add New Beneficiaries
+
+                                </div>
+                                <div class="mp-card mp-p4" style="padding:20px;">
+
+                                    <form id="users_form" class=" form-border-bottom">
+
+                                        <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3  mp-pv2 ">
+                                            <input type="hidden" id="users_id" name="users_id">
+                                            <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Full Name</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="firstname" id="firstname" required />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Relationship</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Birthdate</label>
+                                                <input class="mp-input-group__input mp-text-field" type="date" name="lastname" id="lastname" required />
+                                            </div>
+
+                                            <a class="up-button btn-md button-animate-right mp-text-center" id="save_users" name="save_users" type="submit">
+                                                <span class="save_up">Add New Record</span>
+                                            </a>
+                                            <a class="up-button-grey btn-md button-animate-right mp-text-center" id="cancel">
+                                                <span class="clear_txt">Clear</span>
+                                            </a>
+                                            <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
+                                        </div>
+
+                                    </form>
+                                    <br>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Beneficiaries Records</label>
+                                        <table class="permission-table" style="transform: scale(1);">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>FULL NAME</th>
+                                                <th>BIRTHDATE</th>
+                                                <th>RELATIONSHIP</th>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Denneb Gomez </td>
+                                                <td>May 6, 1999</td>
+                                                <td>Brother</td>
+                                            </tr>
+
+
+                                        </table>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-lg-7 mp-pr0 mp-mt2 " id="memberstatusDiv" style="width: 100%;">
+                                <div style="color: white;
+                                            padding: 15px;
+                                            background-color: var(--c-accent);
+                                            margin: 0;width: 100%;">Membership Status
+
+                                </div>
+                                <div class="mp-card mp-p4" style="padding:20px;">
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Beneficiaries Records</label>
+                                        <table class="permission-table" style="transform: scale(1);">
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>FULL NAME</th>
+                                                <th>BIRTHDATE</th>
+                                                <th>RELATIONSHIP</th>
+                                            </tr>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Denneb Gomez </td>
+                                                <td>May 6, 1999</td>
+                                                <td>Brother</td>
+                                            </tr>
+
+
+                                        </table>
+
+                                    </div>
+                                    <form id="users_form" class=" form-border-bottom">
+
+                                        <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3  mp-pv2 ">
+                                            <input type="hidden" id="users_id" name="users_id">
+                                            <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">First Name</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Middle Name</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="middle_name" id="middle_name" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Last Name</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Campus</label>
+                                                <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                                    <option value="">Select Campus</option>
+                                                    <option value="AA">Campus 1</option>
+                                                </select>
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Department</label>
+                                                <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                                    <option value="">Select Department</option>
+                                                    <option value="AA">Department 1</option>
+                                                </select>
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Position</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Appointment Date</label>
+                                                <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Membership Date</label>
+                                                <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Cellphone Number</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Landline Number</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Gender</label>
+                                                <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                                    <option value="">Female</option>
+                                                    <option value="">Male</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Employee Number</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Status Appointment</label>
+                                                <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                                    <option value="">PERMANENT</option>
+                                                    <option value="">PERMANENT</option>
+                                                    <option value="">PERMANENT</option>
+                                                </select>
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Permanent Address</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Current Address</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Tin</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Birthdate</label>
+                                                <input class="mp-input-group__input mp-text-field" type="date" id=" email_add" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Email</label>
+                                                <input class="mp-input-group__input mp-text-field" type="email" id=" email_add" />
+                                            </div>
+                                            <a class="up-button btn-md button-animate-right mp-text-center" id="save_users" name="save_users" type="submit">
+                                                <span class="save_up">Update Record</span>
+                                            </a>
+
+                                            <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
+                                        </div>
+
+                                    </form>
+                                    <br>
+
+                                </div>
+                            </div>
+
+                        </div>
 
                     </div>
 
 
+
                 </div>
 
-            </div>
-        </div>
 
+            </div>
+
+        </div>
     </div>
+
+</div>
 </div>
 
 
