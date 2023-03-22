@@ -1500,49 +1500,37 @@
             <span>
                 New Members
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit am
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="1">
             <span>
                 Master List
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3 " id="sider-item" data-set="2">
             <span>
                 Members Summary Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
             <span>
                 Contribution Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
             <span>
                 Insurance Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
             <span>
                 Members Voter List
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet
-            </span>
+
         </div>
     </div>
     <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">

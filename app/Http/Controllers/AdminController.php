@@ -68,7 +68,7 @@ class AdminController extends Controller
 
     $data['campuses'] = DB::table('campus')->get();
 
-    return view('admin.memberlist')->with($data);
+    return view('admin.memberlist.memberlist')->with($data);
   }
 
 
