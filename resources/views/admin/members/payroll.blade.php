@@ -663,6 +663,7 @@
         .members-module {
             margin-top: 53px;
         }
+
         .siderbar {
             position: absolute;
             height: 100%;
@@ -674,31 +675,31 @@
     .siderbar {
         max-width: 15px;
         min-width: 15px;
-        height: auto; 
+        height: auto;
         background-color: white;
     }
 
     .siderbar.showed {
         max-width: 250px;
         min-width: 250px;
-        height: auto; 
+        height: auto;
         background-color: white;
     }
-    
+
     .siderbar.showed div {
         display: flex;
     }
 
-    .siderbar > div {
+    .siderbar>div {
         border: 1px solid #e9dfdf;
         display: none;
     }
 
-    .siderbar > .item {
+    .siderbar>.item {
         cursor: pointer;
     }
 
-    .siderbar > .item:hover {
+    .siderbar>.item:hover {
         background-color: #f6f6f6;
     }
 
@@ -725,8 +726,6 @@
         right: -7px;
         top: 20px;
     }
-
-
 </style>
 <div id="summaryModal" class="">
 
@@ -837,7 +836,7 @@
 
     $(document).on('click', '.toggle-icon', function(e) {
         console.log('123')
-        if( $(".fa-chevron-circle-right").hasClass("d-none")) {
+        if ($(".fa-chevron-circle-right").hasClass("d-none")) {
             $(".fa-chevron-circle-right").removeClass("d-none")
             $(".fa-chevron-circle-left").addClass("d-none")
             $(".siderbar").removeClass("showed")
@@ -859,48 +858,40 @@
 <div class="members-module">
     <div class="siderbar d-flex flex-column showed" style="position:relative">
         <span class="toggle-icon" style="cursor: pointer">
-            <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%"  aria-hidden="true"></i>
+            <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
             <i class="fa fa-chevron-circle-right mp-text-fs-base magenta-clr d-none" style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
         </span>
         <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
-            Membership Application 
+            Membership Application
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="0">
             <span>
                 Application Records
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="1">
             <span>
                 Payroll Advise Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="2">
             <span>
                 Application Movement Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
             <span>
                 Application Analytics
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
     </div>
     <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
         <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
-            Payroll Advise Reports 
+            Payroll Advise Reports
         </div>
         <div class="table-form gap-5 details-container">
             <div class="card-container card p-0 span-6">
@@ -922,7 +913,7 @@
                     <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
                     <span class="mp-text-fs-base mp-mt2 mp-text-fw-medium">RE: </span>
                     <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" placeholder="Salary Deduction Advise of the Month of" />
-                    <br/>
+                    <br />
                     <span class="mp-text-fs-small">From: User / User Access Level (Position) </span>
                     <span class="mp-text-fs-small">Date Prepared: March 11, 2023 11:00 PM </span>
 
@@ -1021,7 +1012,7 @@
                     <div class="body-table">
                         <table class="payroll-table" style="height: auto;" width="100%">
                             <tbody>
-                            <tr>
+                                <tr>
                                     <td>
                                         <span>Sequence #</span>
                                     </td>
@@ -1052,7 +1043,8 @@
                                     <td>
                                         <span>Amount</span>
                                     </td>
-                                </tr><tr>
+                                </tr>
+                                <tr>
                                     <td>
                                         <span>Sequence #</span>
                                     </td>
@@ -1083,7 +1075,8 @@
                                     <td>
                                         <span>Amount</span>
                                     </td>
-                                </tr><tr>
+                                </tr>
+                                <tr>
                                     <td>
                                         <span>Sequence #</span>
                                     </td>
@@ -1114,7 +1107,8 @@
                                     <td>
                                         <span>Amount</span>
                                     </td>
-                                </tr><tr>
+                                </tr>
+                                <tr>
                                     <td>
                                         <span>Sequence #</span>
                                     </td>
@@ -1145,7 +1139,8 @@
                                     <td>
                                         <span>Amount</span>
                                     </td>
-                                </tr><tr>
+                                </tr>
+                                <tr>
                                     <td>
                                         <span>Sequence #</span>
                                     </td>
@@ -1176,7 +1171,8 @@
                                     <td>
                                         <span>Amount</span>
                                     </td>
-                                </tr><tr>
+                                </tr>
+                                <tr>
                                     <td>
                                         <span>Sequence #</span>
                                     </td>
@@ -1207,7 +1203,8 @@
                                     <td>
                                         <span>Amount</span>
                                     </td>
-                                </tr><tr>
+                                </tr>
+                                <tr>
                                     <td>
                                         <span>Sequence #</span>
                                     </td>
@@ -1238,7 +1235,8 @@
                                     <td>
                                         <span>Amount</span>
                                     </td>
-                                </tr><tr>
+                                </tr>
+                                <tr>
                                     <td>
                                         <span>Sequence #</span>
                                     </td>
@@ -1269,7 +1267,8 @@
                                     <td>
                                         <span>Amount</span>
                                     </td>
-                                </tr><tr>
+                                </tr>
+                                <tr>
                                     <td>
                                         <span>Sequence #</span>
                                     </td>
@@ -1300,7 +1299,8 @@
                                     <td>
                                         <span>Amount</span>
                                     </td>
-                                </tr><tr>
+                                </tr>
+                                <tr>
                                     <td>
                                         <span>Sequence #</span>
                                     </td>
@@ -1336,9 +1336,9 @@
                         </table>
                     </div>
                 </div>
-                
+
             </div>
-            
+
         </div>
     </div>
 </div>

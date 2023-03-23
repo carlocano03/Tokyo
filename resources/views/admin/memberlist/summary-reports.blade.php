@@ -1570,34 +1570,6 @@
                                          <button class="f-button font-bold">Print</button>
                                      </span>
                                  </div>
-                                 <div style="color: white;
-                                            padding: 15px;
-                                            background-color: var(--c-accent);
-                                            margin: 0;width: 100%;">Membership Status
-
-                                 </div>
-                                 <div class="mp-card mp-p4 mp-mb2" style="padding:20px; height:auto;">
-                                     <div class="status-container">
-                                         <div class="mp-input-group">
-                                             <label class="mp-input-group__label">Current Status:</label>
-                                             <label class="mp-input-group__label" style="font-weight: bold; color: var(--c-primary);">Active</label>
-                                         </div>
-                                         <div class="mp-input-group">
-                                             <div class="mp-input-group">
-                                                 <label class="mp-input-group__label" style="margin-top: 10px;float: left;">Change Status</label>
-                                                 <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                                     <option value="">Active</option>
-                                                     <option value="AA">Inactive</option>
-                                                 </select>
-                                             </div>
-                                         </div>
-                                         <a class="up-button btn-md button-animate-right mp-text-center mp-mt2" id="save_users" name="save_users" type="submit">
-                                             <span class="save_up">Update Status</span>
-                                         </a>
-                                     </div>
-                                 </div>
-
-
 
                                  <div class="table-form w-full" style="grid-template-columns: repeat(7, 1fr); font-size:12px; padding: 10px;">
 
