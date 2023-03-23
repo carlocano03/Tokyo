@@ -1571,10 +1571,6 @@
                                      </span>
                                  </div>
 
-
-
-
-
                                  <div class="table-form w-full" style="grid-template-columns: repeat(7, 1fr); font-size:12px; padding: 10px;">
 
                                      <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
