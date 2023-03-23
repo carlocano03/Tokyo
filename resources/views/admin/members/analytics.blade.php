@@ -663,6 +663,7 @@
         .members-module {
             margin-top: 53px;
         }
+
         .siderbar {
             position: absolute;
             height: 100%;
@@ -674,31 +675,31 @@
     .siderbar {
         max-width: 15px;
         min-width: 15px;
-        height: auto; 
+        height: auto;
         background-color: white;
     }
 
     .siderbar.showed {
         max-width: 250px;
         min-width: 250px;
-        height: auto; 
+        height: auto;
         background-color: white;
     }
-    
+
     .siderbar.showed div {
         display: flex;
     }
 
-    .siderbar > div {
+    .siderbar>div {
         border: 1px solid #e9dfdf;
         display: none;
     }
 
-    .siderbar > .item {
+    .siderbar>.item {
         cursor: pointer;
     }
 
-    .siderbar > .item:hover {
+    .siderbar>.item:hover {
         background-color: #f6f6f6;
     }
 
@@ -725,8 +726,6 @@
         right: -7px;
         top: 20px;
     }
-
-
 </style>
 <div id="summaryModal" class="">
 
@@ -836,7 +835,7 @@
     })
 
     $(document).on('click', '.toggle-icon', function(e) {
-        if( $(".fa-chevron-circle-right").hasClass("d-none")) {
+        if ($(".fa-chevron-circle-right").hasClass("d-none")) {
             $(".fa-chevron-circle-right").removeClass("d-none")
             $(".fa-chevron-circle-left").addClass("d-none")
             $(".siderbar").removeClass("showed")
@@ -853,7 +852,6 @@
         const dataSet = $(this).attr('data-set')
         window.location.href = '/admin/members/records' + links[dataSet]
     })
-
 </script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -863,43 +861,35 @@
 <div class="members-module">
     <div class="siderbar d-flex flex-column showed" style="position:relative">
         <span class="toggle-icon" style="cursor: pointer">
-            <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%"  aria-hidden="true"></i>
+            <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
             <i class="fa fa-chevron-circle-right mp-text-fs-base magenta-clr d-none" style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
         </span>
         <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
-            Membership Application 
+            Membership Application
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="0">
             <span>
                 Application Records
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="1">
             <span>
                 Payroll Advise Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="2">
             <span>
                 Application Movement Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="3">
             <span>
                 Application Analytics
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
     </div>
     <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
@@ -943,7 +933,7 @@
                             <option value="HRDO RETURNED APPLICATIONS">HRDO RETURNED APPLICATIONS</option>
                         </select>
                     </span>
-                   
+
                 </div>
                 <!-- <div class="">
                                 <label for="row">Membership Date</label>
@@ -960,66 +950,66 @@
             </div>
         </div>
         <div>
-        <figure class="highcharts-figure">
-            <div id="container"></div>
-        </figure>
-        <script>
-            Highcharts.chart('container', {
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false,
-                type: 'pie'
-            },
-            title: {
-                text: '',
-                align: 'left'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            accessibility: {
-                point: {
-                valueSuffix: '%'
-                }
-            },
-            plotOptions: {
-                pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
-                }
-            },
-            series: [{
-                name: 'Brands',
-                colorByPoint: true,
-                data: [{
-                name: 'New',
-                    y: 74.77,
-                    // sliced: true,
-                    // selected: true
-                },  {
-                    name: 'Processing',
-                    y: 12.82
-                },  {
-                    name: 'Approved',
-                    y: 4.63
-                }, {
-                    name: 'Draft',
-                    y: 2.44
-                }, {
-                    name: 'Returned',
-                    y: 2.02
-                }, {
-                    name: 'Rejected',
-                    y: 3.28
-                }]
-            }]
-            });
-        </script>
+            <figure class="highcharts-figure">
+                <div id="container"></div>
+            </figure>
+            <script>
+                Highcharts.chart('container', {
+                    chart: {
+                        plotBackgroundColor: null,
+                        plotBorderWidth: null,
+                        plotShadow: false,
+                        type: 'pie'
+                    },
+                    title: {
+                        text: '',
+                        align: 'left'
+                    },
+                    tooltip: {
+                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                    },
+                    accessibility: {
+                        point: {
+                            valueSuffix: '%'
+                        }
+                    },
+                    plotOptions: {
+                        pie: {
+                            allowPointSelect: true,
+                            cursor: 'pointer',
+                            dataLabels: {
+                                enabled: false
+                            },
+                            showInLegend: true
+                        }
+                    },
+                    series: [{
+                        name: 'Brands',
+                        colorByPoint: true,
+                        data: [{
+                            name: 'New',
+                            y: 74.77,
+                            // sliced: true,
+                            // selected: true
+                        }, {
+                            name: 'Processing',
+                            y: 12.82
+                        }, {
+                            name: 'Approved',
+                            y: 4.63
+                        }, {
+                            name: 'Draft',
+                            y: 2.44
+                        }, {
+                            name: 'Returned',
+                            y: 2.02
+                        }, {
+                            name: 'Rejected',
+                            y: 3.28
+                        }]
+                    }]
+                });
+            </script>
         </div>
     </div>
 </div>
