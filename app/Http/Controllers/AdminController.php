@@ -79,6 +79,25 @@ class AdminController extends Controller
     return view('admin.memberlist.member-details');
   }
 
+  public function multipleMemberView()
+  {
+
+    return view('admin.memberlist.multiple-view');
+  }
+  public function memberlistViewAll()
+  {
+
+    return view('admin.memberlist.memberlist-viewall');
+  }
+
+  public function insuranceReports()
+  {
+    return view('admin.memberlist.insurance-reports');
+  }
+  public function summaryReports()
+  {
+    return view('admin.memberlist.summary-reports');
+  }
 
   public function countApplication()
   {

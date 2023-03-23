@@ -6599,12 +6599,12 @@ text.highcharts-credits {
     flex-direction: column;
 }
 
-.tab-component > .header-tabs {
+.tab-component>.header-tabs {
     display: flex;
     flex-direction: row;
 }
 
-.tab-component > .header-tabs > span {
+.tab-component>.header-tabs>span {
     cursor: pointer;
     padding-left: 10px;
     padding-right: 10px;
@@ -6620,11 +6620,11 @@ text.highcharts-credits {
     font-size: var(--fs-small) !important
 }
 
-.tab-component > .header-tabs > span:first-child {
+.tab-component>.header-tabs>span:first-child {
     border-left: 0;
 }
 
-.tab-component > .header-tabs > span.active {
+.tab-component>.header-tabs>span.active {
     color: white;
     background-color: #1a8981;
     border-top: 10px solid #1a8981;
@@ -6650,4 +6650,41 @@ text.highcharts-credits {
     gap: 20px;
     width: calc(50% - 10px);
     min-width: 300px;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+
+}
+
+.tooltip .tooltiptext {
+    font-size: 12px;
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: black transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
 }
