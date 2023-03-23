@@ -1790,10 +1790,10 @@
                                                 </div>
 
                                                 <div class="profile-buttons  col-12 mp-mb3 ">
-                                                    <button class="up-button-green btn-md button-animate-right mp-text-center" id="view_beneficiaries" type="button">
+                                                    <button class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
                                                         <span>View Beneficiaries</span>
                                                     </button>
-                                                    <button class="up-button btn-md button-animate-right mp-text-center" id="modify_contributions" type="button">
+                                                    <button class="up-button btn-md button-animate-right mp-text-center">
                                                         <span>Modify Contributions</span>
                                                     </button>
                                                     <button class="up-button-grey btn-md button-animate-right mp-text-center">
@@ -1927,7 +1927,7 @@
                             </div>
 
 
-                            <div class="col-lg-7 mp-pr0 mp-mt2 " id="statementDiv" style="width: 100%;">
+                            <div class="col-lg-7 mp-pr0 mp-mt2 d-none opacity-0" id="statementDiv" style="width: 100%;">
                                 <div class="mp-card mp-p4" style="padding:20px;">
 
                                     <div style="color: white;
@@ -2201,177 +2201,153 @@
 
 
 
-                            <div class="col-lg-7 mp-pr0 mp-mt2 d-none opacity-0" id="memberstatusDiv" style="width: 100%;">
-                                <div style="color: white;
-                                            padding: 15px;
-                                            background-color: var(--c-accent);
-                                            margin: 0;width: 100%;">Membership Status
+                            <div class="col-lg-7 mp-pr0 mp-mt2 " id="memberstatusDiv" style="width: 100%;">
+                                <div class="card-container card p-0 mp-mb2" style="padding-bottom: 10px;">
+                                    <div class="card-header filtering items-between d-flex">
+                                        <span>Filtering Section</span>
+                                        <span class="mp-pr2">
+                                            <button class="f-button font-bold">Export</button>
+                                            <button class="f-button up-button-green font-bold">Generate</button>
+                                        </span>
+                                    </div>
 
-                                </div>
-                                <div class="mp-card mp-p4 mp-mb2" style="padding:20px; height:auto;">
-                                    <div class="status-container">
-                                        <div class="mp-input-group">
-                                            <label class="mp-input-group__label">Current Status:</label>
-                                            <label class="mp-input-group__label" style="font-weight: bold; color: var(--c-primary);">Active</label>
-                                        </div>
-                                        <div class="mp-input-group">
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label" style="margin-top: 10px;float: left;">Change Status</label>
-                                                <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                                    <option value="">Active</option>
-                                                    <option value="AA">Inactive</option>
-                                                </select>
+
+
+
+                                    <div class="table-form w-full" style="grid-template-columns: repeat(4, 1fr); font-size:12px; padding: 10px;">
+
+                                        <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
+                                            <span>Date</span>
+                                            <div class="date_range d-flex">
+                                                <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
+                                                <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                             </div>
-                                        </div>
-                                        <a class="up-button btn-md button-animate-right mp-text-center mp-mt2" id="save_users" name="save_users" type="submit">
-                                            <span class="save_up">Update Status</span>
-                                        </a>
+                                        </span>
+
                                     </div>
                                 </div>
+
                                 <div class="mp-card mp-p4" style="padding:20px;">
 
 
                                     <div class="tab">
                                         <div class="tooltip">
                                             <button class="active-tab " style="border-top-left-radius: 10px;">
-                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                <i class="fa fa-users" aria-hidden="true"></i>
                                             </button>
-                                            <span class="tooltiptext">Personal & Employee Details</span>
+                                            <span class="tooltiptext">Member's Equity History</span>
                                         </div>
 
                                         <div class="tooltip">
 
-                                            <button><i class="fa fa-users" aria-hidden="true"></i></button>
-                                            <span class="tooltiptext">Membership Details</span>
+                                            <button><i class="fa fa-credit-card-alt" aria-hidden="true"></i></button>
+                                            <span class="tooltiptext">Loan Transaction History</span>
                                         </div>
 
-                                        <div class="tooltip">
-                                            <button style="border-top-right-radius: 10px;">
-                                                <i class="fa fa-file" aria-hidden="true"></i>
-                                            </button>
-                                            <span class="tooltiptext">File Attachment</span>
-                                        </div>
+
                                     </div>
-                                    <form id="users_form" class=" form-border-bottom">
+                                    <div class="card d-flex flex-column">
+                                        <div class="d-flex flex-row items-between">
+                                            <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value" />
 
-                                        <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3  mp-pv2 ">
-                                            <input type="hidden" id="users_id" name="users_id">
-                                            <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">First Name</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Middle Name</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="middle_name" id="middle_name" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Last Name</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Campus</label>
-                                                <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                                    <option value="">Select Campus</option>
-                                                    <option value="AA">Campus 1</option>
-                                                </select>
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Department</label>
-                                                <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                                    <option value="">Select Department</option>
-                                                    <option value="AA">Department 1</option>
-                                                </select>
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Position</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Appointment Date</label>
-                                                <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Membership Date</label>
-                                                <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Cellphone Number</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Landline Number</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Gender</label>
-                                                <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                                    <option value="">Female</option>
-                                                    <option value="">Male</option>
-                                                </select>
-                                            </div>
 
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Employee Number</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Status Appointment</label>
-                                                <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                                    <option value="">PERMANENT</option>
-                                                    <option value="">PERMANENT</option>
-                                                    <option value="">PERMANENT</option>
-                                                </select>
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Permanent Address</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Current Address</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Tin</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Birthdate</label>
-                                                <input class="mp-input-group__input mp-text-field" type="date" id=" email_add" />
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Email</label>
-                                                <input class="mp-input-group__input mp-text-field" type="email" id=" email_add" />
-                                            </div>
-                                            <a class="up-button btn-md button-animate-right mp-text-center" id="save_users" name="save_users" type="submit">
-                                                <span class="save_up">Update Record</span>
-                                            </a>
+                                        </div>
+                                        <div class="mp-mt3 table-container">
+                                            <table class="members-table" style="height: auto;" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <span>Date</span>
+                                                        </th>
 
-                                            <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+                                                        <th>
+                                                            <span>Transaction</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Account</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Debit</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Credit</span>
+                                                        </th>
+
+                                                        <th>
+                                                            <span>Balance</span>
+                                                        </th>
+
+
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <span>
+                                                                January 20, 1999
+                                                            </span>
+                                                        </td>
+
+                                                        <td>
+                                                            <span>
+                                                                OR# 1231232
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span>
+                                                                Member Contribution
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span>
+                                                                Php 1650
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span>
+                                                                Php 120
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <span>
+                                                                Php 2650
+                                                            </span>
+                                                        </td>
+
+
+                                                    </tr>
+
+                                                </tbody>
+
+
+
+                                            </table>
+
 
                                         </div>
 
-                                    </form>
-                                    <br>
+                                        <br>
 
+                                    </div>
                                 </div>
+
                             </div>
 
                         </div>
 
-                    </div>
 
+
+                    </div>
 
 
                 </div>
 
-
             </div>
-
         </div>
-    </div>
 
-</div>
+    </div>
 </div>
 
 

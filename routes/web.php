@@ -74,6 +74,11 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 Route::get('/admin/members', [AdminController::class, 'memberlist'])->name('admin.memberlist.memberlist');
 Route::get('/admin/members/member-details', [AdminController::class, 'memberDetails'])->name('admin.memberlist.member-details');
+Route::get('/admin/members/insurance-reports', [AdminController::class, 'insuranceReports'])->name('admin.memberlist.insurance-reports');
+Route::get('/admin/members/summary-reports', [AdminController::class, 'summaryReports'])->name('admin.memberlist.summary-reports');
+Route::get('/admin/members/view-all', [AdminController::class, 'memberlistViewAll'])->name('admin.memberlist.memberlist-viewall');
+Route::get('/admin/members/multiple-view', [AdminController::class, 'multipleMemberView'])->name('admin.memberlist.multiple-view');
+
 Route::get('/admin/membersData', 'AdminController@memberData')->name('dataProcessing');
 Route::get('/admin/members/records', [AdminController::class, 'members_records'])->name('admin.members_records');
 Route::get('/admin/members/records/payroll', [AdminController::class, 'members_payroll']);

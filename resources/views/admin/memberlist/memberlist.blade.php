@@ -1479,8 +1479,14 @@
         $(".siderbar").addClass("showed")
     })
 
-    const links = ['', '', '', '']
-
+    const links = [
+        'new-members',
+        '',
+        'summary-reports',
+        'contribution-reports',
+        'insurance-reports',
+        'voter-list'
+    ]
     $(document).on('click', '#sider-item', function(e) {
         const dataSet = $(this).attr('data-set')
         window.location.href = '/admin/members/' + links[dataSet]
@@ -1520,13 +1526,13 @@
             </span>
 
         </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
+        <div class="item flex-column gap-5 mp-ph3 mp-pv3 " id="sider-item" data-set="4">
             <span>
                 Insurance Reports
             </span>
 
         </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
+        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="5">
             <span>
                 Members Voter List
             </span>
@@ -1564,7 +1570,7 @@
 
                                             <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
 
-                                                <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr);">
+                                                <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr); font-size:12px;">
                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                                         <span>Campus</span>
                                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campuses_select">
@@ -1625,18 +1631,6 @@
 
                                                     </span>
                                                 </div>
-                                                <!-- <div class="">
-                                            <label for="row">Membership Date</label>
-                                            <div class="row date_range">
-                                                <input type="date" id="from" class="radius-1 border-1 date-input outline"
-                                                    style="height: 30px;">
-                                                <span for="" class="self_center mv-1"
-                                                    style="margin-left:15px; margin-right:15px;">to</span>
-                                                <input type="date" id="to" class="radius-1 border-1 date-input outline"
-                                                    style="height: 30px;">
-                                            </div>
-                                        </div> -->
-
                                             </div>
                                         </div>
                                         <div class="card d-flex flex-column">
@@ -1735,7 +1729,9 @@
 
 
                                                 </table>
-
+                                                <a href="/admin/members/view-all" style="padding: 0px;font-size: 12px;" class="link_style">
+                                                    VIEW ALl
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
