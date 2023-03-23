@@ -86,6 +86,11 @@
                         <label class="mp-input-group__label">Email Address</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
                     </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Upload Signature</label>
+                        <input class="mp-input-group__input mp-text-field" type="file" name="sign_electronic" id="sign_electronic" />
+                        <input type="text" name="person_id" id="person_id">
+                    </div>
 
             </div>
 
@@ -1606,14 +1611,14 @@ inputField.addEventListener('input', formatInput);
                 $('#department').val(dept_no).change();
             });
         });
-        $.getJSON('/appointment', function(options) {
-            $.each(options, function(index, option) {
-                $('#appointment').append($('<option>', {
-                    value: option.appoint_id,
-                    text: option.appointment_name
-                }));
-            });
-        });
+        // $.getJSON('/appointment', function(options) {
+        //     $.each(options, function(index, option) {
+        //         $('#appointment').append($('<option>', {
+        //             value: option.appoint_id,
+        //             text: option.appointment_name
+        //         }));
+        //     });
+        // });
 
     });
 
@@ -1833,24 +1838,30 @@ inputField.addEventListener('input', formatInput);
         }
     });
     $(document).on('click', '#print_app', function(e) {
-        Swal.fire({
-            title: 'Application has been submitted. Subject for review.',
-            text: "Do you want to print your Membership Application?",
-            icon: 'success',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'OK'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // window.open();
-                var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp;
+        // Swal.fire({
+        //     title: 'Application has been submitted. Subject for review.',
+        //     text: "Do you want to print your Membership Application?",
+        //     icon: 'success',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     confirmButtonText: 'OK'
+        // }).then((result) => {
+        //     if (result.isConfirmed) {
+        //         // window.open();
+        //         var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp;
+        //         window.open(url, 'targetWindow',
+        //             'resizable=yes,width=1000,height=1000');
+        //         setTimeout(function() {
+        //             location.reload();
+        //         }, 1000);
+        //     }
+        // })
+        var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp;
                 window.open(url, 'targetWindow',
                     'resizable=yes,width=1000,height=1000');
                 setTimeout(function() {
                     location.reload();
                 }, 1000);
-            }
-        })
     });
     $(document).on('click', '#cont_app', function(e) {
         $("#resetPasswordForm").attr("hidden", true);
@@ -2065,20 +2076,26 @@ inputField.addEventListener('input', formatInput);
             }
         });
         var id = pers_id;
+
+        var formData = new FormData($("#generateAxa")[0]);
+        var files = $('#sign_electronic')[0].files;
+        formData.append('esig', files[0]);
+        formData.append('personnel_id', personnel_id);
+
         // generateAxa
-        var formDatas = $("#generateAxa").serialize();
-        var additionalData = {
-            'e_sig': $('#e_sig').val(),
-            'personnel_id': pers_id,
-        };
-        formDatas += '&' + $.param(additionalData);
-        console.log(formDatas);
+        // var formDatas = $("#generateAxa").serialize();
+        // var additionalData = {
+        //     'e_sig': $('#e_sig').val(),
+        //     'personnel_id': pers_id,
+        // };
+        // formDatas += '&' + $.param(additionalData);
+
         $.ajax({
             url: "{{ route('add_cocolife') }}",
             method: "POST",
-            data: formDatas,
-            // contentType: false,
-            // processData: false,
+            data: formData,
+            contentType: false,
+            processData: false,
             beforeSend: function() {
                 $('#loading').show();
             },

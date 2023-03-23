@@ -5125,6 +5125,11 @@ tfoot {
     border-width: 1px;
 }
 
+.border-0 {
+    border: 0 !important;
+}
+
+
 .date-input {
     padding: 1px 4px 0 4px;
     transition: 0.2s;
