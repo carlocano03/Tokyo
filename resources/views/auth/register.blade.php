@@ -557,7 +557,7 @@
         <div class="mp-input-group">
             <div class="mp-input-group mp-mt5 mp-input-group__label">
                 <input type="checkbox" id="terms" name="terms" />
-                Sign up for emails to get updates on products, offers and member benefits.
+                Sign up for emails to get updates on products, offers and member benefits.<br>
                 By clicking Next, you agree to UP Provident Fund Inc.’s <b>Terms of Use</b> and <b>Privacy Policy</b>.<br>
                 <!--<a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>-->

@@ -1270,13 +1270,18 @@ class AdminController extends Controller
     $aa_3 = '';
 
     // Total records
+    // $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+    //   ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+    //   ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+    //   ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
+    //   ->where('mem_app.app_no', 'like', '%' . $search . '%')
+    //   ->where('mem_app.app_status', $aa_1)
+    //   ->where('mem_app.app_status', $aa_2);
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
-      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
-      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
-      ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-      ->where('mem_app.app_no', 'like', '%' . $search . '%')
-      ->where('mem_app.app_status', $aa_1)
-      ->where('mem_app.app_status', $aa_2);
+    ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+    ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+    ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
+    ->where('mem_app.app_status', '!=', 'deleted');
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -1319,13 +1324,24 @@ class AdminController extends Controller
           ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
       });
     } else if ($users == 'HRDO') {
+      // $aa_1 = $userId;
+      // $cfm = 'FORWARDED TO HRDO';
+      // $process = 'PROCESSING';
+      // $approved = 'APPROVED APPLICATION';
+      // $records->where('mem_app.forwarded_user', $aa_1);
+      // $records->where('mem_app.validator_remarks', $cfm);
+      // $records->orWhere('mem_app.validator_remarks', $approved);
+
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
       $process = 'PROCESSING';
       $approved = 'APPROVED APPLICATION';
       $records->where('mem_app.forwarded_user', $aa_1);
       $records->where('mem_app.validator_remarks', $cfm);
+      $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
+      $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
+      
     } else if ($users == 'CFM') {
       $cfm = 'AA VERIFIED';
       $records->where('mem_app.app_status', $cfm);
@@ -1388,13 +1404,24 @@ class AdminController extends Controller
           ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
       });
     } else if ($users == 'HRDO') {
+      // $aa_1 = $userId;
+      // $cfm = 'FORWARDED TO HRDO';
+      // $process = 'PROCESSING';
+      // $approved = 'APPROVED APPLICATION';
+      // $records->where('mem_app.forwarded_user', $aa_1);
+      // $records->where('mem_app.validator_remarks', $cfm);
+      // $records->orWhere('mem_app.validator_remarks', $approved);
+
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
       $process = 'PROCESSING';
       $approved = 'APPROVED APPLICATION';
       $records->where('mem_app.forwarded_user', $aa_1);
       $records->where('mem_app.validator_remarks', $cfm);
+      $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
+      $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
+
     } else if ($users == 'CFM') {
       $aa_1 = 'NEW APPLICATION';
       $cfm = 'AA VERIFIED';
@@ -1448,7 +1475,7 @@ class AdminController extends Controller
       $approved = 'APPROVED APPLICATION';
       $records->where('mem_app.forwarded_user', $aa_1);
       $records->where('mem_app.validator_remarks', $cfm);
-      $records->where('mem_app.app_status', $approved);
+      $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
       $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
     } else if ($users == 'CFM') {
