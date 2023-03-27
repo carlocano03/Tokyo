@@ -349,7 +349,7 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="suffix" />
         </div>
 
-        <div class="mp-input-group input" data-set="birthday">
+        <div class="mp-input-group input" data-set="birthday" name="birthday">
             <label class="mp-input-group__label mp-mb1">Date of Birth </label>
             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                 <div class="d-flex flex-column" style="gap: 3px">

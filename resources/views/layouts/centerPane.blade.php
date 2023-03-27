@@ -773,7 +773,8 @@ inputField.addEventListener('input', formatInput);
                     'email',
                     'civilstatus',
                     'dual_citizenship',
-                    'citizenship'
+                    'citizenship',
+                    'birthday'
                 ])
 
                 var gender = $('#member_forms').find("[name=gender]")
@@ -804,11 +805,10 @@ inputField.addEventListener('input', formatInput);
                     empty.push(newcitizenship[0])
                 }
                 var dualcitizen = $('#member_forms').find("[name=dual_citizenship]")
-                if(citizenship.val() == "OTHERS" && dualcitizen.val() == "") {
+                if((citizenship.val() == "OTHERS" || citizenship.val() == "DUAL CITIZENSHIP" ) && dualcitizen.val() == "") {
                     empty.push(dualcitizen[0])
                 }
                 
-
                 var sameAddress = $("#perm_add_check").prop('checked')
                 if (sameAddress == false) {
                     var per_province = $('#member_forms').find("[name=province]")
@@ -825,15 +825,23 @@ inputField.addEventListener('input', formatInput);
                     }
                 }
 
-
+                var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
+                
+                const fifteenYearsAgo = new Date();
+                fifteenYearsAgo.setFullYear(fifteenYearsAgo.getFullYear() - 15);
+                if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
+                    var birthday = $('#member_forms').find("[data-set=birthday]")
+                    empty.push(birthday[0])
+                } 
 
                 var contact = $('#member_forms').find("[name=contact_no]")
 
                 const mobile_number = contact.val()
 
-                if (mobile_number.length != 14 && mobile_number.substring(3, 2) === "90" || mobile_number.substring(3, 2) === "91" || mobile_number.substring(3, 2) === "92" || mobile_number.substring(3, 2) === "93" || mobile_number.substring(3, 2) === "94" || mobile_number.substring(3, 2) === "95" || mobile_number.substring(3, 2) === "96" || mobile_number.substring(3, 2) === "97" || mobile_number.substring(0, 2) === "98") {} else {
+                if (mobile_number.length == 14 && mobile_number.substring(4, 6) === "90" || mobile_number.substring(4, 6) === "91" || mobile_number.substring(4, 6) === "92" || mobile_number.substring(4, 6) === "93" || mobile_number.substring(4, 6) === "94" || mobile_number.substring(4, 6) === "95" || mobile_number.substring(4, 6) === "96" || mobile_number.substring(4, 6) === "97" || mobile_number.substring(0, 2) === "98") {} else {
                     empty.push(contact[0])
                 }
+
 
                 var email = $('#member_forms').find("[name=email]")
                 if (!isValidEmail(email.val())) {
@@ -849,7 +857,7 @@ inputField.addEventListener('input', formatInput);
                         const name = $(element).attr("name")
                         // if (name == 'contact_no') {
                         //     const mobile_number = $(element).val()
-                        //     if (mobile_number.length === 11 && mobile_number.substring(3, 2) === "090" || mobile_number.substring(3, 2) === "091" || mobile_number.substring(3, 2) === "092" || mobile_number.substring(3, 2) === "093" || mobile_number.substring(3, 2) === "094" || mobile_number.substring(3, 2) === "095" || mobile_number.substring(3, 2) === "096" || mobile_number.substring(3, 2) === "097" || mobile_number.substring(3, 2) === "098") {
+                        //     if (mobile_number.length === 11 && mobile_number.substring(4, 6) === "090" || mobile_number.substring(3, 2) === "091" || mobile_number.substring(3, 2) === "092" || mobile_number.substring(3, 2) === "093" || mobile_number.substring(3, 2) === "094" || mobile_number.substring(3, 2) === "095" || mobile_number.substring(3, 2) === "096" || mobile_number.substring(3, 2) === "097" || mobile_number.substring(3, 2) === "098") {
                         //         $("[data-set=" + name + "]>#err-msg").addClass('d-none')
                         //         $("[data-set=" + name + "]>select").removeClass('input-error')
                         //         return
@@ -919,6 +927,11 @@ inputField.addEventListener('input', formatInput);
                             $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your citizenship.")
                             return
                         }
+                        if (name == 'birthday') {
+                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid Age, you must be 15 years old or older.")
+                            return
+                        }
+                        console.log('name',name)
                         $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please fill out this field.")
                         $("[data-set=" + name + "]>input").addClass('input-error')
                         $("[data-set=" + name + "]>.input").addClass('input-error')
