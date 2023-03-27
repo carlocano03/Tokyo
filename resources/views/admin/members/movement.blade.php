@@ -868,33 +868,25 @@
             <span>
                 Application Records
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="1">
             <span>
                 Payroll Advise Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="2">
             <span>
                 Application Movement Reports
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
             <span>
                 Application Analytics
             </span>
-            <span class="mp-text-fs-small">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas quod aut nisi temporibus unde beatae exercitationem quidem velit! Veritatis, aliquam.
-            </span>
+
         </div>
     </div>
     <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
