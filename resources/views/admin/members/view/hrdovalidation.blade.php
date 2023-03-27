@@ -1185,8 +1185,7 @@
                     <div class="card-container card p-0 mp-mt3">
                         <div class="card-header d-flex items-between maroon-bg member-detail-title open-details">
                             <span>Personal Details</span><span>
-                                <a id="editPersonalDetails" class="editButton">Edit
-                                    <i class="fa fa-edit" aria-hidden="true"></i></a>
+
                                 <span>
 
                                     <a class="cursor-pointer m-0 p-0 mp-mr2" id="member-detail-toggle">
@@ -1392,7 +1391,10 @@
                 <div class="mp-pv5 mp-mb3">
                     <div class="card-container card p-0 mp-mt3">
                         <div class="card-header d-flex items-between maroon-bg employee-title open-details">
-                            <span>Employee Details</span><span>
+                            <span>Employee Details</span>
+                            <span>
+                                <a id="editPersonalDetails" class="editButton">Edit
+                                    <i class="fa fa-edit" aria-hidden="true"></i></a>
                                 <span>
                                     <a class="cursor-pointer m-0 p-0 mp-mr2" id="employee-toggle">
                                         <i class="fa fa-chevron-circle-up employee-up" aria-hidden="true"></i>
