@@ -88,6 +88,10 @@ Route::get('/admin/members/records/view/aa/personal/{id}', [AdminController::cla
 Route::get('/admin/members/records/view/aa/employee/{id}', [AdminController::class, 'members_view_record_employee']);
 Route::get('/admin/members/records/view/aa/membership/{id}', [AdminController::class, 'members_view_record_membership']);
 Route::get('/admin/members/records/view/aa/forms/{id}', [AdminController::class, 'members_view_record_forms']);
+Route::get('/admin/members/records/view/hrdo/personal/{id}', [AdminController::class, 'hrdo_view_record_personal']);
+Route::get('/admin/members/records/view/hrdo/employee/{id}', [AdminController::class, 'hrdo_view_record_employee']);
+Route::get('/admin/members/records/view/hrdo/membership/{id}', [AdminController::class, 'hrdo_view_record_membership']);
+Route::get('/admin/members/records/view/hrdo/forms/{id}', [AdminController::class, 'hrdo_view_record_forms']);
 Route::get('/admin/members/records/view/hrdo/{id}', [AdminController::class, 'hrdo_view_record'])->name('admin.hrdo_view_record');
 Route::get('/admin/members/trail', [AdminController::class, 'members_application_trail'])->name('admin.members_application_trail');
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
