@@ -349,7 +349,7 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="suffix" />
         </div>
 
-        <div class="mp-input-group input" data-set="birthday">
+        <div class="mp-input-group input" data-set="birthday" name="birthday">
             <label class="mp-input-group__label mp-mb1">Date of Birth </label>
             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                 <div class="d-flex flex-column" style="gap: 3px">
@@ -404,7 +404,7 @@
             </select>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="civilstatus">
             <label class="mp-input-group__label">Civil Status </label>
             <!-- <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
                 <option value="">Select Status</option>
@@ -424,10 +424,11 @@
                 <input type="radio" value="Widowed" id="widowed" name="civilstatus" />
                 <label class="mp-input-group__label" for="widowed" style="margin-top: 1px;">Widowed</label>
             </div>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group ">
+        <div class="mp-input-group" data-set="citizenship">
             <label class="mp-input-group__label">Citizenship </label>
-            <div class="d-flex gap-5 mp-mb2">
+            <div class="d-flex gap-5">
                 <input type="radio" value="FILIPINO" id="citizenship" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 1px;">Filipino</label>
                 <input type="radio" value="DUAL CITIZENSHIP" id="citizenship" name="citizenship" />
@@ -436,8 +437,14 @@
                 <input type="radio" value="OTHERS" id="citizenship" name="citizenship" />
                 <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 1px;">Others</label>
             </div>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
+            
+           
+        </div>
+        <div class="mp-input-group" data-set="dual_citizenship">
             <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" id="d_citizen" disabled />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label> <br/>
         </div>
         <div class="mp-input-group" data-set="present_province">
 
@@ -550,7 +557,7 @@
         <div class="mp-input-group">
             <div class="mp-input-group mp-mt5 mp-input-group__label">
                 <input type="checkbox" id="terms" name="terms" />
-                Sign up for emails to get updates on products, offers and member benefits.
+                Sign up for emails to get updates on products, offers and member benefits.<br>
                 By clicking Next, you agree to UP Provident Fund Inc.’s <b>Terms of Use</b> and <b>Privacy Policy</b>.<br>
                 <!--<a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>-->

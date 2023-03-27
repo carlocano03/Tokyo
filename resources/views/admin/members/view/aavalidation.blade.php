@@ -878,8 +878,6 @@
                     <span class="font-sm">Membership Application Number</span>
                     <br />
                     <span class="magenta-clr font-bold">{{$rec->app_no}}</span>
-                  
-
                 </div>
                 <div class="w-auto">
                     <span class="font-sm">Application Date and Time</span>
@@ -901,11 +899,11 @@
                 <div class="w-auto d-flex justify-content-end">
                     <span>
                         <button class="f-button">
-                            Print
+                            Print / Download
                         </button>
-                        <button class="f-button green-bg">
+                        <!-- <button class="f-button green-bg">
                             Download
-                        </button>
+                        </button> -->
                     </span>
                 </div>
             </div>
@@ -960,6 +958,7 @@
                                         <span class="font-sm">Remarks</span>
                                         <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
                                         <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
+                                        <span class="font-sm">Time: <span>{{ date('h:i a', strtotime($data->time_stamp)) }}</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -1143,6 +1142,7 @@
                             </span>
                         </div>
                     </div>
+                    <input type="text" name="app_status" id="app_status" value="{{$rec->app_status}}">
                     <form id="aa_validation" >
                     {{ csrf_field() }}
                     <div class="table-form form-header w-full">
@@ -1904,13 +1904,13 @@
                                 <div class="d-flex flex-column font-sm">
                                     <div class="d-flex flex-row mp-text-center" style="width: 100px">
                                             <span>Passed: <span class="font-md font-bold color-black" id="pass_count"></span></span>
-                                           
                                         </div>
                                         <div class="d-flex flex-row mp-text-center" style="width: 100px">
                                             <span>Failed: <span class="font-md font-bold color-black" id="failed_count"></span></span>
                                         </div>
                                 </div>
                             </div>
+                            @if ($rec->app_status == 'NEW APPLICATION' || $rec->app_status == 'RETURN APPLICATION')
                             <span class="d-flex" style="gap: 10px">
                                 <button class="f-button align-self-end red-bg" id="reject_app" >
                                     <span id="reject_text">Reject Application</span>
@@ -1919,9 +1919,10 @@
                                     <span id="return_text">Return Application</span>
                                 </button>
                                 <button class="f-button align-self-end" id="save_record" >
-                                <span id="save_text">Save Record </span>
+                                <span id="save_text">Verify This Application </span>
                                 </button>
                             </span>
+                            @endif
                             
                         </div>
                         
@@ -2023,6 +2024,16 @@
 var passCount = 0;
 var failCount = 0;
 $(document).ready(function() {
+    var app_status = $('#app_status').val();
+    if (app_status == 'NEW APPLICATION' || app_status == 'RETURN APPLICATION') {
+        $('input[type="radio"]').attr('disabled', false);
+        $('input[type="text"]').attr('disabled', false);
+        $('#general_remarks').attr('readonly', false);
+    } else {
+        $('input[type="radio"]').attr('disabled', true);
+        $('input[type="text"]').attr('disabled', true);
+        $('#general_remarks').attr('readonly', true);
+    }
     passCount = 0;
     failCount = 0;
     $('#aa_validation input[type="radio"]').each(function() {
