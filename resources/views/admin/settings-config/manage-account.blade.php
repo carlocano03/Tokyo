@@ -784,8 +784,22 @@
               $('.save_up').text('Save Record');
               $('.clear_txt').text('Clear');
               users_table.draw();
+            } else {
+              Swal.fire({
+                text: 'No Updates Made!',
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+              });
             }
-
+          },
+          error: function(data) {
+            Swal.fire({
+              text: 'No Updates Made!',
+              icon: 'error',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Ok',
+            });
           }
         });
       } else {
