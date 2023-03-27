@@ -1223,6 +1223,9 @@
                     </div>
                 </div>
                 <div class="mp-pv5 mp-mb3">
+                    <form id="hrdo_validation">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}" >
                     <div class="card-container card p-0 mp-mt3">
                         <div class="card-header d-flex items-between maroon-bg employee-title open-details">
                             <span>Employee Details</span><span>
@@ -1237,7 +1240,7 @@
                         <div class="card-body mp-pv4 mp-ph3 d-flex flex-column employee-body open-details">
                             <div class="tab-body border-0">
                                 <div class="tab-item">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="employee" name="emp_no" value="1" {{ (isset($rec->pass_emp_no) && $rec->pass_emp_no == 1) ? 'checked' : '' }}>
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Employee Number
@@ -1248,7 +1251,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="employee" name="campus" value="1" {{ (isset($rec->pass_campus) && $rec->pass_campus == 1) ? 'checked' : '' }}>
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Campus
@@ -1259,7 +1262,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="employee" name="classification" value="1" {{ (isset($rec->pass_classification) && $rec->pass_classification == 1) ? 'checked' : '' }}>
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Classification
@@ -1270,7 +1273,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="employee" name="college_unit" value="1" {{ (isset($rec->pass_college_unit) && $rec->pass_college_unit == 1) ? 'checked' : '' }}>
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             College/Unit
@@ -1281,7 +1284,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="employee" name="department" value="1" {{ (isset($rec->pass_department) && $rec->pass_department == 1) ? 'checked' : '' }}>
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Department
@@ -1292,7 +1295,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="employee" name="position" value="1" {{ (isset($rec->pass_rankpos) && $rec->pass_rankpos == 1) ? 'checked' : '' }}>
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Rank/Position
@@ -1302,29 +1305,8 @@
                                         </span>
                                     </div>
                                 </div>
-                                <!-- <div class="tab-item">
-                                    <input type="checkbox">
-                                    <div class="d-flex flex-row flex-wrap gap-10">
-                                        <div class="d-flex flex-column" style="min-width: 200px">
-                                            <span class="mp-text-fs-small">
-                                                Contact Number
-                                            </span>
-                                            <span class="mp-text-fw-medium">
-                                                092323232323232
-                                            </span>
-                                        </div>
-                                        <div class="d-flex flex-column" style="min-width: 200px">
-                                            <span class="mp-text-fs-small">
-                                                Landline Number
-                                            </span>
-                                            <span class="mp-text-fw-medium">
-                                                1267835123675
-                                            </span>
-                                        </div>
-                                    </div>
-                                </div> -->
                                 <div class="tab-item">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="employee" name="appoint_date" value="1" {{ (isset($rec->pass_appointdate) && $rec->pass_appointdate == 1) ? 'checked' : '' }}>
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Appointment Date
@@ -1335,7 +1317,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="employee" name="monthly_salary" value="1" {{ (isset($rec->pass_monthlysalary) && $rec->pass_monthlysalary == 1) ? 'checked' : '' }}>
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Monthly Salary
@@ -1346,7 +1328,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="employee" name="salary_grade" value="1" {{ (isset($rec->pass_sg) && $rec->pass_sg == 1) ? 'checked' : '' }}>
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Salary Grade
@@ -1357,7 +1339,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="employee" name="sg_category" value="1" {{ (isset($rec->pass_sgcat) && $rec->pass_sgcat == 1) ? 'checked' : '' }}>
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Salary Grade Category
@@ -1368,7 +1350,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
+                                    <input type="checkbox" class="employee" name="tin_no" value="1" {{ (isset($rec->pass_tin_no) && $rec->pass_tin_no == 1) ? 'checked' : '' }}>
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Tin Number
@@ -1381,6 +1363,7 @@
                             </div>
                         </div>
                     </div>
+                    
                 </div>
                 <div class="table-form form-header w-full remarks-gray-bg">
                     <div class="span-12 d-flex flex-column mp-pv3 mp-ph3 gap-10">
@@ -1397,11 +1380,10 @@
                                 </div>
                                 <div class="d-flex flex-column font-sm">
                                     <div class="d-flex flex-row mp-text-center" style="width: 100px">
-                                            <span>Passed: <span class="font-md font-bold color-black" id="pass_count"></span></span>
-                                           
+                                            <span id="try">Passed: <span class="font-md font-bold color-black" id="passed_count"></span></span>
                                         </div>
                                         <div class="d-flex flex-row mp-text-center" style="width: 100px">
-                                            <span>Failed: <span class="font-md font-bold color-black" id="failed_count"></span></span>
+                                            <span>Failed: <span class="font-md font-bold color-black" id="fail_count"></span></span>
                                         </div>
                                 </div>
                             </div>
@@ -1444,6 +1426,40 @@
 
 
 <script>
+    $(document).ready(function() {
+        // count the number of checked checkboxes
+        var checkedCount = $('.employee:checked').length;
+        // count the total number of checkboxes
+        var totalCount = $('.employee').length;
+        // count the number of unchecked checkboxes
+        var uncheckedCount = totalCount - checkedCount;
+        // update the count in the HTML
+        $('#passed_count').text(checkedCount);
+        $('#fail_count').text(uncheckedCount);
+
+        // listen for changes in the checkboxes
+        $('.employee').change(function() {
+            // count the number of checked checkboxes
+            var checkedCount = $('.employee:checked').length;
+            // count the total number of checkboxes
+            var totalCount = $('.employee').length;
+            // count the number of unchecked checkboxes
+            var uncheckedCount = totalCount - checkedCount;
+            // update the count in the HTML
+            $('#passed_count').text(checkedCount);
+            $('#fail_count').text(uncheckedCount);
+
+            if(uncheckedCount != 0) {
+                $('#return_app').css('cssText', 'background-color:  !important;');
+                $('#save_record').css('background-color', 'gray');
+                $('#save_record').prop('disabled', true);
+            } else {
+                $('#save_record').css('background-color', '');
+                $('#save_record').prop('disabled', false);
+            }
+        });
+    });
+
     $(document).on('click', '#employee-toggle', function(e) {
         if ($(".employee-detail").hasClass("open-detail")) {
             $(".employee-detail").removeClass("open-detail")
@@ -1515,7 +1531,7 @@ var failCount = 0;
 $(document).ready(function() {
     passCount = 0;
     failCount = 0;
-    $('#hrdo_validation input[type="radio"]').each(function() {
+    $('#hrdo input[type="checkbox"]').each(function() {
         if ($(this).is(':checked')) {
         if ($(this).val() == 1) {
             passCount++;
@@ -1557,10 +1573,10 @@ $(document).ready(function() {
 
 });
 $(document).ready(function() {
-$('#hrdo_validation input[type="radio"]').on('change click', function() {
+$('#hrdo input[type="checkbox"]').on('change click', function() {
     passCount = 0;
     failCount = 0;
-    $('#hrdo_validation input[type="radio"]').each(function() {
+    $('#hrdo input[type="checkbox"]').each(function() {
         if ($(this).is(':checked')) {
         if ($(this).val() == 1) {
             passCount++;

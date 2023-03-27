@@ -1146,8 +1146,8 @@
                             </span>
                         </div>
                     </div>
-                    <input type="hidden" name="app_status" id="app_status" value="{{$rec->app_status}}">
-                    <input type="text" name="validator_remark" id="validator_remark" value="{{$rec->validator_remarks}}">
+                    <input type="hidden" name="aa_cfm_user" id="aa_cfm_user" value="{{$rec->aa_cfm_user}}">
+                    <input type="hidden" name="validator_remark" id="validator_remark" value="{{$rec->validator_remarks}}">
                     <form id="aa_validation" >
                     {{ csrf_field() }}
                     <div class="table-form form-header w-full">
@@ -1915,7 +1915,7 @@
                                         </div>
                                 </div>
                             </div>
-                            @if ($rec->app_status == 'NEW APPLICATION' || $rec->validator_remarks == 'HRDO RETURNED APPLICATION')
+                            @if ($rec->aa_cfm_user == 0 || $rec->validator_remarks == 'HRDO RETURNED APPLICATION')
                             <span class="d-flex" style="gap: 10px">
                                 <button class="f-button align-self-end red-bg" id="reject_app" >
                                     <span id="reject_text">Reject Application</span>
@@ -1927,7 +1927,6 @@
                                 <span id="save_text">Verified This Application </span>
                                 </button>
                             </span>
-                            @endif
                             @endif
                             
                         </div>
@@ -2030,9 +2029,9 @@
 var passCount = 0;
 var failCount = 0;
 $(document).ready(function() {
-    var app_status = $('#app_status').val();
+    var aa_cfm_user = $('#aa_cfm_user').val();
     var validator_remark = $('#validator_remark').val();
-    if (app_status == 'NEW APPLICATION' || validator_remark == 'HRDO RETURNED APPLICATION') {
+    if (aa_cfm_user == 0 || validator_remark == 'HRDO RETURNED APPLICATION') {
         $('input[type="radio"]').attr('disabled', false);
         $('input[type="text"]').attr('disabled', false);
         $('#general_remarks').attr('readonly', false);

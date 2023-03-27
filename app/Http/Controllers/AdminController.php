@@ -1021,7 +1021,8 @@ class AdminController extends Controller
       ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
       ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
       ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
-      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      // ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->leftjoin('hrdo_validation', 'mem_app.app_no', '=', 'hrdo_validation.app_no')
       ->select(
         'mem_app.*',
         'membership_details.*',
