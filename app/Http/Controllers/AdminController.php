@@ -827,6 +827,284 @@ class AdminController extends Controller
     return view('admin.members.view.hrdovalidation')->with($data);
   }
 
+  public function hrdo_view_record_personal($id)
+  {
+    // DB::enableQueryLog();
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+      ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+      ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->select(
+        'mem_app.*',
+        'membership_details.*',
+        'personal_details.*',
+        'employee_details.*',
+        'membership_details.*',
+        'campus.*',
+        'college_unit.*',
+        'department.*',
+        'college_unit.*',
+        'pass_emp_no',
+        'pass_campus',
+        'pass_classification',
+        'pass_college_unit',
+        'pass_department',
+        'pass_rankpos',
+        'pass_appointment',
+        'pass_appointdate',
+        'pass_monthlysalary',
+        'pass_sg',
+        'pass_sgcat',
+        'pass_tin_no',
+
+        'remarks_emp_no',
+        'remarks_campus',
+        'remarks_classification',
+        'remarks_college_unit',
+        'remarks_department',
+        'remarks_rankpos',
+        'remarks_appointment',
+        'remarks_appointdate',
+        'remarks_monthlysalary',
+        'remarks_sg',
+        'remarks_sgcat',
+        'remarks_tin_no',
+        'general_remarks',
+        'evaluate_by',
+        'date_evaluated'
+      )
+      ->where('mem_app.app_no', $id)->first();
+    $status = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('status_remarks');
+    $user_step = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('user_level');
+    $trailing = DB::table('app_trailing')
+      ->where('app_no', $id)->orderBy('time_stamp', 'asc')->get();
+    $data = array(
+      'status' => $status,
+      'user_step' => $user_step,
+      'rec' => $records,
+      'trailing' => $trailing
+    );
+    return view('admin.members.view.hrdovalidation.personal-details')->with($data);
+  }
+
+  public function hrdo_view_record_employee($id)
+  {
+    // DB::enableQueryLog();
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+      ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+      ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->select(
+        'mem_app.*',
+        'membership_details.*',
+        'personal_details.*',
+        'employee_details.*',
+        'membership_details.*',
+        'campus.*',
+        'college_unit.*',
+        'department.*',
+        'college_unit.*',
+        'pass_emp_no',
+        'pass_campus',
+        'pass_classification',
+        'pass_college_unit',
+        'pass_department',
+        'pass_rankpos',
+        'pass_appointment',
+        'pass_appointdate',
+        'pass_monthlysalary',
+        'pass_sg',
+        'pass_sgcat',
+        'pass_tin_no',
+
+        'remarks_emp_no',
+        'remarks_campus',
+        'remarks_classification',
+        'remarks_college_unit',
+        'remarks_department',
+        'remarks_rankpos',
+        'remarks_appointment',
+        'remarks_appointdate',
+        'remarks_monthlysalary',
+        'remarks_sg',
+        'remarks_sgcat',
+        'remarks_tin_no',
+        'general_remarks',
+        'evaluate_by',
+        'date_evaluated'
+      )
+      ->where('mem_app.app_no', $id)->first();
+    $status = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('status_remarks');
+    $user_step = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('user_level');
+    $trailing = DB::table('app_trailing')
+      ->where('app_no', $id)->orderBy('time_stamp', 'asc')->get();
+    $data = array(
+      'status' => $status,
+      'user_step' => $user_step,
+      'rec' => $records,
+      'trailing' => $trailing
+    );
+    return view('admin.members.view.hrdovalidation.employee-details')->with($data);
+  }
+
+  public function hrdo_view_record_membership($id)
+  {
+    // DB::enableQueryLog();
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+      ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+      ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->select(
+        'mem_app.*',
+        'membership_details.*',
+        'personal_details.*',
+        'employee_details.*',
+        'membership_details.*',
+        'campus.*',
+        'college_unit.*',
+        'department.*',
+        'college_unit.*',
+        'pass_emp_no',
+        'pass_campus',
+        'pass_classification',
+        'pass_college_unit',
+        'pass_department',
+        'pass_rankpos',
+        'pass_appointment',
+        'pass_appointdate',
+        'pass_monthlysalary',
+        'pass_sg',
+        'pass_sgcat',
+        'pass_tin_no',
+
+        'remarks_emp_no',
+        'remarks_campus',
+        'remarks_classification',
+        'remarks_college_unit',
+        'remarks_department',
+        'remarks_rankpos',
+        'remarks_appointment',
+        'remarks_appointdate',
+        'remarks_monthlysalary',
+        'remarks_sg',
+        'remarks_sgcat',
+        'remarks_tin_no',
+        'general_remarks',
+        'evaluate_by',
+        'date_evaluated'
+      )
+      ->where('mem_app.app_no', $id)->first();
+    $status = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('status_remarks');
+    $user_step = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('user_level');
+    $trailing = DB::table('app_trailing')
+      ->where('app_no', $id)->orderBy('time_stamp', 'asc')->get();
+    $data = array(
+      'status' => $status,
+      'user_step' => $user_step,
+      'rec' => $records,
+      'trailing' => $trailing
+    );
+    return view('admin.members.view.hrdovalidation.membership-details')->with($data);
+  }
+
+  public function hrdo_view_record_forms($id)
+  {
+    // DB::enableQueryLog();
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+      ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+      ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->select(
+        'mem_app.*',
+        'membership_details.*',
+        'personal_details.*',
+        'employee_details.*',
+        'membership_details.*',
+        'campus.*',
+        'college_unit.*',
+        'department.*',
+        'college_unit.*',
+        'pass_emp_no',
+        'pass_campus',
+        'pass_classification',
+        'pass_college_unit',
+        'pass_department',
+        'pass_rankpos',
+        'pass_appointment',
+        'pass_appointdate',
+        'pass_monthlysalary',
+        'pass_sg',
+        'pass_sgcat',
+        'pass_tin_no',
+
+        'remarks_emp_no',
+        'remarks_campus',
+        'remarks_classification',
+        'remarks_college_unit',
+        'remarks_department',
+        'remarks_rankpos',
+        'remarks_appointment',
+        'remarks_appointdate',
+        'remarks_monthlysalary',
+        'remarks_sg',
+        'remarks_sgcat',
+        'remarks_tin_no',
+        'general_remarks',
+        'evaluate_by',
+        'date_evaluated'
+      )
+      ->where('mem_app.app_no', $id)->first();
+    $status = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('status_remarks');
+    $user_step = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('user_level');
+    $trailing = DB::table('app_trailing')
+      ->where('app_no', $id)->orderBy('time_stamp', 'asc')->get();
+    $data = array(
+      'status' => $status,
+      'user_step' => $user_step,
+      'rec' => $records,
+      'trailing' => $trailing
+    );
+    return view('admin.members.view.hrdovalidation.forms-attachment')->with($data);
+  }
+
+  
+
   public function members_application_trail()
   {
     return view('admin.members.trail');
@@ -1090,7 +1368,7 @@ class AdminController extends Controller
       $records->where('mem_app.validator_remarks', $validator_remarks);
     }
     if ($users == 'HRDO') {
-      $href = '/admin/members/records/view/hrdo/';
+      $href = '/admin/members/records/view/hrdo/employee/';
     } else if ($users == 'AA') {
       $href = '/admin/members/records/view/aa/personal/';
     } else if ($users == 'FM') {
