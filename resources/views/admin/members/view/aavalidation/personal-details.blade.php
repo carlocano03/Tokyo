@@ -994,80 +994,80 @@
                         </div>
                         <div class="tab-body">
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_name) && $rec->pass_name == 1) ? 'checked' : '' }} name="pass_name">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Full Name
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Joe De Vance
+                                        {{$rec->lastname}}, {{$rec->firstname}} {{$rec->middlename}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_dob) && $rec->pass_dob == 1) ? 'checked' : '' }} name="pass_dob">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Date of Birth
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        March 20, 1999
+                                        {{ date('F d, Y', strtotime($rec->date_birth)) }}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_currentadd) && $rec->pass_currentadd == 1) ? 'checked' : '' }} name="pass_currentadd">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Current Address
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Tibag, Pulilan, Lubakan
+                                        {{$rec->present_bldg_street}}, {{$rec->present_barangay}}, {{$rec->present_municipality}}, {{$rec->present_province}}, {{$rec->present_zipcode}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_gender) && $rec->pass_gender == 1) ? 'checked' : '' }} name="pass_gender">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Gender
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Male
+                                        {{$rec->gender}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_permaadd) && $rec->pass_permaadd == 1) ? 'checked' : '' }} name="pass_permaadd">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Permanent Address
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Tibag, Pulilan, Lubakan
+                                        {{$rec->bldg_street}}, {{$rec->barangay}}, {{$rec->municipality}}, {{$rec->province}}, {{$rec->zipcode}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_civilstatus) && $rec->pass_civilstatus == 1) ? 'checked' : '' }} name="pass_civilstatus">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Civil Status
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Married
+                                        {{ $rec->civilstatus }}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_contactnum) && $rec->pass_contactnum == 1) ? 'checked' : '' }} name="pass_contactnum">
                                 <div class="d-flex flex-row flex-wrap gap-10">
                                     <div class="d-flex flex-column" style="min-width: 200px">
                                         <span class="mp-text-fs-small">
                                             Contact Number
                                         </span>
                                         <span class="mp-text-fw-medium">
-                                            092323232323232
+                                            {{$rec->contact_no}}
                                         </span>
                                     </div>
                                     <div class="d-flex flex-column" style="min-width: 200px">
@@ -1075,30 +1075,30 @@
                                             Landline Number
                                         </span>
                                         <span class="mp-text-fw-medium">
-                                            1267835123675
+                                            {{ $rec->landline_no ? $rec->landline_no : 'N/A' }}
                                         </span>
                                     </div>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_citizenship) && $rec->pass_citizenship == 1) ? 'checked' : '' }} name="pass_citizenship">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Citizenship
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Filipino
+                                        {{ $rec->citizenship }}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_email) && $rec->pass_email == 1) ? 'checked' : '' }} name="pass_email">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Email Address
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        JOe@gmail.com
+                                        {{$rec->email}}
                                     </span>
                                 </div>
                             </div>
