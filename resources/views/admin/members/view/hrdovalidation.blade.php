@@ -1186,7 +1186,7 @@
                         <div class="card-header d-flex items-between maroon-bg member-detail-title open-details">
                             <span>Personal Details</span><span>
                                 <a id="editPersonalDetails" class="editButton">Edit
-                                    <i class="fa fa-edit" style="" aria-hidden="true"></i></a>
+                                    <i class="fa fa-edit" aria-hidden="true"></i></a>
                                 <span>
 
                                     <a class="cursor-pointer m-0 p-0 mp-mr2" id="member-detail-toggle">
