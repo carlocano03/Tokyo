@@ -994,13 +994,14 @@
                         </div>
                         <div class="tab-body">
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_membershipf) && $rec->pass_membershipf == 1) ? 'checked' : '' }} name="pass_membershipf">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Membership Form
                                     </span>
                                     <span class="mp-text-fw-medium">
                                         <a class='view_member view-member' 
+                                            href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
                                             style='cursor: pointer; padding: 0'>
                                             <span class="mp-link link_style">View Membership form</span>
                                         </a>
@@ -1008,16 +1009,17 @@
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_proxyform) && $rec->pass_proxyform == 1) ? 'checked' : '' }} name="pass_proxyform">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Proxy Form
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        <a class='view_member view-member' 
-                                            style='cursor: pointer; padding: 0'>
-                                            <span class="mp-link link_style">View Proxy form</span>
-                                        </a>
+                                    <a class='view_member view-member' 
+                                        href="javascript:void(0)" onclick="window.open('{{ URL::to('/generateProxyForm/') }}/{{ $rec->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
+                                        style='cursor: pointer; padding: 0'>
+                                        <span class="mp-link link_style">View Proxy form</span>
+                                    </a>
                                     </span>
                                 </div>
                             </div>

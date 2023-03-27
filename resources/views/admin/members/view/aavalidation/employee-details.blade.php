@@ -994,68 +994,68 @@
                         </div>
                         <div class="tab-body">
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_emp_no) && $rec->pass_emp_no == 1) ? 'checked' : '' }} name="pass_emp_no">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Employee Number
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        123
+                                        {{$rec->employee_no}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_campus) && $rec->pass_campus == 1) ? 'checked' : '' }} name="pass_campus">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Campus
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        UP CEBU
+                                        {{$rec->name}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_classification) && $rec->pass_classification == 1) ? 'checked' : '' }} name="pass_classification">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Classification
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Class A
+                                        {{$rec->classification}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_college_unit) && $rec->pass_college_unit == 1) ? 'checked' : '' }} name="pass_college_unit">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         College/Unit
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        ASD
+                                        {{$rec->college_unit_name}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_department) && $rec->pass_department == 1) ? 'checked' : '' }} name="pass_department">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Department
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        ASD
+                                        {{$rec->department_name}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_rankpos) && $rec->pass_rankpos == 1) ? 'checked' : '' }} name="pass_rankpos">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Rank/Position
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        SAMPLO
+                                        {{$rec->rank_position}}
                                     </span>
                                 </div>
                             </div>
@@ -1081,57 +1081,57 @@
                                 </div>
                             </div> -->
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_appointdate) && $rec->pass_appointdate == 1) ? 'checked' : '' }} name="pass_appointdate">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Appointment Date
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        January 10, 2023
+                                        {{ date('F d, Y', strtotime($rec->date_appointment)) }}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_monthlysalary) && $rec->pass_monthlysalary == 1) ? 'checked' : '' }} name="pass_monthlysalary">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Monthly Salary
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        ₱43,333.00
+                                        ₱{{ number_format($rec->monthly_salary, 2, '.', ',') }}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_sg) && $rec->pass_sg == 1) ? 'checked' : '' }} name="pass_sg">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Salary Grade
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        17
+                                        {{$rec->salary_grade}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_sgcat) && $rec->pass_sgcat == 1) ? 'checked' : '' }} name="pass_sgcat">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Salary Grade Category
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        16-33
+                                        {{$rec->sg_category}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_tin_no) && $rec->pass_tin_no == 1) ? 'checked' : '' }} name="pass_tin_no">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Tin Number
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        312312
+                                        {{$rec->tin_no}}
                                     </span>
                                 </div>
                             </div>

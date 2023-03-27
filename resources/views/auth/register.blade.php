@@ -406,26 +406,36 @@
         </div>
         <div class="mp-input-group" data-set="civilstatus">
             <label class="mp-input-group__label">Civil Status </label>
-            <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
+            <!-- <select class="mp-input-group__input mp-text-field" name="civilstatus" required>
                 <option value="">Select Status</option>
                 <option>Single</option>
                 <option>Married</option>
                 <option>Widowed</option>
                 <option>Divorced</option>
                 <option>Registered Partnership</option>
-            </select>
+            </select> -->
+            <div class="d-flex gap-5 mp-mb2">
+                <input type="radio" value="Single" id="single" name="civilstatus" />
+                <label class="mp-input-group__label" for="single" style="margin-top: 1px;">Single</label>
+                
+                <input type="radio" value="Married" id="married" name="civilstatus" />
+                <label class="mp-input-group__label" for="married" style="margin-top: 1px;">Married</label>
+
+                <input type="radio" value="Widowed" id="widowed" name="civilstatus" />
+                <label class="mp-input-group__label" for="widowed" style="margin-top: 1px;">Widowed</label>
+            </div>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group" data-set="citizenship">
             <label class="mp-input-group__label">Citizenship </label>
             <div class="d-flex gap-5">
                 <input type="radio" value="FILIPINO" id="citizenship" name="citizenship" />
-                <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Filipino</label>
+                <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 1px;">Filipino</label>
                 <input type="radio" value="DUAL CITIZENSHIP" id="citizenship" name="citizenship" />
-                <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 5px;">Dual
+                <label class="mp-input-group__label" for="citizenship_d" style="margin-top: 1px;">Dual
                     Citizenship</label>
                 <input type="radio" value="OTHERS" id="citizenship" name="citizenship" />
-                <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 5px;">Others</label>
+                <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 1px;">Others</label>
             </div>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
             
