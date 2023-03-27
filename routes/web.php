@@ -84,6 +84,7 @@ Route::get('/admin/members/records', [AdminController::class, 'members_records']
 Route::get('/admin/members/records/payroll', [AdminController::class, 'members_payroll']);
 Route::get('/admin/members/records/movement', [AdminController::class, 'members_movement']);
 Route::get('/admin/members/records/analytics', [AdminController::class, 'members_analytics']);
+Route::get('/admin/members/records/view/aa/{id}', [AdminController::class, 'members_view_record']);
 Route::get('/admin/members/records/view/aa/personal/{id}', [AdminController::class, 'members_view_record_personal']);
 Route::get('/admin/members/records/view/aa/employee/{id}', [AdminController::class, 'members_view_record_employee']);
 Route::get('/admin/members/records/view/aa/membership/{id}', [AdminController::class, 'members_view_record_membership']);
