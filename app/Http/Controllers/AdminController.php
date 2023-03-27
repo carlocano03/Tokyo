@@ -1368,9 +1368,9 @@ class AdminController extends Controller
       $records->where('mem_app.validator_remarks', $validator_remarks);
     }
     if ($users == 'HRDO') {
-      $href = '/admin/members/records/view/hrdo/employee/';
+      $href = '/admin/members/records/view/hrdo/';
     } else if ($users == 'AA') {
-      $href = '/admin/members/records/view/aa/personal/';
+      $href = '/admin/members/records/view/aa/';
     } else if ($users == 'FM') {
       $href = '';
     }
