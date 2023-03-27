@@ -89,7 +89,7 @@
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Upload Signature</label>
                         <input class="mp-input-group__input mp-text-field" type="file" name="sign_electronic" id="sign_electronic" />
-                        <input type="text" name="person_id" id="person_id">
+                        <input type="hidden" name="person_id" id="person_id">
                     </div>
 
             </div>
@@ -294,7 +294,14 @@ inputField.addEventListener('input', formatInput);
                         $("[name='date_birth_days']").val(date_bd.getDate().toString().padStart(2, '0'));
 
                         $("[name='gender']").val(data.gender == null ? '' : data.gender);
-                        $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
+                        // $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
+                        if (data.civilstatus == 'Single') {
+                            $('input[name="civilstatus"][value="Single"]').prop('checked', true);
+                        } else if (data.civilstatus == 'Married') {
+                            $('input[name="civilstatus"][value="Married"]').prop('checked', true);
+                        } else if (data.civilstatus == 'Widowed') {
+                            $('input[name="civilstatus"][value="Married"]').prop('checked', true);
+                        }
                         if (data.citizenship == 'FILIPINO') {
                             $('input[name="citizenship"][value="FILIPINO"]').prop('checked', true);
                         } else if (data.citizenship == 'DUAL CITIZENSHIP') {
@@ -953,7 +960,6 @@ inputField.addEventListener('input', formatInput);
                                                 confirmButtonColor: '#3085d6',
                                                 confirmButtonText: 'Proceed',
                                         });
-                                        window.open('http://127.0.0.1:8000/login', '_blank');
                                         $('.applicationNo').show(200);
                                         $('#application_no').text(reference_no);
                                         $('#app_no').val(reference_no);
