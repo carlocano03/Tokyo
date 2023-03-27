@@ -94,6 +94,7 @@ Route::get('/admin/members/records/view/hrdo/employee/{id}', [AdminController::c
 Route::get('/admin/members/records/view/hrdo/membership/{id}', [AdminController::class, 'hrdo_view_record_membership']);
 Route::get('/admin/members/records/view/hrdo/forms/{id}', [AdminController::class, 'hrdo_view_record_forms']);
 Route::get('/admin/members/records/view/hrdo/{id}', [AdminController::class, 'hrdo_view_record'])->name('admin.hrdo_view_record');
+Route::get('/admin/members/records/view/fm/{id}', [AdminController::class, 'fm_view_record'])->name('admin.fm_view_record');
 Route::get('/admin/members/trail', [AdminController::class, 'members_application_trail'])->name('admin.members_application_trail');
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
 Route::post('/admin/countApplication', [AdminController::class, 'countApplication'])->name('count_application');

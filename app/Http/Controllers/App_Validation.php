@@ -310,7 +310,7 @@ class App_Validation extends Controller
 
         $email = DB::table('mem_app')->where('app_no', $request->input('app_no'))->select('email_address')->value('email_address');
         $mem_appinst = array(
-          'validator_remarks' => "FOR CORRECTION",
+          'validator_remarks' => "FOR COMPLIANCE",
           'aa_cfm_user' => Auth::user()->id,
         );
         DB::table('mem_app')->where('app_no', $request->input('app_no'))

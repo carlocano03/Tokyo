@@ -953,6 +953,7 @@ class AdminController extends Controller
     );
     return view('admin.members.view.hrdovalidation')->with($data);
   }
+  
 
   public function hrdo_view_record_personal($id)
   {
@@ -1230,6 +1231,74 @@ class AdminController extends Controller
     return view('admin.members.view.hrdovalidation.forms-attachment')->with($data);
   }
 
+  public function fm_view_record($id)
+  {
+    // DB::enableQueryLog();
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+      ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+      ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->select(
+        'mem_app.*',
+        'membership_details.*',
+        'personal_details.*',
+        'employee_details.*',
+        'membership_details.*',
+        'campus.*',
+        'college_unit.*',
+        'department.*',
+        'college_unit.*',
+        'pass_emp_no',
+        'pass_campus',
+        'pass_classification',
+        'pass_college_unit',
+        'pass_department',
+        'pass_rankpos',
+        'pass_appointment',
+        'pass_appointdate',
+        'pass_monthlysalary',
+        'pass_sg',
+        'pass_sgcat',
+        'pass_tin_no',
+
+        'remarks_emp_no',
+        'remarks_campus',
+        'remarks_classification',
+        'remarks_college_unit',
+        'remarks_department',
+        'remarks_rankpos',
+        'remarks_appointment',
+        'remarks_appointdate',
+        'remarks_monthlysalary',
+        'remarks_sg',
+        'remarks_sgcat',
+        'remarks_tin_no',
+        'general_remarks',
+        'evaluate_by',
+        'date_evaluated'
+      )
+      ->where('mem_app.app_no', $id)->first();
+    $status = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('status_remarks');
+    $user_step = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('user_level');
+    $trailing = DB::table('app_trailing')
+      ->where('app_no', $id)->orderBy('time_stamp', 'asc')->get();
+    $data = array(
+      'status' => $status,
+      'user_step' => $user_step,
+      'rec' => $records,
+      'trailing' => $trailing
+    );
+    return view('admin.members.view.fmvalidation')->with($data);
+  }
   
 
   public function members_application_trail()
@@ -1321,7 +1390,7 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $process)
           ->orWhere('mem_app.app_status', $rejected)
           ->orWhere('mem_app.app_status', $approved)
-          ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+          ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'HRDO') {
       // $aa_1 = $userId;
@@ -1341,7 +1410,7 @@ class AdminController extends Controller
       $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
       $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
-      
+
     } else if ($users == 'CFM') {
       $cfm = 'AA VERIFIED';
       $records->where('mem_app.app_status', $cfm);
@@ -1401,7 +1470,7 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $process)
           ->orWhere('mem_app.app_status', $rejected)
           ->orWhere('mem_app.app_status', $approved)
-          ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+          ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'HRDO') {
       // $aa_1 = $userId;
@@ -1430,7 +1499,7 @@ class AdminController extends Controller
         $query->where('mem_app.app_status', $aa_1)
           ->orWhere('mem_app.validator_remarks', $cfm)
           ->orWhere('mem_app.app_status', $process)
-          ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+          ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
@@ -1466,7 +1535,7 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $process)
           ->orWhere('mem_app.app_status', $rejected)
           ->orWhere('mem_app.app_status', $approved)
-          ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+          ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'HRDO') {
       $aa_1 = $userId;
@@ -1488,7 +1557,7 @@ class AdminController extends Controller
           ->orWhere('mem_app.validator_remarks', $cfm)
           ->orWhere('mem_app.app_status', $process)
           ->orWhere('mem_app.app_status', $approved)
-          ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+          ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
@@ -1526,7 +1595,7 @@ class AdminController extends Controller
     } else if ($users == 'AA') {
       $href = '/admin/members/records/view/aa/';
     } else if ($users == 'FM') {
-      $href = '';
+      $href = '/admin/members/records/view/fm/';
     }
 
     $posts = $records->skip($start)
