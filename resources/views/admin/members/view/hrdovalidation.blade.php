@@ -1150,7 +1150,8 @@
                 </div>
                 <div class="w-auto d-flex justify-content-end">
                     <span>
-                        <a href="#">
+                        <a href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
+                        style='cursor: pointer; padding: 0'>
                             <button class="f-button">
                                 Print/Download
                             </button>
