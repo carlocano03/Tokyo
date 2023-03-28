@@ -458,9 +458,9 @@ class App_Validation extends Controller
           DB::table('app_trailing')->where('app_no', $request->input('app_no'))
             ->insert($apptrail);
         }
-        return [
-          'last_id' => $last_id,
-        ];
+        // return [
+        //   'last_id' => $last_id,
+        // ];
       });
       return response()->json(['success' => true]);
     }
