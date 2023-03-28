@@ -944,6 +944,7 @@ inputField.addEventListener('input', formatInput);
                         $("[data-set=" + name + "]>.input").addClass('input-error')
                     })
                     empty.first().focus();
+                    return
                     // swal.fire("Error!", "Please fill out the required fields", "error");
                 } else {
                     if ($('#app_trailNo').val() !== '' && personnel_id == undefined) {
@@ -1180,6 +1181,7 @@ inputField.addEventListener('input', formatInput);
 
                 })
                 empty.first().focus();
+                return
                 // swal.fire("Error!", "Please fill out the required fields", "error");
             } else {
                 if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' &&
