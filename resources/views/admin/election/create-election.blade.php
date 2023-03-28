@@ -1116,19 +1116,16 @@
                             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
                                 <li class="options options-active" onclick="location.href='create-election'">
                                     <a href="#" class="no-padding options-a-active">Create New Election</a><br>
-                                    <label class="option-info options-info-active">Allow User to create new election
-                                    </label>
+
                                 </li>
                                 <li class="options" onclick="location.href='election-record'">
                                     <a href="#" class="no-padding">Election Records</a><br>
-                                    <label class="option-info ">Allow User to manage election records.
-                                    </label>
+
                                 </li>
 
                                 <li class="options" onclick="location.href='election-analytics'">
                                     <a href="#" class="no-padding">Election Day Analytics</a><br>
-                                    <label class="option-info">Allow User to view election day analytics
-                                    </label>
+
                                 </li>
 
                             </ul>

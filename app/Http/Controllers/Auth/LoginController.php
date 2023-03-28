@@ -67,10 +67,11 @@ class LoginController extends Controller
             if ($request->usertype == 'admin') {
                 $user = User::find(Auth::user()->id);
                 if ($user->password_set == 0) {
-                    return redirect('/admin/onboarding');
+                    // return redirect('/admin/onboarding');
+                    return redirect('/admin/dashboard');
                 } else {
                     $insertLoginHistory = array(
-                       'user_id' => Auth::user()->id,
+                        'user_id' => Auth::user()->id,
                     );
                     DB::table('login_logs')->insert($insertLoginHistory);
                     return redirect('/admin/dashboard');
@@ -78,7 +79,8 @@ class LoginController extends Controller
             } else {
                 $user = User::find(Auth::user()->id);
                 if ($user->password_set == 0) {
-                    return redirect('/member/onboarding');
+                    // return redirect('/admin/onboarding');
+                    return redirect('/admin/dashboard');
                 } else {
                     return redirect('/member/dashboard');
                 }

@@ -1,6 +1,156 @@
 @extends('layouts/main')
+<style>
+    .close-button-div {
+        width: 100%;
+        position: absolute;
+        margin-left: -20px;
+        margin-top: -12px;
+        background-color: var(--c-accent);
+        color: white !important;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+
+    }
+
+    .close-button-div label {
+        padding-left: 13px;
+        padding-top: 10px;
+    }
+</style>
+<div id="personalDetailsModal" class="d-none opacity-0">
+    <div class="modalContent" style="margin-top: 100px; padding-bottom:0px; gap:0px;">
+        <!-- d-none opacity-0 -->
+        <div class="" id="changeDetails">
+            <div class="modalBody " style="height: 100%;
+                                            display: flex;
+                                            align-items: center;
+                                            padding: 20px;">
+
+                <div class="d-flex flex-column gap-10" style="width: 700px;margin-top: -10px;"> <span style="font-weight: bold; font-size: x-large"></span>
+                    <div class="close-button-div">
+                        <label class="close-button" id="closeModal" style="position: absolute;">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </label>
+                        <div class="cont" style="  text-align: center;">
+                            <label>Employee Details</label>
+                        </div>
+
+                    </div>
+
+                    <div class="top-label" style="
+                        height: 500px;
+                        overflow: auto;
+                        transform: scale(.9);
+                        margin-top: 20px;
+                       ">
+                        <form id="users_form" class=" form-border-bottom">
+
+                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3  mp-pv2 ">
+                                <input type="hidden" id="users_id" name="users_id">
+                                <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Employee Number</label>
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Campus</label>
+                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                        <option value="">Select Campus</option>
+                                        <option value="AA">Campus 1</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Classification</label>
+                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                        <option value="">Select Classification</option>
+                                        <option value="">Classification 1</option>
+                                    </select>
+                                </div>
+
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">
+                                        College/Unit</label>
+                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                        <option value="">College/Unit 1</option>
+                                        <option value="">College/Unit 2</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">
+                                        Department</label>
+                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                        <option value="">Department 1</option>
+                                        <option value="">Department 2</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Rank/Position</label>
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Appointment Date</label>
+                                    <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Monthly Salary</label>
+                                    <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label"> Salary Grade</label>
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Salary Grade Category</label>
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                </div>
+
+
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Tin Number</label>
+                                    <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                </div>
+
+
+                                <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <div class="modalFooter gap-10" style=" transform: scale(.7);margin-bottom: 20px;">
+            <button>
+                Update
+            </button>
+            <button style="background-color: var(--c-base-25) !important;color: var(--c-base) !important;" id="closeModal">
+                Close
+            </button>
+        </div>
+    </div>
+</div>
 @section('content_body')
 <style>
+    #personalDetailsModal {
+        position: absolute;
+        width: calc(100vw);
+        height: 100vh;
+        background-color: rgba(0, 0, 0, .4);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .5s;
+        opacity: 1;
+    }
+
     .card-container {
         display: flex;
         flex-direction: column;
@@ -647,64 +797,77 @@
     .color-black {
         color: black;
     }
-    .member-detail-title{
+
+    .member-detail-title {
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
     }
+
     .member-detail-title.open-details {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
-    .member-detail-body{
+
+    .member-detail-body {
         display: none !important;
     }
+
     .member-detail-body.open-details {
         display: flex !important;
     }
 
-    .membership-title{
+    .membership-title {
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
     }
+
     .membership-title.open-details {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
-    .membership-body{
+
+    .membership-body {
         display: none !important;
     }
+
     .membership-body.open-details {
         display: flex !important;
     }
-    
 
-    .forms_attachment-title{
+
+    .forms_attachment-title {
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
     }
+
     .forms_attachment-title.open-details {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
-    .forms_attachment-body{
+
+    .forms_attachment-body {
         display: none !important;
     }
+
     .forms_attachment-body.open-details {
         display: flex !important;
     }
 
 
-    .employee-title{
+    .employee-title {
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
     }
+
     .employee-title.open-details {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
-    .employee-body{
+
+    .employee-body {
         display: none !important;
     }
+
     .employee-body.open-details {
         display: flex !important;
     }
@@ -717,6 +880,15 @@
         display: grid;
     }
 
+    .editButton {
+        font-size: 13px;
+        cursor: pointer;
+    }
+
+    .editButton:hover {
+        font-size: 14px;
+        cursor: pointer;
+    }
 </style>
 <div id="summaryModal" class="d-none">
     <div class="modalContent">
@@ -904,7 +1076,6 @@
             $(".employee-up").addClass("d-none")
         }
     })
-
 </script>
 <div class="row no-gutter ml-0 mr-0 p-5px mh-content" id="view-member-details">
 
@@ -918,7 +1089,7 @@
                     <span class="font-sm">Membership Application Number</span>
                     <br />
                     <span class="magenta-clr font-bold">{{$rec->app_no}}</span>
-                  
+
 
                 </div>
                 <div class="w-auto">
@@ -934,7 +1105,7 @@
                     @else
                     <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
                     @endif
-                    
+
                 </div>
                 <div class="w-auto d-flex justify-content-end">
                     <span>
@@ -962,60 +1133,62 @@
                 <div class="card-body trail" id="trail-body">
                     <div class="table-form w-trail mp-pv2 mp-ph3">
                         @php
-                            $counter = 0;
-                            $total = count($trailing);
+                        $counter = 0;
+                        $total = count($trailing);
                         @endphp
                         @foreach ($trailing as $data)
                         @php
-                            $counter++;
+                        $counter++;
                         @endphp
-                            <div class="span-2 d-flex flex-column relative">
-                                <div class="d-flex flex-column absolute top-circle w-full">
-                                    <span class="circle"></span>
-                                </div>
-                                <div class="line-trail table-form w-full">
-                                    <span class="line-child span-6 {{ $counter == 1 ? 'white' : '' }}"></span>
-                                    <span class="line-child span-6 {{ $counter == $total ? 'white' : '' }}"></span>
-                                </div>
-                                <div class="table-form">
-                                    <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                        <span class="font-sm">Status</span>
-                                        <span class="mp-mh1">
-                                            @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
-                                            <span class="status-title green-bg">
-                                                APPROVED
-                                            </span>
-                                        @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
-                                            <span class="status-title orage-bg">
-                                                PROCESSING
-                                            </span>
-                                        @else
-                                            <span class="status-title maroon-bg">
-                                                NEW APPLICATION
-                                            </span>
-                                        @endif
+                        <div class="span-2 d-flex flex-column relative">
+                            <div class="d-flex flex-column absolute top-circle w-full">
+                                <span class="circle"></span>
+                            </div>
+                            <div class="line-trail table-form w-full">
+                                <span class="line-child span-6 {{ $counter == 1 ? 'white' : '' }}"></span>
+                                <span class="line-child span-6 {{ $counter == $total ? 'white' : '' }}"></span>
+                            </div>
+                            <div class="table-form">
+                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
+                                    <span class="font-sm">Status</span>
+                                    <span class="mp-mh1">
+                                        @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
+                                        <span class="status-title green-bg">
+                                            APPROVED
                                         </span>
-                                        <span class="font-sm">Remarks</span>
-                                        <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
-                                        <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
-                                    </div>
+                                        @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                        <span class="status-title orage-bg">
+                                            PROCESSING
+                                        </span>
+                                        @else
+                                        <span class="status-title maroon-bg">
+                                            NEW APPLICATION
+                                        </span>
+                                        @endif
+                                    </span>
+                                    <span class="font-sm">Remarks</span>
+                                    <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
+                                    <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
                                 </div>
                             </div>
-                        @endforeach                             
-                        
+                        </div>
+                        @endforeach
+
                     </div>
                 </div>
             </div>
             <div class="card-container card p-0 mp-mt3 ">
                 <div class="card-header magenta-bg d-flex items-between">
-                    <span>Validation Process</span><span><button class="f-button">Show Details</button></span>
+                    <span>Validation Process</span><span> </span>
                 </div>
                 <div class="mp-pv5 mp-mt3">
-                
+
                     <div class="card-container card p-0 mp-mt3">
                         <div class="card-header d-flex items-between maroon-bg member-detail-title open-details">
                             <span>Personal Details</span><span>
+
                                 <span>
+
                                     <a class="cursor-pointer m-0 p-0 mp-mr2" id="member-detail-toggle">
                                         <i class="fa fa-chevron-circle-up  member-up" aria-hidden="true"></i>
                                         <i class="fa fa-chevron-circle-down d-none member-down" aria-hidden="true"></i>
@@ -1040,7 +1213,7 @@
                                                 Birthday
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                            {{ date('F d, Y', strtotime($rec->date_birth)) }}
+                                                {{ date('F d, Y', strtotime($rec->date_birth)) }}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1072,7 +1245,7 @@
                                                 Address
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                            {{$rec->bldg_street}}, {{$rec->barangay}}, {{$rec->municipality}}, {{$rec->province}}, {{$rec->zipcode}}
+                                                {{$rec->bldg_street}}, {{$rec->barangay}}, {{$rec->municipality}}, {{$rec->province}}, {{$rec->zipcode}}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1080,7 +1253,7 @@
                                                 Contact No.
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                            {{$rec->contact_no}}
+                                                {{$rec->contact_no}}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1088,7 +1261,7 @@
                                                 Email
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                            {{$rec->email}}
+                                                {{$rec->email}}
                                             </span>
                                         </div>
                                     </div>
@@ -1098,21 +1271,34 @@
                                         Endorsement Date
                                         <br>
                                         <span class="font-md font-bold">
-                                            February 14, 2023 10:11 AM
+                                            <span class="font-sm"> <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
                                         </span>
                                     </p>
                                     <p class="mp-text-right">
                                         Evaluated by
                                         <br>
                                         <span class="font-md font-bold">
-                                            AA Account
+                                            <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
+
                                         </span>
                                     </p>
                                     <p class="mp-text-right">
                                         Result
                                         <br>
                                         <span class="font-md font-bold">
-                                            Passed
+                                            @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
+                                            <span class="status-title green-bg">
+                                                APPROVED
+                                            </span>
+                                            @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                            <span class="status-title orage-bg">
+                                                PROCESSING
+                                            </span>
+                                            @else
+                                            <span class="status-title maroon-bg">
+                                                NEW APPLICATION
+                                            </span>
+                                            @endif
                                         </span>
                                     </p>
                                 </div>
@@ -1120,11 +1306,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="mp-pv5 mp-mb3">
                     <div class="card-container card p-0 mp-mt3">
                         <div class="card-header d-flex items-between maroon-bg membership-title open-details">
-                        
+
                             <span>Membership Details</span><span>
                                 <span>
                                     <a class="cursor-pointer m-0 p-0 mp-mr2" id="membership-toggle">
@@ -1141,7 +1327,7 @@
                                         Monthly salary
                                     </span>
                                     <span class="font-md color-black">
-                                    ₱{{ number_format($rec->monthly_salary, 2, '.', ',') }}
+                                        ₱{{ number_format($rec->monthly_salary, 2, '.', ',') }}
                                     </span>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
@@ -1149,7 +1335,7 @@
                                         Salary Grade
                                     </span>
                                     <span class="font-md color-black">
-                                    {{ $rec->salary_grade }}
+                                        {{ $rec->salary_grade }}
                                     </span>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
@@ -1157,7 +1343,7 @@
                                         Monthly Contributions
                                     </span>
                                     <span class="font-md color-black">
-                                    {{ $rec->contribution_set }}
+                                        {{ $rec->contribution_set }}
                                     </span>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
@@ -1165,7 +1351,7 @@
                                         Equivalent Value
                                     </span>
                                     <span class="font-md color-black">
-                                    {{ $rec->amount }}
+                                        {{ $rec->amount }}
                                     </span>
                                 </div>
                             </div>
@@ -1190,34 +1376,28 @@
                                     <span>
                                         Membership Form
                                     </span>
-                                    <a class='view_member view-member' 
-                                    href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
-                                    style='cursor: pointer; padding: 0'>
-                                    <span class="mp-link link_style">View Membership form</span>
-                                </a>
+                                    <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
+                                        <span class="mp-link link_style">View Membership form</span>
+                                    </a>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
                                     <span>
                                         Proxy Form
                                     </span>
-                                    <a class='view_member view-member' 
-                                    href="javascript:void(0)" onclick="window.open('{{ URL::to('/generateProxyForm/') }}/{{ $rec->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
-                                    style='cursor: pointer; padding: 0'>
-                                    
-                                    <span class="mp-link link_style">View Proxy form</span>
-                                </a>
+                                    <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/generateProxyForm/') }}/{{ $rec->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
+
+                                        <span class="mp-link link_style">View Proxy form</span>
+                                    </a>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
                                     <span>
                                         AXA Form
                                     </span>
-                                    <a class='view_member view-member' 
-                                    href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
-                                    style='cursor: pointer; padding: 0'>
-                                    <span class="mp-link link_style">View AXA form</span>
-                                </a>
+                                    <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
+                                        <span class="mp-link link_style">View AXA form</span>
+                                    </a>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -1228,7 +1408,10 @@
                     <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}" >
                     <div class="card-container card p-0 mp-mt3">
                         <div class="card-header d-flex items-between maroon-bg employee-title open-details">
-                            <span>Employee Details</span><span>
+                            <span>Employee Details</span>
+                            <span>
+                                <a id="editPersonalDetails" class="editButton">Edit
+                                    <i class="fa fa-edit" aria-hidden="true"></i></a>
                                 <span>
                                     <a class="cursor-pointer m-0 p-0 mp-mr2" id="employee-toggle">
                                         <i class="fa fa-chevron-circle-up employee-up" aria-hidden="true"></i>
@@ -1388,15 +1571,15 @@
                                 </div>
                             </div>
                             <span class="d-flex" style="gap: 10px">
-                                <button class="f-button align-self-end magenta-bg" id="return_app" >
+                                <button class="f-button align-self-end magenta-bg" id="return_app">
                                     <span id="return_text">Return Application</span>
                                 </button>
                                 <button class="f-button align-self-end" id="save_record" >
                                 <span id="save_text">Verified This Application</span>
                                 </button>
-                                
+
                             </span>
-                        </form>
+                            </form>
                         </div>
                     </div>
                     <!-- <div class="span-6 d-flex flex-column mp-pv3 mp-ph3 gap-10">
@@ -1658,53 +1841,159 @@ $.ajaxSetup({
         }
         });
         var formDatas = $("#hrdo_validation").serialize();
-        if(failCount > 0){
+        if (failCount > 0) {
             $.ajax({
-            type: 'POST',
-            url: "{{ route('validate_step_reject') }}",
-            data: formDatas,
-            success: function(data) {
-                if (data.success == 1) {
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('save_drafthrdo_validation') }}",
-                        data: formDatas,
-                        beforeSend: function() {
-                            $('#loading').show();
-                        },
-                        success: function(data) {
-                            if (data.success != '') {
-                                Swal.fire({
-                                    text: 'Application has been save as draft and can verified later.',
-                                    icon: 'success',
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Proceed',
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                    window.location.href = '{{ route('admin.members_records') }}';
-                                    }
-                                });
-                            }else{
-                                alert('Failed');
+                type: 'POST',
+                url: "{{ route('validate_step_reject') }}",
+                data: formDatas,
+                success: function(data) {
+                    if (data.success == 1) {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('save_drafthrdo_validation') }}",
+                            data: formDatas,
+                            beforeSend: function() {
+                                $('#loading').show();
+                            },
+                            success: function(data) {
+                                if (data.success != '') {
+                                    Swal.fire({
+                                        text: 'Application has been save as draft and can verified later.',
+                                        icon: 'success',
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'Proceed',
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = "{{ route('admin.members_records') }}";
+                                        }
+                                    });
+                                } else {
+                                    alert('Failed');
+                                }
                             }
-                        }
-                    });
-                }else{
+                        });
+                    } else {
                         swal.fire("Error!", "You already forwarded this application to FM and cannot be changes.", "error");
                     }
                 },
-             });
-             
-        }else{
+            });
+
+        } else {
             $.ajax({
-            type: 'POST',
-            url: "{{ route('validate_step_reject') }}",
-            data: formDatas,
-            success: function(data) {
-                if (data.success == 1) {
+                type: 'POST',
+                url: "{{ route('validate_step_reject') }}",
+                data: formDatas,
+                success: function(data) {
+                    if (data.success == 1) {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('save_hrdo_validation') }}",
+                            data: formDatas,
+                            beforeSend: function() {
+                                $('#loading').show();
+                            },
+                            success: function(data) {
+                                if (data.success != '') {
+                                    Swal.fire({
+                                        text: 'Application has been save successfully validated and ready to forward.',
+                                        icon: 'success',
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'Proceed',
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = "{{ route('admin.members_records') }}";
+                                        }
+                                    });
+                                } else {
+                                    alert('Failed');
+                                }
+                            }
+                        });
+                    } else {
+                        swal.fire("Error!", "You already forwarded this application to FM and cannot be changes.", "error");
+                    }
+                },
+            });
+        }
+
+    });
+    $('#return_app').click(function() {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Are you sure you want to Return this application?',
+            text: "This will return his/her application and subject for compliance.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                var formDatas = $("#hrdo_validation").serialize();
                 $.ajax({
                     type: 'POST',
-                    url: "{{ route('save_hrdo_validation') }}",
+                    url: "{{ route('validate_step_reject') }}",
+                    data: formDatas,
+                    success: function(data) {
+                        if (data.success == 1) {
+                            $.ajax({
+                                type: 'POST',
+                                url: "{{ route('return_application_aa') }}",
+                                data: formDatas,
+                                beforeSend: function() {
+                                    $('#loading').show();
+                                },
+                                success: function(data) {
+                                    if (data.success != '') {
+                                        Swal.fire({
+                                            text: 'Application has been successfully returned and subject for compliance.',
+                                            icon: 'success',
+                                            confirmButtonColor: '#3085d6',
+                                            confirmButtonText: 'Proceed',
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                window.location.href = "{{ route('admin.members_records') }}";
+                                            }
+                                        });
+                                    } else {
+                                        swal.fire("Error!", "Saving failed", "error");
+                                    }
+                                }
+                            });
+                        } else {
+                            swal.fire("Error!", "You already forwarded this application to FM and cannot be returned.", "error");
+                        }
+                    }
+                });
+            }
+        });
+    });
+    $('#return_app').click(function() {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Are you sure you want to Return this application?',
+            text: "This will return his/her application and subject for compliance.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                var formDatas = $("#hrdo_validation").serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('return_application_aa') }}",
                     data: formDatas,
                     beforeSend: function() {
                         $('#loading').show();
@@ -1712,128 +2001,36 @@ $.ajaxSetup({
                     success: function(data) {
                         if (data.success != '') {
                             Swal.fire({
-                                text: 'Application has been save successfully validated and ready to forward.',
+                                text: 'Application has been successfully returned and subject for compliance.',
                                 icon: 'success',
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: 'Proceed',
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                window.location.href = '{{ route('admin.members_records') }}';
+                                    window.location.href = "{{ route('admin.members_records') }}";
                                 }
                             });
-                        }else{
-                            alert('Failed');
+                        } else {
+                            swal.fire("Error!", "Saving failed", "error");
                         }
                     }
                 });
-            }else{
-                        swal.fire("Error!", "You already forwarded this application to FM and cannot be changes.", "error");
-                    }
-                },
-             });
-        }
-
-});
-$('#return_app').click(function() {
-    event.preventDefault();
-    Swal.fire({
-        title: 'Are you sure you want to Return this application?',
-        text: "This will return his/her application and subject for compliance.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'OK'
-    }).then((result) => {
-        if (result.isConfirmed) {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-        });
-
-        var formDatas = $("#hrdo_validation").serialize();
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('validate_step_reject') }}",
-            data: formDatas,
-            success: function(data) {
-                if (data.success == 1) {
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('return_application_aa') }}",
-                        data: formDatas,
-                        beforeSend: function() {
-                            $('#loading').show();
-                        },
-                        success: function(data) {
-                            if (data.success != '') {
-                            Swal.fire({
-                                    text: 'Application has been successfully returned and subject for compliance.',
-                                    icon: 'success',
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Proceed',
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                    window.location.href = '{{ route('admin.members_records') }}';
-                                    }
-                                });
-                            }else{
-                                swal.fire("Error!", "Saving failed", "error");
-                            }
-                        }
-                    });
-                }else{
-                    swal.fire("Error!", "You already forwarded this application to FM and cannot be returned.", "error");
-                }
             }
         });
-    }
-});
-});
-$('#return_app').click(function() {
-    event.preventDefault();
-    Swal.fire({
-        title: 'Are you sure you want to Return this application?',
-        text: "This will return his/her application and subject for compliance.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'OK'
-    }).then((result) => {
-        if (result.isConfirmed) {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-        });
+    });
+    $(document).on('click', '#editPersonalDetails', function(e) {
+        $("#personalDetailsModal").removeClass("d-none")
+        setTimeout(function() {
+            $("#personalDetailsModal").removeClass("opacity-0")
+        }, 100)
 
-        var formDatas = $("#hrdo_validation").serialize();
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('return_application_aa') }}",
-            data: formDatas,
-            beforeSend: function() {
-                $('#loading').show();
-            },
-            success: function(data) {
-                if (data.success != '') {
-                Swal.fire({
-                        text: 'Application has been successfully returned and subject for compliance.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Proceed',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        window.location.href = '{{ route('admin.members_records') }}';
-                        }
-                    });
-                }else{
-                    swal.fire("Error!", "Saving failed", "error");
-                }
-            }
-        });
-    }
-});
-});
+    })
+    $(document).on('click', '#closeModal', function(e) {
+        $("#personalDetailsModal").addClass("d-none")
+        setTimeout(function() {
+            $("#personalDetailsModal").addClass("opacity-0")
+        }, 100)
+
+    })
 </script>
 @endsection
