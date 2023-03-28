@@ -98,6 +98,10 @@ class AdminController extends Controller
   {
     return view('admin.memberlist.summary-reports');
   }
+  public function contributionReports()
+  {
+    return view('admin.memberlist.contribution-reports');
+  }
 
   public function countApplication()
   {
@@ -1208,7 +1212,7 @@ class AdminController extends Controller
     );
     return view('admin.members.view.hrdovalidation')->with($data);
   }
-  
+
 
   public function hrdo_view_record_personal($id)
   {
@@ -1676,7 +1680,7 @@ class AdminController extends Controller
       $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
           ->where('employee_details.campus', $allowCampus->campus_key);
-          // ->orWhere('mem_app.app_status', $approved);
+        // ->orWhere('mem_app.app_status', $approved);
       });
     }
     $totalRecords = $records->count();
@@ -1748,7 +1752,6 @@ class AdminController extends Controller
       $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
       $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
-
     } else if ($users == 'CFM') {
       $aa_1 = 'NEW APPLICATION';
       $cfm = 'AA VERIFIED';
@@ -1765,7 +1768,7 @@ class AdminController extends Controller
       $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
           ->where('employee_details.campus', $allowCampus->campus_key);
-          // ->orWhere('mem_app.app_status', $approved);
+        // ->orWhere('mem_app.app_status', $approved);
       });
     }
 
