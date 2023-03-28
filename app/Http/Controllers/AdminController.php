@@ -503,6 +503,7 @@ class AdminController extends Controller
   //   return view('admin.members.view.aavalidation')->with($data);
   // }
 
+
   // public function members_view_record($id)
   // {
   //   // DB::enableQueryLog();
@@ -629,7 +630,6 @@ class AdminController extends Controller
   //   );
   //   return view('admin.members.view.aavalidation')->with($data);
   // }
-
 
   public function members_view_record_personal($id)
   {
@@ -1554,7 +1554,6 @@ class AdminController extends Controller
     );
     return view('admin.members.view.fmvalidation')->with($data);
   }
-  
 
   public function members_application_trail()
   {
@@ -1747,10 +1746,7 @@ class AdminController extends Controller
       $records->where('mem_app.validator_remarks', $cfm);
       $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.app_status', $approved);
-      $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
-      $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
-
       $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
 
     } else if ($users == 'CFM') {
