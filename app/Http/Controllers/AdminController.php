@@ -1747,13 +1747,8 @@ class AdminController extends Controller
       $records->where('mem_app.forwarded_user', $aa_1);
       $records->where('mem_app.validator_remarks', $cfm);
       $records->orWhere('mem_app.app_status', $approved);
-      $records->orWhere('mem_app.app_status', $approved);
-      $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
       $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
-
-      $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
-
     } else if ($users == 'CFM') {
       $aa_1 = 'NEW APPLICATION';
       $cfm = 'AA VERIFIED';
