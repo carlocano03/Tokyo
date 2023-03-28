@@ -175,6 +175,7 @@ Route::post('/settings/save-college', [Settings::class, 'save_college'])->name('
 Route::get('/settings/college_list', [Settings::class, 'college_table'])->name('college_list');
 Route::post('/settings/delete_college', [Settings::class, 'remove_college'])->name('delete_college');
 Route::post('/settings/get_details_coll', [Settings::class, 'get_college'])->name('get_details_coll');
+Route::post('/settings/filter_college_unit', [Settings::class, 'filter_college_unit'])->name('filter_college_unit');
 Route::post('/settings/update-college', [Settings::class, 'update_college'])->name('update-college');
 
 // department

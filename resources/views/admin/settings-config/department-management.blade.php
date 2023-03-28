@@ -103,18 +103,21 @@
                         <label class="mp-input-group__label">Campus</label>
                         <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
                           <option value="">Select Campus</option>
+                          <!-- <option value="all">All Campus</option> -->
                           @foreach($campus as $row)
                           <option value="{{ $row->id }}">{{ $row->name }}</option>
                           @endforeach
                         </select>
                       </div>
                       <div class="mp-input-group">
+
                         <label class="mp-input-group__label">College / Unit</label>
                         <select class="mp-input-group__input mp-text-field" name="college_unit" id="college_unit" required>
                           <option value="">Select College/Unit</option>
+                          <!-- <option value="">Select College/Unit</option>
                           @foreach($college_unit as $row)
                           <option value="{{ $row->cu_no }}">{{ $row->college_unit_name }}</option>
-                          @endforeach
+                          @endforeach -->
                         </select>
                       </div>
 
@@ -212,10 +215,7 @@
     }
 
   })
-  $(document).on('click', '#campus', function() {
 
-
-  });
   $(document).on('click', '#save_dept', function() {
     $.ajaxSetup({
       headers: {
@@ -225,6 +225,7 @@
     if ($('#campus').val() && $('#dept_name').val() && $('#college_unit').val()) {
       var formData = $("#dept_form").serialize();
       if ($('#dept_no').val() != '') {
+
         $.ajax({
           type: 'POST',
           url: "{{ route('update-department') }}",
@@ -353,6 +354,8 @@
 
   });
   $(document).on('click', '.edit_dept', function() {
+    var campus_id = $(this).data('campus_id');
+    var college_unit_id = $(this).data('cu_no');
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -375,7 +378,62 @@
       }
     });
 
+
+    $("#college_unit").html("");
+
+    console.log(campus_id)
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('filter_college_unit') }}",
+      data: {
+        camp_id: campus_id
+      },
+      success: function(data) {
+
+        $.each(data, function(key, value) {
+          console.log(value.campus_id + '' + campus_id)
+          if (value.cu_no == college_unit_id) {
+            $("#college_unit").append('<option selected value=' + value.cu_no + "> " + value.college_unit_name + '</option>');
+          } else {
+            $("#college_unit").append('<option value=' + value.cu_no + "> " + value.college_unit_name + '</option>');
+          }
+
+        });
+      }
+    });
+
   });
+
+  $("#campus").change(function() {
+    var campus_id = $("#campus").val();
+    $("#college_unit").html("");
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.ajax({
+      type: 'POST',
+      url: "{{ route('filter_college_unit') }}",
+      data: {
+        camp_id: campus_id
+      },
+      success: function(data) {
+
+        $.each(data, function(key, value) {
+          console.log(data)
+
+          $("#college_unit").append('<option value=' + value.cu_no + "> " + value.college_unit_name + '</option>');
+        });
+      }
+    });
+
+  })
 </script>
 
 
