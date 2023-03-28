@@ -242,8 +242,17 @@
               $('#dept_no').val('');
               $('.save_dept').text('Save');
               $('.clear_dept').text('Clear');
+              $("#college_unit").html("");
               tbl_clss.draw();
             }
+          },
+          error: function() {
+            Swal.fire({
+              text: 'No Changes Made!',
+              icon: 'error',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Ok',
+            });
           }
         });
       } else {
@@ -263,8 +272,17 @@
               $('#dept_no').val('');
               $('.save_dept').text('Save');
               $('.clear_dept').text('Clear');
+              $("#college_unit").html("");
               tbl_clss.draw();
             }
+          },
+          error: function() {
+            Swal.fire({
+              text: 'No Changes Made!',
+              icon: 'error',
+              confirmButtonColor: '#3085d6',
+              confirmButtonText: 'Ok',
+            });
           }
         });
       }
@@ -351,6 +369,7 @@
     $('#dept_no').val('');
     $('.save_dept').text('Save');
     $('.clear_dept').text('Clear');
+    $("#college_unit").html("");
 
   });
   $(document).on('click', '.edit_dept', function() {
@@ -376,6 +395,7 @@
         $('.save_dept').text('Update');
         $('.clear_dept').text('Cancel');
       }
+
     });
 
 

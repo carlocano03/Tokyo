@@ -338,7 +338,7 @@ class Settings extends Controller
       $results = DB::table('college_unit')->whereRaw("college_unit.campus_id = '$query'")
         ->join('campus', 'campus.id', '=', 'college_unit.campus_id')
         ->select('college_unit.*', 'campus.name as camp_name', 'campus.id as camp_id')
-        ->get();
+        ->orderBy('college_unit_name', 'asc')->get();
     };
     return response()->json($results);
   }
