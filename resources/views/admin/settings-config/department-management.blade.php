@@ -212,6 +212,10 @@
     }
 
   })
+  $(document).on('click', '#campus', function() {
+
+
+  });
   $(document).on('click', '#save_dept', function() {
     $.ajaxSetup({
       headers: {

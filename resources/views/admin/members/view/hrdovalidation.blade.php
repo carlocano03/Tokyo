@@ -1,4 +1,22 @@
 @extends('layouts/main')
+<style>
+    .close-button-div {
+        width: 100%;
+        position: absolute;
+        margin-left: -20px;
+        margin-top: -12px;
+        background-color: var(--c-accent);
+        color: white !important;
+        border-top-right-radius: 20px;
+        border-top-left-radius: 20px;
+
+    }
+
+    .close-button-div label {
+        padding-left: 13px;
+        padding-top: 10px;
+    }
+</style>
 <div id="personalDetailsModal" class="d-none opacity-0">
     <div class="modalContent" style="margin-top: 100px; padding-bottom:0px; gap:0px;">
         <!-- d-none opacity-0 -->
@@ -9,30 +27,30 @@
                                             padding: 20px;">
 
                 <div class="d-flex flex-column gap-10" style="width: 700px;margin-top: -10px;"> <span style="font-weight: bold; font-size: x-large"></span>
-                    <label class="close-button" id="closeModal">
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                    </label>
+                    <div class="close-button-div">
+                        <label class="close-button" id="closeModal" style="position: absolute;">
+                            <i class="fa fa-times" aria-hidden="true"></i>
+                        </label>
+                        <div class="cont" style="  text-align: center;">
+                            <label>Employee Details</label>
+                        </div>
+
+                    </div>
+
                     <div class="top-label" style="
                         height: 500px;
                         overflow: auto;
                         transform: scale(.9);
-                        margin-top: -40px;">
+                        margin-top: 20px;
+                       ">
                         <form id="users_form" class=" form-border-bottom">
 
                             <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3  mp-pv2 ">
                                 <input type="hidden" id="users_id" name="users_id">
                                 <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
                                 <div class="mp-input-group">
-                                    <label class="mp-input-group__label">First Name</label>
+                                    <label class="mp-input-group__label">Employee Number</label>
                                     <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
-                                </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Middle Name</label>
-                                    <input class="mp-input-group__input mp-text-field" type="text" name="middle_name" id="middle_name" />
-                                </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Last Name</label>
-                                    <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
                                 </div>
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Campus</label>
@@ -42,14 +60,31 @@
                                     </select>
                                 </div>
                                 <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Department</label>
+                                    <label class="mp-input-group__label">Classification</label>
                                     <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                        <option value="">Select Department</option>
-                                        <option value="AA">Department 1</option>
+                                        <option value="">Select Classification</option>
+                                        <option value="">Classification 1</option>
+                                    </select>
+                                </div>
+
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">
+                                        College/Unit</label>
+                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                        <option value="">College/Unit 1</option>
+                                        <option value="">College/Unit 2</option>
                                     </select>
                                 </div>
                                 <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Position</label>
+                                    <label class="mp-input-group__label">
+                                        Department</label>
+                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                        <option value="">Department 1</option>
+                                        <option value="">Department 2</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Rank/Position</label>
                                     <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
                                 </div>
                                 <div class="mp-input-group">
@@ -57,56 +92,22 @@
                                     <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
                                 </div>
                                 <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Membership Date</label>
+                                    <label class="mp-input-group__label">Monthly Salary</label>
                                     <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
                                 </div>
                                 <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Cellphone Number</label>
+                                    <label class="mp-input-group__label"> Salary Grade</label>
                                     <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
                                 </div>
                                 <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Landline Number</label>
+                                    <label class="mp-input-group__label">Salary Grade Category</label>
                                     <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
-                                </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Gender</label>
-                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                        <option value="">Female</option>
-                                        <option value="">Male</option>
-                                    </select>
                                 </div>
 
+
                                 <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Employee Number</label>
+                                    <label class="mp-input-group__label">Tin Number</label>
                                     <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
-                                </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Status Appointment</label>
-                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                        <option value="">PERMANENT</option>
-                                        <option value="">PERMANENT</option>
-                                        <option value="">PERMANENT</option>
-                                    </select>
-                                </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Permanent Address</label>
-                                    <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
-                                </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Current Address</label>
-                                    <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
-                                </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Tin</label>
-                                    <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
-                                </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Birthdate</label>
-                                    <input class="mp-input-group__input mp-text-field" type="date" id=" email_add" />
-                                </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Email</label>
-                                    <input class="mp-input-group__input mp-text-field" type="email" id=" email_add" />
                                 </div>
 
 
@@ -1178,7 +1179,7 @@
             </div>
             <div class="card-container card p-0 mp-mt3 ">
                 <div class="card-header magenta-bg d-flex items-between">
-                    <span>Validation Process</span><span><button class="f-button">Show Details</button></span>
+                    <span>Validation Process</span><span> </span>
                 </div>
                 <div class="mp-pv5 mp-mt3">
 
@@ -1270,21 +1271,34 @@
                                         Endorsement Date
                                         <br>
                                         <span class="font-md font-bold">
-                                            February 14, 2023 10:11 AM
+                                            <span class="font-sm"> <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
                                         </span>
                                     </p>
                                     <p class="mp-text-right">
                                         Evaluated by
                                         <br>
                                         <span class="font-md font-bold">
-                                            AA Account
+                                            <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
+
                                         </span>
                                     </p>
                                     <p class="mp-text-right">
                                         Result
                                         <br>
                                         <span class="font-md font-bold">
-                                            Passed
+                                            @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
+                                            <span class="status-title green-bg">
+                                                APPROVED
+                                            </span>
+                                            @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                            <span class="status-title orage-bg">
+                                                PROCESSING
+                                            </span>
+                                            @else
+                                            <span class="status-title maroon-bg">
+                                                NEW APPLICATION
+                                            </span>
+                                            @endif
                                         </span>
                                     </p>
                                 </div>
