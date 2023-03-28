@@ -1601,7 +1601,7 @@
 
                          </div>
 
-                         <div class="container">
+                         <div class="container-fluid">
                              <div class="row" style="padding:0px;margin-top: 5px;">
                                  <div class="col-lg-6 " style="width: 100%; padding: 0px;">
                                      <div class="mp-card ">
