@@ -405,7 +405,7 @@ class App_Validation extends Controller
     public function hrdo_validation_save(Request $request)
     {
       $datadb = DB::transaction(function () use ($request) {
-        $coco = DB::table('hrdo_validation')->where('app_no', $request->input('app_no'))->count();
+        $coco = DB::table('aa_validation')->where('app_no', $request->input('app_no'))->count();
         if ($coco > 0) {
           // return response()->json(['message' => 'Exist']);
           $inserts = array(
@@ -458,9 +458,9 @@ class App_Validation extends Controller
           DB::table('app_trailing')->where('app_no', $request->input('app_no'))
             ->insert($apptrail);
         }
-        return [
-          'last_id' => $last_id,
-        ];
+        // return [
+        //   'last_id' => $last_id,
+        // ];
       });
       return response()->json(['success' => true]);
     }
