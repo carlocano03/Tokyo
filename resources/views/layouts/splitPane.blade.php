@@ -1312,7 +1312,7 @@
                         $('#email_add_label').text(data.email == null ? 'N/A' : data.email);
                         $('#application_status').text(data.app_status == null ? 'N/A' : data.app_status);
                         $('#validator_status').text(data.validator_remarks == null ? 'N/A' : data.validator_remarks);
-                        if (data.app_status == "DRAFT APPLICATION" || data.validator_remarks == 'FOR CORRECTION') {
+                        if (data.app_status == "DRAFT APPLICATION" || data.validator_remarks == 'FOR COMPLIANCE') {
                             $('#cont_app').show();
                             $('#print_app').hide();
                         } else {
