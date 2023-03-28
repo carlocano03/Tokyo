@@ -152,6 +152,7 @@ class AdminController extends Controller
   public function departmentManagement()
   {
     $campus = DB::table('campus')->orderBy('name', 'asc')->get();
+    $campus = DB::table('campus')->orderBy('name', 'asc')->get();
     $college_unit = DB::table('college_unit')->get();
     return view('admin.settings-config.department-management', compact('campus'), compact('college_unit'));
   }

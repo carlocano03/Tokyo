@@ -405,7 +405,7 @@ class App_Validation extends Controller
     public function hrdo_validation_save(Request $request)
     {
       $datadb = DB::transaction(function () use ($request) {
-        $coco = DB::table('aa_validation')->where('app_no', $request->input('app_no'))->count();
+        $coco = DB::table('hrdo_validation')->where('app_no', $request->input('app_no'))->count();
         if ($coco > 0) {
           // return response()->json(['message' => 'Exist']);
           $inserts = array(
