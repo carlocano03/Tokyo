@@ -216,17 +216,6 @@
 
   })
 
-  // $(document).on('click', '#campus', function() {
-  //   var campus_id = $("#campus").val();
-  //   console.log(campus_id)
-
-  // });
-
-
-
-
-
-
   $(document).on('click', '#save_dept', function() {
     $.ajaxSetup({
       headers: {
