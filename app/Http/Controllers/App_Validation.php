@@ -405,7 +405,7 @@ class App_Validation extends Controller
     public function hrdo_validation_save(Request $request)
     {
       $datadb = DB::transaction(function () use ($request) {
-        $coco = DB::table('aa_validation')->where('app_no', $request->input('app_no'))->count();
+        $coco = DB::table('hrdo_validation')->where('app_no', $request->input('app_no'))->count();
         if ($coco > 0) {
           // return response()->json(['message' => 'Exist']);
           $inserts = array(
@@ -438,12 +438,10 @@ class App_Validation extends Controller
             'general_remarks' => $request->input('general_remarks'), 
             'evaluate_by' => Auth::user()->id
         );
-        //  $last_id = DB::table('aa_validation')->where('app_no', $request->input('app_no'))
-        // ->update($inserts);
         $last_id = DB::table('hrdo_validation')->insert($inserts);
         }
         $mem_appinst = array(
-          'validator_remarks' => "APPROVED APPLICATION",
+          'validator_remarks' => "APPROVED BY HRDO",
           'app_status' => "APPROVED APPLICATION",
         );
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
@@ -451,7 +449,8 @@ class App_Validation extends Controller
         $appcount = DB::table('app_trailing')->where('app_no', $request->input('app_no'))->count();
         if($appcount > 0){
           $apptrail = array(
-            'status_remarks' => "HRDO - APPROVED",
+            // 'status_remarks' => "HRDO - APPROVED",
+            'status_remarks' => "APPROVED BY HRDO",
             'app_no' => $request->input('app_no'),
             'updateby' => Auth::user()->id,
             'user_level' => Auth::user()->user_level,
@@ -596,6 +595,31 @@ class App_Validation extends Controller
         return [
           'last_id' => $last_id,
         ];
+      });
+      return response()->json(['success' => true]);
+    }
+
+    //FM validation
+    public function fm_validation_save(Request $request)
+    {
+      $datadb = DB::transaction(function () use ($request) {
+        $mem_appinst = array(
+          'validator_remarks' => "FOR PAYROLL ADVISE",
+          'app_status' => "APPROVED APPLICATION",
+        );
+        DB::table('mem_app')->where('app_no', $request->input('app_no'))
+          ->update($mem_appinst);
+        $appcount = DB::table('app_trailing')->where('app_no', $request->input('app_no'))->count();
+        if($appcount > 0){
+          $apptrail = array(
+            'status_remarks' => "FOR PAYROLL ADVISE",
+            'app_no' => $request->input('app_no'),
+            'updateby' => Auth::user()->id,
+            'user_level' => Auth::user()->user_level,
+          );
+          DB::table('app_trailing')->where('app_no', $request->input('app_no'))
+            ->insert($apptrail);
+        }
       });
       return response()->json(['success' => true]);
     }

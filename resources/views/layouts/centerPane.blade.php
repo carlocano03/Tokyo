@@ -88,7 +88,7 @@
                     </div>
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Upload Signature</label>
-                        <input class="mp-input-group__input mp-text-field" type="file" name="sign_electronic" id="sign_electronic" />
+                        <input class="mp-input-group__input mp-text-field" type="file" name="sign_electronic" id="sign_electronic" accept="image/png, image/gif, image/jpeg, image/jpg"/>
                         <input type="hidden" name="person_id" id="person_id">
                     </div>
 
@@ -173,13 +173,11 @@ function formatInput() {
     // If the input has at least 1 digit, add the country code
     formattedInput = '+63 ' + formattedInput;
   }
-
   // Limit the formatted input to 10 digits
   formattedInput = formattedInput.slice(0, 14);
 
   inputField.value = formattedInput;
 }
-
 document.addEventListener('DOMContentLoaded', formatInput);
 inputField.addEventListener('input', formatInput);
 

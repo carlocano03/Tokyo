@@ -883,7 +883,7 @@
                     <span class="font-sm">Application Date and Time</span>
                     <br />
                     <span class="magenta-clr font-bold">
-                        {{ date('F d, Y', strtotime($rec->app_date)) }}
+                        {{ date('F d, Y h:i a', strtotime($rec->app_date)) }}
                         
                     </span>
                 </div>
@@ -898,13 +898,12 @@
                 </div>
                 <div class="w-auto d-flex justify-content-end">
                     <span>
-                        <button class="f-button">
-                            <a class='view_member view-member' 
-                                href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
-                                style='cursor: pointer; padding: 0'>
-                                Print / Download
-                            </a>
-                        </button>
+                        <a href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
+                        style='cursor: pointer; padding: 0'>
+                            <button class="f-button">
+                                Print/Download
+                            </button>
+                        </a>
                         <!-- <button class="f-button green-bg">
                             Download
                         </button> -->
@@ -945,11 +944,11 @@
                                     <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
                                         <span class="font-sm">Status</span>
                                         <span class="mp-mh1">
-                                        @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
+                                        @if ($data->status_remarks === 'APPROVED BY HRDO' || $data->status_remarks === 'FORWARDED TO FM' || $data->status_remarks === 'FOR PAYROLL ADVISE')
                                             <span class="status-title green-bg">
                                                 APPROVED
                                             </span>
-                                        @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                        @elseif ($data->status_remarks !== 'APPROVED BY HRDO' && $data->status_remarks !== 'NEW APPLICATION')
                                             <span class="status-title orage-bg">
                                                 PROCESSING
                                             </span>

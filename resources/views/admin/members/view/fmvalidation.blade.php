@@ -924,7 +924,7 @@
                 <div class="w-auto">
                     <span class="font-sm">Application Date and Time</span>
                     <br />
-                    <span class="magenta-clr font-bold">{{ date('F d, Y', strtotime($rec->app_date)) }}</span>
+                    <span class="magenta-clr font-bold">{{ date('F d, Y h:i a', strtotime($rec->app_date)) }}</span>
                 </div>
                 <div class="w-auto">
                     <span class="font-sm">Status</span>
@@ -981,11 +981,11 @@
                                     <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
                                         <span class="font-sm">Status</span>
                                         <span class="mp-mh1">
-                                            @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
+                                            @if ($data->status_remarks === 'APPROVED BY HRDO' || $data->status_remarks === 'FORWARDED TO FM' || $data->status_remarks === 'FOR PAYROLL ADVISE')
                                             <span class="status-title green-bg">
                                                 APPROVED
                                             </span>
-                                        @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                        @elseif ($data->status_remarks !== 'APPROVED BY HRDO' && $data->status_remarks !== 'NEW APPLICATION')
                                             <span class="status-title orage-bg">
                                                 PROCESSING
                                             </span>
@@ -998,6 +998,7 @@
                                         <span class="font-sm">Remarks</span>
                                         <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
                                         <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
+                                        <span class="font-sm">Time: <span>{{ date('h:i a', strtotime($data->time_stamp)) }}</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -1094,25 +1095,38 @@
                                     </div>
                                 </div>
                                 <div class="span-4 font-sm d-flex flex-column justify-content-around magenta-clr">
-                                    <p class="mp-text-right">
+                                <p class="mp-text-right">
                                         Endorsement Date
                                         <br>
                                         <span class="font-md font-bold">
-                                            February 14, 2023 10:11 AM
+                                            <span class="font-sm"> <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
                                         </span>
                                     </p>
                                     <p class="mp-text-right">
                                         Evaluated by
                                         <br>
                                         <span class="font-md font-bold">
-                                            AA Account
+                                            <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
+
                                         </span>
                                     </p>
                                     <p class="mp-text-right">
                                         Result
                                         <br>
                                         <span class="font-md font-bold">
-                                            Passed
+                                            @if ($data->status_remarks === 'APPROVED BY HRDO' || $data->status_remarks === 'FORWARDED TO FM' || $data->status_remarks === 'FOR PAYROLL ADVISE')
+                                            <span class="status-title green-bg">
+                                                APPROVED
+                                            </span>
+                                            @elseif ($data->status_remarks !== 'APPROVED BY HRDO' && $data->status_remarks !== 'NEW APPLICATION')
+                                            <span class="status-title orage-bg">
+                                                PROCESSING
+                                            </span>
+                                            @else
+                                            <span class="status-title maroon-bg">
+                                                NEW APPLICATION
+                                            </span>
+                                            @endif
                                         </span>
                                     </p>
                                 </div>
@@ -1237,7 +1251,6 @@
                         <div class="card-body mp-pv4 mp-ph3 d-flex flex-column employee-body open-details">
                             <div class="tab-body border-0">
                                 <div class="tab-item">
-                                    <input type="checkbox">
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Employee Number
@@ -1248,7 +1261,6 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Campus
@@ -1259,7 +1271,6 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Classification
@@ -1270,7 +1281,6 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             College/Unit
@@ -1281,7 +1291,6 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Department
@@ -1292,7 +1301,6 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Rank/Position
@@ -1324,7 +1332,6 @@
                                     </div>
                                 </div> -->
                                 <div class="tab-item">
-                                    <input type="checkbox">
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Appointment Date
@@ -1335,7 +1342,6 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Monthly Salary
@@ -1346,7 +1352,6 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Salary Grade
@@ -1357,7 +1362,6 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Salary Grade Category
@@ -1368,7 +1372,6 @@
                                     </div>
                                 </div>
                                 <div class="tab-item">
-                                    <input type="checkbox">
                                     <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
                                             Tin Number
@@ -1382,61 +1385,26 @@
                         </div>
                     </div>
                 </div>
-                <div class="table-form form-header w-full remarks-gray-bg">
-                    <div class="span-12 d-flex flex-column mp-pv3 mp-ph3 gap-10">
-                        <span>General Remarks</span>
-                        <!-- <div class="table-form">
-                            <span class="span-6"><input type="checkbox"> Forward to CFM</span>
-                            <span class="span-6"><input type="checkbox"> Reject Application</span>
-                        </div> -->
-                        <textarea name="general_remarks" id="general_remarks" rows="3" style="resize: none;">{{ (isset($rec->general_remarks)) ? $rec->general_remarks : '' }}</textarea>
-                        <div class="d-flex flex-row items-between mp-pv1">
-                            <div class="d-flex flex-column" style="gap: 5px;">
-                                <div class="">
-                                    Evaluation Summary
-                                </div>
-                                <div class="d-flex flex-column font-sm">
-                                    <div class="d-flex flex-row mp-text-center" style="width: 100px">
-                                            <span>Passed: <span class="font-md font-bold color-black" id="pass_count"></span></span>
-                                           
-                                        </div>
-                                        <div class="d-flex flex-row mp-text-center" style="width: 100px">
-                                            <span>Failed: <span class="font-md font-bold color-black" id="failed_count"></span></span>
-                                        </div>
-                                </div>
+                <form id="fm_validation">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}" >
+                    <div class="table-form form-header w-full remarks-gray-bg">
+                        <div class="span-12 d-flex flex-column mp-pv3 mp-ph3 gap-10">
+                            <span>General Remarks</span>
+                            <textarea name="general_remarks" id="general_remarks" rows="3" readonly style="resize: none;">{{ (isset($rec->general_remarks)) ? $rec->general_remarks : '' }}</textarea>
+                            <div class="d-flex flex-row items-between mp-pv1">
+                                <div class="d-flex flex-column" style="gap: 5px;"></div>
+                                @if ($rec->validator_remarks == 'FORWARDED TO FM')
+                                <span class="d-flex" style="gap: 10px">
+                                    <button class="f-button align-self-end" id="save_record" >
+                                        <span id="save_text">Verified / Saved to Payroll Advise</span>
+                                    </button>
+                                </span>
+                                @endif
                             </div>
-                            <span class="d-flex" style="gap: 10px">
-                                <button class="f-button align-self-end magenta-bg" id="return_app" >
-                                    <span id="return_text">Return Application</span>
-                                </button>
-                                <button class="f-button align-self-end" id="save_record" >
-                                <span id="save_text">Verified This Application</span>
-                                </button>
-                                
-                            </span>
-                        </form>
                         </div>
                     </div>
-                    <!-- <div class="span-6 d-flex flex-column mp-pv3 mp-ph3 gap-10">
-                        <span>General Remarks</span>
-                        <div class="table-form">
-                            <span class="span-6"><input type="checkbox"> Forward to HRDO</span>
-                            <span class="span-6"><input type="checkbox"> Return to AA</span>
-                        </div>
-                        <textarea name="" id="" rows="3" style="resize: none;"></textarea>
-                        <div class="d-flex flex-row items-between mp-pv1">
-                            <div class="d-flex flex-column">
-                                <span class="font-sm ">Validated by: Mark Zuckingbird</span>
-                                <span class="font-sm ">Validated Date: January, 23, 2023</span>
-                            </div>
-                            <span class="d-flex">
-                                <button class="f-button align-self-end">
-                                    Submit
-                                </button>
-                            </span>
-                        </div>
-                    </div> -->
-                </div>
+                </form>
             </div>
         </div>
     </div>
@@ -1510,314 +1478,65 @@
             }
         });
     });
-var passCount = 0;
-var failCount = 0;
-$(document).ready(function() {
-    passCount = 0;
-    failCount = 0;
-    $('#hrdo_validation input[type="radio"]').each(function() {
-        if ($(this).is(':checked')) {
-        if ($(this).val() == 1) {
-            passCount++;
-            $(this).parent().next().find('input[type="text"]').val('');
-            $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
-            var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
-            var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
-            if (selecteded == totaled) {
-                $('#check_allped').prop('checked', true);
-            }else {
-                $('#check_allped').prop('checked', false);
-            }
-        } else if ($(this).val() == 2) {
-            failCount++;
-            $(this).parent().next().find('input[type="text"]').prop('disabled', false);
-            var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
-            var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
-            if (selecteded == totaled) {
-                $('#check_allfed').prop('checked', true);
-            }else {
-                $('#check_allfed').prop('checked', false);
-            }
-        }
-        }
-    });
-    $('#pass_count').text(passCount);
-    $('#failed_count').text(failCount);
-    // if(failCount > 0){
-    //     // $('#return_app').css('cssText', 'background-color:  !important;');
-    //     // $('#return_app').prop('disabled', false);
-    //     $('#save_record').css('background-color', 'gray');
-    //     $('#save_record').prop('disabled', true);
-    // }else{
-    //     $('#save_record').css('background-color', '');
-    //     $('#save_record').prop('disabled', false);
-    //     // $('#return_app').css('cssText', 'background-color: gray !important;');
-    //     // $('#return_app').prop('disabled', true);
-    // }
-
-});
-$(document).ready(function() {
-$('#hrdo_validation input[type="radio"]').on('change click', function() {
-    passCount = 0;
-    failCount = 0;
-    $('#hrdo_validation input[type="radio"]').each(function() {
-        if ($(this).is(':checked')) {
-        if ($(this).val() == 1) {
-            passCount++;
-            $(this).parent().next().next().find('input[type="text"]').val('');
-            $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
-            var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
-            var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
-            if (selecteded == totaled) {
-                $('#check_allped').prop('checked', true);
-            }else {
-                $('#check_allped').prop('checked', false);
-            }
-        } else if ($(this).val() == 2) {
-            failCount++;
-            $(this).parent().next().find('input[type="text"]').prop('disabled', false);
-            var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
-            var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
-            if (selecteded == totaled) {
-                $('#check_allfed').prop('checked', true);
-            }else {
-                $('#check_allfed').prop('checked', false);
-            }
-        }
-        }
-    });
-    $('#pass_count').text(passCount);
-    $('#failed_count').text(failCount);
-    // if(failCount > 0){
-    //     // $('#return_app').css('cssText', 'background-color:  !important;');
-    //     // $('#return_app').prop('disabled', false);
-    //     $('#save_record').css('background-color', 'gray');
-    //     $('#save_record').prop('disabled', true);
-    // }else{
-    //     $('#save_record').css('background-color', '');
-    //     $('#save_record').prop('disabled', false);
-    //     // $('#return_app').css('cssText', 'background-color: gray !important;');
-    //     // $('#return_app').prop('disabled', true);
-    // }
-});
-});
-$('#check_allped').click(function() {
-  if ($(this).is(':checked')) {
-    $('input[name="pass_emp_no"][value="1"]').prop('checked', true);
-    $('input[name="pass_campus"][value="1"]').prop('checked', true);
-    $('input[name="pass_classification"][value="1"]').prop('checked', true);
-    $('input[name="pass_college_unit"][value="1"]').prop('checked', true);
-    $('input[name="pass_department"][value="1"]').prop('checked', true);
-    $('input[name="pass_rankpos"][value="1"]').prop('checked', true);
-    $('input[name="pass_appointment"][value="1"]').prop('checked', true);
-    $('input[name="pass_appointdate"][value="1"]').prop('checked', true);
-    $('input[name="pass_monthlysalary"][value="1"]').prop('checked', true);
-    $('input[name="pass_sg"][value="1"]').prop('checked', true);
-    $('input[name="pass_sgcat"][value="1"]').prop('checked', true);
-    $('input[name="pass_tin_no"][value="1"]').prop('checked', true);
-  }
-});
-$('#check_allfed').click(function() {
-  if ($(this).is(':checked')) {
-    $('input[name="pass_emp_no"][value="2"]').prop('checked', true);
-    $('input[name="pass_campus"][value="2"]').prop('checked', true);
-    $('input[name="pass_classification"][value="2"]').prop('checked', true);
-    $('input[name="pass_college_unit"][value="2"]').prop('checked', true);
-    $('input[name="pass_department"][value="2"]').prop('checked', true);
-    $('input[name="pass_rankpos"][value="2"]').prop('checked', true);
-    $('input[name="pass_appointment"][value="2"]').prop('checked', true);
-    $('input[name="pass_appointdate"][value="2"]').prop('checked', true);
-    $('input[name="pass_monthlysalary"][value="2"]').prop('checked', true);
-    $('input[name="pass_sg"][value="2"]').prop('checked', true);
-    $('input[name="pass_sgcat"][value="2"]').prop('checked', true);
-    $('input[name="pass_tin_no"][value="2"]').prop('checked', true);
-  }
-});
-$('#save_record').click(function() {
+$('#save_record').click(function(event) {
     event.preventDefault();
-    // alert('gg');
-$.ajaxSetup({
+
+    $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-        });
-        var formDatas = $("#hrdo_validation").serialize();
-        if(failCount > 0){
+    });
+    var formDatas = $("#fm_validation").serialize();
+
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You want to continue this transaction.",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, continue'
+    }).then((result) => {
+        if (result.isConfirmed) {
             $.ajax({
-            type: 'POST',
-            url: "{{ route('validate_step_reject') }}",
-            data: formDatas,
-            success: function(data) {
-                if (data.success == 1) {
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('save_drafthrdo_validation') }}",
-                        data: formDatas,
-                        beforeSend: function() {
-                            $('#loading').show();
-                        },
-                        success: function(data) {
-                            if (data.success != '') {
-                                Swal.fire({
-                                    text: 'Application has been save as draft and can verified later.',
-                                    icon: 'success',
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Proceed',
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                    window.location.href = '{{ route('admin.members_records') }}';
-                                    }
-                                });
-                            }else{
-                                alert('Failed');
-                            }
-                        }
-                    });
-                }else{
-                        swal.fire("Error!", "You already forwarded this application to FM and cannot be changes.", "error");
-                    }
-                },
-             });
-             
-        }else{
-            $.ajax({
-            type: 'POST',
-            url: "{{ route('validate_step_reject') }}",
-            data: formDatas,
-            success: function(data) {
-                if (data.success == 1) {
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('save_hrdo_validation') }}",
-                    data: formDatas,
-                    beforeSend: function() {
-                        $('#loading').show();
-                    },
-                    success: function(data) {
-                        if (data.success != '') {
-                            Swal.fire({
-                                text: 'Application has been save successfully validated and ready to forward.',
-                                icon: 'success',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Proceed',
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                window.location.href = '{{ route('admin.members_records') }}';
+                type: 'POST',
+                url: "{{ route('validate_step_reject') }}",
+                data: formDatas,
+                success: function(data) {
+                    if (data.success == 1) {
+                        $.ajax({
+                            type: 'POST',
+                            url: "{{ route('save_fm_validation') }}",
+                            data: formDatas,
+                            beforeSend: function() {
+                                $('#loading').show();
+                            },
+                            success: function(data) {
+                                if (data.success != '') {
+                                    Swal.fire({
+                                        text: 'Application has been save successfully validated and ready to forward.',
+                                        icon: 'success',
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'Proceed',
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                        window.location.href = '{{ route('admin.members_records') }}';
+                                        }
+                                    });
+                                } else{
+                                    alert('Failed');
                                 }
-                            });
-                        }else{
-                            alert('Failed');
-                        }
-                    }
-                });
-            }else{
-                        swal.fire("Error!", "You already forwarded this application to FM and cannot be changes.", "error");
-                    }
-                },
-             });
-        }
-
-});
-$('#return_app').click(function() {
-    event.preventDefault();
-    Swal.fire({
-        title: 'Are you sure you want to Return this application?',
-        text: "This will return his/her application and subject for compliance.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'OK'
-    }).then((result) => {
-        if (result.isConfirmed) {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-        });
-
-        var formDatas = $("#hrdo_validation").serialize();
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('validate_step_reject') }}",
-            data: formDatas,
-            success: function(data) {
-                if (data.success == 1) {
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ route('return_application_aa') }}",
-                        data: formDatas,
-                        beforeSend: function() {
-                            $('#loading').show();
-                        },
-                        success: function(data) {
-                            if (data.success != '') {
-                            Swal.fire({
-                                    text: 'Application has been successfully returned and subject for compliance.',
-                                    icon: 'success',
-                                    confirmButtonColor: '#3085d6',
-                                    confirmButtonText: 'Proceed',
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                    window.location.href = '{{ route('admin.members_records') }}';
-                                    }
-                                });
-                            }else{
-                                swal.fire("Error!", "Saving failed", "error");
                             }
-                        }
-                    });
-                }else{
-                    swal.fire("Error!", "You already forwarded this application to FM and cannot be returned.", "error");
+                        });
+                    } else {
+                        Swal.fire("Error!", "You already forwarded this application to FM and cannot be changes.", "error");
+                    }
                 }
-            }
-        });
-    }
-});
-});
-$('#return_app').click(function() {
-    event.preventDefault();
-    Swal.fire({
-        title: 'Are you sure you want to Return this application?',
-        text: "This will return his/her application and subject for compliance.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'OK'
-    }).then((result) => {
-        if (result.isConfirmed) {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            });
         }
-        });
-
-        var formDatas = $("#hrdo_validation").serialize();
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('return_application_aa') }}",
-            data: formDatas,
-            beforeSend: function() {
-                $('#loading').show();
-            },
-            success: function(data) {
-                if (data.success != '') {
-                Swal.fire({
-                        text: 'Application has been successfully returned and subject for compliance.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Proceed',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        window.location.href = '{{ route('admin.members_records') }}';
-                        }
-                    });
-                }else{
-                    swal.fire("Error!", "Saving failed", "error");
-                }
-            }
-        });
-    }
-});
-});
+    })
+    
+});         
+                
 </script>
 @endsection

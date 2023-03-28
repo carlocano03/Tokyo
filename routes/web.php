@@ -104,6 +104,8 @@ Route::get('/admin/create-election', [AdminController::class, 'createElection'])
 Route::get('/admin/election-record', [AdminController::class, 'electionRecord'])->name('admin.election.election-election');
 Route::get('/admin/election-analytics', [AdminController::class, 'electionAnalytics'])->name('admin.election.election-analytics');
 
+Route::post('/admin/members/employee', [AdminController::class, 'getEmployeeDetails'])->name('get_employees');
+Route::post('/admin/members/update_employee_details', [HomeController::class, 'update_employee'])->name('update_employee_details');
 // Route::get('/admin/members', 'AdminController@memberlist');
 
 
@@ -214,3 +216,6 @@ Route::post('/validate_step_reject', [App_Validation::class, 'validate_step_reje
 Route::post('/save_hrdo_validation', [App_Validation::class, 'hrdo_validation_save'])->name('save_hrdo_validation');
 Route::post('/save_drafthrdo_validation', [App_Validation::class, 'hrdo_validation_draft'])->name('save_drafthrdo_validation');
 Route::post('/return_application_aa', [App_Validation::class, 'returnto_aa_application'])->name('return_application_aa');
+
+//FM validation
+Route::post('/save_fm_validation', [App_Validation::class, 'fm_validation_save'])->name('save_fm_validation');

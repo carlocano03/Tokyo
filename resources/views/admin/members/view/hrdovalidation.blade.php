@@ -43,71 +43,117 @@
                         transform: scale(.9);
                         margin-top: 20px;
                        ">
-                        <form id="users_form" class=" form-border-bottom">
+                        <form id="member_forms_con" class=" form-border-bottom">
 
                             <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3  mp-pv2 ">
-                                <input type="hidden" id="users_id" name="users_id">
+                                <input type="hidden" id="employee_details_id" name="employee_details_id">
+                                <input type="hidden" id="mem_app_id" name="mem_app_id">
                                 <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Employee Number</label>
-                                    <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="emp_no" id="emp_no" />
                                 </div>
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Campus</label>
-                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                    <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
                                         <option value="">Select Campus</option>
-                                        <option value="AA">Campus 1</option>
+                                        {{-- @foreach ($campuses as $row)
+                                            <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
+                                        @endforeach --}}
                                     </select>
                                 </div>
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Classification</label>
-                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                    <select class="mp-input-group__input mp-text-field" name="classification" id="classification">
                                         <option value="">Select Classification</option>
-                                        <option value="">Classification 1</option>
+                                        {{-- <option>Class A </option> --}}
                                     </select>
                                 </div>
 
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">
                                         College/Unit</label>
-                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                        <option value="">College/Unit 1</option>
-                                        <option value="">College/Unit 2</option>
-                                    </select>
+                                        <select class="mp-input-group__input mp-text-field" name="college_unit" id="college_unit">
+                                            <option value="">Select Unit</option>
+                                            {{-- <option>Unit </option> --}}
+                                        </select>
                                 </div>
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">
                                         Department</label>
-                                    <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                        <option value="">Department 1</option>
-                                        <option value="">Department 2</option>
-                                    </select>
+                                        <select class="mp-input-group__input mp-text-field" name="department" id="department" required>
+                                            <option value="">Select Department</option>
+                                            {{-- <option>DEPED </option> --}}
+                                        </select>
                                 </div>
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Rank/Position</label>
-                                    <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="rank_position" id="rank_position" />
                                 </div>
-                                <div class="mp-input-group">
+                                <!-- <div class="mp-input-group">
                                     <label class="mp-input-group__label">Appointment Date</label>
                                     <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
+                                </div> -->
+                                <div class="mp-input-group" data-set="date_appoint_months">
+                                    <label class="mp-input-group__label mp-mb1">Date of Appointment (Please refer to your appointment papers)</label>
+                                    <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field input">
+                                        <div class="d-flex flex-column" style="gap: 3px">
+                                            <label class="mp-input-group__label">Month </label>
+                                            <select name="date_appoint_months" id="date_appoint_months" class="radius-1 outline select-field" style="font-size: normal;">
+                                                <option value="">Month</option>
+                                                <option value="01">January</option>
+                                                <option value="02">February</option>
+                                                <option value="03">March</option>
+                                                <option value="04">April</option>
+                                                <option value="05">May</option>
+                                                <option value="06">June</option>
+                                                <option value="07">July</option>
+                                                <option value="08">August</option>
+                                                <option value="09">September</option>
+                                                <option value="10">October</option>
+                                                <option value="11">November</option>
+                                                <option value="12">December</option>
+                                            </select>
+                                        </div>
+                                        <span><br />-</span>
+                                        <div class="d-flex flex-column" style="gap: 3px">
+                                            <label class="mp-input-group__label">Day </label>
+                                            <select name="date_appoint_days" id="date_appoint_days" class="radius-1 outline select-field" style="font-size: normal;">
+                                                <option value="">Day</option>
+                                                @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
+                                                    @endfor
+                                            </select>
+                                        </div>
+                                        <span><br />-</span>
+                                        <div class="d-flex flex-column" style="gap: 3px">
+                                            <label class="mp-input-group__label">Year </label>
+                                            <select name="date_appoint_years" id="date_appoint_years" class="radius-1 outline select-field" style="font-size: normal;">
+                                                <!-- options for years from 12 years ago until 70 years before the current year -->
+                                                <!-- options for years from current year down to 70 years ago -->
+                                                <option value="">Year</option>
+                                                @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
                                 </div>
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Monthly Salary</label>
-                                    <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="monthly_salary" id="monthly_salary" onkeypress='return event.charCode >= 48 && event.charCode <= 57' required />
                                 </div>
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label"> Salary Grade</label>
-                                    <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="salary_grade" id="salary_grade" readonly />
                                 </div>
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Salary Grade Category</label>
-                                    <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="sg_category" id="sg_category" readonly />
                                 </div>
-
-
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Tin Number</label>
-                                    <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
                                 </div>
 
 
@@ -115,25 +161,20 @@
 
                             </div>
 
-                        </form>
+                        
                     </div>
                 </div>
             </div>
         </div>
-
-
-
-
-
-
         <div class="modalFooter gap-10" style=" transform: scale(.7);margin-bottom: 20px;">
-            <button>
+            <button type="button" id="update_employee">
                 Update
             </button>
             <button style="background-color: var(--c-base-25) !important;color: var(--c-base) !important;" id="closeModal">
                 Close
             </button>
         </div>
+        </form>
     </div>
 </div>
 @section('content_body')
@@ -1095,7 +1136,7 @@
                 <div class="w-auto">
                     <span class="font-sm">Application Date and Time</span>
                     <br />
-                    <span class="magenta-clr font-bold">{{ date('F d, Y', strtotime($rec->app_date)) }}</span>
+                    <span class="magenta-clr font-bold">{{ date('F d, Y h:i a', strtotime($rec->app_date)) }}</span>
                 </div>
                 <div class="w-auto">
                     <span class="font-sm">Status</span>
@@ -1109,12 +1150,15 @@
                 </div>
                 <div class="w-auto d-flex justify-content-end">
                     <span>
-                        <button class="f-button">
-                            Print
-                        </button>
-                        <button class="f-button green-bg">
+                        <a href="#">
+                            <button class="f-button">
+                                Print/Download
+                            </button>
+                        </a>
+                        
+                        <!-- <button class="f-button green-bg">
                             Download
-                        </button>
+                        </button> -->
                     </span>
                 </div>
             </div>
@@ -1152,11 +1196,12 @@
                                 <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
                                     <span class="font-sm">Status</span>
                                     <span class="mp-mh1">
-                                        @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
+                                        <!-- HRDO - APPROVED -->
+                                        @if ($data->status_remarks === 'APPROVED BY HRDO' || $data->status_remarks === 'FORWARDED TO FM' || $data->status_remarks === 'FOR PAYROLL ADVISE')
                                         <span class="status-title green-bg">
                                             APPROVED
                                         </span>
-                                        @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                        @elseif ($data->status_remarks !== 'APPROVED BY HRDO' && $data->status_remarks !== 'NEW APPLICATION')
                                         <span class="status-title orage-bg">
                                             PROCESSING
                                         </span>
@@ -1169,6 +1214,7 @@
                                     <span class="font-sm">Remarks</span>
                                     <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
                                     <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
+                                    <span class="font-sm">Time: <span>{{ date('h:i a', strtotime($data->time_stamp)) }}</span></span>
                                 </div>
                             </div>
                         </div>
@@ -1286,11 +1332,11 @@
                                         Result
                                         <br>
                                         <span class="font-md font-bold">
-                                            @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
+                                            @if ($data->status_remarks === 'APPROVED BY HRDO' || $data->status_remarks === 'FORWARDED TO FM' || $data->status_remarks === 'FOR PAYROLL ADVISE')
                                             <span class="status-title green-bg">
                                                 APPROVED
                                             </span>
-                                            @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                            @elseif ($data->status_remarks !== 'APPROVED BY HRDO' && $data->status_remarks !== 'NEW APPLICATION')
                                             <span class="status-title orage-bg">
                                                 PROCESSING
                                             </span>
@@ -1410,7 +1456,7 @@
                         <div class="card-header d-flex items-between maroon-bg employee-title open-details">
                             <span>Employee Details</span>
                             <span>
-                                <a id="editPersonalDetails" class="editButton">Edit
+                                <a id="editPersonalDetails" class="editButton" data-id="{{$rec->app_no}}">Edit
                                     <i class="fa fa-edit" aria-hidden="true"></i></a>
                                 <span>
                                     <a class="cursor-pointer m-0 p-0 mp-mr2" id="employee-toggle">
@@ -1570,6 +1616,7 @@
                                         </div>
                                 </div>
                             </div>
+                            @if ($rec->validator_remarks == 'FORWARDED TO HRDO')
                             <span class="d-flex" style="gap: 10px">
                                 <button class="f-button align-self-end magenta-bg" id="return_app">
                                     <span id="return_text">Return Application</span>
@@ -1579,6 +1626,7 @@
                                 </button>
 
                             </span>
+                            @endif
                             </form>
                         </div>
                     </div>
@@ -1601,15 +1649,25 @@
                             </span>
                         </div>
                     </div> -->
+                    <input type="hidden" id="logic" value="{{ $rec->validator_remarks }}">
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-
 <script>
     $(document).ready(function() {
+        var logic = $('#logic').val();
+        if (logic == 'FORWARDED TO HRDO') {
+            $('input[type="checkbox"]').attr('disabled', false);
+            $('input[type="text"]').attr('disabled', false);
+            $('#general_remarks').attr('readonly', false);
+        } else {
+            $('input[type="checkbox"]').attr('disabled', true);
+            $('input[type="text"]').attr('disabled', true);
+            $('#general_remarks').attr('readonly', true);
+        }
         // count the number of checked checkboxes
         var checkedCount = $('.employee:checked').length;
         // count the total number of checkboxes
@@ -1619,6 +1677,14 @@
         // update the count in the HTML
         $('#passed_count').text(checkedCount);
         $('#fail_count').text(uncheckedCount);
+        if(uncheckedCount != 0) {
+            $('#return_app').css('cssText', 'background-color:  !important;');
+            $('#save_record').css('background-color', 'gray');
+            $('#save_record').prop('disabled', true);
+        } else {
+            $('#save_record').css('background-color', '');
+            $('#save_record').prop('disabled', false);
+        }
 
         // listen for changes in the checkboxes
         $('.employee').change(function() {
@@ -2019,6 +2085,49 @@ $.ajaxSetup({
         });
     });
     $(document).on('click', '#editPersonalDetails', function(e) {
+        var app_no = $(this).data('id');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('get_employees') }}",
+            data: {
+                app_no: app_no,
+            },
+            method: "POST",
+            success: function(data) {
+                if (Object.keys(data).length > 0) {
+                    $('#emp_no').val(data.employee_no == null ? '' : data.employee_no);
+                    $("[name='campus']").val(data.campus == null ? '' : data.campus).trigger('change');
+                    $("[name='classification']").val(data.classification == null ? '' : data
+                            .classification);
+                    $("[name='college_unit']").val(data.college_unit == null ? '' : data.college_unit).trigger('change');
+                    college_unit = data.college_unit == null ? '' : data.college_unit;
+                    $("[name='rank_position']").val(data.rank_position == null ? '' : data
+                            .rank_position);
+                    $("[name='department']").val(data.department == null ? '' : data.department).trigger('change');
+                    dept_no = data.department == null ? '' : data.department;
+                    var date_appoint = new Date(data.date_appointment);
+                    $("[name='date_appoint_years']").val(date_appoint.getFullYear());
+                    $("[name='date_appoint_months']").val((date_appoint.getMonth() + 1).toString().padStart(2, '0'));
+                    $("[name='date_appoint_days']").val(date_appoint.getDate().toString().padStart(2, '0'));
+                    var monthsalary = data.monthly_salary == null ? '' : data.monthly_salary;
+                    var formattedNumber = monthsalary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                    $("[name='monthly_salary']").val(formattedNumber);
+                    $("[name='salary_grade']").val(data.salary_grade == null ? '' : data
+                        .salary_grade);
+                    $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
+                    $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
+
+                    $("[name='employee_details_id']").val(data.employee_details_ID == null ? '' : data.employee_details_ID);
+                    $("[name='mem_app_id']").val(data.mem_app_ID == null ? '' : data.mem_app_ID);
+                }
+            }
+        });
+
         $("#personalDetailsModal").removeClass("d-none")
         setTimeout(function() {
             $("#personalDetailsModal").removeClass("opacity-0")
@@ -2032,5 +2141,170 @@ $.ajaxSetup({
         }, 100)
 
     })
+
+    $(document).ready(function(){
+        $.getJSON('/options', function(options) {
+            $.each(options, function(index, option) {
+                $('#campus').append($('<option>', {
+                    value: option.campus_key,
+                    text: option.name
+                }));
+            });
+        });
+
+        $.getJSON('/classification', function(options) {
+            $.each(options, function(index, option) {
+                $('#classification').append($('<option>', {
+                    value: option.classification_name,
+                    text: option.classification_name
+                }));
+            });
+        });
+    });
+    var college_unit;
+    var dept_no;
+    $("#campus").change(function() {
+            var campus_key = $(this).val();
+            $('#college_unit').empty();
+            $.getJSON('/college_unit', {
+                campus_key: campus_key
+            }, function(options) {
+                $.each(options, function(index, option) {
+                    $('#college_unit').append($('<option>', {
+                        value: option.cu_no,
+                        text: option.college_unit_name
+                    }));
+                });
+                $('#college_unit').val(college_unit).change();
+            });
+
+        });
+        $("#college_unit").change(function() {
+            if (college_unit) {
+                var college_id = college_unit;
+            } else {
+                var college_id = $(this).val();
+            }
+            $('#department').empty();
+            $.getJSON('/department', {
+                college_id: college_id
+            }, function(options) {
+                $.each(options, function(index, option) {
+                    $('#department').append($('<option>', {
+                        value: option.dept_no,
+                        text: option.department_name
+                    }));
+                });
+                $('#department').val(dept_no).change();
+            });
+        });
+
+        $("#monthly_salary").keyup(function() {
+            var inputValue = $(this).val();
+            inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var decimalAdded = inputValue.split(".");
+            if (decimalAdded.length > 2) {
+                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
+            }
+
+            if (inputValue == '') {
+                $('#sg_category').val('');
+            }
+            $(this).val(inputValue);
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: "{{ route('check_sg') }}",
+                type: 'POST',
+                data: {
+                    inputValue: inputValue
+                },
+                success: function(response) {
+                    if (Object.keys(response).length > 0) {
+                        $('#salary_grade').val(response.sg_no);
+                        if (response.sg_no <= '15') {
+                            $('#sg_category').val('1-15');
+                        } else {
+                            $('#sg_category').val('16-33');
+                        }
+                        $('#month_sal_text').text(inputValue);
+                    } else {
+                        $('#salary_grade').val('');
+                    }
+                }
+            });
+        });
+        var errorDisplayed = false; // flag variable to keep track of whether the error message has been displayed
+        $("#monthly_salary").blur(function() {
+            var inputValue = $(this).val();
+            inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var decimalAdded = inputValue.split(".");
+            if (decimalAdded.length > 2) {
+                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
+            }
+
+            if (inputValue == '') {
+                $('#sg_category').val('');
+            }
+            $(this).val(inputValue);
+            if ($('#salary_grade').val() == '') {
+                if (!errorDisplayed) {
+                    Swal.fire({
+                        title: 'Salary Grade is not available. Please contact UPPF administratior.',
+                        text: 'Thank you!',
+                        icon: 'error'
+                    });
+                    errorDisplayed = true; // set the flag variable to true to indicate that the error message has been displayed
+                }
+                $('#monthly_salary').val('');
+                $('#sg_category').val('');
+                $('#monthly_salary').focus();
+            } else {
+                errorDisplayed = false; // reset the flag variable to false
+            }
+        });
+
+        $('#update_employee').click(function(e){
+            e.preventDefault();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var formData = $("#member_forms_con").serialize();
+
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to apply the changes.",
+                icon: 'question',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, continue'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('update_employee_details') }}",
+                        data: formData,
+                        success: function(data) {
+                            if (data.success != '') {
+                                Swal.fire({
+                                    title: 'Updates applied successfully.',
+                                    icon: 'success'
+                                });
+                                setTimeout(() => {
+                                    location.reload();
+                                }, 1000);
+                            } 
+                        }
+                    });
+                }
+            })
+        });
 </script>
 @endsection

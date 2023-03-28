@@ -1457,6 +1457,10 @@ class AdminController extends Controller
     $search  = $request->get('searchValue');
     $users = Auth::user()->user_level;
     $userId = Auth::user()->id;
+    $campus_id = Auth::user()->campus_id;
+    $allowCampus = DB::table('campus')
+      ->where('id', $campus_id)
+      ->first();
     $cfmCluster = DB::table('user_prev')
       ->join('users', 'user_prev.users_id', '=', 'users.id')
       ->select('user_prev.cfm_cluster')
@@ -1543,9 +1547,10 @@ class AdminController extends Controller
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
       $approved = 'APPROVED APPLICATION';
-      $records->where(function ($query) use ($process, $approved) {
+      $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
-          ->orWhere('mem_app.app_status', $approved);
+          ->where('employee_details.campus', $allowCampus->campus_key);
+          // ->orWhere('mem_app.app_status', $approved);
       });
     }
     $totalRecords = $records->count();
@@ -1633,9 +1638,10 @@ class AdminController extends Controller
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
       $approved = 'APPROVED APPLICATION';
-      $records->where(function ($query) use ($process, $approved) {
+      $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
-          ->orWhere('mem_app.app_status', $approved);
+          ->where('employee_details.campus', $allowCampus->campus_key);
+          // ->orWhere('mem_app.app_status', $approved);
       });
     }
 
@@ -1692,8 +1698,9 @@ class AdminController extends Controller
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
       $approved = 'APPROVED APPLICATION';
-      $records->where(function ($query) use ($process, $approved) {
+      $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
+          ->where('employee_details.campus', $allowCampus->campus_key)
           ->orWhere('mem_app.app_status', $approved);
       });
     }
@@ -1722,9 +1729,7 @@ class AdminController extends Controller
     }
     if ($users == 'HRDO') {
       $href = '/admin/members/records/view/hrdo/';
-      $href = '/admin/members/records/view/hrdo/';
     } else if ($users == 'AA') {
-      $href = '/admin/members/records/view/aa/';
       $href = '/admin/members/records/view/aa/';
     } else if ($users == 'FM') {
       $href = '/admin/members/records/view/fm/';
@@ -1742,10 +1747,12 @@ class AdminController extends Controller
           $checkbox_users = $r->validator_remarks == 'AA VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
             : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
         } else if ($users == 'HRDO') {
+          // APPROVED APPLICATION
+          $checkbox_users = $r->validator_remarks == 'APPROVED BY HRDO' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
+            : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
+        } else if ($users == 'FM') {
           $checkbox_users = $r->validator_remarks == 'APPROVED APPLICATION' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
             : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
-        } else {
-          $checkbox_users = '';
         }
         $row[] = $checkbox_users;
         $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "'
@@ -1822,5 +1829,17 @@ class AdminController extends Controller
         ->where('user_level', 'FM')->get();
     }
     return response()->json($hrdouser);
+  }
+
+  public function getEmployeeDetails(Request $request)
+  {
+    $query = $request->input('app_no');
+    $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$query'")
+      // ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      // ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
+      ->get()->first();
+
+    return response()->json($results);
   }
 }
