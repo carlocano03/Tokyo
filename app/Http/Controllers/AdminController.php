@@ -151,7 +151,7 @@ class AdminController extends Controller
   }
   public function departmentManagement()
   {
-    $campus = DB::table('campus')->get();
+    $campus = DB::table('campus')->orderBy('name', 'asc')->get();
     $college_unit = DB::table('college_unit')->get();
     return view('admin.settings-config.department-management', compact('campus'), compact('college_unit'));
   }
@@ -1359,6 +1359,7 @@ class AdminController extends Controller
     return view('admin.members.view.hrdovalidation.forms-attachment')->with($data);
   }
 
+
   public function fm_view_record($id)
   {
     // DB::enableQueryLog();
@@ -1427,7 +1428,6 @@ class AdminController extends Controller
     );
     return view('admin.members.view.fmvalidation')->with($data);
   }
-  
 
   public function members_application_trail()
   {
@@ -1479,10 +1479,10 @@ class AdminController extends Controller
     //   ->where('mem_app.app_status', $aa_1)
     //   ->where('mem_app.app_status', $aa_2);
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
-    ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
-    ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
-    ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-    ->where('mem_app.app_status', '!=', 'deleted');
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
+      ->where('mem_app.app_status', '!=', 'deleted');
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -1622,9 +1622,6 @@ class AdminController extends Controller
       $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
       $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
-
-      $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
-
     } else if ($users == 'CFM') {
       $aa_1 = 'NEW APPLICATION';
       $cfm = 'AA VERIFIED';
