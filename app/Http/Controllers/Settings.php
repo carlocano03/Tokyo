@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Member;
 use App\Models\Campus;
 use App\Models\Classification;
@@ -712,6 +713,7 @@ class Settings extends Controller
   }
   public function save_users(Request $request)
   {
+
     $datadb = DB::transaction(function () use ($request) {
       $inserts_users = array(
         'first_name' => strtoupper($request->input('firstname')),
@@ -719,6 +721,7 @@ class Settings extends Controller
         'last_name' => strtoupper($request->input('lastname')),
         'email' => $request->input('email'),
         'intial_password' => $request->input('initial_pass'),
+        'password' => Hash::make($request->input('initial_pass')),
         'contact_no' => $request->input('contact_no'),
         'user_level' => strtoupper($request->input('user_level')),
         'campus_id' => $request->input('campus'),
