@@ -1135,9 +1135,10 @@ inputField.addEventListener('input', formatInput);
 
             var selectedDate = new Date($("#date_appoint_months").val() + " " + $("#date_appoint_days").val() + ", " + $("#date_appoint_years").val());
             var currentDate = new Date();
-            if (selectedDate > currentDate) {
+            if (selectedDate > currentDate || selectedDate == "Invalid Date") {
                 $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none').text("Invalid appointment date, please check")
                 $("[data-set=date_appoint_months]>.input").addClass('input-error')
+                empty.push($("[data-set=date_appoint_months]"))
             } else {
                 $("[data-set=date_appoint_months]>#err-msg").addClass('d-none')
                 $("[data-set=date_appoint_months]>.input").removeClass('input-error')
