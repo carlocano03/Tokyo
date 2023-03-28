@@ -30,7 +30,7 @@ class processMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Member Application [Rejected]')
+        return $this->subject('Member Application [Processing]')
                     ->view('email.processMail');
     }
 }

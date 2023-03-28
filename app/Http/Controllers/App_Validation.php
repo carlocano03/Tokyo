@@ -310,7 +310,7 @@ class App_Validation extends Controller
 
         $email = DB::table('mem_app')->where('app_no', $request->input('app_no'))->select('email_address')->value('email_address');
         $mem_appinst = array(
-          'validator_remarks' => "FOR CORRECTION",
+          'validator_remarks' => "FOR COMPLIANCE",
           'aa_cfm_user' => Auth::user()->id,
         );
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
@@ -405,44 +405,43 @@ class App_Validation extends Controller
     public function hrdo_validation_save(Request $request)
     {
       $datadb = DB::transaction(function () use ($request) {
-        $coco = DB::table('aa_validation')->where('app_no', $request->input('app_no'))->count();
+        $coco = DB::table('hrdo_validation')->where('app_no', $request->input('app_no'))->count();
         if ($coco > 0) {
           // return response()->json(['message' => 'Exist']);
           $inserts = array(
             'app_no' => $request->input('app_no'),
-            'pass_emp_no' => $request->input('pass_emp_no'),
-            'pass_campus' => $request->input('pass_campus'),
-            'pass_classification' => $request->input('pass_classification'),
-            'pass_college_unit' => $request->input('pass_college_unit'),
-            'pass_department' => $request->input('pass_department'),
-            'pass_rankpos' => $request->input('pass_rankpos'),
-            'pass_appointment' => $request->input('pass_appointment'),
-            'pass_appointdate' => $request->input('pass_appointdate'),
-            'pass_monthlysalary' => $request->input('pass_monthlysalary'),
-            'pass_sg' => $request->input('pass_sg'),
-            'pass_sgcat' => $request->input('pass_sgcat'),
-            'pass_tin_no' => $request->input('pass_tin_no'),
+            'pass_emp_no' => $request->input('emp_no'),
+            'pass_campus' => $request->input('campus'),
+            'pass_classification' => $request->input('classification'),
+            'pass_college_unit' => $request->input('college_unit'),
+            'pass_department' => $request->input('department'),
+            'pass_rankpos' => $request->input('position'),
+            'pass_appointment' => $request->input('appoint_date'),
+            'pass_appointdate' => $request->input('appoint_date'),
+            'pass_monthlysalary' => $request->input('monthly_salary'),
+            'pass_sg' => $request->input('salary_grade'),
+            'pass_sgcat' => $request->input('sg_category'),
+            'pass_tin_no' => $request->input('tin_no'),
 
-            'remarks_emp_no' => $request->input('remarks_emp_no'),
-            'remarks_campus' => $request->input('remarks_campus'),
-            'remarks_classification' => $request->input('remarks_classification'),
-            'remarks_college_unit' => $request->input('remarks_college_unit'),
-            'remarks_department' => $request->input('remarks_department'),
-            'remarks_rankpos' => $request->input('remarks_rankpos'),
-            'remarks_appointment' => $request->input('remarks_appointment'),
-            'remarks_appointdate' => $request->input('remarks_appointdate'),
-            'remarks_monthlysalary' => $request->input('remarks_monthlysalary'),
-            'remarks_sg' => $request->input('remarks_sg'),
-            'remarks_sgcat' => $request->input('remarks_sgcat'),
-            'remarks_tin_no' => $request->input('remarks_tin_no'),
+            // 'remarks_emp_no' => $request->input('remarks_emp_no'),
+            // 'remarks_campus' => $request->input('remarks_campus'),
+            // 'remarks_classification' => $request->input('remarks_classification'),
+            // 'remarks_college_unit' => $request->input('remarks_college_unit'),
+            // 'remarks_department' => $request->input('remarks_department'),
+            // 'remarks_rankpos' => $request->input('remarks_rankpos'),
+            // 'remarks_appointment' => $request->input('remarks_appointment'),
+            // 'remarks_appointdate' => $request->input('remarks_appointdate'),
+            // 'remarks_monthlysalary' => $request->input('remarks_monthlysalary'),
+            // 'remarks_sg' => $request->input('remarks_sg'),
+            // 'remarks_sgcat' => $request->input('remarks_sgcat'),
+            // 'remarks_tin_no' => $request->input('remarks_tin_no'),
             'general_remarks' => $request->input('general_remarks'), 
             'evaluate_by' => Auth::user()->id
         );
-         $last_id = DB::table('aa_validation')->where('app_no', $request->input('app_no'))
-        ->update($inserts);
+        $last_id = DB::table('hrdo_validation')->insert($inserts);
         }
         $mem_appinst = array(
-          'validator_remarks' => "APPROVED APPLICATION",
+          'validator_remarks' => "APPROVED BY HRDO",
           'app_status' => "APPROVED APPLICATION",
         );
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
@@ -450,7 +449,8 @@ class App_Validation extends Controller
         $appcount = DB::table('app_trailing')->where('app_no', $request->input('app_no'))->count();
         if($appcount > 0){
           $apptrail = array(
-            'status_remarks' => "HRDO - APPROVED",
+            // 'status_remarks' => "HRDO - APPROVED",
+            'status_remarks' => "APPROVED BY HRDO",
             'app_no' => $request->input('app_no'),
             'updateby' => Auth::user()->id,
             'user_level' => Auth::user()->user_level,
@@ -595,6 +595,31 @@ class App_Validation extends Controller
         return [
           'last_id' => $last_id,
         ];
+      });
+      return response()->json(['success' => true]);
+    }
+
+    //FM validation
+    public function fm_validation_save(Request $request)
+    {
+      $datadb = DB::transaction(function () use ($request) {
+        $mem_appinst = array(
+          'validator_remarks' => "FOR PAYROLL ADVISE",
+          'app_status' => "APPROVED APPLICATION",
+        );
+        DB::table('mem_app')->where('app_no', $request->input('app_no'))
+          ->update($mem_appinst);
+        $appcount = DB::table('app_trailing')->where('app_no', $request->input('app_no'))->count();
+        if($appcount > 0){
+          $apptrail = array(
+            'status_remarks' => "FOR PAYROLL ADVISE",
+            'app_no' => $request->input('app_no'),
+            'updateby' => Auth::user()->id,
+            'user_level' => Auth::user()->user_level,
+          );
+          DB::table('app_trailing')->where('app_no', $request->input('app_no'))
+            ->insert($apptrail);
+        }
       });
       return response()->json(['success' => true]);
     }

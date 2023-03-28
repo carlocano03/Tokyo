@@ -738,7 +738,7 @@
         </div>
         <div class="mp-input-group" data-set="percentage_check">
             <div class="d-flex gap-5">
-                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" disabled />
+                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage"/>
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
                     - 100%) </label>
             </div>
