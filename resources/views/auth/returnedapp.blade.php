@@ -271,9 +271,9 @@
 
 @section('registration-personal-form')
 <script>
-     $(document).on('click', '#back-to-home', function(e) {
+    $(document).on('click', '#back-to-home', function(e) {
         window.location.href = '/login';
-     })
+    })
 </script>
 <div class="d-flex gap-10 mp-pt2 bg-white flex-column ">
     <!-- <div style="width: 100%;" class="d-flex gap-10">
@@ -346,14 +346,14 @@
                         <option value="01">January</option>
                     </select>
                 </div>
-                <span><br/>-</span>
+                <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Day</label>
                     <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
                         <option value="01">01</option>
                     </select>
                 </div>
-                <span><br/>-</span>
+                <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Year</label>
                     <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
@@ -397,7 +397,7 @@
         <div class="mp-input-group">
             <label class="mp-input-group__label">Present Address</label><br>
             <label class="mp-input-group__label">Province</label>
-            <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="present_province" name="present_province" required>
                 <option value="">Select Province</option>
                 {{-- @foreach ($psgc_prov as $row)
                     <option value="{{ $row->code }}">{{ mb_strtoupper($row->name) }}</option>
@@ -407,14 +407,14 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Municipality</label>
-            <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="present_city" name="present_municipality" required>
                 <option value=""></option>
             </select>
             <input type="hidden" id="present_municipality_name" name="present_municipality_name">
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Barangay</label>
-            <select class="mp-input-group__input mp-text-field" id="present_barangay" name="present_barangay" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="present_barangay" name="present_barangay" required>
                 <option></option>
             </select>
             <input type="hidden" id="present_barangay_name" name="present_barangay_name">
@@ -553,14 +553,14 @@
                         <option value="01">January</option>
                     </select>
                 </div>
-                <span><br/>-</span>
+                <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Day</label>
                     <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
                         <option value="01">01</option>
                     </select>
                 </div>
-                <span><br/>-</span>
+                <span><br />-</span>
                 <div class="d-flex flex-column" style="gap: 3px">
                     <label class="mp-input-group__label">Year</label>
                     <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
@@ -614,7 +614,7 @@
                 MONTHLY CONTRIBUTION
             </label>
             <label class="mp-input-group__label">
-            (The amount that you decide here will serve as your monthly contribution to your UP Provident
+                (The amount that you decide here will serve as your monthly contribution to your UP Provident
                 Fund account, and will be deducted from your salary every month. Choose between:<br><br>
                 (a) Percentage of Basic Salary, minimum of 1%; or <br>
                 (b) A Fixed amount <br><br>
@@ -647,30 +647,30 @@
             <label class="mp-input-group__label">Dependents</label>
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Name" />
             <div class="mp-input-group">
-            <label class="mp-input-group__label mp-mb1">Birthday</label>
-            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
-                <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Month</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">January</option>
-                    </select>
-                </div>
-                <span><br/>-</span>
-                <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Day</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">01</option>
-                    </select>
-                </div>
-                <span><br/>-</span>
-                <div class="d-flex flex-column" style="gap: 3px">
-                    <label class="mp-input-group__label">Year</label>
-                    <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
-                        <option value="01">1998</option>
-                    </select>
+                <label class="mp-input-group__label mp-mb1">Birthday</label>
+                <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
+                    <div class="d-flex flex-column" style="gap: 3px">
+                        <label class="mp-input-group__label">Month</label>
+                        <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                            <option value="01">January</option>
+                        </select>
+                    </div>
+                    <span><br />-</span>
+                    <div class="d-flex flex-column" style="gap: 3px">
+                        <label class="mp-input-group__label">Day</label>
+                        <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                            <option value="01">01</option>
+                        </select>
+                    </div>
+                    <span><br />-</span>
+                    <div class="d-flex flex-column" style="gap: 3px">
+                        <label class="mp-input-group__label">Year</label>
+                        <select name="" id="" class="radius-1 outline select-field" style="font-size: normal;">
+                            <option value="01">1998</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </div>
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" placeholder="Relationship" />
             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
                 <span id="add_dependent">Add Dependent</span> </a>

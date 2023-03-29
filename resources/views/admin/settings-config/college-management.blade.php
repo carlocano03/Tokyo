@@ -100,7 +100,7 @@
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Campus</label>
-                        <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
+                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
                           <option value="">Select Campus</option>
                           @foreach($campus as $row)
                           <option value="{{ $row->id }}">{{ $row->name }}</option>

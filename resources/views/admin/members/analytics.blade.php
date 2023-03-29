@@ -916,11 +916,11 @@
                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                         <span>Select Cluster</span>
                         <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="remarks_select">
-                            <option value="">Show All</option>
-                            <option value="AA VERIFIED">AA VERIFIED</option>
-                            <option value="FORWARDED TO HRDO">FORWARDED TO HRDO</option>
-                            <option value="FORWARDED TO FM">FORWARDED TO FM</option>
-                            <option value="HRDO RETURNED APPLICATIONS">HRDO RETURNED APPLICATIONS</option>
+                            <option value="">Select Cluster No.</option>
+                            <option value="1">Cluster 1 - DSB</option>
+                            <option value="2">Cluster 2 - LBOU</option>
+                            <option value="3">Cluster 3 - MLAPGH</option>
+                            <option value="4">Cluster 4 - CVM</option>
                         </select>
                     </span>
                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">

@@ -26,8 +26,11 @@
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Select Cluster</label>
                                     <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                        <option value="1">Cluster 1</option>
-                                        <option value="0">Cluster 2</option>
+                                        <option value="">Select Cluster No.</option>
+                                        <option value="1">Cluster 1 - DSB</option>
+                                        <option value="2">Cluster 2 - LBOU</option>
+                                        <option value="3">Cluster 3 - MLAPGH</option>
+                                        <option value="4">Cluster 4 - CVM</option>
                                     </select>
                                 </div>
                                 <div class="mp-input-group">
@@ -106,8 +109,11 @@
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Select Cluster</label>
                                     <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                        <option value="1">Cluster 1</option>
-                                        <option value="0">Cluster 2</option>
+                                        <option value="">Select Cluster No.</option>
+                                        <option value="1">Cluster 1 - DSB</option>
+                                        <option value="2">Cluster 2 - LBOU</option>
+                                        <option value="3">Cluster 3 - MLAPGH</option>
+                                        <option value="4">Cluster 4 - CVM</option>
                                     </select>
                                 </div>
                                 <div class="mp-input-group">
