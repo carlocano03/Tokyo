@@ -1359,12 +1359,6 @@
          top: 20px;
      }
  </style>
- <script src="https://code.highcharts.com/highcharts.js"></script>
- <script src="https://code.highcharts.com/modules/exporting.js"></script>
- <script src="https://code.highcharts.com/modules/export-data.js"></script>
- <script src="https://code.highcharts.com/modules/accessibility.js"></script>
- <script src="{{ asset('/dist/adminDashboard.js') }}"></script>
- <script type="text/javascript" src="{{ asset('/dist/loading-bar/loading-bar.js') }}"></script>
  <div id="summaryModal" class="">
 
      <div class="modalContent">
@@ -1521,13 +1515,13 @@
              </span>
 
          </div>
-         <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="2">
+         <div class="item flex-column gap-5 mp-ph3 mp-pv3 " id="sider-item" data-set="2">
              <span>
                  Members Summary Reports
              </span>
 
          </div>
-         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
+         <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="3">
              <span>
                  Contribution Reports
              </span>
@@ -1556,153 +1550,195 @@
                              <span class="d-inline-flex align-items-center " style="color: black;
                                 font-weight: bold;
                                 margin-bottom: 10px;">
-                                 Members Module > &nbsp; Summary Reports
+                                 Members Module > &nbsp; Contribution Reports
                              </span>
 
                          </div>
-                         <div class=" ">
+                         <div class="col-12 mp-pr0" style="width: 100%;">
 
-                             <div class="card-container card p-0" style="padding-bottom: 10px;">
-                                 <div class="card-header filtering items-between d-flex">
-                                     <span>Filtering Section</span>
-                                     <span class="mp-pr2">
-                                         <button class="f-button font-bold">Export</button>
-                                         <button class="f-button font-bold">Print</button>
-                                     </span>
-                                 </div>
+                             <div class="w-full justify-content-center d-flex">
+                                 <div class="d-flex flex-row w-full gap-10">
+                                     <div class="d-flex flex-column gap-10 middle-content full">
+                                         <div class="card-container card p-0">
+                                             <div class="card-header filtering items-between d-flex">
+                                                 <span>Filtering Section</span>
+                                                 <span class="mp-pr2">
+                                                     <button class="f-button font-bold">Export</button>
+                                                     <button class="f-button font-bold">Print</button>
+                                                 </span>
+                                             </div>
 
-                                 <div class="table-form w-full" style="grid-template-columns: repeat(7, 1fr); font-size:12px; padding: 10px;">
 
-                                     <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                                         <span>Membership Date</span>
-                                         <div class="date_range d-flex">
-                                             <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                             <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                             <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                         </div>
-                                     </span>
-                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                         <span>Cluster</span>
-                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status_select">
-                                             <option value="">Show All</option>
+                                             <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
 
-                                         </select>
-                                     </span>
-                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                         <span>Campus</span>
-                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="remarks_select">
-                                             <option value="">Show All</option>
+                                                 <div class="table-form w-full" style="grid-template-columns: repeat(9, 1fr); font-size:12px;">
+                                                     <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
+                                                         <span>Membership Date</span>
+                                                         <div class="date_range d-flex">
+                                                             <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                             <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
+                                                             <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                         </div>
+                                                     </span>
+                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                                         <span>Campus</span>
+                                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campuses_select">
+                                                             <option value="">Show All</option>
 
-                                         </select>
-                                     </span>
+                                                         </select>
+                                                     </span>
+                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                                         <span>Cluster</span>
+                                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
+                                                             <option value="">Show All</option>
 
-                                 </div>
-                             </div>
+                                                         </select>
+                                                     </span>
+                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                                         <span>Status</span>
+                                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
+                                                             <option value="">Show All</option>
+                                                             <option value="">New Members</option>
+                                                             <option value="">Updated Members Contributions</option>
+                                                             <option value="">Stopped/Deleted Contributions</option>
 
-                         </div>
+                                                         </select>
+                                                     </span>
 
-                         <div class="container-fluid">
-                             <div class="row" style="padding:0px;margin-top: 5px;">
-                                 <div class="col-lg-6 " style="width: 100%; padding: 0px;">
-                                     <div class="mp-card ">
-                                         <div class="highchart-container" style="padding:10px;">
-                                             <figure class="highcharts-figure" style="width: 100%">
-                                                 <div id="container">
-                                                     <div id="chart-members" style="width: 100%">
 
-                                                     </div>
+
+
                                                  </div>
-                                             </figure>
+                                             </div>
                                          </div>
+                                         <div class="card d-flex flex-column">
+                                             <div class="d-flex flex-row items-between">
+                                                 <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value" />
 
-                                     </div>
 
-                                 </div>
+                                             </div>
+                                             <div class="mp-mt3 table-container">
+                                                 <table class="members-table" style="height: auto;" width="100%">
+                                                     <thead>
+                                                         <tr>
+                                                             <th style="width:40px">
+                                                                 <span>#</span>
+                                                             </th>
 
-                                 <div class="col-lg-6 " style="width: 100%; padding: 0px;">
-                                     <div class="mp-card ">
-                                         <div class="highchart-container" style="padding:10px;">
-                                             <figure class="highcharts-figure">
-                                                 <div id="circle"></div>
-                                             </figure>
-                                             <script>
-                                                 Highcharts.chart('circle', {
-                                                     chart: {
-                                                         plotBackgroundColor: null,
-                                                         plotBorderWidth: null,
-                                                         plotShadow: false,
-                                                         type: 'pie'
-                                                     },
-                                                     title: {
-                                                         text: '',
-                                                         align: 'left'
-                                                     },
-                                                     tooltip: {
-                                                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                                                     },
-                                                     accessibility: {
-                                                         point: {
-                                                             valueSuffix: '%'
-                                                         }
-                                                     },
-                                                     plotOptions: {
-                                                         pie: {
-                                                             allowPointSelect: true,
-                                                             cursor: 'pointer',
-                                                             dataLabels: {
-                                                                 enabled: false
-                                                             },
-                                                             showInLegend: true
-                                                         }
-                                                     },
-                                                     series: [{
-                                                         name: 'Brands',
-                                                         colorByPoint: true,
-                                                         data: [{
-                                                             name: 'New',
-                                                             y: 74.77,
-                                                             // sliced: true,
-                                                             // selected: true
-                                                         }, {
-                                                             name: 'Processing',
-                                                             y: 12.82
-                                                         }, {
-                                                             name: 'Approved',
-                                                             y: 4.63
-                                                         }, {
-                                                             name: 'Draft',
-                                                             y: 2.44
-                                                         }, {
-                                                             name: 'Returned',
-                                                             y: 2.02
-                                                         }, {
-                                                             name: 'Rejected',
-                                                             y: 3.28
-                                                         }]
-                                                     }]
-                                                 });
-                                             </script>
+                                                             <th>
+                                                                 <span>Members ID</span>
+                                                             </th>
+                                                             <th>
+                                                                 <span>Member Name</span>
+                                                             </th>
+                                                             <th>
+                                                                 <span>Membership Date</span>
+                                                             </th>
+                                                             <th>
+                                                                 <span>Campus</span>
+                                                             </th>
+                                                             <th>
+                                                                 <span>Class</span>
+                                                             </th>
+                                                             <th>
+                                                                 <span>Monthly Salary</span>
+                                                             </th>
+                                                             <th>
+                                                                 <span>Monthly Contribution</span>
+                                                             </th>
+                                                             <th>
+                                                                 <span>Amount</span>
+                                                             </th>
+                                                             <th>
+                                                                 <span>Change Amount</span>
+                                                             </th>
+                                                             <th>
+                                                                 <span>Status</span>
+                                                             </th>
+                                                         </tr>
+                                                     </thead>
+
+                                                     <tbody>
+                                                         <tr>
+                                                             <td>
+                                                                 <span>
+                                                                     1
+                                                                 </span>
+                                                             </td>
+
+                                                             <td>
+                                                                 <span>
+                                                                     1231232
+                                                                 </span>
+                                                             </td>
+                                                             <td>
+                                                                 <span>
+                                                                     Member Name
+                                                                 </span>
+                                                             </td>
+                                                             <td>
+                                                                 <span>
+                                                                     January 20, 1999
+                                                                 </span>
+                                                             </td>
+                                                             <td>
+                                                                 <span>
+                                                                     Up Diliman
+                                                                 </span>
+                                                             </td>
+                                                             <td>
+                                                                 <span>
+                                                                     Class A
+                                                                 </span>
+                                                             </td>
+                                                             <td>
+                                                                 <span>
+                                                                     Php 20,000.00
+                                                                 </span>
+                                                             </td>
+                                                             <td>
+                                                                 <span>
+                                                                     1%
+                                                                 </span>
+                                                             </td>
+                                                             <td>
+                                                                 <span>
+                                                                     Php 200.00
+                                                                 </span>
+                                                             </td>
+                                                             <td>
+                                                                 <span>
+                                                                     Php 200.00
+                                                                 </span>
+                                                             </td>
+                                                             <td>
+                                                                 <span>
+                                                                     New Members
+                                                                 </span>
+                                                             </td>
+                                                         </tr>
+
+                                                     </tbody>
+
+
+
+                                                 </table>
+
+                                             </div>
                                          </div>
                                      </div>
-
                                  </div>
-
                              </div>
                          </div>
                      </div>
 
 
-
                  </div>
+
              </div>
-
-
          </div>
 
      </div>
- </div>
-
- </div>
  </div>
 
 
@@ -1710,90 +1746,6 @@
 
 
  <script>
-     Highcharts.chart('chart-members', {
-         chart: {
-             type: 'bar'
-         },
-         title: {
-             text: 'Members Per Campus',
-             align: 'left'
-         },
-         // subtitle: {
-         //   text: 'Source: <a ' +
-         //     'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
-         //     'target="_blank">Wikipedia.org</a>',
-         //   align: 'left'
-         // },
-         xAxis: {
-             categories: [
 
-                 'Up Diliman',
-                 'Up Losbanos',
-                 'Up Manila',
-                 'Up Visayas',
-
-             ],
-             title: {
-                 text: null
-             }
-         },
-         // yAxis: {
-         //   min: 0,
-         //   title: {
-         //     text: 'Population (members)',
-         //     align: 'high'
-         //   },
-         //   labels: {
-         //     overflow: 'justify'
-         //   }
-         // },
-         tooltip: {
-             valueSuffix: ' Members'
-         },
-         plotOptions: {
-             bar: {
-                 dataLabels: {
-                     enabled: true
-                 }
-             }
-         },
-         legend: {
-             layout: 'vertical',
-             align: 'right',
-             verticalAlign: 'top',
-             x: -40,
-             y: 80,
-             floating: true,
-             borderWidth: 1,
-             backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-             shadow: true
-         },
-         credits: {
-             enabled: false
-         },
-         series: [{
-             name: 'Members',
-             color: 'rgb(124, 181, 236)',
-             data: [{
-                     y: 631,
-                     color: 'rgb(247, 163, 92)'
-                 },
-                 {
-                     y: 1300,
-                     color: '#1a8981'
-                 },
-                 {
-                     y: 3202,
-                     color: 'rgb(124, 181, 236)'
-                 },
-                 {
-                     y: 721,
-                     color: 'rgb(247, 163, 92)'
-                 },
-
-
-             ]
-         }, ]
-     });
  </script>
  @endsection

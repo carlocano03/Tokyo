@@ -994,24 +994,24 @@
                         </div>
                         <div class="tab-body">
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_monthlycontri) && $rec->pass_monthlycontri == 1) ? 'checked' : '' }} name="pass_monthlycontri">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Monthly Contribution
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        Percentage of Basic Salary
+                                        {{$rec->contribution_set}}
                                     </span>
                                 </div>
                             </div>
                             <div class="tab-item">
-                                <input type="checkbox">
+                                <input type="checkbox" {{ (isset($rec->pass_equivalent) && $rec->pass_equivalent == 1) ? 'checked' : '' }} name="pass_equivalent">
                                 <div class="d-flex flex-column">
                                     <span class="mp-text-fs-small">
                                         Equivalent Value
                                     </span>
                                     <span class="mp-text-fw-medium">
-                                        ₱2,166.65
+                                        ₱{{ number_format($rec->amount, 2, '.', ',') }}
                                     </span>
                                 </div>
                             </div>

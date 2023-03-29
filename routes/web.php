@@ -72,12 +72,15 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 
 //admin
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+
+//admin members
 Route::get('/admin/members', [AdminController::class, 'memberlist'])->name('admin.memberlist.memberlist');
 Route::get('/admin/members/member-details', [AdminController::class, 'memberDetails'])->name('admin.memberlist.member-details');
 Route::get('/admin/members/insurance-reports', [AdminController::class, 'insuranceReports'])->name('admin.memberlist.insurance-reports');
 Route::get('/admin/members/summary-reports', [AdminController::class, 'summaryReports'])->name('admin.memberlist.summary-reports');
 Route::get('/admin/members/view-all', [AdminController::class, 'memberlistViewAll'])->name('admin.memberlist.memberlist-viewall');
 Route::get('/admin/members/multiple-view', [AdminController::class, 'multipleMemberView'])->name('admin.memberlist.multiple-view');
+Route::get('/admin/members/contribution-reports', [AdminController::class, 'contributionReports'])->name('admin.memberlist.contribution-reports');
 
 Route::get('/admin/membersData', 'AdminController@memberData')->name('dataProcessing');
 Route::get('/admin/members/records', [AdminController::class, 'members_records'])->name('admin.members_records');
@@ -94,6 +97,7 @@ Route::get('/admin/members/records/view/hrdo/employee/{id}', [AdminController::c
 Route::get('/admin/members/records/view/hrdo/membership/{id}', [AdminController::class, 'hrdo_view_record_membership']);
 Route::get('/admin/members/records/view/hrdo/forms/{id}', [AdminController::class, 'hrdo_view_record_forms']);
 Route::get('/admin/members/records/view/hrdo/{id}', [AdminController::class, 'hrdo_view_record'])->name('admin.hrdo_view_record');
+Route::get('/admin/members/records/view/fm/{id}', [AdminController::class, 'fm_view_record'])->name('admin.fm_view_record');
 Route::get('/admin/members/trail', [AdminController::class, 'members_application_trail'])->name('admin.members_application_trail');
 Route::get('/admin/settings', [AdminController::class, 'settings'])->name('admin.dashboard');
 Route::post('/admin/countApplication', [AdminController::class, 'countApplication'])->name('count_application');
@@ -103,6 +107,8 @@ Route::get('/admin/create-election', [AdminController::class, 'createElection'])
 Route::get('/admin/election-record', [AdminController::class, 'electionRecord'])->name('admin.election.election-election');
 Route::get('/admin/election-analytics', [AdminController::class, 'electionAnalytics'])->name('admin.election.election-analytics');
 
+Route::post('/admin/members/employee', [AdminController::class, 'getEmployeeDetails'])->name('get_employees');
+Route::post('/admin/members/update_employee_details', [HomeController::class, 'update_employee'])->name('update_employee_details');
 // Route::get('/admin/members', 'AdminController@memberlist');
 
 
@@ -175,6 +181,7 @@ Route::post('/settings/save-college', [Settings::class, 'save_college'])->name('
 Route::get('/settings/college_list', [Settings::class, 'college_table'])->name('college_list');
 Route::post('/settings/delete_college', [Settings::class, 'remove_college'])->name('delete_college');
 Route::post('/settings/get_details_coll', [Settings::class, 'get_college'])->name('get_details_coll');
+Route::post('/settings/filter_college_unit', [Settings::class, 'filter_college_unit'])->name('filter_college_unit');
 Route::post('/settings/update-college', [Settings::class, 'update_college'])->name('update-college');
 
 // department
@@ -213,3 +220,6 @@ Route::post('/validate_step_reject', [App_Validation::class, 'validate_step_reje
 Route::post('/save_hrdo_validation', [App_Validation::class, 'hrdo_validation_save'])->name('save_hrdo_validation');
 Route::post('/save_drafthrdo_validation', [App_Validation::class, 'hrdo_validation_draft'])->name('save_drafthrdo_validation');
 Route::post('/return_application_aa', [App_Validation::class, 'returnto_aa_application'])->name('return_application_aa');
+
+//FM validation
+Route::post('/save_fm_validation', [App_Validation::class, 'fm_validation_save'])->name('save_fm_validation');

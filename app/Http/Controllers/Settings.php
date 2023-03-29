@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Member;
 use App\Models\Campus;
 use App\Models\Classification;
@@ -13,6 +14,7 @@ use App\Models\Appointment;
 use App\Models\Salarygrade;
 use App\Models\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use App\Models\Setting;
 use App\Models\UploadFile;
@@ -324,6 +326,22 @@ class Settings extends Controller
       ->get()->first();
     return response()->json($results);
   }
+
+  public function filter_college_unit(Request $request)
+  {
+
+    $query = $request->camp_id;
+
+    if ($query === "all") {
+      $results = DB::table('college_unit')->get();
+    } else {
+      $results = DB::table('college_unit')->whereRaw("college_unit.campus_id = '$query'")
+        ->join('campus', 'campus.id', '=', 'college_unit.campus_id')
+        ->select('college_unit.*', 'campus.name as camp_name', 'campus.id as camp_id')
+        ->orderBy('college_unit_name', 'asc')->get();
+    };
+    return response()->json($results);
+  }
   public function update_college(Request $request)
   {
     $affectedRows = DB::transaction(function () use ($request) {
@@ -386,7 +404,7 @@ class Settings extends Controller
     })
       ->join('campus', 'campus.id', '=', 'department.campus_id')
       ->join('college_unit', 'department.cu_no', '=', 'college_unit.cu_no')
-      ->select('department.*', 'campus.name as camp_name', 'college_unit.college_unit_name')
+      ->select('department.*', 'campus.name as camp_name', 'campus_id', 'cu_no', 'college_unit.college_unit_name')
       ->count();
 
     $data = [];
@@ -402,9 +420,10 @@ class Settings extends Controller
             </span>
           </button>
           </button>
-          <button class="up-button-green edit_dept" style="border-radius: 5px;" data-id=' . $row->dept_no . ' >
+          <button class="up-button-green edit_dept" id="editDepartment" style="border-radius: 5px;" 
+          data-id=' . $row->dept_no . '  data-campus_id=' . $row->campus_id . ' data-cu_no=' . $row->cu_no . '>
             <span>
-              <i class="fa fa-edit" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
+              <i class="fa fa-edit"  style="padding:3px;font-size:17px;" aria-hidden="true"></i>
             </span>
           </button>';
 
@@ -712,6 +731,7 @@ class Settings extends Controller
   }
   public function save_users(Request $request)
   {
+
     $datadb = DB::transaction(function () use ($request) {
       $inserts_users = array(
         'first_name' => strtoupper($request->input('firstname')),
@@ -719,6 +739,7 @@ class Settings extends Controller
         'last_name' => strtoupper($request->input('lastname')),
         'email' => $request->input('email'),
         'intial_password' => $request->input('initial_pass'),
+        'password' => Hash::make($request->input('initial_pass')),
         'contact_no' => $request->input('contact_no'),
         'user_level' => strtoupper($request->input('user_level')),
         'campus_id' => $request->input('campus'),

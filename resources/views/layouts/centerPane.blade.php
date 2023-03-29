@@ -88,8 +88,8 @@
                     </div>
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Upload Signature</label>
-                        <input class="mp-input-group__input mp-text-field" type="file" name="sign_electronic" id="sign_electronic" />
-                        <input type="text" name="person_id" id="person_id">
+                        <input class="mp-input-group__input mp-text-field" type="file" name="sign_electronic" id="sign_electronic" accept="image/png, image/gif, image/jpeg, image/jpg"/>
+                        <input type="hidden" name="person_id" id="person_id">
                     </div>
 
             </div>
@@ -173,13 +173,11 @@ function formatInput() {
     // If the input has at least 1 digit, add the country code
     formattedInput = '+63 ' + formattedInput;
   }
-
   // Limit the formatted input to 10 digits
   formattedInput = formattedInput.slice(0, 14);
 
   inputField.value = formattedInput;
 }
-
 document.addEventListener('DOMContentLoaded', formatInput);
 inputField.addEventListener('input', formatInput);
 
@@ -294,7 +292,14 @@ inputField.addEventListener('input', formatInput);
                         $("[name='date_birth_days']").val(date_bd.getDate().toString().padStart(2, '0'));
 
                         $("[name='gender']").val(data.gender == null ? '' : data.gender);
-                        $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
+                        // $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
+                        if (data.civilstatus == 'Single') {
+                            $('input[name="civilstatus"][value="Single"]').prop('checked', true);
+                        } else if (data.civilstatus == 'Married') {
+                            $('input[name="civilstatus"][value="Married"]').prop('checked', true);
+                        } else if (data.civilstatus == 'Widowed') {
+                            $('input[name="civilstatus"][value="Married"]').prop('checked', true);
+                        }
                         if (data.citizenship == 'FILIPINO') {
                             $('input[name="citizenship"][value="FILIPINO"]').prop('checked', true);
                         } else if (data.citizenship == 'DUAL CITIZENSHIP') {
@@ -937,6 +942,7 @@ inputField.addEventListener('input', formatInput);
                         $("[data-set=" + name + "]>.input").addClass('input-error')
                     })
                     empty.first().focus();
+                    return
                     // swal.fire("Error!", "Please fill out the required fields", "error");
                 } else {
                     if ($('#app_trailNo').val() !== '' && personnel_id == undefined) {
@@ -999,7 +1005,6 @@ inputField.addEventListener('input', formatInput);
                                                 confirmButtonColor: '#3085d6',
                                                 confirmButtonText: 'Proceed',
                                         });
-                                        window.open('http://127.0.0.1:8000/login', '_blank');
                                         $('.applicationNo').show(200);
                                         $('#application_no').text(reference_no);
                                         $('#app_no').val(reference_no);
@@ -1130,9 +1135,10 @@ inputField.addEventListener('input', formatInput);
 
             var selectedDate = new Date($("#date_appoint_months").val() + " " + $("#date_appoint_days").val() + ", " + $("#date_appoint_years").val());
             var currentDate = new Date();
-            if (selectedDate > currentDate) {
+            if (selectedDate > currentDate || selectedDate == "Invalid Date") {
                 $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none').text("Invalid appointment date, please check")
                 $("[data-set=date_appoint_months]>.input").addClass('input-error')
+                empty.push($("[data-set=date_appoint_months]"))
             } else {
                 $("[data-set=date_appoint_months]>#err-msg").addClass('d-none')
                 $("[data-set=date_appoint_months]>.input").removeClass('input-error')
@@ -1174,6 +1180,7 @@ inputField.addEventListener('input', formatInput);
 
                 })
                 empty.first().focus();
+                return
                 // swal.fire("Error!", "Please fill out the required fields", "error");
             } else {
                 if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' &&

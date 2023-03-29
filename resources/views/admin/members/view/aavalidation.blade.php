@@ -878,14 +878,12 @@
                     <span class="font-sm">Membership Application Number</span>
                     <br />
                     <span class="magenta-clr font-bold">{{$rec->app_no}}</span>
-                  
-
                 </div>
                 <div class="w-auto">
                     <span class="font-sm">Application Date and Time</span>
                     <br />
                     <span class="magenta-clr font-bold">
-                        {{ date('F d, Y', strtotime($rec->app_date)) }}
+                        {{ date('F d, Y h:i a', strtotime($rec->app_date)) }}
                         
                     </span>
                 </div>
@@ -900,12 +898,15 @@
                 </div>
                 <div class="w-auto d-flex justify-content-end">
                     <span>
-                        <button class="f-button">
-                            Print
-                        </button>
-                        <button class="f-button green-bg">
+                        <a href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
+                        style='cursor: pointer; padding: 0'>
+                            <button class="f-button">
+                                Print/Download
+                            </button>
+                        </a>
+                        <!-- <button class="f-button green-bg">
                             Download
-                        </button>
+                        </button> -->
                     </span>
                 </div>
             </div>
@@ -943,11 +944,11 @@
                                     <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
                                         <span class="font-sm">Status</span>
                                         <span class="mp-mh1">
-                                        @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
+                                        @if ($data->status_remarks === 'APPROVED BY HRDO' || $data->status_remarks === 'FORWARDED TO FM' || $data->status_remarks === 'FOR PAYROLL ADVISE')
                                             <span class="status-title green-bg">
                                                 APPROVED
                                             </span>
-                                        @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                        @elseif ($data->status_remarks !== 'APPROVED BY HRDO' && $data->status_remarks !== 'NEW APPLICATION')
                                             <span class="status-title orage-bg">
                                                 PROCESSING
                                             </span>
@@ -960,6 +961,7 @@
                                         <span class="font-sm">Remarks</span>
                                         <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
                                         <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
+                                        <span class="font-sm">Time: <span>{{ date('h:i a', strtotime($data->time_stamp)) }}</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -1143,6 +1145,8 @@
                             </span>
                         </div>
                     </div>
+                    <input type="hidden" name="aa_cfm_user" id="aa_cfm_user" value="{{$rec->aa_cfm_user}}">
+                    <input type="hidden" name="validator_remark" id="validator_remark" value="{{$rec->validator_remarks}}">
                     <form id="aa_validation" >
                     {{ csrf_field() }}
                     <div class="table-form form-header w-full">
@@ -1904,13 +1908,13 @@
                                 <div class="d-flex flex-column font-sm">
                                     <div class="d-flex flex-row mp-text-center" style="width: 100px">
                                             <span>Passed: <span class="font-md font-bold color-black" id="pass_count"></span></span>
-                                           
                                         </div>
                                         <div class="d-flex flex-row mp-text-center" style="width: 100px">
                                             <span>Failed: <span class="font-md font-bold color-black" id="failed_count"></span></span>
                                         </div>
                                 </div>
                             </div>
+                            @if ($rec->aa_cfm_user == 0 || $rec->validator_remarks == 'HRDO RETURNED APPLICATION')
                             <span class="d-flex" style="gap: 10px">
                                 <button class="f-button align-self-end red-bg" id="reject_app" >
                                     <span id="reject_text">Reject Application</span>
@@ -1919,9 +1923,10 @@
                                     <span id="return_text">Return Application</span>
                                 </button>
                                 <button class="f-button align-self-end" id="save_record" >
-                                <span id="save_text">Save Record </span>
+                                <span id="save_text">Verified This Application </span>
                                 </button>
                             </span>
+                            @endif
                             
                         </div>
                         
@@ -2023,6 +2028,17 @@
 var passCount = 0;
 var failCount = 0;
 $(document).ready(function() {
+    var aa_cfm_user = $('#aa_cfm_user').val();
+    var validator_remark = $('#validator_remark').val();
+    if (aa_cfm_user == 0 || validator_remark == 'HRDO RETURNED APPLICATION') {
+        $('input[type="radio"]').attr('disabled', false);
+        $('input[type="text"]').attr('disabled', false);
+        $('#general_remarks').attr('readonly', false);
+    } else {
+        $('input[type="radio"]').attr('disabled', true);
+        $('input[type="text"]').attr('disabled', true);
+        $('#general_remarks').attr('readonly', true);
+    }
     passCount = 0;
     failCount = 0;
     $('#aa_validation input[type="radio"]').each(function() {

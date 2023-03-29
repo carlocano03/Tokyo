@@ -98,6 +98,10 @@ class AdminController extends Controller
   {
     return view('admin.memberlist.summary-reports');
   }
+  public function contributionReports()
+  {
+    return view('admin.memberlist.contribution-reports');
+  }
 
   public function countApplication()
   {
@@ -151,7 +155,8 @@ class AdminController extends Controller
   }
   public function departmentManagement()
   {
-    $campus = DB::table('campus')->get();
+    $campus = DB::table('campus')->orderBy('name', 'asc')->get();
+    $campus = DB::table('campus')->orderBy('name', 'asc')->get();
     $college_unit = DB::table('college_unit')->get();
     return view('admin.settings-config.department-management', compact('campus'), compact('college_unit'));
   }
@@ -375,6 +380,260 @@ class AdminController extends Controller
     );
     return view('admin.members.view.aavalidation')->with($data);
   }
+
+  // public function members_view_record($id)
+  // {
+  //   // DB::enableQueryLog();
+  //   $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+  //     ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+  //     ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+  //     ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+  //     ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+  //     ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+  //     ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+  //     ->select(
+  //       'mem_app.*',
+  //       'membership_details.*',
+  //       'personal_details.*',
+  //       'employee_details.*',
+  //       'membership_details.*',
+  //       'campus.*',
+  //       'college_unit.*',
+  //       'department.*',
+  //       'college_unit.*',
+  //       'pass_name',
+  //       'pass_dob',
+  //       'pass_gender',
+  //       'pass_civilstatus',
+  //       'pass_citizenship',
+  //       'pass_currentadd',
+  //       'pass_permaadd',
+  //       'pass_contactnum',
+  //       'pass_landline',
+  //       'pass_email',
+  //       'pass_emp_no',
+  //       'pass_campus',
+  //       'pass_classification',
+  //       'pass_college_unit',
+  //       'pass_department',
+  //       'pass_rankpos',
+  //       'pass_appointment',
+  //       'pass_appointdate',
+  //       'pass_monthlysalary',
+  //       'pass_sg',
+  //       'pass_sgcat',
+  //       'pass_tin_no',
+  //       'pass_monthlycontri',
+  //       'pass_equivalent',
+  //       'pass_membershipf',
+  //       'pass_proxyform',
+  //       'remarks_name',
+  //       'remarks_dob',
+  //       'remarks_gender',
+  //       'remarks_civilstatus',
+  //       'remarks_citizenship',
+  //       'remarks_currentadd',
+  //       'remarks_permaadd',
+  //       'review_contactnum',
+  //       'review_landline',
+  //       'remarks_email',
+  //       'remarks_emp_no',
+  //       'remarks_campus',
+  //       'remarks_classification',
+  //       'remarks_college_unit',
+  //       'remarks_department',
+  //       'remarks_rankpos',
+  //       'remarks_appointment',
+  //       'remarks_appointdate',
+  //       'remarks_monthlysalary',
+  //       'remarks_sg',
+  //       'remarks_sgcat',
+  //       'remarks_tin_no',
+  //       'remarks_monthlycontri',
+  //       'remarks_equivalent',
+  //       'remarks_membershipf',
+  //       'remarks_proxyform',
+  //       'general_remarks',
+  //       'evaluate_by',
+  //       'date_evaluated'
+  //     )
+  //     ->where('mem_app.app_no', $id)->first();
+  //   $email = DB::table('mem_app')->where('app_no', $id)->select('email_address')->value('email_address');
+  //   $app_stat = DB::table('mem_app')->where('app_no', $id)->select('app_status')->value('app_status');
+  //   if ($app_stat == 'NEW APPLICATION') {
+  //     $mem_appinst = array(
+  //       'app_status' => "PROCESSING",
+  //     );
+  //     $affected = DB::table('mem_app')->where('app_no', $id)
+  //       ->update($mem_appinst);
+  //   }
+
+
+  //   $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+  //   if ($appcount == 0) {
+  //     $apptrail = array(
+  //       'status_remarks' => "AA - Review Validation",
+  //       'app_no' => $id,
+  //       'updateby' => Auth::user()->id,
+  //       'user_level' => Auth::user()->user_level,
+  //     );
+  //     DB::table('app_trailing')->where('app_no', $id)
+  //       ->insert($apptrail);
+  //   }
+
+  //   if (!empty($affected)) {
+  //     $mailData = [
+  //       'title' => 'Member Application is for Processing',
+  //       'body' => 'Your application are now processing and subjected for approval.',
+  //       'app_no' => $id,
+  //     ];
+  //     Mail::to($email)->send(new processMail($mailData));
+  //   }
+  //   $status = DB::table('app_trailing')
+  //     ->where('app_no', $id)
+  //     ->orderBy('time_stamp', 'desc')
+  //     ->value('status_remarks');
+  //   $user_step = DB::table('app_trailing')
+  //     ->where('app_no', $id)
+  //     ->orderBy('app_trailing_ID', 'desc')
+  //     ->value('user_level');
+  //   $trailing = DB::table('app_trailing')
+  //     ->where('app_no', $id)->orderBy('time_stamp', 'asc')->get();
+  //   $data = array(
+  //     'status' => $status,
+  //     'user_step' => $user_step,
+  //     'rec' => $records,
+  //     'trailing' => $trailing
+  //   );
+  //   return view('admin.members.view.aavalidation')->with($data);
+  // }
+
+  // public function members_view_record($id)
+  // {
+  //   // DB::enableQueryLog();
+  //   $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+  //     ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+  //     ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+  //     ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+  //     ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+  //     ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+  //     ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+  //     ->select(
+  //       'mem_app.*',
+  //       'membership_details.*',
+  //       'personal_details.*',
+  //       'employee_details.*',
+  //       'membership_details.*',
+  //       'campus.*',
+  //       'college_unit.*',
+  //       'department.*',
+  //       'college_unit.*',
+  //       'pass_name',
+  //       'pass_dob',
+  //       'pass_gender',
+  //       'pass_civilstatus',
+  //       'pass_citizenship',
+  //       'pass_currentadd',
+  //       'pass_permaadd',
+  //       'pass_contactnum',
+  //       'pass_landline',
+  //       'pass_email',
+  //       'pass_emp_no',
+  //       'pass_campus',
+  //       'pass_classification',
+  //       'pass_college_unit',
+  //       'pass_department',
+  //       'pass_rankpos',
+  //       'pass_appointment',
+  //       'pass_appointdate',
+  //       'pass_monthlysalary',
+  //       'pass_sg',
+  //       'pass_sgcat',
+  //       'pass_tin_no',
+  //       'pass_monthlycontri',
+  //       'pass_equivalent',
+  //       'pass_membershipf',
+  //       'pass_proxyform',
+  //       'remarks_name',
+  //       'remarks_dob',
+  //       'remarks_gender',
+  //       'remarks_civilstatus',
+  //       'remarks_citizenship',
+  //       'remarks_currentadd',
+  //       'remarks_permaadd',
+  //       'review_contactnum',
+  //       'review_landline',
+  //       'remarks_email',
+  //       'remarks_emp_no',
+  //       'remarks_campus',
+  //       'remarks_classification',
+  //       'remarks_college_unit',
+  //       'remarks_department',
+  //       'remarks_rankpos',
+  //       'remarks_appointment',
+  //       'remarks_appointdate',
+  //       'remarks_monthlysalary',
+  //       'remarks_sg',
+  //       'remarks_sgcat',
+  //       'remarks_tin_no',
+  //       'remarks_monthlycontri',
+  //       'remarks_equivalent',
+  //       'remarks_membershipf',
+  //       'remarks_proxyform',
+  //       'general_remarks',
+  //       'evaluate_by',
+  //       'date_evaluated'
+  //     )
+  //     ->where('mem_app.app_no', $id)->first();
+  //   $email = DB::table('mem_app')->where('app_no', $id)->select('email_address')->value('email_address');
+  //   $app_stat = DB::table('mem_app')->where('app_no', $id)->select('app_status')->value('app_status');
+  //   if ($app_stat == 'NEW APPLICATION') {
+  //     $mem_appinst = array(
+  //       'app_status' => "PROCESSING",
+  //     );
+  //     $affected = DB::table('mem_app')->where('app_no', $id)
+  //       ->update($mem_appinst);
+  //   }
+
+
+  //   $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
+  //   if ($appcount == 0) {
+  //     $apptrail = array(
+  //       'status_remarks' => "AA - Review Validation",
+  //       'app_no' => $id,
+  //       'updateby' => Auth::user()->id,
+  //       'user_level' => Auth::user()->user_level,
+  //     );
+  //     DB::table('app_trailing')->where('app_no', $id)
+  //       ->insert($apptrail);
+  //   }
+
+  //   if (!empty($affected)) {
+  //     $mailData = [
+  //       'title' => 'Member Application is for Processing',
+  //       'body' => 'Your application are now processing and subjected for approval.',
+  //       'app_no' => $id,
+  //     ];
+  //     Mail::to($email)->send(new processMail($mailData));
+  //   }
+  //   $status = DB::table('app_trailing')
+  //     ->where('app_no', $id)
+  //     ->orderBy('time_stamp', 'desc')
+  //     ->value('status_remarks');
+  //   $user_step = DB::table('app_trailing')
+  //     ->where('app_no', $id)
+  //     ->orderBy('app_trailing_ID', 'desc')
+  //     ->value('user_level');
+  //   $trailing = DB::table('app_trailing')
+  //     ->where('app_no', $id)->orderBy('time_stamp', 'asc')->get();
+  //   $data = array(
+  //     'status' => $status,
+  //     'user_step' => $user_step,
+  //     'rec' => $records,
+  //     'trailing' => $trailing
+  //   );
+  //   return view('admin.members.view.aavalidation')->with($data);
+  // }
 
 
   public function members_view_record_personal($id)
@@ -894,7 +1153,8 @@ class AdminController extends Controller
       ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
       ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
       ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
-      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      // ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->leftjoin('hrdo_validation', 'mem_app.app_no', '=', 'hrdo_validation.app_no')
       ->select(
         'mem_app.*',
         'membership_details.*',
@@ -953,6 +1213,7 @@ class AdminController extends Controller
     );
     return view('admin.members.view.hrdovalidation')->with($data);
   }
+
 
   public function hrdo_view_record_personal($id)
   {
@@ -1230,6 +1491,74 @@ class AdminController extends Controller
     return view('admin.members.view.hrdovalidation.forms-attachment')->with($data);
   }
 
+  public function fm_view_record($id)
+  {
+    // DB::enableQueryLog();
+    $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
+      ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
+      ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
+      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->select(
+        'mem_app.*',
+        'membership_details.*',
+        'personal_details.*',
+        'employee_details.*',
+        'membership_details.*',
+        'campus.*',
+        'college_unit.*',
+        'department.*',
+        'college_unit.*',
+        'pass_emp_no',
+        'pass_campus',
+        'pass_classification',
+        'pass_college_unit',
+        'pass_department',
+        'pass_rankpos',
+        'pass_appointment',
+        'pass_appointdate',
+        'pass_monthlysalary',
+        'pass_sg',
+        'pass_sgcat',
+        'pass_tin_no',
+
+        'remarks_emp_no',
+        'remarks_campus',
+        'remarks_classification',
+        'remarks_college_unit',
+        'remarks_department',
+        'remarks_rankpos',
+        'remarks_appointment',
+        'remarks_appointdate',
+        'remarks_monthlysalary',
+        'remarks_sg',
+        'remarks_sgcat',
+        'remarks_tin_no',
+        'general_remarks',
+        'evaluate_by',
+        'date_evaluated'
+      )
+      ->where('mem_app.app_no', $id)->first();
+    $status = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('status_remarks');
+    $user_step = DB::table('app_trailing')
+      ->where('app_no', $id)
+      ->orderBy('app_trailing_ID', 'desc')
+      ->value('user_level');
+    $trailing = DB::table('app_trailing')
+      ->where('app_no', $id)->orderBy('time_stamp', 'asc')->get();
+    $data = array(
+      'status' => $status,
+      'user_step' => $user_step,
+      'rec' => $records,
+      'trailing' => $trailing
+    );
+    return view('admin.members.view.fmvalidation')->with($data);
+  }
   
 
   public function members_application_trail()
@@ -1260,6 +1589,10 @@ class AdminController extends Controller
     $search  = $request->get('searchValue');
     $users = Auth::user()->user_level;
     $userId = Auth::user()->id;
+    $campus_id = Auth::user()->campus_id;
+    $allowCampus = DB::table('campus')
+      ->where('id', $campus_id)
+      ->first();
     $cfmCluster = DB::table('user_prev')
       ->join('users', 'user_prev.users_id', '=', 'users.id')
       ->select('user_prev.cfm_cluster')
@@ -1270,13 +1603,18 @@ class AdminController extends Controller
     $aa_3 = '';
 
     // Total records
+    // $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+    //   ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+    //   ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+    //   ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
+    //   ->where('mem_app.app_no', 'like', '%' . $search . '%')
+    //   ->where('mem_app.app_status', $aa_1)
+    //   ->where('mem_app.app_status', $aa_2);
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-      ->where('mem_app.app_no', 'like', '%' . $search . '%')
-      ->where('mem_app.app_status', $aa_1)
-      ->where('mem_app.app_status', $aa_2);
+      ->where('mem_app.app_status', '!=', 'deleted');
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -1316,15 +1654,24 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $process)
           ->orWhere('mem_app.app_status', $rejected)
           ->orWhere('mem_app.app_status', $approved)
-          ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+          ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'HRDO') {
+      // $aa_1 = $userId;
+      // $cfm = 'FORWARDED TO HRDO';
+      // $process = 'PROCESSING';
+      // $approved = 'APPROVED APPLICATION';
+      // $records->where('mem_app.forwarded_user', $aa_1);
+      // $records->where('mem_app.validator_remarks', $cfm);
+      // $records->orWhere('mem_app.validator_remarks', $approved);
+
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
       $process = 'PROCESSING';
       $approved = 'APPROVED APPLICATION';
       $records->where('mem_app.forwarded_user', $aa_1);
       $records->where('mem_app.validator_remarks', $cfm);
+      $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
     } else if ($users == 'CFM') {
       $cfm = 'AA VERIFIED';
@@ -1332,9 +1679,10 @@ class AdminController extends Controller
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
       $approved = 'APPROVED APPLICATION';
-      $records->where(function ($query) use ($process, $approved) {
+      $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
-          ->orWhere('mem_app.app_status', $approved);
+          ->where('employee_details.campus', $allowCampus->campus_key);
+        // ->orWhere('mem_app.app_status', $approved);
       });
     }
     $totalRecords = $records->count();
@@ -1385,16 +1733,26 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $process)
           ->orWhere('mem_app.app_status', $rejected)
           ->orWhere('mem_app.app_status', $approved)
-          ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+          ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'HRDO') {
+      // $aa_1 = $userId;
+      // $cfm = 'FORWARDED TO HRDO';
+      // $process = 'PROCESSING';
+      // $approved = 'APPROVED APPLICATION';
+      // $records->where('mem_app.forwarded_user', $aa_1);
+      // $records->where('mem_app.validator_remarks', $cfm);
+      // $records->orWhere('mem_app.validator_remarks', $approved);
+
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
       $process = 'PROCESSING';
       $approved = 'APPROVED APPLICATION';
       $records->where('mem_app.forwarded_user', $aa_1);
       $records->where('mem_app.validator_remarks', $cfm);
+      $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
+      $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
     } else if ($users == 'CFM') {
       $aa_1 = 'NEW APPLICATION';
       $cfm = 'AA VERIFIED';
@@ -1403,14 +1761,15 @@ class AdminController extends Controller
         $query->where('mem_app.app_status', $aa_1)
           ->orWhere('mem_app.validator_remarks', $cfm)
           ->orWhere('mem_app.app_status', $process)
-          ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+          ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
       $approved = 'APPROVED APPLICATION';
-      $records->where(function ($query) use ($process, $approved) {
+      $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
-          ->orWhere('mem_app.app_status', $approved);
+          ->where('employee_details.campus', $allowCampus->campus_key);
+        // ->orWhere('mem_app.app_status', $approved);
       });
     }
 
@@ -1439,7 +1798,7 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $process)
           ->orWhere('mem_app.app_status', $rejected)
           ->orWhere('mem_app.app_status', $approved)
-          ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+          ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'HRDO') {
       $aa_1 = $userId;
@@ -1448,7 +1807,8 @@ class AdminController extends Controller
       $approved = 'APPROVED APPLICATION';
       $records->where('mem_app.forwarded_user', $aa_1);
       $records->where('mem_app.validator_remarks', $cfm);
-      $records->where('mem_app.app_status', $approved);
+      $records->orWhere('mem_app.app_status', $approved);
+      $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
       $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
     } else if ($users == 'CFM') {
@@ -1461,13 +1821,14 @@ class AdminController extends Controller
           ->orWhere('mem_app.validator_remarks', $cfm)
           ->orWhere('mem_app.app_status', $process)
           ->orWhere('mem_app.app_status', $approved)
-          ->orWhere('mem_app.validator_remarks', '=', 'FOR CORRECTION');
+          ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
       $approved = 'APPROVED APPLICATION';
-      $records->where(function ($query) use ($process, $approved) {
+      $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
+          ->where('employee_details.campus', $allowCampus->campus_key)
           ->orWhere('mem_app.app_status', $approved);
       });
     }
@@ -1499,7 +1860,7 @@ class AdminController extends Controller
     } else if ($users == 'AA') {
       $href = '/admin/members/records/view/aa/';
     } else if ($users == 'FM') {
-      $href = '';
+      $href = '/admin/members/records/view/fm/';
     }
 
     $posts = $records->skip($start)
@@ -1514,10 +1875,12 @@ class AdminController extends Controller
           $checkbox_users = $r->validator_remarks == 'AA VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
             : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
         } else if ($users == 'HRDO') {
+          // APPROVED APPLICATION
+          $checkbox_users = $r->validator_remarks == 'APPROVED BY HRDO' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
+            : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
+        } else if ($users == 'FM') {
           $checkbox_users = $r->validator_remarks == 'APPROVED APPLICATION' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
             : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
-        } else {
-          $checkbox_users = '';
         }
         $row[] = $checkbox_users;
         $row[] = "<a data-md-tooltip='Review Application' class='view_member md-tooltip--right view-member' id='" . $r->app_no . "'
@@ -1594,5 +1957,17 @@ class AdminController extends Controller
         ->where('user_level', 'FM')->get();
     }
     return response()->json($hrdouser);
+  }
+
+  public function getEmployeeDetails(Request $request)
+  {
+    $query = $request->input('app_no');
+    $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$query'")
+      // ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      // ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
+      ->get()->first();
+
+    return response()->json($results);
   }
 }

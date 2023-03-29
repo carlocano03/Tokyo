@@ -803,4 +803,41 @@ class HomeController extends Controller
     });
     return response()->json(['success' => $datadb['last_id']]);
   }
+
+  public function update_employee(Request $request)
+  {
+    $datadb = DB::transaction(function () use ($request) {
+      $appointyear = $request->input('date_appoint_years');
+      $appointmonth = $request->input('date_appoint_months');
+      $appointday = $request->input('date_appoint_days');
+      // create a date string in the format YYYY-MM-DD
+      $dateOfappoint = sprintf('%04d-%02d-%02d', $appointyear, $appointmonth, $appointday);
+
+      $update = array(
+        'employee_no' => $request->input('emp_no'),
+        'campus' => $request->input('campus'),
+        'classification' => $request->input('classification'),
+        'college_unit' => $request->input('college_unit'),
+        'department' => $request->input('department'),
+        'rank_position' => $request->input('rank_position'),
+        'date_appointment' => date('Y-m-d', strtotime($dateOfappoint)),
+        'appointment' => $request->input('appointment'),
+        'monthly_salary' => str_replace(',', '', $request->input('monthly_salary')),
+        'salary_grade' => $request->input('salary_grade'),
+        'sg_category' => $request->input('sg_category'),
+        'tin_no' => $request->input('tin_no'),
+      );
+      DB::table('employee_details')->where('employee_details_ID', $request->input('employee_details_id'))
+          ->update($update);
+      $mem_appinst = array(
+        'employee_no' => $request->input('emp_no'),
+      );
+      DB::table('mem_app')->where('mem_app_ID', $request->input('mem_app_id'))
+          ->update($mem_appinst);
+      return [
+        'emp_no' => $request->input('emp_no'),
+      ];
+    });
+    return response()->json(['success' => $datadb['emp_no']]);
+  }
 }
