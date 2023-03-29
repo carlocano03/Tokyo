@@ -64,10 +64,44 @@ class PDFController extends Controller
             ->leftjoin('department', 'department.dept_no', '=', 'employee_details.department')
             ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
             ->leftjoin('member_signature', 'mem_app.app_no', '=', 'member_signature.app_no')
+
             ->get()->first();
         $benificiary = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$id'")
             ->get();
 
+        $AA_signatory = DB::table('mem_app')
+            ->select(
+                'mem_app.*',
+                DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS full_name")
+            )
+            ->whereRaw("mem_app.employee_no = '$id'")
+            ->leftjoin('users', 'mem_app.aa_cfm_user', '=', 'users.id')
+            ->get()
+            ->first();
+
+        $HRDO_signatory = DB::table('mem_app')
+            ->select(
+                'mem_app.*',
+                DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS full_name")
+            )
+            ->whereRaw("mem_app.employee_no = '$id'")
+            ->leftjoin('users', 'mem_app.forwarded_user', '=', 'users.id')
+            ->get()
+            ->first();
+
+        $FM_signatory = DB::table('mem_app')
+            ->select(
+                'mem_app.*',
+                DB::raw("CONCAT(users.first_name, ' ', users.last_name) AS full_name")
+            )
+            ->whereRaw("mem_app.employee_no = '$id'")
+            ->leftjoin('users', 'mem_app.fm_user', '=', 'users.id')
+            ->get()
+            ->first();
+
+        $data['AA_signatory'] = $AA_signatory;
+        $data['HRDO_signatory'] = $HRDO_signatory;
+        $data['FM_signatory'] = $FM_signatory;
         $data['member'] = $results;
         $data['benificiary'] = $benificiary;
         // print_r($data);

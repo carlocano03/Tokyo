@@ -50,7 +50,7 @@
                         <input class="mp-input-group__input mp-text-field" type="text" name="spouse_name" id="spouse_name" />
                     </div>
                     <div class="mp-input-group">
-                        <label class="mp-input-group__label">Monther's Maiden Name</label>
+                        <label class="mp-input-group__label">Mother's Maiden Name</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="maiden_name" id="maiden_name" />
                     </div>
                     <div class="mp-input-group">
@@ -88,7 +88,7 @@
                     </div>
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Upload Signature</label>
-                        <input class="mp-input-group__input mp-text-field" type="file" name="sign_electronic" id="sign_electronic" accept="image/png, image/gif, image/jpeg, image/jpg"/>
+                        <input class="mp-input-group__input mp-text-field" type="file" name="sign_electronic" id="sign_electronic" accept="image/png, image/gif, image/jpeg, image/jpg" />
                         <input type="hidden" name="person_id" id="person_id">
                     </div>
 
@@ -151,35 +151,35 @@
 
 </div>
 <script>
-const inputField = document.querySelector('#contact-number-input');
+    const inputField = document.querySelector('#contact-number-input');
 
-function formatInput() {
-  let input = inputField.value;
-  let formattedInput = input.replace(/\D/g, '');
+    function formatInput() {
+        let input = inputField.value;
+        let formattedInput = input.replace(/\D/g, '');
 
-  // Set placeholder
-  inputField.placeholder = "XXXXXXXXXX";
+        // Set placeholder
+        inputField.placeholder = "XXXXXXXXXX";
 
-  if (formattedInput === '') {
-    // If the input is empty, display the "+63 " prefix
-    formattedInput = '+63 ';
-  } else if (formattedInput.startsWith('63')) {
-    // If the input starts with "63", replace it with "+63 "
-    formattedInput = '+63 ' + formattedInput.slice(2);
-  } else if (formattedInput.length >= 4) {
-    // If the input has at least 4 digits, add the country code and separate the digits with spaces
-    formattedInput = '+63 ' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
-  } else if (formattedInput.length >= 1) {
-    // If the input has at least 1 digit, add the country code
-    formattedInput = '+63 ' + formattedInput;
-  }
-  // Limit the formatted input to 10 digits
-  formattedInput = formattedInput.slice(0, 14);
+        if (formattedInput === '') {
+            // If the input is empty, display the "+63 " prefix
+            formattedInput = '+63 ';
+        } else if (formattedInput.startsWith('63')) {
+            // If the input starts with "63", replace it with "+63 "
+            formattedInput = '+63 ' + formattedInput.slice(2);
+        } else if (formattedInput.length >= 4) {
+            // If the input has at least 4 digits, add the country code and separate the digits with spaces
+            formattedInput = '+63 ' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
+        } else if (formattedInput.length >= 1) {
+            // If the input has at least 1 digit, add the country code
+            formattedInput = '+63 ' + formattedInput;
+        }
+        // Limit the formatted input to 10 digits
+        formattedInput = formattedInput.slice(0, 14);
 
-  inputField.value = formattedInput;
-}
-document.addEventListener('DOMContentLoaded', formatInput);
-inputField.addEventListener('input', formatInput);
+        inputField.value = formattedInput;
+    }
+    document.addEventListener('DOMContentLoaded', formatInput);
+    inputField.addEventListener('input', formatInput);
 
 
     $(document).ready(function() {
@@ -285,7 +285,7 @@ inputField.addEventListener('input', formatInput);
                             $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
                         }
                         $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
-                        
+
                         var date_bd = new Date(data.date_birth);
                         $("[name='date_birth_years']").val(date_bd.getFullYear());
                         $("[name='date_birth_month']").val((date_bd.getMonth() + 1).toString().padStart(2, '0'));
@@ -754,333 +754,332 @@ inputField.addEventListener('input', formatInput);
         console.log($(this).attr('value'));
         if (nextValue == 'step-2') {
             // if ($('#terms').prop('checked')) {
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var empty = $('#member_forms').find("input[required]").filter(function() {
+                return (!$.trim($(this).val()).length);
+            });
+
+            clearErrorField([
+                'firstname',
+                'middlename',
+                'lastname',
+                'gender',
+                'present_province',
+                'present_municipality',
+                'present_barangay',
+                'province',
+                'municipality',
+                'barangay',
+                'contact_no',
+                'email',
+                'civilstatus',
+                'dual_citizenship',
+                'citizenship',
+                'birthday'
+            ])
+
+            var gender = $('#member_forms').find("[name=gender]")
+            if (gender.val() == "") {
+                empty.push(gender[0])
+            }
+            var province = $('#member_forms').find("[name=present_province]")
+            if (province.val() == "" || province.val() == null || province.val() == undefined) {
+                empty.push(province[0])
+            }
+            var municipality = $('#member_forms').find("[name=present_municipality]")
+            if (municipality.val() == "" || municipality.val() == null || municipality.val() == undefined) {
+                empty.push(municipality[0])
+            }
+            var barangay = $('#member_forms').find("[name=present_barangay]")
+            if (barangay.val() == "" || barangay.val() == null || barangay.val() == undefined) {
+                empty.push(barangay[0])
+            }
+
+            var civilStatus = $('#member_forms').find("[name=civilstatus]")
+            if (civilStatus.val() == "") {
+                empty.push(civilStatus[0])
+            }
+
+            var citizenship = $('#member_forms').find("[name=citizenship]:checked")
+            if (!citizenship.val()) {
+                var newcitizenship = $('#member_forms').find("[name=citizenship]")
+                empty.push(newcitizenship[0])
+            }
+            var dualcitizen = $('#member_forms').find("[name=dual_citizenship]")
+            if ((citizenship.val() == "OTHERS" || citizenship.val() == "DUAL CITIZENSHIP") && dualcitizen.val() == "") {
+                empty.push(dualcitizen[0])
+            }
+
+            var sameAddress = $("#perm_add_check").prop('checked')
+            if (sameAddress == false) {
+                var per_province = $('#member_forms').find("[name=province]")
+                if ((per_province.val() == "" || per_province.val() == null || per_province.val() == undefined)) {
+                    empty.push(per_province[0])
+                }
+                var per_municipality = $('#member_forms').find("[name=municipality]")
+                if ((per_municipality.val() == "" || per_municipality.val() == null || per_municipality.val() == undefined)) {
+                    empty.push(per_municipality[0])
+                }
+                var per_barangay = $('#member_forms').find("[name=barangay]")
+                if ((per_barangay.val() == "" || per_barangay.val() == null || per_barangay.val() == undefined)) {
+                    empty.push(per_barangay[0])
+                }
+            }
+
+            var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
+            const fifteenYearsAgo = new Date();
+            fifteenYearsAgo.setFullYear(fifteenYearsAgo.getFullYear() - 15);
+            if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
+                var birthday = $('#member_forms').find("[data-set=birthday]")
+                empty.push(birthday[0])
+            }
+
+            var contact = $('#member_forms').find("[name=contact_no]")
+
+            const mobile_number = contact.val()
+
+            if (mobile_number.length == 14 && mobile_number.substring(4, 6) === "90" || mobile_number.substring(4, 6) === "91" || mobile_number.substring(4, 6) === "92" || mobile_number.substring(4, 6) === "93" || mobile_number.substring(4, 6) === "94" || mobile_number.substring(4, 6) === "95" || mobile_number.substring(4, 6) === "96" || mobile_number.substring(4, 6) === "97" || mobile_number.substring(0, 2) === "98") {} else {
+                empty.push(contact[0])
+            }
+
+
+            var email = $('#member_forms').find("[name=email]")
+            if (!isValidEmail(email.val())) {
+                empty.push(email[0])
+            }
+
+            if (empty.length) {
+                // var emptyFields = [];
+                // empty.each(function() {
+                // emptyFields.push($(this).attr("id"));
+                // });
+                empty.map((index, element) => {
+                    const name = $(element).attr("name")
+                    // if (name == 'contact_no') {
+                    //     const mobile_number = $(element).val()
+                    //     if (mobile_number.length === 11 && mobile_number.substring(4, 6) === "090" || mobile_number.substring(3, 2) === "091" || mobile_number.substring(3, 2) === "092" || mobile_number.substring(3, 2) === "093" || mobile_number.substring(3, 2) === "094" || mobile_number.substring(3, 2) === "095" || mobile_number.substring(3, 2) === "096" || mobile_number.substring(3, 2) === "097" || mobile_number.substring(3, 2) === "098") {
+                    //         $("[data-set=" + name + "]>#err-msg").addClass('d-none')
+                    //         $("[data-set=" + name + "]>select").removeClass('input-error')
+                    //         return
+                    //     } else {
+                    //         $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please input valid cellphone number (Ex. 09xx-xxx-xxxx).")
+                    //         $("[data-set=" + name + "]>select").addClass('input-error')
+                    //         return
+                    //     }
+                    // }
+                    if (name == 'email') {
+                        const email = $(element).val()
+                        if (!isValidEmail(email)) {
+                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid input, please check your email address. (email address must contain @sample.com).")
+                            $("[data-set=" + name + "]>select").addClass('input-error')
+                            return
+                        }
+                        $("[data-set=" + name + "]>#err-msg").addClass('d-none')
+                        $("[data-set=" + name + "]>select").removeClass('input-error')
+                        return
                     }
-                });
-                var empty = $('#member_forms').find("input[required]").filter(function() {
-                    return (!$.trim($(this).val()).length);
-                });
-
-                clearErrorField([
-                    'firstname',
-                    'middlename',
-                    'lastname',
-                    'gender',
-                    'present_province',
-                    'present_municipality',
-                    'present_barangay',
-                    'province',
-                    'municipality',
-                    'barangay',
-                    'contact_no',
-                    'email',
-                    'civilstatus',
-                    'dual_citizenship',
-                    'citizenship',
-                    'birthday'
-                ])
-
-                var gender = $('#member_forms').find("[name=gender]")
-                if (gender.val() == "") {
-                    empty.push(gender[0])
-                }
-                var province = $('#member_forms').find("[name=present_province]")
-                if (province.val() == "" || province.val() == null || province.val() == undefined) {
-                    empty.push(province[0])
-                }
-                var municipality = $('#member_forms').find("[name=present_municipality]")
-                if (municipality.val() == "" || municipality.val() == null || municipality.val() == undefined) {
-                    empty.push(municipality[0])
-                }
-                var barangay = $('#member_forms').find("[name=present_barangay]")
-                if (barangay.val() == "" || barangay.val() == null || barangay.val() == undefined) {
-                    empty.push(barangay[0])
-                }
-
-                var civilStatus = $('#member_forms').find("[name=civilstatus]")
-                if(civilStatus.val() == "") {
-                    empty.push(civilStatus[0])
-                }
-
-                var citizenship = $('#member_forms').find("[name=citizenship]:checked")
-                if(!citizenship.val()) {
-                    var newcitizenship = $('#member_forms').find("[name=citizenship]")
-                    empty.push(newcitizenship[0])
-                }
-                var dualcitizen = $('#member_forms').find("[name=dual_citizenship]")
-                if((citizenship.val() == "OTHERS" || citizenship.val() == "DUAL CITIZENSHIP" ) && dualcitizen.val() == "") {
-                    empty.push(dualcitizen[0])
-                }
-                
-                var sameAddress = $("#perm_add_check").prop('checked')
-                if (sameAddress == false) {
-                    var per_province = $('#member_forms').find("[name=province]")
-                    if ((per_province.val() == "" || per_province.val() == null || per_province.val() == undefined)) {
-                        empty.push(per_province[0])
+                    if (name == 'gender') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select gender.")
+                        $("[data-set=" + name + "]>select").addClass('input-error')
+                        return
                     }
-                    var per_municipality = $('#member_forms').find("[name=municipality]")
-                    if ((per_municipality.val() == "" || per_municipality.val() == null || per_municipality.val() == undefined)) {
-                        empty.push(per_municipality[0])
+                    if (name == 'province') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your province.")
+                        $("[data-set=" + name + "]>select").addClass('input-error')
+                        return
                     }
-                    var per_barangay = $('#member_forms').find("[name=barangay]")
-                    if ((per_barangay.val() == "" || per_barangay.val() == null || per_barangay.val() == undefined)) {
-                        empty.push(per_barangay[0])
+                    if (name == 'present_province') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your province.")
+                        $("[data-set=" + name + "]>select").addClass('input-error')
+                        return
                     }
-                }
-
-                var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
-                
-                const fifteenYearsAgo = new Date();
-                fifteenYearsAgo.setFullYear(fifteenYearsAgo.getFullYear() - 15);
-                if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
-                    var birthday = $('#member_forms').find("[data-set=birthday]")
-                    empty.push(birthday[0])
-                } 
-
-                var contact = $('#member_forms').find("[name=contact_no]")
-
-                const mobile_number = contact.val()
-
-                if (mobile_number.length == 14 && mobile_number.substring(4, 6) === "90" || mobile_number.substring(4, 6) === "91" || mobile_number.substring(4, 6) === "92" || mobile_number.substring(4, 6) === "93" || mobile_number.substring(4, 6) === "94" || mobile_number.substring(4, 6) === "95" || mobile_number.substring(4, 6) === "96" || mobile_number.substring(4, 6) === "97" || mobile_number.substring(0, 2) === "98") {} else {
-                    empty.push(contact[0])
-                }
-
-
-                var email = $('#member_forms').find("[name=email]")
-                if (!isValidEmail(email.val())) {
-                    empty.push(email[0])
-                }
-
-                if (empty.length) {
-                    // var emptyFields = [];
-                    // empty.each(function() {
-                    // emptyFields.push($(this).attr("id"));
-                    // });
-                    empty.map((index, element) => {
-                        const name = $(element).attr("name")
-                        // if (name == 'contact_no') {
-                        //     const mobile_number = $(element).val()
-                        //     if (mobile_number.length === 11 && mobile_number.substring(4, 6) === "090" || mobile_number.substring(3, 2) === "091" || mobile_number.substring(3, 2) === "092" || mobile_number.substring(3, 2) === "093" || mobile_number.substring(3, 2) === "094" || mobile_number.substring(3, 2) === "095" || mobile_number.substring(3, 2) === "096" || mobile_number.substring(3, 2) === "097" || mobile_number.substring(3, 2) === "098") {
-                        //         $("[data-set=" + name + "]>#err-msg").addClass('d-none')
-                        //         $("[data-set=" + name + "]>select").removeClass('input-error')
-                        //         return
-                        //     } else {
-                        //         $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please input valid cellphone number (Ex. 09xx-xxx-xxxx).")
-                        //         $("[data-set=" + name + "]>select").addClass('input-error')
-                        //         return
-                        //     }
-                        // }
-                        if (name == 'email') {
-                            const email = $(element).val()
-                            if (!isValidEmail(email)) {
-                                $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid input, please check your email address. (email address must contain @sample.com).")
-                                $("[data-set=" + name + "]>select").addClass('input-error')
-                                return
-                            }
-                            $("[data-set=" + name + "]>#err-msg").addClass('d-none')
-                            $("[data-set=" + name + "]>select").removeClass('input-error')
-                            return
-                        }
-                        if (name == 'gender') {
-                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select gender.")
-                            $("[data-set=" + name + "]>select").addClass('input-error')
-                            return
-                        }
-                        if (name == 'province') {
-                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your province.")
-                            $("[data-set=" + name + "]>select").addClass('input-error')
-                            return
-                        }
-                        if (name == 'present_province') {
-                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your province.")
-                            $("[data-set=" + name + "]>select").addClass('input-error')
-                            return
-                        }
-                        if (name == 'present_municipality') {
-                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your municipality.")
-                            $("[data-set=" + name + "]>select").addClass('input-error')
-                            return
-                        }
-                        if (name == 'municipality') {
-                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your municipality.")
-                            $("[data-set=" + name + "]>select").addClass('input-error')
-                            return
-                        }
-                        if (name == 'present_barangay') {
-                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your barangay.")
-                            $("[data-set=" + name + "]>select").addClass('input-error')
-                            return
-                        }
-                        if (name == 'barangay') {
-                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your barangay.")
-                            $("[data-set=" + name + "]>select").addClass('input-error')
-                            return
-                        }
-                        if (name == 'contact_no') {
-                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid number.")
-                            $("[data-set=" + name + "]>input").addClass('input-error')
-                            return
-                        }
-                        if (name == 'civilstatus') {
-                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your civil status.")
-                            $("[data-set=" + name + "]>select").addClass('input-error')
-                            return
-                        }
-                        if (name == 'citizenship') {
-                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your citizenship.")
-                            return
-                        }
-                        if (name == 'birthday') {
-                            $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid Age, you must be 15 years old or older.")
-                            return
-                        }
-                        console.log('name',name)
-                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please fill out this field.")
+                    if (name == 'present_municipality') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your municipality.")
+                        $("[data-set=" + name + "]>select").addClass('input-error')
+                        return
+                    }
+                    if (name == 'municipality') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your municipality.")
+                        $("[data-set=" + name + "]>select").addClass('input-error')
+                        return
+                    }
+                    if (name == 'present_barangay') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your barangay.")
+                        $("[data-set=" + name + "]>select").addClass('input-error')
+                        return
+                    }
+                    if (name == 'barangay') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your barangay.")
+                        $("[data-set=" + name + "]>select").addClass('input-error')
+                        return
+                    }
+                    if (name == 'contact_no') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid number.")
                         $("[data-set=" + name + "]>input").addClass('input-error')
-                        $("[data-set=" + name + "]>.input").addClass('input-error')
-                    })
-                    empty.first().focus();
-                    return
-                    // swal.fire("Error!", "Please fill out the required fields", "error");
+                        return
+                    }
+                    if (name == 'civilstatus') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your civil status.")
+                        $("[data-set=" + name + "]>select").addClass('input-error')
+                        return
+                    }
+                    if (name == 'citizenship') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your citizenship.")
+                        return
+                    }
+                    if (name == 'birthday') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid Age, you must be 15 years old or older.")
+                        return
+                    }
+                    console.log('name', name)
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please fill out this field.")
+                    $("[data-set=" + name + "]>input").addClass('input-error')
+                    $("[data-set=" + name + "]>.input").addClass('input-error')
+                })
+                empty.first().focus();
+                return
+                // swal.fire("Error!", "Please fill out the required fields", "error");
+            } else {
+                if ($('#app_trailNo').val() !== '' && personnel_id == undefined) {
+                    var formDatas = $("#member_forms").serialize();
+                    var additionalData = {
+                        'mem_id': mem_id,
+                        'personnel_id': pers_id,
+                    };
+                    formDatas += '&' + $.param(additionalData);
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('update_trail_member') }}",
+                        data: formDatas,
+                        success: function(data) {
+                            if (data.success != '') {
+                                mem_id = data.mem_id;
+                                personnel_id = data.success;
+                                $("#step-1").removeClass('d-flex').addClass("d-none");
+                                $("#member_forms").removeClass('mh-reg-form');
+                                $("#member_forms_con").addClass('mh-reg-form');
+                                $("#step-2").removeClass('d-none').addClass("d-flex");
+                                $("#back").attr('value', 'step-1');
+                                $(this).attr('value', 'step-3');
+                                $("#line").removeClass('step-1').addClass('step-2');
+                                $("#registration-title").text(stepTitle[1]);
+                                $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
+                                $("#stepper-2").addClass("active");
+                                // $("#back").removeClass("disabled");
+                            }
+                        }
+                    });
                 } else {
-                    if ($('#app_trailNo').val() !== '' && personnel_id == undefined) {
-                        var formDatas = $("#member_forms").serialize();
-                        var additionalData = {
-                            'mem_id': mem_id,
-                            'personnel_id': pers_id,
-                        };
-                        formDatas += '&' + $.param(additionalData);
+                    if (!personnel_id) {
                         $.ajax({
                             type: 'POST',
-                            url: "{{ route('update_trail_member') }}",
-                            data: formDatas,
+                            url: "{{ route('add_member') }}",
+                            data: $('#member_forms').serialize(),
+                            beforeSend: function() {
+                                $('#loading').show();
+                            },
                             success: function(data) {
                                 if (data.success != '') {
+                                    reference_no = data.randomnum;
                                     mem_id = data.mem_id;
                                     personnel_id = data.success;
-                                    $("#step-1").removeClass('d-flex').addClass("d-none");
-                                    $("#member_forms").removeClass('mh-reg-form');
-                                    $("#member_forms_con").addClass('mh-reg-form');
-                                    $("#step-2").removeClass('d-none').addClass("d-flex");
-                                    $("#back").attr('value', 'step-1');
-                                    $(this).attr('value', 'step-3');
-                                    $("#line").removeClass('step-1').addClass('step-2');
-                                    $("#registration-title").text(stepTitle[1]);
-                                    $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
-                                    $("#stepper-2").addClass("active");
-                                    // $("#back").removeClass("disabled");
+                                    // Swal.fire({
+                                    //     html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>" + reference_no + "</span><br><span>Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.</span>" +
+                                    //         "<br><span>We have emailed your application number to the email you provided in the previous step. You may also take a screenshot or copy this number for future reference.</span>" +
+                                    //         "</div>",
+                                    //     icon: 'success',
+                                    //     confirmButtonColor: '#3085d6',
+                                    //     confirmButtonText: 'Proceed',
+                                    // });
+                                    Swal.fire({
+                                        html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>" + reference_no + "</span><br><span style='color:red'>Please screenshot or copy this number for future reference.</span>" +
+                                            "<br><span><b>Use this number to:</b><br>&#x2713; Resume your application at any time<br> &#x2713; Check the status of your application</span>" +
+                                            "<br><span>We have also emailed your application number to the email you provided in Step 1.</span>" +
+                                            "</div>",
+                                        icon: 'success',
+                                        confirmButtonColor: '#3085d6',
+                                        confirmButtonText: 'Proceed',
+                                    });
+                                    $('.applicationNo').show(200);
+                                    $('#application_no').text(reference_no);
+                                    $('#app_no').val(reference_no);
+                                    $('#appNo').val(reference_no);
+                                    $('#test').val(reference_no);
                                 }
-                            }
+                            },
+                            complete: function(data) {
+                                $('#loading').hide();
+                            },
                         });
+                        $("#step-1").removeClass('d-flex').addClass("d-none");
+                        $("#member_forms").removeClass('mh-reg-form');
+                        $("#member_forms_con").addClass('mh-reg-form');
+                        $("#step-2").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-1');
+                        $(this).attr('value', 'step-3');
+                        $("#line").removeClass('step-1').addClass('step-2');
+                        $("#registration-title").text(stepTitle[1]);
+                        $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
+                        $("#stepper-2").addClass("active");
                     } else {
-                        if (!personnel_id) {
-                            $.ajax({
-                                type: 'POST',
-                                url: "{{ route('add_member') }}",
-                                data: $('#member_forms').serialize(),
-                                beforeSend: function() {
-                                    $('#loading').show();
-                                },
-                                success: function(data) {
-                                    if (data.success != '') {
-                                        reference_no = data.randomnum;
-                                        mem_id = data.mem_id;
-                                        personnel_id = data.success;
-                                        // Swal.fire({
-                                        //     html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>" + reference_no + "</span><br><span>Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.</span>" +
-                                        //         "<br><span>We have emailed your application number to the email you provided in the previous step. You may also take a screenshot or copy this number for future reference.</span>" +
-                                        //         "</div>",
-                                        //     icon: 'success',
-                                        //     confirmButtonColor: '#3085d6',
-                                        //     confirmButtonText: 'Proceed',
-                                        // });
-                                        Swal.fire({
-                                            html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>" + reference_no + "</span><br><span style='color:red'>Please screenshot or copy this number for future reference.</span>" +
-                                                    "<br><span><b>Use this number to:</b><br>&#x2713; Resume your application at any time<br> &#x2713; Check the status of your application</span>" +
-                                                    "<br><span>We have also emailed your application number to the email you provided in Step 1.</span>" +
-                                                "</div>",
-                                                icon: 'success',
-                                                confirmButtonColor: '#3085d6',
-                                                confirmButtonText: 'Proceed',
-                                        });
-                                        $('.applicationNo').show(200);
-                                        $('#application_no').text(reference_no);
-                                        $('#app_no').val(reference_no);
-                                        $('#appNo').val(reference_no);
-                                        $('#test').val(reference_no);
-                                    }
-                                },
-                                complete: function(data) {
-                                    $('#loading').hide();
-                                },
-                            });
-                            $("#step-1").removeClass('d-flex').addClass("d-none");
-                            $("#member_forms").removeClass('mh-reg-form');
-                            $("#member_forms_con").addClass('mh-reg-form');
-                            $("#step-2").removeClass('d-none').addClass("d-flex");
-                            $("#back").attr('value', 'step-1');
-                            $(this).attr('value', 'step-3');
-                            $("#line").removeClass('step-1').addClass('step-2');
-                            $("#registration-title").text(stepTitle[1]);
-                            $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
-                            $("#stepper-2").addClass("active");
-                        } else {
-                            if (originalData !== $("#member_forms").serialize()) {
-                                Swal.fire({
-                                    text: 'Do you want to allow these changes on your application?',
-                                    icon: 'warning',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Yes',
-                                    cancelButtonText: 'No',
-                                }).then((result) => {
-                                    if (result.isConfirmed) {
-                                        var formDatas = $("#member_forms").serialize();
-                                        var additionalData = {
-                                            'mem_id': mem_id,
-                                            'personnel_id': personnel_id,
-                                        };
-                                        formDatas += '&' + $.param(additionalData);
-                                        $.ajax({
-                                            type: 'POST',
-                                            url: "{{ route('add_member_update') }}",
-                                            data: formDatas,
-                                            success: function(data) {
-                                                if (data.success != '') {
-                                                    mem_id = data.mem_id;
-                                                    personnel_id = data.success;
-                                                    Swal.fire({
-                                                        title: 'Updates applied successfully.',
-                                                        icon: 'success'
-                                                    });
-                                                }
+                        if (originalData !== $("#member_forms").serialize()) {
+                            Swal.fire({
+                                text: 'Do you want to allow these changes on your application?',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33',
+                                confirmButtonText: 'Yes',
+                                cancelButtonText: 'No',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    var formDatas = $("#member_forms").serialize();
+                                    var additionalData = {
+                                        'mem_id': mem_id,
+                                        'personnel_id': personnel_id,
+                                    };
+                                    formDatas += '&' + $.param(additionalData);
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: "{{ route('add_member_update') }}",
+                                        data: formDatas,
+                                        success: function(data) {
+                                            if (data.success != '') {
+                                                mem_id = data.mem_id;
+                                                personnel_id = data.success;
+                                                Swal.fire({
+                                                    title: 'Updates applied successfully.',
+                                                    icon: 'success'
+                                                });
                                             }
-                                        });
-                                    } else {
-                                        Swal.fire('Warning!',
-                                            'Update was cancelled by the user. No changes were made.',
-                                            'warning'
-                                        );
-                                    }
-                                });
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire('Warning!',
+                                        'Update was cancelled by the user. No changes were made.',
+                                        'warning'
+                                    );
+                                }
+                            });
 
-                            }
-                            $("#step-1").removeClass('d-flex').addClass("d-none");
-                            $("#member_forms").removeClass('mh-reg-form');
-                            $("#member_forms_con").addClass('mh-reg-form');
-                            $("#step-2").removeClass('d-none').addClass("d-flex");
-                            $("#back").attr('value', 'step-1')
-                            $(this).attr('value', 'step-3')
-                            $("#line").removeClass('step-1').addClass('step-2')
-                            $("#registration-title").text(stepTitle[1])
-                            $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
-                            $("#stepper-2").addClass("active")
                         }
+                        $("#step-1").removeClass('d-flex').addClass("d-none");
+                        $("#member_forms").removeClass('mh-reg-form');
+                        $("#member_forms_con").addClass('mh-reg-form');
+                        $("#step-2").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-1')
+                        $(this).attr('value', 'step-3')
+                        $("#line").removeClass('step-1').addClass('step-2')
+                        $("#registration-title").text(stepTitle[1])
+                        $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
+                        $("#stepper-2").addClass("active")
                     }
                 }
+            }
             // } else {
             //     Swal.fire({
             //         title: 'Terms and Conditions!',
@@ -1133,11 +1132,17 @@ inputField.addEventListener('input', formatInput);
                 empty.push(appointment[0])
             }
 
-            var selectedDate = new Date($("#date_appoint_months").val() + " " + $("#date_appoint_days").val() + ", " + $("#date_appoint_years").val());
+            var selectedDate = "Invalid Date";
+            if($("#date_appoint_months").val() != "" && $("#date_appoint_days").val() != "" && $("#date_appoint_years").val() != "") {
+                selectedDate = new Date($("#date_appoint_months").val() + " " + $("#date_appoint_days").val() + ", " + $("#date_appoint_years").val())
+            }
+            
             var currentDate = new Date();
-            if (selectedDate > currentDate) {
+            console.log(selectedDate,'123123')
+            if (selectedDate > currentDate || selectedDate == "Invalid Date") {
                 $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none').text("Invalid appointment date, please check")
                 $("[data-set=date_appoint_months]>.input").addClass('input-error')
+                empty.push($("[data-set=date_appoint_months]"))
             } else {
                 $("[data-set=date_appoint_months]>#err-msg").addClass('d-none')
                 $("[data-set=date_appoint_months]>.input").removeClass('input-error')
@@ -1753,6 +1758,7 @@ inputField.addEventListener('input', formatInput);
         var citizen = $(this).val();
         if (citizen == 'DUAL CITIZENSHIP' || citizen == 'OTHERS') {
             $('#d_citizen').prop('disabled', false);
+            $('#d_citizen').val('');
         } else {
             $('#d_citizen').prop('disabled', true);
             $('#d_citizen').val('N/A');
@@ -1909,11 +1915,11 @@ inputField.addEventListener('input', formatInput);
         //     }
         // })
         var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp;
-                window.open(url, 'targetWindow',
-                    'resizable=yes,width=1000,height=1000');
-                setTimeout(function() {
-                    location.reload();
-                }, 1000);
+        window.open(url, 'targetWindow',
+            'resizable=yes,width=1000,height=1000');
+        setTimeout(function() {
+            location.reload();
+        }, 1000);
     });
     $(document).on('click', '#cont_app', function(e) {
         $("#resetPasswordForm").attr("hidden", true);
@@ -1965,7 +1971,7 @@ inputField.addEventListener('input', formatInput);
                         $("[name='suffix']").val(data.suffix == null ? '' : data.suffix);
                     }
                     $("[name='firstname']").val(data.firstname == null ? '' : data.firstname);
-                    
+
                     $("[name='date_birth']").val(data.date_birth == null ? '' : moment(data.date_birth).format('MMMM D, YYYY'));
                     $("[name='gender']").val(data.gender == null ? '' : data.gender);
                     $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
