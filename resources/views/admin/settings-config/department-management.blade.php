@@ -101,7 +101,7 @@
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Campus</label>
-                        <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
+                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
                           <option value="">Select Campus</option>
                           <!-- <option value="all">All Campus</option> -->
                           @foreach($campus as $row)
@@ -112,7 +112,7 @@
                       <div class="mp-input-group">
 
                         <label class="mp-input-group__label">College / Unit</label>
-                        <select class="mp-input-group__input mp-text-field" name="college_unit" id="college_unit" required>
+                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="college_unit" id="college_unit" required>
                           <option value="">Select College/Unit</option>
                           <!-- <option value="">Select College/Unit</option>
                           @foreach($college_unit as $row)

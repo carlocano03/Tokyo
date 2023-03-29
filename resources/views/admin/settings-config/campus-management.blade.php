@@ -106,12 +106,16 @@
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Campus Cluster No.</label>
-                        <select class="mp-input-group__input mp-text-field" name="cluster_id" id="cluster_id" required>
+                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="cluster_id" id="cluster_id" required>
                           <option value="">Select Cluster No.</option>
-                          <option value="1">1</option>
-                          <option value="2">2</option>
-                          <option value="3">3</option>
-                          <option value="4">4</option>
+                          <option value="1">Cluster 1 - DSB</option>
+                          <option value="2">Cluster 2 - LBOU</option>
+                          <option value="3">Cluster 3 - MLAPGH</option>
+                          <option value="4">Cluster 4 - CVM</option>
+
+
+
+
                         </select>
                       </div>
                       <!-- <div class="mp-input-group">
