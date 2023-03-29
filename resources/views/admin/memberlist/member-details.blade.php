@@ -2219,7 +2219,7 @@
                                                 <label class="mp-input-group__label" style="margin-top: 10px;float: left;">Change Status</label>
                                                 <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
                                                     <option value="">Active</option>
-                                                    <option value="AA">Inactive</option>
+                                                    <option value=" ">Inactive</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -2273,14 +2273,14 @@
                                                 <label class="mp-input-group__label">Campus</label>
                                                 <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
                                                     <option value="">Select Campus</option>
-                                                    <option value="AA">Campus 1</option>
+                                                    <option value=" ">Campus 1</option>
                                                 </select>
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Department</label>
                                                 <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
                                                     <option value="">Select Department</option>
-                                                    <option value="AA">Department 1</option>
+                                                    <option value=" ">Department 1</option>
                                                 </select>
                                             </div>
                                             <div class="mp-input-group">

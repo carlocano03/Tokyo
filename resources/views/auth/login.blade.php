@@ -198,11 +198,11 @@
 
 
     <div class="mp-mt5 d-flex flex-row items-between">
-        <button class="up-button btn-md mp-mt3 mp-mb3" id="fp_back" value="">
+        <button class="up-button-greenbtn-md mp-mt3 mp-mb3" id="fp_back" value="">
             <span>Print</span>
         </button>
 
-        <button class="up-button btn-md mp-mt3 mp-mb3" id="print_app">Print</button>
+        <button class="up-button-green btn-md mp-mt3 mp-mb3" id="print_app">Print</button>
         <button class="up-button btn-md mp-mt3 mp-mb3 magenta-bg" id="cont_app">Continue the
             application</button>
     </div>

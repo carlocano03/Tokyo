@@ -1563,7 +1563,7 @@
                                                 <span>Filtering Section</span>
                                                 <span class="mp-pr2">
                                                     <button class="f-button font-bold">Export</button>
-                                                    <button class="f-button font-bold">Print</button>
+                                                    <button class="f-button font-bold up-button-green">Print</button>
                                                 </span>
                                             </div>
 
@@ -1622,7 +1622,7 @@
                                                         <span>View User Option</span>
                                                         <select name="view_all" id="view_all" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;" <?= Auth::user()->user_level != 'ADMIN' ? 'disabled' : '' ?>>
                                                             <option value="">All Records</option>
-                                                            <option value="AA" <?= Auth::user()->user_level == 'AA' ? 'selected' : '' ?>>AA</option>
+                                                            <option value="AA" <?= Auth::user()->user_level == 'AA' ? 'selected' : '' ?>>AO</option>
                                                             <option value="CFM" <?= Auth::user()->user_level == 'CFM' ? 'selected' : '' ?>>CFM</option>
                                                             <option value="HRDO" <?= Auth::user()->user_level == 'HRDO' ? 'selected' : '' ?>>HRDO</option>
                                                         </select>
