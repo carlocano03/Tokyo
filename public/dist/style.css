@@ -6630,6 +6630,10 @@ text.highcharts-credits {
     border-top: 10px solid #1a8981;
 }
 
+.tab-component>.header-tabs>span.active>.notification {
+    display: none;
+}
+
 .tab-body {
     border: 1px solid #ececec;
     padding: 20px;
