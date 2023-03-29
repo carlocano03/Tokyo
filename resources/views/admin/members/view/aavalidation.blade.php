@@ -1447,9 +1447,6 @@
             }
             $(this).addClass('d-none')
         })
-        if(tab.attr('data-set') == 0) {
-            console.log('123')
-        }
     }
     $(document).on('change', 'input[type="checkbox"]', function(e) {
         console.log($(this).parent().parent().attr('data-set'))
