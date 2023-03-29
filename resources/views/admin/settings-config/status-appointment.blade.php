@@ -210,11 +210,11 @@
 
                   </div>
                   <div class="records-button" style="transform: scale(0.7);">
-                    <a class="up-button btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
+                    <a class="up-button-green btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
                       <span>Print</span>
                     </a>
 
-                    <a class="up-button-green btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
+                    <a class="up-button  btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
                       <span>Download</span>
                     </a>
                   </div>

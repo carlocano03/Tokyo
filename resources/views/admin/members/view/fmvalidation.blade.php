@@ -647,64 +647,77 @@
     .color-black {
         color: black;
     }
-    .member-detail-title{
+
+    .member-detail-title {
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
     }
+
     .member-detail-title.open-details {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
-    .member-detail-body{
+
+    .member-detail-body {
         display: none !important;
     }
+
     .member-detail-body.open-details {
         display: flex !important;
     }
 
-    .membership-title{
+    .membership-title {
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
     }
+
     .membership-title.open-details {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
-    .membership-body{
+
+    .membership-body {
         display: none !important;
     }
+
     .membership-body.open-details {
         display: flex !important;
     }
-    
 
-    .forms_attachment-title{
+
+    .forms_attachment-title {
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
     }
+
     .forms_attachment-title.open-details {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
-    .forms_attachment-body{
+
+    .forms_attachment-body {
         display: none !important;
     }
+
     .forms_attachment-body.open-details {
         display: flex !important;
     }
 
 
-    .employee-title{
+    .employee-title {
         border-bottom-left-radius: 7px;
         border-bottom-right-radius: 7px;
     }
+
     .employee-title.open-details {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
-    .employee-body{
+
+    .employee-body {
         display: none !important;
     }
+
     .employee-body.open-details {
         display: flex !important;
     }
@@ -716,7 +729,6 @@
     .employee-detail.open-detail {
         display: grid;
     }
-
 </style>
 <div id="summaryModal" class="d-none">
     <div class="modalContent">
@@ -904,7 +916,6 @@
             $(".employee-up").addClass("d-none")
         }
     })
-
 </script>
 <div class="row no-gutter ml-0 mr-0 p-5px mh-content" id="view-member-details">
 
@@ -918,7 +929,7 @@
                     <span class="font-sm">Membership Application Number</span>
                     <br />
                     <span class="magenta-clr font-bold">{{$rec->app_no}}</span>
-                  
+
 
                 </div>
                 <div class="w-auto">
@@ -934,17 +945,16 @@
                     @else
                     <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
                     @endif
-                    
+
                 </div>
                 <div class="w-auto d-flex justify-content-end">
                     <span>
-                        <a href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
-                        style='cursor: pointer; padding: 0'>
-                            <button class="f-button">
+                        <a href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
+                            <button class="f-button up-button-green">
                                 Print/Download
                             </button>
                         </a>
-                        <button class="f-button green-bg">
+                        <button class="f-button up-button">
                             Download
                         </button>
                     </span>
@@ -965,48 +975,48 @@
                 <div class="card-body trail" id="trail-body">
                     <div class="table-form w-trail mp-pv2 mp-ph3">
                         @php
-                            $counter = 0;
-                            $total = count($trailing);
+                        $counter = 0;
+                        $total = count($trailing);
                         @endphp
                         @foreach ($trailing as $data)
                         @php
-                            $counter++;
+                        $counter++;
                         @endphp
-                            <div class="span-2 d-flex flex-column relative">
-                                <div class="d-flex flex-column absolute top-circle w-full">
-                                    <span class="circle"></span>
-                                </div>
-                                <div class="line-trail table-form w-full">
-                                    <span class="line-child span-6 {{ $counter == 1 ? 'white' : '' }}"></span>
-                                    <span class="line-child span-6 {{ $counter == $total ? 'white' : '' }}"></span>
-                                </div>
-                                <div class="table-form">
-                                    <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                        <span class="font-sm">Status</span>
-                                        <span class="mp-mh1">
-                                            @if ($data->status_remarks === 'APPROVED BY HRDO' || $data->status_remarks === 'FORWARDED TO FM' || $data->status_remarks === 'FOR PAYROLL ADVISE')
-                                            <span class="status-title green-bg">
-                                                APPROVED
-                                            </span>
-                                        @elseif ($data->status_remarks !== 'APPROVED BY HRDO' && $data->status_remarks !== 'NEW APPLICATION')
-                                            <span class="status-title orage-bg">
-                                                PROCESSING
-                                            </span>
-                                        @else
-                                            <span class="status-title maroon-bg">
-                                                NEW APPLICATION
-                                            </span>
-                                        @endif
+                        <div class="span-2 d-flex flex-column relative">
+                            <div class="d-flex flex-column absolute top-circle w-full">
+                                <span class="circle"></span>
+                            </div>
+                            <div class="line-trail table-form w-full">
+                                <span class="line-child span-6 {{ $counter == 1 ? 'white' : '' }}"></span>
+                                <span class="line-child span-6 {{ $counter == $total ? 'white' : '' }}"></span>
+                            </div>
+                            <div class="table-form">
+                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
+                                    <span class="font-sm">Status</span>
+                                    <span class="mp-mh1">
+                                        @if ($data->status_remarks === 'APPROVED BY HRDO' || $data->status_remarks === 'FORWARDED TO FM' || $data->status_remarks === 'FOR PAYROLL ADVISE')
+                                        <span class="status-title green-bg">
+                                            APPROVED
                                         </span>
-                                        <span class="font-sm">Remarks</span>
-                                        <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
-                                        <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
-                                        <span class="font-sm">Time: <span>{{ date('h:i a', strtotime($data->time_stamp)) }}</span></span>
-                                    </div>
+                                        @elseif ($data->status_remarks !== 'APPROVED BY HRDO' && $data->status_remarks !== 'NEW APPLICATION')
+                                        <span class="status-title orage-bg">
+                                            PROCESSING
+                                        </span>
+                                        @else
+                                        <span class="status-title maroon-bg">
+                                            NEW APPLICATION
+                                        </span>
+                                        @endif
+                                    </span>
+                                    <span class="font-sm">Remarks</span>
+                                    <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
+                                    <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
+                                    <span class="font-sm">Time: <span>{{ date('h:i a', strtotime($data->time_stamp)) }}</span></span>
                                 </div>
                             </div>
-                        @endforeach                             
-                        
+                        </div>
+                        @endforeach
+
                     </div>
                 </div>
             </div>
@@ -1015,7 +1025,7 @@
                     <span>Validation Process</span><span><button class="f-button">Show Details</button></span>
                 </div>
                 <div class="mp-pv5 mp-mt3">
-                
+
                     <div class="card-container card p-0 mp-mt3">
                         <div class="card-header d-flex items-between maroon-bg member-detail-title open-details">
                             <span>Personal Details</span><span>
@@ -1044,7 +1054,7 @@
                                                 Birthday
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                            {{ date('F d, Y', strtotime($rec->date_birth)) }}
+                                                {{ date('F d, Y', strtotime($rec->date_birth)) }}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1076,7 +1086,7 @@
                                                 Address
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                            {{$rec->bldg_street}}, {{$rec->barangay}}, {{$rec->municipality}}, {{$rec->province}}, {{$rec->zipcode}}
+                                                {{$rec->bldg_street}}, {{$rec->barangay}}, {{$rec->municipality}}, {{$rec->province}}, {{$rec->zipcode}}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1084,7 +1094,7 @@
                                                 Contact No.
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                            {{$rec->contact_no}}
+                                                {{$rec->contact_no}}
                                             </span>
                                         </div>
                                         <div class="span-4 d-flex flex-column">
@@ -1092,13 +1102,13 @@
                                                 Email
                                             </span>
                                             <span class="font-md color-black mp-pl2">
-                                            {{$rec->email}}
+                                                {{$rec->email}}
                                             </span>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="span-4 font-sm d-flex flex-column justify-content-around magenta-clr">
-                                <p class="mp-text-right">
+                                    <p class="mp-text-right">
                                         Endorsement Date
                                         <br>
                                         <span class="font-md font-bold">
@@ -1137,11 +1147,11 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="mp-pv5 mp-mb3">
                     <div class="card-container card p-0 mp-mt3">
                         <div class="card-header d-flex items-between maroon-bg membership-title open-details">
-                        
+
                             <span>Membership Details</span><span>
                                 <span>
                                     <a class="cursor-pointer m-0 p-0 mp-mr2" id="membership-toggle">
@@ -1158,7 +1168,7 @@
                                         Monthly salary
                                     </span>
                                     <span class="font-md color-black">
-                                    ₱{{ number_format($rec->monthly_salary, 2, '.', ',') }}
+                                        ₱{{ number_format($rec->monthly_salary, 2, '.', ',') }}
                                     </span>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
@@ -1166,7 +1176,7 @@
                                         Salary Grade
                                     </span>
                                     <span class="font-md color-black">
-                                    {{ $rec->salary_grade }}
+                                        {{ $rec->salary_grade }}
                                     </span>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
@@ -1174,7 +1184,7 @@
                                         Monthly Contributions
                                     </span>
                                     <span class="font-md color-black">
-                                    {{ $rec->contribution_set }}
+                                        {{ $rec->contribution_set }}
                                     </span>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
@@ -1182,7 +1192,7 @@
                                         Equivalent Value
                                     </span>
                                     <span class="font-md color-black">
-                                    {{ $rec->amount }}
+                                        {{ $rec->amount }}
                                     </span>
                                 </div>
                             </div>
@@ -1207,34 +1217,28 @@
                                     <span>
                                         Membership Form
                                     </span>
-                                    <a class='view_member view-member' 
-                                    href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
-                                    style='cursor: pointer; padding: 0'>
-                                    <span class="mp-link link_style">View Membership form</span>
-                                </a>
+                                    <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
+                                        <span class="mp-link link_style">View Membership form</span>
+                                    </a>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
                                     <span>
                                         Proxy Form
                                     </span>
-                                    <a class='view_member view-member' 
-                                    href="javascript:void(0)" onclick="window.open('{{ URL::to('/generateProxyForm/') }}/{{ $rec->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
-                                    style='cursor: pointer; padding: 0'>
-                                    
-                                    <span class="mp-link link_style">View Proxy form</span>
-                                </a>
+                                    <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/generateProxyForm/') }}/{{ $rec->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
+
+                                        <span class="mp-link link_style">View Proxy form</span>
+                                    </a>
                                 </div>
                                 <div class="d-flex flex-column items-center mp-text-center">
                                     <span>
                                         AXA Form
                                     </span>
-                                    <a class='view_member view-member' 
-                                    href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');"
-                                    style='cursor: pointer; padding: 0'>
-                                    <span class="mp-link link_style">View AXA form</span>
-                                </a>
+                                    <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
+                                        <span class="mp-link link_style">View AXA form</span>
+                                    </a>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -1390,7 +1394,7 @@
                 </div>
                 <form id="fm_validation">
                     {{ csrf_field() }}
-                    <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}" >
+                    <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}">
                     <div class="table-form form-header w-full remarks-gray-bg">
                         <div class="span-12 d-flex flex-column mp-pv3 mp-ph3 gap-10">
                             <span>General Remarks</span>
@@ -1399,7 +1403,7 @@
                                 <div class="d-flex flex-column" style="gap: 5px;"></div>
                                 @if ($rec->validator_remarks == 'FORWARDED TO FM')
                                 <span class="d-flex" style="gap: 10px">
-                                    <button class="f-button align-self-end" id="save_record" >
+                                    <button class="f-button align-self-end" id="save_record">
                                         <span id="save_text">Verified / Saved to Payroll Advise</span>
                                     </button>
                                 </span>
@@ -1481,65 +1485,65 @@
             }
         });
     });
-$('#save_record').click(function(event) {
-    event.preventDefault();
+    $('#save_record').click(function(event) {
+        event.preventDefault();
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    var formDatas = $("#fm_validation").serialize();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var formDatas = $("#fm_validation").serialize();
 
-    Swal.fire({
-        title: 'Are you sure?',
-        text: "You want to continue this transaction.",
-        icon: 'question',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, continue'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('validate_step_reject') }}",
-                data: formDatas,
-                success: function(data) {
-                    if (data.success == 1) {
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{ route('save_fm_validation') }}",
-                            data: formDatas,
-                            beforeSend: function() {
-                                $('#loading').show();
-                            },
-                            success: function(data) {
-                                if (data.success != '') {
-                                    Swal.fire({
-                                        text: 'Application has been save successfully validated and ready to forward.',
-                                        icon: 'success',
-                                        confirmButtonColor: '#3085d6',
-                                        confirmButtonText: 'Proceed',
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                        window.location.href = '{{ route('admin.members_records') }}';
-                                        }
-                                    });
-                                } else{
-                                    alert('Failed');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to continue this transaction.",
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, continue'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('validate_step_reject') }}",
+                    data: formDatas,
+                    success: function(data) {
+                        if (data.success == 1) {
+                            $.ajax({
+                                type: 'POST',
+                                url: "{{ route('save_fm_validation') }}",
+                                data: formDatas,
+                                beforeSend: function() {
+                                    $('#loading').show();
+                                },
+                                success: function(data) {
+                                    if (data.success != '') {
+                                        Swal.fire({
+                                            text: 'Application has been save successfully validated and ready to forward.',
+                                            icon: 'success',
+                                            confirmButtonColor: '#3085d6',
+                                            confirmButtonText: 'Proceed',
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                window.location.href = '{{ route('
+                                                admin.members_records ') }}';
+                                            }
+                                        });
+                                    } else {
+                                        alert('Failed');
+                                    }
                                 }
-                            }
-                        });
-                    } else {
-                        Swal.fire("Error!", "You already forwarded this application to FM and cannot be changes.", "error");
+                            });
+                        } else {
+                            Swal.fire("Error!", "You already forwarded this application to FM and cannot be changes.", "error");
+                        }
                     }
-                }
-            });
-        }
-    })
-    
-});         
-                
+                });
+            }
+        })
+
+    });
 </script>
 @endsection

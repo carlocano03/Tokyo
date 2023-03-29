@@ -793,8 +793,8 @@
                                                     <div class="card-header filtering items-between d-flex">
                                                         <span>Filtering Section</span>
                                                         <span class="mp-pr2">
-                                                            <button class="f-button font-bold">Print</button>
-                                                            <button class="f-button font-bold">Download</button>
+                                                            <button class="f-button font-bold up-button-green">Print</button>
+                                                            <button class="f-button font-bold up-button">Download</button>
                                                         </span>
                                                     </div>
 

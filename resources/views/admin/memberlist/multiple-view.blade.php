@@ -1726,7 +1726,7 @@
                                              <label class="mp-input-group__label" style="margin-top: 10px;float: left;">Change Status</label>
                                              <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
                                                  <option value="">Active</option>
-                                                 <option value="AA">Inactive</option>
+                                                 <option value=" ">Inactive</option>
                                              </select>
                                          </div>
                                      </div>

@@ -925,14 +925,7 @@
                 </div>
                 <div class="card-body filtering-section-body justify-content-center gap-10 flex-column h-100">
                     <div class="w-full d-flex flex-row flex-wrap gap-10">
-                        <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                            <span>Date Range</span>
-                            <div class="date_range d-flex">
-                                <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                            </div>
-                        </span>
+
                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                             <span>Select Cluster</span>
                             <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="status_select">

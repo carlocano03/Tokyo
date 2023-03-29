@@ -739,7 +739,7 @@
 
     .supporting-detail {
         display: none;
-        
+
     }
 
     .supporting-detail.open-detail {
@@ -747,11 +747,9 @@
     }
 
     .border-bottom-1 {
-        border-bottom: 1px solid #1a8981;;
+        border-bottom: 1px solid #1a8981;
+        ;
     }
-
-
-
 </style>
 <div id="summaryModal" class="d-none">
     <div class="modalContent">
@@ -878,7 +876,7 @@
                     <span class="font-sm">Membership Application Number</span>
                     <br />
                     <span class="magenta-clr font-bold">{{$rec->app_no}}</span>
-                  
+
 
                 </div>
                 <div class="w-auto">
@@ -886,7 +884,7 @@
                     <br />
                     <span class="magenta-clr font-bold">
                         {{ date('F d, Y', strtotime($rec->app_date)) }}
-                        
+
                     </span>
                 </div>
                 <div class="w-auto">
@@ -900,10 +898,10 @@
                 </div>
                 <div class="w-auto d-flex justify-content-end">
                     <span>
-                        <button class="f-button">
+                        <button class="f-button up-button-green">
                             Print
                         </button>
-                        <button class="f-button green-bg">
+                        <button class="f-button up-button">
                             Download
                         </button>
                     </span>
@@ -923,52 +921,52 @@
                 </div>
                 <div class="card-body trail" -trail id="trail-body">
                     <div class="table-form w-trail mp-pv2 mp-ph3">
-                    @php
-                            $counter = 0;
-                            $total = count($trailing);
+                        @php
+                        $counter = 0;
+                        $total = count($trailing);
                         @endphp
                         @foreach ($trailing as $data)
                         @php
-                            $counter++;
+                        $counter++;
                         @endphp
-                            <div class="span-2 d-flex flex-column relative">
-                                <div class="d-flex flex-column absolute top-circle w-full">
-                                    <span class="circle"></span>
-                                </div>
-                                <div class="line-trail table-form w-full">
-                                    <span class="line-child span-6 {{ $counter == 1 ? 'white' : '' }}"></span>
-                                    <span class="line-child span-6 {{ $counter == $total ? 'white' : '' }}"></span>
-                                </div>
-                                <div class="table-form">
-                                    <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
-                                        <span class="font-sm">Status</span>
-                                        <span class="mp-mh1">
+                        <div class="span-2 d-flex flex-column relative">
+                            <div class="d-flex flex-column absolute top-circle w-full">
+                                <span class="circle"></span>
+                            </div>
+                            <div class="line-trail table-form w-full">
+                                <span class="line-child span-6 {{ $counter == 1 ? 'white' : '' }}"></span>
+                                <span class="line-child span-6 {{ $counter == $total ? 'white' : '' }}"></span>
+                            </div>
+                            <div class="table-form">
+                                <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
+                                    <span class="font-sm">Status</span>
+                                    <span class="mp-mh1">
                                         @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
-                                            <span class="status-title green-bg">
-                                                APPROVED
-                                            </span>
-                                        @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
-                                            <span class="status-title orage-bg">
-                                                PROCESSING
-                                            </span>
-                                        @else
-                                            <span class="status-title maroon-bg">
-                                                NEW APPLICATION
-                                            </span>
-                                        @endif
+                                        <span class="status-title green-bg">
+                                            APPROVED
                                         </span>
-                                        <span class="font-sm">Remarks</span>
-                                        <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
-                                        <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
-                                    </div>
+                                        @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                        <span class="status-title orage-bg">
+                                            PROCESSING
+                                        </span>
+                                        @else
+                                        <span class="status-title maroon-bg">
+                                            NEW APPLICATION
+                                        </span>
+                                        @endif
+                                    </span>
+                                    <span class="font-sm">Remarks</span>
+                                    <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
+                                    <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
                                 </div>
                             </div>
-                        @endforeach   
-                        
-                        
-                        
-                        
-                        
+                        </div>
+                        @endforeach
+
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -1140,45 +1138,45 @@
                 </div>
             </div>
             <div class="table-form form-header w-full light-gray-bg shadow-1">
-                        <div class="span-12 d-flex flex-column mp-pv3 mp-ph3 gap-10">
-                            <span>General Remarks</span>
-                            <!-- <div class="table-form">
+                <div class="span-12 d-flex flex-column mp-pv3 mp-ph3 gap-10">
+                    <span>General Remarks</span>
+                    <!-- <div class="table-form">
                                 <span class="span-6"><input type="checkbox"> Forward to CFM</span>
                                 <span class="span-6"><input type="checkbox"> Reject Application</span>
                             </div> -->
-                            <textarea name="general_remarks" id="general_remarks" rows="3" style="resize: none;">{{ (isset($rec->general_remarks)) ? $rec->general_remarks : '' }}</textarea>
-                            <div class="d-flex flex-row items-between mp-pv1">
-                                <div class="d-flex flex-column" style="gap: 5px;">
-                                    <div class="">
-                                        Evaluation Summary
-                                    </div>
-                                    <div class="d-flex flex-column font-sm">
-                                        <div class="d-flex flex-row mp-text-center" style="width: 100px">
-                                                <span>Passed: <span class="font-md font-bold color-black" id="pass_count"></span></span>
-                                            
-                                            </div>
-                                            <div class="d-flex flex-row mp-text-center" style="width: 100px">
-                                                <span>Failed: <span class="font-md font-bold color-black" id="failed_count"></span></span>
-                                            </div>
-                                    </div>
-                                </div>
-                                <span class="d-flex" style="gap: 10px">
-                                    <button class="f-button align-self-end red-bg" id="reject_app" >
-                                        <span id="reject_text">Reject Application</span>
-                                    </button>
-                                    <button class="f-button align-self-end magenta-bg" id="return_app" >
-                                        <span id="return_text">Return Application</span>
-                                    </button>
-                                    <button class="f-button align-self-end" id="save_record" >
-                                    <span id="save_text">Save Record </span>
-                                    </button>
-                                </span>
-                                
+                    <textarea name="general_remarks" id="general_remarks" rows="3" style="resize: none;">{{ (isset($rec->general_remarks)) ? $rec->general_remarks : '' }}</textarea>
+                    <div class="d-flex flex-row items-between mp-pv1">
+                        <div class="d-flex flex-column" style="gap: 5px;">
+                            <div class="">
+                                Evaluation Summary
                             </div>
-                            
-                            </form>
+                            <div class="d-flex flex-column font-sm">
+                                <div class="d-flex flex-row mp-text-center" style="width: 100px">
+                                    <span>Passed: <span class="font-md font-bold color-black" id="pass_count"></span></span>
+
+                                </div>
+                                <div class="d-flex flex-row mp-text-center" style="width: 100px">
+                                    <span>Failed: <span class="font-md font-bold color-black" id="failed_count"></span></span>
+                                </div>
+                            </div>
                         </div>
-                        <!-- <div class="span-6 d-flex flex-column mp-pv3 mp-ph3 gap-10">
+                        <span class="d-flex" style="gap: 10px">
+                            <button class="f-button align-self-end red-bg" id="reject_app">
+                                <span id="reject_text">Reject Application</span>
+                            </button>
+                            <button class="f-button align-self-end magenta-bg" id="return_app">
+                                <span id="return_text">Return Application</span>
+                            </button>
+                            <button class="f-button align-self-end" id="save_record">
+                                <span id="save_text">Save Record </span>
+                            </button>
+                        </span>
+
+                    </div>
+
+                    </form>
+                </div>
+                <!-- <div class="span-6 d-flex flex-column mp-pv3 mp-ph3 gap-10">
                             <span>General Remarks</span>
                             <div class="table-form">
                                 <span class="span-6"><input type="checkbox"> Forward to HRDO</span>
@@ -1197,7 +1195,7 @@
                                 </span>
                             </div>
                         </div> -->
-                    </div>
+            </div>
         </div>
     </div>
 </div>
@@ -1205,14 +1203,14 @@
 
 <script>
     const links = ['/personal', '/employee', '/membership', '/forms']
-     $(document).on('click', '.header-tabs > span', function(e) {
+    $(document).on('click', '.header-tabs > span', function(e) {
         const linkSplit = window.location.href.split('/')
         const length = linkSplit.length
-        const id = linkSplit[length-1]
+        const id = linkSplit[length - 1]
         const dataSet = $(this).attr('data-set')
         window.location.href = '/admin/members/records/view/aa' + links[dataSet] + '/' + id
     })
-     $(document).on('click', '#trail-button', function(e) {
+    $(document).on('click', '#trail-button', function(e) {
         if ($("#trail-body").hasClass("close-trail")) {
             $("#trail-body").removeClass("close-trail")
             $(".trail-details").removeClass("hidden-details")
@@ -1278,330 +1276,331 @@
     })
 
 
-var passCount = 0;
-var failCount = 0;
-$(document).ready(function() {
-    passCount = 0;
-    failCount = 0;
-    $('#aa_validation input[type="radio"]').each(function() {
-        if ($(this).is(':checked')) {
-        if ($(this).val() == 1) {
-            passCount++;
-            $(this).parent().next().next().find('input[type="text"]').val('');
-            $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
-            var totalpd = $('.personal-detail input[type="radio"][value="1"]').length;
-            var selectedpd = $('.personal-detail input[type="radio"][value="1"]:checked').length;
-            if (selectedpd == totalpd) {
-                $('#check_allppd').prop('checked', true);
-            }else {
-                $('#check_allppd').prop('checked', false);
-            }
-            var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
-            var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
-            if (selecteded == totaled) {
-                $('#check_allped').prop('checked', true);
-            }else {
-                $('#check_allped').prop('checked', false);
-            }
-            var totalmd = $('.members-detail input[type="radio"][value="1"]').length;
-            var selectedmd = $('.members-detail input[type="radio"][value="1"]:checked').length;
-            if (selectedmd == totalmd) {
-                $('#check_allpmd').prop('checked', true);
-            }else {
-                $('#check_allpmd').prop('checked', false);
-            }
-            var totalsd = $('.supporting-detail input[type="radio"][value="1"]').length;
-            var selectedsd = $('.supporting-detail input[type="radio"][value="1"]:checked').length;
-            if (selectedsd == totalsd) {
-                $('#check_allpsd').prop('checked', true);
-            }else {
-                $('#check_allpsd').prop('checked', false);
-            }
-        } else if ($(this).val() == 2) {
-            failCount++;
-            $(this).parent().next().find('input[type="text"]').prop('disabled', false);
-            var totalpd = $('.personal-detail input[type="radio"][value="2"]').length;
-            var selectedpd = $('.personal-detail input[type="radio"][value="2"]:checked').length;
-            if (selectedpd == totalpd) {
-                $('#check_allfpd').prop('checked', true);
-            }else {
-                $('#check_allfpd').prop('checked', false);
-            }
-            var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
-            var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
-            if (selecteded == totaled) {
-                $('#check_allfed').prop('checked', true);
-            }else {
-                $('#check_allfed').prop('checked', false);
-            }
-            var totalmd = $('.members-detail input[type="radio"][value="2"]').length;
-            var selectedmd = $('.members-detail input[type="radio"][value="2"]:checked').length;
-            if (selectedmd == totalmd) {
-                $('#check_allfmd').prop('checked', true);
-            }else {
-                $('#check_allfmd').prop('checked', false);
-            }
-            var totalsd = $('.supporting-detail input[type="radio"][value="2"]').length;
-            var selectedsd = $('.supporting-detail input[type="radio"][value="2"]:checked').length;
-            if (selectedsd == totalsd) {
-                $('#check_allfsd').prop('checked', true);
-            }else {
-                $('#check_allfsd').prop('checked', false);
-            }
-        }
-        }
-    });
-    $('#pass_count').text(passCount);
-    $('#failed_count').text(failCount);
-    if(failCount > 0){
-        // $('#return_app').css('cssText', 'background-color:  !important;');
-        // $('#return_app').prop('disabled', false);
-        $('#save_record').css('background-color', 'gray');
-        $('#save_record').prop('disabled', true);
-        $('#reject_app').css('cssText', 'background-color:  !important;');
-        $('#reject_app').prop('disabled', false);
-    }else{
-        $('#save_record').css('background-color', '');
-        $('#save_record').prop('disabled', false);
-        // $('#return_app').css('cssText', 'background-color: gray !important;');
-        // $('#return_app').prop('disabled', true);
-        $('#reject_app').css('cssText', 'background-color: gray !important;');
-        $('#reject_app').prop('disabled', true);
-    }
-});
-$(document).ready(function() {
-$('#aa_validation input[type="radio"]').on('change click', function() {
-    passCount = 0;
-    failCount = 0;
-    $('#aa_validation input[type="radio"]').each(function() {
-        if ($(this).is(':checked')) {
-        if ($(this).val() == 1) {
-            passCount++;
-            $(this).parent().next().next().find('input[type="text"]').val('');
-            $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
-            var totalpd = $('.personal-detail input[type="radio"][value="1"]').length;
-            var selectedpd = $('.personal-detail input[type="radio"][value="1"]:checked').length;
-            if (selectedpd == totalpd) {
-                $('#check_allppd').prop('checked', true);
-            }else {
-                $('#check_allppd').prop('checked', false);
-            }
-            var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
-            var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
-            if (selecteded == totaled) {
-                $('#check_allped').prop('checked', true);
-            }else {
-                $('#check_allped').prop('checked', false);
-            }
-            var totalmd = $('.members-detail input[type="radio"][value="1"]').length;
-            var selectedmd = $('.members-detail input[type="radio"][value="1"]:checked').length;
-            if (selectedmd == totalmd) {
-                $('#check_allpmd').prop('checked', true);
-            }else {
-                $('#check_allpmd').prop('checked', false);
-            }
-            var totalsd = $('.supporting-detail input[type="radio"][value="1"]').length;
-            var selectedsd = $('.supporting-detail input[type="radio"][value="1"]:checked').length;
-            if (selectedsd == totalsd) {
-                $('#check_allpsd').prop('checked', true);
-            }else {
-                $('#check_allpsd').prop('checked', false);
-            }
-        } else if ($(this).val() == 2) {
-            failCount++;
-            $(this).parent().next().find('input[type="text"]').prop('disabled', false);
-            var totalpd = $('.personal-detail input[type="radio"][value="2"]').length;
-            var selectedpd = $('.personal-detail input[type="radio"][value="2"]:checked').length;
-            if (selectedpd == totalpd) {
-                $('#check_allfpd').prop('checked', true);
-            }else {
-                $('#check_allfpd').prop('checked', false);
-            }
-            var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
-            var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
-            if (selecteded == totaled) {
-                $('#check_allfed').prop('checked', true);
-            }else {
-                $('#check_allfed').prop('checked', false);
-            }
-            var totalmd = $('.members-detail input[type="radio"][value="2"]').length;
-            var selectedmd = $('.members-detail input[type="radio"][value="2"]:checked').length;
-            if (selectedmd == totalmd) {
-                $('#check_allfmd').prop('checked', true);
-            }else {
-                $('#check_allfmd').prop('checked', false);
-            }
-            var totalsd = $('.supporting-detail input[type="radio"][value="2"]').length;
-            var selectedsd = $('.supporting-detail input[type="radio"][value="2"]:checked').length;
-            if (selectedsd == totalsd) {
-                $('#check_allfsd').prop('checked', true);
-            }else {
-                $('#check_allfsd').prop('checked', false);
-            }
-        }
-        }
-    });
-    $('#pass_count').text(passCount);
-    $('#failed_count').text(failCount);
-    if(failCount > 0){
-        $('#return_app').css('cssText', 'background-color:  !important;');
-        $('#return_app').prop('disabled', false);
-        $('#save_record').css('background-color', 'gray');
-        $('#save_record').prop('disabled', true);
-        $('#reject_app').css('cssText', 'background-color:  !important;');
-        $('#reject_app').prop('disabled', false);
-    }else{
-        $('#save_record').css('background-color', '');
-        $('#save_record').prop('disabled', false);
-        $('#return_app').css('cssText', 'background-color: gray !important;');
-        $('#return_app').prop('disabled', true);
-        $('#reject_app').css('cssText', 'background-color: gray !important;');
-        $('#reject_app').prop('disabled', true);
-    }
-        
-});
-});
-$(document).ready(function() {
-  // Find the button element with id 'return_app' and remove the 'disabled' attribute from it
-  $('#return_app').prop('disabled', true);
-});
-$('#return_app').click(function() {
-    event.preventDefault();
-    Swal.fire({
-        title: 'Are you sure you want to Return this application?',
-        text: "This will return his/her application and subject for compliance.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'OK'
-    }).then((result) => {
-        if (result.isConfirmed) {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-        });
-
-        var formDatas = $("#aa_validation").serialize();
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('return_application') }}",
-            data: formDatas,
-            beforeSend: function() {
-                $('#loading').show();
-            },
-            success: function(data) {
-                if (data.success != '') {
-                Swal.fire({
-                        text: 'Application has been successfully returned and subject for compliance.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Proceed',
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                        window.location.href = '{{ route('admin.members_records') }}';
-                        }
-                    });
-                }else{
-                    swal.fire("Error!", "Saving failed", "error");
+    var passCount = 0;
+    var failCount = 0;
+    $(document).ready(function() {
+        passCount = 0;
+        failCount = 0;
+        $('#aa_validation input[type="radio"]').each(function() {
+            if ($(this).is(':checked')) {
+                if ($(this).val() == 1) {
+                    passCount++;
+                    $(this).parent().next().next().find('input[type="text"]').val('');
+                    $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
+                    var totalpd = $('.personal-detail input[type="radio"][value="1"]').length;
+                    var selectedpd = $('.personal-detail input[type="radio"][value="1"]:checked').length;
+                    if (selectedpd == totalpd) {
+                        $('#check_allppd').prop('checked', true);
+                    } else {
+                        $('#check_allppd').prop('checked', false);
+                    }
+                    var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
+                    var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
+                    if (selecteded == totaled) {
+                        $('#check_allped').prop('checked', true);
+                    } else {
+                        $('#check_allped').prop('checked', false);
+                    }
+                    var totalmd = $('.members-detail input[type="radio"][value="1"]').length;
+                    var selectedmd = $('.members-detail input[type="radio"][value="1"]:checked').length;
+                    if (selectedmd == totalmd) {
+                        $('#check_allpmd').prop('checked', true);
+                    } else {
+                        $('#check_allpmd').prop('checked', false);
+                    }
+                    var totalsd = $('.supporting-detail input[type="radio"][value="1"]').length;
+                    var selectedsd = $('.supporting-detail input[type="radio"][value="1"]:checked').length;
+                    if (selectedsd == totalsd) {
+                        $('#check_allpsd').prop('checked', true);
+                    } else {
+                        $('#check_allpsd').prop('checked', false);
+                    }
+                } else if ($(this).val() == 2) {
+                    failCount++;
+                    $(this).parent().next().find('input[type="text"]').prop('disabled', false);
+                    var totalpd = $('.personal-detail input[type="radio"][value="2"]').length;
+                    var selectedpd = $('.personal-detail input[type="radio"][value="2"]:checked').length;
+                    if (selectedpd == totalpd) {
+                        $('#check_allfpd').prop('checked', true);
+                    } else {
+                        $('#check_allfpd').prop('checked', false);
+                    }
+                    var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
+                    var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
+                    if (selecteded == totaled) {
+                        $('#check_allfed').prop('checked', true);
+                    } else {
+                        $('#check_allfed').prop('checked', false);
+                    }
+                    var totalmd = $('.members-detail input[type="radio"][value="2"]').length;
+                    var selectedmd = $('.members-detail input[type="radio"][value="2"]:checked').length;
+                    if (selectedmd == totalmd) {
+                        $('#check_allfmd').prop('checked', true);
+                    } else {
+                        $('#check_allfmd').prop('checked', false);
+                    }
+                    var totalsd = $('.supporting-detail input[type="radio"][value="2"]').length;
+                    var selectedsd = $('.supporting-detail input[type="radio"][value="2"]:checked').length;
+                    if (selectedsd == totalsd) {
+                        $('#check_allfsd').prop('checked', true);
+                    } else {
+                        $('#check_allfsd').prop('checked', false);
+                    }
                 }
             }
         });
-    }
-});
-});
-// });
-$('#check_allppd').click(function() {
-  if ($(this).is(':checked')) {
-    $('input[name="pass_name"][value="1"]').prop('checked', true);
-    $('input[name="pass_dob"][value="1"]').prop('checked', true);
-    $('input[name="pass_gender"][value="1"]').prop('checked', true);
-    $('input[name="pass_civilstatus"][value="1"]').prop('checked', true);
-    $('input[name="pass_citizenship"][value="1"]').prop('checked', true);
-    $('input[name="pass_currentadd"][value="1"]').prop('checked', true);
-    $('input[name="pass_permaadd"][value="1"]').prop('checked', true);
-    $('input[name="pass_contactnum"][value="1"]').prop('checked', true);
-    $('input[name="pass_landline"][value="1"]').prop('checked', true);
-    $('input[name="pass_email"][value="1"]').prop('checked', true);
-  }
-});
-$('#check_allped').click(function() {
-  if ($(this).is(':checked')) {
-    $('input[name="pass_emp_no"][value="1"]').prop('checked', true);
-    $('input[name="pass_campus"][value="1"]').prop('checked', true);
-    $('input[name="pass_classification"][value="1"]').prop('checked', true);
-    $('input[name="pass_college_unit"][value="1"]').prop('checked', true);
-    $('input[name="pass_department"][value="1"]').prop('checked', true);
-    $('input[name="pass_rankpos"][value="1"]').prop('checked', true);
-    $('input[name="pass_appointment"][value="1"]').prop('checked', true);
-    $('input[name="pass_appointdate"][value="1"]').prop('checked', true);
-    $('input[name="pass_monthlysalary"][value="1"]').prop('checked', true);
-    $('input[name="pass_sg"][value="1"]').prop('checked', true);
-    $('input[name="pass_sgcat"][value="1"]').prop('checked', true);
-    $('input[name="pass_tin_no"][value="1"]').prop('checked', true);
-  }
-});
-$('#check_allpmd').click(function() {
-  if ($(this).is(':checked')) {
-    $('input[name="pass_monthlycontri"][value="1"]').prop('checked', true);
-    $('input[name="pass_equivalent"][value="1"]').prop('checked', true);
-  }
-});
-$('#check_allpsd').click(function() {
-  if ($(this).is(':checked')) {
-    $('input[name="pass_membershipf"][value="1"]').prop('checked', true);
-    $('input[name="pass_proxyform"][value="1"]').prop('checked', true);
-  }
-});
-$('#check_allfpd').click(function() {
-  if ($(this).is(':checked')) {
-    $('input[name="pass_name"][value="2"]').prop('checked', true);
-    $('input[name="pass_dob"][value="2"]').prop('checked', true);
-    $('input[name="pass_gender"][value="2"]').prop('checked', true);
-    $('input[name="pass_civilstatus"][value="2"]').prop('checked', true);
-    $('input[name="pass_citizenship"][value="2"]').prop('checked', true);
-    $('input[name="pass_currentadd"][value="2"]').prop('checked', true);
-    $('input[name="pass_permaadd"][value="2"]').prop('checked', true);
-    $('input[name="pass_contactnum"][value="2"]').prop('checked', true);
-    $('input[name="pass_landline"][value="2"]').prop('checked', true);
-    $('input[name="pass_email"][value="2"]').prop('checked', true);
-  }
-});
-$('#check_allfed').click(function() {
-  if ($(this).is(':checked')) {
-    $('input[name="pass_emp_no"][value="2"]').prop('checked', true);
-    $('input[name="pass_campus"][value="2"]').prop('checked', true);
-    $('input[name="pass_classification"][value="2"]').prop('checked', true);
-    $('input[name="pass_college_unit"][value="2"]').prop('checked', true);
-    $('input[name="pass_department"][value="2"]').prop('checked', true);
-    $('input[name="pass_rankpos"][value="2"]').prop('checked', true);
-    $('input[name="pass_appointment"][value="2"]').prop('checked', true);
-    $('input[name="pass_appointdate"][value="2"]').prop('checked', true);
-    $('input[name="pass_monthlysalary"][value="2"]').prop('checked', true);
-    $('input[name="pass_sg"][value="2"]').prop('checked', true);
-    $('input[name="pass_sgcat"][value="2"]').prop('checked', true);
-    $('input[name="pass_tin_no"][value="2"]').prop('checked', true);
-  }
-});
-$('#check_allfmd').click(function() {
-  if ($(this).is(':checked')) {
-    $('input[name="pass_monthlycontri"][value="2"]').prop('checked', true);
-    $('input[name="pass_equivalent"][value="2"]').prop('checked', true);
-  }
-});
-$('#check_allfsd').click(function() {
-  if ($(this).is(':checked')) {
-    $('input[name="pass_membershipf"][value="2"]').prop('checked', true);
-    $('input[name="pass_proxyform"][value="2"]').prop('checked', true);
-  }
-});
-$('#save_record').click(function() {
-    event.preventDefault();
-    // alert('gg');
-$.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        $('#pass_count').text(passCount);
+        $('#failed_count').text(failCount);
+        if (failCount > 0) {
+            // $('#return_app').css('cssText', 'background-color:  !important;');
+            // $('#return_app').prop('disabled', false);
+            $('#save_record').css('background-color', 'gray');
+            $('#save_record').prop('disabled', true);
+            $('#reject_app').css('cssText', 'background-color:  !important;');
+            $('#reject_app').prop('disabled', false);
+        } else {
+            $('#save_record').css('background-color', '');
+            $('#save_record').prop('disabled', false);
+            // $('#return_app').css('cssText', 'background-color: gray !important;');
+            // $('#return_app').prop('disabled', true);
+            $('#reject_app').css('cssText', 'background-color: gray !important;');
+            $('#reject_app').prop('disabled', true);
         }
+    });
+    $(document).ready(function() {
+        $('#aa_validation input[type="radio"]').on('change click', function() {
+            passCount = 0;
+            failCount = 0;
+            $('#aa_validation input[type="radio"]').each(function() {
+                if ($(this).is(':checked')) {
+                    if ($(this).val() == 1) {
+                        passCount++;
+                        $(this).parent().next().next().find('input[type="text"]').val('');
+                        $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
+                        var totalpd = $('.personal-detail input[type="radio"][value="1"]').length;
+                        var selectedpd = $('.personal-detail input[type="radio"][value="1"]:checked').length;
+                        if (selectedpd == totalpd) {
+                            $('#check_allppd').prop('checked', true);
+                        } else {
+                            $('#check_allppd').prop('checked', false);
+                        }
+                        var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
+                        var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
+                        if (selecteded == totaled) {
+                            $('#check_allped').prop('checked', true);
+                        } else {
+                            $('#check_allped').prop('checked', false);
+                        }
+                        var totalmd = $('.members-detail input[type="radio"][value="1"]').length;
+                        var selectedmd = $('.members-detail input[type="radio"][value="1"]:checked').length;
+                        if (selectedmd == totalmd) {
+                            $('#check_allpmd').prop('checked', true);
+                        } else {
+                            $('#check_allpmd').prop('checked', false);
+                        }
+                        var totalsd = $('.supporting-detail input[type="radio"][value="1"]').length;
+                        var selectedsd = $('.supporting-detail input[type="radio"][value="1"]:checked').length;
+                        if (selectedsd == totalsd) {
+                            $('#check_allpsd').prop('checked', true);
+                        } else {
+                            $('#check_allpsd').prop('checked', false);
+                        }
+                    } else if ($(this).val() == 2) {
+                        failCount++;
+                        $(this).parent().next().find('input[type="text"]').prop('disabled', false);
+                        var totalpd = $('.personal-detail input[type="radio"][value="2"]').length;
+                        var selectedpd = $('.personal-detail input[type="radio"][value="2"]:checked').length;
+                        if (selectedpd == totalpd) {
+                            $('#check_allfpd').prop('checked', true);
+                        } else {
+                            $('#check_allfpd').prop('checked', false);
+                        }
+                        var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
+                        var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
+                        if (selecteded == totaled) {
+                            $('#check_allfed').prop('checked', true);
+                        } else {
+                            $('#check_allfed').prop('checked', false);
+                        }
+                        var totalmd = $('.members-detail input[type="radio"][value="2"]').length;
+                        var selectedmd = $('.members-detail input[type="radio"][value="2"]:checked').length;
+                        if (selectedmd == totalmd) {
+                            $('#check_allfmd').prop('checked', true);
+                        } else {
+                            $('#check_allfmd').prop('checked', false);
+                        }
+                        var totalsd = $('.supporting-detail input[type="radio"][value="2"]').length;
+                        var selectedsd = $('.supporting-detail input[type="radio"][value="2"]:checked').length;
+                        if (selectedsd == totalsd) {
+                            $('#check_allfsd').prop('checked', true);
+                        } else {
+                            $('#check_allfsd').prop('checked', false);
+                        }
+                    }
+                }
+            });
+            $('#pass_count').text(passCount);
+            $('#failed_count').text(failCount);
+            if (failCount > 0) {
+                $('#return_app').css('cssText', 'background-color:  !important;');
+                $('#return_app').prop('disabled', false);
+                $('#save_record').css('background-color', 'gray');
+                $('#save_record').prop('disabled', true);
+                $('#reject_app').css('cssText', 'background-color:  !important;');
+                $('#reject_app').prop('disabled', false);
+            } else {
+                $('#save_record').css('background-color', '');
+                $('#save_record').prop('disabled', false);
+                $('#return_app').css('cssText', 'background-color: gray !important;');
+                $('#return_app').prop('disabled', true);
+                $('#reject_app').css('cssText', 'background-color: gray !important;');
+                $('#reject_app').prop('disabled', true);
+            }
+
+        });
+    });
+    $(document).ready(function() {
+        // Find the button element with id 'return_app' and remove the 'disabled' attribute from it
+        $('#return_app').prop('disabled', true);
+    });
+    $('#return_app').click(function() {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Are you sure you want to Return this application?',
+            text: "This will return his/her application and subject for compliance.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                var formDatas = $("#aa_validation").serialize();
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('return_application') }}",
+                    data: formDatas,
+                    beforeSend: function() {
+                        $('#loading').show();
+                    },
+                    success: function(data) {
+                        if (data.success != '') {
+                            Swal.fire({
+                                text: 'Application has been successfully returned and subject for compliance.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Proceed',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    window.location.href = '{{ route('
+                                    admin.members_records ') }}';
+                                }
+                            });
+                        } else {
+                            swal.fire("Error!", "Saving failed", "error");
+                        }
+                    }
+                });
+            }
+        });
+    });
+    // });
+    $('#check_allppd').click(function() {
+        if ($(this).is(':checked')) {
+            $('input[name="pass_name"][value="1"]').prop('checked', true);
+            $('input[name="pass_dob"][value="1"]').prop('checked', true);
+            $('input[name="pass_gender"][value="1"]').prop('checked', true);
+            $('input[name="pass_civilstatus"][value="1"]').prop('checked', true);
+            $('input[name="pass_citizenship"][value="1"]').prop('checked', true);
+            $('input[name="pass_currentadd"][value="1"]').prop('checked', true);
+            $('input[name="pass_permaadd"][value="1"]').prop('checked', true);
+            $('input[name="pass_contactnum"][value="1"]').prop('checked', true);
+            $('input[name="pass_landline"][value="1"]').prop('checked', true);
+            $('input[name="pass_email"][value="1"]').prop('checked', true);
+        }
+    });
+    $('#check_allped').click(function() {
+        if ($(this).is(':checked')) {
+            $('input[name="pass_emp_no"][value="1"]').prop('checked', true);
+            $('input[name="pass_campus"][value="1"]').prop('checked', true);
+            $('input[name="pass_classification"][value="1"]').prop('checked', true);
+            $('input[name="pass_college_unit"][value="1"]').prop('checked', true);
+            $('input[name="pass_department"][value="1"]').prop('checked', true);
+            $('input[name="pass_rankpos"][value="1"]').prop('checked', true);
+            $('input[name="pass_appointment"][value="1"]').prop('checked', true);
+            $('input[name="pass_appointdate"][value="1"]').prop('checked', true);
+            $('input[name="pass_monthlysalary"][value="1"]').prop('checked', true);
+            $('input[name="pass_sg"][value="1"]').prop('checked', true);
+            $('input[name="pass_sgcat"][value="1"]').prop('checked', true);
+            $('input[name="pass_tin_no"][value="1"]').prop('checked', true);
+        }
+    });
+    $('#check_allpmd').click(function() {
+        if ($(this).is(':checked')) {
+            $('input[name="pass_monthlycontri"][value="1"]').prop('checked', true);
+            $('input[name="pass_equivalent"][value="1"]').prop('checked', true);
+        }
+    });
+    $('#check_allpsd').click(function() {
+        if ($(this).is(':checked')) {
+            $('input[name="pass_membershipf"][value="1"]').prop('checked', true);
+            $('input[name="pass_proxyform"][value="1"]').prop('checked', true);
+        }
+    });
+    $('#check_allfpd').click(function() {
+        if ($(this).is(':checked')) {
+            $('input[name="pass_name"][value="2"]').prop('checked', true);
+            $('input[name="pass_dob"][value="2"]').prop('checked', true);
+            $('input[name="pass_gender"][value="2"]').prop('checked', true);
+            $('input[name="pass_civilstatus"][value="2"]').prop('checked', true);
+            $('input[name="pass_citizenship"][value="2"]').prop('checked', true);
+            $('input[name="pass_currentadd"][value="2"]').prop('checked', true);
+            $('input[name="pass_permaadd"][value="2"]').prop('checked', true);
+            $('input[name="pass_contactnum"][value="2"]').prop('checked', true);
+            $('input[name="pass_landline"][value="2"]').prop('checked', true);
+            $('input[name="pass_email"][value="2"]').prop('checked', true);
+        }
+    });
+    $('#check_allfed').click(function() {
+        if ($(this).is(':checked')) {
+            $('input[name="pass_emp_no"][value="2"]').prop('checked', true);
+            $('input[name="pass_campus"][value="2"]').prop('checked', true);
+            $('input[name="pass_classification"][value="2"]').prop('checked', true);
+            $('input[name="pass_college_unit"][value="2"]').prop('checked', true);
+            $('input[name="pass_department"][value="2"]').prop('checked', true);
+            $('input[name="pass_rankpos"][value="2"]').prop('checked', true);
+            $('input[name="pass_appointment"][value="2"]').prop('checked', true);
+            $('input[name="pass_appointdate"][value="2"]').prop('checked', true);
+            $('input[name="pass_monthlysalary"][value="2"]').prop('checked', true);
+            $('input[name="pass_sg"][value="2"]').prop('checked', true);
+            $('input[name="pass_sgcat"][value="2"]').prop('checked', true);
+            $('input[name="pass_tin_no"][value="2"]').prop('checked', true);
+        }
+    });
+    $('#check_allfmd').click(function() {
+        if ($(this).is(':checked')) {
+            $('input[name="pass_monthlycontri"][value="2"]').prop('checked', true);
+            $('input[name="pass_equivalent"][value="2"]').prop('checked', true);
+        }
+    });
+    $('#check_allfsd').click(function() {
+        if ($(this).is(':checked')) {
+            $('input[name="pass_membershipf"][value="2"]').prop('checked', true);
+            $('input[name="pass_proxyform"][value="2"]').prop('checked', true);
+        }
+    });
+    $('#save_record').click(function() {
+        event.preventDefault();
+        // alert('gg');
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
         });
         // validate_step
         var formDatas = $("#aa_validation").serialize();
@@ -1612,92 +1611,93 @@ $.ajaxSetup({
             success: function(data) {
                 if (data.success == 1) {
                     $.ajax({
-                    type: 'POST',
-                    url: "{{ route('save_aa_validation') }}",
-                    data: formDatas,
-                    beforeSend: function() {
-                        $('#loading').show();
-                    },
-                    success: function(data) {
-                        if (data.success != '') {
-                            Swal.fire({
-                                text: 'Application has been save successfully validated and ready to forward.',
-                                icon: 'success',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Proceed',
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                window.location.href = '{{ route('admin.members_records') }}';
-                                }
-                            });
-                        }else{
-                            swal.fire("Error!", "No changed was made on Validation proccess.", "error");
+                        type: 'POST',
+                        url: "{{ route('save_aa_validation') }}",
+                        data: formDatas,
+                        beforeSend: function() {
+                            $('#loading').show();
+                        },
+                        success: function(data) {
+                            if (data.success != '') {
+                                Swal.fire({
+                                    text: 'Application has been save successfully validated and ready to forward.',
+                                    icon: 'success',
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'Proceed',
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        window.location.href = '{{ route('
+                                        admin.members_records ') }}';
+                                    }
+                                });
+                            } else {
+                                swal.fire("Error!", "No changed was made on Validation proccess.", "error");
+                            }
                         }
-                      }
                     });
-                }else{
+                } else {
                     swal.fire("Error!", "You already forwarded this application to HRDO.", "error");
                 }
             }
         });
-        
 
-});
-$('#reject_app').click(function() {
-event.preventDefault();
-Swal.fire({
-        title: 'Are you sure to reject this application?',
-        text: "This will reject his/her application.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'OK'
-    }).then((result) => {
-        if (result.isConfirmed) {
-        $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
+
+    });
+    $('#reject_app').click(function() {
+        event.preventDefault();
+        Swal.fire({
+            title: 'Are you sure to reject this application?',
+            text: "This will reject his/her application.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'OK'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
                 });
-        var formDatas = $("#aa_validation").serialize();
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('validate_step_reject') }}",
-            data: formDatas,
-            success: function(data) {
-                if (data.success == 1) {
-                    $.ajax({
+                var formDatas = $("#aa_validation").serialize();
+                $.ajax({
                     type: 'POST',
-                    url: "{{ route('reject_application') }}",
+                    url: "{{ route('validate_step_reject') }}",
                     data: formDatas,
-                    beforeSend: function() {
-                        $('#loading').show();
-                    },
                     success: function(data) {
-                        if (data.success != '') {
-                            Swal.fire({
-                                text: 'Application has been rejected successfully.',
-                                icon: 'success',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Ok',
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                window.location.href = '{{ route('admin.members_records') }}';
+                        if (data.success == 1) {
+                            $.ajax({
+                                type: 'POST',
+                                url: "{{ route('reject_application') }}",
+                                data: formDatas,
+                                beforeSend: function() {
+                                    $('#loading').show();
+                                },
+                                success: function(data) {
+                                    if (data.success != '') {
+                                        Swal.fire({
+                                            text: 'Application has been rejected successfully.',
+                                            icon: 'success',
+                                            confirmButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ok',
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                window.location.href = '{{ route('
+                                                admin.members_records ') }}';
+                                            }
+                                        });
+                                    } else {
+                                        alert('Failed');
+                                    }
                                 }
                             });
-                            }else{
-                                alert('Failed');
-                            }
-                         }
-                    });
-                }else{
-                    swal.fire("Error!", "You already forwarded this application to HRDO and cannot be rejected.", "error");
-                }
+                        } else {
+                            swal.fire("Error!", "You already forwarded this application to HRDO and cannot be rejected.", "error");
+                        }
+                    }
+                });
             }
         });
-    }
-});
-});
-
+    });
 </script>
 @endsection
