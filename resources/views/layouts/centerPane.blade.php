@@ -831,7 +831,6 @@
             }
 
             var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
-
             const fifteenYearsAgo = new Date();
             fifteenYearsAgo.setFullYear(fifteenYearsAgo.getFullYear() - 15);
             if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
@@ -1133,8 +1132,13 @@
                 empty.push(appointment[0])
             }
 
-            var selectedDate = new Date($("#date_appoint_months").val() + " " + $("#date_appoint_days").val() + ", " + $("#date_appoint_years").val());
+            var selectedDate = "Invalid Date";
+            if($("#date_appoint_months").val() != "" && $("#date_appoint_days").val() != "" && $("#date_appoint_years").val() != "") {
+                selectedDate = new Date($("#date_appoint_months").val() + " " + $("#date_appoint_days").val() + ", " + $("#date_appoint_years").val())
+            }
+            
             var currentDate = new Date();
+            console.log(selectedDate,'123123')
             if (selectedDate > currentDate || selectedDate == "Invalid Date") {
                 $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none').text("Invalid appointment date, please check")
                 $("[data-set=date_appoint_months]>.input").addClass('input-error')
