@@ -1758,6 +1758,7 @@
         var citizen = $(this).val();
         if (citizen == 'DUAL CITIZENSHIP' || citizen == 'OTHERS') {
             $('#d_citizen').prop('disabled', false);
+            $('#d_citizen').val('');
         } else {
             $('#d_citizen').prop('disabled', true);
             $('#d_citizen').val('N/A');

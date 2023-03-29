@@ -740,7 +740,12 @@ class HomeController extends Controller
     // Perform your database query to get the data based on the $codes variable
     // ...
     // Return the response, for example:
-    $results = DB::table('psgc_municipal')->select('*')->whereRaw("code LIKE '$codes%'")->orderBy('name')->get();
+    if ($codes == 1339) {
+      $results = DB::table('psgc_municipal')->select('*')->whereRaw("code LIKE '1339%' OR code LIKE '1374%' OR code LIKE '1375%' OR code LIKE '1376%'")->orderBy('name')->get();
+    } else {
+      $results = DB::table('psgc_municipal')->select('*')->whereRaw("code LIKE '$codes%'")->orderBy('name')->get();
+    }
+    
     return response()->json(['data' => $results]);
   }
   public function psgc_brgy(Request $request)
