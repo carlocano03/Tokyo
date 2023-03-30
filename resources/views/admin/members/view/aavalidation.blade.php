@@ -1478,8 +1478,10 @@
         } else {
             $('#save_record').css('background-color', 'gray');
             $('#save_record').prop('disabled', true);
-
+            $('#return_app').css('cssText', 'background-color: gray !important;');
+            $('#return_app').prop('disabled', true);
         }
+
     });
     $('.personal').change(function() {
         checkedCount = $('.personal:checked').length;
@@ -1489,10 +1491,14 @@
             $('.failed_personal').hide(100);
             $('#save_record').css('background-color', '');
             $('#save_record').prop('disabled', false);
+            $('#return_app').css('cssText', 'background-color: gray !important;');
+            $('#return_app').prop('disabled', true);
         } else {
             $('#save_record').css('background-color', 'gray');
             $('#save_record').prop('disabled', true);
 
+            $('#return_app').css('background-color', 'gray');
+            $('#return_app').prop('disabled', false);
         }
     });
 

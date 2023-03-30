@@ -905,7 +905,12 @@
                     <span class="mp-text-fs-small">Designation</span>
                     <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
                     <span class="mp-text-fs-small">Unit and Campus</span>
-                    <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
+                    <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
+                        <option value="">Select Campus</option>
+                        {{-- @foreach ($campuses as $row)
+                            <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
+                        @endforeach --}}
+                    </select>
                     <span class="mp-text-fs-base mp-mt2 mp-text-fw-medium">Thru: </span>
                     <span class="mp-text-fs-small">Names of Accountable Payroll Partner</span>
                     <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
@@ -947,7 +952,7 @@
                             </select>
                         </span>
                     </div>
-                    <br>
+                    <!-- <br> -->
                     <div class="w-full d-flex flex-column flex-wrap gap-10 h-100">
                         <button class="f-button mp-text-fs-medium gray-bg" style="margin-top: auto">CLEAR ALL</button>
                         <button class="f-button magenta-bg mp-text-fs-medium">GENERATE REPORTS</button>
@@ -965,7 +970,7 @@
 
                 <div class="d-flex flex-column">
                     <div class="header-table">
-                        <table class="payroll-table" style="height: auto;" width="100%">
+                        <table class="payroll-table" style="height: auto;">
                             <thead>
                                 <tr>
                                     <th>
@@ -1000,334 +1005,18 @@
                                     </th>
                                 </tr>
                             </thead>
-                        </table>
-                    </div>
-                    <div class="body-table">
-                        <table class="payroll-table" style="height: auto;" width="100%">
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <span>Sequence #</span>
-                                    </td>
-                                    <td>
-                                        <span>Members ID No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Employee No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Full Name</span>
-                                    </td>
-                                    <td>
-                                        <span>Cluster</span>
-                                    </td>
-                                    <td>
-                                        <span>Campus/Unit</span>
-                                    </td>
-                                    <td>
-                                        <span>Membership Date</span>
-                                    </td>
-                                    <td>
-                                        <span>Monthly Salary</span>
-                                    </td>
-                                    <td>
-                                        <span>Contribution Type</span>
-                                    </td>
-                                    <td>
-                                        <span>Amount</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>Sequence #</span>
-                                    </td>
-                                    <td>
-                                        <span>Members ID No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Employee No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Full Name</span>
-                                    </td>
-                                    <td>
-                                        <span>Cluster</span>
-                                    </td>
-                                    <td>
-                                        <span>Campus/Unit</span>
-                                    </td>
-                                    <td>
-                                        <span>Membership Date</span>
-                                    </td>
-                                    <td>
-                                        <span>Monthly Salary</span>
-                                    </td>
-                                    <td>
-                                        <span>Contribution Type</span>
-                                    </td>
-                                    <td>
-                                        <span>Amount</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>Sequence #</span>
-                                    </td>
-                                    <td>
-                                        <span>Members ID No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Employee No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Full Name</span>
-                                    </td>
-                                    <td>
-                                        <span>Cluster</span>
-                                    </td>
-                                    <td>
-                                        <span>Campus/Unit</span>
-                                    </td>
-                                    <td>
-                                        <span>Membership Date</span>
-                                    </td>
-                                    <td>
-                                        <span>Monthly Salary</span>
-                                    </td>
-                                    <td>
-                                        <span>Contribution Type</span>
-                                    </td>
-                                    <td>
-                                        <span>Amount</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>Sequence #</span>
-                                    </td>
-                                    <td>
-                                        <span>Members ID No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Employee No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Full Name</span>
-                                    </td>
-                                    <td>
-                                        <span>Cluster</span>
-                                    </td>
-                                    <td>
-                                        <span>Campus/Unit</span>
-                                    </td>
-                                    <td>
-                                        <span>Membership Date</span>
-                                    </td>
-                                    <td>
-                                        <span>Monthly Salary</span>
-                                    </td>
-                                    <td>
-                                        <span>Contribution Type</span>
-                                    </td>
-                                    <td>
-                                        <span>Amount</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>Sequence #</span>
-                                    </td>
-                                    <td>
-                                        <span>Members ID No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Employee No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Full Name</span>
-                                    </td>
-                                    <td>
-                                        <span>Cluster</span>
-                                    </td>
-                                    <td>
-                                        <span>Campus/Unit</span>
-                                    </td>
-                                    <td>
-                                        <span>Membership Date</span>
-                                    </td>
-                                    <td>
-                                        <span>Monthly Salary</span>
-                                    </td>
-                                    <td>
-                                        <span>Contribution Type</span>
-                                    </td>
-                                    <td>
-                                        <span>Amount</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>Sequence #</span>
-                                    </td>
-                                    <td>
-                                        <span>Members ID No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Employee No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Full Name</span>
-                                    </td>
-                                    <td>
-                                        <span>Cluster</span>
-                                    </td>
-                                    <td>
-                                        <span>Campus/Unit</span>
-                                    </td>
-                                    <td>
-                                        <span>Membership Date</span>
-                                    </td>
-                                    <td>
-                                        <span>Monthly Salary</span>
-                                    </td>
-                                    <td>
-                                        <span>Contribution Type</span>
-                                    </td>
-                                    <td>
-                                        <span>Amount</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>Sequence #</span>
-                                    </td>
-                                    <td>
-                                        <span>Members ID No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Employee No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Full Name</span>
-                                    </td>
-                                    <td>
-                                        <span>Cluster</span>
-                                    </td>
-                                    <td>
-                                        <span>Campus/Unit</span>
-                                    </td>
-                                    <td>
-                                        <span>Membership Date</span>
-                                    </td>
-                                    <td>
-                                        <span>Monthly Salary</span>
-                                    </td>
-                                    <td>
-                                        <span>Contribution Type</span>
-                                    </td>
-                                    <td>
-                                        <span>Amount</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>Sequence #</span>
-                                    </td>
-                                    <td>
-                                        <span>Members ID No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Employee No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Full Name</span>
-                                    </td>
-                                    <td>
-                                        <span>Cluster</span>
-                                    </td>
-                                    <td>
-                                        <span>Campus/Unit</span>
-                                    </td>
-                                    <td>
-                                        <span>Membership Date</span>
-                                    </td>
-                                    <td>
-                                        <span>Monthly Salary</span>
-                                    </td>
-                                    <td>
-                                        <span>Contribution Type</span>
-                                    </td>
-                                    <td>
-                                        <span>Amount</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>Sequence #</span>
-                                    </td>
-                                    <td>
-                                        <span>Members ID No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Employee No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Full Name</span>
-                                    </td>
-                                    <td>
-                                        <span>Cluster</span>
-                                    </td>
-                                    <td>
-                                        <span>Campus/Unit</span>
-                                    </td>
-                                    <td>
-                                        <span>Membership Date</span>
-                                    </td>
-                                    <td>
-                                        <span>Monthly Salary</span>
-                                    </td>
-                                    <td>
-                                        <span>Contribution Type</span>
-                                    </td>
-                                    <td>
-                                        <span>Amount</span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <span>Sequence #</span>
-                                    </td>
-                                    <td>
-                                        <span>Members ID No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Employee No.</span>
-                                    </td>
-                                    <td>
-                                        <span>Full Name</span>
-                                    </td>
-                                    <td>
-                                        <span>Cluster</span>
-                                    </td>
-                                    <td>
-                                        <span>Campus/Unit</span>
-                                    </td>
-                                    <td>
-                                        <span>Membership Date</span>
-                                    </td>
-                                    <td>
-                                        <span>Monthly Salary</span>
-                                    </td>
-                                    <td>
-                                        <span>Contribution Type</span>
-                                    </td>
-                                    <td>
-                                        <span>Amount</span>
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
+                    <!-- <div class="body-table">
+                        <table class="payroll-table" style="height: auto;" width="100%">
+                            <tbody>
+                                
+                            </tbody>
+                        </table>
+                    </div> -->
                 </div>
 
             </div>
@@ -1336,5 +1025,40 @@
     </div>
 </div>
 
-
+<script>
+    $(document).ready(function() {
+        $.getJSON('/options', function(options) {
+            $.each(options, function(index, option) {
+                $('#campus').append($('<option>', {
+                    value: option.campus_key,
+                    text: option.name
+                }));
+            });
+        });
+        
+        tablePayroll = $('.payroll-table').DataTable({
+            language: {
+                search: '',
+                searchPlaceholder: "Search Here...",
+                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><br>Loading...',
+            },
+            "ordering": false,
+            "searching": false,
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "{{ route('getPayrollAdvise') }}",
+                // "data": function(data) {
+                //     data.campus = $('#campuses_select').val();
+                //     data.department = $('#department_select').val();
+                //     data.dt_from = $('#from').val();
+                //     data.dt_to = $('#to').val();
+                //     data.searchValue = $('#search_value').val();
+                //     data.status = $('#status_select').val();
+                //     data.remarks = $('#remarks_select').val();
+                // }
+            },
+        });
+    });
+</script>
 @endsection
