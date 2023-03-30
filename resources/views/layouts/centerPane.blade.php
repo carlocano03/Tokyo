@@ -706,6 +706,26 @@
             // setTimeout(function() {
             //     $('.mobile-header').hide(300);
             // }, 1000);
+        } else if (backValue == "step-4") {
+            $("#step-4").addClass('d-flex').removeClass("d-none");
+            $("#step-5").addClass('d-none').removeClass("d-flex");
+            $("#back").attr('value', 'step-2')
+            // $("#member_forms_3").removeClass('mh-reg-form');
+            // $("#member_forms_4").addClass('mh-reg-form');
+            // $(this).attr('value', 'step-end')
+            $("#line").addClass('step-4').removeClass('step-5')
+            $("#registration-title").text(stepTitle[3])
+            $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
+            $("#stepper-5").removeClass("active")
+        } else if (backValue == "step-5") {
+            $("#step-5").addClass('d-flex').removeClass("d-none");
+            $("#step-6").addClass('d-none').removeClass("d-flex");
+            $("#back").attr('value', 'step-2')
+            // $("#member_forms_3").removeClass('mh-reg-form');
+            // $("#member_forms_4").addClass('mh-reg-form');
+            // $(this).attr('value', 'step-end')
+            $("#line").addClass('step-5').removeClass('step-6')
+
         } else {
             window.location.href = "/login";
         }
@@ -1368,59 +1388,148 @@
             console.log($('#monthly_salary').val());
             $('#month_sal_text').text($('#monthly_salary').val());
         } else if (nextValue == 'step-4') {
+            var formData3 = $("#member_forms_3").serialize()
+            console.log(formData3)
+            $.ajax({
+                method: 'POST',
+                url: "{{ route('add_member_details') }}",
+                data: formData3,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#loading').show();
+                },
+                success: function(data) {
+                    console.log(data);
+                    if (data.success != '') {
+                        var appNo = query;
+                        var ref = reference_no;
+                        console.log(query);
+                        if (ref != undefined) {
+                            $('#app_number').val(ref);
+                        } else {
+                            $('#app_number').val(query);
+                        }
+                        Swal.fire({
+                            title: 'Registration Success!',
+                            text: "Your membership application has been successfully submitted. Check your email for your reference.",
+                            icon: 'success',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'OK'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // window.open();
+                                // var url = "{{ URL::to('/memberform/') }}" + '/' +
+                                //     employee_no; //YOUR CHANGES HERE...
+                                // window.open(url, 'targetWindow',
+                                //     'resizable=yes,width=1000,height=1000');
+                                // setTimeout(function() {
+                                //     window.location.href = "/login";
+                                // }, 1000);
+                            }
+                        })
 
-            $("[data-set=percentage_check]>#err-msg").addClass('d-none')
-            $("[data-set=percentage_check]>input").removeClass('input-error')
-            $("[data-set=fixed_amount_check]>#err-msg").addClass('d-none')
-            $("[data-set=fixed_amount_check]>input").removeClass('input-error')
+                        $("#step-3").removeClass('d-flex').addClass("d-none");
+                        $("#step-4").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-3')
+                        // $("#member_forms_3").removeClass('mh-reg-form');
+                        // $("#member_forms_4").addClass('mh-reg-form');
+                        // $(this).attr('value', 'step-end')
+                        $("#line").removeClass('step-3').addClass('step-4')
+                        $("#registration-title").text(stepTitle[3])
+                        $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
+                        $("#stepper-4").addClass("active")
+                    }
+                },
+                complete: function() {
+                    $('#loading').hide();
 
-            const percentage_check = $('#percentage_check').prop("checked");
-            const percentage_bsalary = $('#percentage_bsalary').val();
-            const fixed_amount_check = $('#fixed_amount_check').prop("checked");
-            const fixed_amount = $('#fixed_amount').val();
+                }
+            });
 
-            let hasError = false
-
-            if (percentage_check && percentage_bsalary.trim() == "") {
-                $("[data-set=percentage_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly contribution.")
-                $("[data-set=percentage_check]>input").addClass('input-error')
-                hasError = true
-            }
-            if (fixed_amount_check && fixed_amount.trim() == "") {
-                $("[data-set=fixed_amount_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly contribution.")
-                $("[data-set=fixed_amount_check]>input").addClass('input-error')
-                hasError = true
-            }
-            if (hasError || (!percentage_check && !fixed_amount_check)) {
-                // swal.fire("Error!", "Please fill out the required fields", "error");
-                return false
-            }
-
-            $("#step-3").removeClass('d-flex').addClass("d-none");
-            $("#step-4").removeClass('d-none').addClass("d-flex");
-            $("#back").attr('value', 'step-3')
-            // $("#member_forms_3").removeClass('mh-reg-form');
-            // $("#member_forms_4").addClass('mh-reg-form');
-            // $(this).attr('value', 'step-end')
-            $("#line").removeClass('step-3').addClass('step-4')
-            $("#registration-title").text(stepTitle[3])
-            $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
-            $("#stepper-4").addClass("active")
 
 
         } else if (nextValue == 'step-5') {
 
 
-            $("#step-4").removeClass('d-flex').addClass("d-none");
-            $("#step-5").removeClass('d-none').addClass("d-flex");
-            $("#back").attr('value', 'step-4')
-            // $("#member_forms_3").removeClass('mh-reg-form');
-            // $("#member_forms_4").addClass('mh-reg-form');
-            // $(this).attr('value', 'step-end')
-            $("#line").removeClass('step-4').addClass('step-5')
-            $("#registration-title").text(stepTitle[4])
-            $("#step-title").text(`${steps[4]}${stepTitle[4]}`)
-            $("#stepper-5").addClass("active")
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var id = pers_id;
+
+            // generateAxa
+            // var formDatas = $("#generateAxa2").serialize();
+            // var additionalData = {
+            //     'e_sig': $('#e_sig').val(),
+            //     'personnel_id': pers_id,
+            // };
+            // formDatas += '&' + $.param(additionalData);
+            // var formData3 = $("#generateAxa2").serialize();
+
+            // var formDataAXA = new FormData($("#generateNewAxa")[0]); 
+            // var files = $('#sign_electronic')[0].files;
+
+
+            // console.log(files)
+            // formDataAXA.append('esig', files[0]);
+            // formDataAXA.append('personnel_id', personnel_id);
+            var formDataAXA = $("#generateNewAxa").serialize();
+            console.log("formdatang ina")
+            console.log(formDataAXA);
+
+
+
+            $.ajax({
+                url: "{{ route('add_cocolife') }}",
+                method: "POST",
+                data: formDataAXA,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#loading').show();
+                },
+                success: function(data) {
+                    if (data.message == 'Exist') {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'AXA form already generated.',
+                            icon: 'error'
+                        });
+                        $("#modal_name").addClass("not-visible")
+                        $("#modal_name").removeClass("visible")
+                    }
+                    // else {
+                    //     var url = "{{ URL::to('/axaform/') }}" + '/' +
+                    //         $('#app_number').val(); //YOUR CHANGES HERE...
+                    //     window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+                    //     // $('#generateAxa').trigger('reset');
+                    //     $("#modal_name").addClass("not-visible")
+                    //     $("#modal_name").removeClass("visible")
+                    // }
+
+                    $("#step-4").removeClass('d-flex').addClass("d-none");
+                    $("#step-5").removeClass('d-none').addClass("d-flex");
+                    $("#back").attr('value', 'step-4')
+                    // $("#member_forms_3").removeClass('mh-reg-form');
+                    // $("#member_forms_4").addClass('mh-reg-form');
+                    // $(this).attr('value', 'step-end')
+                    $("#line").removeClass('step-4').addClass('step-5')
+                    $("#registration-title").text(stepTitle[4])
+                    $("#step-title").text(`${steps[4]}${stepTitle[4]}`)
+                    $("#stepper-5").addClass("active")
+                },
+
+                complete: function() {
+                    $('#loading').hide();
+
+                }
+            });
+
 
 
         }
