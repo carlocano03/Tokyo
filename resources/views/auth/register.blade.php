@@ -864,12 +864,12 @@
             <label class="mp-input-group__label">Supporting Document </label>
 
         </div>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <form id="generateNewAxa" method="post" enctype="multipart/form-data">
+            @csrf
+            {{ csrf_field() }}
 
-        <div class="mp-input-group">
 
-
-            <input type="hidden" name="app_no" id="app_no">
-            <input type="hidden" name="percent_amt" id="percent_amt">
             <div class="mp-input-group">
 
                 <hr>
@@ -954,10 +954,84 @@
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="email_add">
                     </div>
 
-                    <div class="mp-input-group d-flex gap-5 flex-column">
-                        <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
+                <input type="hidden" name="app_no" id="app_no">
+                <input type="hidden" name="percent_amt" id="percent_amt">
+                <div class="mp-input-group">
 
-                        <label class="mp-input-group__label" style="
+                    <hr>
+                    <h3>Insurance Form</h3>
+                    <ul>
+                        <li>
+                            Effective 01 January 2023, UPPF Members will now be covered by new Insurance Provider, i.e., AXA Philippines.
+                            <br> <br>
+                            All UPPF Members are required to fill out this Enrolment Form, as soon as possible, for records purposes.
+                            <br> <br>
+                            Your utmost cooperation and understanding is much appreciated.
+                        </li>
+
+                        <input type="hidden" name="app_number" id="app_number">
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Place of Birth</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth" />
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Employer/Union/Association</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="emp_union_assoc" id="emp_union_assoc" />
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Occupation</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" />
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">SSS/GSIS No.</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="sss_gsis" id="sss_gsis" />
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Name of Spouse</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="spouse_name" id="spouse_name" />
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Mother's Maiden Name</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="maiden_name" id="maiden_name" />
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label mp-mt2">Insured Type</label>
+                            <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
+                            <select name="insuted_type" id="insuted_type" class="radius-1 outline select-field mp-mt2" style="font-size: normal;">
+                                <option value="INSURED">INSURED</option>
+                                <option value="DEPENDENT">DEPENDENT</option>
+                            </select>
+                        </div>
+                        <div class="mp-input-group"><br>
+                            <label class="mp-input-group__label"><b>PERSON TO BE CONTACED IN CASE OF EMERGENCY</b></label><br>
+                            <label class="mp-input-group__label">Last Name</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="last_name" id="last_name" />
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">First Name</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Middle Name</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="middle_name" id="middle_name" />
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Relationship to the member</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Contact No.</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="axa_contact_no" id="axa_contact_no" />
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label">Email Address</label>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                        </div>
+
+                        <div class="mp-input-group d-flex gap-5 flex-column">
+                            <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
+
+                            <label class="mp-input-group__label" style="
                 background-color: var(--c-active-hover-bg);
                 color: white;
                 padding: 10px;
@@ -1014,6 +1088,7 @@
                                         @endfor
                                     </select>
 
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1129,18 +1204,19 @@
 
                     </div>
                 </div> -->
+                </div>
             </div>
-        </div>
 
-        <!-- <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
+            <!-- <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
             <span>Save as draft</span>
         </a> -->
-        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_as_draft">
-            <span>Save as draft</span>
-        </a>
-        <a class="up-button btn-md button-animate-right mp-text-center" type="button" value="step-5" id="next-btn">
-            <span>Next</span>
-        </a>
+            <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_as_draft">
+                <span>Save as draft</span>
+            </a>
+            <a class="up-button btn-md button-animate-right mp-text-center" type="button" value="step-5" id="next-btn">
+                <span>Next</span>
+            </a>
+        </form>
         <!-- <button class="up-button btn-md button-animate-right mp-text-center" type="submit" id="next-btn">
             <span>Submit</span>
         </button> -->

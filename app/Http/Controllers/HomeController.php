@@ -522,16 +522,17 @@ class HomeController extends Controller
 
   public function addaxa_form(Request $request)
   {
-    $appNumber = $request->input('app_number');
-
+    // $appNumber = $request->input('app_number');
+    $appNumber = 10022;
     $file = $request->file('esig');
     $fileName = $file->getClientOriginalName();
     $newName = $request->input('app_number') . '_' . $fileName;
     $path = $file->storeAs('signature', $newName, 'public');
-
+    printf($request);
+    //  $request->input('personnel_id')
     $insertCoco = [
       'app_no' => $appNumber,
-      'personal_id' => $request->input('personnel_id'),
+      'personal_id' => 123232,
       'place_birth' => strtoupper($request->input('place_birth')),
       'emp_union_assoc' => strtoupper($request->input('emp_union_assoc')),
       'occupation' => strtoupper($request->input('occupation')),
