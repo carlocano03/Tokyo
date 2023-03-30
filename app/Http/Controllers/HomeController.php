@@ -396,7 +396,7 @@ class HomeController extends Controller
     $apptrail = array(
       'status_remarks' => "NEW APPLICATION",
       'app_no' => $request->input('app_no'),
-      'user_level' => 'AA',
+      'user_level' => 'AO',
     );
     DB::table('app_trailing')->where('app_no', $request->input('app_no'))
       ->insert($apptrail);
