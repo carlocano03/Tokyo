@@ -113,9 +113,11 @@
     <img src="{!! asset('assets/icons/qr-icon.svg') !!}" alt="UPPFI">
 </div> -->
 
-<div class="mp-input-group mp-mt2" id="input-app">
+<div class="mp-input-group mp-mt2" id="input-app" data-set="input-app">
     <label class="mp-input-group__label">Enter your application number.<br> Make sure to use the format xxxx-xxxx <br>ex. 2023-0024</label>
-    <br><br><br><input class="mp-input-group__input mp-text-field" type="text" id="app_no_trail" placeholder="Enter your Application Number XXXX-XXXX" required />
+    <br><br><br>
+    <input class="mp-input-group__input mp-text-field" type="text" id="app_no_trail" placeholder="Enter your Application Number XXXX-XXXX" required />
+    <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
     <label class="mp-input-group__label">(Your application number was emailed to your emailed provided at signup.)</label>
 
 </div>
@@ -198,8 +200,8 @@
 
 
     <div class="mp-mt5 d-flex flex-row items-between">
-        <button class="up-button-green btn-md mp-mt3 mp-mb3" id="fp_back" value="">
-            <span>Print</span>
+        <button class="up-button btn-md mp-mt3 mp-mb3 maroon-bg" id="fp_back" value="">
+            <span>Back</span>
         </button>
 
         <button class="up-button-green btn-md mp-mt3 mp-mb3" id="print_app">Print</button>
