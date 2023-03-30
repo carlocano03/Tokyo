@@ -1273,6 +1273,7 @@
     var query
     $(document).on('click', '#search_btn', function(e) {
         query = $('#app_no_trail').val();
+        clearErrorField(['input-app'])
         if (query != '') {
             $.ajaxSetup({
                 headers: {
@@ -1346,6 +1347,9 @@
                 }
             });
         } else {
+            $("[data-set=input-app]>#err-msg").removeClass('d-none')
+            $("[data-set=input-app]>#err-msg").removeClass('d-none').text("Please input your application number.")
+            $("[data-set=input-app]>input").addClass('input-error')
             Swal.fire({
                 title: 'Warning!',
                 text: 'Please input your application number.',
@@ -1593,5 +1597,17 @@
     //         }
     //     });
     // })
+    function clearErrorField(names) {
+        names.map((name) => {
+            try {
+                $("[data-set=" + name + "]>#err-msg").addClass('d-none')
+                $("[data-set=" + name + "]>select").removeClass('input-error')
+                $("[data-set=" + name + "]>.input").removeClass('input-error')
+                $("[data-set=" + name + "]>input").removeClass('input-error')
+            } catch (e) {
+                console.log(e)
+            }
+        })
+    }
 </script>
 @endsection
