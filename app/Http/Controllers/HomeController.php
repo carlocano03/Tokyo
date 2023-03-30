@@ -51,9 +51,9 @@ class HomeController extends Controller
         'personal_id'  => $request->input('employee_no'),
       );
       $dependent = Beneficiaries::where('fullname', strtoupper($request->input('name')))
-                   ->where('personal_id', $request->input('employee_no'))
-                   ->where('date_birth', $request->input('bday'))
-                   ->first();
+        ->where('personal_id', $request->input('employee_no'))
+        ->where('date_birth', $request->input('bday'))
+        ->first();
       if ($dependent) {
         $message = 'Exists';
       } else {
@@ -288,17 +288,18 @@ class HomeController extends Controller
     } else {
       $datadb = DB::transaction(function () use ($request) {
         $appointyear = $request->input('date_appoint_years');
-      $appointmonth = $request->input('date_appoint_months');
-      $appointday = $request->input('date_appoint_days');
-      // create a date string in the format YYYY-MM-DD
-      $dateOfappoint = sprintf('%04d-%02d-%02d', $appointyear, $appointmonth, $appointday);
+        $appointmonth = $request->input('date_appoint_months');
+        $appointday = $request->input('date_appoint_days');
+        // create a date string in the format YYYY-MM-DD
+        $dateOfappoint = sprintf('%04d-%02d-%02d', $appointyear, $appointmonth, $appointday);
         $inserts = array(
           'campus' => $request->input('campus'),
           'classification' => $request->input('classification'),
           'classification_others' => $request->input('classification_others'),
           'employee_no' => $request->input('employee_no'),
           'college_unit' => $request->input('college_unit'),
-          'department' => $request->input('department'),
+          'department' => $request->input('department') === "OTHER" ? null : $request->input('department'),
+          'department_others' => $request->input('other_department') === "" ? null : $request->input('other_department'),
           'rank_position' => $request->input('rank_position'),
           'date_appointment' => date('Y-m-d', strtotime($dateOfappoint)),
           'appointment' => $request->input('appointment'),
@@ -381,7 +382,6 @@ class HomeController extends Controller
       DB::table('membership_details')->insert($insertMemDetails);
       DB::table('mem_app')->where('app_no', $request->input('app_no'))
         ->update(array('app_status' => 'NEW APPLICATION'));
-
     } else {
       $insertMemDetails = array(
         'contribution_set' => 'Percentage of Basic Salary',
@@ -401,8 +401,8 @@ class HomeController extends Controller
     DB::table('app_trailing')->where('app_no', $request->input('app_no'))
       ->insert($apptrail);
     $email = DB::table('mem_app')
-            ->where('app_no', $request->input('app_no'))
-            ->value('email_address');
+      ->where('app_no', $request->input('app_no'))
+      ->value('email_address');
     $mailData = [
       'title' => 'Member Application is Submitted',
       'body' => 'Your application is Submitted and subject for review.',
@@ -416,7 +416,6 @@ class HomeController extends Controller
     $quries = DB::getQueryLog();
 
     return response()->json(['success' => $quries]);
-
   }
 
   public function delete_beneficiary(Request $request)
@@ -434,7 +433,7 @@ class HomeController extends Controller
 
   public function getClassification()
   {
-    $options = DB::table('classification')->select('classification_id', 'classification_name')->where('status',1)->get();
+    $options = DB::table('classification')->select('classification_id', 'classification_name')->where('status', 1)->get();
     return response()->json($options);
   }
 
@@ -442,11 +441,11 @@ class HomeController extends Controller
   {
     $campus_key = $request->input('campus_key');
     $options = DB::table('college_unit')
-    ->join('campus', 'college_unit.campus_id', '=', 'campus.id')
-    ->select('cu_no', 'college_unit_name')
-    ->where('campus_key', $campus_key)
-    ->orderBy('college_unit_name', 'asc')
-    ->get();
+      ->join('campus', 'college_unit.campus_id', '=', 'campus.id')
+      ->select('cu_no', 'college_unit_name')
+      ->where('campus_key', $campus_key)
+      ->orderBy('college_unit_name', 'asc')
+      ->get();
     return response()->json($options);
   }
 
@@ -454,16 +453,16 @@ class HomeController extends Controller
   {
     $college_id = $request->input('college_id');
     $options = DB::table('department')
-    ->join('college_unit', 'college_unit.cu_no', '=', 'department.cu_no')
-    ->select('dept_no', 'department_name')
-    ->where('department.cu_no', $college_id)
-    ->get();
+      ->join('college_unit', 'college_unit.cu_no', '=', 'department.cu_no')
+      ->select('dept_no', 'department_name')
+      ->where('department.cu_no', $college_id)
+      ->get();
     return response()->json($options);
   }
 
   public function getappointment()
   {
-    $options = DB::table('appointment')->select('appoint_id', 'appointment_name')->where('status_flag',1)->get();
+    $options = DB::table('appointment')->select('appoint_id', 'appointment_name')->where('status_flag', 1)->get();
     return response()->json($options);
   }
 
@@ -596,7 +595,7 @@ class HomeController extends Controller
     //   ];
     //   DB::table('axa_form')->insert($insertCoco);
     // }
-  // }
+    // }
 
     return response()->json(['message' => 'Success']);
   }
@@ -745,7 +744,7 @@ class HomeController extends Controller
     } else {
       $results = DB::table('psgc_municipal')->select('*')->whereRaw("code LIKE '$codes%'")->orderBy('name')->get();
     }
-    
+
     return response()->json(['data' => $results]);
   }
   public function psgc_brgy(Request $request)
@@ -763,43 +762,43 @@ class HomeController extends Controller
       $options = $request->input('percentage_check');
       $couuunt = DB::table('membership_details')->where('app_no', $request->input('app_no'))->count();
 
-    if ($couuunt > 0) {
-      if ($options != 'percentage') {
-        $insertMemDetails = array(
-          'contribution_set' => 'Fixed Amount',
-          'amount' =>  str_replace(',', '', $request->input('fixed_amount')),
-          'app_no' => $request->input('app_no')
-        );
-        $last_id = DB::table('membership_details')->where('app_no', $request->input('app_no'))->update($insertMemDetails);
+      if ($couuunt > 0) {
+        if ($options != 'percentage') {
+          $insertMemDetails = array(
+            'contribution_set' => 'Fixed Amount',
+            'amount' =>  str_replace(',', '', $request->input('fixed_amount')),
+            'app_no' => $request->input('app_no')
+          );
+          $last_id = DB::table('membership_details')->where('app_no', $request->input('app_no'))->update($insertMemDetails);
+        } else {
+          $insertMemDetails = array(
+            'contribution_set' => 'Percentage of Basic Salary',
+            'amount' => $request->input('percent_amt'),
+            'percentage' => $request->input('percentage_bsalary'),
+            'app_no' => $request->input('app_no')
+          );
+          $last_id = DB::table('membership_details')->where('app_no', $request->input('app_no'))->update($insertMemDetails);
+        }
       } else {
-        $insertMemDetails = array(
-          'contribution_set' => 'Percentage of Basic Salary',
-          'amount' => $request->input('percent_amt'),
-          'percentage' => $request->input('percentage_bsalary'),
-          'app_no' => $request->input('app_no')
-        );
-        $last_id = DB::table('membership_details')->where('app_no', $request->input('app_no'))->update($insertMemDetails);
+        if ($options != 'percentage') {
+          $insertMemDetails = array(
+            'contribution_set' => 'Fixed Amount',
+            'amount' =>  str_replace(',', '', $request->input('fixed_amount')),
+            'app_no' => $request->input('app_no'),
+            'percentage' => '',
+          );
+          $last_id = DB::table('membership_details')->insert($insertMemDetails);
+        } else {
+          $insertMemDetails = array(
+            'contribution_set' => 'Percentage of Basic Salary',
+            'amount' => $request->input('percent_amt'),
+            'percentage' => $request->input('percentage_bsalary'),
+            'app_no' => $request->input('app_no')
+          );
+          $last_id = DB::table('membership_details')->insert($insertMemDetails);
+        }
       }
-    }else{
-      if ($options != 'percentage') {
-        $insertMemDetails = array(
-          'contribution_set' => 'Fixed Amount',
-          'amount' =>  str_replace(',', '', $request->input('fixed_amount')),
-          'app_no' => $request->input('app_no'),
-          'percentage' => '',
-        );
-        $last_id = DB::table('membership_details')->insert($insertMemDetails);
-      } else {
-        $insertMemDetails = array(
-          'contribution_set' => 'Percentage of Basic Salary',
-          'amount' => $request->input('percent_amt'),
-          'percentage' => $request->input('percentage_bsalary'),
-          'app_no' => $request->input('app_no')
-        );
-        $last_id = DB::table('membership_details')->insert($insertMemDetails);
-      }
-    }
-      
+
       //  DB::table('membership_details')->insertGetId($inserts);
       //   $last_id = (DB::getPdo()->lastInsertId()); 
       return [
@@ -833,12 +832,12 @@ class HomeController extends Controller
         'tin_no' => $request->input('tin_no'),
       );
       DB::table('employee_details')->where('employee_details_ID', $request->input('employee_details_id'))
-          ->update($update);
+        ->update($update);
       $mem_appinst = array(
         'employee_no' => $request->input('emp_no'),
       );
       DB::table('mem_app')->where('mem_app_ID', $request->input('mem_app_id'))
-          ->update($mem_appinst);
+        ->update($mem_appinst);
       return [
         'emp_no' => $request->input('emp_no'),
       ];

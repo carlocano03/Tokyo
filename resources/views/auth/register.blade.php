@@ -597,11 +597,12 @@
             <label class="mp-input-group__label">Employee Classification </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="classification" id="classification">
                 <option value="">Select Classification</option>
+                <option value="OTHER">Other Classification Please Specify</option>
                 {{-- <option>Class A </option> --}}
             </select>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group d-none opacity-0" id="other_classification">
             <label class="mp-input-group__label">Other Classification (Please Specify)</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="classification_others" />
         </div>
@@ -621,8 +622,13 @@
             <label class="mp-input-group__label">Department </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="department" id="department" required>
                 <option value="">Select Department</option>
+                <option value="OTHER">Other Department Please Specify</option>
                 {{-- <option>DEPED </option> --}}
             </select>
+            <div id="other-dept-div" class=" d-none opacity-0">
+                <label class="mp-input-group__label">Other Department (Please Specify)</label>
+                <input class="mp-input-group__input mp-text-field" type="text" value="" name="other_department" id="other_department" />
+            </div>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Academic Rank/ Position </label>
@@ -677,11 +683,12 @@
             <label class="mp-input-group__label">Appointment Status </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="appointment" id="appointment" required>
                 <option value="">Select Status</option>
+                <option value="OTHER">Other Status Please Specify</option>
             </select>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
-            <label class="mp-input-group__label">Other Status (Please Specify) </label>
+        <div class="mp-input-group d-none opacity-0" id="other_status">
+            <label class=" mp-input-group__label">Other Status (Please Specify) </label>
             <input class="mp-input-group__input mp-text-field" type="text" />
         </div>
         <div class="mp-input-group" data-set="monthly_salary">
@@ -707,7 +714,7 @@
             <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_second">
+        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_as_draft">
             <span>Save as draft</span>
         </a>
         <a class="up-button btn-md button-animate-right mp-text-center" type="submit" value="step-3" id="next-btn">
@@ -851,7 +858,7 @@
             {{-- <button type="submit" class="d-none mp-text-center" id="btn-submit">Submit</button> --}}
             <hr>
         </div> -->
-        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_third">
+        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_as_draft">
             <span>Save as draft</span>
         </a>
         <a class="up-button btn-md button-animate-right mp-text-center" type="button" value="step-4" id="next-btn">
@@ -962,7 +969,7 @@
                             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
                                 <div class="d-flex flex-column" style="gap: 3px">
                                     <label class="mp-input-group__label">Month </label>
-                                    <select name="date_birth_dependent_month" id="date_birth_dependent_month" class="radius-1 outline select-field" style="font-size: normal;">
+                                    <select name=" " id=" " class="radius-1 outline select-field" style="font-size: normal;">
                                         <option value="">Month</option>
                                         <option value="01">January</option>
                                         <option value="02">February</option>
@@ -981,7 +988,7 @@
                                 <span><br />-</span>
                                 <div class="d-flex flex-column" style="gap: 3px">
                                     <label class="mp-input-group__label">Day </label>
-                                    <select name="date_birth_dependent_days" id="date_birth_dependent_days" class="radius-1 outline select-field" style="font-size: normal;">
+                                    <select name=" " id=" " class="radius-1 outline select-field" style="font-size: normal;">
                                         <option value="">Day</option>
                                         @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
                                             @endfor
@@ -990,7 +997,7 @@
                                 <span><br />-</span>
                                 <div class="d-flex flex-column" style="gap: 3px">
                                     <label class="mp-input-group__label">Year </label>
-                                    <select name="date_birth_dependent_years" id="date_birth_dependent_years" class="radius-1 outline select-field" style="font-size: normal;">
+                                    <select name=" " id=" " class="radius-1 outline select-field" style="font-size: normal;">
                                         <!-- option for current year -->
                                         <!-- options for years from current year down to 70 years ago -->
                                         <option value="">Year</option>
@@ -1115,7 +1122,7 @@
         <!-- <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
             <span>Save as draft</span>
         </a> -->
-        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_second">
+        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_as_draft">
             <span>Save as draft</span>
         </a>
         <a class="up-button btn-md button-animate-right mp-text-center" type="button" value="step-5" id="next-btn">
