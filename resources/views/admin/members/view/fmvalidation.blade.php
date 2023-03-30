@@ -940,7 +940,7 @@
                 <div class="w-auto">
                     <span class="font-sm">Status</span>
                     <br />
-                    @if ($status === 'HRDO - APPROVED' || $status === 'FORWARDED TO FM')
+                    @if ($status === 'APPROVED')
                     <span class="status-title green-bg">Approved Application</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
                     @else
                     <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
@@ -994,7 +994,7 @@
                                 <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
                                     <span class="font-sm">Status</span>
                                     <span class="mp-mh1">
-                                        @if ($data->status_remarks === 'APPROVED BY HRDO' || $data->status_remarks === 'FORWARDED TO FM' || $data->status_remarks === 'FOR PAYROLL ADVISE')
+                                        @if ($data->status_remarks === 'APPROVED')
                                         <span class="status-title green-bg">
                                             APPROVED
                                         </span>
@@ -1127,7 +1127,7 @@
                                         Result
                                         <br>
                                         <span class="font-md font-bold">
-                                            @if ($data->status_remarks === 'APPROVED BY HRDO' || $data->status_remarks === 'FORWARDED TO FM' || $data->status_remarks === 'FOR PAYROLL ADVISE')
+                                            @if ($data->status_remarks === 'APPROVED')
                                             <span class="status-title green-bg">
                                                 APPROVED
                                             </span>
@@ -1234,7 +1234,7 @@
                                     <span>
                                         AXA Form
                                     </span>
-                                    <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
+                                    <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/axaform/') }}/{{ $rec->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
                                         <span class="mp-link link_style">View AXA form</span>
                                     </a>
                                 </div>
@@ -1527,8 +1527,7 @@
                                             confirmButtonText: 'Proceed',
                                         }).then((result) => {
                                             if (result.isConfirmed) {
-                                                window.location.href = '{{ route('
-                                                admin.members_records ') }}';
+                                                window.location.href = "{{ route('admin.members_records') }}";
                                             }
                                         });
                                     } else {

@@ -345,7 +345,7 @@ class AdminController extends Controller
     $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
     if ($appcount == 0) {
       $apptrail = array(
-        'status_remarks' => "AA - Review Validation",
+        'status_remarks' => "AO - Review Validation",
         'app_no' => $id,
         'updateby' => Auth::user()->id,
         'user_level' => Auth::user()->user_level,
@@ -727,7 +727,7 @@ class AdminController extends Controller
     $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
     if ($appcount == 0) {
       $apptrail = array(
-        'status_remarks' => "AA - Review Validation",
+        'status_remarks' => "AO - Review Validation",
         'app_no' => $id,
         'updateby' => Auth::user()->id,
         'user_level' => Auth::user()->user_level,
@@ -854,7 +854,7 @@ class AdminController extends Controller
     $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
     if ($appcount == 0) {
       $apptrail = array(
-        'status_remarks' => "AA - Review Validation",
+        'status_remarks' => "AO - Review Validation",
         'app_no' => $id,
         'updateby' => Auth::user()->id,
         'user_level' => Auth::user()->user_level,
@@ -981,7 +981,7 @@ class AdminController extends Controller
     $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
     if ($appcount == 0) {
       $apptrail = array(
-        'status_remarks' => "AA - Review Validation",
+        'status_remarks' => "AO - Review Validation",
         'app_no' => $id,
         'updateby' => Auth::user()->id,
         'user_level' => Auth::user()->user_level,
@@ -1108,7 +1108,7 @@ class AdminController extends Controller
     $appcount = DB::table('app_trailing')->where('app_no', $id)->count();
     if ($appcount == 0) {
       $apptrail = array(
-        'status_remarks' => "AA - Review Validation",
+        'status_remarks' => "AO - Review Validation",
         'app_no' => $id,
         'updateby' => Auth::user()->id,
         'user_level' => Auth::user()->user_level,
@@ -1500,7 +1500,7 @@ class AdminController extends Controller
       ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
       ->leftjoin('college_unit', 'employee_details.college_unit', '=', 'college_unit.cu_no')
       ->leftjoin('department', 'employee_details.department', '=', 'department.dept_no')
-      ->leftjoin('aa_validation', 'mem_app.app_no', '=', 'aa_validation.app_no')
+      ->leftjoin('hrdo_validation', 'mem_app.app_no', '=', 'hrdo_validation.app_no')
       ->select(
         'mem_app.*',
         'membership_details.*',
@@ -1640,9 +1640,9 @@ class AdminController extends Controller
     if (!empty($validator_remarks)) {
       $records->where('mem_app.validator_remarks', $validator_remarks);
     }
-    if ($users == 'AA') {
+    if ($users == 'AO') {
       $aa_1 = 'NEW APPLICATION';
-      $cfm = 'AA VERIFIED';
+      $cfm = 'AO VERIFIED';
       $process = 'PROCESSING';
       $query_serch = 'DRAFT APPLICATION';
       $rejected = 'REJECTED';
@@ -1672,17 +1672,21 @@ class AdminController extends Controller
       $records->where('mem_app.forwarded_user', $aa_1);
       $records->where('mem_app.validator_remarks', $cfm);
       $records->orWhere('mem_app.app_status', $approved);
+      $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
+      $records->orWhere('mem_app.validator_remarks', 'FORWARD TO FM');
     } else if ($users == 'CFM') {
-      $cfm = 'AA VERIFIED';
+      $cfm = 'AO VERIFIED';
       $records->where('mem_app.app_status', $cfm);
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
-      $approved = 'APPROVED APPLICATION';
+      // $approved = 'APPROVED APPLICATION';
+      $approved = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
-          ->where('employee_details.campus', $allowCampus->campus_key);
-        // ->orWhere('mem_app.app_status', $approved);
+          ->where('employee_details.campus', $allowCampus->campus_key)
+          // ->orWhere('mem_app.app_status', $approved);
+          ->orWhere('mem_app.validator_remarks', $approved);
       });
     }
     $totalRecords = $records->count();
@@ -1719,9 +1723,9 @@ class AdminController extends Controller
     if (!empty($validator_remarks)) {
       $records->where('mem_app.validator_remarks', $validator_remarks);
     }
-    if ($users == 'AA') {
+    if ($users == 'AO') {
       $aa_1 = 'NEW APPLICATION';
-      $cfm = 'AA VERIFIED';
+      $cfm = 'AO VERIFIED';
       $process = 'PROCESSING';
       $query_serch = 'DRAFT APPLICATION';
       $rejected = 'REJECTED';
@@ -1751,11 +1755,12 @@ class AdminController extends Controller
       $records->where('mem_app.forwarded_user', $aa_1);
       $records->where('mem_app.validator_remarks', $cfm);
       $records->orWhere('mem_app.app_status', $approved);
+      $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
-      $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
+      $records->orWhere('mem_app.validator_remarks', 'FORWARD TO FM');
     } else if ($users == 'CFM') {
       $aa_1 = 'NEW APPLICATION';
-      $cfm = 'AA VERIFIED';
+      $cfm = 'AO VERIFIED';
       $process = 'PROCESSING';
       $records->where(function ($query) use ($aa_1, $cfm, $process) {
         $query->where('mem_app.app_status', $aa_1)
@@ -1765,11 +1770,13 @@ class AdminController extends Controller
       });
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
-      $approved = 'APPROVED APPLICATION';
+      // $approved = 'APPROVED APPLICATION';
+      $approved = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
-          ->where('employee_details.campus', $allowCampus->campus_key);
-        // ->orWhere('mem_app.app_status', $approved);
+          ->where('employee_details.campus', $allowCampus->campus_key)
+          // ->orWhere('mem_app.app_status', $approved);
+          ->orWhere('mem_app.validator_remarks', $approved);
       });
     }
 
@@ -1784,9 +1791,9 @@ class AdminController extends Controller
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
-    if ($users == 'AA') {
+    if ($users == 'AO') {
       $aa_1 = 'NEW APPLICATION';
-      $cfm = 'AA VERIFIED';
+      $cfm = 'AO VERIFIED';
       $process = 'PROCESSING';
       $query_serch = 'DRAFT APPLICATION';
       $rejected = 'REJECTED';
@@ -1810,10 +1817,10 @@ class AdminController extends Controller
       $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.app_status', $approved);
       $records->orWhere('mem_app.validator_remarks', $approved);
-      $records->orWhere('mem_app.validator_remarks', 'FORWARDED TO FM');
+      $records->orWhere('mem_app.validator_remarks', 'FORWARD TO FM');
     } else if ($users == 'CFM') {
       $aa_1 = 'NEW APPLICATION';
-      $cfm = 'AA VERIFIED';
+      $cfm = 'AO VERIFIED';
       $process = 'PROCESSING';
       $approved = 'APPROVED APPLICATION';
       $records->where(function ($query) use ($aa_1, $cfm, $process, $approved) {
@@ -1825,11 +1832,13 @@ class AdminController extends Controller
       });
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
-      $approved = 'APPROVED APPLICATION';
+      // $approved = 'APPROVED APPLICATION';
+      $approved = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
           ->where('employee_details.campus', $allowCampus->campus_key)
-          ->orWhere('mem_app.app_status', $approved);
+          // ->orWhere('mem_app.app_status', $approved);
+          ->orWhere('mem_app.validator_remarks', $approved);
       });
     }
     $dd = DB::getQueryLog();
@@ -1857,7 +1866,7 @@ class AdminController extends Controller
     }
     if ($users == 'HRDO') {
       $href = '/admin/members/records/view/hrdo/';
-    } else if ($users == 'AA') {
+    } else if ($users == 'AO') {
       $href = '/admin/members/records/view/aa/';
     } else if ($users == 'FM') {
       $href = '/admin/members/records/view/fm/';
@@ -1871,12 +1880,12 @@ class AdminController extends Controller
       foreach ($posts as $r) {
         $start++;
         $row = array();
-        if ($users == 'AA') {
-          $checkbox_users = $r->validator_remarks == 'AA VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
+        if ($users == 'AO') {
+          $checkbox_users = $r->validator_remarks == 'AO VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
             : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
         } else if ($users == 'HRDO') {
           // APPROVED APPLICATION
-          $checkbox_users = $r->validator_remarks == 'APPROVED BY HRDO' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
+          $checkbox_users = $r->validator_remarks == 'FORWARD TO FM' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
             : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
         } else if ($users == 'FM') {
           $checkbox_users = $r->validator_remarks == 'APPROVED APPLICATION' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'

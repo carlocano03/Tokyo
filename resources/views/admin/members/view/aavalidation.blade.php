@@ -751,7 +751,10 @@
         ;
     }
 
-    .notification {
+    .failed_personal,
+    .failed_employee,
+    .failed_membership,
+    .failed_attachment {
         background-color: red;
         color: white;
         border-radius: 50%;
@@ -946,7 +949,8 @@
                 <div class="w-auto">
                     <span class="font-sm">Status</span>
                     <br />
-                    @if ($status === 'HRDO - APPROVED' || $status === 'FORWARDED TO FM')
+                    <!-- $status === 'HRDO - APPROVED' || $status === 'FORWARDED TO FM' -->
+                    @if ($status === 'APPROVED')
                     <span class="status-title green-bg">Approved Application</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
                     @else
                     <span class="status-title orage-bg">Processing</span> <span class="font-sm magenta-clr font-bold">{{ $status }}</span>
@@ -954,12 +958,11 @@
                 </div>
                 <div class="w-auto d-flex justify-content-end">
                     <span>
-                        <button class="f-button up-button-green">
-                            Print
-                        </button>
-                        <button class="f-button up-button">
-                            Download
-                        </button>
+                        <a href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
+                            <button class="f-button">
+                                Print/Download
+                            </button>
+                        </a>
                     </span>
                 </div>
             </div>
@@ -997,11 +1000,12 @@
                                 <div class="trail-details d-flex flex-column w-full" style="grid-column-start: 4; grid-column-end: 13">
                                     <span class="font-sm">Status</span>
                                     <span class="mp-mh1">
-                                        @if ($data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM')
+                                        <!-- $data->status_remarks === 'HRDO - APPROVED' || $data->status_remarks === 'FORWARDED TO FM' -->
+                                        @if ($data->status_remarks === 'APPROVED')
                                         <span class="status-title green-bg">
                                             APPROVED
                                         </span>
-                                        @elseif ($data->status_remarks !== 'HRDO - APPROVED' && $data->status_remarks !== 'NEW APPLICATION')
+                                        @elseif ($data->status_remarks !== 'APPROVED BY HRDO' && $data->status_remarks !== 'NEW APPLICATION')
                                         <span class="status-title orage-bg">
                                             PROCESSING
                                         </span>
@@ -1014,15 +1018,11 @@
                                     <span class="font-sm">Remarks</span>
                                     <span class="magenta-clr font-bold ">{{ $data->status_remarks }}</span>
                                     <span class="font-sm">Date: <span>{{ date('F d, Y', strtotime($data->time_stamp)) }}</span></span>
+                                    <span class="font-sm">Time: <span>{{ date('h:i a', strtotime($data->time_stamp)) }}</span></span>
                                 </div>
                             </div>
                         </div>
                         @endforeach
-
-
-
-
-
                     </div>
                 </div>
             </div>
@@ -1030,335 +1030,324 @@
                 <div class="card-header magenta-bg d-flex items-between">
                     <span>Validation Process</span>
                 </div>
-                <div class="card-body mp-pv4 mp-ph3 d-flex flex-column">
-                    <div class="tab-component">
-                        <div class="header-tabs">
-                            <span class="active relative" data-set="0">
-                                1. Personal Details
-                                <div class="notification">3</div>
-                            </span>
-                            <span class="relative" data-set="1">
-                                2. Employee Details
-                                <div class="notification">3</div>
-                            </span>
-                            <span class="relative" data-set="2">
-                                3. Membership Details
-                                <div class="notification">3</div>
-                            </span>
-                            <span class="relative" data-set="3">
-                                4. Form and Attachments
-                                <div class="notification">3</div>
-                            </span>
+                <form id="aa_validation">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}">
+                    <input type="hidden" name="aa_cfm_user" id="aa_cfm_user" value="{{$rec->aa_cfm_user}}">
+                    <input type="hidden" name="validator_remark" id="validator_remark" value="{{$rec->validator_remarks}}">
+                    <div class="card-body mp-pv4 mp-ph3 d-flex flex-column">
+                        <div class="instructions">
+                            <b>Instructions:</b> Tick - <i class="fas fa-window-close" style="color:red;"></i> in the checkbox
+                            if you spot any errors. Then specify the error and the correction that needs to be done in the general remarks below.
                         </div>
-                        <div class="tab-body" data-set="0">
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_name) && $rec->pass_name == 1) ? 'checked' : '' }} name="pass_name">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Full Name
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->lastname}}, {{$rec->firstname}} {{$rec->middlename}}
-                                    </span>
-                                </div>
+                        <hr>
+                        <div class="tab-component">
+                            <div class="header-tabs">
+                                <span class="active relative" data-set="0">
+                                    1. Personal Details
+                                    <div class="failed_personal" style="display:none;"></div>
+                                </span>
+                                <span class="relative" data-set="1">
+                                    2. Employee Details
+                                    <div class="failed_employee" style="display:none;"></div>
+                                </span>
+                                <span class="relative" data-set="2">
+                                    3. Membership Details
+                                    <div class="failed_membership" style="display:none;"></div>
+                                </span>
+                                <span class="relative" data-set="3">
+                                    4. Form and Attachments
+                                    <div class="failed_attachment" style="display:none;"></div>
+                                </span>
                             </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_dob) && $rec->pass_dob == 1) ? 'checked' : '' }} name="pass_dob">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Date of Birth
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{ date('F d, Y', strtotime($rec->date_birth)) }}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_currentadd) && $rec->pass_currentadd == 1) ? 'checked' : '' }} name="pass_currentadd">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Current Address
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->present_bldg_street}}, {{$rec->present_barangay}}, {{$rec->present_municipality}}, {{$rec->present_province}}, {{$rec->present_zipcode}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_gender) && $rec->pass_gender == 1) ? 'checked' : '' }} name="pass_gender">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Gender
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->gender}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_permaadd) && $rec->pass_permaadd == 1) ? 'checked' : '' }} name="pass_permaadd">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Permanent Address
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->bldg_street}}, {{$rec->barangay}}, {{$rec->municipality}}, {{$rec->province}}, {{$rec->zipcode}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_civilstatus) && $rec->pass_civilstatus == 1) ? 'checked' : '' }} name="pass_civilstatus">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Civil Status
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{ $rec->civilstatus }}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_contactnum) && $rec->pass_contactnum == 1) ? 'checked' : '' }} name="pass_contactnum">
-                                <div class="d-flex flex-row flex-wrap gap-10">
-                                    <div class="d-flex flex-column" style="min-width: 200px">
+                            <div class="tab-body" data-set="0">
+                                <div class="tab-item">
+                                    <input type="checkbox" class="personal" {{ (isset($rec->pass_name) && $rec->pass_name == 1) ? 'checked' : '' }} name="pass_name">
+                                    <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
-                                            Contact Number
+                                            Full Name
                                         </span>
                                         <span class="mp-text-fw-medium">
-                                            {{$rec->contact_no}}
-                                        </span>
-                                    </div>
-                                    <div class="d-flex flex-column" style="min-width: 200px">
-                                        <span class="mp-text-fs-small">
-                                            Landline Number
-                                        </span>
-                                        <span class="mp-text-fw-medium">
-                                            {{ $rec->landline_no ? $rec->landline_no : 'N/A' }}
+                                            {{$rec->lastname}}, {{$rec->firstname}} {{$rec->middlename}}
                                         </span>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_citizenship) && $rec->pass_citizenship == 1) ? 'checked' : '' }} name="pass_citizenship">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Citizenship
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{ $rec->citizenship }}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_email) && $rec->pass_email == 1) ? 'checked' : '' }} name="pass_email">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Email Address
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->email}}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-body d-none" data-set="1">
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_emp_no) && $rec->pass_emp_no == 1) ? 'checked' : '' }} name="pass_emp_no">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Employee Number
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->employee_no}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_campus) && $rec->pass_campus == 1) ? 'checked' : '' }} name="pass_campus">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Campus
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->name}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_classification) && $rec->pass_classification == 1) ? 'checked' : '' }} name="pass_classification">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Classification
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->classification}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_college_unit) && $rec->pass_college_unit == 1) ? 'checked' : '' }} name="pass_college_unit">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        College/Unit
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->college_unit_name}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_department) && $rec->pass_department == 1) ? 'checked' : '' }} name="pass_department">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Department
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->department_name}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_rankpos) && $rec->pass_rankpos == 1) ? 'checked' : '' }} name="pass_rankpos">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Rank/Position
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->rank_position}}
-                                    </span>
-                                </div>
-                            </div>
-                            <!-- <div class="tab-item">
-                                <input type="checkbox">
-                                <div class="d-flex flex-row flex-wrap gap-10">
-                                    <div class="d-flex flex-column" style="min-width: 200px">
+                                <div class="tab-item">
+                                    <input type="checkbox" class="personal" value="1" {{ (isset($rec->pass_dob) && $rec->pass_dob == 1) ? 'checked' : '' }} name="pass_dob">
+                                    <div class="d-flex flex-column">
                                         <span class="mp-text-fs-small">
-                                            Contact Number
+                                            Date of Birth
                                         </span>
                                         <span class="mp-text-fw-medium">
-                                            092323232323232
-                                        </span>
-                                    </div>
-                                    <div class="d-flex flex-column" style="min-width: 200px">
-                                        <span class="mp-text-fs-small">
-                                            Landline Number
-                                        </span>
-                                        <span class="mp-text-fw-medium">
-                                            1267835123675
+                                            {{ date('F d, Y', strtotime($rec->date_birth)) }}
                                         </span>
                                     </div>
                                 </div>
-                            </div> -->
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_appointdate) && $rec->pass_appointdate == 1) ? 'checked' : '' }} name="pass_appointdate">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Appointment Date
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{ date('F d, Y', strtotime($rec->date_appointment)) }}
-                                    </span>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="personal" value="1" {{ (isset($rec->pass_currentadd) && $rec->pass_currentadd == 1) ? 'checked' : '' }} name="pass_currentadd">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Current Address
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->present_bldg_street}}, {{$rec->present_barangay}}, {{$rec->present_municipality}}, {{$rec->present_province}}, {{$rec->present_zipcode}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="personal" value="1" {{ (isset($rec->pass_gender) && $rec->pass_gender == 1) ? 'checked' : '' }} name="pass_gender">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Gender
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->gender}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="personal" value="1" {{ (isset($rec->pass_permaadd) && $rec->pass_permaadd == 1) ? 'checked' : '' }} name="pass_permaadd">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Permanent Address
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->bldg_street}}, {{$rec->barangay}}, {{$rec->municipality}}, {{$rec->province}}, {{$rec->zipcode}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="personal" value="1" {{ (isset($rec->pass_civilstatus) && $rec->pass_civilstatus == 1) ? 'checked' : '' }} name="pass_civilstatus">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Civil Status
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{ $rec->civilstatus }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="personal" value="1" {{ (isset($rec->pass_contactnum) && $rec->pass_contactnum == 1) ? 'checked' : '' }} name="pass_contactnum">
+                                    <div class="d-flex flex-row flex-wrap gap-10">
+                                        <div class="d-flex flex-column" style="min-width: 200px">
+                                            <span class="mp-text-fs-small">
+                                                Contact Number
+                                            </span>
+                                            <span class="mp-text-fw-medium">
+                                                {{$rec->contact_no}}
+                                            </span>
+                                        </div>
+                                        <div class="d-flex flex-column" style="min-width: 200px">
+                                            <span class="mp-text-fs-small">
+                                                Landline Number
+                                            </span>
+                                            <span class="mp-text-fw-medium">
+                                                {{ $rec->landline_no ? $rec->landline_no : 'N/A' }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="personal" value="1" {{ (isset($rec->pass_citizenship) && $rec->pass_citizenship == 1) ? 'checked' : '' }} name="pass_citizenship">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Citizenship
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{ $rec->citizenship }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="personal" value="1" {{ (isset($rec->pass_email) && $rec->pass_email == 1) ? 'checked' : '' }} name="pass_email">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Email Address
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->email}}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_monthlysalary) && $rec->pass_monthlysalary == 1) ? 'checked' : '' }} name="pass_monthlysalary">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Monthly Salary
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        ₱{{ number_format($rec->monthly_salary, 2, '.', ',') }}
-                                    </span>
+                            <div class="tab-body d-none" data-set="1">
+                                <div class="tab-item">
+                                    <input type="checkbox" class="employee" value="1" {{ (isset($rec->pass_emp_no) && $rec->pass_emp_no == 1) ? 'checked' : '' }} name="pass_emp_no">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Employee Number
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->employee_no}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="employee" value="1" {{ (isset($rec->pass_campus) && $rec->pass_campus == 1) ? 'checked' : '' }} name="pass_campus">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Campus
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->name}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="employee" value="1" {{ (isset($rec->pass_classification) && $rec->pass_classification == 1) ? 'checked' : '' }} name="pass_classification">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Classification
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->classification}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="employee" value="1" {{ (isset($rec->pass_college_unit) && $rec->pass_college_unit == 1) ? 'checked' : '' }} name="pass_college_unit">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            College/Unit
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->college_unit_name}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="employee" value="1" {{ (isset($rec->pass_department) && $rec->pass_department == 1) ? 'checked' : '' }} name="pass_department">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Department
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->department_name}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="employee" value="1" {{ (isset($rec->pass_rankpos) && $rec->pass_rankpos == 1) ? 'checked' : '' }} name="pass_rankpos">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Rank/Position
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->rank_position}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="employee" value="1" {{ (isset($rec->pass_appointdate) && $rec->pass_appointdate == 1) ? 'checked' : '' }} name="pass_appointdate">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Appointment Date
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{ date('F d, Y', strtotime($rec->date_appointment)) }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="employee" value="1" {{ (isset($rec->pass_monthlysalary) && $rec->pass_monthlysalary == 1) ? 'checked' : '' }} name="pass_monthlysalary">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Monthly Salary
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            ₱{{ number_format($rec->monthly_salary, 2, '.', ',') }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="employee" value="1" {{ (isset($rec->pass_sg) && $rec->pass_sg == 1) ? 'checked' : '' }} name="pass_sg">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Salary Grade
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->salary_grade}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="employee" value="1" {{ (isset($rec->pass_sgcat) && $rec->pass_sgcat == 1) ? 'checked' : '' }} name="pass_sgcat">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Salary Grade Category
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->sg_category}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="employee" value="1" {{ (isset($rec->pass_tin_no) && $rec->pass_tin_no == 1) ? 'checked' : '' }} name="pass_tin_no">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Tin Number
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->tin_no}}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_sg) && $rec->pass_sg == 1) ? 'checked' : '' }} name="pass_sg">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Salary Grade
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->salary_grade}}
-                                    </span>
+                            <div class="tab-body d-none" data-set="2">
+                                <div class="tab-item">
+                                    <input type="checkbox" class="membership" value="1" {{ (isset($rec->pass_monthlycontri) && $rec->pass_monthlycontri == 1) ? 'checked' : '' }} name="pass_monthlycontri">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Monthly Contribution
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            {{$rec->contribution_set}}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="membership" value="1" {{ (isset($rec->pass_equivalent) && $rec->pass_equivalent == 1) ? 'checked' : '' }} name="pass_equivalent">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Equivalent Value
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            ₱{{ number_format($rec->amount, 2, '.', ',') }}
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_sgcat) && $rec->pass_sgcat == 1) ? 'checked' : '' }} name="pass_sgcat">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Salary Grade Category
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->sg_category}}
-                                    </span>
+                            <div class="tab-body d-none" data-set="3">
+                                <div class="tab-item">
+                                    <input type="checkbox" class="attachment" value="1" {{ (isset($rec->pass_membershipf) && $rec->pass_membershipf == 1) ? 'checked' : '' }} name="pass_membershipf">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Membership Form
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
+                                                <span class="mp-link link_style">View Membership form</span>
+                                            </a>
+                                        </span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_tin_no) && $rec->pass_tin_no == 1) ? 'checked' : '' }} name="pass_tin_no">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Tin Number
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->tin_no}}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-body d-none" data-set="2">
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_monthlycontri) && $rec->pass_monthlycontri == 1) ? 'checked' : '' }} name="pass_monthlycontri">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Monthly Contribution
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        {{$rec->contribution_set}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_equivalent) && $rec->pass_equivalent == 1) ? 'checked' : '' }} name="pass_equivalent">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Equivalent Value
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        ₱{{ number_format($rec->amount, 2, '.', ',') }}
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-body d-none" data-set="3">
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_membershipf) && $rec->pass_membershipf == 1) ? 'checked' : '' }} name="pass_membershipf">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Membership Form
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $rec->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
-                                            <span class="mp-link link_style">View Membership form</span>
-                                        </a>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="tab-item">
-                                <input type="checkbox" {{ (isset($rec->pass_proxyform) && $rec->pass_proxyform == 1) ? 'checked' : '' }} name="pass_proxyform">
-                                <div class="d-flex flex-column">
-                                    <span class="mp-text-fs-small">
-                                        Proxy Form
-                                    </span>
-                                    <span class="mp-text-fw-medium">
-                                        <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/generateProxyForm/') }}/{{ $rec->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
-                                            <span class="mp-link link_style">View Proxy form</span>
-                                        </a>
-                                    </span>
+                                <div class="tab-item">
+                                    <input type="checkbox" class="attachment" value="1" {{ (isset($rec->pass_proxyform) && $rec->pass_proxyform == 1) ? 'checked' : '' }} name="pass_proxyform">
+                                    <div class="d-flex flex-column">
+                                        <span class="mp-text-fs-small">
+                                            Proxy Form
+                                        </span>
+                                        <span class="mp-text-fw-medium">
+                                            <a class='view_member view-member' href="javascript:void(0)" onclick="window.open('{{ URL::to('/generateProxyForm/') }}/{{ $rec->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" style='cursor: pointer; padding: 0'>
+                                                <span class="mp-link link_style">View Proxy form</span>
+                                            </a>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
             <div class="table-form form-header w-full light-gray-bg shadow-1">
                 <div class="span-12 d-flex flex-column mp-pv3 mp-ph3 gap-10">
@@ -1370,19 +1359,20 @@
                     <textarea name="general_remarks" id="general_remarks" rows="3" style="resize: none;">{{ (isset($rec->general_remarks)) ? $rec->general_remarks : '' }}</textarea>
                     <div class="d-flex flex-row items-between mp-pv1">
                         <div class="d-flex flex-column" style="gap: 5px;">
-                            <div class="">
+                            <!-- <div class="">
                                 Evaluation Summary
                             </div>
                             <div class="d-flex flex-column font-sm">
                                 <div class="d-flex flex-row mp-text-center" style="width: 100px">
-                                    <span>Passed: <span class="font-md font-bold color-black" id="pass_count"></span></span>
+                                    <span>Passed: <span class="font-md font-bold color-black" id="passed_count"></span></span>
 
                                 </div>
                                 <div class="d-flex flex-row mp-text-center" style="width: 100px">
                                     <span>Failed: <span class="font-md font-bold color-black" id="failed_count"></span></span>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
+                        @if ($rec->aa_cfm_user == 0 || $rec->validator_remarks == 'HRDO RETURNED APPLICATION')
                         <span class="d-flex" style="gap: 10px">
                             <button class="f-button align-self-end red-bg" id="reject_app">
                                 <span id="reject_text">Reject Application</span>
@@ -1391,9 +1381,10 @@
                                 <span id="return_text">Return Application</span>
                             </button>
                             <button class="f-button align-self-end" id="save_record">
-                                <span id="save_text">Save Record </span>
+                                <span id="save_text">Verified This Application </span>
                             </button>
                         </span>
+                        @endif
 
                     </div>
 
@@ -1425,6 +1416,131 @@
 
 
 <script>
+    $(document).ready(function() {
+        var aa_cfm_user = $('#aa_cfm_user').val();
+        var validator_remark = $('#validator_remark').val();
+        if (aa_cfm_user == 0 || validator_remark == 'HRDO RETURNED APPLICATION') {
+            $('input[type="checkbox"]').attr('disabled', false);
+            $('input[type="text"]').attr('disabled', false);
+            $('#general_remarks').attr('readonly', false);
+        } else {
+            $('input[type="checkbox"]').attr('disabled', true);
+            $('input[type="text"]').attr('disabled', true);
+            $('#general_remarks').attr('readonly', true);
+        }
+
+        checkedCount = $('.personal:checked').length;
+        $('.failed_personal').text(checkedCount);
+        $('.failed_personal').show();
+        if (checkedCount == 0) {
+            $('.failed_personal').hide(100);
+            $('#save_record').css('background-color', '');
+            $('#save_record').prop('disabled', false);
+        } else {
+            $('#save_record').css('background-color', 'gray');
+            $('#save_record').prop('disabled', true);
+
+        }
+
+        checkedCount = $('.employee:checked').length;
+        $('.failed_employee').text(checkedCount);
+        $('.failed_employee').show();
+        if (checkedCount == 0) {
+            $('.failed_employee').hide(100);
+            $('#save_record').css('background-color', '');
+            $('#save_record').prop('disabled', false);
+        } else {
+            $('#save_record').css('background-color', 'gray');
+            $('#save_record').prop('disabled', true);
+
+        }
+
+        checkedCount = $('.membership:checked').length;
+        $('.failed_membership').text(checkedCount);
+        $('.failed_membership').show();
+        if (checkedCount == 0) {
+            $('.failed_membership').hide(100);
+            $('#save_record').css('background-color', '');
+            $('#save_record').prop('disabled', false);
+        } else {
+            $('#save_record').css('background-color', 'gray');
+            $('#save_record').prop('disabled', true);
+
+        }
+
+        checkedCount = $('.attachment:checked').length;
+        $('.failed_attachment').text(checkedCount);
+        $('.failed_attachment').show();
+        if (checkedCount == 0) {
+            $('.failed_attachment').hide(100);
+            $('#save_record').css('background-color', '');
+            $('#save_record').prop('disabled', false);
+        } else {
+            $('#save_record').css('background-color', 'gray');
+            $('#save_record').prop('disabled', true);
+
+        }
+    });
+    $('.personal').change(function() {
+        checkedCount = $('.personal:checked').length;
+        $('.failed_personal').text(checkedCount);
+        $('.failed_personal').show();
+        if (checkedCount == 0) {
+            $('.failed_personal').hide(100);
+            $('#save_record').css('background-color', '');
+            $('#save_record').prop('disabled', false);
+        } else {
+            $('#save_record').css('background-color', 'gray');
+            $('#save_record').prop('disabled', true);
+
+        }
+    });
+
+    $('.employee').change(function() {
+        checkedCount = $('.employee:checked').length;
+        $('.failed_employee').text(checkedCount);
+        $('.failed_employee').show();
+        if (checkedCount == 0) {
+            $('.failed_employee').hide(100);
+            $('#save_record').css('background-color', '');
+            $('#save_record').prop('disabled', false);
+        } else {
+            $('#save_record').css('background-color', 'gray');
+            $('#save_record').prop('disabled', true);
+
+        }
+    });
+
+    $('.membership').change(function() {
+        checkedCount = $('.membership:checked').length;
+        $('.failed_membership').text(checkedCount);
+        $('.failed_membership').show();
+        if (checkedCount == 0) {
+            $('.failed_membership').hide(100);
+            $('#save_record').css('background-color', '');
+            $('#save_record').prop('disabled', false);
+        } else {
+            $('#save_record').css('background-color', 'gray');
+            $('#save_record').prop('disabled', true);
+
+        }
+    });
+
+    $('.attachment').change(function() {
+        checkedCount = $('.attachment:checked').length;
+        $('.failed_attachment').text(checkedCount);
+        $('.failed_attachment').show();
+        if (checkedCount == 0) {
+            $('.failed_attachment').hide(100);
+            $('#save_record').css('background-color', '');
+            $('#save_record').prop('disabled', false);
+        } else {
+            $('#save_record').css('background-color', 'gray');
+            $('#save_record').prop('disabled', true);
+
+        }
+    });
+
     const links = ['/personal', '/employee', '/membership', '/forms']
 
     function setActiveTab(tab) {
@@ -1525,194 +1641,6 @@
         }
     })
 
-
-    var passCount = 0;
-    var failCount = 0;
-    $(document).ready(function() {
-        passCount = 0;
-        failCount = 0;
-        $('#aa_validation input[type="radio"]').each(function() {
-            if ($(this).is(':checked')) {
-                if ($(this).val() == 1) {
-                    passCount++;
-                    $(this).parent().next().next().find('input[type="text"]').val('');
-                    $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
-                    var totalpd = $('.personal-detail input[type="radio"][value="1"]').length;
-                    var selectedpd = $('.personal-detail input[type="radio"][value="1"]:checked').length;
-                    if (selectedpd == totalpd) {
-                        $('#check_allppd').prop('checked', true);
-                    } else {
-                        $('#check_allppd').prop('checked', false);
-                    }
-                    var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
-                    var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
-                    if (selecteded == totaled) {
-                        $('#check_allped').prop('checked', true);
-                    } else {
-                        $('#check_allped').prop('checked', false);
-                    }
-                    var totalmd = $('.members-detail input[type="radio"][value="1"]').length;
-                    var selectedmd = $('.members-detail input[type="radio"][value="1"]:checked').length;
-                    if (selectedmd == totalmd) {
-                        $('#check_allpmd').prop('checked', true);
-                    } else {
-                        $('#check_allpmd').prop('checked', false);
-                    }
-                    var totalsd = $('.supporting-detail input[type="radio"][value="1"]').length;
-                    var selectedsd = $('.supporting-detail input[type="radio"][value="1"]:checked').length;
-                    if (selectedsd == totalsd) {
-                        $('#check_allpsd').prop('checked', true);
-                    } else {
-                        $('#check_allpsd').prop('checked', false);
-                    }
-                } else if ($(this).val() == 2) {
-                    failCount++;
-                    $(this).parent().next().find('input[type="text"]').prop('disabled', false);
-                    var totalpd = $('.personal-detail input[type="radio"][value="2"]').length;
-                    var selectedpd = $('.personal-detail input[type="radio"][value="2"]:checked').length;
-                    if (selectedpd == totalpd) {
-                        $('#check_allfpd').prop('checked', true);
-                    } else {
-                        $('#check_allfpd').prop('checked', false);
-                    }
-                    var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
-                    var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
-                    if (selecteded == totaled) {
-                        $('#check_allfed').prop('checked', true);
-                    } else {
-                        $('#check_allfed').prop('checked', false);
-                    }
-                    var totalmd = $('.members-detail input[type="radio"][value="2"]').length;
-                    var selectedmd = $('.members-detail input[type="radio"][value="2"]:checked').length;
-                    if (selectedmd == totalmd) {
-                        $('#check_allfmd').prop('checked', true);
-                    } else {
-                        $('#check_allfmd').prop('checked', false);
-                    }
-                    var totalsd = $('.supporting-detail input[type="radio"][value="2"]').length;
-                    var selectedsd = $('.supporting-detail input[type="radio"][value="2"]:checked').length;
-                    if (selectedsd == totalsd) {
-                        $('#check_allfsd').prop('checked', true);
-                    } else {
-                        $('#check_allfsd').prop('checked', false);
-                    }
-                }
-            }
-        });
-        $('#pass_count').text(passCount);
-        $('#failed_count').text(failCount);
-        if (failCount > 0) {
-            // $('#return_app').css('cssText', 'background-color:  !important;');
-            // $('#return_app').prop('disabled', false);
-            $('#save_record').css('background-color', 'gray');
-            $('#save_record').prop('disabled', true);
-            $('#reject_app').css('cssText', 'background-color:  !important;');
-            $('#reject_app').prop('disabled', false);
-        } else {
-            $('#save_record').css('background-color', '');
-            $('#save_record').prop('disabled', false);
-            // $('#return_app').css('cssText', 'background-color: gray !important;');
-            // $('#return_app').prop('disabled', true);
-            $('#reject_app').css('cssText', 'background-color: gray !important;');
-            $('#reject_app').prop('disabled', true);
-        }
-    });
-    $(document).ready(function() {
-        $('#aa_validation input[type="radio"]').on('change click', function() {
-            passCount = 0;
-            failCount = 0;
-            $('#aa_validation input[type="radio"]').each(function() {
-                if ($(this).is(':checked')) {
-                    if ($(this).val() == 1) {
-                        passCount++;
-                        $(this).parent().next().next().find('input[type="text"]').val('');
-                        $(this).parent().next().next().find('input[type="text"]').prop('disabled', true);
-                        var totalpd = $('.personal-detail input[type="radio"][value="1"]').length;
-                        var selectedpd = $('.personal-detail input[type="radio"][value="1"]:checked').length;
-                        if (selectedpd == totalpd) {
-                            $('#check_allppd').prop('checked', true);
-                        } else {
-                            $('#check_allppd').prop('checked', false);
-                        }
-                        var totaled = $('.employee-detail input[type="radio"][value="1"]').length;
-                        var selecteded = $('.employee-detail input[type="radio"][value="1"]:checked').length;
-                        if (selecteded == totaled) {
-                            $('#check_allped').prop('checked', true);
-                        } else {
-                            $('#check_allped').prop('checked', false);
-                        }
-                        var totalmd = $('.members-detail input[type="radio"][value="1"]').length;
-                        var selectedmd = $('.members-detail input[type="radio"][value="1"]:checked').length;
-                        if (selectedmd == totalmd) {
-                            $('#check_allpmd').prop('checked', true);
-                        } else {
-                            $('#check_allpmd').prop('checked', false);
-                        }
-                        var totalsd = $('.supporting-detail input[type="radio"][value="1"]').length;
-                        var selectedsd = $('.supporting-detail input[type="radio"][value="1"]:checked').length;
-                        if (selectedsd == totalsd) {
-                            $('#check_allpsd').prop('checked', true);
-                        } else {
-                            $('#check_allpsd').prop('checked', false);
-                        }
-                    } else if ($(this).val() == 2) {
-                        failCount++;
-                        $(this).parent().next().find('input[type="text"]').prop('disabled', false);
-                        var totalpd = $('.personal-detail input[type="radio"][value="2"]').length;
-                        var selectedpd = $('.personal-detail input[type="radio"][value="2"]:checked').length;
-                        if (selectedpd == totalpd) {
-                            $('#check_allfpd').prop('checked', true);
-                        } else {
-                            $('#check_allfpd').prop('checked', false);
-                        }
-                        var totaled = $('.employee-detail input[type="radio"][value="2"]').length;
-                        var selecteded = $('.employee-detail input[type="radio"][value="2"]:checked').length;
-                        if (selecteded == totaled) {
-                            $('#check_allfed').prop('checked', true);
-                        } else {
-                            $('#check_allfed').prop('checked', false);
-                        }
-                        var totalmd = $('.members-detail input[type="radio"][value="2"]').length;
-                        var selectedmd = $('.members-detail input[type="radio"][value="2"]:checked').length;
-                        if (selectedmd == totalmd) {
-                            $('#check_allfmd').prop('checked', true);
-                        } else {
-                            $('#check_allfmd').prop('checked', false);
-                        }
-                        var totalsd = $('.supporting-detail input[type="radio"][value="2"]').length;
-                        var selectedsd = $('.supporting-detail input[type="radio"][value="2"]:checked').length;
-                        if (selectedsd == totalsd) {
-                            $('#check_allfsd').prop('checked', true);
-                        } else {
-                            $('#check_allfsd').prop('checked', false);
-                        }
-                    }
-                }
-            });
-            $('#pass_count').text(passCount);
-            $('#failed_count').text(failCount);
-            if (failCount > 0) {
-                $('#return_app').css('cssText', 'background-color:  !important;');
-                $('#return_app').prop('disabled', false);
-                $('#save_record').css('background-color', 'gray');
-                $('#save_record').prop('disabled', true);
-                $('#reject_app').css('cssText', 'background-color:  !important;');
-                $('#reject_app').prop('disabled', false);
-            } else {
-                $('#save_record').css('background-color', '');
-                $('#save_record').prop('disabled', false);
-                $('#return_app').css('cssText', 'background-color: gray !important;');
-                $('#return_app').prop('disabled', true);
-                $('#reject_app').css('cssText', 'background-color: gray !important;');
-                $('#reject_app').prop('disabled', true);
-            }
-
-        });
-    });
-    $(document).ready(function() {
-        // Find the button element with id 'return_app' and remove the 'disabled' attribute from it
-        $('#return_app').prop('disabled', true);
-    });
     $('#return_app').click(function() {
         event.preventDefault();
         Swal.fire({
@@ -1747,8 +1675,7 @@
                                 confirmButtonText: 'Proceed',
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = '{{ route('
-                                    admin.members_records ') }}';
+                                    window.location.href = "{{ route('admin.members_records') }}";
                                 }
                             });
                         } else {
@@ -1759,91 +1686,7 @@
             }
         });
     });
-    // });
-    $('#check_allppd').click(function() {
-        if ($(this).is(':checked')) {
-            $('input[name="pass_name"][value="1"]').prop('checked', true);
-            $('input[name="pass_dob"][value="1"]').prop('checked', true);
-            $('input[name="pass_gender"][value="1"]').prop('checked', true);
-            $('input[name="pass_civilstatus"][value="1"]').prop('checked', true);
-            $('input[name="pass_citizenship"][value="1"]').prop('checked', true);
-            $('input[name="pass_currentadd"][value="1"]').prop('checked', true);
-            $('input[name="pass_permaadd"][value="1"]').prop('checked', true);
-            $('input[name="pass_contactnum"][value="1"]').prop('checked', true);
-            $('input[name="pass_landline"][value="1"]').prop('checked', true);
-            $('input[name="pass_email"][value="1"]').prop('checked', true);
-        }
-    });
-    $('#check_allped').click(function() {
-        if ($(this).is(':checked')) {
-            $('input[name="pass_emp_no"][value="1"]').prop('checked', true);
-            $('input[name="pass_campus"][value="1"]').prop('checked', true);
-            $('input[name="pass_classification"][value="1"]').prop('checked', true);
-            $('input[name="pass_college_unit"][value="1"]').prop('checked', true);
-            $('input[name="pass_department"][value="1"]').prop('checked', true);
-            $('input[name="pass_rankpos"][value="1"]').prop('checked', true);
-            $('input[name="pass_appointment"][value="1"]').prop('checked', true);
-            $('input[name="pass_appointdate"][value="1"]').prop('checked', true);
-            $('input[name="pass_monthlysalary"][value="1"]').prop('checked', true);
-            $('input[name="pass_sg"][value="1"]').prop('checked', true);
-            $('input[name="pass_sgcat"][value="1"]').prop('checked', true);
-            $('input[name="pass_tin_no"][value="1"]').prop('checked', true);
-        }
-    });
-    $('#check_allpmd').click(function() {
-        if ($(this).is(':checked')) {
-            $('input[name="pass_monthlycontri"][value="1"]').prop('checked', true);
-            $('input[name="pass_equivalent"][value="1"]').prop('checked', true);
-        }
-    });
-    $('#check_allpsd').click(function() {
-        if ($(this).is(':checked')) {
-            $('input[name="pass_membershipf"][value="1"]').prop('checked', true);
-            $('input[name="pass_proxyform"][value="1"]').prop('checked', true);
-        }
-    });
-    $('#check_allfpd').click(function() {
-        if ($(this).is(':checked')) {
-            $('input[name="pass_name"][value="2"]').prop('checked', true);
-            $('input[name="pass_dob"][value="2"]').prop('checked', true);
-            $('input[name="pass_gender"][value="2"]').prop('checked', true);
-            $('input[name="pass_civilstatus"][value="2"]').prop('checked', true);
-            $('input[name="pass_citizenship"][value="2"]').prop('checked', true);
-            $('input[name="pass_currentadd"][value="2"]').prop('checked', true);
-            $('input[name="pass_permaadd"][value="2"]').prop('checked', true);
-            $('input[name="pass_contactnum"][value="2"]').prop('checked', true);
-            $('input[name="pass_landline"][value="2"]').prop('checked', true);
-            $('input[name="pass_email"][value="2"]').prop('checked', true);
-        }
-    });
-    $('#check_allfed').click(function() {
-        if ($(this).is(':checked')) {
-            $('input[name="pass_emp_no"][value="2"]').prop('checked', true);
-            $('input[name="pass_campus"][value="2"]').prop('checked', true);
-            $('input[name="pass_classification"][value="2"]').prop('checked', true);
-            $('input[name="pass_college_unit"][value="2"]').prop('checked', true);
-            $('input[name="pass_department"][value="2"]').prop('checked', true);
-            $('input[name="pass_rankpos"][value="2"]').prop('checked', true);
-            $('input[name="pass_appointment"][value="2"]').prop('checked', true);
-            $('input[name="pass_appointdate"][value="2"]').prop('checked', true);
-            $('input[name="pass_monthlysalary"][value="2"]').prop('checked', true);
-            $('input[name="pass_sg"][value="2"]').prop('checked', true);
-            $('input[name="pass_sgcat"][value="2"]').prop('checked', true);
-            $('input[name="pass_tin_no"][value="2"]').prop('checked', true);
-        }
-    });
-    $('#check_allfmd').click(function() {
-        if ($(this).is(':checked')) {
-            $('input[name="pass_monthlycontri"][value="2"]').prop('checked', true);
-            $('input[name="pass_equivalent"][value="2"]').prop('checked', true);
-        }
-    });
-    $('#check_allfsd').click(function() {
-        if ($(this).is(':checked')) {
-            $('input[name="pass_membershipf"][value="2"]').prop('checked', true);
-            $('input[name="pass_proxyform"][value="2"]').prop('checked', true);
-        }
-    });
+
     $('#save_record').click(function() {
         event.preventDefault();
         // alert('gg');
@@ -1876,8 +1719,7 @@
                                     confirmButtonText: 'Proceed',
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        window.location.href = '{{ route('
-                                        admin.members_records ') }}';
+                                        window.location.href = "{{ route('admin.members_records') }}";
                                     }
                                 });
                             } else {
@@ -1932,8 +1774,7 @@
                                             confirmButtonText: 'Ok',
                                         }).then((result) => {
                                             if (result.isConfirmed) {
-                                                window.location.href = '{{ route('
-                                                admin.members_records ') }}';
+                                                window.location.href = "{{ route('admin.members_records') }}";
                                             }
                                         });
                                     } else {
