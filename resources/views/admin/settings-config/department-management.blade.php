@@ -101,7 +101,7 @@
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Campus</label>
-                        <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
+                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
                           <option value="">Select Campus</option>
                           <!-- <option value="all">All Campus</option> -->
                           @foreach($campus as $row)
@@ -112,7 +112,7 @@
                       <div class="mp-input-group">
 
                         <label class="mp-input-group__label">College / Unit</label>
-                        <select class="mp-input-group__input mp-text-field" name="college_unit" id="college_unit" required>
+                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="college_unit" id="college_unit" required>
                           <option value="">Select College/Unit</option>
                           <!-- <option value="">Select College/Unit</option>
                           @foreach($college_unit as $row)
@@ -175,11 +175,11 @@
 
                   </div>
                   <div class="records-button" style="transform: scale(0.7);">
-                    <a class="up-button btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
+                    <a class="up-button-green btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
                       <span>Print</span>
                     </a>
 
-                    <a class="up-button-green btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
+                    <a class="up-button  btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
                       <span>Download</span>
                     </a>
                   </div>

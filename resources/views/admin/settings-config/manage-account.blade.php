@@ -474,9 +474,9 @@
                     </a>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">User Level</label>
-                      <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                      <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="user_level" id="user_level" required>
                         <option value="">Select User Level</option>
-                        <option value="AA">AA</option>
+                        <option value="AA">AO</option>
                         <option value="CFM">CFM</option>
                         <option value="HRDO">HRDO</option>
                         <option value="FM">FM</option>
@@ -485,18 +485,19 @@
                     </div>
                     <div class="mp-input-group cfm_div">
                       <label class="mp-input-group__label">AA/CFM Cluster No.</label>
-                      <select class="mp-input-group__input mp-text-field" name="cfm_cluster" id="cfm_cluster" required>
-                        <option value="">Select User Level</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                      <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="cfm_cluster" id="cfm_cluster" required>
+                        <option value="">Select Cluster No.</option>
+                        <option value="1">Cluster 1 - DSB</option>
+                        <option value="2">Cluster 2 - LBOU</option>
+                        <option value="3">Cluster 3 - MLAPGH</option>
+                        <option value="4">Cluster 4 - CVM</option>
                       </select>
                     </div>
 
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Select Campus</label>
-                      <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
+
+                      <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
                         <option value="">Select Campus</option>
                         @foreach($campus as $row)
                         <option value="{{ $row->id }}">{{ $row->name }}</option>
@@ -638,11 +639,11 @@
 
                   </div>
                   <div class="records-button" style="transform: scale(0.7);">
-                    <a class="up-button btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
+                    <a class="up-button-green btn-md   mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
                       <span>Print</span>
                     </a>
                     <br>
-                    <a class="up-button-green btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
+                    <a class="up-button  btn-md    mp-text-center" style="margin-top:3px; width: 160px;" type="submit">
                       <span>Download</span>
                     </a>
                   </div>

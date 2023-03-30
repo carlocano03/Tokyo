@@ -23,6 +23,8 @@
     @endif
 </div>
 <!-- <button id="modal_name_pop">Show Modal</button> -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <form id="loginForm" class="mp-pt4 mp-mb5" method="post" action="{{ url('/login') }}">
     {{ csrf_field() }}
     <div class="mp-pb4 mp-input-group" data-set="email">
@@ -344,7 +346,7 @@
 
         <div class="mp-input-group">
             <label class="mp-input-group__label">Suffix </label><br>
-            <input type="checkbox" class="options" id="no_suffix" name="no_suffix" value="N/A"/>
+            <input type="checkbox" class="options" id="no_suffix" name="no_suffix" value="N/A" />
             <label class="mp-input-group__label" style="margin-top: 5px;">No Suffix</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="suffix" />
         </div>
@@ -417,7 +419,7 @@
             <div class="d-flex gap-5 mp-mb2">
                 <input type="radio" value="Single" id="single" name="civilstatus" />
                 <label class="mp-input-group__label" for="single" style="margin-top: 1px;">Single</label>
-                
+
                 <input type="radio" value="Married" id="married" name="civilstatus" />
                 <label class="mp-input-group__label" for="married" style="margin-top: 1px;">Married</label>
 
@@ -438,13 +440,13 @@
                 <label class="mp-input-group__label" for="citizenship_o" style="margin-top: 1px;">Others</label>
             </div>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
-            
-           
+
+
         </div>
         <div class="mp-input-group" data-set="dual_citizenship">
             <label class="mp-input-group__label">Dual Citizenship / Other Citizenship</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="dual_citizenship" id="d_citizen" disabled />
-            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label> <br/>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label> <br />
         </div>
         <div class="mp-input-group" data-set="present_province">
 
@@ -463,7 +465,7 @@
                     </div>
                 </div>
             </label>
-            <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province">
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="present_province" name="present_province">
                 <option value="">Select Province </option>
                 {{-- @foreach ($psgc_prov as $row)
                     <option value="{{ $row->code }}">{{ mb_strtoupper($row->name) }}</option>
@@ -474,7 +476,7 @@
         </div>
         <div class="mp-input-group" data-set="present_municipality">
             <label class="mp-input-group__label">Municipality </label>
-            <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="present_city" name="present_municipality" required>
                 <option value=""></option>
             </select>
             <input type="hidden" id="present_municipality_name" name="present_municipality_name">
@@ -482,7 +484,7 @@
         </div>
         <div class="mp-input-group" data-set="present_barangay">
             <label class="mp-input-group__label">Barangay </label>
-            <select class="mp-input-group__input mp-text-field" id="present_barangay" name="present_barangay" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="present_barangay" name="present_barangay" required>
                 <option></option>
             </select>
             <input type="hidden" id="present_barangay_name" name="present_barangay_name">
@@ -509,7 +511,7 @@
         </div>
         <div class="mp-input-group same_div" data-set="province">
             <label class="mp-input-group__label">Province </label>
-            <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="province" name="province" required>
                 <option></option>
             </select>
             <input type="hidden" id="province_name" name="province_name">
@@ -517,7 +519,7 @@
         </div>
         <div class="mp-input-group same_div" data-set="municipality">
             <label class="mp-input-group__label">Municipality </label>
-            <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="city" name="municipality" required>
                 <option></option>
             </select>
             <input type="hidden" id="municipality_name" name="municipality_name">
@@ -525,7 +527,7 @@
         </div>
         <div class="mp-input-group same_div" data-set="barangay">
             <label class="mp-input-group__label">Barangay </label>
-            <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="barangay" name="barangay" required>
                 <option></option>
             </select>
             <input type="hidden" id="barangay_name" name="barangay_name">
@@ -582,7 +584,7 @@
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form mp-pv2 shadow-inset-1" id="step-2">
         <div class="mp-input-group" data-set="campus">
             <label class="mp-input-group__label">Campus </label>
-            <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
                 <option value="">Select Campus</option>
                 {{-- @foreach ($campuses as $row)
                     <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
@@ -592,7 +594,7 @@
         </div>
         <div class="mp-input-group" data-set="classification">
             <label class="mp-input-group__label">Employee Classification </label>
-            <select class="mp-input-group__input mp-text-field" name="classification" id="classification">
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="classification" id="classification">
                 <option value="">Select Classification</option>
                 {{-- <option>Class A </option> --}}
             </select>
@@ -609,14 +611,14 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">College / Unit </label>
-            <select class="mp-input-group__input mp-text-field" name="college_unit" id="college_unit">
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="college_unit" id="college_unit">
                 <option value="">Select Unit</option>
                 {{-- <option>Unit </option> --}}
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Department </label>
-            <select class="mp-input-group__input mp-text-field" name="department" id="department" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="department" id="department" required>
                 <option value="">Select Department</option>
                 {{-- <option>DEPED </option> --}}
             </select>
@@ -672,7 +674,7 @@
         </div>
         <div class="mp-input-group" data-set="appointment">
             <label class="mp-input-group__label">Appointment Status </label>
-            <select class="mp-input-group__input mp-text-field" name="appointment" id="appointment" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="appointment" id="appointment" required>
                 <option value="">Select Status</option>
             </select>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
@@ -694,7 +696,7 @@
         <div class="mp-input-group">
             <label class="mp-input-group__label">Salary Grade Category </label>
             <input class="mp-input-group__input mp-text-field" type="text" name="sg_category" id="sg_category" readonly />
-            {{-- <select class="mp-input-group__input mp-text-field" name="sg_category">
+            {{-- <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="sg_category">
                     <option>Select Category</option>
                     <option>Yayamanin</option>
                 </select> --}}
@@ -738,7 +740,7 @@
         </div>
         <div class="mp-input-group" data-set="percentage_check">
             <div class="d-flex gap-5">
-                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage"/>
+                <input type="checkbox" class="options" id="percentage_check" name="percentage_check" value="percentage" />
                 <label class="mp-input-group__label" style="margin-top: 5px;">Percentage of Basic Salary ( Between 1%
                     - 100%) </label>
             </div>
@@ -1033,5 +1035,9 @@
 
 @section('scripts')
 <script src="{{ asset('/dist/dashboard.js') }}"></script>
-
+<script>
+    $(document).ready(function() {
+        $('.js-example-responsive').select2();
+    });
+</script>
 @endsection

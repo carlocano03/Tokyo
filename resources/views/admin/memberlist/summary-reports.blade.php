@@ -1567,7 +1567,7 @@
                                      <span>Filtering Section</span>
                                      <span class="mp-pr2">
                                          <button class="f-button font-bold">Export</button>
-                                         <button class="f-button font-bold">Print</button>
+                                         <button class="f-button font-bold up-button-green">Print</button>
                                      </span>
                                  </div>
 

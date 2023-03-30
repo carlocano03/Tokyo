@@ -135,82 +135,82 @@
 </div>
 
 <div class="status-result">
-    
-<div class="d-flex flex-column">
-    <div class="ft-card border-bottom-0 mp-pv2 mp-ph2 fs-large">
-        Online Membership Application Status
+
+    <div class="d-flex flex-column">
+        <div class="ft-card border-bottom-0 mp-pv2 mp-ph2 fs-large">
+            Online Membership Application Status
+        </div>
+        <div class="card-body d-flex flex-column card border-top-0 gap-5">
+            <div class="d-flex flex-row gap-10">
+                <span>Status : </span>
+                <span class="font-bold" id="application_status"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>Remarks : </span>
+                <span class="font-bold" id="validator_status"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>Application No. : </span>
+                <span class="font-bold" id="appNo_label"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>First Name : </span>
+                <span class="font-bold" id="fname_label"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>Middle Name : </span>
+                <span class="font-bold" id="mname_label"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>Last Name : </span>
+                <span class="font-bold" id="lname_label"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>Suffix : </span>
+                <span class="font-bold" id="suffix_label"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>Birth date : </span>
+                <span class="font-bold" id="bdate_label"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>Appointment : </span>
+                <span class="font-bold" id="appointment_label"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>Tin No : </span>
+                <span class="font-bold" id="tin_no_label"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>Contact No. : </span>
+                <span class="font-bold" id="contact_no_label"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>Land line no. : </span>
+                <span class="font-bold" id="landlineno_label"></span>
+            </div>
+            <div class="d-flex flex-row gap-10">
+                <span>Email Address : </span>
+                <span class="font-bold" id="email_add_label"></span>
+            </div>
+        </div>
     </div>
-    <div class="card-body d-flex flex-column card border-top-0 gap-5">
-        <div class="d-flex flex-row gap-10">
-            <span>Status : </span>
-            <span class="font-bold" id="application_status"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>Remarks : </span>
-            <span class="font-bold" id="validator_status"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>Application No. : </span>
-            <span class="font-bold" id="appNo_label"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>First Name : </span>
-            <span class="font-bold" id="fname_label"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>Middle Name : </span>
-            <span class="font-bold" id="mname_label"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>Last Name : </span>
-            <span class="font-bold" id="lname_label"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>Suffix : </span>
-            <span class="font-bold" id="suffix_label"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>Birth date : </span>
-            <span class="font-bold" id="bdate_label"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>Appointment : </span>
-            <span class="font-bold" id="appointment_label"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>Tin No : </span>
-            <span class="font-bold" id="tin_no_label"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>Contact No. : </span>
-            <span class="font-bold" id="contact_no_label"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>Land line no. : </span>
-            <span class="font-bold" id="landlineno_label"></span>
-        </div>
-        <div class="d-flex flex-row gap-10">
-            <span>Email Address : </span>
-            <span class="font-bold" id="email_add_label"></span>
-        </div>
-    </div>
-</div>
 
 
     <div class="mp-mt5 d-flex flex-row items-between">
-                <button class="up-button btn-md mp-mt3 mp-mb3" id="fp_back" value="">
-                    <span>Print</span>
-                </button>
+        <button class="up-button-green btn-md mp-mt3 mp-mb3" id="fp_back" value="">
+            <span>Print</span>
+        </button>
 
-                <button class="up-button btn-md mp-mt3 mp-mb3" id="print_app">Print</button>
-                <button class="up-button btn-md mp-mt3 mp-mb3 magenta-bg" id="cont_app">Continue the
-                    application</button>
-        </div>
+        <button class="up-button-green btn-md mp-mt3 mp-mb3" id="print_app">Print</button>
+        <button class="up-button btn-md mp-mt3 mp-mb3 magenta-bg" id="cont_app">Continue the
+            application</button>
+    </div>
 
-    
+
 
 </div>
-    
+
 
 
 @endsection
@@ -316,7 +316,7 @@
         <div class="mp-input-group">
             <label class="mp-input-group__label">Present Address</label><br>
             <label class="mp-input-group__label">Province</label>
-            <select class="mp-input-group__input mp-text-field" id="present_province" name="present_province" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="present_province" name="present_province" required>
                 <option value="">Select Province</option>
                 {{-- @foreach ($psgc_prov as $row)
                     <option value="{{ $row->code }}">{{ mb_strtoupper($row->name) }}</option>
@@ -326,14 +326,14 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Municipality</label>
-            <select class="mp-input-group__input mp-text-field" id="present_city" name="present_municipality" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="present_city" name="present_municipality" required>
                 <option value=""></option>
             </select>
             <input type="hidden" id="present_municipality_name" name="present_municipality_name">
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Barangay</label>
-            <select class="mp-input-group__input mp-text-field" id="present_barangay" name="present_barangay" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="present_barangay" name="present_barangay" required>
                 <option></option>
             </select>
             <input type="hidden" id="present_barangay_name" name="present_barangay_name">
@@ -358,21 +358,21 @@
         </div>
         <div class="mp-input-group same_div">
             <label class="mp-input-group__label">Province</label>
-            <select class="mp-input-group__input mp-text-field" id="province" name="province" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="province" name="province" required>
                 <option></option>
             </select>
             <input type="hidden" id="province_name" name="province_name">
         </div>
         <div class="mp-input-group same_div">
             <label class="mp-input-group__label">Municipality</label>
-            <select class="mp-input-group__input mp-text-field" id="city" name="municipality" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="city" name="municipality" required>
                 <option></option>
             </select>
             <input type="hidden" id="municipality_name" name="municipality_name">
         </div>
         <div class="mp-input-group same_div">
             <label class="mp-input-group__label">Barangay</label>
-            <select class="mp-input-group__input mp-text-field" id="barangay" name="barangay" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="barangay" name="barangay" required>
                 <option></option>
             </select>
             <input type="hidden" id="barangay_name" name="barangay_name">
@@ -423,7 +423,7 @@
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form mp-pv2 shadow-inset-1" id="step-2">
         <div class="mp-input-group">
             <label class="mp-input-group__label">Campus</label>
-            <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
                 <option value="">Select Campus</option>
                 {{-- @foreach ($campuses as $row)
                     <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
@@ -432,7 +432,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Employee Classification</label>
-            <select class="mp-input-group__input mp-text-field" name="classification" id="classification">
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="classification" id="classification">
                 <option value="">Select Classification</option>
                 {{-- <option>Class A </option> --}}
             </select>
@@ -447,14 +447,14 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">College Unit</label>
-            <select class="mp-input-group__input mp-text-field" name="college_unit" id="college_unit">
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="college_unit" id="college_unit">
                 <option value="">Select Unit</option>
                 {{-- <option>Unit </option> --}}
             </select>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Department</label>
-            <select class="mp-input-group__input mp-text-field" name="department" id="department" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="department" id="department" required>
                 <option value="">Select Department</option>
                 {{-- <option>DEPED </option> --}}
             </select>
@@ -469,7 +469,7 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Appointment Status</label>
-            <select class="mp-input-group__input mp-text-field" name="appointment" id="appointment" required>
+            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="appointment" id="appointment" required>
                 <option value="">Select Status</option>
                 {{-- <option>Regular Employee</option> --}}
             </select>
@@ -489,7 +489,7 @@
         <div class="mp-input-group">
             <label class="mp-input-group__label">Salary Grade Category</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="sg_category" id="sg_category" readonly />
-            {{-- <select class="mp-input-group__input mp-text-field" name="sg_category">
+            {{-- <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="sg_category">
                     <option>Select Category</option>
                     <option>Yayamanin</option>
                 </select> --}}
