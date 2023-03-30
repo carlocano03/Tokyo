@@ -749,7 +749,10 @@
             }
         })
     }
+
+
     $(document).on('click', '#next-btn', function(e) {
+        e.preventDefault();
         var table = $('#dependentTable').DataTable();
         table.draw();
         var nextValue = $(this).attr('value');
@@ -985,6 +988,7 @@
                                 $('#loading').show();
                             },
                             success: function(data) {
+                                console.log(data.success)
                                 if (data.success != '') {
                                     reference_no = data.randomnum;
                                     mem_id = data.mem_id;
@@ -1012,6 +1016,9 @@
                                     $('#appNo').val(reference_no);
                                     $('#test').val(reference_no);
                                 }
+                            },
+                            error: function(data) {
+                                console.log(data);
                             },
                             complete: function(data) {
                                 $('#loading').hide();
@@ -1666,6 +1673,46 @@
             });
 
         });
+        //other classification logic
+        $("#classification").change(function() {
+            var classification_value = $(this).val();
+
+            if (classification_value === "OTHER") {
+                $("#other_classification").removeClass("d-none");
+                $("#other_classification").removeClass("opacity-0");
+            } else {
+                $("#other_classification").addClass("d-none");
+                $("#other_classification").addClass("opacity-0");
+            }
+        });
+
+        //other status logic
+        $("#appointment").change(function() {
+            var appointment_value = $(this).val();
+
+            if (appointment_value === "OTHER") {
+                $("#other_status").removeClass("d-none");
+                $("#other_status").removeClass("opacity-0");
+            } else {
+                $("#other_status").addClass("d-none");
+                $("#other_status").addClass("opacity-0");
+            }
+        });
+
+        //other department logic
+        $("#department").change(function() {
+            var department_value = $(this).val();
+            console.log(department_value);
+            if (department_value === "OTHER") {
+                $("#other-dept-div").removeClass("d-none");
+                $("#other-dept-div").removeClass("opacity-0");
+            } else {
+                $("#other-dept-div").addClass("d-none");
+                $("#other-dept-div").addClass("opacity-0");
+            }
+
+
+        });
         $("#college_unit").change(function() {
             if (college_unit) {
                 var college_id = college_unit;
@@ -1676,6 +1723,10 @@
             $.getJSON('/department', {
                 college_id: college_id
             }, function(options) {
+                $('#department').append($('<option>', {
+                    value: "OTHER",
+                    text: "Other Please Specify"
+                }));
                 $.each(options, function(index, option) {
                     $('#department').append($('<option>', {
                         value: option.dept_no,
@@ -1683,6 +1734,7 @@
                     }));
                 });
                 $('#department').val(dept_no).change();
+                console.log($('#department').val());
             });
         });
         // $.getJSON('/appointment', function(options) {
