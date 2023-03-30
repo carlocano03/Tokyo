@@ -306,6 +306,7 @@
             <li class="circle" id="stepper-2">2</li>
             <li class="circle" id="stepper-3">3</li>
             <li class="circle" id="stepper-4">4</li>
+            <li class="circle" id="stepper-5">5</li>
         </ul>
         <div class="line step-1" id="line"></div>
     </div>
@@ -559,7 +560,7 @@
         <div class="mp-input-group">
             <div class="mp-input-group mp-mt5 mp-input-group__label">
                 <input type="checkbox" id="terms" name="terms" />
-                Sign up for emails to get updates on products, offers and member benefits.<br>
+                Sign up for emails to get updates on products, offers and member benefits.<br><br>
                 By clicking Next, you agree to UP Provident Fund Inc.’s <b>Terms of Use</b> and <b>Privacy Policy</b>.<br>
                 <!--<a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>-->
@@ -866,27 +867,321 @@
         </div>
 
         <div class="mp-input-group">
-            <h3>Electronic Signature</h3>
-            <ul>
-                <li>
-                    Electronic signatures have been expressly recognized as legally binding (Republic Act 8792).
-                    <br> <br>
-                    Electronic signature on the electronic document shall be equivalent to the signature of a person on a written document.
-                    <br> <br>
-                    By writing, typing your full name and the date, it is good as affixing your e-signature and agreeing to the above stipulations.
-                </li>
-            </ul>
-            <label class="mp-input-group__label" style="width: 100%;
-                                                        background-color: var(--c-active-hover-bg);
-                                                        color: white;
-                                                        padding: 10px;
-                                                        font-size: 15px;
-                                                        margin-right: -2px;
-                                                        margin-top: 20px;">
-                Input your name as signature
 
+
+            <input type="hidden" name="app_no" id="app_no">
+            <input type="hidden" name="percent_amt" id="percent_amt">
+            <div class="mp-input-group">
+
+                <hr>
+                <h3>Insurance Form</h3>
+                <ul>
+                    <li>
+                        Effective 01 January 2023, UPPF Members will now be covered by new Insurance Provider, i.e., AXA Philippines.
+                        <br> <br>
+                        All UPPF Members are required to fill out this Enrolment Form, as soon as possible, for records purposes.
+                        <br> <br>
+                        Your utmost cooperation and understanding is much appreciated.
+                    </li>
+                    <input type="hidden" name="app_number" id="app_number">
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Place of Birth</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Employer/Union/Association</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="emp_union_assoc" id="emp_union_assoc" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Occupation</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">SSS/GSIS No.</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="sss_gsis" id="sss_gsis" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Name of Spouse</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="spouse_name" id="spouse_name" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Mother's Maiden Name</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="maiden_name" id="maiden_name" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label mp-mt2">Insured Type</label>
+                        <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
+                        <select name="insuted_type" id="insuted_type" class="radius-1 outline select-field mp-mt2" style="font-size: normal;">
+                            <option value="INSURED">INSURED</option>
+                            <option value="DEPENDENT">DEPENDENT</option>
+                        </select>
+                    </div>
+                    <div class="mp-input-group"><br>
+                        <label class="mp-input-group__label"><b>PERSON TO BE CONTACED IN CASE OF EMERGENCY</b></label><br>
+                        <label class="mp-input-group__label">Last Name</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="last_name" id="last_name" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">First Name</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Middle Name</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="middle_name" id="middle_name" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Relationship to the member</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Contact No.</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="axa_contact_no" id="axa_contact_no" />
+                    </div>
+                    <div class="mp-input-group">
+                        <label class="mp-input-group__label">Email Address</label>
+                        <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                    </div>
+
+                    <div class="mp-input-group d-flex gap-5 flex-column">
+                        <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
+
+                        <label class="mp-input-group__label" style="
+                background-color: var(--c-active-hover-bg);
+                color: white;
+                padding: 10px;
+                margin-left: -8px;
+                font-size: 15px;
+                margin-right: -8px;">
+                            Dependents </label>
+
+                        <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Last Name" />
+                        <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Middle Initial" />
+                        <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="First Name" />
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label mp-mb1">Date Of Birth </label>
+                            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
+                                <div class="d-flex flex-column" style="gap: 3px">
+                                    <label class="mp-input-group__label">Month </label>
+                                    <select name="date_birth_dependent_month" id="date_birth_dependent_month" class="radius-1 outline select-field" style="font-size: normal;">
+                                        <option value="">Month</option>
+                                        <option value="01">January</option>
+                                        <option value="02">February</option>
+                                        <option value="03">March</option>
+                                        <option value="04">April</option>
+                                        <option value="05">May</option>
+                                        <option value="06">June</option>
+                                        <option value="07">July</option>
+                                        <option value="08">August</option>
+                                        <option value="09">September</option>
+                                        <option value="10">October</option>
+                                        <option value="11">November</option>
+                                        <option value="12">December</option>
+                                    </select>
+                                </div>
+                                <span><br />-</span>
+                                <div class="d-flex flex-column" style="gap: 3px">
+                                    <label class="mp-input-group__label">Day </label>
+                                    <select name="date_birth_dependent_days" id="date_birth_dependent_days" class="radius-1 outline select-field" style="font-size: normal;">
+                                        <option value="">Day</option>
+                                        @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
+                                            @endfor
+                                    </select>
+                                </div>
+                                <span><br />-</span>
+                                <div class="d-flex flex-column" style="gap: 3px">
+                                    <label class="mp-input-group__label">Year </label>
+                                    <select name="date_birth_dependent_years" id="date_birth_dependent_years" class="radius-1 outline select-field" style="font-size: normal;">
+                                        <!-- option for current year -->
+                                        <!-- options for years from current year down to 70 years ago -->
+                                        <option value="">Year</option>
+                                        @for ($i = date('Y'); $i >= date('Y') - 70; $i--)
+                                        <option value="{{ $i }}">{{ $i }}</option>
+                                        @endfor
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Relationship" />
+
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label mp-mt2">Insured Type</label> <br>
+                            <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
+                            <select name="type_of_beneficiary" id=" " class="radius-1 outline select-field mp-mt2" style="font-size: normal;">
+                                <option value="PRIMARY">PRIMARY</option>
+                                <option value="SECONDARY">SECONDARY</option>
+                            </select>
+                        </div>
+                        <div class="mp-input-group">
+                            <label class="mp-input-group__label mp-mt2">ACCORDING TO RIGHTS</label><br>
+                            <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
+                            <select name="type_of_beneficiary" id=" " class="radius-1 outline select-field mp-mt2" style="font-size: normal;">
+                                <option value="PRIMARY">REVOCABLE</option>
+                                <option value="SECONDARY">IRREVOCABLE</option>
+                            </select>
+                        </div>
+
+                        <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" placeholder="Relationship" />
+                        <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
+                            <span id="add_dependent">Add Dependent</span> </a>
+                    </div>
+                    <br>
+                    <table class="payroll-table" style="height: auto;" width="100%">
+
+                        <thead>
+                            <tr>
+                                <th>
+                                    <span>Name</span>
+                                </th>
+                                <th>
+                                    <span>Date Of Birth</span>
+                                </th>
+                                <th>
+                                    <span>Relationship</span>
+                                </th>
+
+                                <th>
+                                    <span>Actions</span>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Sample Name</td>
+                                <td>May 6, 1999</td>
+                                <td>Mother</td>
+                                <td>
+                                    <button class="view_button_axa">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="edit_button_axa">
+                                        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="delete_button_axa">
+                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <br>
+
+                    <li>
+                        <b>I HEREBY DECLARE AND AGREE THAT:</b><br>
+                        All information in the enrollment whether or not written by my hand are to the best of my knowledge and belief complete and true;
+                        <br> <br>
+                        Any of my personal information collected or held by AXA Philippines (whether contained in the application/s or otherwise), may be used in connection with
+                        matching for whatever purpose with such other personal information and/or may be used, stored, disclosed, transferred (whether within or outside the
+                        Philippines) to such persons as AXA Philippines may consider necessary including without limitation any of its afiliated companies, or any
+                        individuals/organizations associated with AXA Philippines:
+                        <br> <br>
+                        (i) to process and deal with the enrollment
+                        (ii) to provide all services related to the enrollment and promote and improve services by the Company and its affiliated companies
+                        (iii) to communicate with me for any purpose and/or comply with the laws of any applicable jurisdiction
+                        <br> <br>
+                        If I fail to provide any information requested in the enrollment, it may result in AXA Philippines’ inability to process and to deal with the enrollment;
+                        <br> <br>
+                        I have the right to request access to and correct any of my personal information held by AXA Philippines. I understand that such request shall be made in writing and addressed to the head of the Account Services at AXA Philippines’ Home Office.
+                        <br> <br>
+                        I understand that AXA Philippines shall use my personal information to evaluate and assess my application and need for life insurance and investments, as well as to service any of my policies including the evaluation of any future claims. I also authorize AXA Philippines to disclose to afiliated entity(ies) or to persons or entities providing services on AXA Philippines’ behalf consistent with the purpose for which the information was obtained.
+                        <br> <br>
+                        I understand that company notices related to my policy may be sent to me through email or SMS in the address/number I provided above, otherwise,
+                        sent to my residential address.
+                    </li>
+                </ul>
+                <div class="mp-input-group">
+                    <label class="mp-input-group__label">Upload Signature</label>
+                    <input class="mp-input-group__input mp-text-field" type="file" name="sign_electronic" id="sign_electronic" accept="image/png, image/gif, image/jpeg, image/jpg" />
+                    <input type="hidden" name="person_id" id="person_id">
+                </div>
+                <!-- <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generate AXA Insurance Form</button> -->
+                <br>
+                <!-- <div class="tooltip">
+                    <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
+                    <div class="right">
+
+                        <div class="text-content">
+
+                        </div>
+
+                    </div>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
+            <span>Save as draft</span>
+        </a> -->
+        <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_second">
+            <span>Save as draft</span>
+        </a>
+        <a class="up-button btn-md button-animate-right mp-text-center" type="button" value="step-5" id="next-btn">
+            <span>Next</span>
+        </a>
+        <!-- <button class="up-button btn-md button-animate-right mp-text-center" type="submit" id="next-btn">
+            <span>Submit</span>
+        </button> -->
+    </div>
+
+    <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-5">
+        <div id="proxy" style="margin-bottom: 20px;">
+            {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file" accept="image/png, image/gif, image/jpeg, image/jpg" /> --}}
+            <div class="mp-input-group">
+                <h3>Proxy Form</h3>
+                <ul>
+                    <li>
+
+                        The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
+                        <br> <br>
+                        In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
+                        <br> <br>
+                        For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.
+                        Know all men by these presents:
+                        <br> <br>
+                        I hereby nominate, constitute, and appoint the Chairman of UP Provident Fund, Inc.
+                        (UPPFI) to represent me and vote in my name on any matter at any and all regular and
+                        special meetings of members of UPPFI and/or at any adjournments, continuation, or
+                        postponements thereof.
+                        <br> <br>
+                        In case of non-attendance of the above-named proxy, I authorize and empower the Vice Chairman of UPPFI, or in his absence, the Executive Director to fully exercise all rights as my proxy at such meeting.
+                        <br> <br>
+                        Hereby giving and granting unto my proxy full power and authority whatsoever requisite
+                        or necessary or proper to be done in or about the premises, as fully to all intents and
+                        purposes as I might or could lawfully do if personally present, and hereby ratifying and
+                        confirming all that my proxy shall do or cause to be done.
+                        <br> <br>
+                        This proxy revokes all proxies which I might have previously executed in favor of other
+                        persons. Should I personally attend any of the meetings or have given my proxy to
+                        another to represent me thereat, this proxy shall be deemed of no force and effect but
+                        only for said meeting and shall again be effective and in full force after its adjournment.
+                        <br> <br>
+                        This proxy shall be effective for five (5) years from the date hereof, or until withdrawn by
+                        me through notice in writing delivered to the Secretary of the Corporation
+
+                    </li>
+
+                </ul>
+                <input type="hidden" name="appNo" id="appNo">
+                <!-- <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
+                        <span>Generate Proxy Form</span>
+                    </button> -->
 
                 <!-- <div class="tooltip">
+                        <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
+                        <div class="right">
+
+                            <div class="text-content">
+
+                            </div>
+
+                        </div>
+                    </div> -->
+                <br>
+            </div>
+            <!-- <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
 
@@ -905,77 +1200,45 @@
 
                     </div>
                 </div> -->
-            </label>
+
+
+            <br>
+            <h3>Electronic Signature</h3>
+            <ul>
+                <li>
+                    Electronic signatures have been expressly recognized as legally binding (Republic Act 8792).
+                    <br> <br>
+                    Electronic signature on the electronic document shall be equivalent to the signature of a person on a written document.
+                    <br> <br>
+                    By writing, typing your full name and the date, it is good as affixing your e-signature and agreeing to the above stipulations.
+                </li>
+            </ul>
+            <br>
+            <li>
+                <b> Name Of Member:</b> Sample Name
+                <br>
+                <b> Campus: </b>Up Diliman
+                <br>
+                <b> Date: </b>May 6, 1999
+            </li>
+            <label class="mp-input-group__label" style="width: 100%;
+                                                        background-color: var(--c-active-hover-bg);
+                                                        color: white;
+                                                        padding: 10px;
+                                                        font-size: 15px;
+                                                        margin-right: -2px;
+                                                        margin-top: 20px;">
+                Input your name as signature </label>
+
             <input class="mp-input-group__input mp-text-field" style="margin-top: 5px;" type="text" name="e_sig" id="e_sig" required />
             <br>
         </div>
-        <input type="hidden" name="app_no" id="app_no">
-        <input type="hidden" name="percent_amt" id="percent_amt">
-        <div class="mp-input-group">
-            <div id="proxy" style="margin-bottom: 20px;">
-                {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file" accept="image/png, image/gif, image/jpeg, image/jpg" /> --}}
-                <div class="mp-input-group">
-                    <h3>Proxy Form</h3>
-                    <ul>
-                        <li>
-
-                            The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
-                            <br> <br>
-                            In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
-                            <br> <br>
-                            For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.
-                        </li>
-
-                    </ul>
-                    <input type="hidden" name="appNo" id="appNo">
-                    <button class="up-button btn-md button-animate-right mp-text-center" id="save_sign" type="button">
-                        <span>Generate Proxy Form</span>
-                    </button>
-
-                    <!-- <div class="tooltip">
-                        <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
-                        <div class="right">
-
-                            <div class="text-content">
-
-                            </div>
-
-                        </div>
-                    </div> -->
-                    <br>
-                </div>
-                <hr>
-                <h3>Insurance Form</h3>
-                <ul>
-                    <li>
-                        Effective 01 January 2023, UPPF Members will now be covered by new Insurance Provider, i.e., AXA Philippines.
-                        <br> <br>
-                        All UPPF Members are required to fill out this Enrolment Form, as soon as possible, for records purposes.
-                        <br> <br>
-                        Your utmost cooperation and understanding is much appreciated.
-                    </li>
-                </ul>
-                <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generate AXA Insurance Form</button>
-                <br>
-                <!-- <div class="tooltip">
-                    <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
-                    <div class="right">
-
-                        <div class="text-content">
-
-                        </div>
-
-                    </div>
-                </div> -->
-            </div>
-        </div>
-
-        <!-- <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%">
-            <span>Save as draft</span>
-        </a> -->
         <button class="up-button btn-md button-animate-right mp-text-center" type="submit" id="next-btn">
             <span>Submit</span>
         </button>
+    </div>
+
+
     </div>
 </form>
 @endsection
