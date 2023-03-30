@@ -1368,8 +1368,7 @@
                                 confirmButtonText: 'Proceed',
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = '{{ route('
-                                    admin.members_records ') }}';
+                                    window.location.href = "{{ route('admin.members_records') }}";
                                 }
                             });
                         } else {
@@ -1497,8 +1496,7 @@
                                     confirmButtonText: 'Proceed',
                                 }).then((result) => {
                                     if (result.isConfirmed) {
-                                        window.location.href = '{{ route('
-                                        admin.members_records ') }}';
+                                        window.location.href = "{{ route('admin.members_records') }}";
                                     }
                                 });
                             } else {
@@ -1553,8 +1551,7 @@
                                             confirmButtonText: 'Ok',
                                         }).then((result) => {
                                             if (result.isConfirmed) {
-                                                window.location.href = '{{ route('
-                                                admin.members_records ') }}';
+                                                window.location.href = "{{ route('admin.members_records') }}";
                                             }
                                         });
                                     } else {
