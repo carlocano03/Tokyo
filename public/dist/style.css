@@ -5433,16 +5433,21 @@ tfoot {
 
 .step-2 {
     background-color: white;
-    background-image: linear-gradient(to right, var(--c-accent-80) 35%, var(--c-base-50) 0%);
+    background-image: linear-gradient(to right, var(--c-accent-80) 25%, var(--c-base-50) 0%);
 
 }
 
 .step-3 {
     background-color: var(--c-accent-80);
-    background-image: linear-gradient(to right, var(--c-accent-80) 65%, var(--c-base-50) 0%);
+    background-image: linear-gradient(to right, var(--c-accent-80) 50%, var(--c-base-50) 0%);
 }
 
 .step-4 {
+    background-color: var(--c-accent-80);
+    background-image: linear-gradient(to right, var(--c-accent-80) 75%, var(--c-base-50) 0%);
+}
+
+.step-5 {
     background-color: var(--c-accent-80);
     background-image: linear-gradient(to right, var(--c-accent-80) 100%, var(--c-base-50) 0%);
 }
@@ -6691,4 +6696,73 @@ text.highcharts-credits {
 
 .tooltip:hover .tooltiptext {
     visibility: visible;
+}
+
+.payroll-table {
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+    border: 1px solid #ececec;
+}
+
+.payroll-table>thead>tr>th {
+    font-size: 13px;
+    padding-left: 5px;
+    padding-right: 5px;
+    background-color: #1a8981;
+    color: white !important;
+    border-left: 1px solid white;
+    font-weight: 500;
+    border-top: 2px solid #1a8981;
+    border-bottom: 2px solid #1a8981;
+    height: auto;
+    text-transform: uppercase;
+}
+
+.payroll-table>thead>tr>th:first-child {
+    border-left: 1px solid #1a8981;
+}
+
+.payroll-table>thead>tr>th:last-child {
+    border-right: 1px solid #1a8981;
+}
+
+.payroll-table>thead>tr>th>span {
+    display: flex;
+    height: 100%;
+}
+
+.payroll-table>tbody>tr>td>span {
+    display: flex;
+    padding: 5px 2px;
+
+}
+
+.payroll-table>tbody>tr>td {
+    font-size: 12px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.view_button_axa {
+    color: white;
+    background-color: var(--c-primary);
+    border-radius: 7px;
+    margin: 5px;
+}
+
+.edit_button_axa {
+    color: white;
+    background-color: var(--c-accent);
+    border-radius: 7px;
+    margin: 5px;
+}
+
+.delete_button_axa {
+    color: white;
+    background-color: red;
+    border-radius: 7px;
+    margin: 5px;
 }
