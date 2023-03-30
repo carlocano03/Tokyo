@@ -9,13 +9,13 @@
 
     <style>
         @font-face {
-            font-family: 'TestFont';
+            font-family: 'Authentic';
             src: url({{ storage_path("fonts/AuthenticSignature400.ttf") }}) format("truetype");
         }
-        #sign {
-            font-family: 'TestFont';
+        /* #sign {
+            font-family: 'Authentic';
             font-size: 30px;
-        }
+        } */
 
         .pdf-container img{
             transform:scale(1.2);
@@ -613,9 +613,21 @@
            margin-left:682px;
         }
         .value_sign {
-            /* margin-bottom:50px; */
+            margin-top:-65px;
+            margin-left:50px;
+            font-family: 'Authentic';
+            font-size: 30px;
+        }
+        .value_name {
             margin-top:-30px;
-            margin-right:440px;
+            margin-left:45px;
+            font-size: 20px;
+        }
+        .sign {
+            margin-top:-40px;
+            margin-left:70px;
+            font-family: 'Authentic';
+            font-size: 20px;
         }
     </style>
 </head> 
@@ -1099,7 +1111,8 @@
                     </div>
                     <div class="signatures">
                         <label for="e-sig">
-                            <label class="value_sign value-font" id="sign">{{ $member->sign }}</label>
+                            <label class="value_sign value-font">{{ $member->sign }}</label>
+                            <label class="value_name value-font">{{ $member->sign }}</label>
                             <label class="title title-font">SIGNATURE OVER PRINTED NAME</label>
                         </label>
                     </div>
@@ -1121,16 +1134,19 @@
                     <label class="title-3 title-font" style="font-size:8.5px !important;">Approved by: UP PROVIDENT FUND MANAGER</label>
                 </div>
                 <div class="signature-labels">
+                    <label class="sign value-font">{{ isset($AA_signatory->full_name) ? $AA_signatory->full_name : '' }}</label>
                     <label class="value-font" style="margin-top:-15px; margin-left:70px;">{{ isset($AA_signatory->full_name) ? $AA_signatory->full_name : '' }}</label>
                     <label class="sig-1 title-font">Signature over Printed Name</label>
                     <img class="img-sig-1" src="" alt="">
                     <label class="date-sig-1 title-font">Date</label>
 
+                    <label class="sign value-font" style="margin-left:270px;">{{ isset($HRDO_signatory->full_name) ? $HRDO_signatory->full_name : '' }}</label>
                     <label class="value-font" style="margin-top:-15px; margin-left:270px;">{{ isset($HRDO_signatory->full_name) ? $HRDO_signatory->full_name : '' }}</label>
                     <label class="sig-2 title-font">Signature over Printed Name</label>
                     <img class="img-sig-2" src="" alt="">
                     <label class="date-sig-2 title-font">Date</label>
 
+                    <label class="sign value-font" style="margin-left:520px;">{{ isset($FM_signatory->full_name) ? $FM_signatory->full_name : '' }}</label>
                     <label class="value-font" style="margin-top:-15px; margin-left:520px;">{{ isset($FM_signatory->full_name) ? $FM_signatory->full_name : '' }}</label>
                     <label class="sig-3 title-font">Signature over Printed Name</label>
                     <img class="img-sig-3" src="" alt="">

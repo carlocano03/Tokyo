@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\PDFController;
 use App\Http\Controllers\Settings;
@@ -223,3 +224,6 @@ Route::post('/return_application_aa', [App_Validation::class, 'returnto_aa_appli
 
 //FM validation
 Route::post('/save_fm_validation', [App_Validation::class, 'fm_validation_save'])->name('save_fm_validation');
+
+//Payroll Advise
+Route::get('/admin/get_payroll_advise', [PayrollController::class, 'get_payroll_advise'])->name('getPayrollAdvise');

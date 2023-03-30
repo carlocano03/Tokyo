@@ -1395,6 +1395,7 @@
                 <form id="fm_validation">
                     {{ csrf_field() }}
                     <input type="hidden" name="app_no" id="app_no" value="{{$rec->app_no}}">
+                    <input type="hidden" name="emp_no" id="emp_no" value="{{$rec->employee_no}}">
                     <div class="table-form form-header w-full remarks-gray-bg">
                         <div class="span-12 d-flex flex-column mp-pv3 mp-ph3 gap-10">
                             <span>General Remarks</span>
