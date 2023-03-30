@@ -1,12 +1,10 @@
 {
+    "authentic": {
+        "normal": "authentic_normal_df1e8b08a19de652aa40ae807cbf9324"
     "mycustomfont": {
         "normal": "mycustomfont_normal_df1e8b08a19de652aa40ae807cbf9324"
     },
     "testfont": {
         "normal": "testfont_normal_df1e8b08a19de652aa40ae807cbf9324"
     },
-    "authentic": {
-        "normal": "authentic_normal_df1e8b08a19de652aa40ae807cbf9324"
-        "normal": "testfont_normal_add83a1f3049320253e0a115a41163c0"
-    }
 }
