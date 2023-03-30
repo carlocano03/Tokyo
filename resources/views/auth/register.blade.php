@@ -597,7 +597,7 @@
             <label class="mp-input-group__label">Employee Classification </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="classification" id="classification">
                 <option value="">Select Classification</option>
-                <option value="OTHER">Other Classification Please Specify</option>
+                <option value="OTHER">Others</option>
                 {{-- <option>Class A </option> --}}
             </select>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
@@ -622,7 +622,7 @@
             <label class="mp-input-group__label">Department </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="department" id="department" required>
                 <option value="">Select Department</option>
-                <option value="OTHER">Other Department Please Specify</option>
+                <option value="OTHER">Others</option>
                 {{-- <option>DEPED </option> --}}
             </select>
             <div id="other-dept-div" class=" d-none opacity-0">
@@ -683,7 +683,7 @@
             <label class="mp-input-group__label">Appointment Status </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="appointment" id="appointment" required>
                 <option value="">Select Status</option>
-                <option value="OTHER">Other Status Please Specify</option>
+                <option value="OTHER">Others</option>
             </select>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
@@ -1134,20 +1134,19 @@
     </div>
 
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-5">
-        <div id="proxy" style="margin-bottom: 20px;">
+        <div id="proxy" style="margin-bottom: 20px; text-align: justify;">
             {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file" accept="image/png, image/gif, image/jpeg, image/jpg" /> --}}
             <div class="mp-input-group">
-                <h3>Proxy Form</h3>
+
                 <ul>
                     <li>
+                        <div class="logo-img" style=" text-align: center; margin: 15px;">
+                            <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI" style=" width: 75px;height: 75px;">
+                        </div>
 
-                        The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
-                        <br> <br>
-                        In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
-                        <br> <br>
-                        For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.
-                        Know all men by these presents:
-                        <br> <br>
+
+                        <b> Know all men by these presents:</b>
+                        <br>
                         I hereby nominate, constitute, and appoint the Chairman of UP Provident Fund, Inc.
                         (UPPFI) to represent me and vote in my name on any matter at any and all regular and
                         special meetings of members of UPPFI and/or at any adjournments, continuation, or
@@ -1167,6 +1166,25 @@
                         <br> <br>
                         This proxy shall be effective for five (5) years from the date hereof, or until withdrawn by
                         me through notice in writing delivered to the Secretary of the Corporation
+
+                        <br>
+                    <li>
+                        <b> Name Of Member:</b> Sample Name
+                        <br>
+                        <b> Campus: </b>Up Diliman
+                        <br>
+                        <b> Date: </b>May 6, 1999
+                    </li>
+                    <br><br>
+
+                    <h3>Proxy Form</h3>
+                    The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
+                    <br> <br>
+                    In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
+                    <br> <br>
+                    For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.
+                    Know all men by these presents:
+                    <br> <br>
 
                     </li>
 
@@ -1221,13 +1239,7 @@
                 </li>
             </ul>
             <br>
-            <li>
-                <b> Name Of Member:</b> Sample Name
-                <br>
-                <b> Campus: </b>Up Diliman
-                <br>
-                <b> Date: </b>May 6, 1999
-            </li>
+
             <label class="mp-input-group__label" style="width: 100%;
                                                         background-color: var(--c-active-hover-bg);
                                                         color: white;
