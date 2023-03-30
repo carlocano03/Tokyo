@@ -683,7 +683,7 @@
             <label class="mp-input-group__label">Appointment Status </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="appointment" id="appointment" required>
                 <option value="">Select Status</option>
-                <option value="OTHER">Others</option>
+                <option value="OTHER">Other Status Please Specify</option>
             </select>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
