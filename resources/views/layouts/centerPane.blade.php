@@ -443,8 +443,10 @@
     // //     $(e).removeAttr("hidden");
     // // });
 
-    var stepTitle = ["Step 1: Enter your Personal Information", "Step 2: Enter your Employment Details", "Step 3: Enter your Membership Details", "Step 4: Forms & Attachment"]
-    var steps = ["Step 1: ", "Step 2: ", "Step 3: ", "Step 4: "]
+    var stepTitle = ["Step 1: Enter your Personal Information", "Step 2: Enter your Employment Details",
+        "Step 3: Enter your Membership Details", "Step 4: Insurance Form", "Step 5: Proxy Form"
+    ]
+    var steps = ["Step 1: ", "Step 2: ", "Step 3: ", "Step 4: ", "Step 5:"]
     var present_provcode;
     $(document).on('change', '#present_province', function() {
         if (present_provcode) {
@@ -1133,12 +1135,12 @@
             }
 
             var selectedDate = "Invalid Date";
-            if($("#date_appoint_months").val() != "" && $("#date_appoint_days").val() != "" && $("#date_appoint_years").val() != "") {
+            if ($("#date_appoint_months").val() != "" && $("#date_appoint_days").val() != "" && $("#date_appoint_years").val() != "") {
                 selectedDate = new Date($("#date_appoint_months").val() + " " + $("#date_appoint_days").val() + ", " + $("#date_appoint_years").val())
             }
-            
+
             var currentDate = new Date();
-            console.log(selectedDate,'123123')
+            console.log(selectedDate, '123123')
             if (selectedDate > currentDate || selectedDate == "Invalid Date") {
                 $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none').text("Invalid appointment date, please check")
                 $("[data-set=date_appoint_months]>.input").addClass('input-error')
@@ -1397,6 +1399,21 @@
             $("#registration-title").text(stepTitle[3])
             $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
             $("#stepper-4").addClass("active")
+
+
+        } else if (nextValue == 'step-5') {
+
+
+            $("#step-4").removeClass('d-flex').addClass("d-none");
+            $("#step-5").removeClass('d-none').addClass("d-flex");
+            $("#back").attr('value', 'step-4')
+            // $("#member_forms_3").removeClass('mh-reg-form');
+            // $("#member_forms_4").addClass('mh-reg-form');
+            // $(this).attr('value', 'step-end')
+            $("#line").removeClass('step-4').addClass('step-5')
+            $("#registration-title").text(stepTitle[4])
+            $("#step-title").text(`${steps[4]}${stepTitle[4]}`)
+            $("#stepper-5").addClass("active")
 
 
         }
