@@ -7,6 +7,7 @@ use App\Models\Member;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Beneficiaries;
+use App\Models\BeneficiariesAxa;
 use App\Models\UploadFile;
 use DataTables;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -82,6 +83,46 @@ class HomeController extends Controller
         ->rawColumns(['action'])
         ->make(true);
     }
+  }
+
+  public function get_beneficiary_axa(Request $request)
+  {
+    if ($request->ajax()) {
+      // $data = Beneficiaries::select('*');
+      $empNo = $request->get('employee_no');
+      $data = BeneficiariesAxa::where('employee_id', $empNo)
+        ->select('*', DB::raw("CONCAT(first_name, ' ', last_name) AS fullname"));
+      return Datatables::of($data)
+        ->addIndexColumn()
+        ->addColumn('action', function ($row) {
+          $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm delete" id="' . $row->ben_ID . '">Remove</a>';
+          return $btn;
+        })
+        ->rawColumns(['action'])
+        ->make(true);
+    }
+  }
+
+  public function add_beneficiary_axa(Request $request)
+  {
+    $datadb = DB::transaction(function () use ($request) {
+      $axa_beneficiaries = array(
+        'employee_id' => $request->input('employee_no'),
+        'first_name' => $request->input('dependent_first_name'),
+        'middle_name' => $request->input('dependent_middle_name'),
+        'last_name' => $request->input('dependent_last_name'),
+        'date_of_bday' => $request->input('bday'),
+        'ben_relationship' => $request->input('relationship_tomember'),
+        'insured_type' => $request->input('dependent_insurance'),
+        'according_rights' => $request->input('dependent_rights'),
+      );
+      DB::table('axa_beneficiaries')->insert($axa_beneficiaries);
+        $message = 'Success';
+      return [
+        'error' => $message,
+      ];
+    });
+    return response()->json(['success' => $datadb['error']]);
   }
 
   public function add_member(Request $request)
@@ -400,19 +441,21 @@ class HomeController extends Controller
     );
     DB::table('app_trailing')->where('app_no', $request->input('app_no'))
       ->insert($apptrail);
-    $email = DB::table('mem_app')
-      ->where('app_no', $request->input('app_no'))
-      ->value('email_address');
-    $mailData = [
-      'title' => 'Member Application is Submitted',
-      'body' => 'Your application is Submitted and subject for review.',
-      'app_no' => $request->input('app_no')
-    ];
-    if (!empty($email)) {
-      Mail::to($email)->send(new ApplicationMail($mailData));
-    } else {
-      echo $email;
-    }
+
+    // $email = DB::table('mem_app')
+    //   ->where('app_no', $request->input('app_no'))
+    //   ->value('email_address');
+    // $mailData = [
+    //   'title' => 'Member Application is Submitted',
+    //   'body' => 'Your application is Submitted and subject for review.',
+    //   'app_no' => $request->input('app_no')
+    // ];
+    // if (!empty($email)) {
+    //   Mail::to($email)->send(new ApplicationMail($mailData));
+    // } else {
+    //   echo $email;
+    // }
+    
     $quries = DB::getQueryLog();
 
     return response()->json(['success' => $quries]);
@@ -518,18 +561,36 @@ class HomeController extends Controller
     $signFile['sign'] = $request->input('esig');
     // $signFile['sign_path'] = '/storage/' . $path;
     DB::table('member_signature')->insert($signFile);
+
+    $email = DB::table('mem_app')
+      ->where('app_no', $request->input('appNo'))
+      ->value('email_address');
+      $mailData = [
+        'title' => 'Member Application is Submitted',
+        'body' => 'Your application is Submitted and subject for review.',
+        'app_no' => $request->input('appNo')
+      ];
+      if (!empty($email)) {
+        Mail::to($email)->send(new ApplicationMail($mailData));
+      } else {
+        echo $email;
+      }
+      
   }
 
   public function addaxa_form(Request $request)
   {
-    // $appNumber = $request->input('app_number');
-    $appNumber = 10022;
-    $file = $request->file('esig');
-    $fileName = $file->getClientOriginalName();
-    $newName = $request->input('app_number') . '_' . $fileName;
-    $path = $file->storeAs('signature', $newName, 'public');
-    printf($request);
-    //  $request->input('personnel_id')
+    $appNumber = $request->input('app_number');
+    $file = $request->file('esig_axa');
+    if ($file) {
+      $fileName = $file->getClientOriginalName();
+      $newName = $request->input('app_number') . '_' . $fileName;
+      $path = $file->storeAs('signature', $newName, 'public');
+    } else {
+        // Handle the case where no file was uploaded
+        $path = null;
+    }
+    
     $insertCoco = [
       'app_no' => $appNumber,
       'personal_id' => 123232,

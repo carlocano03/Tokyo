@@ -300,7 +300,7 @@
         Online Membership Application
     </div> -->
     <!-- <span class="mp-pt2" id="step-title">Step 1: Enter your Personal Information</span> -->
-    <div class="relative mp-mt2 w-90 d-flex ml-auto mr-auto">
+    <div class="relative mp-mt2 w-90 d-flex ml-auto mr-auto" id="steps">
         <ul class="d-flex flex-row items-between w-100 stepper">
             <li class="circle active" id="stepper-1">1</li>
             <li class="circle" id="stepper-2">2</li>
@@ -316,6 +316,16 @@
     </div>
 
     <label class="mp-text-fs-medium mp-ph2 mp-split-pane__title mp-text-c-primary mb-0 mp-pv2 br-top-2 mp-mt2" id="registration-title">Step 1: Enter your Personal Information</label>
+
+    <div id="message-box" style="display:none;">
+        <input type="hidden" id="application_number">
+        <input type="hidden" id="employee_id">
+        <h5>Registration Completed Successfully</h5>
+        <p>Click here to download your forms.</p>
+        <h5 id="axa_insurance_form_download">Insurance Form</h5>
+        <h5 id="proxy_form_download">Proxy Form</h5>
+        <h5 id="membership_form_download">Membership Application Form</h5>
+    </div>
 </div>
 <form id="member_forms" class="mh-reg-form form-border-bottom">
     {{ csrf_field() }}
@@ -724,7 +734,8 @@
 </form>
 
 <form id="member_forms_3" method="post" enctype="multipart/form-data">
-    @csrf
+    <input type="hidden" name="app_no" id="app_no">
+    <input type="hidden" name="percent_amt" id="percent_amt">
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-3">
         <div class="mp-input-group">
             <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
@@ -865,6 +876,7 @@
             <span>Next</span>
         </a>
     </div>
+</form>
 
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-4">
 
@@ -873,16 +885,13 @@
 
         </div>
         <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <form id="generateNewAxa" method="post" enctype="multipart/form-data">
             @csrf
             {{ csrf_field() }}
-
-
+            
             <div class="mp-input-group">
-
-
-                <input type="hidden" name="app_no" id="app_no">
-                <input type="hidden" name="percent_amt" id="percent_amt">
+                
                 <div class="mp-input-group">
 
                     <hr>
@@ -895,8 +904,7 @@
                             <br> <br>
                             Your utmost cooperation and understanding is much appreciated.
                         </li>
-
-                        <input type="hidden" name="app_number" id="app_number">
+                        <input type="hidden" name="test_no" id="test_no">
                         <div class="mp-input-group">
                             <label class="mp-input-group__label">Place of Birth</label>
                             <input class="mp-input-group__input mp-text-field" type="text" name="place_birth" id="place_birth" data-set="step-4-validation" />
@@ -914,7 +922,7 @@
                         </div>
                         <div class="mp-input-group">
                             <label class="mp-input-group__label">SSS/GSIS No.</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="spouse_name" id="spouse_name" data-set="step-4-validation"/>
+                            <input class="mp-input-group__input mp-text-field" type="text" name="gsis_no" id="gsis_no" data-set="step-4-validation"/>
                             <label id="err-msg" class="mp-input-group__label red-clr d-none" name="spouse_name">
                         </div>
                         <div class="mp-input-group">
@@ -953,12 +961,12 @@
                         </div>
                         <div class="mp-input-group">
                             <label class="mp-input-group__label">Relationship to the member</label>
-                            <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" data-set="step-4-validation"/>
-                            <label id="err-msg" class="mp-input-group__label red-clr d-none" name="relationship_tomember">
+                            <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember_axa" id="relationship_tomember_axa" data-set="step-4-validation"/>
+                            <label id="err-msg" class="mp-input-group__label red-clr d-none" name="relationship_tomember_axa">
                         </div>
                         <div class="mp-input-group">
                             <label class="mp-input-group__label">Contact No.</label>
-                            <input class="mp-input-group__input mp-text-field axa_contact_no" type="text" name="axa_contact_no" id="axa_contact_no"  data-set="step-4-validation"/>
+                            <input class="mp-input-group__input mp-text-field axa_contact_no" type="text" name="axa_contact_no" id="axa_contact_no" data-set="step-4-validation"/>
                             <label id="err-msg" class="mp-input-group__label red-clr d-none" name="axa_contact_no">
                         </div>
                         <div class="mp-input-group">
@@ -1047,18 +1055,17 @@
                                 <label class="mp-input-group__label mp-mt2">ACCORDING TO RIGHTS</label><br>
                                 <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
                                 <select name="dependent_rights" id="dependent_rights" class="radius-1 outline select-field mp-mt2" style="font-size: normal;" data-set="validate_dependent">
-                                    <option value="PRIMARY">REVOCABLE</option>
-                                    <option value="SECONDARY">IRREVOCABLE</option>
+                                    <option value="REVOCABLE">REVOCABLE</option>
+                                    <option value="IRREVOCABLE">IRREVOCABLE</option>
                                 </select>
                             </div>
-                            <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_rights"></label>
-                            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" placeholder="Relationship" />
+                            <!-- <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_rights"></label>
+                            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" placeholder="Relationship" /> -->
                             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
-                                <span id="add_dependent">Add Dependent</span> </a>
+                                <span id="add_dependent_axa">Add Dependent</span> </a>
                         </div>
                         <br>
-                        <table class="payroll-table" style="height: auto;" width="100%">
-
+                        <table class="axa-table" style="height: auto;" width="100%">
                             <thead>
                                 <tr>
                                     <th>
@@ -1078,7 +1085,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                     <td>Sample Name</td>
                                     <td>May 6, 1999</td>
                                     <td>Mother</td>
@@ -1093,7 +1100,7 @@
                                             <i class="fa fa-trash" aria-hidden="true"></i>
                                         </button>
                                     </td>
-                                </tr>
+                                </tr> -->
 
                             </tbody>
                         </table>
@@ -1125,7 +1132,7 @@
                     </ul>
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Upload Signature</label>
-                        <input class="mp-input-group__input mp-text-field" type="file" name="sign_electronic" id="sign_electronic" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation"/>
+                        <input class="mp-input-group__input mp-text-field" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation"/>
                         <input type="hidden" name="person_id" id="person_id">
                     </div>
                     <!-- <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generate AXA Insurance Form</button> -->
@@ -1157,6 +1164,7 @@
             <span>Submit</span>
         </button> -->
     </div>
+  </form>
 
     <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-5">
         <div id="proxy" style="margin-bottom: 20px; text-align: justify;">
@@ -1277,14 +1285,12 @@
             <input class="mp-input-group__input mp-text-field" style="margin-top: 5px;" type="text" name="e_sig" id="e_sig" required />
             <br>
         </div>
-        <button class="up-button btn-md button-animate-right mp-text-center" type="submit" id="next-btn">
+        <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="save_sign">
             <span>Submit</span>
         </button>
     </div>
-
-
     </div>
-</form>
+
 @endsection
 
 @section('reset-password-form')

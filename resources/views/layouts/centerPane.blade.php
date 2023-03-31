@@ -19,7 +19,7 @@
 <div class="transition-background">
 
 </div>
-<div class="custom-modal not-visible" id="modal_name">
+<!-- <div class="custom-modal not-visible" id="modal_name">
     <div class="modal-container">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,7 +55,6 @@
                     </div>
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Insured Type</label>
-                        <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
                         <select name="insuted_type" id="insuted_type" class="radius-1 outline select-field" style="font-size: normal;">
                             <option value="INSURED">INSURED</option>
                             <option value="DEPENDENT">DEPENDENT</option>
@@ -78,10 +77,6 @@
                         <label class="mp-input-group__label">Relationship to the member</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
                     </div>
-                    <!-- <div class="mp-input-group">
-                        <label class="mp-input-group__label">Contact No.</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="axa_contact_no" id="axa_contact_no" />
-                    </div> -->
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Email Address</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
@@ -110,7 +105,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <div class="mp-center-pane mp-bg--registration">
     <div class="mp-split-pane__center transition-all d-flex flex-column mw-600 w-600" id="leftsection">
 
@@ -151,220 +146,35 @@
 
 </div>
 <script>
-
-    $('#landline-format').on('input', function(){
-        var inputNumber = $(this).val().replace(/\D/g, ''); // remove non-digit characters
-        var formattedNumber = formatPhoneNumber(inputNumber); // format the phone number
-        $(this).val(formattedNumber); // update the input field with the formatted number
-    });
-    //   function formatPhoneNumber(number) {
-    //   // Check if the number is a landline or mobile number
-    //   var isLandline = number.slice(0, 2) == "02";
-    //   var prefixLength = isLandline ? 2 : 3; // prefix length is 2 for landline and 3 for mobile number
-    
-    //   // Split the number into prefix and the remaining digits
-    //   var prefix = number.slice(0, prefixLength);
-    //   var remainingDigits = number.slice(prefixLength);
-    
-    //   // Format the remaining digits with dashes and parentheses
-    //   var formattedRemainingDigits = formatRemainingDigits(remainingDigits);
-    
-    //   // Combine the prefix and formatted remaining digits
-    //   var formattedNumber = "(" + prefix + ") " + formattedRemainingDigits;
-    
-    //   return formattedNumber;
-    // }
-    // function formatRemainingDigits(digits) {
-    //   var formattedDigits = "";
-    //   if(digits.length >= 4) {
-    //     formattedDigits += digits.slice(0, 4) + "-";
-    //     formattedDigits += digits.slice(4);
-    //   } else {
-    //     formattedDigits += digits;
-    //   }
-    //   return formattedDigits;
-    // }
-    function formatPhoneNumber(number) {
-    // Check if the number is a landline or mobile number
-    var isLandline = number.slice(0, 2) == "02";
-    var prefixLength = isLandline ? 2 : 3; // prefix length is 2 for landline and 3 for mobile number
-    
-    // Split the number into prefix and the remaining digits
-    var prefix = number.slice(0, prefixLength);
-    var remainingDigits = number.slice(prefixLength);
-    
-    // Format the remaining digits with dashes and parentheses if there are enough digits
-    var formattedRemainingDigits = remainingDigits.length >= 4 ? formatRemainingDigits(remainingDigits) : remainingDigits;
-    
-    // Combine the prefix and formatted remaining digits, removing parentheses and dashes if they're not necessary
-    var formattedNumber = prefix + formattedRemainingDigits;
-    if(isLandline && formattedRemainingDigits.length >= 4) {
-        formattedNumber = "(" + prefix + ") " + formattedRemainingDigits;
-    } else if(!isLandline && formattedRemainingDigits.length >= 7) {
-        formattedNumber = "(" + prefix + ") " + formattedRemainingDigits.slice(0, 3) + "-" + formattedRemainingDigits.slice(3);
-    }
-    
-    // Remove the last dash if it's at the end of the formatted remaining digits
-    if (formattedRemainingDigits.slice(-1) == '-') {
-        formattedNumber = formattedNumber.slice(0, -1);
-    }
-    
-    return formattedNumber;
-    }
-    function formatRemainingDigits(digits) {
-    var formattedDigits = "";
-    if(digits.length >= 4) {
-        formattedDigits += digits.slice(0, 4) + "-";
-        formattedDigits += digits.slice(4);
-    } else {
-        formattedDigits += digits;
-    }
-    return formattedDigits;
-    }
-
     const inputField = document.querySelector('#contact-number-input');
-    const axaNumberField = document.querySelector('#axa_contact_no');
 
-    function axaformatInput(event) {
-        console.log(event)
-
-        if(event.inputType == 'deleteContentBackward') {
-            let input = axaNumberField.value;
-            if(input.length <=3){
-                axaNumberField.value = '+63';
-            }
-            return
-        }
-        if(event.inputType == 'insertText'){
-            let input = axaNumberField.value;
-            if(input == '+630' && input.length <=4){
-                axaNumberField.value = '+63';
-                return
-            }
-            
-        }
-        
-        let input = axaNumberField.value;
-        let formattedInput = input.replace(/\D/g, '');
-        
-        // Set placeholder
-        axaNumberField.placeholder = "XXXXXXXXXX";
-
-        if (formattedInput === '') {
-            // If the input is empty, display the "+63 " prefix
-            formattedInput = '+63';
-        } else if (formattedInput.startsWith('63')) {
-            // If the input starts with "63", replace it with "+63 " 
-             
-            formattedInput = '+63' + formattedInput.slice(2);
-            let newformat = []
-            for(let x=0;x<formattedInput.length;x++) {
-                newformat.push(formattedInput[x])
-                console.log(formattedInput[x])
-                if(x == 2){
-                    newformat.push('-')
-                }
-                if(x == 5){
-                    newformat.push('-')
-                }
-                if(x == 8){
-                    newformat.push('-')
-                }
-            }
-            formattedInput = newformat.toString().replace(/,/g, '')
-        } else if (formattedInput.length >= 4) {
-            // If the input has at least 4 digits, add the country code and separate the digits with spaces
-          
-            formattedInput = '+63' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
-        } else if (formattedInput.length >= 1) {
-            // If the input has at least 1 digit, add the country code
-            formattedInput = '+63' + formattedInput;
-        }
-        // Limit the formatted input to 10 digits
-
-        
-
-
-        formattedInput = formattedInput.slice(0, 16);
-
-        
-
-
-
-        axaNumberField.value = formattedInput;
-    }
-
-    function formatInput(event) {
-        console.log(event)
-
-        if(event.inputType == 'deleteContentBackward') {
-            let input = inputField.value;
-            if(input.length <=3){
-                inputField.value = '+63';
-            }
-            return
-        }
-        if(event.inputType == 'insertText'){
-            let input = inputField.value;
-            if(input == '+630' && input.length <=4){
-                inputField.value = '+63';
-                return
-            }
-            
-        }
-        
+    function formatInput() {
         let input = inputField.value;
         let formattedInput = input.replace(/\D/g, '');
-        
+
         // Set placeholder
         inputField.placeholder = "XXXXXXXXXX";
 
         if (formattedInput === '') {
             // If the input is empty, display the "+63 " prefix
-            formattedInput = '+63';
+            formattedInput = '+63 ';
         } else if (formattedInput.startsWith('63')) {
-            // If the input starts with "63", replace it with "+63 " 
-             
-            formattedInput = '+63' + formattedInput.slice(2);
-            let newformat = []
-            for(let x=0;x<formattedInput.length;x++) {
-                newformat.push(formattedInput[x])
-                console.log(formattedInput[x])
-                if(x == 2){
-                    newformat.push('-')
-                }
-                if(x == 5){
-                    newformat.push('-')
-                }
-                if(x == 8){
-                    newformat.push('-')
-                }
-            }
-            formattedInput = newformat.toString().replace(/,/g, '')
+            // If the input starts with "63", replace it with "+63 "
+            formattedInput = '+63 ' + formattedInput.slice(2);
         } else if (formattedInput.length >= 4) {
             // If the input has at least 4 digits, add the country code and separate the digits with spaces
-          
-            formattedInput = '+63' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
+            formattedInput = '+63 ' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
         } else if (formattedInput.length >= 1) {
             // If the input has at least 1 digit, add the country code
-            formattedInput = '+63' + formattedInput;
+            formattedInput = '+63 ' + formattedInput;
         }
         // Limit the formatted input to 10 digits
-
-        
-
-
-        formattedInput = formattedInput.slice(0, 16);
-
-        
-
-
+        formattedInput = formattedInput.slice(0, 14);
 
         inputField.value = formattedInput;
     }
     document.addEventListener('DOMContentLoaded', formatInput);
     inputField.addEventListener('input', formatInput);
-    axaNumberField.addEventListener('input', axaformatInput);
 
 
     $(document).ready(function() {
@@ -375,7 +185,15 @@
                 $("#loading").hide();
             }, 1000);
         }
-
+        var appNo = query;
+        var ref = reference_no;
+        console.log(appNo);
+        console.log(ref);
+        if (ref != undefined) {
+            $('#app_number').val(ref);
+        } else {
+            $('#app_number').val(query);
+        }
     });
 
     $(document).ready(function() {
@@ -446,6 +264,7 @@
                         reference_no = app_trailno == '' ? 'N/A' : app_trailno;
                         // $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
                         $('#app_no').val(app_trailno == '' ? 'N/A' : app_trailno);
+                        $('#app_number').val(app_trailno == '' ? 'N/A' : app_trailno);
                         $('#employee_details_ID').val(data.employee_details_ID == null ? '' : data
                             .employee_details_ID);
                         // $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
@@ -709,6 +528,7 @@
         $("#present_barangay_name").val($("#present_barangay").find("option:selected").text());
     });
     $(document).ready(function() {
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -960,6 +780,9 @@
         e.preventDefault();
         var table = $('#dependentTable').DataTable();
         table.draw();
+        var tableAxa = $('.axa-table').DataTable();
+        tableAxa.draw();
+
         var nextValue = $(this).attr('value');
         console.log($(this).attr('value'));
         if (nextValue == 'step-2') {
@@ -1065,8 +888,10 @@
             }
 
             var contact = $('#member_forms').find("[name=contact_no]")
+
             const mobile_number = contact.val()
-            if (mobile_number.length == 16 && (mobile_number.substring(4, 6) === "90" || mobile_number.substring(4, 6) === "91" || mobile_number.substring(4, 6) === "92" || mobile_number.substring(4, 6) === "93" || mobile_number.substring(4, 6) === "94" || mobile_number.substring(4, 6) === "95" || mobile_number.substring(4, 6) === "96" || mobile_number.substring(4, 6) === "97" || mobile_number.substring(0, 2) === "98")) {} else {
+
+            if (mobile_number.length == 14 && mobile_number.substring(4, 6) === "90" || mobile_number.substring(4, 6) === "91" || mobile_number.substring(4, 6) === "92" || mobile_number.substring(4, 6) === "93" || mobile_number.substring(4, 6) === "94" || mobile_number.substring(4, 6) === "95" || mobile_number.substring(4, 6) === "96" || mobile_number.substring(4, 6) === "97" || mobile_number.substring(0, 2) === "98") {} else {
                 empty.push(contact[0])
             }
 
@@ -1232,6 +1057,7 @@
                                     $('.applicationNo').show(200);
                                     $('#application_no').text(reference_no);
                                     $('#app_no').val(reference_no);
+                                    $('#app_number').val(reference_no);
                                     $('#appNo').val(reference_no);
                                     $('#test').val(reference_no);
                                 }
@@ -1318,6 +1144,8 @@
         } else if (nextValue == 'step-3') {
             var table = $('#dependentTable').DataTable();
             table.draw();
+            var tableAxa = $('.axa-table').DataTable();
+            tableAxa.draw();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1460,6 +1288,8 @@
                     if (!employee_details_ID) {
                         var table = $('#dependentTable').DataTable();
                         table.draw();
+                        var tableAxa = $('.axa-table').DataTable();
+                        tableAxa.draw();
                         var formData = $("#member_forms_con").serialize();
                         var additionalData = {
                             'mem_id': mem_id,
@@ -1496,6 +1326,8 @@
                     } else {
                         var table = $('#dependentTable').DataTable();
                         table.draw();
+                        var tableAxa = $('.axa-table').DataTable();
+                        tableAxa.draw();
                         if (originalData_ext !== $("#member_forms_con").serialize()) {
                             Swal.fire({
                                 text: 'Do you want to allow these changes on your application?',
@@ -1587,47 +1419,44 @@
             console.log($('#monthly_salary').val());
             $('#month_sal_text').text($('#monthly_salary').val());
         } else if (nextValue == 'step-4') {
-            var formData3 = $("#member_forms_3").serialize()
-            console.log(formData3)
+            var appNo = query;
+            var ref = reference_no;
+            if (ref != undefined) {
+                $('#test_no').val(ref);
+            } else {
+                $('#test_no').val(query);
+            }
+
+            var formData = $("#member_forms_3").serialize()
+            // console.log(formData)
             $.ajax({
                 method: 'POST',
                 url: "{{ route('add_member_details') }}",
-                data: formData3,
-                contentType: false,
-                processData: false,
-                beforeSend: function() {
-                    $('#loading').show();
-                },
+                data: formData,
+                // beforeSend: function() {
+                //     $('#loading').show();
+                // },
                 success: function(data) {
-                    console.log(data);
                     if (data.success != '') {
-                        var appNo = query;
-                        var ref = reference_no;
-                        console.log(query);
-                        if (ref != undefined) {
-                            $('#app_number').val(ref);
-                        } else {
-                            $('#app_number').val(query);
-                        }
-                        Swal.fire({
-                            title: 'Registration Success!',
-                            text: "Your membership application has been successfully submitted. Check your email for your reference.",
-                            icon: 'success',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            confirmButtonText: 'OK'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                // window.open();
-                                // var url = "{{ URL::to('/memberform/') }}" + '/' +
-                                //     employee_no; //YOUR CHANGES HERE...
-                                // window.open(url, 'targetWindow',
-                                //     'resizable=yes,width=1000,height=1000');
-                                // setTimeout(function() {
-                                //     window.location.href = "/login";
-                                // }, 1000);
-                            }
-                        })
+                        // Swal.fire({
+                        //     title: 'Registration Success!',
+                        //     text: "Your membership application has been successfully submitted. Check your email for your reference.",
+                        //     icon: 'success',
+                        //     showCancelButton: true,
+                        //     confirmButtonColor: '#3085d6',
+                        //     confirmButtonText: 'OK'
+                        // }).then((result) => {
+                        //     if (result.isConfirmed) {
+                        //         // window.open();
+                        //         // var url = "{{ URL::to('/memberform/') }}" + '/' +
+                        //         //     employee_no; //YOUR CHANGES HERE...
+                        //         // window.open(url, 'targetWindow',
+                        //         //     'resizable=yes,width=1000,height=1000');
+                        //         // setTimeout(function() {
+                        //         //     window.location.href = "/login";
+                        //         // }, 1000);
+                        //     }
+                        // })
 
                         $("#step-3").removeClass('d-flex').addClass("d-none");
                         $("#step-4").removeClass('d-none').addClass("d-flex");
@@ -1641,15 +1470,26 @@
                         $("#stepper-4").addClass("active")
                     }
                 },
-                complete: function() {
-                    $('#loading').hide();
-
-                }
+                // complete: function() {
+                //     $('#loading').hide();
+                // },
             });
 
 
 
         } else if (nextValue == 'step-5') {
+            var tableAxa = $('.axa-table').DataTable();
+            tableAxa.draw();
+            
+            var appNo = query;
+            var ref = reference_no;
+            console.log(appNo);
+            console.log(ref);
+            if (ref != undefined) {
+                $('#app_number').val(ref);
+            } else {
+                $('#app_number').val(query);
+            }
 
             var empty = []
             const phoneRegex = /^(09|\+639)\d{9}$/;
@@ -1707,16 +1547,31 @@
             // console.log(files)
             // formDataAXA.append('esig', files[0]);
             // formDataAXA.append('personnel_id', personnel_id);
-            var formDataAXA = $("#generateNewAxa").serialize();
-            console.log("formdatang ina")
-            console.log(formDataAXA);
-
-
-
+            // var formDataAXA = $("#generateNewAxa").serialize();
+            var form = $('#generateNewAxa')[0];
+            var formData = new FormData(form);
+            var files = $('#e_sign_axa')[0].files;
+            formData.append('app_number', $('#test_no').val());
+            formData.append('place_birth', $('#place_birth').val());
+            formData.append('emp_union_assoc', $('#emp_union_assoc').val());
+            formData.append('occupation', $('#occupation').val());
+            formData.append('sss_gsis', $('#gsis_no').val());
+            formData.append('spouse_name', $('#spouse_name').val());
+            formData.append('maiden_name', $('#maiden_name').val());
+            formData.append('insuted_type', $('#insured_type').val());
+            formData.append('last_name', $('#last_name').val());
+            formData.append('first_name', $('#first_name').val());
+            formData.append('middle_name', $('#middle_name').val());
+            formData.append('relationship_tomember', $('#relationship_tomember').val());
+            formData.append('axa_contact_no', $('#axa_contact_no').val());
+            formData.append('email_add', $('#email_add').val());
+            formData.append('esig_axa', files[0]);
+            formData.append('personnel_id', personnel_id);
+            console.log(formData);
             $.ajax({
                 url: "{{ route('add_cocolife') }}",
                 method: "POST",
-                data: formDataAXA,
+                data: formData,
                 contentType: false,
                 processData: false,
                 beforeSend: function() {
@@ -1759,111 +1614,105 @@
                 }
             });
 
-
-
         }
         scrollToTop()
     });
 
-    $(document).on('submit', '#member_forms_3', function(e) {
-        e.preventDefault();
+    // $(document).on('submit', '#member_forms_3', function(e) {
+    //     e.preventDefault();
+    //     $.ajax({
+    //         method: 'POST',
+    //         url: "{{ route('add_member_details') }}",
+    //         data: new FormData(this),
+    //         contentType: false,
+    //         processData: false,
+    //         beforeSend: function() {
+    //             $('#loading').show();
+    //         },
+    //         success: function(data) {
+    //             console.log(data);
+    //             if (data.success != '') {
+    //                 Swal.fire({
+    //                     title: 'Registration Success!',
+    //                     text: "Your membership application has been successfully submitted. Check your email for your reference.",
+    //                     icon: 'success',
+    //                     showCancelButton: true,
+    //                     confirmButtonColor: '#3085d6',
+    //                     confirmButtonText: 'OK'
+    //                 }).then((result) => {
+    //                     if (result.isConfirmed) {
+    //                         // window.open();
+    //                         var url = "{{ URL::to('/memberform/') }}" + '/' +
+    //                             employee_no; //YOUR CHANGES HERE...
+    //                         window.open(url, 'targetWindow',
+    //                             'resizable=yes,width=1000,height=1000');
+    //                         setTimeout(function() {
+    //                             window.location.href = "/login";
+    //                         }, 1000);
+    //                     }
+    //                 })
+    //                 $("#step-2").removeClass('d-flex').addClass("d-none");
+    //                 $("#step-3").removeClass('d-none').addClass("d-flex");
+    //                 $("#back").attr('value', 'step-2')
+    //                 $("#member_forms_con").removeClass('mh-reg-form');
+    //                 $("#member_forms_3").addClass('mh-reg-form');
+    //                 $(this).attr('value', 'step-end')
+    //                 $("#line").removeClass('step-2').addClass('step-3')
+    //                 $("#registration-title").text(stepTitle[2])
+    //                 $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
+    //                 $("#stepper-3").addClass("active")
+    //             }
+    //         }
+    //     });
 
-
-
-
-        $.ajax({
-            method: 'POST',
-            url: "{{ route('add_member_details') }}",
-            data: new FormData(this),
-            contentType: false,
-            processData: false,
-            beforeSend: function() {
-                $('#loading').show();
-            },
-            success: function(data) {
-                console.log(data);
-                if (data.success != '') {
-                    Swal.fire({
-                        title: 'Registration Success!',
-                        text: "Your membership application has been successfully submitted. Check your email for your reference.",
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // window.open();
-                            var url = "{{ URL::to('/memberform/') }}" + '/' +
-                                employee_no; //YOUR CHANGES HERE...
-                            window.open(url, 'targetWindow',
-                                'resizable=yes,width=1000,height=1000');
-                            setTimeout(function() {
-                                window.location.href = "/login";
-                            }, 1000);
-                        }
-                    })
-                    $("#step-2").removeClass('d-flex').addClass("d-none");
-                    $("#step-3").removeClass('d-none').addClass("d-flex");
-                    $("#back").attr('value', 'step-2')
-                    $("#member_forms_con").removeClass('mh-reg-form');
-                    $("#member_forms_3").addClass('mh-reg-form');
-                    $(this).attr('value', 'step-end')
-                    $("#line").removeClass('step-2').addClass('step-3')
-                    $("#registration-title").text(stepTitle[2])
-                    $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
-                    $("#stepper-3").addClass("active")
-                }
-            }
-        });
-
-    });
+    // });
 
     $(document).on('click', '#add_dependent', function() {
 
         var empty = []
-        // var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
-        const threeYears = new Date();
-        threeYears.setFullYear(threeYears.getFullYear() - 3);
-        // if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
-        //     var birthday = $('#member_forms').find("[data-set=birthday]")
-        //     empty.push(birthday[0])
+        // // var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
+        // const threeYears = new Date();
+        // threeYears.setFullYear(threeYears.getFullYear() - 3);
+        // // if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
+        // //     var birthday = $('#member_forms').find("[data-set=birthday]")
+        // //     empty.push(birthday[0])
+        // // }
+        // var selectedDate = "Invalid Date";
+        // if ($("[data-set=validate_dependent][name=birth_month]").val() != "" && $("[data-set=validate_dependent][name=birth_date]").val() != "" && $("[data-set=validate_dependent][name=birth_year]").val() != "") {
+        //     selectedDate = new Date($("[data-set=validate_dependent][name=birth_month]").val() + " " + $("[data-set=validate_dependent][name=birth_date]").val() + ", " + $("[data-set=validate_dependent][name=birth_year]").val())
         // }
-        var selectedDate = "Invalid Date";
-        if ($("[data-set=validate_dependent][name=birth_month]").val() != "" && $("[data-set=validate_dependent][name=birth_date]").val() != "" && $("[data-set=validate_dependent][name=birth_year]").val() != "") {
-            selectedDate = new Date($("[data-set=validate_dependent][name=birth_month]").val() + " " + $("[data-set=validate_dependent][name=birth_date]").val() + ", " + $("[data-set=validate_dependent][name=birth_year]").val())
-        }
-        var currentDate = new Date();
-        if (selectedDate > threeYears || selectedDate == "Invalid Date") {
-            $(`label[name=birth_day]`).removeClass('d-none').text("Invalid age, Must be three years old and above.")
-            $(`div[name=birth_day]`).addClass('input-error')
-            empty.push($(`label[name=birth_month]`))
-        } else {
-            $(`label[name=birth_day]`).addClass('d-none')
-            $(`div[name=birth_day]`).removeClass('input-error')
-        }
-        $("[data-set=validate_dependent]").map(function (index) {
-            console.log($(this))
-            const name = $(this).attr("name")
-            $(`label[name=${name}]`).addClass('d-none')
-            $(this).removeClass('input-error')
-            if(name == "birth_month" || name == "birth_year" || name == "birth_date") {
-                return
-            }
-            if($(this).val() == ""){
-                empty.push(this)
-                $(`label[name=${name}]`).removeClass('d-none').text("Please fill out this field.")
-                if(name == 'email_add') $(`label[name=${name}]`).removeClass('d-none').text("Please input valid email address.")
-                if(name == 'sign_electronic') $(`label[name=${name}]`).removeClass('d-none').text("Please upload a signature.")
-                $(this).addClass('input-error')
-            }
-        })
-        // $("validate-dependent").map(function (index) {
+        // var currentDate = new Date();
+        // if (selectedDate > threeYears || selectedDate == "Invalid Date") {
+        //     $(`label[name=birth_day]`).removeClass('d-none').text("Invalid age, Must be three years old and above.")
+        //     $(`div[name=birth_day]`).addClass('input-error')
+        //     empty.push($(`label[name=birth_month]`))
+        // } else {
+        //     $(`label[name=birth_day]`).addClass('d-none')
+        //     $(`div[name=birth_day]`).removeClass('input-error')
+        // }
+        // $("[data-set=validate_dependent]").map(function (index) {
         //     console.log($(this))
+        //     const name = $(this).attr("name")
+        //     $(`label[name=${name}]`).addClass('d-none')
+        //     $(this).removeClass('input-error')
+        //     if(name == "birth_month" || name == "birth_year" || name == "birth_date") {
+        //         return
+        //     }
+        //     if($(this).val() == ""){
+        //         empty.push(this)
+        //         $(`label[name=${name}]`).removeClass('d-none').text("Please fill out this field.")
+        //         if(name == 'email_add') $(`label[name=${name}]`).removeClass('d-none').text("Please input valid email address.")
+        //         if(name == 'sign_electronic') $(`label[name=${name}]`).removeClass('d-none').text("Please upload a signature.")
+        //         $(this).addClass('input-error')
+        //     }
         // })
-        if(empty.length != 0) {
-            empty[0].focus()
-            return
-        }
+        // // $("validate-dependent").map(function (index) {
+        // //     console.log($(this))
+        // // })
+        // if(empty.length != 0) {
+        //     empty[0].focus()
+        //     return
+        // }
 
         var year = $('#date_birth_dependent_years').val();
         var month = $('#date_birth_dependent_month').val();
@@ -2290,6 +2139,7 @@
                         $('#icon_status').css('color', '#1a8981');
                         print_emp = data.employee_no;
                         $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
+                        $('#app_number').val(data.app_no == null ? 'N/A' : data.app_no);
                         // $('#app_nox').val(data.app_no == null ? 'N/A' : data.app_no);
                         $('#appNo_label').text(data.app_no == null ? 'N/A' : data.app_no);
                         $('#lname_label').text(data.lastname == null ? 'N/A' : data.lastname);
@@ -2548,12 +2398,23 @@
                 data: fd,
                 contentType: false,
                 processData: false,
+                beforeSend: function() {
+                    $('#loading').show();
+                },
                 success: function(data) {
                     if (data.success != '') {
-                        var url = "{{ URL::to('/generateProxyForm/') }}" + '/' +
-                            id; //YOUR CHANGES HERE...
-                        window.open(url, '_blank');
+                        $("#step-1").removeClass('d-flex').addClass("d-none");
+                        $("#steps").removeClass('d-flex').addClass("d-none");
+                        $("#registration-title").removeClass('d-flex').addClass("d-none");
+                        $('#applicationNo').hide();
+                        $('#proxy').hide();
+                        $('#application_number').val(id);
+                        $('#employee_id').val(employee_no);
+                        $('#message-box').show();
                     }
+                },
+                complete: function() {
+                    $('#loading').hide();
                 }
             });
         } else {
@@ -2563,6 +2424,26 @@
                 icon: 'warning'
             });
         }
+    });
+
+    $(document).on('click', '#axa_insurance_form_download', function() {
+        var app_no = $('#application_number').val();
+        var url = "{{ URL::to('/axaform/') }}" + '/' + app_no; //YOUR CHANGES HERE...
+        window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+    });
+
+    $(document).on('click', '#proxy_form_download', function() {
+        var app_no = $('#application_number').val();
+
+        var url = "{{ URL::to('/generateProxyForm/') }}" + '/' + app_no; //YOUR CHANGES HERE...
+        window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+    });
+
+    $(document).on('click', '#membership_form_download', function() {
+        var employee_no = $('#employee_id').val();
+
+        var url = "{{ URL::to('/memberform/') }}" + '/' + employee_no; //YOUR CHANGES HERE...
+        window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
     });
 
     // $(document).on('click', '#generateForm', function() {
@@ -2680,5 +2561,85 @@
     //         }
     //     });
     // })
+
+    $(document).on('click', '#add_dependent_axa', function() {
+        var year = $('#birth_year').val();
+        var month = $('#birth_month').val();
+        var day = $('#birth_date').val();
+        var date = new Date(year, month - 1, day);
+        var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+
+        var dependent_last_name = $('#dependent_last_name').val();
+        var dependent_middle_name = $('#dependent_middle_name').val();
+        var dependent_first_name = $('#dependent_first_name').val();
+        var relationship_tomember = $('#relationship_tomember').val();
+        var bday = formattedDate;
+        var dependent_insurance = $('#dependent_insurance').val();
+        var dependent_rights = $('#dependent_rights').val();
+        $.ajax({
+            url: "{{ route('add_beneficiary_axa') }}",
+            data: {
+                dependent_last_name: dependent_last_name,
+                dependent_middle_name: dependent_middle_name,
+                dependent_first_name: dependent_first_name,
+                relationship_tomember: relationship_tomember,
+                bday: bday,
+                dependent_relation: dependent_relation,
+                dependent_insurance: dependent_insurance,
+                dependent_rights: dependent_rights,
+                employee_no: employee_no
+            },
+            method: "POST",
+            success: function(data) {
+                if (data.success == 'Success') {
+                    var table = $('.axa-table').DataTable();
+                    table.draw();
+                    $('#dependent_last_name').val('');
+                    $('#dependent_middle_name').val('');
+                    $('#dependent_first_name').val('');
+                    $('#relationship_tomember').val('');
+                    $('#dependent_relation').val('');
+                    $('#dependent_insurance').val('');
+                    $('#dependent_rights').val('');
+                } 
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        var tableDependentAxa = $('.axa-table').DataTable({
+            ordering: false,
+            info: false,
+            searching: false,
+            paging: false,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('getBeneficiaryAxa') }}",
+                data: function(d) {
+                    d.employee_no = employee_no
+                }
+            },
+            columns: [{
+                    data: 'fullname',
+                    name: 'fullname'
+                },
+                {
+                    data: 'date_of_bday',
+                    name: 'date_of_bday'
+                },
+                {
+                    data: 'ben_relationship',
+                    name: 'ben_relationship'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
+        });
+    });
 </script>
 @endsection
