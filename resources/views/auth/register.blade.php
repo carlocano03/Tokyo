@@ -958,7 +958,7 @@
                         </div>
                         <div class="mp-input-group">
                             <label class="mp-input-group__label">Contact No.</label>
-                            <input class="mp-input-group__input mp-text-field axa_contact_no" type="text" name="axa_contact_no" id="axa_contact_no" data-set="step-4-validation"/>
+                            <input class="mp-input-group__input mp-text-field axa_contact_no" type="text" name="axa_contact_no" id="axa_contact_no"  data-set="step-4-validation"/>
                             <label id="err-msg" class="mp-input-group__label red-clr d-none" name="axa_contact_no">
                         </div>
                         <div class="mp-input-group">
