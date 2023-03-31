@@ -151,35 +151,220 @@
 
 </div>
 <script>
-    const inputField = document.querySelector('#contact-number-input');
 
-    function formatInput() {
+    $('#landline-format').on('input', function(){
+        var inputNumber = $(this).val().replace(/\D/g, ''); // remove non-digit characters
+        var formattedNumber = formatPhoneNumber(inputNumber); // format the phone number
+        $(this).val(formattedNumber); // update the input field with the formatted number
+    });
+    //   function formatPhoneNumber(number) {
+    //   // Check if the number is a landline or mobile number
+    //   var isLandline = number.slice(0, 2) == "02";
+    //   var prefixLength = isLandline ? 2 : 3; // prefix length is 2 for landline and 3 for mobile number
+    
+    //   // Split the number into prefix and the remaining digits
+    //   var prefix = number.slice(0, prefixLength);
+    //   var remainingDigits = number.slice(prefixLength);
+    
+    //   // Format the remaining digits with dashes and parentheses
+    //   var formattedRemainingDigits = formatRemainingDigits(remainingDigits);
+    
+    //   // Combine the prefix and formatted remaining digits
+    //   var formattedNumber = "(" + prefix + ") " + formattedRemainingDigits;
+    
+    //   return formattedNumber;
+    // }
+    // function formatRemainingDigits(digits) {
+    //   var formattedDigits = "";
+    //   if(digits.length >= 4) {
+    //     formattedDigits += digits.slice(0, 4) + "-";
+    //     formattedDigits += digits.slice(4);
+    //   } else {
+    //     formattedDigits += digits;
+    //   }
+    //   return formattedDigits;
+    // }
+    function formatPhoneNumber(number) {
+    // Check if the number is a landline or mobile number
+    var isLandline = number.slice(0, 2) == "02";
+    var prefixLength = isLandline ? 2 : 3; // prefix length is 2 for landline and 3 for mobile number
+    
+    // Split the number into prefix and the remaining digits
+    var prefix = number.slice(0, prefixLength);
+    var remainingDigits = number.slice(prefixLength);
+    
+    // Format the remaining digits with dashes and parentheses if there are enough digits
+    var formattedRemainingDigits = remainingDigits.length >= 4 ? formatRemainingDigits(remainingDigits) : remainingDigits;
+    
+    // Combine the prefix and formatted remaining digits, removing parentheses and dashes if they're not necessary
+    var formattedNumber = prefix + formattedRemainingDigits;
+    if(isLandline && formattedRemainingDigits.length >= 4) {
+        formattedNumber = "(" + prefix + ") " + formattedRemainingDigits;
+    } else if(!isLandline && formattedRemainingDigits.length >= 7) {
+        formattedNumber = "(" + prefix + ") " + formattedRemainingDigits.slice(0, 3) + "-" + formattedRemainingDigits.slice(3);
+    }
+    
+    // Remove the last dash if it's at the end of the formatted remaining digits
+    if (formattedRemainingDigits.slice(-1) == '-') {
+        formattedNumber = formattedNumber.slice(0, -1);
+    }
+    
+    return formattedNumber;
+    }
+    function formatRemainingDigits(digits) {
+    var formattedDigits = "";
+    if(digits.length >= 4) {
+        formattedDigits += digits.slice(0, 4) + "-";
+        formattedDigits += digits.slice(4);
+    } else {
+        formattedDigits += digits;
+    }
+    return formattedDigits;
+    }
+
+    const inputField = document.querySelector('#contact-number-input');
+    const axaNumberField = document.querySelector('#axa_contact_no');
+
+    function axaformatInput(event) {
+        console.log(event)
+
+        if(event.inputType == 'deleteContentBackward') {
+            let input = axaNumberField.value;
+            if(input.length <=3){
+                axaNumberField.value = '+63';
+            }
+            return
+        }
+        if(event.inputType == 'insertText'){
+            let input = axaNumberField.value;
+            if(input == '+630' && input.length <=4){
+                axaNumberField.value = '+63';
+                return
+            }
+            
+        }
+        
+        let input = axaNumberField.value;
+        let formattedInput = input.replace(/\D/g, '');
+        
+        // Set placeholder
+        axaNumberField.placeholder = "XXXXXXXXXX";
+
+        if (formattedInput === '') {
+            // If the input is empty, display the "+63 " prefix
+            formattedInput = '+63';
+        } else if (formattedInput.startsWith('63')) {
+            // If the input starts with "63", replace it with "+63 " 
+             
+            formattedInput = '+63' + formattedInput.slice(2);
+            let newformat = []
+            for(let x=0;x<formattedInput.length;x++) {
+                newformat.push(formattedInput[x])
+                console.log(formattedInput[x])
+                if(x == 2){
+                    newformat.push('-')
+                }
+                if(x == 5){
+                    newformat.push('-')
+                }
+                if(x == 8){
+                    newformat.push('-')
+                }
+            }
+            formattedInput = newformat.toString().replace(/,/g, '')
+        } else if (formattedInput.length >= 4) {
+            // If the input has at least 4 digits, add the country code and separate the digits with spaces
+          
+            formattedInput = '+63' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
+        } else if (formattedInput.length >= 1) {
+            // If the input has at least 1 digit, add the country code
+            formattedInput = '+63' + formattedInput;
+        }
+        // Limit the formatted input to 10 digits
+
+        
+
+
+        formattedInput = formattedInput.slice(0, 16);
+
+        
+
+
+
+        axaNumberField.value = formattedInput;
+    }
+
+    function formatInput(event) {
+        console.log(event)
+
+        if(event.inputType == 'deleteContentBackward') {
+            let input = inputField.value;
+            if(input.length <=3){
+                inputField.value = '+63';
+            }
+            return
+        }
+        if(event.inputType == 'insertText'){
+            let input = inputField.value;
+            if(input == '+630' && input.length <=4){
+                inputField.value = '+63';
+                return
+            }
+            
+        }
+        
         let input = inputField.value;
         let formattedInput = input.replace(/\D/g, '');
-
+        
         // Set placeholder
         inputField.placeholder = "XXXXXXXXXX";
 
         if (formattedInput === '') {
             // If the input is empty, display the "+63 " prefix
-            formattedInput = '+63 ';
+            formattedInput = '+63';
         } else if (formattedInput.startsWith('63')) {
-            // If the input starts with "63", replace it with "+63 "
-            formattedInput = '+63 ' + formattedInput.slice(2);
+            // If the input starts with "63", replace it with "+63 " 
+             
+            formattedInput = '+63' + formattedInput.slice(2);
+            let newformat = []
+            for(let x=0;x<formattedInput.length;x++) {
+                newformat.push(formattedInput[x])
+                console.log(formattedInput[x])
+                if(x == 2){
+                    newformat.push('-')
+                }
+                if(x == 5){
+                    newformat.push('-')
+                }
+                if(x == 8){
+                    newformat.push('-')
+                }
+            }
+            formattedInput = newformat.toString().replace(/,/g, '')
         } else if (formattedInput.length >= 4) {
             // If the input has at least 4 digits, add the country code and separate the digits with spaces
-            formattedInput = '+63 ' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
+          
+            formattedInput = '+63' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
         } else if (formattedInput.length >= 1) {
             // If the input has at least 1 digit, add the country code
-            formattedInput = '+63 ' + formattedInput;
+            formattedInput = '+63' + formattedInput;
         }
         // Limit the formatted input to 10 digits
-        formattedInput = formattedInput.slice(0, 14);
+
+        
+
+
+        formattedInput = formattedInput.slice(0, 16);
+
+        
+
+
 
         inputField.value = formattedInput;
     }
     document.addEventListener('DOMContentLoaded', formatInput);
     inputField.addEventListener('input', formatInput);
+    axaNumberField.addEventListener('input', axaformatInput);
 
 
     $(document).ready(function() {
@@ -880,10 +1065,8 @@
             }
 
             var contact = $('#member_forms').find("[name=contact_no]")
-
             const mobile_number = contact.val()
-
-            if (mobile_number.length == 14 && mobile_number.substring(4, 6) === "90" || mobile_number.substring(4, 6) === "91" || mobile_number.substring(4, 6) === "92" || mobile_number.substring(4, 6) === "93" || mobile_number.substring(4, 6) === "94" || mobile_number.substring(4, 6) === "95" || mobile_number.substring(4, 6) === "96" || mobile_number.substring(4, 6) === "97" || mobile_number.substring(0, 2) === "98") {} else {
+            if (mobile_number.length == 16 && (mobile_number.substring(4, 6) === "90" || mobile_number.substring(4, 6) === "91" || mobile_number.substring(4, 6) === "92" || mobile_number.substring(4, 6) === "93" || mobile_number.substring(4, 6) === "94" || mobile_number.substring(4, 6) === "95" || mobile_number.substring(4, 6) === "96" || mobile_number.substring(4, 6) === "97" || mobile_number.substring(0, 2) === "98")) {} else {
                 empty.push(contact[0])
             }
 
