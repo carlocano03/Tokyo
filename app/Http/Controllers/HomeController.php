@@ -117,7 +117,7 @@ class HomeController extends Controller
         'according_rights' => $request->input('dependent_rights'),
       );
       DB::table('axa_beneficiaries')->insert($axa_beneficiaries);
-        $message = 'Success';
+      $message = 'Success';
       return [
         'error' => $message,
       ];
@@ -455,7 +455,7 @@ class HomeController extends Controller
     // } else {
     //   echo $email;
     // }
-    
+
     $quries = DB::getQueryLog();
 
     return response()->json(['success' => $quries]);
@@ -565,17 +565,16 @@ class HomeController extends Controller
     $email = DB::table('mem_app')
       ->where('app_no', $request->input('appNo'))
       ->value('email_address');
-      $mailData = [
-        'title' => 'Member Application is Submitted',
-        'body' => 'Your application is Submitted and subject for review.',
-        'app_no' => $request->input('appNo')
-      ];
-      if (!empty($email)) {
-        Mail::to($email)->send(new ApplicationMail($mailData));
-      } else {
-        echo $email;
-      }
-      
+    $mailData = [
+      'title' => 'Member Application is Submitted',
+      'body' => 'Your application is Submitted and subject for review.',
+      'app_no' => $request->input('appNo')
+    ];
+    if (!empty($email)) {
+      Mail::to($email)->send(new ApplicationMail($mailData));
+    } else {
+      echo $email;
+    }
   }
 
   public function addaxa_form(Request $request)
@@ -587,13 +586,13 @@ class HomeController extends Controller
       $newName = $request->input('app_number') . '_' . $fileName;
       $path = $file->storeAs('signature', $newName, 'public');
     } else {
-        // Handle the case where no file was uploaded
-        $path = null;
+      // Handle the case where no file was uploaded
+      $path = null;
     }
-    
+
     $insertCoco = [
       'app_no' => $appNumber,
-      'personal_id' => 123232,
+      'personal_id' => $request->input('personnel_id'),
       'place_birth' => strtoupper($request->input('place_birth')),
       'emp_union_assoc' => strtoupper($request->input('emp_union_assoc')),
       'occupation' => strtoupper($request->input('occupation')),

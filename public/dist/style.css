@@ -6792,3 +6792,35 @@ text.highcharts-credits {
     border-radius: 7px;
     margin: 5px;
 }
+
+.axa-links {
+    color: green;
+    text-decoration: underline;
+}
+
+.axa-success {
+    font-size: 95px;
+    color: #23ff00;
+    text-align: center;
+}
+
+.registration-last-text {
+    font-size: 25px;
+    text-align: center;
+    font-weight: 450;
+    margin-top: -40px;
+    margin-bottom: 50px;
+}
+
+.please-check {
+
+    text-align: center;
+    font-size: 15px;
+    font-weight: 400;
+
+}
+
+#message-box {
+    padding: 20px;
+    border: solid 2px #dcd6d6;
+}

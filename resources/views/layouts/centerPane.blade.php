@@ -833,7 +833,7 @@
             }
 
             var civilStatus = $('#member_forms').find("[name=civilstatus]:checked")
-          
+
             if (!civilStatus.val()) {
                 var newcivilStatus = $('#member_forms').find("[name=civilstatus]")
                 empty.push(newcivilStatus[0])
@@ -1480,7 +1480,7 @@
         } else if (nextValue == 'step-5') {
             var tableAxa = $('.axa-table').DataTable();
             tableAxa.draw();
-            
+
             var appNo = query;
             var ref = reference_no;
             console.log(appNo);
@@ -1495,8 +1495,8 @@
             const phoneRegex = /^(09|\+639)\d{9}$/;
             const mobile_number = $("input[name=axa_contact_no]")
             console.log(mobile_number)
-            if(!phoneRegex.test(mobile_number.val().replace(/-/g, ''))) {
-                empty.push(mobile_number)  
+            if (!phoneRegex.test(mobile_number.val().replace(/-/g, ''))) {
+                empty.push(mobile_number)
                 console.log('erer')
                 $(`label[name=axa_contact_no]`).removeClass('d-none').text("Invalid cellphone number.")
                 $("input[name=axa_contact_no]").addClass('input-error')
@@ -1504,21 +1504,21 @@
                 $(`label[name=axa_contact_no]`).addClass('d-none')
                 $("input[name=axa_contact_no]").removeClass('input-error')
             }
-            $("[data-set=step-4-validation]").map(function (index) {
+            $("[data-set=step-4-validation]").map(function(index) {
                 const name = $(this).attr("name")
-                if(name == 'axa_contact_no') return
+                if (name == 'axa_contact_no') return
                 $(`label[name=${name}]`).addClass('d-none')
                 $(this).removeClass('input-error')
-                
-                if($(this).val() == ""){
+
+                if ($(this).val() == "") {
                     empty.push(this)
                     $(`label[name=${name}]`).removeClass('d-none').text("Please fill out this field.")
-                    if(name == 'email_add') $(`label[name=${name}]`).removeClass('d-none').text("Please input valid email address.")
-                    if(name == 'sign_electronic') $(`label[name=${name}]`).removeClass('d-none').text("Please upload a signature.")
+                    if (name == 'email_add') $(`label[name=${name}]`).removeClass('d-none').text("Please input valid email address.")
+                    if (name == 'sign_electronic') $(`label[name=${name}]`).removeClass('d-none').text("Please upload a signature.")
                     $(this).addClass('input-error')
                 }
             })
-            if(empty.length != 0) {
+            if (empty.length != 0) {
                 empty[0].focus()
                 return
             }
@@ -1606,6 +1606,7 @@
                     $("#registration-title").text(stepTitle[4])
                     $("#step-title").text(`${steps[4]}${stepTitle[4]}`)
                     $("#stepper-5").addClass("active")
+
                 },
 
                 complete: function() {
@@ -2410,6 +2411,15 @@
                         $('#proxy').hide();
                         $('#application_number').val(id);
                         $('#employee_id').val(employee_no);
+                        $("#stepper-5").addClass("active")
+                        $("#step-5").addClass('d-none');
+                        $("#step-5").addClass('opacity-0');
+                        $('#back').addClass("d-none");
+                        $('#back').addClass("opacity-0");
+                        $('.applicationNo').addClass("d-none");
+                        $('.applicationNo').addClass("opacity-0");
+                        $('#back-to-home').addClass("d-none");
+                        $('#back-to-home').addClass("opacity-0");
                         $('#message-box').show();
                     }
                 },
@@ -2601,7 +2611,7 @@
                     $('#dependent_relation').val('');
                     $('#dependent_insurance').val('');
                     $('#dependent_rights').val('');
-                } 
+                }
             }
         });
     });
@@ -2639,6 +2649,720 @@
                     searchable: false
                 },
             ]
+        });
+    });
+
+    $(document).on('click', '#save_as_draft_1', function() {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var empty = $('#member_forms').find("input[required]").filter(function() {
+            return (!$.trim($(this).val()).length);
+        });
+
+        clearErrorField([
+            'firstname',
+            'middlename',
+            'lastname',
+            'gender',
+            'present_province',
+            'present_municipality',
+            'present_barangay',
+            'province',
+            'municipality',
+            'barangay',
+            'contact_no',
+            'email',
+            'civilstatus',
+            'dual_citizenship',
+            'citizenship',
+            'birthday'
+        ])
+
+        var gender = $('#member_forms').find("[name=gender]")
+        if (gender.val() == "") {
+            empty.push(gender[0])
+        }
+        var province = $('#member_forms').find("[name=present_province]")
+        if (province.val() == "" || province.val() == null || province.val() == undefined) {
+            empty.push(province[0])
+        }
+        var municipality = $('#member_forms').find("[name=present_municipality]")
+        if (municipality.val() == "" || municipality.val() == null || municipality.val() == undefined) {
+            empty.push(municipality[0])
+        }
+        var barangay = $('#member_forms').find("[name=present_barangay]")
+        if (barangay.val() == "" || barangay.val() == null || barangay.val() == undefined) {
+            empty.push(barangay[0])
+        }
+
+        var civilStatus = $('#member_forms').find("[name=civilstatus]:checked")
+
+        if (!civilStatus.val()) {
+            var newcivilStatus = $('#member_forms').find("[name=civilstatus]")
+            empty.push(newcivilStatus[0])
+        }
+
+        var citizenship = $('#member_forms').find("[name=citizenship]:checked")
+        if (!citizenship.val()) {
+            var newcitizenship = $('#member_forms').find("[name=citizenship]")
+            empty.push(newcitizenship[0])
+        }
+        var dualcitizen = $('#member_forms').find("[name=dual_citizenship]")
+        if ((citizenship.val() == "OTHERS" || citizenship.val() == "DUAL CITIZENSHIP") && dualcitizen.val() == "") {
+            empty.push(dualcitizen[0])
+        }
+
+        var sameAddress = $("#perm_add_check").prop('checked')
+        if (sameAddress == false) {
+            var per_province = $('#member_forms').find("[name=province]")
+            if ((per_province.val() == "" || per_province.val() == null || per_province.val() == undefined)) {
+                empty.push(per_province[0])
+            }
+            var per_municipality = $('#member_forms').find("[name=municipality]")
+            if ((per_municipality.val() == "" || per_municipality.val() == null || per_municipality.val() == undefined)) {
+                empty.push(per_municipality[0])
+            }
+            var per_barangay = $('#member_forms').find("[name=barangay]")
+            if ((per_barangay.val() == "" || per_barangay.val() == null || per_barangay.val() == undefined)) {
+                empty.push(per_barangay[0])
+            }
+        }
+
+        // var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
+        const fifteenYearsAgo = new Date();
+        fifteenYearsAgo.setFullYear(fifteenYearsAgo.getFullYear() - 15);
+        // if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
+        //     var birthday = $('#member_forms').find("[data-set=birthday]")
+        //     empty.push(birthday[0])
+        // }
+        var selectedDate = "Invalid Date";
+        if ($("#date_birth_month").val() != "" && $("#date_birth_days").val() != "" && $("#date_birth_years").val() != "") {
+            selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val())
+        }
+        var currentDate = new Date();
+        if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
+            var birthday = $('#member_forms').find("[data-set=birthday]")
+            $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none')
+            $("[data-set=birthday]> .input").addClass('input-error')
+            empty.push(birthday[0])
+        } else {
+            $("[data-set=date_appoint_months]>#err-msg").addClass('d-none')
+            $("[data-set=birthday] > .input").removeClass('input-error')
+        }
+
+        var contact = $('#member_forms').find("[name=contact_no]")
+
+        const mobile_number = contact.val()
+
+        if (mobile_number.length == 14 && mobile_number.substring(4, 6) === "90" || mobile_number.substring(4, 6) === "91" || mobile_number.substring(4, 6) === "92" || mobile_number.substring(4, 6) === "93" || mobile_number.substring(4, 6) === "94" || mobile_number.substring(4, 6) === "95" || mobile_number.substring(4, 6) === "96" || mobile_number.substring(4, 6) === "97" || mobile_number.substring(0, 2) === "98") {} else {
+            empty.push(contact[0])
+        }
+
+
+        var email = $('#member_forms').find("[name=email]")
+        if (!isValidEmail(email.val())) {
+            empty.push(email[0])
+        }
+
+        if (empty.length) {
+            // var emptyFields = [];
+            // empty.each(function() {
+            // emptyFields.push($(this).attr("id"));
+            // });
+            empty.map((index, element) => {
+                const name = $(element).attr("name")
+                // if (name == 'contact_no') {
+                //     const mobile_number = $(element).val()
+                //     if (mobile_number.length === 11 && mobile_number.substring(4, 6) === "090" || mobile_number.substring(3, 2) === "091" || mobile_number.substring(3, 2) === "092" || mobile_number.substring(3, 2) === "093" || mobile_number.substring(3, 2) === "094" || mobile_number.substring(3, 2) === "095" || mobile_number.substring(3, 2) === "096" || mobile_number.substring(3, 2) === "097" || mobile_number.substring(3, 2) === "098") {
+                //         $("[data-set=" + name + "]>#err-msg").addClass('d-none')
+                //         $("[data-set=" + name + "]>select").removeClass('input-error')
+                //         return
+                //     } else {
+                //         $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please input valid cellphone number (Ex. 09xx-xxx-xxxx).")
+                //         $("[data-set=" + name + "]>select").addClass('input-error')
+                //         return
+                //     }
+                // }
+                if (name == 'email') {
+                    const email = $(element).val()
+                    if (!isValidEmail(email)) {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid input, please check your email address. (email address must contain @sample.com).")
+                        $("[data-set=" + name + "]>select").addClass('input-error')
+                        return
+                    }
+                    $("[data-set=" + name + "]>#err-msg").addClass('d-none')
+                    $("[data-set=" + name + "]>select").removeClass('input-error')
+                    return
+                }
+                if (name == 'gender') {
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select gender.")
+                    $("[data-set=" + name + "]>select").addClass('input-error')
+                    return
+                }
+                if (name == 'province') {
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your province.")
+                    $("[data-set=" + name + "]>select").addClass('input-error')
+                    return
+                }
+                if (name == 'present_province') {
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your province.")
+                    $("[data-set=" + name + "]>select").addClass('input-error')
+                    return
+                }
+                if (name == 'present_municipality') {
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your municipality.")
+                    $("[data-set=" + name + "]>select").addClass('input-error')
+                    return
+                }
+                if (name == 'municipality') {
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your municipality.")
+                    $("[data-set=" + name + "]>select").addClass('input-error')
+                    return
+                }
+                if (name == 'present_barangay') {
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your barangay.")
+                    $("[data-set=" + name + "]>select").addClass('input-error')
+                    return
+                }
+                if (name == 'barangay') {
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your barangay.")
+                    $("[data-set=" + name + "]>select").addClass('input-error')
+                    return
+                }
+                if (name == 'contact_no') {
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid cellphone number.")
+                    $("[data-set=" + name + "]>input").addClass('input-error')
+                    return
+                }
+                if (name == 'civilstatus') {
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your civil status.")
+                    $("[data-set=" + name + "]>select").addClass('input-error')
+                    return
+                }
+                if (name == 'citizenship') {
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your citizenship.")
+                    return
+                }
+                if (name == 'birthday') {
+                    $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid Age, you must be 15 years old or older.")
+                    return
+                }
+                console.log('name', name)
+                $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please fill out this field.")
+                $("[data-set=" + name + "]>input").addClass('input-error')
+                $("[data-set=" + name + "]>.input").addClass('input-error')
+            })
+            empty.first().focus();
+            return
+            // swal.fire("Error!", "Please fill out the required fields", "error");
+        } else {
+            if ($('#app_trailNo').val() !== '' && personnel_id == undefined) {
+                var formDatas = $("#member_forms").serialize();
+                var additionalData = {
+                    'mem_id': mem_id,
+                    'personnel_id': pers_id,
+                };
+                formDatas += '&' + $.param(additionalData);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('update_trail_member') }}",
+                    data: formDatas,
+                    success: function(data) {
+                        if (data.success != '') {
+                            mem_id = data.mem_id;
+                            personnel_id = data.success;
+                            Swal.fire({
+                                title: 'Saved As Draft!',
+                                icon: 'success'
+                            });
+                            // $("#back").removeClass("disabled");
+                        }
+                    }
+                });
+            } else {
+                if (!personnel_id) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('add_member') }}",
+                        data: $('#member_forms').serialize(),
+                        beforeSend: function() {
+                            $('#loading').show();
+                        },
+                        success: function(data) {
+                            console.log(data.success)
+                            if (data.success != '') {
+                                reference_no = data.randomnum;
+                                mem_id = data.mem_id;
+                                personnel_id = data.success;
+                                // Swal.fire({
+                                //     html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>" + reference_no + "</span><br><span>Use this number to continue your application at any time. Once you complete the application process, you may also use this number to check the status of your application.</span>" +
+                                //         "<br><span>We have emailed your application number to the email you provided in the previous step. You may also take a screenshot or copy this number for future reference.</span>" +
+                                //         "</div>",
+                                //     icon: 'success',
+                                //     confirmButtonColor: '#3085d6',
+                                //     confirmButtonText: 'Proceed',
+                                // });
+                                Swal.fire({
+                                    title: 'Saved As Draft!',
+                                    icon: 'success'
+                                });
+                                Swal.fire({
+                                    html: "<div class='d-flex flex-column' style='font-size: medium'><span>Your application number is</span><br><span style='font-size: x-large'>" + reference_no + "</span><br><span style='color:red'>Please screenshot or copy this number for future reference.</span>" +
+                                        "<br><span><b>Use this number to:</b><br>&#x2713; Resume your application at any time<br> &#x2713; Check the status of your application</span>" +
+                                        "<br><span>We have also emailed your application number to the email you provided in Step 1.</span>" +
+                                        "</div>",
+                                    icon: 'success',
+                                    confirmButtonColor: '#3085d6',
+                                    confirmButtonText: 'Proceed',
+                                });
+
+                            }
+                        },
+                        error: function(data) {
+                            console.log(data);
+                        },
+                        complete: function(data) {
+                            $('#loading').hide();
+                        },
+                    });
+
+                } else {
+                    if (originalData !== $("#member_forms").serialize()) {
+                        Swal.fire({
+                            text: 'Do you want to allow these changes on your application?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                var formDatas = $("#member_forms").serialize();
+                                var additionalData = {
+                                    'mem_id': mem_id,
+                                    'personnel_id': personnel_id,
+                                };
+                                formDatas += '&' + $.param(additionalData);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "{{ route('add_member_update') }}",
+                                    data: formDatas,
+                                    success: function(data) {
+                                        if (data.success != '') {
+                                            mem_id = data.mem_id;
+                                            personnel_id = data.success;
+                                            Swal.fire({
+                                                title: 'Saved As Draft!',
+                                                icon: 'success'
+                                            });
+                                        }
+                                    }
+                                });
+                            } else {
+                                Swal.fire('Warning!',
+                                    'Update was cancelled by the user. No changes were made.',
+                                    'warning'
+                                );
+                            }
+                        });
+
+                    }
+
+                }
+            }
+        }
+
+
+        var table = $('#dependentTable').DataTable();
+        table.draw();
+        var tableAxa = $('.axa-table').DataTable();
+        tableAxa.draw();
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        clearErrorField([
+            'campus',
+            'classification',
+            'college_unit',
+            'appointment',
+            'date_appoint_months',
+            'monthly_salary',
+            'tin_no',
+            'employee_no'
+
+        ])
+
+        var empty = $('#member_forms_con').find("input[required]").filter(function() {
+            return !$.trim($(this).val()).length;
+        });
+
+        console.log(mem_id);
+        console.log(employee_details_ID);
+
+        var campus = $('#member_forms_con').find("[name=campus]")
+        if (campus.val() == "") {
+            empty.push(campus[0])
+        }
+        var classification = $('#member_forms_con').find("[name=classification]")
+        if (classification.val() == "") {
+            empty.push(classification[0])
+        }
+        var college_unit = $('#member_forms_con').find("[name=college_unit]")
+        if (college_unit.val() == "") {
+            empty.push(college_unit[0])
+        }
+        var appointment = $('#member_forms_con').find("[name=appointment]")
+        if (appointment.val() == "") {
+            empty.push(appointment[0])
+        }
+
+        var selectedDate = "Invalid Date";
+        if ($("#date_appoint_months").val() != "" && $("#date_appoint_days").val() != "" && $("#date_appoint_years").val() != "") {
+            selectedDate = new Date($("#date_appoint_months").val() + " " + $("#date_appoint_days").val() + ", " + $("#date_appoint_years").val())
+        }
+
+        var currentDate = new Date();
+        console.log(selectedDate, '123123')
+        if (selectedDate > currentDate || selectedDate == "Invalid Date") {
+            $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none').text("Invalid appointment date, please check")
+            $("[data-set=date_appoint_months]>.input").addClass('input-error')
+            empty.push($("[data-set=date_appoint_months]"))
+        } else {
+            $("[data-set=date_appoint_months]>#err-msg").addClass('d-none')
+            $("[data-set=date_appoint_months]>.input").removeClass('input-error')
+        }
+
+        if (empty.length) {
+            empty.map((index, element) => {
+                //     'campus',
+                // 'classification',
+                // 'college_unit',
+                // '',
+                // 'date_appoint_months',
+                // '',
+                // '',
+                // ''
+                const name = $(element).attr("name")
+                $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please fill out this field.")
+                $("[data-set=" + name + "]>select").addClass('input-error')
+                $("[data-set=" + name + "]>input").addClass('input-error')
+                $("[data-set=" + name + "]>.input").addClass('input-error')
+                if (name == 'campus') {
+                    $("[data-set=" + name + "]>#err-msg").text("Please select a campus.")
+                }
+                if (name == 'classification') {
+                    $("[data-set=" + name + "]>#err-msg").text("Please select an employee classification.")
+                }
+                if (name == 'employee_no') {
+                    $("[data-set=" + name + "]>#err-msg").text("Please input your employee number.")
+                }
+                if (name == 'monthly_salary') {
+                    $("[data-set=" + name + "]>#err-msg").text("Please input your salary.")
+                }
+                if (name == 'tin_no') {
+                    $("[data-set=" + name + "]>#err-msg").text("Please input your TIN number.")
+                }
+                if (name == 'appointment') {
+                    $("[data-set=" + name + "]>#err-msg").text("Please select an appointment status.")
+                }
+
+            })
+            empty.first().focus();
+            return
+            // swal.fire("Error!", "Please fill out the required fields", "error");
+        } else {
+            if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' &&
+                continued_trail == 0) {
+                var formData = $("#member_forms_con").serialize();
+                var additionalData = {
+                    'mem_id': mem_id,
+                    'employee_details_ID': $('#employee_details_ID').val(),
+                };
+                formData += '&' + $.param(additionalData);
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('update_trail_member_1') }}",
+                    data: formData,
+                    success: function(data) {
+                        if (data.success != '') {
+                            employee_no = data.emp_no;
+                            employee_details_ID = data.success;
+                            continued_trail = 1;
+
+                        } else {
+                            Swal.fire({
+                                title: 'Employee number has already been used.',
+                                icon: 'error'
+                            });
+
+                            $('#employee_no').focus();
+                        }
+                    }
+                });
+            } else {
+                if (!employee_details_ID) {
+                    var table = $('#dependentTable').DataTable();
+                    table.draw();
+                    var tableAxa = $('.axa-table').DataTable();
+                    tableAxa.draw();
+                    var formData = $("#member_forms_con").serialize();
+                    var additionalData = {
+                        'mem_id': mem_id,
+                    };
+                    formData += '&' + $.param(additionalData);
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('add_member_con') }}",
+                        data: formData,
+                        success: function(data) {
+                            if (data.success != '') {
+                                employee_no = data.emp_no;
+                                employee_details_ID = data.success;
+
+                            } else {
+                                Swal.fire({
+                                    title: 'Employee number has already been used.',
+                                    icon: 'error'
+                                });
+
+                                $('#employee_no').focus();
+                            }
+                        }
+                    });
+                } else {
+                    var table = $('#dependentTable').DataTable();
+                    table.draw();
+                    var tableAxa = $('.axa-table').DataTable();
+                    tableAxa.draw();
+                    if (originalData_ext !== $("#member_forms_con").serialize()) {
+                        Swal.fire({
+                            text: 'Do you want to allow these changes on your application?',
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes',
+                            cancelButtonText: 'No',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                var formData = $("#member_forms_con").serialize();
+                                var additionalData = {
+                                    'mem_id': mem_id,
+                                    'employee_details_ID': employee_details_ID,
+                                };
+                                formData += '&' + $.param(additionalData);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: "{{ route('add_member_con_up') }}",
+                                    data: formData,
+                                    success: function(data) {
+                                        if (data.success != '') {
+                                            employee_no = data.emp_no;
+                                            employee_details_ID = data.success;
+                                            Swal.fire({
+                                                title: 'Updates applied successfully.',
+                                                icon: 'success'
+                                            });
+
+                                        } else {
+                                            Swal.fire({
+                                                title: 'Employee number has already been used.',
+                                                icon: 'error'
+                                            });
+
+                                            $('#employee_no').focus();
+                                        }
+                                    }
+                                });
+                            } else {
+                                swal.fire(
+                                    "Update was cancelled by the user. No changes were made.");
+
+                            }
+                        });
+
+                    } else {
+
+                        // console.log($("#back").val());
+                    }
+
+                }
+
+            }
+        }
+        console.log($('#monthly_salary').val());
+        $('#month_sal_text').text($('#monthly_salary').val());
+    });
+
+
+    $(document).on('click', '#save_as_draft_2', function() {
+        var appNo = query;
+        var ref = reference_no;
+        if (ref != undefined) {
+            $('#test_no').val(ref);
+        } else {
+            $('#test_no').val(query);
+        }
+
+        var formData = $("#member_forms_3").serialize()
+        // console.log(formData)
+        $.ajax({
+            method: 'POST',
+            url: "{{ route('add_member_details') }}",
+            data: formData,
+            // beforeSend: function() {
+            //     $('#loading').show();
+            // },
+            success: function(data) {
+                if (data.success != '') {
+                    Swal.fire({
+                        title: 'Save as Draft!',
+                        icon: 'success'
+                    });
+                    // Swal.fire({
+                    //     title: 'Registration Success!',
+                    //     text: "Your membership application has been successfully submitted. Check your email for your reference.",
+                    //     icon: 'success',
+                    //     showCancelButton: true,
+                    //     confirmButtonColor: '#3085d6',
+                    //     confirmButtonText: 'OK'
+                    // }).then((result) => {
+                    //     if (result.isConfirmed) {
+                    //         // window.open();
+                    //         // var url = "{{ URL::to('/memberform/') }}" + '/' +
+                    //         //     employee_no; //YOUR CHANGES HERE...
+                    //         // window.open(url, 'targetWindow',
+                    //         //     'resizable=yes,width=1000,height=1000');
+                    //         // setTimeout(function() {
+                    //         //     window.location.href = "/login";
+                    //         // }, 1000);
+                    //     }
+                    // })
+
+                }
+            },
+            // complete: function() {
+            //     $('#loading').hide();
+            // },
+        });
+    });
+
+
+
+
+    //save as drafr axa form
+
+    $(document).on('click', '#save_as_draft_3', function() {
+        var tableAxa = $('.axa-table').DataTable();
+        tableAxa.draw();
+
+        var appNo = query;
+        var ref = reference_no;
+        console.log(appNo);
+        console.log(ref);
+        if (ref != undefined) {
+            $('#app_number').val(ref);
+        } else {
+            $('#app_number').val(query);
+        }
+
+        var empty = []
+        const phoneRegex = /^(09|\+639)\d{9}$/;
+        const mobile_number = $("input[name=axa_contact_no]")
+        console.log(mobile_number)
+        if (!phoneRegex.test(mobile_number.val().replace(/-/g, ''))) {
+            empty.push(mobile_number)
+            console.log('erer')
+            $(`label[name=axa_contact_no]`).removeClass('d-none').text("Invalid cellphone number.")
+            $("input[name=axa_contact_no]").addClass('input-error')
+        } else {
+            $(`label[name=axa_contact_no]`).addClass('d-none')
+            $("input[name=axa_contact_no]").removeClass('input-error')
+        }
+        $("[data-set=step-4-validation]").map(function(index) {
+            const name = $(this).attr("name")
+            if (name == 'axa_contact_no') return
+            $(`label[name=${name}]`).addClass('d-none')
+            $(this).removeClass('input-error')
+
+            if ($(this).val() == "") {
+                empty.push(this)
+                $(`label[name=${name}]`).removeClass('d-none').text("Please fill out this field.")
+                if (name == 'email_add') $(`label[name=${name}]`).removeClass('d-none').text("Please input valid email address.")
+                if (name == 'sign_electronic') $(`label[name=${name}]`).removeClass('d-none').text("Please upload a signature.")
+                $(this).addClass('input-error')
+            }
+        })
+        if (empty.length != 0) {
+            empty[0].focus()
+            return
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var id = pers_id;
+
+        var form = $('#generateNewAxa')[0];
+        var formData = new FormData(form);
+        var files = $('#e_sign_axa')[0].files;
+        formData.append('app_number', $('#test_no').val());
+        formData.append('place_birth', $('#place_birth').val());
+        formData.append('emp_union_assoc', $('#emp_union_assoc').val());
+        formData.append('occupation', $('#occupation').val());
+        formData.append('sss_gsis', $('#gsis_no').val());
+        formData.append('spouse_name', $('#spouse_name').val());
+        formData.append('maiden_name', $('#maiden_name').val());
+        formData.append('insuted_type', $('#insured_type').val());
+        formData.append('last_name', $('#last_name').val());
+        formData.append('first_name', $('#first_name').val());
+        formData.append('middle_name', $('#middle_name').val());
+        formData.append('relationship_tomember', $('#relationship_tomember').val());
+        formData.append('axa_contact_no', $('#axa_contact_no').val());
+        formData.append('email_add', $('#email_add').val());
+        formData.append('esig_axa', files[0]);
+        formData.append('personnel_id', personnel_id);
+        console.log(formData);
+        $.ajax({
+            url: "{{ route('add_cocolife') }}",
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            beforeSend: function() {
+                $('#loading').show();
+            },
+            success: function(data) {
+                if (data.message == 'Exist') {
+                    Swal.fire({
+                        title: 'Error!',
+                        text: 'AXA form already generated.',
+                        icon: 'error'
+                    });
+
+                }
+                Swal.fire({
+                    title: 'Save as Draft!',
+                    icon: 'success'
+                });
+
+            },
+
+            complete: function() {
+                $('#loading').hide();
+
+            }
         });
     });
 </script>
