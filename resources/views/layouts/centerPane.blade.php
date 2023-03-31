@@ -19,7 +19,7 @@
 <div class="transition-background">
 
 </div>
-<div class="custom-modal not-visible" id="modal_name">
+<!-- <div class="custom-modal not-visible" id="modal_name">
     <div class="modal-container">
         <div class="modal-content">
             <div class="modal-header">
@@ -55,7 +55,6 @@
                     </div>
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Insured Type</label>
-                        <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
                         <select name="insuted_type" id="insuted_type" class="radius-1 outline select-field" style="font-size: normal;">
                             <option value="INSURED">INSURED</option>
                             <option value="DEPENDENT">DEPENDENT</option>
@@ -77,10 +76,6 @@
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Relationship to the member</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
-                    </div>
-                    <div class="mp-input-group">
-                        <label class="mp-input-group__label">Contact No.</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="axa_contact_no" id="axa_contact_no" />
                     </div>
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Email Address</label>
@@ -110,7 +105,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <div class="mp-center-pane mp-bg--registration">
     <div class="mp-split-pane__center transition-all d-flex flex-column mw-600 w-600" id="leftsection">
 
@@ -118,9 +113,9 @@
             @section('status-trail-form')
             @show
         </div> -->
-        <div class="ft-card border-bottom-0">
-            <div class="mp-pb2 mp-text-center d-flex flex-row mp-pv3 mp-ph3 relative">
-                <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI" style="width: 50px; height: 50px" class="absolute">
+        <div class="ft-card border-bottom-0 uppfi-registration-header">
+            <div class="mp-pb2 mp-text-center d-flex flex-row mp-pv3 mp-ph3 relative uppfi-registration-header">
+                <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI" style="width: 50px; height: 50px" class="uppfi-icon">
                 <div class="d-flex flex-column mp-text-center" style="color: white; width: 100%">
                     <span class=" top-items">
                         University of the Philippines Provident Fund Inc.
@@ -190,7 +185,15 @@
                 $("#loading").hide();
             }, 1000);
         }
-
+        var appNo = query;
+        var ref = reference_no;
+        console.log(appNo);
+        console.log(ref);
+        if (ref != undefined) {
+            $('#app_number').val(ref);
+        } else {
+            $('#app_number').val(query);
+        }
     });
 
     $(document).ready(function() {
@@ -261,6 +264,7 @@
                         reference_no = app_trailno == '' ? 'N/A' : app_trailno;
                         // $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
                         $('#app_no').val(app_trailno == '' ? 'N/A' : app_trailno);
+                        $('#app_number').val(app_trailno == '' ? 'N/A' : app_trailno);
                         $('#employee_details_ID').val(data.employee_details_ID == null ? '' : data
                             .employee_details_ID);
                         // $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
@@ -524,6 +528,7 @@
         $("#present_barangay_name").val($("#present_barangay").find("option:selected").text());
     });
     $(document).ready(function() {
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -706,6 +711,26 @@
             // setTimeout(function() {
             //     $('.mobile-header').hide(300);
             // }, 1000);
+        } else if (backValue == "step-4") {
+            $("#step-4").addClass('d-flex').removeClass("d-none");
+            $("#step-5").addClass('d-none').removeClass("d-flex");
+            $("#back").attr('value', 'step-2')
+            // $("#member_forms_3").removeClass('mh-reg-form');
+            // $("#member_forms_4").addClass('mh-reg-form');
+            // $(this).attr('value', 'step-end')
+            $("#line").addClass('step-4').removeClass('step-5')
+            $("#registration-title").text(stepTitle[3])
+            $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
+            $("#stepper-5").removeClass("active")
+        } else if (backValue == "step-5") {
+            $("#step-5").addClass('d-flex').removeClass("d-none");
+            $("#step-6").addClass('d-none').removeClass("d-flex");
+            $("#back").attr('value', 'step-2')
+            // $("#member_forms_3").removeClass('mh-reg-form');
+            // $("#member_forms_4").addClass('mh-reg-form');
+            // $(this).attr('value', 'step-end')
+            $("#line").addClass('step-5').removeClass('step-6')
+
         } else {
             window.location.href = "/login";
         }
@@ -749,9 +774,15 @@
             }
         })
     }
+
+
     $(document).on('click', '#next-btn', function(e) {
+        e.preventDefault();
         var table = $('#dependentTable').DataTable();
         table.draw();
+        var tableAxa = $('.axa-table').DataTable();
+        tableAxa.draw();
+
         var nextValue = $(this).attr('value');
         console.log($(this).attr('value'));
         if (nextValue == 'step-2') {
@@ -801,9 +832,11 @@
                 empty.push(barangay[0])
             }
 
-            var civilStatus = $('#member_forms').find("[name=civilstatus]")
-            if (civilStatus.val() == "") {
-                empty.push(civilStatus[0])
+            var civilStatus = $('#member_forms').find("[name=civilstatus]:checked")
+          
+            if (!civilStatus.val()) {
+                var newcivilStatus = $('#member_forms').find("[name=civilstatus]")
+                empty.push(newcivilStatus[0])
             }
 
             var citizenship = $('#member_forms').find("[name=citizenship]:checked")
@@ -832,12 +865,26 @@
                 }
             }
 
-            var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
+            // var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
             const fifteenYearsAgo = new Date();
             fifteenYearsAgo.setFullYear(fifteenYearsAgo.getFullYear() - 15);
+            // if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
+            //     var birthday = $('#member_forms').find("[data-set=birthday]")
+            //     empty.push(birthday[0])
+            // }
+            var selectedDate = "Invalid Date";
+            if ($("#date_birth_month").val() != "" && $("#date_birth_days").val() != "" && $("#date_birth_years").val() != "") {
+                selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val())
+            }
+            var currentDate = new Date();
             if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
                 var birthday = $('#member_forms').find("[data-set=birthday]")
+                $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none')
+                $("[data-set=birthday]> .input").addClass('input-error')
                 empty.push(birthday[0])
+            } else {
+                $("[data-set=date_appoint_months]>#err-msg").addClass('d-none')
+                $("[data-set=birthday] > .input").removeClass('input-error')
             }
 
             var contact = $('#member_forms').find("[name=contact_no]")
@@ -920,7 +967,7 @@
                         return
                     }
                     if (name == 'contact_no') {
-                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid number.")
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid cellphone number.")
                         $("[data-set=" + name + "]>input").addClass('input-error')
                         return
                     }
@@ -985,6 +1032,7 @@
                                 $('#loading').show();
                             },
                             success: function(data) {
+                                console.log(data.success)
                                 if (data.success != '') {
                                     reference_no = data.randomnum;
                                     mem_id = data.mem_id;
@@ -1009,9 +1057,13 @@
                                     $('.applicationNo').show(200);
                                     $('#application_no').text(reference_no);
                                     $('#app_no').val(reference_no);
+                                    $('#app_number').val(reference_no);
                                     $('#appNo').val(reference_no);
                                     $('#test').val(reference_no);
                                 }
+                            },
+                            error: function(data) {
+                                console.log(data);
                             },
                             complete: function(data) {
                                 $('#loading').hide();
@@ -1092,6 +1144,8 @@
         } else if (nextValue == 'step-3') {
             var table = $('#dependentTable').DataTable();
             table.draw();
+            var tableAxa = $('.axa-table').DataTable();
+            tableAxa.draw();
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1234,6 +1288,8 @@
                     if (!employee_details_ID) {
                         var table = $('#dependentTable').DataTable();
                         table.draw();
+                        var tableAxa = $('.axa-table').DataTable();
+                        tableAxa.draw();
                         var formData = $("#member_forms_con").serialize();
                         var additionalData = {
                             'mem_id': mem_id,
@@ -1270,6 +1326,8 @@
                     } else {
                         var table = $('#dependentTable').DataTable();
                         table.draw();
+                        var tableAxa = $('.axa-table').DataTable();
+                        tableAxa.draw();
                         if (originalData_ext !== $("#member_forms_con").serialize()) {
                             Swal.fire({
                                 text: 'Do you want to allow these changes on your application?',
@@ -1361,119 +1419,301 @@
             console.log($('#monthly_salary').val());
             $('#month_sal_text').text($('#monthly_salary').val());
         } else if (nextValue == 'step-4') {
-
-            $("[data-set=percentage_check]>#err-msg").addClass('d-none')
-            $("[data-set=percentage_check]>input").removeClass('input-error')
-            $("[data-set=fixed_amount_check]>#err-msg").addClass('d-none')
-            $("[data-set=fixed_amount_check]>input").removeClass('input-error')
-
-            const percentage_check = $('#percentage_check').prop("checked");
-            const percentage_bsalary = $('#percentage_bsalary').val();
-            const fixed_amount_check = $('#fixed_amount_check').prop("checked");
-            const fixed_amount = $('#fixed_amount').val();
-
-            let hasError = false
-
-            if (percentage_check && percentage_bsalary.trim() == "") {
-                $("[data-set=percentage_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly contribution.")
-                $("[data-set=percentage_check]>input").addClass('input-error')
-                hasError = true
-            }
-            if (fixed_amount_check && fixed_amount.trim() == "") {
-                $("[data-set=fixed_amount_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly contribution.")
-                $("[data-set=fixed_amount_check]>input").addClass('input-error')
-                hasError = true
-            }
-            if (hasError || (!percentage_check && !fixed_amount_check)) {
-                // swal.fire("Error!", "Please fill out the required fields", "error");
-                return false
+            var appNo = query;
+            var ref = reference_no;
+            if (ref != undefined) {
+                $('#test_no').val(ref);
+            } else {
+                $('#test_no').val(query);
             }
 
-            $("#step-3").removeClass('d-flex').addClass("d-none");
-            $("#step-4").removeClass('d-none').addClass("d-flex");
-            $("#back").attr('value', 'step-3')
-            // $("#member_forms_3").removeClass('mh-reg-form');
-            // $("#member_forms_4").addClass('mh-reg-form');
-            // $(this).attr('value', 'step-end')
-            $("#line").removeClass('step-3').addClass('step-4')
-            $("#registration-title").text(stepTitle[3])
-            $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
-            $("#stepper-4").addClass("active")
+            var formData = $("#member_forms_3").serialize()
+            // console.log(formData)
+            $.ajax({
+                method: 'POST',
+                url: "{{ route('add_member_details') }}",
+                data: formData,
+                // beforeSend: function() {
+                //     $('#loading').show();
+                // },
+                success: function(data) {
+                    if (data.success != '') {
+                        // Swal.fire({
+                        //     title: 'Registration Success!',
+                        //     text: "Your membership application has been successfully submitted. Check your email for your reference.",
+                        //     icon: 'success',
+                        //     showCancelButton: true,
+                        //     confirmButtonColor: '#3085d6',
+                        //     confirmButtonText: 'OK'
+                        // }).then((result) => {
+                        //     if (result.isConfirmed) {
+                        //         // window.open();
+                        //         // var url = "{{ URL::to('/memberform/') }}" + '/' +
+                        //         //     employee_no; //YOUR CHANGES HERE...
+                        //         // window.open(url, 'targetWindow',
+                        //         //     'resizable=yes,width=1000,height=1000');
+                        //         // setTimeout(function() {
+                        //         //     window.location.href = "/login";
+                        //         // }, 1000);
+                        //     }
+                        // })
+
+                        $("#step-3").removeClass('d-flex').addClass("d-none");
+                        $("#step-4").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-3')
+                        // $("#member_forms_3").removeClass('mh-reg-form');
+                        // $("#member_forms_4").addClass('mh-reg-form');
+                        // $(this).attr('value', 'step-end')
+                        $("#line").removeClass('step-3').addClass('step-4')
+                        $("#registration-title").text(stepTitle[3])
+                        $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
+                        $("#stepper-4").addClass("active")
+                    }
+                },
+                // complete: function() {
+                //     $('#loading').hide();
+                // },
+            });
+
 
 
         } else if (nextValue == 'step-5') {
+            var tableAxa = $('.axa-table').DataTable();
+            tableAxa.draw();
+            
+            var appNo = query;
+            var ref = reference_no;
+            console.log(appNo);
+            console.log(ref);
+            if (ref != undefined) {
+                $('#app_number').val(ref);
+            } else {
+                $('#app_number').val(query);
+            }
+
+            var empty = []
+            const phoneRegex = /^(09|\+639)\d{9}$/;
+            const mobile_number = $("input[name=axa_contact_no]")
+            console.log(mobile_number)
+            if(!phoneRegex.test(mobile_number.val().replace(/-/g, ''))) {
+                empty.push(mobile_number)  
+                console.log('erer')
+                $(`label[name=axa_contact_no]`).removeClass('d-none').text("Invalid cellphone number.")
+                $("input[name=axa_contact_no]").addClass('input-error')
+            } else {
+                $(`label[name=axa_contact_no]`).addClass('d-none')
+                $("input[name=axa_contact_no]").removeClass('input-error')
+            }
+            $("[data-set=step-4-validation]").map(function (index) {
+                const name = $(this).attr("name")
+                if(name == 'axa_contact_no') return
+                $(`label[name=${name}]`).addClass('d-none')
+                $(this).removeClass('input-error')
+                
+                if($(this).val() == ""){
+                    empty.push(this)
+                    $(`label[name=${name}]`).removeClass('d-none').text("Please fill out this field.")
+                    if(name == 'email_add') $(`label[name=${name}]`).removeClass('d-none').text("Please input valid email address.")
+                    if(name == 'sign_electronic') $(`label[name=${name}]`).removeClass('d-none').text("Please upload a signature.")
+                    $(this).addClass('input-error')
+                }
+            })
+            if(empty.length != 0) {
+                empty[0].focus()
+                return
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var id = pers_id;
+
+            // generateAxa
+            // var formDatas = $("#generateAxa2").serialize();
+            // var additionalData = {
+            //     'e_sig': $('#e_sig').val(),
+            //     'personnel_id': pers_id,
+            // };
+            // formDatas += '&' + $.param(additionalData);
+            // var formData3 = $("#generateAxa2").serialize();
+
+            // var formDataAXA = new FormData($("#generateNewAxa")[0]); 
+            // var files = $('#sign_electronic')[0].files;
 
 
-            $("#step-4").removeClass('d-flex').addClass("d-none");
-            $("#step-5").removeClass('d-none').addClass("d-flex");
-            $("#back").attr('value', 'step-4')
-            // $("#member_forms_3").removeClass('mh-reg-form');
-            // $("#member_forms_4").addClass('mh-reg-form');
-            // $(this).attr('value', 'step-end')
-            $("#line").removeClass('step-4').addClass('step-5')
-            $("#registration-title").text(stepTitle[4])
-            $("#step-title").text(`${steps[4]}${stepTitle[4]}`)
-            $("#stepper-5").addClass("active")
+            // console.log(files)
+            // formDataAXA.append('esig', files[0]);
+            // formDataAXA.append('personnel_id', personnel_id);
+            // var formDataAXA = $("#generateNewAxa").serialize();
+            var form = $('#generateNewAxa')[0];
+            var formData = new FormData(form);
+            var files = $('#e_sign_axa')[0].files;
+            formData.append('app_number', $('#test_no').val());
+            formData.append('place_birth', $('#place_birth').val());
+            formData.append('emp_union_assoc', $('#emp_union_assoc').val());
+            formData.append('occupation', $('#occupation').val());
+            formData.append('sss_gsis', $('#gsis_no').val());
+            formData.append('spouse_name', $('#spouse_name').val());
+            formData.append('maiden_name', $('#maiden_name').val());
+            formData.append('insuted_type', $('#insured_type').val());
+            formData.append('last_name', $('#last_name').val());
+            formData.append('first_name', $('#first_name').val());
+            formData.append('middle_name', $('#middle_name').val());
+            formData.append('relationship_tomember', $('#relationship_tomember').val());
+            formData.append('axa_contact_no', $('#axa_contact_no').val());
+            formData.append('email_add', $('#email_add').val());
+            formData.append('esig_axa', files[0]);
+            formData.append('personnel_id', personnel_id);
+            console.log(formData);
+            $.ajax({
+                url: "{{ route('add_cocolife') }}",
+                method: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                beforeSend: function() {
+                    $('#loading').show();
+                },
+                success: function(data) {
+                    if (data.message == 'Exist') {
+                        Swal.fire({
+                            title: 'Error!',
+                            text: 'AXA form already generated.',
+                            icon: 'error'
+                        });
+                        $("#modal_name").addClass("not-visible")
+                        $("#modal_name").removeClass("visible")
+                    }
+                    // else {
+                    //     var url = "{{ URL::to('/axaform/') }}" + '/' +
+                    //         $('#app_number').val(); //YOUR CHANGES HERE...
+                    //     window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+                    //     // $('#generateAxa').trigger('reset');
+                    //     $("#modal_name").addClass("not-visible")
+                    //     $("#modal_name").removeClass("visible")
+                    // }
 
+                    $("#step-4").removeClass('d-flex').addClass("d-none");
+                    $("#step-5").removeClass('d-none').addClass("d-flex");
+                    $("#back").attr('value', 'step-4')
+                    // $("#member_forms_3").removeClass('mh-reg-form');
+                    // $("#member_forms_4").addClass('mh-reg-form');
+                    // $(this).attr('value', 'step-end')
+                    $("#line").removeClass('step-4').addClass('step-5')
+                    $("#registration-title").text(stepTitle[4])
+                    $("#step-title").text(`${steps[4]}${stepTitle[4]}`)
+                    $("#stepper-5").addClass("active")
+                },
+
+                complete: function() {
+                    $('#loading').hide();
+
+                }
+            });
 
         }
         scrollToTop()
     });
 
-    $(document).on('submit', '#member_forms_3', function(e) {
-        e.preventDefault();
+    // $(document).on('submit', '#member_forms_3', function(e) {
+    //     e.preventDefault();
+    //     $.ajax({
+    //         method: 'POST',
+    //         url: "{{ route('add_member_details') }}",
+    //         data: new FormData(this),
+    //         contentType: false,
+    //         processData: false,
+    //         beforeSend: function() {
+    //             $('#loading').show();
+    //         },
+    //         success: function(data) {
+    //             console.log(data);
+    //             if (data.success != '') {
+    //                 Swal.fire({
+    //                     title: 'Registration Success!',
+    //                     text: "Your membership application has been successfully submitted. Check your email for your reference.",
+    //                     icon: 'success',
+    //                     showCancelButton: true,
+    //                     confirmButtonColor: '#3085d6',
+    //                     confirmButtonText: 'OK'
+    //                 }).then((result) => {
+    //                     if (result.isConfirmed) {
+    //                         // window.open();
+    //                         var url = "{{ URL::to('/memberform/') }}" + '/' +
+    //                             employee_no; //YOUR CHANGES HERE...
+    //                         window.open(url, 'targetWindow',
+    //                             'resizable=yes,width=1000,height=1000');
+    //                         setTimeout(function() {
+    //                             window.location.href = "/login";
+    //                         }, 1000);
+    //                     }
+    //                 })
+    //                 $("#step-2").removeClass('d-flex').addClass("d-none");
+    //                 $("#step-3").removeClass('d-none').addClass("d-flex");
+    //                 $("#back").attr('value', 'step-2')
+    //                 $("#member_forms_con").removeClass('mh-reg-form');
+    //                 $("#member_forms_3").addClass('mh-reg-form');
+    //                 $(this).attr('value', 'step-end')
+    //                 $("#line").removeClass('step-2').addClass('step-3')
+    //                 $("#registration-title").text(stepTitle[2])
+    //                 $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
+    //                 $("#stepper-3").addClass("active")
+    //             }
+    //         }
+    //     });
 
-
-
-
-        $.ajax({
-            method: 'POST',
-            url: "{{ route('add_member_details') }}",
-            data: new FormData(this),
-            contentType: false,
-            processData: false,
-            beforeSend: function() {
-                $('#loading').show();
-            },
-            success: function(data) {
-                console.log(data);
-                if (data.success != '') {
-                    Swal.fire({
-                        title: 'Registration Success!',
-                        text: "Your membership application has been successfully submitted. Check your email for your reference.",
-                        icon: 'success',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // window.open();
-                            var url = "{{ URL::to('/memberform/') }}" + '/' +
-                                employee_no; //YOUR CHANGES HERE...
-                            window.open(url, 'targetWindow',
-                                'resizable=yes,width=1000,height=1000');
-                            setTimeout(function() {
-                                window.location.href = "/login";
-                            }, 1000);
-                        }
-                    })
-                    $("#step-2").removeClass('d-flex').addClass("d-none");
-                    $("#step-3").removeClass('d-none').addClass("d-flex");
-                    $("#back").attr('value', 'step-2')
-                    $("#member_forms_con").removeClass('mh-reg-form');
-                    $("#member_forms_3").addClass('mh-reg-form');
-                    $(this).attr('value', 'step-end')
-                    $("#line").removeClass('step-2').addClass('step-3')
-                    $("#registration-title").text(stepTitle[2])
-                    $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
-                    $("#stepper-3").addClass("active")
-                }
-            }
-        });
-
-    });
+    // });
 
     $(document).on('click', '#add_dependent', function() {
+
+        var empty = []
+        // // var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
+        // const threeYears = new Date();
+        // threeYears.setFullYear(threeYears.getFullYear() - 3);
+        // // if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
+        // //     var birthday = $('#member_forms').find("[data-set=birthday]")
+        // //     empty.push(birthday[0])
+        // // }
+        // var selectedDate = "Invalid Date";
+        // if ($("[data-set=validate_dependent][name=birth_month]").val() != "" && $("[data-set=validate_dependent][name=birth_date]").val() != "" && $("[data-set=validate_dependent][name=birth_year]").val() != "") {
+        //     selectedDate = new Date($("[data-set=validate_dependent][name=birth_month]").val() + " " + $("[data-set=validate_dependent][name=birth_date]").val() + ", " + $("[data-set=validate_dependent][name=birth_year]").val())
+        // }
+        // var currentDate = new Date();
+        // if (selectedDate > threeYears || selectedDate == "Invalid Date") {
+        //     $(`label[name=birth_day]`).removeClass('d-none').text("Invalid age, Must be three years old and above.")
+        //     $(`div[name=birth_day]`).addClass('input-error')
+        //     empty.push($(`label[name=birth_month]`))
+        // } else {
+        //     $(`label[name=birth_day]`).addClass('d-none')
+        //     $(`div[name=birth_day]`).removeClass('input-error')
+        // }
+        // $("[data-set=validate_dependent]").map(function (index) {
+        //     console.log($(this))
+        //     const name = $(this).attr("name")
+        //     $(`label[name=${name}]`).addClass('d-none')
+        //     $(this).removeClass('input-error')
+        //     if(name == "birth_month" || name == "birth_year" || name == "birth_date") {
+        //         return
+        //     }
+        //     if($(this).val() == ""){
+        //         empty.push(this)
+        //         $(`label[name=${name}]`).removeClass('d-none').text("Please fill out this field.")
+        //         if(name == 'email_add') $(`label[name=${name}]`).removeClass('d-none').text("Please input valid email address.")
+        //         if(name == 'sign_electronic') $(`label[name=${name}]`).removeClass('d-none').text("Please upload a signature.")
+        //         $(this).addClass('input-error')
+        //     }
+        // })
+        // // $("validate-dependent").map(function (index) {
+        // //     console.log($(this))
+        // // })
+        // if(empty.length != 0) {
+        //     empty[0].focus()
+        //     return
+        // }
+
         var year = $('#date_birth_dependent_years').val();
         var month = $('#date_birth_dependent_month').val();
         var day = $('#date_birth_dependent_days').val();
@@ -1666,6 +1906,46 @@
             });
 
         });
+        //other classification logic
+        $("#classification").change(function() {
+            var classification_value = $(this).val();
+
+            if (classification_value === "OTHER") {
+                $("#other_classification").removeClass("d-none");
+                $("#other_classification").removeClass("opacity-0");
+            } else {
+                $("#other_classification").addClass("d-none");
+                $("#other_classification").addClass("opacity-0");
+            }
+        });
+
+        //other status logic
+        $("#appointment").change(function() {
+            var appointment_value = $(this).val();
+
+            if (appointment_value === "OTHER") {
+                $("#other_status").removeClass("d-none");
+                $("#other_status").removeClass("opacity-0");
+            } else {
+                $("#other_status").addClass("d-none");
+                $("#other_status").addClass("opacity-0");
+            }
+        });
+
+        //other department logic
+        $("#department").change(function() {
+            var department_value = $(this).val();
+            console.log(department_value);
+            if (department_value === "OTHER") {
+                $("#other-dept-div").removeClass("d-none");
+                $("#other-dept-div").removeClass("opacity-0");
+            } else {
+                $("#other-dept-div").addClass("d-none");
+                $("#other-dept-div").addClass("opacity-0");
+            }
+
+
+        });
         $("#college_unit").change(function() {
             if (college_unit) {
                 var college_id = college_unit;
@@ -1676,6 +1956,10 @@
             $.getJSON('/department', {
                 college_id: college_id
             }, function(options) {
+                $('#department').append($('<option>', {
+                    value: "OTHER",
+                    text: "Other Please Specify"
+                }));
                 $.each(options, function(index, option) {
                     $('#department').append($('<option>', {
                         value: option.dept_no,
@@ -1683,6 +1967,7 @@
                     }));
                 });
                 $('#department').val(dept_no).change();
+                console.log($('#department').val());
             });
         });
         // $.getJSON('/appointment', function(options) {
@@ -1854,6 +2139,7 @@
                         $('#icon_status').css('color', '#1a8981');
                         print_emp = data.employee_no;
                         $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
+                        $('#app_number').val(data.app_no == null ? 'N/A' : data.app_no);
                         // $('#app_nox').val(data.app_no == null ? 'N/A' : data.app_no);
                         $('#appNo_label').text(data.app_no == null ? 'N/A' : data.app_no);
                         $('#lname_label').text(data.lastname == null ? 'N/A' : data.lastname);
@@ -2112,12 +2398,23 @@
                 data: fd,
                 contentType: false,
                 processData: false,
+                beforeSend: function() {
+                    $('#loading').show();
+                },
                 success: function(data) {
                     if (data.success != '') {
-                        var url = "{{ URL::to('/generateProxyForm/') }}" + '/' +
-                            id; //YOUR CHANGES HERE...
-                        window.open(url, '_blank');
+                        $("#step-1").removeClass('d-flex').addClass("d-none");
+                        $("#steps").removeClass('d-flex').addClass("d-none");
+                        $("#registration-title").removeClass('d-flex').addClass("d-none");
+                        $('#applicationNo').hide();
+                        $('#proxy').hide();
+                        $('#application_number').val(id);
+                        $('#employee_id').val(employee_no);
+                        $('#message-box').show();
                     }
+                },
+                complete: function() {
+                    $('#loading').hide();
                 }
             });
         } else {
@@ -2127,6 +2424,26 @@
                 icon: 'warning'
             });
         }
+    });
+
+    $(document).on('click', '#axa_insurance_form_download', function() {
+        var app_no = $('#application_number').val();
+        var url = "{{ URL::to('/axaform/') }}" + '/' + app_no; //YOUR CHANGES HERE...
+        window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+    });
+
+    $(document).on('click', '#proxy_form_download', function() {
+        var app_no = $('#application_number').val();
+
+        var url = "{{ URL::to('/generateProxyForm/') }}" + '/' + app_no; //YOUR CHANGES HERE...
+        window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
+    });
+
+    $(document).on('click', '#membership_form_download', function() {
+        var employee_no = $('#employee_id').val();
+
+        var url = "{{ URL::to('/memberform/') }}" + '/' + employee_no; //YOUR CHANGES HERE...
+        window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
     });
 
     // $(document).on('click', '#generateForm', function() {
@@ -2244,5 +2561,85 @@
     //         }
     //     });
     // })
+
+    $(document).on('click', '#add_dependent_axa', function() {
+        var year = $('#birth_year').val();
+        var month = $('#birth_month').val();
+        var day = $('#birth_date').val();
+        var date = new Date(year, month - 1, day);
+        var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
+
+        var dependent_last_name = $('#dependent_last_name').val();
+        var dependent_middle_name = $('#dependent_middle_name').val();
+        var dependent_first_name = $('#dependent_first_name').val();
+        var relationship_tomember = $('#relationship_tomember').val();
+        var bday = formattedDate;
+        var dependent_insurance = $('#dependent_insurance').val();
+        var dependent_rights = $('#dependent_rights').val();
+        $.ajax({
+            url: "{{ route('add_beneficiary_axa') }}",
+            data: {
+                dependent_last_name: dependent_last_name,
+                dependent_middle_name: dependent_middle_name,
+                dependent_first_name: dependent_first_name,
+                relationship_tomember: relationship_tomember,
+                bday: bday,
+                dependent_relation: dependent_relation,
+                dependent_insurance: dependent_insurance,
+                dependent_rights: dependent_rights,
+                employee_no: employee_no
+            },
+            method: "POST",
+            success: function(data) {
+                if (data.success == 'Success') {
+                    var table = $('.axa-table').DataTable();
+                    table.draw();
+                    $('#dependent_last_name').val('');
+                    $('#dependent_middle_name').val('');
+                    $('#dependent_first_name').val('');
+                    $('#relationship_tomember').val('');
+                    $('#dependent_relation').val('');
+                    $('#dependent_insurance').val('');
+                    $('#dependent_rights').val('');
+                } 
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        var tableDependentAxa = $('.axa-table').DataTable({
+            ordering: false,
+            info: false,
+            searching: false,
+            paging: false,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('getBeneficiaryAxa') }}",
+                data: function(d) {
+                    d.employee_no = employee_no
+                }
+            },
+            columns: [{
+                    data: 'fullname',
+                    name: 'fullname'
+                },
+                {
+                    data: 'date_of_bday',
+                    name: 'date_of_bday'
+                },
+                {
+                    data: 'ben_relationship',
+                    name: 'ben_relationship'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
+        });
+    });
 </script>
 @endsection

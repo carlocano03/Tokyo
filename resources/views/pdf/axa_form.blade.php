@@ -7,6 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Axa Form</title>
     <style>
+        * {
+            font-family: 'Fira Sans', sans-serif;
+            font-weight: bold;
+        }
+
         .pdf-container img {
             transform: scale(1.15);
             position: absolute;
@@ -25,6 +30,7 @@
 
         .col-1 .firstname_value {
             margin-left: 200px;
+            font-family: 'Fira Sans', sans-serif;
         }
 
         .col-1 .middlename_value {
@@ -98,7 +104,6 @@
             margin-top: 175px;
             width: 500px;
             display: inline-block;
-
         }
     </style>
 </head>

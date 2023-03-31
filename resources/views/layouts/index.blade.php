@@ -241,6 +241,60 @@
             }
         }
 
+        .modalBackDropRegistration {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, .3);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .5s;
+            opacity: 1;
+        }
+
+        .minimized-cookies {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(51, 170, 51, 0);
+            font-size: 14px;
+            transform: translateY(100%);
+            z-index: 20;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .minimized-cookies.show {
+            transform: translateY(0);
+        }
+
+        .minimized-button {
+            background-color: white;
+            width: 40px;
+            height: 20px;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            justify-content: center;
+            left: 100%;
+            cursor: pointer;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+            align-self: end;
+            background-color: var(--c-base-10);
+            margin-right: 10px;
+        }
+
+        #modalBackDropRegistration {
+            overflow-x: auto;
+            padding-top: 220px;
+            background-color: white;
+        }
+
         
 
     </style>
@@ -284,10 +338,23 @@
             $(".cookie-drawer").removeClass("transition-drawer");
             $(".cookie-drawer").removeClass("show");
         }
+
+        if (sessionStorage.getItem("cookieClicked") == "minimized") {
+            setTimeout(()=>{
+                $(".minimized-cookies").addClass("transition-drawer");
+                $(".minimized-cookies").addClass("show");
+            },1000)
+        } else {
+            $(".minimized-cookies").removeClass("transition-drawer");
+            $(".minimized-cookies").removeClass("show");
+        }
+
     })
     $(document).ready(function() {
         $(".cookie-close").click(function() {
             $(".cookie-drawer").removeClass("show");
+            $(".minimized-cookies").addClass("show");
+            sessionStorage.setItem("cookieClicked", "minimized")
         })
         $(".cookie-accept").click(function() {
             $(".cookie-drawer").removeClass("show");
@@ -297,12 +364,85 @@
             $(".cookie-drawer").removeClass("show");
             sessionStorage.setItem("cookieClicked", "declined")
         });
+
+        $("#cookie-minimize").click(function() {
+            $(".cookie-drawer").addClass("show");
+            $(".minimized-cookies").removeClass("show");
+            
+            sessionStorage.setItem("cookieClicked", "declined")
+        });
+        $("#termsbtn").click(function() {
+            $(".modalBackDropRegistration[data-set=0]").removeClass("d-none")
+            setTimeout(function() {
+                $(".modalBackDropRegistration[data-set=0]").removeClass("opacity-0")
+            }, 100)
+        });
+        $("#privacybtn").click(function() {
+            $(".modalBackDropRegistration[data-set=1]").removeClass("d-none")
+            setTimeout(function() {
+                $(".modalBackDropRegistration[data-set=1]").removeClass("opacity-0")
+            }, 100)
+        });
+        $(".closeModal").click(function() {
+            // console.log($("#modalBackDropRegistration[data-set=0]"))
+            $(".modalBackDropRegistration[data-set=0]").addClass("opacity-0")
+            setTimeout(function() {
+                $(".modalBackDropRegistration[data-set=0]").addClass("d-none")
+            }, 500)
+            $(".modalBackDropRegistration[data-set=1]").addClass("opacity-0")
+            setTimeout(function() {
+                $(".modalBackDropRegistration[data-set=1]").addClass("d-none")
+            }, 500)
+        });
+        
     }); 
 </script>
 
 <body id="uppfi">
     <div id="loading" class="mx-auto" style="display:none;">
         <img id="loading-image" src="{{ asset('/img/logo_gif_blue.gif') }}" alt="Loading..." />
+    </div>
+    <div  data-set="0" class="d-none opacity-0 modalBackDropRegistration">
+        <div class="modalContent">
+            <div class="modalBody">
+                <div class="d-flex flex-column gap-10"> <span style="font-weight: bold; font-size: x-large">Terms of Use</span>
+
+                    <span>
+                        <!-- <span style="color:#1a8981; font-weight: bold">U.P. Provident Fund (UPPF)</span> upholds the <span style="font-style: italic; font-weight: bold">Data Privacy Act</span>, and is committed to the protection of the privacy rights of its members, employees, officers, or stakeholders from whom it processes personal information and sensitive personal information, guided all the time by the principles of legitimacy, transparency, and proportionality. 
+                        <br/><br/>Thus, <span style="font-weight: bold">UPPF</span> has instituted strict measures to safeguard the sanctity and confidentiality of those data/information. The Company strictly adheres to the duties and responsibilities (before, during, and after processing of information), mandated by Republic Act 10173 and allied government regulations. <br/><br/> 
+                        Kindly sign below to signify your free, prior, and informed consent for <span style="font-weight: bold">UPPF</span> to proceed with this personal data processing, and to allow <span style="font-weight: bold">UPPF</span> to use the information for 
+                        (i)the appropriate delivery of its products and services,
+                        (ii) necessary documentation or submission, and/ or (iii) pursuance of transactions expected from its position. -->
+                    </span>
+                </div>
+            </div>
+            <div class="modalFooter gap-10">
+                <button id="close" class="closeModal">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+    <div data-set="1" class="d-none opacity-0 modalBackDropRegistration">
+        <div class="modalContent">
+            <div class="modalBody">
+                <div class="d-flex flex-column gap-10"> <span style="font-weight: bold; font-size: x-large">Privacy Policy</span>
+
+                    <span>
+                        <!-- <span style="color:#1a8981; font-weight: bold">U.P. Provident Fund (UPPF)</span> upholds the <span style="font-style: italic; font-weight: bold">Data Privacy Act</span>, and is committed to the protection of the privacy rights of its members, employees, officers, or stakeholders from whom it processes personal information and sensitive personal information, guided all the time by the principles of legitimacy, transparency, and proportionality. 
+                        <br/><br/>Thus, <span style="font-weight: bold">UPPF</span> has instituted strict measures to safeguard the sanctity and confidentiality of those data/information. The Company strictly adheres to the duties and responsibilities (before, during, and after processing of information), mandated by Republic Act 10173 and allied government regulations. <br/><br/> 
+                        Kindly sign below to signify your free, prior, and informed consent for <span style="font-weight: bold">UPPF</span> to proceed with this personal data processing, and to allow <span style="font-weight: bold">UPPF</span> to use the information for 
+                        (i)the appropriate delivery of its products and services,
+                        (ii) necessary documentation or submission, and/ or (iii) pursuance of transactions expected from its position. -->
+                    </span>
+                </div>
+            </div>
+            <div class="modalFooter gap-10">
+                <button id="close" class="closeModal">
+                    Close
+                </button>
+            </div>
+        </div>
     </div>
     <div id="modalBackDrop" class="d-none opacity-0">
         <div class="modalContent">
@@ -327,6 +467,10 @@
                 </button>
             </div>
         </div>
+    </div>
+    <div class="minimized-cookies">
+        <span class="minimized-button" id="cookie-minimize"><i class="fa fa-angle-up" aria-hidden="true"></i></span>
+        <div style="background-color: var(--c-base-10); height: 20px"></div>
     </div>
     <div class="cookie-drawer">
         <div class="d-flex flex-row items-between">

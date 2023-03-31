@@ -227,3 +227,7 @@ Route::post('/save_fm_validation', [App_Validation::class, 'fm_validation_save']
 
 //Payroll Advise
 Route::get('/admin/get_payroll_advise', [PayrollController::class, 'get_payroll_advise'])->name('getPayrollAdvise');
+
+//AXA
+Route::get('/admin/get_beneficiary_axa', [HomeController::class, 'get_beneficiary_axa'])->name('getBeneficiaryAxa');
+Route::post('/admin/add_beneficiary_axa', [HomeController::class, 'add_beneficiary_axa'])->name('add_beneficiary_axa');

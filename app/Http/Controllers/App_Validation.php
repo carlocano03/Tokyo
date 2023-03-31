@@ -610,12 +610,13 @@ class App_Validation extends Controller
         DB::table('mem_app')->where('app_no', $request->input('app_no'))
           ->update($mem_appinst);
         
-        $member = DB::table('membership_id')->where('app_no', $request->input('app_no'))->count();
+        $member = DB::table('membership_id')->where('application_no', $request->input('app_no'))->count();
         if ($member == 0) {
           $insertmem_id = array(
             'application_no' => $request->input('app_no'),
             'employee_no' => $request->input('emp_no'),
             'membership_id' => time(),
+            'member_status' => 0,
           );
           DB::table('membership_id')->insert($insertmem_id);
         }

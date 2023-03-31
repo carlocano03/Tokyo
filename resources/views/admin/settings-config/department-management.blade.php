@@ -240,9 +240,10 @@
               });
               $("#dept_form")[0].reset();
               $('#dept_no').val('');
+              $('#campus').val('').change();
               $('.save_dept').text('Save');
               $('.clear_dept').text('Clear');
-              $("#college_unit").html("");
+              $("#college_unit").html("<option selected value='' > Select College/Unit</option>");
               tbl_clss.draw();
             }
           },
@@ -270,9 +271,10 @@
               });
               $("#dept_form")[0].reset();
               $('#dept_no').val('');
+              $('#campus').val('').change();;
               $('.save_dept').text('Save');
               $('.clear_dept').text('Clear');
-              $("#college_unit").html("");
+              $("#college_unit").html("<option selected value='' > Select College/Unit</option>");
               tbl_clss.draw();
             }
           },
@@ -367,10 +369,10 @@
     // $("#college_form").clear();
     $("#dept_form")[0].reset();
     $('#dept_no').val('');
+    $('#campus').val('').change();
     $('.save_dept').text('Save');
     $('.clear_dept').text('Clear');
-    $("#college_unit").html("");
-
+    $("#college_unit").html("<option selected value='' > Select College/Unit</option>");
   });
   $(document).on('click', '.edit_dept', function() {
     var campus_id = $(this).data('campus_id');
@@ -389,8 +391,9 @@
       },
       success: function(data) {
         $('#dept_no').val(data.dept_no);
+
         $('#dept_name').val(data.department_name);
-        $('#campus').val(data.campus_id);
+        $('#campus').val(data.campus_id).change();
         $('#college_unit').val(data.cu_no);
         $('.save_dept').text('Update');
         $('.clear_dept').text('Cancel');
