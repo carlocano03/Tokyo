@@ -593,7 +593,7 @@ class HomeController extends Controller
     
     $insertCoco = [
       'app_no' => $appNumber,
-      'personal_id' => $request->input('personnel_id'),
+      'personal_id' => 123232,
       'place_birth' => strtoupper($request->input('place_birth')),
       'emp_union_assoc' => strtoupper($request->input('emp_union_assoc')),
       'occupation' => strtoupper($request->input('occupation')),
