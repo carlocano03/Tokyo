@@ -2576,6 +2576,28 @@ ul {
     display: none
 }
 
+.uppfi-icon {
+    position: absolute;
+}
+
+@media (max-width:768px) {
+
+    .uppfi-registration-header {
+        display: flex;
+        flex-direction: column !important;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        border-radius: 0 !important;
+    }
+
+    .uppfi-icon {
+        position: relative;
+    }
+
+
+}
+
 @media (min-width:576px) {
     .mp-split-pane__left {
         width: 90%;
@@ -2595,6 +2617,10 @@ ul {
         width: 50%;
         max-width: 500px
     }
+}
+
+.mp-split-pane__center {
+    margin-top: 0px;
 }
 
 .mp-dashboard {
@@ -6437,7 +6463,7 @@ tfoot {
 
 @media (max-width:655px) {
     .top-items {
-        font-size: 12px !important;
+        font-size: 14px !important;
         margin-left: 20px;
 
     }
