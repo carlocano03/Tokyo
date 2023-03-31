@@ -1469,7 +1469,7 @@
         } else if (nextValue == 'step-5') {
 
             var empty = []
-            const phoneRegex = /^(09|+639)\d{9}$/;
+            const phoneRegex = /^(09|\+639)\d{9}$/;
             const mobile_number = $("input[name=axa_contact_no]")
             console.log(mobile_number)
             if(!phoneRegex.test(mobile_number.val().replace(/-/g, ''))) {
