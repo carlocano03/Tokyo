@@ -78,10 +78,10 @@
                         <label class="mp-input-group__label">Relationship to the member</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
                     </div>
-                    <div class="mp-input-group">
+                    <!-- <div class="mp-input-group">
                         <label class="mp-input-group__label">Contact No.</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="axa_contact_no" id="axa_contact_no" />
-                    </div>
+                    </div> -->
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Email Address</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
@@ -118,9 +118,9 @@
             @section('status-trail-form')
             @show
         </div> -->
-        <div class="ft-card border-bottom-0">
-            <div class="mp-pb2 mp-text-center d-flex flex-row mp-pv3 mp-ph3 relative">
-                <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI" style="width: 50px; height: 50px" class="absolute">
+        <div class="ft-card border-bottom-0 uppfi-registration-header">
+            <div class="mp-pb2 mp-text-center d-flex flex-row mp-pv3 mp-ph3 relative uppfi-registration-header">
+                <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI" style="width: 50px; height: 50px" class="uppfi-icon">
                 <div class="d-flex flex-column mp-text-center" style="color: white; width: 100%">
                     <span class=" top-items">
                         University of the Philippines Provident Fund Inc.
@@ -824,9 +824,11 @@
                 empty.push(barangay[0])
             }
 
-            var civilStatus = $('#member_forms').find("[name=civilstatus]")
-            if (civilStatus.val() == "") {
-                empty.push(civilStatus[0])
+            var civilStatus = $('#member_forms').find("[name=civilstatus]:checked")
+          
+            if (!civilStatus.val()) {
+                var newcivilStatus = $('#member_forms').find("[name=civilstatus]")
+                empty.push(newcivilStatus[0])
             }
 
             var citizenship = $('#member_forms').find("[name=citizenship]:checked")
@@ -855,12 +857,26 @@
                 }
             }
 
-            var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
+            // var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
             const fifteenYearsAgo = new Date();
             fifteenYearsAgo.setFullYear(fifteenYearsAgo.getFullYear() - 15);
+            // if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
+            //     var birthday = $('#member_forms').find("[data-set=birthday]")
+            //     empty.push(birthday[0])
+            // }
+            var selectedDate = "Invalid Date";
+            if ($("#date_birth_month").val() != "" && $("#date_birth_days").val() != "" && $("#date_birth_years").val() != "") {
+                selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val())
+            }
+            var currentDate = new Date();
             if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
                 var birthday = $('#member_forms').find("[data-set=birthday]")
+                $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none')
+                $("[data-set=birthday]> .input").addClass('input-error')
                 empty.push(birthday[0])
+            } else {
+                $("[data-set=date_appoint_months]>#err-msg").addClass('d-none')
+                $("[data-set=birthday] > .input").removeClass('input-error')
             }
 
             var contact = $('#member_forms').find("[name=contact_no]")
@@ -943,7 +959,7 @@
                         return
                     }
                     if (name == 'contact_no') {
-                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid number.")
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid cellphone number.")
                         $("[data-set=" + name + "]>input").addClass('input-error')
                         return
                     }
@@ -1452,7 +1468,37 @@
 
         } else if (nextValue == 'step-5') {
 
-
+            var empty = []
+            const phoneRegex = /^(09|\+639)\d{9}$/;
+            const mobile_number = $("input[name=axa_contact_no]")
+            console.log(mobile_number)
+            if(!phoneRegex.test(mobile_number.val().replace(/-/g, ''))) {
+                empty.push(mobile_number)  
+                console.log('erer')
+                $(`label[name=axa_contact_no]`).removeClass('d-none').text("Invalid cellphone number.")
+                $("input[name=axa_contact_no]").addClass('input-error')
+            } else {
+                $(`label[name=axa_contact_no]`).addClass('d-none')
+                $("input[name=axa_contact_no]").removeClass('input-error')
+            }
+            $("[data-set=step-4-validation]").map(function (index) {
+                const name = $(this).attr("name")
+                if(name == 'axa_contact_no') return
+                $(`label[name=${name}]`).addClass('d-none')
+                $(this).removeClass('input-error')
+                
+                if($(this).val() == ""){
+                    empty.push(this)
+                    $(`label[name=${name}]`).removeClass('d-none').text("Please fill out this field.")
+                    if(name == 'email_add') $(`label[name=${name}]`).removeClass('d-none').text("Please input valid email address.")
+                    if(name == 'sign_electronic') $(`label[name=${name}]`).removeClass('d-none').text("Please upload a signature.")
+                    $(this).addClass('input-error')
+                }
+            })
+            if(empty.length != 0) {
+                empty[0].focus()
+                return
+            }
 
             $.ajaxSetup({
                 headers: {
@@ -1590,6 +1636,52 @@
     });
 
     $(document).on('click', '#add_dependent', function() {
+
+        var empty = []
+        // var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
+        const threeYears = new Date();
+        threeYears.setFullYear(threeYears.getFullYear() - 3);
+        // if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
+        //     var birthday = $('#member_forms').find("[data-set=birthday]")
+        //     empty.push(birthday[0])
+        // }
+        var selectedDate = "Invalid Date";
+        if ($("[data-set=validate_dependent][name=birth_month]").val() != "" && $("[data-set=validate_dependent][name=birth_date]").val() != "" && $("[data-set=validate_dependent][name=birth_year]").val() != "") {
+            selectedDate = new Date($("[data-set=validate_dependent][name=birth_month]").val() + " " + $("[data-set=validate_dependent][name=birth_date]").val() + ", " + $("[data-set=validate_dependent][name=birth_year]").val())
+        }
+        var currentDate = new Date();
+        if (selectedDate > threeYears || selectedDate == "Invalid Date") {
+            $(`label[name=birth_day]`).removeClass('d-none').text("Invalid age, Must be three years old and above.")
+            $(`div[name=birth_day]`).addClass('input-error')
+            empty.push($(`label[name=birth_month]`))
+        } else {
+            $(`label[name=birth_day]`).addClass('d-none')
+            $(`div[name=birth_day]`).removeClass('input-error')
+        }
+        $("[data-set=validate_dependent]").map(function (index) {
+            console.log($(this))
+            const name = $(this).attr("name")
+            $(`label[name=${name}]`).addClass('d-none')
+            $(this).removeClass('input-error')
+            if(name == "birth_month" || name == "birth_year" || name == "birth_date") {
+                return
+            }
+            if($(this).val() == ""){
+                empty.push(this)
+                $(`label[name=${name}]`).removeClass('d-none').text("Please fill out this field.")
+                if(name == 'email_add') $(`label[name=${name}]`).removeClass('d-none').text("Please input valid email address.")
+                if(name == 'sign_electronic') $(`label[name=${name}]`).removeClass('d-none').text("Please upload a signature.")
+                $(this).addClass('input-error')
+            }
+        })
+        // $("validate-dependent").map(function (index) {
+        //     console.log($(this))
+        // })
+        if(empty.length != 0) {
+            empty[0].focus()
+            return
+        }
+
         var year = $('#date_birth_dependent_years').val();
         var month = $('#date_birth_dependent_month').val();
         var day = $('#date_birth_dependent_days').val();
