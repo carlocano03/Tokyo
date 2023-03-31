@@ -276,6 +276,9 @@
     $(document).on('click', '#back-to-home', function(e) {
         window.location.href = '/login';
     })
+    $(document).on('click', '#back-to-home-okay', function(e) {
+        window.location.href = '/login';
+    })
 </script>
 <div class="d-flex gap-10 mp-pt2 bg-white flex-column ">
     <!-- <div style="width: 100%;" class="d-flex gap-10">
@@ -335,6 +338,8 @@
         <br>
         <label class="axa-links" id="membership_form_download">Membership Application Form</label>
         <br>
+        <button class="up-button" style="margin-top: 40px; width: 100%;padding: 5px 10px 5px 10px;border-radius: 39px;" id="back-to-home-okay">
+            OKAY</button>
     </div>
 </div>
 <form id="member_forms" class="mh-reg-form form-border-bottom">

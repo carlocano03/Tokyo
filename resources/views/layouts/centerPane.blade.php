@@ -2418,7 +2418,8 @@
                         $('#back').addClass("opacity-0");
                         $('.applicationNo').addClass("d-none");
                         $('.applicationNo').addClass("opacity-0");
-
+                        $('#back-to-home').addClass("d-none");
+                        $('#back-to-home').addClass("opacity-0");
                         $('#message-box').show();
                     }
                 },
