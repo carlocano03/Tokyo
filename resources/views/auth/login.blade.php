@@ -198,11 +198,7 @@
     </div>
 
 
-    <div class="mp-mt5 d-flex flex-row items-between">
-        <button class="up-button-green btn-md mp-mt3 mp-mb3 maroon-bg" id="fp_back" value="">
-            <span>Back</span>
-        </button>
-
+    <div class="mp-mt5 d-flex flex-row justify-content-end">
         <button class="up-button-green btn-md mp-mt3 mp-mb3" id="print_app">Print</button>
         <button class="up-button btn-md mp-mt3 mp-mb3 magenta-bg" id="cont_app">Continue the
             application</button>
