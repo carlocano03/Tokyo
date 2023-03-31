@@ -78,10 +78,10 @@
                         <label class="mp-input-group__label">Relationship to the member</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
                     </div>
-                    <!-- <div class="mp-input-group">
+                    <div class="mp-input-group">
                         <label class="mp-input-group__label">Contact No.</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="axa_contact_no" id="axa_contact_no" />
-                    </div> -->
+                    </div>
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Email Address</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
@@ -118,10 +118,9 @@
             @section('status-trail-form')
             @show
         </div> -->
-
-        <div class="ft-card border-bottom-0 uppfi-registration-header">
-            <div class="mp-pb2 mp-text-center d-flex flex-row mp-pv3 mp-ph3 relative uppfi-registration-header">
-                <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI" style="width: 50px; height: 50px" class="uppfi-icon">
+        <div class="ft-card border-bottom-0">
+            <div class="mp-pb2 mp-text-center d-flex flex-row mp-pv3 mp-ph3 relative">
+                <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI" style="width: 50px; height: 50px" class="absolute">
                 <div class="d-flex flex-column mp-text-center" style="color: white; width: 100%">
                     <span class=" top-items">
                         University of the Philippines Provident Fund Inc.
@@ -152,196 +151,35 @@
 
 </div>
 <script>
-    // const inputField = document.querySelector('#contact-number-input');
+    const inputField = document.querySelector('#contact-number-input');
 
-    // function formatInput() {
-    //     console.log('123')
-    //     let input = inputField.value;
-    //     let formattedInput = input.replace(/\D/g, '');
+    function formatInput() {
+        let input = inputField.value;
+        let formattedInput = input.replace(/\D/g, '');
 
-    //     // Set placeholder
-    //     inputField.placeholder = "XXXXXXXXXX";
+        // Set placeholder
+        inputField.placeholder = "XXXXXXXXXX";
 
-    //     if (formattedInput === '') {
-    //         // If the input is empty, display the "+63 " prefix
-    //         formattedInput = '+63 ';
-    //     } else if (formattedInput.startsWith('63')) {
-    //         // If the input starts with "63", replace it with "+63 "
-    //         formattedInput = '+63 ' + formattedInput.slice(2);
-    //     } else if (formattedInput.length >= 4) {
-    //         // If the input has at least 4 digits, add the country code and separate the digits with spaces
-    //         formattedInput = '+63 ' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
-    //     } else if (formattedInput.length >= 1) {
-    //         // If the input has at least 1 digit, add the country code
-    //         formattedInput = '+63 ' + formattedInput;
-    //     }
-    //     // Limit the formatted input to 10 digits
-    //     formattedInput = formattedInput.slice(0, 14);
-
-    //     inputField.value = formattedInput;
-    // }
-    // document.addEventListener('DOMContentLoaded', formatInput);
-    // inputField.addEventListener('input', formatInput);
-    $('#contact-number-input').on('input', function() {
-//   const phoneNumber = $(this).val().replace(/\D/g, ''); // Remove all non-numeric characters
-//   const phoneRegex = /^09\d{2}\d{3}\d{4}$/; // Regular expression for Philippine phone number format
-
-//   if (phoneNumber.length >= 4 && phoneNumber.length < 7) {
-//     $(this).val(phoneNumber.replace(/(\d{4})(\d{1,3})/, '$1-$2')); // Add dash after the fourth digit
-//   } else if (phoneNumber.length >= 7) {
-//     $(this).val(phoneNumber.replace(/(\d{4})(\d{3})(\d{1,4})/, '$1-$2-$3')); // Add dashes after the fourth and seventh digit
-//   } else {
-//     $(this).val(phoneNumber); // No dashes yet, not enough digits
-//   }
-
-//   if (!phoneRegex.test(phoneNumber)) {
-//     $('#phone-error').text('Please enter a valid Philippine phone number (09XXXXXXXXX)');
-//     $(this).addClass('invalid');
-//   } else {
-//     $('#phone-error').text('');
-//     $(this).removeClass('invalid');
-//   }
-
-    const phoneNumber = $(this).val().replace(/\D/g, ''); 
-    const phoneRegex = /^(09|639)\d{9}$/; 
-
-    if (phoneNumber.startsWith('09')) { 
-        if(phoneNumber.length >= 11) {
-            $(this).blur()
-        } 
-        if (phoneNumber.length >= 4 && phoneNumber.length < 7) {
-        $(this).val(phoneNumber.replace(/(\d{4})(\d{1,3})/, '$1-$2')); 
-        } else if (phoneNumber.length >= 7) {
-        $(this).val(phoneNumber.replace(/(\d{4})(\d{3})(\d{1,4})/, '$1-$2-$3')); 
-        } else {
-        $(this).val(phoneNumber); 
+        if (formattedInput === '') {
+            // If the input is empty, display the "+63 " prefix
+            formattedInput = '+63 ';
+        } else if (formattedInput.startsWith('63')) {
+            // If the input starts with "63", replace it with "+63 "
+            formattedInput = '+63 ' + formattedInput.slice(2);
+        } else if (formattedInput.length >= 4) {
+            // If the input has at least 4 digits, add the country code and separate the digits with spaces
+            formattedInput = '+63 ' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
+        } else if (formattedInput.length >= 1) {
+            // If the input has at least 1 digit, add the country code
+            formattedInput = '+63 ' + formattedInput;
         }
-    } else if (phoneNumber.startsWith('639')) { 
-        if(phoneNumber.length >= 12) $(this).blur()
-        $(this).val(phoneNumber.replace(/(\d{2})(\d{3})(\d{4})/, '$1-$2-$3'));
-    } else { 
-        $(this).val(phoneNumber);
+        // Limit the formatted input to 10 digits
+        formattedInput = formattedInput.slice(0, 14);
+
+        inputField.value = formattedInput;
     }
-
-});
-
-$('#landline-format').on('input', function(){
-    var inputNumber = $(this).val().replace(/\D/g, ''); // remove non-digit characters
-    var formattedNumber = formatPhoneNumber(inputNumber); // format the phone number
-    $(this).val(formattedNumber); // update the input field with the formatted number
-  });
-
-//   function formatPhoneNumber(number) {
-//   // Check if the number is a landline or mobile number
-//   var isLandline = number.slice(0, 2) == "02";
-//   var prefixLength = isLandline ? 2 : 3; // prefix length is 2 for landline and 3 for mobile number
-  
-//   // Split the number into prefix and the remaining digits
-//   var prefix = number.slice(0, prefixLength);
-//   var remainingDigits = number.slice(prefixLength);
-  
-//   // Format the remaining digits with dashes and parentheses
-//   var formattedRemainingDigits = formatRemainingDigits(remainingDigits);
-  
-//   // Combine the prefix and formatted remaining digits
-//   var formattedNumber = "(" + prefix + ") " + formattedRemainingDigits;
-  
-//   return formattedNumber;
-// }
-
-// function formatRemainingDigits(digits) {
-//   var formattedDigits = "";
-//   if(digits.length >= 4) {
-//     formattedDigits += digits.slice(0, 4) + "-";
-//     formattedDigits += digits.slice(4);
-//   } else {
-//     formattedDigits += digits;
-//   }
-//   return formattedDigits;
-// }
-
-function formatPhoneNumber(number) {
-  // Check if the number is a landline or mobile number
-  var isLandline = number.slice(0, 2) == "02";
-  var prefixLength = isLandline ? 2 : 3; // prefix length is 2 for landline and 3 for mobile number
-  
-  // Split the number into prefix and the remaining digits
-  var prefix = number.slice(0, prefixLength);
-  var remainingDigits = number.slice(prefixLength);
-  
-  // Format the remaining digits with dashes and parentheses if there are enough digits
-  var formattedRemainingDigits = remainingDigits.length >= 4 ? formatRemainingDigits(remainingDigits) : remainingDigits;
-  
-  // Combine the prefix and formatted remaining digits, removing parentheses and dashes if they're not necessary
-  var formattedNumber = prefix + formattedRemainingDigits;
-  if(isLandline && formattedRemainingDigits.length >= 4) {
-    formattedNumber = "(" + prefix + ") " + formattedRemainingDigits;
-  } else if(!isLandline && formattedRemainingDigits.length >= 7) {
-    formattedNumber = "(" + prefix + ") " + formattedRemainingDigits.slice(0, 3) + "-" + formattedRemainingDigits.slice(3);
-  }
-  
-  // Remove the last dash if it's at the end of the formatted remaining digits
-  if (formattedRemainingDigits.slice(-1) == '-') {
-    formattedNumber = formattedNumber.slice(0, -1);
-  }
-  
-  return formattedNumber;
-}
-
-function formatRemainingDigits(digits) {
-  var formattedDigits = "";
-  if(digits.length >= 4) {
-    formattedDigits += digits.slice(0, 4) + "-";
-    formattedDigits += digits.slice(4);
-  } else {
-    formattedDigits += digits;
-  }
-  return formattedDigits;
-}
-
-$('#axa_contact_no').on('input', function() {
-//   const phoneNumber = $(this).val().replace(/\D/g, ''); // Remove all non-numeric characters
-//   const phoneRegex = /^09\d{2}\d{3}\d{4}$/; // Regular expression for Philippine phone number format
-
-//   if (phoneNumber.length >= 4 && phoneNumber.length < 7) {
-//     $(this).val(phoneNumber.replace(/(\d{4})(\d{1,3})/, '$1-$2')); // Add dash after the fourth digit
-//   } else if (phoneNumber.length >= 7) {
-//     $(this).val(phoneNumber.replace(/(\d{4})(\d{3})(\d{1,4})/, '$1-$2-$3')); // Add dashes after the fourth and seventh digit
-//   } else {
-//     $(this).val(phoneNumber); // No dashes yet, not enough digits
-//   }
-
-//   if (!phoneRegex.test(phoneNumber)) {
-//     $('#phone-error').text('Please enter a valid Philippine phone number (09XXXXXXXXX)');
-//     $(this).addClass('invalid');
-//   } else {
-//     $('#phone-error').text('');
-//     $(this).removeClass('invalid');
-//   }
-
-    const phoneNumber = $(this).val().replace(/\D/g, ''); 
-    const phoneRegex = /^(09|639)\d{9}$/; 
-
-    if (phoneNumber.startsWith('09')) { 
-        if(phoneNumber.length >= 11) {
-            $(this).blur()
-        } 
-        if (phoneNumber.length >= 4 && phoneNumber.length < 7) {
-        $(this).val(phoneNumber.replace(/(\d{4})(\d{1,3})/, '$1-$2')); 
-        } else if (phoneNumber.length >= 7) {
-        $(this).val(phoneNumber.replace(/(\d{4})(\d{3})(\d{1,4})/, '$1-$2-$3')); 
-        } else {
-        $(this).val(phoneNumber); 
-        }
-    } else if (phoneNumber.startsWith('639')) { 
-        if(phoneNumber.length >= 12) $(this).blur()
-        $(this).val(phoneNumber.replace(/(\d{2})(\d{3})(\d{4})/, '$1-$2-$3'));
-    } else { 
-        $(this).val(phoneNumber);
-    }
-
-});
-
+    document.addEventListener('DOMContentLoaded', formatInput);
+    inputField.addEventListener('input', formatInput);
 
 
     $(document).ready(function() {
@@ -868,31 +706,26 @@ $('#axa_contact_no').on('input', function() {
             // setTimeout(function() {
             //     $('.mobile-header').hide(300);
             // }, 1000);
-            
-        } else if (backValue == 'step-4') {
+        } else if (backValue == "step-4") {
             $("#step-4").addClass('d-flex').removeClass("d-none");
             $("#step-5").addClass('d-none').removeClass("d-flex");
-            $("#back").attr('value', 'step-3')
+            $("#back").attr('value', 'step-2')
             // $("#member_forms_3").removeClass('mh-reg-form');
             // $("#member_forms_4").addClass('mh-reg-form');
             // $(this).attr('value', 'step-end')
             $("#line").addClass('step-4').removeClass('step-5')
-            $("#registration-title").text(stepTitle[2])
-            $("#step-title").text(`${steps[2]}${stepTitle[2]}`)
+            $("#registration-title").text(stepTitle[3])
+            $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
             $("#stepper-5").removeClass("active")
-            // $("#registrationform").attr("hidden", true);
-            // $("#statusTrailForm").attr("hidden", true);
-            // $("#loginform").removeAttr("hidden");
-            // $("#next-btn").attr('value', 'step-2');
-            // $("#leftsection").removeClass("mw-600").removeClass("w-600");
-            // $("#control").removeClass("d-flex").addClass("d-none");
+        } else if (backValue == "step-5") {
+            $("#step-5").addClass('d-flex').removeClass("d-none");
+            $("#step-6").addClass('d-none').removeClass("d-flex");
+            $("#back").attr('value', 'step-2')
+            // $("#member_forms_3").removeClass('mh-reg-form');
+            // $("#member_forms_4").addClass('mh-reg-form');
+            // $(this).attr('value', 'step-end')
+            $("#line").addClass('step-5').removeClass('step-6')
 
-            // if ($(window).width() < 768) {
-            //     $('.mobile-header').show();
-            // }
-            // setTimeout(function() {
-            //     $('.mobile-header').hide(300);
-            // }, 1000);
         } else {
             window.location.href = "/login";
         }
@@ -991,13 +824,11 @@ $('#axa_contact_no').on('input', function() {
                 empty.push(barangay[0])
             }
 
-            var civilStatus = $('#member_forms').find("[name=civilstatus]:checked")
-          
-            if (!civilStatus.val()) {
-                var newcivilStatus = $('#member_forms').find("[name=civilstatus]")
-                empty.push(newcivilStatus[0])
+            var civilStatus = $('#member_forms').find("[name=civilstatus]")
+            if (civilStatus.val() == "") {
+                empty.push(civilStatus[0])
             }
-           
+
             var citizenship = $('#member_forms').find("[name=citizenship]:checked")
             if (!citizenship.val()) {
                 var newcitizenship = $('#member_forms').find("[name=citizenship]")
@@ -1024,40 +855,21 @@ $('#axa_contact_no').on('input', function() {
                 }
             }
 
-            // var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
+            var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
             const fifteenYearsAgo = new Date();
             fifteenYearsAgo.setFullYear(fifteenYearsAgo.getFullYear() - 15);
-            // if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
-            //     var birthday = $('#member_forms').find("[data-set=birthday]")
-            //     empty.push(birthday[0])
-            // }
-
-            var selectedDate = "Invalid Date";
-            if ($("#date_birth_month").val() != "" && $("#date_birth_days").val() != "" && $("#date_birth_years").val() != "") {
-                selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val())
-            }
-            var currentDate = new Date();
             if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
                 var birthday = $('#member_forms').find("[data-set=birthday]")
-                $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none')
-                $("[data-set=birthday]> .input").addClass('input-error')
                 empty.push(birthday[0])
-            } else {
-                $("[data-set=date_appoint_months]>#err-msg").addClass('d-none')
-                $("[data-set=birthday] > .input").removeClass('input-error')
             }
-
-            const phoneRegex = /^(09|639)\d{9}$/;
 
             var contact = $('#member_forms').find("[name=contact_no]")
 
             const mobile_number = contact.val()
-            if(!phoneRegex.test(mobile_number.replace(/-/g, ''))) {
+
+            if (mobile_number.length == 14 && mobile_number.substring(4, 6) === "90" || mobile_number.substring(4, 6) === "91" || mobile_number.substring(4, 6) === "92" || mobile_number.substring(4, 6) === "93" || mobile_number.substring(4, 6) === "94" || mobile_number.substring(4, 6) === "95" || mobile_number.substring(4, 6) === "96" || mobile_number.substring(4, 6) === "97" || mobile_number.substring(0, 2) === "98") {} else {
                 empty.push(contact[0])
             }
-            // if (mobile_number.length == 14 && (mobile_number.substring(4, 6) === "90" || mobile_number.substring(4, 6) === "91" || mobile_number.substring(4, 6) === "92" || mobile_number.substring(4, 6) === "93" || mobile_number.substring(4, 6) === "94" || mobile_number.substring(4, 6) === "95" || mobile_number.substring(4, 6) === "96" || mobile_number.substring(4, 6) === "97" || mobile_number.substring(0, 2) === "98")) {} else {
-            //     empty.push(contact[0])
-            // }
 
 
             var email = $('#member_forms').find("[name=email]")
@@ -1131,12 +943,13 @@ $('#axa_contact_no').on('input', function() {
                         return
                     }
                     if (name == 'contact_no') {
-                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid cellphone number.")
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid number.")
                         $("[data-set=" + name + "]>input").addClass('input-error')
                         return
                     }
                     if (name == 'civilstatus') {
                         $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your civil status.")
+                        $("[data-set=" + name + "]>select").addClass('input-error')
                         return
                     }
                     if (name == 'citizenship') {
@@ -1639,43 +1452,6 @@ $('#axa_contact_no').on('input', function() {
 
         } else if (nextValue == 'step-5') {
 
-            var empty = []
-
-            const phoneRegex = /^(09|639)\d{9}$/;
-            const mobile_number = $("input[name=axa_contact_no]")
-            console.log(mobile_number)
-            if(!phoneRegex.test(mobile_number.val().replace(/-/g, ''))) {
-                empty.push(mobile_number)  
-                console.log('erer')
-                $(`label[name=axa_contact_no]`).removeClass('d-none').text("Invalid cellphone number.")
-                $("input[name=axa_contact_no]").addClass('input-error')
-            } else {
-                $(`label[name=axa_contact_no]`).addClass('d-none')
-                $("input[name=axa_contact_no]").removeClass('input-error')
-            }
-
-            $("[data-set=step-4-validation]").map(function (index) {
-                const name = $(this).attr("name")
-                if(name == 'axa_contact_no') return
-                $(`label[name=${name}]`).addClass('d-none')
-                $(this).removeClass('input-error')
-                
-                if($(this).val() == ""){
-                    empty.push(this)
-                    $(`label[name=${name}]`).removeClass('d-none').text("Please fill out this field.")
-                    if(name == 'email_add') $(`label[name=${name}]`).removeClass('d-none').text("Please input valid email address.")
-                    if(name == 'sign_electronic') $(`label[name=${name}]`).removeClass('d-none').text("Please upload a signature.")
-                    $(this).addClass('input-error')
-                }
-            })
-
-            if(empty.length != 0) {
-                empty[0].focus()
-                return
-            }
-            
-            
-
 
 
             $.ajaxSetup({
@@ -1814,58 +1590,6 @@ $('#axa_contact_no').on('input', function() {
     });
 
     $(document).on('click', '#add_dependent', function() {
-
-        var empty = []
-
-        // var selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val());
-        const threeYears = new Date();
-        threeYears.setFullYear(threeYears.getFullYear() - 3);
-        // if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
-        //     var birthday = $('#member_forms').find("[data-set=birthday]")
-        //     empty.push(birthday[0])
-        // }
-
-        var selectedDate = "Invalid Date";
-        if ($("[data-set=validate_dependent][name=birth_month]").val() != "" && $("[data-set=validate_dependent][name=birth_date]").val() != "" && $("[data-set=validate_dependent][name=birth_year]").val() != "") {
-            selectedDate = new Date($("[data-set=validate_dependent][name=birth_month]").val() + " " + $("[data-set=validate_dependent][name=birth_date]").val() + ", " + $("[data-set=validate_dependent][name=birth_year]").val())
-        }
-        var currentDate = new Date();
-        if (selectedDate > threeYears || selectedDate == "Invalid Date") {
-            $(`label[name=birth_day]`).removeClass('d-none').text("Invalid age, Must be three years old and above.")
-            $(`div[name=birth_day]`).addClass('input-error')
-            empty.push($(`label[name=birth_month]`))
-        } else {
-            $(`label[name=birth_day]`).addClass('d-none')
-            $(`div[name=birth_day]`).removeClass('input-error')
-        }
-
-        $("[data-set=validate_dependent]").map(function (index) {
-            console.log($(this))
-            const name = $(this).attr("name")
-            $(`label[name=${name}]`).addClass('d-none')
-            $(this).removeClass('input-error')
-            if(name == "birth_month" || name == "birth_year" || name == "birth_date") {
-                return
-            }
-
-            if($(this).val() == ""){
-                empty.push(this)
-                $(`label[name=${name}]`).removeClass('d-none').text("Please fill out this field.")
-                if(name == 'email_add') $(`label[name=${name}]`).removeClass('d-none').text("Please input valid email address.")
-                if(name == 'sign_electronic') $(`label[name=${name}]`).removeClass('d-none').text("Please upload a signature.")
-                $(this).addClass('input-error')
-            }
-        })
-
-        // $("validate-dependent").map(function (index) {
-        //     console.log($(this))
-        // })
-        if(empty.length != 0) {
-            empty[0].focus()
-            return
-        }
-
-
         var year = $('#date_birth_dependent_years').val();
         var month = $('#date_birth_dependent_month').val();
         var day = $('#date_birth_dependent_days').val();
