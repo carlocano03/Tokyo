@@ -199,8 +199,8 @@
 
 
     <div class="mp-mt5 d-flex flex-row justify-content-end mp-mb5">
-        <button class="up-button-green btn-md mp-mt3 mp-mb3 mp-mb5" id="print_app">Print</button>
-        <button class="up-button btn-md mp-mt3 mp-mb3 magenta-bg mp-mb5" id="cont_app">Continue the
+        <button style="width: 100%" class="up-button-green btn-md mp-mt3 mp-mb3 mp-mb5" id="print_app">Print</button>
+        <button style="width: 100%" class="up-button btn-md mp-mt3 mp-mb3 magenta-bg mp-mb5" id="cont_app">Continue the
             application</button>
     </div>
 
