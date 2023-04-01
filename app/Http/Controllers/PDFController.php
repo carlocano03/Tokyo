@@ -165,10 +165,11 @@ class PDFController extends Controller
             ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
             ->leftjoin('member_signature', 'mem_app.app_no', '=', 'member_signature.app_no')
             ->get()->first();
+
         $empNO = DB::table('mem_app')
         ->where('app_no', $id)
         ->value('employee_no');    
-        $benificiary = DB::table('beneficiaries')->select('*')->whereRaw("beneficiaries.personal_id = '$empNO'")
+        $benificiary = DB::table('axa_beneficiaries')->select('*')->whereRaw("axa_beneficiaries.employee_id = '$empNO'")
             ->get();
 
         $data['member'] = $results;
