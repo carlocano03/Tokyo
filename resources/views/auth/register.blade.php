@@ -806,7 +806,7 @@
                 margin-right: -8px;">
                 Dependents </label>
 
-            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" name="dependent_name" placeholder="Name" data-set="validate_dependent_3"/>
+            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" name="dependent_name" placeholder="Name" data-set="validate_dependent_3" />
             <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_name"></label>
             <div class="mp-input-group">
                 <label class="mp-input-group__label mp-mb1">Birthday </label>
@@ -854,7 +854,7 @@
                 </div>
             </div>
             <label id="err-msg" class="mp-input-group__label red-clr d-none" name="birthday_3"></label>
-            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" name="dependent_relation" placeholder="Relationship" data-set="validate_dependent_3"/>
+            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" name="dependent_relation" placeholder="Relationship" data-set="validate_dependent_3" />
             <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_relation"></label>
             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
                 <span id="add_dependent">Add Dependent</span> </a>
@@ -1011,7 +1011,7 @@
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_middle_name"></label>
                         <input class="mp-input-group__input mp-text-field" type="text" id="dependent_first_name" name="dependent_first_name" placeholder="First Name" data-set="validate_dependent" />
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_first_name"></label>
-                        <div class="mp-input-group" >
+                        <div class="mp-input-group">
                             <label class="mp-input-group__label mp-mb1">Date Of Birth </label>
                             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field" name="birth_day">
                                 <div class="d-flex flex-column" style="gap: 3px">
