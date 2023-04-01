@@ -166,42 +166,40 @@
         </div>
 
         <div class="col-10" style="font-size:8px;  ">
-        @foreach($benificiary as $key => $ben)
             <div class="col-1">
                 <label class="b_lastname_value">
-                {{ $ben->last_name }}
+                    asdasd
                 </label>
                 <label class="b_firstname_value" style="margin-left:75px;">
-                {{ $ben->first_name }}
+                    asdasd
                 </label>
                 <label class="b_initials_value" style="margin-left:86px;">
-                {{ $ben->middle_name }}
+                    R
                 </label>
                 <label class="b_dob_value" style="margin-left:15px;">
-                {{ $ben->date_of_bday }}
+                    asdasd
                 </label>
                 <label class="b_relationship_value" style="margin-left:35px;">
-                {{ $ben->ben_relationship }}
+                    asdasd
                 </label>
                 <label class="b_benifit_value" style="margin-left:70px;">
-        
+                    asdasd
                 </label>
                 <label class="b_primary_value" style="margin-left:35px;">
-
+                    asdasd
                 </label>
                 <label class="b_secondary_value" style="margin-left:20px;">
-
+                    asdasd
                 </label>
                 <label class="b_revocable_value" style="margin-left:20px;">
-         
+                    asdasd
                 </label>
                 <label class="b_irrevocable_value" style="margin-left:20px;">
-
+                    asdasd
                 </label>
+
             </div>
-        @endforeach
-            
-            <!-- <div class="col">
+            <div class="col">
                 <label class="b_lastname_value">
 
                 </label>
@@ -367,7 +365,7 @@
 
                 </label>
 
-            </div> -->
+            </div>
         </div>
 
         <div class="signature">
