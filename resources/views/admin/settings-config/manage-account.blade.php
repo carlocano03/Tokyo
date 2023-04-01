@@ -476,7 +476,7 @@
                       <label class="mp-input-group__label">User Level</label>
                       <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="user_level" id="user_level" required>
                         <option value="">Select User Level</option>
-                        <option value="AA">AO</option>
+                        <option value="AO">AO</option>
                         <option value="CFM">CFM</option>
                         <option value="HRDO">HRDO</option>
                         <option value="FM">FM</option>
