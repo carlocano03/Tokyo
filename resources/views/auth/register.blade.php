@@ -905,9 +905,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <form id="generateNewAxa" method="post" enctype="multipart/form-data">
-        @csrf
-        {{ csrf_field() }}
-
         <div class="mp-input-group">
 
             <div class="mp-input-group">
@@ -1057,8 +1054,8 @@
                             </div>
                         </div>
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="birth_day"></label>
-                        <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" name="dependent_relation" placeholder="Relationship" data-set="validate_dependent" />
-                        <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_relation"></label>
+                        <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relationship" name="dependent_relationship" placeholder="Relationship" data-set="validate_dependent" />
+                        <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_relationship"></label>
 
                         <div class="mp-input-group">
                             <label class="mp-input-group__label mp-mt2">Insured Type</label> <br>
