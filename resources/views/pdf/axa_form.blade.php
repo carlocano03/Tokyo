@@ -121,8 +121,8 @@
         <div class="col-2">
             <label class="sex_value" style="font-size:10px;">{{$member->gender}}</label>
             <label class="civilstatus_value" style="margin-left:40px; font-size:10px;">{{$member->civilstatus}}</label>
-            <label class="dob_value" style="margin-left:20px; font-size:10px;">{{ date('m/d/Y', strtotime($member->date_birth)) }}</label>
-            <label class="age" style="margin-left:110px; font-size:10px;">{{ \Carbon\Carbon::parse($member->date_birth)->age }}</label>
+            <label class="dob_value" style="margin-left:30px; font-size:10px;">{{ date('m/d/Y', strtotime($member->date_birth)) }}</label>
+            <label class="age" style="margin-left:120px; font-size:10px;">{{ \Carbon\Carbon::parse($member->date_birth)->age }}</label>
             <label class="pob_value" style="margin-left:50px; font-size:10px;">{{$member->place_birth}}</label>
             <label class="nationality_value" style="margin-left:95px; font-size:10px;">{{$member->citizenship}}</label>
 

@@ -806,13 +806,14 @@
                 margin-right: -8px;">
                 Dependents </label>
 
-            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" placeholder="Name" />
+            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" name="dependent_name" placeholder="Name" data-set="validate_dependent_3" />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_name"></label>
             <div class="mp-input-group">
                 <label class="mp-input-group__label mp-mb1">Birthday </label>
-                <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
+                <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field" name="birthday_3">
                     <div class="d-flex flex-column" style="gap: 3px">
                         <label class="mp-input-group__label">Month </label>
-                        <select name="date_birth_dependent_month" id="date_birth_dependent_month" class="radius-1 outline select-field" style="font-size: normal;">
+                        <select name="date_birth_dependent_month" id="date_birth_dependent_month" class="radius-1 outline select-field" style="font-size: normal;" data-set="validate_dependent_3">
                             <option value="">Month</option>
                             <option value="01">January</option>
                             <option value="02">February</option>
@@ -831,7 +832,7 @@
                     <span><br />-</span>
                     <div class="d-flex flex-column" style="gap: 3px">
                         <label class="mp-input-group__label">Day </label>
-                        <select name="date_birth_dependent_days" id="date_birth_dependent_days" class="radius-1 outline select-field" style="font-size: normal;">
+                        <select name="date_birth_dependent_days" id="date_birth_dependent_days" class="radius-1 outline select-field" style="font-size: normal;" data-set="validate_dependent_3">
                             <option value="">Day</option>
                             @for($day = 1; $day <= 31; $day++) <option value="{{ sprintf('%02d', $day) }}">{{ sprintf('%02d', $day) }}</option>
                                 @endfor
@@ -840,7 +841,7 @@
                     <span><br />-</span>
                     <div class="d-flex flex-column" style="gap: 3px">
                         <label class="mp-input-group__label">Year </label>
-                        <select name="date_birth_dependent_years" id="date_birth_dependent_years" class="radius-1 outline select-field" style="font-size: normal;">
+                        <select name="date_birth_dependent_years" id="date_birth_dependent_years" class="radius-1 outline select-field" style="font-size: normal;" data-set="validate_dependent_3">
                             <!-- option for current year -->
                             <!-- options for years from current year down to 70 years ago -->
                             <option value="">Year</option>
@@ -852,7 +853,9 @@
                     </div>
                 </div>
             </div>
-            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" placeholder="Relationship" />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none" name="birthday_3"></label>
+            <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" name="dependent_relation" placeholder="Relationship" data-set="validate_dependent_3" />
+            <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_relation"></label>
             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
                 <span id="add_dependent">Add Dependent</span> </a>
         </div>
@@ -942,7 +945,7 @@
                     </div>
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Name of Spouse</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="spouse_name" id="spouse_name" />
+                        <input class="mp-input-group__input mp-text-field" type="text" name="spouse_name" id="spouse_name" data-set="step-4-validation" />
                     </div>
                     <div class="mp-input-group">
                         <label class="mp-input-group__label">Mother's Maiden Name</label>
@@ -1008,9 +1011,9 @@
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_middle_name"></label>
                         <input class="mp-input-group__input mp-text-field" type="text" id="dependent_first_name" name="dependent_first_name" placeholder="First Name" data-set="validate_dependent" />
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_first_name"></label>
-                        <div class="mp-input-group" name="birth_day">
+                        <div class="mp-input-group">
                             <label class="mp-input-group__label mp-mb1">Date Of Birth </label>
-                            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field">
+                            <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field" name="birth_day">
                                 <div class="d-flex flex-column" style="gap: 3px">
                                     <label class="mp-input-group__label">Month </label>
                                     <select name="birth_month" id="birth_month" class="radius-1 outline select-field" style="font-size: normal;" data-set="validate_dependent">
