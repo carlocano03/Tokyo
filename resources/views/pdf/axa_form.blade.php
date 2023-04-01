@@ -105,6 +105,17 @@
             width: 500px;
             display: inline-block;
         }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            background-color: black;
+            border-radius: 50%;
+            display: inline-block;
+            position: absolute;
+            margin-top: 4px;
+
+        }
     </style>
 </head>
 
@@ -120,9 +131,9 @@
         </div>
         <div class="col-2">
             <label class="sex_value" style="font-size:10px;">{{$member->gender}}</label>
-            <label class="civilstatus_value" style="margin-left:40px; font-size:10px;">{{$member->civilstatus}}</label>
-            <label class="dob_value" style="margin-left:30px; font-size:10px;">{{ date('m/d/Y', strtotime($member->date_birth)) }}</label>
-            <label class="age" style="margin-left:120px; font-size:10px;">{{ \Carbon\Carbon::parse($member->date_birth)->age }}</label>
+            <label class="civilstatus_value" style="margin-left:30px; font-size:10px;">{{$member->civilstatus}}</label>
+            <label class="dob_value" style="margin-left:35px; font-size:10px;">{{ date('m/d/Y', strtotime($member->date_birth)) }}</label>
+            <label class="age" style="margin-left:110px; font-size:10px;">{{ \Carbon\Carbon::parse($member->date_birth)->age }}</label>
             <label class="pob_value" style="margin-left:50px; font-size:10px;">{{$member->place_birth}}</label>
             <label class="nationality_value" style="margin-left:95px; font-size:10px;">{{$member->citizenship}}</label>
 
@@ -148,11 +159,17 @@
             <label class="" style="margin-left:265px; font-size:10px;">{{$member->maiden_name}}</label>
         </div>
         <div class="col-7">
-            <input type="radio" style="margin-left:103px;" {{ $member->monthly_salary < 25000 ? 'checked' : '' }}>
-            <input type="radio" style="margin-left:192px;" {{ $member->monthly_salary > 25000 && $member->monthly_salary <= 50000 ? 'checked' : '' }}>
+
+            <span class="{{ $member->monthly_salary < 25000 ? 'dot' : '' }}" style="margin-left:103px;  "></span>
+            <span class="{{ $member->monthly_salary > 25000 && $member->monthly_salary <= 50000 ? 'dot' : '' }}" style="margin-left:192px;  "></span>
+            <span class="{{ $member->monthly_salary > 50000 ? 'dot' : '' }}" style="margin-left:325px; "></span>
+            <span class="{{ $member->insuted_type == 'INSURED' ? 'dot' : '' }}" style="margin-left:528px;  "></span>
+            <span class="{{ $member->insuted_type == 'DEPENDENT' ? 'dot' : '' }}" style="margin-left:608px;  "></span>
+            <!-- <input type="radio" style="margin-left:103px;" {{ $member->monthly_salary < 25000 ? 'checked' : 'checked' }}> -->
+            <!-- <input type="radio" style="margin-left:192px;" {{ $member->monthly_salary > 25000 && $member->monthly_salary <= 50000 ? 'checked' : '' }}>
             <input type="radio" style="margin-left:325px;" {{ $member->monthly_salary > 50000 ? 'checked' : '' }}>
             <input type="radio" style="margin-left:528px;" {{ $member->insuted_type == 'INSURED' ? 'checked' : '' }}>
-            <input type="radio" style="margin-left:608px;" {{ $member->insuted_type == 'DEPENDENT' ? 'checked' : '' }}>
+            <input type="radio" style="margin-left:608px;" {{ $member->insuted_type == 'DEPENDENT' ? 'checked' : '' }}> -->
         </div>
         <div class="col-8">
             <label class="" style="font-size:10px;">{{$member->last_name}}</label>
