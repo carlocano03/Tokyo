@@ -1759,26 +1759,18 @@
                         });
                         $("#modal_name").addClass("not-visible")
                         $("#modal_name").removeClass("visible")
+                    } else {
+                        $("#step-4").removeClass('d-flex').addClass("d-none");
+                        $("#step-5").removeClass('d-none').addClass("d-flex");
+                        $("#back").attr('value', 'step-4')
+                        // $("#member_forms_3").removeClass('mh-reg-form');
+                        // $("#member_forms_4").addClass('mh-reg-form');
+                        // $(this).attr('value', 'step-end')
+                        $("#line").removeClass('step-4').addClass('step-5')
+                        $("#registration-title").text(stepTitle[4])
+                        $("#step-title").text(`${steps[4]}${stepTitle[4]}`)
+                        $("#stepper-5").addClass("active")
                     }
-                    // else {
-                    //     var url = "{{ URL::to('/axaform/') }}" + '/' +
-                    //         $('#app_number').val(); //YOUR CHANGES HERE...
-                    //     window.open(url, 'targetWindow', 'resizable=yes,width=1000,height=1000');
-                    //     // $('#generateAxa').trigger('reset');
-                    //     $("#modal_name").addClass("not-visible")
-                    //     $("#modal_name").removeClass("visible")
-                    // }
-
-                    $("#step-4").removeClass('d-flex').addClass("d-none");
-                    $("#step-5").removeClass('d-none').addClass("d-flex");
-                    $("#back").attr('value', 'step-4')
-                    // $("#member_forms_3").removeClass('mh-reg-form');
-                    // $("#member_forms_4").addClass('mh-reg-form');
-                    // $(this).attr('value', 'step-end')
-                    $("#line").removeClass('step-4').addClass('step-5')
-                    $("#registration-title").text(stepTitle[4])
-                    $("#step-title").text(`${steps[4]}${stepTitle[4]}`)
-                    $("#stepper-5").addClass("active")
 
                 },
 
@@ -2792,34 +2784,48 @@
             return
         }
 
-
+        var formdata = new FormData();
         var year = $('#birth_year').val();
         var month = $('#birth_month').val();
         var day = $('#birth_date').val();
         var date = new Date(year, month - 1, day);
         var formattedDate = date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + date.getDate()).slice(-2);
 
-        var dependent_last_name = $('#dependent_last_name').val();
-        var dependent_middle_name = $('#dependent_middle_name').val();
-        var dependent_first_name = $('#dependent_first_name').val();
-        var relationship_tomember = $('#relationship_tomember').val();
-        var bday = formattedDate;
-        var dependent_insurance = $('#dependent_insurance').val();
-        var dependent_rights = $('#dependent_rights').val();
+        // var dependent_last_name = $('#dependent_last_name').val();
+        // var dependent_middle_name = $('#dependent_middle_name').val();
+        // var dependent_first_name = $('#dependent_first_name').val();
+        // var relationship_tomember = $('#relationship_tomember').val();
+        // var bday = formattedDate;
+        // var dependent_insurance = $('#dependent_insurance').val();
+        // var dependent_rights = $('#dependent_rights').val();
+        
+        formdata.append('dependent_last_name', $('#dependent_last_name').val());
+        formdata.append('dependent_middle_name', $('#dependent_middle_name').val());
+        formdata.append('dependent_first_name', $('#dependent_first_name').val());
+        formdata.append('relationship_tomember', $('#dependent_relationship').val());
+        formdata.append('bday', formattedDate);
+        formdata.append('dependent_insurance', $('#dependent_insurance').val());
+        formdata.append('dependent_rights', $('#dependent_rights').val());
+        formdata.append('employee_no', employee_no);
+
+        console.log(formdata);
         $.ajax({
             url: "{{ route('add_beneficiary_axa') }}",
-            data: {
-                dependent_last_name: dependent_last_name,
-                dependent_middle_name: dependent_middle_name,
-                dependent_first_name: dependent_first_name,
-                relationship_tomember: relationship_tomember,
-                bday: bday,
-                dependent_relation: dependent_relation,
-                dependent_insurance: dependent_insurance,
-                dependent_rights: dependent_rights,
-                employee_no: employee_no
-            },
+            // data: {
+            //     dependent_last_name: dependent_last_name,
+            //     dependent_middle_name: dependent_middle_name,
+            //     dependent_first_name: dependent_first_name,
+            //     relationship_tomember: relationship_tomember,
+            //     bday: bday,
+            //     dependent_relation: dependent_relation,
+            //     dependent_insurance: dependent_insurance,
+            //     dependent_rights: dependent_rights,
+            //     employee_no: employee_no
+            // },
             method: "POST",
+            data: formdata,
+            contentType: false,
+            processData: false,
             success: function(data) {
                 if (data.success == 'Success') {
                     var table = $('.axa-table').DataTable();
@@ -2827,14 +2833,42 @@
                     $('#dependent_last_name').val('');
                     $('#dependent_middle_name').val('');
                     $('#dependent_first_name').val('');
-                    $('#relationship_tomember').val('');
-                    $('#dependent_relation').val('');
-                    $('#dependent_insurance').val('');
-                    $('#dependent_rights').val('');
+                    $('#dependent_relationship').val('');
+                    // $('#dependent_insurance').val('');
+                    // $('#dependent_rights').val('');
                 }
             }
         });
     });
+
+    $(document).on('click', '.delete_axa_beneficiary', function() {
+            var ben_ID = $(this).attr('id');
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You want to remove this beneficiary.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, remove it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "{{ route('delete_beneficiary_axa') }}",
+                        data: {
+                            ben_ID: ben_ID
+                        },
+                        method: "POST",
+                        success: function(data) {
+                            if (data.success != '') {
+                                var table = $('.axa-table').DataTable();
+                                table.draw();
+                            }
+                        }
+                    });
+                }
+            })
+        });
 
     $(document).ready(function() {
         var tableDependentAxa = $('.axa-table').DataTable({

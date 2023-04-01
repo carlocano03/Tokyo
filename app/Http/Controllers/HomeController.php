@@ -95,7 +95,7 @@ class HomeController extends Controller
       return Datatables::of($data)
         ->addIndexColumn()
         ->addColumn('action', function ($row) {
-          $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm delete" id="' . $row->ben_ID . '">Remove</a>';
+          $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm delete_axa_beneficiary" id="' . $row->axa_ben_id . '">Remove</a>';
           return $btn;
         })
         ->rawColumns(['action'])
@@ -421,8 +421,8 @@ class HomeController extends Controller
         'app_no' => $request->input('app_no')
       );
       DB::table('membership_details')->insert($insertMemDetails);
-      DB::table('mem_app')->where('app_no', $request->input('app_no'))
-        ->update(array('app_status' => 'NEW APPLICATION'));
+      // DB::table('mem_app')->where('app_no', $request->input('app_no'))
+      //   ->update(array('app_status' => 'NEW APPLICATION'));
     } else {
       $insertMemDetails = array(
         'contribution_set' => 'Percentage of Basic Salary',
@@ -431,16 +431,16 @@ class HomeController extends Controller
         'app_no' => $request->input('app_no')
       );
       DB::table('membership_details')->insert($insertMemDetails);
-      DB::table('mem_app')->where('app_no', $request->input('app_no'))
-        ->update(array('app_status' => 'NEW APPLICATION'));
+      // DB::table('mem_app')->where('app_no', $request->input('app_no'))
+      //   ->update(array('app_status' => 'NEW APPLICATION'));
     }
-    $apptrail = array(
-      'status_remarks' => "NEW APPLICATION",
-      'app_no' => $request->input('app_no'),
-      'user_level' => 'AO',
-    );
-    DB::table('app_trailing')->where('app_no', $request->input('app_no'))
-      ->insert($apptrail);
+    // $apptrail = array(
+    //   'status_remarks' => "NEW APPLICATION",
+    //   'app_no' => $request->input('app_no'),
+    //   'user_level' => 'AO',
+    // );
+    // DB::table('app_trailing')->where('app_no', $request->input('app_no'))
+    //   ->insert($apptrail);
 
     // $email = DB::table('mem_app')
     //   ->where('app_no', $request->input('app_no'))
@@ -465,6 +465,13 @@ class HomeController extends Controller
   {
     $benID = $request->input('ben_ID');
     Beneficiaries::where('ben_ID', $benID)->delete();
+    return response()->json(['success' => 1]);
+  }
+
+  public function delete_beneficiary_axa(Request $request)
+  {
+    $benID = $request->input('ben_ID');
+    BeneficiariesAxa::where('axa_ben_id', $benID)->delete();
     return response()->json(['success' => 1]);
   }
 
@@ -561,6 +568,16 @@ class HomeController extends Controller
     $signFile['sign'] = $request->input('esig');
     // $signFile['sign_path'] = '/storage/' . $path;
     DB::table('member_signature')->insert($signFile);
+
+    DB::table('mem_app')->where('app_no', $request->input('appNo'))
+      ->update(array('app_status' => 'NEW APPLICATION'));
+    $apptrail = array(
+      'status_remarks' => "NEW APPLICATION",
+      'app_no' => $request->input('app_no'),
+      'user_level' => 'AO',
+    );
+     DB::table('app_trailing')->where('app_no', $request->input('appNo'))
+      ->insert($apptrail);
 
     $email = DB::table('mem_app')
       ->where('app_no', $request->input('appNo'))
