@@ -1436,10 +1436,17 @@
             $('.failed_personal').hide(100);
             $('#save_record').css('background-color', '');
             $('#save_record').prop('disabled', false);
+            $('#return_app').css('cssText', 'background-color: gray !important;');
+            $('#return_app').prop('disabled', true);
+            $('#reject_app').css('cssText', 'background-color: gray !important;');
+            $('#reject_app').prop('disabled', true);
         } else {
             $('#save_record').css('background-color', 'gray');
             $('#save_record').prop('disabled', true);
-
+            $('#return_app').css('background-color', 'gray');
+            $('#return_app').prop('disabled', false);
+            $('#reject_app').css('background-color', '#d63031');
+            $('#reject_app').prop('disabled', false);
         }
 
         checkedCount = $('.employee:checked').length;
@@ -1449,10 +1456,17 @@
             $('.failed_employee').hide(100);
             $('#save_record').css('background-color', '');
             $('#save_record').prop('disabled', false);
+            $('#return_app').css('cssText', 'background-color: gray !important;');
+            $('#return_app').prop('disabled', true);
+            $('#reject_app').css('cssText', 'background-color: gray !important;');
+            $('#reject_app').prop('disabled', true);
         } else {
             $('#save_record').css('background-color', 'gray');
             $('#save_record').prop('disabled', true);
-
+            $('#return_app').css('background-color', 'gray');
+            $('#return_app').prop('disabled', false);
+            $('#reject_app').css('background-color', '#d63031');
+            $('#reject_app').prop('disabled', false);
         }
 
         checkedCount = $('.membership:checked').length;
@@ -1462,10 +1476,17 @@
             $('.failed_membership').hide(100);
             $('#save_record').css('background-color', '');
             $('#save_record').prop('disabled', false);
+            $('#return_app').css('cssText', 'background-color: gray !important;');
+            $('#return_app').prop('disabled', true);
+            $('#reject_app').css('cssText', 'background-color: gray !important;');
+            $('#reject_app').prop('disabled', true);
         } else {
             $('#save_record').css('background-color', 'gray');
             $('#save_record').prop('disabled', true);
-
+            $('#return_app').css('background-color', 'gray');
+            $('#return_app').prop('disabled', false);
+            $('#reject_app').css('background-color', '#d63031');
+            $('#reject_app').prop('disabled', false);
         }
 
         checkedCount = $('.attachment:checked').length;
@@ -1475,11 +1496,17 @@
             $('.failed_attachment').hide(100);
             $('#save_record').css('background-color', '');
             $('#save_record').prop('disabled', false);
+            $('#return_app').css('cssText', 'background-color: gray !important;');
+            $('#return_app').prop('disabled', true);
+            $('#reject_app').css('cssText', 'background-color: gray !important;');
+            $('#reject_app').prop('disabled', true);
         } else {
             $('#save_record').css('background-color', 'gray');
             $('#save_record').prop('disabled', true);
-            $('#return_app').css('cssText', 'background-color: gray !important;');
-            $('#return_app').prop('disabled', true);
+            $('#return_app').css('background-color', 'gray');
+            $('#return_app').prop('disabled', false);
+            $('#reject_app').css('background-color', '#d63031');
+            $('#reject_app').prop('disabled', false);
         }
 
     });
@@ -1493,12 +1520,15 @@
             $('#save_record').prop('disabled', false);
             $('#return_app').css('cssText', 'background-color: gray !important;');
             $('#return_app').prop('disabled', true);
+            $('#reject_app').css('cssText', 'background-color: gray !important;');
+            $('#reject_app').prop('disabled', true);
         } else {
             $('#save_record').css('background-color', 'gray');
             $('#save_record').prop('disabled', true);
-
             $('#return_app').css('background-color', 'gray');
             $('#return_app').prop('disabled', false);
+            $('#reject_app').css('background-color', '#d63031');
+            $('#reject_app').prop('disabled', false);
         }
     });
 
@@ -1510,10 +1540,17 @@
             $('.failed_employee').hide(100);
             $('#save_record').css('background-color', '');
             $('#save_record').prop('disabled', false);
+            $('#return_app').css('cssText', 'background-color: gray !important;');
+            $('#return_app').prop('disabled', true);
+            $('#reject_app').css('cssText', 'background-color: gray !important;');
+            $('#reject_app').prop('disabled', true);
         } else {
             $('#save_record').css('background-color', 'gray');
             $('#save_record').prop('disabled', true);
-
+            $('#return_app').css('background-color', 'gray');
+            $('#return_app').prop('disabled', false);
+            $('#reject_app').css('background-color', '#d63031');
+            $('#reject_app').prop('disabled', false);
         }
     });
 
@@ -1525,9 +1562,17 @@
             $('.failed_membership').hide(100);
             $('#save_record').css('background-color', '');
             $('#save_record').prop('disabled', false);
+            $('#return_app').css('cssText', 'background-color: gray !important;');
+            $('#return_app').prop('disabled', true);
+            $('#reject_app').css('cssText', 'background-color: gray !important;');
+            $('#reject_app').prop('disabled', true);
         } else {
             $('#save_record').css('background-color', 'gray');
             $('#save_record').prop('disabled', true);
+            $('#return_app').css('background-color', 'gray');
+            $('#return_app').prop('disabled', false);
+            $('#reject_app').css('background-color', '#d63031');
+            $('#reject_app').prop('disabled', false);
 
         }
     });
@@ -1540,9 +1585,17 @@
             $('.failed_attachment').hide(100);
             $('#save_record').css('background-color', '');
             $('#save_record').prop('disabled', false);
+            $('#return_app').css('cssText', 'background-color: gray !important;');
+            $('#return_app').prop('disabled', true);
+            $('#reject_app').css('cssText', 'background-color: gray !important;');
+            $('#reject_app').prop('disabled', true);
         } else {
             $('#save_record').css('background-color', 'gray');
             $('#save_record').prop('disabled', true);
+            $('#return_app').css('background-color', 'gray');
+            $('#return_app').prop('disabled', false);
+            $('#reject_app').css('background-color', 'gray');
+            $('#reject_app').prop('disabled', false);
 
         }
     });

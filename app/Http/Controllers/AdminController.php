@@ -1676,8 +1676,21 @@ class AdminController extends Controller
       $records->orWhere('mem_app.validator_remarks', $approved);
       $records->orWhere('mem_app.validator_remarks', 'FORWARD TO FM');
     } else if ($users == 'CFM') {
+      $aa_1 = 'NEW APPLICATION';
       $cfm = 'AO VERIFIED';
-      $records->where('mem_app.app_status', $cfm);
+      $process = 'PROCESSING';
+      $query_serch = 'DRAFT APPLICATION';
+      $rejected = 'REJECTED';
+      $approved = 'APPROVED APPLICATION';
+      $records->where(function ($query) use ($aa_1, $cfm, $process, $query_serch, $rejected, $approved) {
+        $query->where('mem_app.app_status', $aa_1)
+          ->orWhere('mem_app.validator_remarks', $cfm)
+          ->orWhere('mem_app.app_status', $query_serch)
+          ->orWhere('mem_app.app_status', $process)
+          ->orWhere('mem_app.app_status', $rejected)
+          ->orWhere('mem_app.app_status', $approved)
+          ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
+      });
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
       // $approved = 'APPROVED APPLICATION';
@@ -1759,13 +1772,19 @@ class AdminController extends Controller
       $records->orWhere('mem_app.validator_remarks', $approved);
       $records->orWhere('mem_app.validator_remarks', 'FORWARD TO FM');
     } else if ($users == 'CFM') {
-      $aa_1 = 'NEW APPLICATION';
+      $$aa_1 = 'NEW APPLICATION';
       $cfm = 'AO VERIFIED';
       $process = 'PROCESSING';
-      $records->where(function ($query) use ($aa_1, $cfm, $process) {
+      $query_serch = 'DRAFT APPLICATION';
+      $rejected = 'REJECTED';
+      $approved = 'APPROVED APPLICATION';
+      $records->where(function ($query) use ($aa_1, $cfm, $process, $query_serch, $rejected, $approved) {
         $query->where('mem_app.app_status', $aa_1)
           ->orWhere('mem_app.validator_remarks', $cfm)
+          ->orWhere('mem_app.app_status', $query_serch)
           ->orWhere('mem_app.app_status', $process)
+          ->orWhere('mem_app.app_status', $rejected)
+          ->orWhere('mem_app.app_status', $approved)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'FM') {
@@ -1822,11 +1841,15 @@ class AdminController extends Controller
       $aa_1 = 'NEW APPLICATION';
       $cfm = 'AO VERIFIED';
       $process = 'PROCESSING';
+      $query_serch = 'DRAFT APPLICATION';
+      $rejected = 'REJECTED';
       $approved = 'APPROVED APPLICATION';
-      $records->where(function ($query) use ($aa_1, $cfm, $process, $approved) {
+      $records->where(function ($query) use ($aa_1, $cfm, $process, $query_serch, $rejected, $approved) {
         $query->where('mem_app.app_status', $aa_1)
           ->orWhere('mem_app.validator_remarks', $cfm)
+          ->orWhere('mem_app.app_status', $query_serch)
           ->orWhere('mem_app.app_status', $process)
+          ->orWhere('mem_app.app_status', $rejected)
           ->orWhere('mem_app.app_status', $approved)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
@@ -1870,7 +1893,10 @@ class AdminController extends Controller
       $href = '/admin/members/records/view/aa/';
     } else if ($users == 'FM') {
       $href = '/admin/members/records/view/fm/';
+    } else if ($users == 'CFM') {
+      $href = '/admin/members/records/view/aa/';
     }
+    
 
     $posts = $records->skip($start)
       ->take($rowperpage)
@@ -1889,6 +1915,9 @@ class AdminController extends Controller
             : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
         } else if ($users == 'FM') {
           $checkbox_users = $r->validator_remarks == 'APPROVED APPLICATION' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
+            : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
+        } else if ($users == 'CFM') {
+          $checkbox_users = $r->validator_remarks == 'AO VERIFIED' ? '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item"></span>'
             : '<span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check[]" class="select_item" id="select_item" disabled></span>';
         }
         $row[] = $checkbox_users;
