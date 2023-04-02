@@ -256,7 +256,7 @@
                 <!-- <img src="{{ asset($member->signature) }}" width="50px" height="50px" alt="UPPFI"> -->
                 <img src="{{ public_path($member->signature) }}" class="absolute" style="margin-top:110px; " width="50px" height="50px" alt="UPPFI">
                 <br>
-                <label class="absolute" style="margin-top:130px;">{{ $member->sign }}</label>
+                <label class="absolute" style="margin-top:130px; margin-left:-60px;">{{ $member->sign }}</label>
             </div>
 
             <div class="col-2 absolute" style="margin-top:0px;">
