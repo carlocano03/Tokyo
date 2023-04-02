@@ -1735,7 +1735,7 @@
             formData.append('last_name', $('#last_name').val());
             formData.append('first_name', $('#first_name').val());
             formData.append('middle_name', $('#middle_name').val());
-            formData.append('relationship_tomember', $('#relationship_tomember').val());
+            formData.append('relationship_tomember', $('#relationship_tomember_axa').val());
             formData.append('axa_contact_no', $('#axa_contact_no').val());
             formData.append('email_add', $('#email_add').val());
             formData.append('esig_axa', files[0]);
@@ -2798,7 +2798,7 @@
         // var bday = formattedDate;
         // var dependent_insurance = $('#dependent_insurance').val();
         // var dependent_rights = $('#dependent_rights').val();
-        
+
         formdata.append('dependent_last_name', $('#dependent_last_name').val());
         formdata.append('dependent_middle_name', $('#dependent_middle_name').val());
         formdata.append('dependent_first_name', $('#dependent_first_name').val());
@@ -2842,33 +2842,33 @@
     });
 
     $(document).on('click', '.delete_axa_beneficiary', function() {
-            var ben_ID = $(this).attr('id');
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You want to remove this beneficiary.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, remove it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajax({
-                        url: "{{ route('delete_beneficiary_axa') }}",
-                        data: {
-                            ben_ID: ben_ID
-                        },
-                        method: "POST",
-                        success: function(data) {
-                            if (data.success != '') {
-                                var table = $('.axa-table').DataTable();
-                                table.draw();
-                            }
+        var ben_ID = $(this).attr('id');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You want to remove this beneficiary.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, remove it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('delete_beneficiary_axa') }}",
+                    data: {
+                        ben_ID: ben_ID
+                    },
+                    method: "POST",
+                    success: function(data) {
+                        if (data.success != '') {
+                            var table = $('.axa-table').DataTable();
+                            table.draw();
                         }
-                    });
-                }
-            })
-        });
+                    }
+                });
+            }
+        })
+    });
 
     $(document).ready(function() {
         var tableDependentAxa = $('.axa-table').DataTable({
@@ -3589,7 +3589,7 @@
         formData.append('last_name', $('#last_name').val());
         formData.append('first_name', $('#first_name').val());
         formData.append('middle_name', $('#middle_name').val());
-        formData.append('relationship_tomember', $('#relationship_tomember').val());
+        formData.append('relationship_tomember', $('#relationship_tomember_axa').val());
         formData.append('axa_contact_no', $('#axa_contact_no').val());
         formData.append('email_add', $('#email_add').val());
         formData.append('esig_axa', files[0]);
