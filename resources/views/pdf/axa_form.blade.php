@@ -183,40 +183,41 @@
         </div>
 
         <div class="col-10" style="font-size:8px;  margin-top:60px;">
-            @for ($i = 0; $i <= 5; $i++) <div class="col" style="margin-top:16px;">
+            @foreach($benificiary as $key => $ben)
+            <div class="col" style="margin-top:16px;">
                 <label class="b_lastname_value">
-                    asdasd
+                {{ $ben->last_name }}
                 </label>
                 <label class="b_firstname_value" style="margin-left:75px;">
-                    asdasd
+                {{ $ben->first_name }}
                 </label>
                 <label class="b_initials_value" style="margin-left:86px;">
-                    R
+                {{ $ben->middle_name }}
                 </label>
                 <label class="b_dob_value" style="margin-left:15px;">
-                    asdasd
+                {{ $ben->date_of_bday }}
                 </label>
                 <label class="b_relationship_value" style="margin-left:35px;">
-                    asdasd
+                {{ $ben->ben_relationship }}
                 </label>
                 <label class="b_benifit_value" style="margin-left:70px;">
-                    asdasd
+
                 </label>
                 <label class="b_primary_value" style="margin-left:35px;">
-                    asdasd
+
                 </label>
                 <label class="b_secondary_value" style="margin-left:20px;">
-                    asdasd
+
                 </label>
                 <label class="b_revocable_value" style="margin-left:20px;">
-                    asdasd
+
                 </label>
                 <label class="b_irrevocable_value" style="margin-left:20px;">
-                    asdasd
+
                 </label>
 
         </div>
-        @endfor
+        @endforeach
     </div>
 
     <div class="signature">

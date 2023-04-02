@@ -786,7 +786,7 @@
                            <label class="title-font">Diliman</label>
                         </div>
                         <div class="choices">
-                           <input type="checkbox" {{ $member->campus_key == 'System Admin' ? 'checked' : '' }}>
+                           <input type="checkbox" {{ $member->campus_key == 'SYSAD' ? 'checked' : '' }}>
                            <label class="title-font">System Admin</label>
                         </div>
                     </div>
