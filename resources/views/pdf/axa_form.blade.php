@@ -158,14 +158,14 @@
         <div class="col-1">
             <label class="lastname_value absolute " style="font-size:10px;">{{$member->lastname}}</label>
             <label class="firstname_value absolute " style="margin-left:240px; font-size:10px;">{{$member->firstname}}</label>
-            <label class="middlename_value absolute " style="margin-left:480px; font-size:10px;">{{$member->middlename}} </label>
+            <label class="middlename_value absolute " style="margin-left:480px; font-size:10px;">{{$member->middlename == ""? "N/A" : $member->middlename}} </label>
         </div>
         <div class="col-2">
             <label class="sex_value absolute " style="font-size:10px;">{{$member->gender}}</label>
             <label class="civilstatus_value absolute " style="margin-left:65px; font-size:10px;">{{$member->civilstatus}}</label>
             <label class="dob_value absolute " style="margin-left:135px; font-size:10px;">{{ date('m/d/Y', strtotime($member->date_birth)) }}</label>
             <label class="age absolute " style="margin-left:290px; font-size:10px;">{{ \Carbon\Carbon::parse($member->date_birth)->age }}</label>
-            <label class="pob_value absolute " style="margin-left:355px; font-size:10px;">{{$member->place_birth}}</label>
+            <label class="pob_value absolute " style="margin-left:355px; font-size:10px;">{{$axa_info->place_birth}}</label>
             <label class="nationality_value absolute " style="margin-left:525px; font-size:10px;">{{$member->citizenship}}</label>
 
 
@@ -176,18 +176,18 @@
         </div>
         <div class="col-4" style="margin-top:42px;">
             <label class="email_value absolute " style="font-size:10px;">{{$member->email}}</label>
-            <label class="contactNo_value absolute " style="margin-left:245px; font-size:10px;">{{$member->contact_no}}</label>
-            <label class="mobileNo_value absolute " style="margin-left:485px; font-size:10px;">{{$member->contact_no}}</label>
+            <label class="contactNo_value absolute " style="margin-left:245px; font-size:10px;">{{$axa_info->contact_no}}</label>
+            <label class="mobileNo_value absolute " style="margin-left:485px; font-size:10px;">{{$axa_info->contact_no}}</label>
         </div>
         <div class="col-5" style="margin-top:45px;">
             <label class="lastname_value absolute " style="font-size:10px;">{{$member->emp_union_assoc}}</label>
-            <label class="firstname_value absolute " style="margin-left:245px; font-size:10px;">{{$member->occupation}}</label>
+            <label class="firstname_value absolute " style="margin-left:245px; font-size:10px;">{{$axa_info->occupation}}</label>
             <label class="middlename_value absolute " style="margin-left:400px; font-size:10px;">{{$member->tin_no}}</label>
-            <label class="middlename_value absolute " style="margin-left:560px; font-size:10px;">{{$member->sss_gsis}}</label>
+            <label class="middlename_value absolute " style="margin-left:560px; font-size:10px;">{{$axa_info->sss_gsis}}</label>
         </div>
         <div class="col-6" style="margin-top:42px;">
-            <label class=" absolute " style="font-size:10px;">{{$member->spouse_name}}</label>
-            <label class=" absolute " style="margin-left:362px; font-size:10px;">{{$member->maiden_name}}</label>
+            <label class=" absolute " style="font-size:10px;">{{$axa_info->spouse_name}}</label>
+            <label class=" absolute " style="margin-left:362px; font-size:10px;">{{$axa_info->maiden_name}}</label>
         </div>
         <div class="col-7" style="margin-top:24px;">
 
@@ -203,14 +203,14 @@
             <input type="radio" style="margin-left:608px;" {{ $member->insuted_type == 'DEPENDENT' ? 'checked' : '' }}> -->
         </div>
         <div class="col-8" style="margin-top:68px;">
-            <label class=" absolute " style="font-size:10px;">{{$member->last_name}}</label>
-            <label class=" absolute " style="margin-left:245px; font-size:10px;">{{$member->first_name}}</label>
-            <label class=" absolute " style="margin-left:478px; font-size:10px;">{{$member->middle_name}}</label>
+            <label class=" absolute " style="font-size:10px;">{{$axa_info->last_name}}</label>
+            <label class=" absolute " style="margin-left:245px; font-size:10px;">{{$axa_info->first_name}}</label>
+            <label class=" absolute " style="margin-left:478px; font-size:10px;">{{$axa_info->middle_name}}</label>
         </div>
         <div class="col-9" style="margin-top:42px;">
             <label class=" absolute " style="font-size:10px;">{{$axa_info->relationship_tomember}}</label>
-            <label class=" absolute " style="margin-left:240px; font-size:10px;">{{$member->contact_no}}</label>
-            <label class=" absolute " style="margin-left:480px; font-size:10px;">{{$member->email_add}}</label>
+            <label class=" absolute " style="margin-left:240px; font-size:10px;">{{$axa_info->contact_no}}</label>
+            <label class=" absolute " style="margin-left:480px; font-size:10px;">{{$axa_info->email_add}}</label>
         </div>
 
         <div class="col-10" style="font-size:8px;  margin-top:65px;">
@@ -254,9 +254,15 @@
         <div class="signature absolute">
             <div class="col-1 absolute" style="margin-top:40px; margin-left:110px;">
                 <!-- <img src="{{ asset($member->signature) }}" width="50px" height="50px" alt="UPPFI"> -->
-                <img src="{{ public_path($member->signature) }}" class="absolute" style="margin-top:110px; " width="50px" height="50px" alt="UPPFI">
+                <div class="absolute" class="absolute" style="margin-top:110px; margin-left:-90px; z-index:10;width:270px;  ">
+                    <img src="{{ public_path($axa_info->signature) }}" style=" display:flex; justify-content:center;" width="50px" height="50px" alt="UPPFI">
+                </div>
+
                 <br>
-                <label class="absolute" style="margin-top:130px;">{{ $member->sign }}</label>
+                <div class="absolute" style="margin-top:130px; margin-left:-90px; width:270px; ">
+                    <label class="" style="display:flex; justify-content:center;">{{ $member->sign }}</label>
+                </div>
+
             </div>
 
             <div class="col-2 absolute" style="margin-top:0px;">
