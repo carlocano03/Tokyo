@@ -603,7 +603,6 @@ class HomeController extends Controller
       $newName = $request->input('app_number') . '_' . $fileName;
       $path = $file->storeAs('signature', $newName, 'public');
     } else {
-      // Handle the case where no file was uploaded
       $path = null;
     }
 
@@ -623,7 +622,8 @@ class HomeController extends Controller
       'relationship_tomember' => strtoupper($request->input('relationship_tomember')),
       'contact_no' => $request->input('axa_contact_no'),
       'email_add' => $request->input('email_add'),
-      'signature' => '/storage/' . $path
+      // 'signature' => '/storage/' . $path
+      'signature' => $newName
     ];
     DB::table('axa_form')->insert($insertCoco);
     // $coco = DB::table('member_signature')->where('app_no', $appNumber)->count();

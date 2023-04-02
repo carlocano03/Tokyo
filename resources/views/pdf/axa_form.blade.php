@@ -253,14 +253,13 @@
 
         <div class="signature absolute">
             <div class="col-1 absolute" style="margin-top:40px; margin-left:110px;">
-                <!-- <img src="{{ asset($member->signature) }}" width="50px" height="50px" alt="UPPFI"> -->
                 <div class="absolute" class="absolute" style="margin-top:110px; margin-left:-90px; z-index:10;width:270px;  ">
-                    <img src="{{ public_path($axa_info->signature) }}" style=" display:flex; justify-content:center;" width="50px" height="50px" alt="UPPFI">
+                    <img src="{{ storage_path('app/public/signature/'.$axa_info->signature) }}" style=" display:flex; justify-content:center;" width="50px" height="50px" alt="UPPFI">
                 </div>
 
                 <br>
                 <div class="absolute" style="margin-top:130px; margin-left:-90px; width:270px; ">
-                    <label class="" style="display:flex; justify-content:center;">{{ $member->sign }}</label>
+                    <label class="" style="display:flex; justify-content:center;">{{$axa_info->first_name}} {{$axa_info->last_name}}</label>
                 </div>
 
             </div>
