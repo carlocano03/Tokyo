@@ -576,7 +576,7 @@ class HomeController extends Controller
       'app_no' => $request->input('app_no'),
       'user_level' => 'AO',
     );
-     DB::table('app_trailing')->where('app_no', $request->input('appNo'))
+    DB::table('app_trailing')->where('app_no', $request->input('appNo'))
       ->insert($apptrail);
 
     $email = DB::table('mem_app')

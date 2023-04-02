@@ -59,7 +59,7 @@ class PDFController extends Controller
             ->leftjoin('campus', 'employee_details.campus', '=', 'campus.campus_key')
             ->leftjoin('appointment', 'employee_details.appointment', '=', 'appointment.appoint_id')
             ->leftjoin('personal_details', 'personal_details.personal_id', '=', 'mem_app.personal_id')
-            
+
             ->leftjoin('college_unit', 'college_unit.cu_no', '=', 'employee_details.college_unit')
             ->leftjoin('department', 'department.dept_no', '=', 'employee_details.department')
             ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
@@ -167,16 +167,21 @@ class PDFController extends Controller
             ->get()->first();
 
         $empNO = DB::table('mem_app')
-        ->where('app_no', $id)
-        ->value('employee_no');    
+            ->where('app_no', $id)
+            ->value('employee_no');
         $benificiary = DB::table('axa_beneficiaries')->select('*')->whereRaw("axa_beneficiaries.employee_id = '$empNO'")
             ->get();
 
+        $get_member_relationship = DB::table('axa_form')->select('*')->whereRaw("axa_form.app_no = '$id'")
+            ->get()->first();
+
+        $data['axa_info'] = $get_member_relationship;
         $data['member'] = $results;
         $data['benificiary'] = $benificiary;
         // print_r($data);
         $pdf = PDF::loadView('pdf.axa_form', $data);
         $pdf->setPaper('A4', 'portrait');
+
         return $pdf->stream();
     }
 }
