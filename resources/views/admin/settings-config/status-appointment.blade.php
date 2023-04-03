@@ -165,7 +165,7 @@
                       <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_appointment" type="submit">
                         <span>Save Record</span>
                       </a>
-                      <a class="up-button-grey btn-md button-animate-right mp-text-center">
+                      <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_form">
                         <span>Clear</span>
                       </a>
                       <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
@@ -251,6 +251,10 @@
     }
 
   })
+  $(document).on('click', '#clear_form', function(e) {
+    $("#appointment_name").val('').trigger("change");
+  })
+
   $(document).on('click', '#save_appointment', function() {
     $.ajaxSetup({
       headers: {
@@ -265,6 +269,7 @@
         url: "{{ route('save-appointment') }}",
         data: formData,
         success: function(data) {
+          $("#appointment_name").val('').trigger("change");
           if (data.success != '') {
             Swal.fire({
               text: 'Appointment has been added Successfully.',
@@ -332,6 +337,7 @@
       },
       success: function(data) {
         if (data.success != '') {
+          $("#appointment_name").val('').trigger("change");
           Swal.fire({
             text: 'Status has been added Changed.',
             icon: 'success',

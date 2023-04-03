@@ -219,6 +219,8 @@
                 confirmButtonText: 'Ok',
               });
               $("#college_form")[0].reset();
+              $("#college_name").val('').trigger("change");
+              $("#campus").val('').trigger("change");
               tbl_clss.draw();
             }
           }
@@ -230,12 +232,15 @@
           data: formData,
           success: function(data) {
             if (data.success != '') {
+              $("#college_name").val('').trigger("change");
+              $("#campus").val('').trigger("change");
               Swal.fire({
                 text: 'College/Unit has been added Successfully.',
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Ok',
               });
+
               tbl_clss.draw();
             }
           }
@@ -298,6 +303,8 @@
             id_college: id_college
           },
           success: function(data) {
+            $("#college_name").val('').trigger("change");
+            $("#campus").val('').trigger("change");
             if (data.success) {
               Swal.fire({
                 text: 'College/Unit has been Removed Successfully.',
@@ -319,6 +326,8 @@
     $('#cu_no').val('');
     $('.save_up').text('Save');
     $('.clear_txt').text('Clear');
+    $("#college_name").val('').trigger("change");
+    $("#campus").val('').trigger("change");
 
   });
   $(document).on('click', '.edit_coll', function() {
@@ -337,7 +346,7 @@
       success: function(data) {
         $('#cu_no').val(data.cu_no);
         $('#college_name').val(data.college_unit_name);
-        $('#campus').val(data.camp_id);
+        $('#campus').val(data.camp_id).trigger("change");
         $('.save_up').text('Update');
         $('.clear_txt').text('Cancel');
       }
