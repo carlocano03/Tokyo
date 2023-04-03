@@ -175,7 +175,7 @@
                       <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
                         <span>Save Record</span>
                       </a>
-                      <a class="up-button-grey btn-md button-animate-right mp-text-center">
+                      <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_form">
                         <span>Clear</span>
                       </a>
                       <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
@@ -261,6 +261,10 @@
     }
 
   })
+  $(document).on('click', '#clear_form', function(e) {
+    $('#classif_name').val('');
+    $('#status').val(1);
+  })
   $(document).on('click', '#save_class', function() {
     $.ajaxSetup({
       headers: {
@@ -274,6 +278,8 @@
       url: "{{ route('save-class') }}",
       data: formData,
       success: function(data) {
+        $('#classif_name').val('');
+        $('#status').val(1);
         if (data.success != '') {
           Swal.fire({
             text: 'Classification Name has been added Successfully.',
@@ -335,6 +341,8 @@
         status: status
       },
       success: function(data) {
+        $('#classif_name').val('');
+        $('#status').val(1);
         if (data.success != '') {
           Swal.fire({
             text: 'Status has been added Changed.',

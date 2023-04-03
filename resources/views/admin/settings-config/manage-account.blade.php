@@ -784,6 +784,11 @@
               $('#users_id').val('');
               $('.save_up').text('Save Record');
               $('.clear_txt').text('Clear');
+              $('#user_level').val('').trigger("change");
+              $('#campus').val('').trigger("change");
+              $('#cfm_cluster').val('').trigger("change");
+
+
               users_table.draw();
             } else {
               Swal.fire({
@@ -820,6 +825,9 @@
               $("#users_form")[0].reset();
               $('.save_up').text('Save Record');
               $('.clear_txt').text('Clear');
+              $('#user_level').val('').trigger("change");
+              $('#campus').val('').trigger("change");
+              $('#cfm_cluster').val('').trigger("change");
               users_table.draw();
             }
 
@@ -850,12 +858,13 @@
         $('#contact_no').val(data.contact_no);
         $('#initial_pass').val(data.intial_password);
         $('#user_level').val(data.user_level);
+
         if (data.user_level == "CFM") {
           $('.cfm_div').show();
-          $('#cfm_cluster').val(data.cfm_cluster);
-        } else if (data.user_level == "AA") {
+          $('#cfm_cluster').val(data.cfm_cluster).trigger("change");
+        } else if (data.user_level == "AO") {
           $('.cfm_div').show();
-          $('#cfm_cluster').val(data.cfm_cluster);
+          $('#cfm_cluster').val(data.cfm_cluster).trigger("change");
         } else {
           $('.cfm_div').hide();
           $('#cfm_cluster').val('');
@@ -907,6 +916,9 @@
     $('#users_id').val('');
     $('.save_up').text('Save Record');
     $('.clear_txt').text('Clear');
+    $('#user_level').val('').trigger("change");
+    $('#campus').val('').trigger("change");
+    $('#cfm_cluster').val('').trigger("change");
   });
   $(document).on('click', '.remove_users', function() {
     $.ajaxSetup({
@@ -943,6 +955,9 @@
               $('#users_id').val('');
               $('.save_up').text('Save Record');
               $('.clear_txt').text('Clear');
+              $('#user_level').val('').trigger("change");
+              $('#campus').val('').trigger("change");
+              $('#cfm_cluster').val('').trigger("change");
               users_table.draw();
             }
           }

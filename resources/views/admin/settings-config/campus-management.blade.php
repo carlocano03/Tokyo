@@ -235,6 +235,7 @@
     $('#campus_id').val('');
     $('.save_up').text('Save Record');
     $('.clear_txt').text('Clear');
+    $('#cluster_id').val('').trigger("change");
   });
   $(document).on('click', '#save_campus', function() {
     $.ajaxSetup({
@@ -257,7 +258,8 @@
               confirmButtonText: 'Ok',
             });
             $("#campus_form")[0].reset();
-            $('#campus_id').val('');
+            $('#campus_id').val('').trigger("change");
+            $('#cluster_id').val('').trigger("change");
             $('.save_up').text('Save Record');
             $('.clear_txt').text('Clear');
 
@@ -281,6 +283,8 @@
               confirmButtonText: 'Ok',
             });
             $("#campus_form")[0].reset();
+            $('#campus_id').val('').trigger("change");
+            $('#cluster_id').val('').trigger("change");
             $('.save_up').text('Save Record');
             $('.clear_txt').text('Clear');
             campus_table.draw();
@@ -323,7 +327,8 @@
                 confirmButtonText: 'Ok',
               });
               $("#campus_form")[0].reset();
-              $('#campus_id').val('');
+              $('#campus_id').val('').trigger("change");
+              $('#cluster_id').val('').trigger("change");
               $('.save_up').text('Save Record');
               $('.clear_txt').text('Clear');
               campus_table.draw();
@@ -352,7 +357,7 @@
         $('#campus_id').val(data.id);
         $('#campus_key').val(data.campus_key);
         $('#campus_name').val(data.name);
-        $('#cluster_id').val(data.cluster_id);
+        $('#cluster_id').val(data.cluster_id).trigger("change");
         $('.save_up').text('Update Record');
         $('.clear_txt').text('Cancel');
       }
