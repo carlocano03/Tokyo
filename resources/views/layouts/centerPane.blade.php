@@ -145,6 +145,7 @@
     </div>
 
 </div>
+<script src="moment.js"></script>
 <script>
     const inputField = document.querySelector('#contact-number-input');
     const axaNumberField = document.querySelector('#axa_contact_no');
@@ -922,6 +923,39 @@
         table.draw();
         var tableAxa = $('.axa-table').DataTable();
         tableAxa.draw();
+
+
+        var details = $("#member_forms").serializeArray();
+        var campus_details = $("#member_forms_con").serializeArray();
+
+        var middle_name_text = details[2].value;
+
+        function middleNameChecker() {
+            var middle_name_text = details[2].value;
+            if (middle_name_text === 'N/A') {
+                return '';
+            } else {
+                return middle_name_text;
+            }
+
+        }
+        var name = details[1].value + " " + middleNameChecker() + " " + details[3].value;
+        var campus = $('#campus option:selected').text();
+
+        function GetTodayDate() {
+            var tdate = new Date();
+            var dd = tdate.getDate(); //yields day
+            var MM = tdate.getMonth(); //yields month
+            var yyyy = tdate.getFullYear(); //yields year
+            var currentDate = dd + "/" + (MM + 1) + "/" + yyyy;
+
+            return currentDate;
+        }
+        var todaytext = new Date().toISOString().split('T')[0];
+
+        $('#step5_name').text(" " + name).trigger("change");
+        $('#step5_campus').text(" " + campus).trigger("change");
+        $('#step5_date').text(" " + todaytext).trigger("change");
 
         var nextValue = $(this).attr('value');
         console.log($(this).attr('value'));
