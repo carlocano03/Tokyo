@@ -256,6 +256,15 @@
   })
 
   $(document).on('click', '#save_appointment', function() {
+
+    if($('#appointment_name').val() == ""){
+      console.log('123')
+      addError($('#appointment_name'), 'Please fill out this field.','validate')
+      return
+    } else{
+      clearValidation('appointment_name', 'validate', $('#appointment_name'))
+    }
+
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

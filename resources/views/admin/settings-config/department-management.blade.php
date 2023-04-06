@@ -97,11 +97,11 @@
                       <input type="hidden" id="dept_no" name="dept_no">
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Department Name</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="dept_name" id="dept_name" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="dept_name" id="dept_name" required="" data-set="validate-department">
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Campus</label>
-                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
+                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required data-set="validate-department">
                           <option value="">Select Campus</option>
                           <!-- <option value="all">All Campus</option> -->
                           @foreach($campus as $row)
@@ -112,7 +112,7 @@
                       <div class="mp-input-group">
 
                         <label class="mp-input-group__label">College / Unit</label>
-                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="college_unit" id="college_unit" required>
+                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="college_unit" id="college_unit" required data-set="validate-department">
                           <option value="">Select College/Unit</option>
                           <!-- <option value="">Select College/Unit</option>
                           @foreach($college_unit as $row)
@@ -217,6 +217,28 @@
   })
 
   $(document).on('click', '#save_dept', function() {
+
+    let hasError = false
+
+    const elements = $(document).find(`[data-set=validate-department]`)
+
+    elements.map(function () {
+      if($(this).attr('err-name')) {
+        return
+      }
+      let status = true
+      status = validateField({
+        element: $(this),
+        target: 'validate-department'
+      })
+
+      if(!hasError && status) {
+        hasError = true
+      }
+    })
+
+    if(hasError) return
+
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
