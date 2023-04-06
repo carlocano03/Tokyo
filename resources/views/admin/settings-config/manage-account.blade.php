@@ -840,6 +840,28 @@
         hasError = true
       }
     })
+    const email = $('[name=email]').val()
+    if (email.length == 0) {
+      status = validateField({
+        element:  $('[name=email]'),
+        target: 'manage-account-validation',
+        errText: "Invalid email."
+      })
+      hasError = true
+    } else {
+      var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+      if(emailRegex.test(email) == false) {
+        status = validateField({
+          element:  $('[name=email]'),
+          target: 'manage-account-validation',
+          errText: "Invalid email."
+        })
+        hasError = true
+      } else {
+        clearValidation('email', 'manage-account-validation', $('[name=email]'))
+      }
+    }
+    
 
     const phoneRegex = /^(09|\+639)\d{9}$/;
     const mobile_number = $("input[name=contact_no]")
