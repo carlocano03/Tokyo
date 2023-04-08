@@ -251,7 +251,15 @@ class AdminController extends Controller
 
   public function members_analytics()
   {
-    return view('admin.members.analytics');
+    $campuses = DB::table('campus')->get();
+    $data = array(
+      'campuses' => $campuses,
+      // 'user_privileges' => DB::table('users')
+      // ->join('user_prev', 'users.id', '=', 'user_prev.users_id')
+      // ->where('users.id', $user->id)
+      // ->get()
+    );
+    return view('admin.members.analytics')->with($data);
   }
 
   public function members_view_record($id)
@@ -2029,5 +2037,24 @@ class AdminController extends Controller
       ->get()->first();
 
     return response()->json($results);
+  }
+
+  public function member_analytics(Request $request){
+    $query = DB::table('mem_app')
+      ->leftJoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->select('mem_app.app_status', DB::raw('COUNT(*) as count'))
+      ->whereIn('mem_app.app_status', ['NEW APPLICATION', 'DRAFT APPLICATION', 'PROCESSING', 'APPROVED APPLICATION', 'RETURNED APPLICATION', 'REJECTED APPLICATION']);
+
+    if ($request->has('start_date') && $request->has('end_date')) {
+        $query->whereBetween('mem_app.app_date', [$request->input('start_date'), $request->input('end_date')]);
+    }
+
+    if ($request->has('campus')) {
+        $query->where('employee_details.campus', $request->input('campus'));
+    }
+
+    $appStatusCounts = $query->groupBy('mem_app.app_status')->get();
+
+    return response()->json($appStatusCounts);
   }
 }
