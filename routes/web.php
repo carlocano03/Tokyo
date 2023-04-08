@@ -113,6 +113,9 @@ Route::post('/admin/members/update_employee_details', [HomeController::class, 'u
 // Route::get('/admin/members', 'AdminController@memberlist');
 
 
+//election saving
+Route::post('/admin/election/save-election', [AdminController::class, 'saveElection'])->name('save_election');
+
 //admin settings links
 Route::get('/admin/settings/manage-account', [AdminController::class, 'manageAccount'])->name('admin.settings-config.manage-account');
 Route::get('/admin/settings/backup-database', [AdminController::class, 'backUpDatabase'])->name('admin.settings-config.backup-database');

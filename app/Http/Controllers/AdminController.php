@@ -1559,7 +1559,7 @@ class AdminController extends Controller
     );
     return view('admin.members.view.fmvalidation')->with($data);
   }
-  
+
 
   public function members_application_trail()
   {
@@ -1896,7 +1896,7 @@ class AdminController extends Controller
     } else if ($users == 'CFM') {
       $href = '/admin/members/records/view/aa/';
     }
-    
+
 
     $posts = $records->skip($start)
       ->take($rowperpage)
@@ -1956,6 +1956,28 @@ class AdminController extends Controller
   {
     return view('admin.election.election');
   }
+
+  //save election
+  public function saveElection(Request $request)
+  {
+    $datadb = DB::transaction(function () use ($request) {
+      $inserts_election = array(
+        'election_year' => $request->input('election_year'),
+        'cluster_id' => $request->input('cluster_id'),
+        'election_date' => $request->input('election_date'),
+        'time_open' => $request->input('time_open'),
+        'time_close' => $request->input('time_close'),
+        'user_access' => $request->input('user_access'),
+      );
+      $last_id = DB::table('election_tbl')->insertGetId($inserts_election);
+      return [
+        'last_id' => $last_id,
+      ];
+    });
+    return response()->json(['success' => $datadb['last_id']]);
+  }
+
+
   public function createElection()
   {
     return view('admin.election.create-election');
