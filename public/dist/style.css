@@ -6492,6 +6492,10 @@ tfoot {
     border-bottom: 2px solid var(--c-red-clr-80) !important;
 }
 
+.select-error {
+    border: 1px solid var(--c-red-clr-80) !important;
+}
+
 .admin-settingtab {
     height: 1500px;
 }
