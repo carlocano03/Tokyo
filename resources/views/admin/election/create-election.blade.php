@@ -12,20 +12,19 @@
                     <div class="">
                         <label>Setup New Election Module</label>
                         <br>
-                        <label class="account-info">Allow user to create Election
+                        <label class="account-info">
                         </label>
-                        {{ csrf_field() }}
-                        <form id="classif_form" class=" form-border-bottom" style="height: calc(100% - 100px) !important;">
-
+                        <form id="election_form" class=" form-border-bottom" style="height: calc(100% - 100px) !important;">
+                            {{ csrf_field() }}
                             <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
 
                                 <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Election Reference No:</label>
-                                    <label class="mp-input-group__label">102-2912</label>
+                                    <!-- <label class="mp-input-group__label">Election Reference No:</label>
+                                    <label class="mp-input-group__label">102-2912</label> -->
                                 </div>
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Select Cluster</label>
-                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                    <select class=" mp-input-group__input mp-text-field" name="cluster_id" id="cluster_id" required>
                                         <option value="">Select Cluster No.</option>
                                         <option value="1">Cluster 1 - DSB</option>
                                         <option value="2">Cluster 2 - LBOU</option>
@@ -35,41 +34,43 @@
                                 </div>
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Election Year</label>
-                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                        <option value="1">2020</option>
-                                        <option value="0">2021</option>
+                                    <select class=" mp-input-group__input mp-text-field" name="election_year" id="election_year" required>
+                                        @for ($i = 2023; $i <= 2099; $i++) <option value="{{ $i }}">
+                                            {{ $i }}
+                                            </option>
+                                            @endfor
                                     </select>
                                 </div>
 
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Election Date</label>
-                                    <input type="date" id="from" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                    <input type="date" id="election_date" name="election_date" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
                                 </div>
 
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Time Open</label>
-                                    <input type="time" id="from" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                    <input type="time" name="time_open" id="time_open" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
                                 </div>
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label">Time Close</label>
-                                    <input type="time" id="from" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                    <input type="time" name="time_close" id="time_close" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
                                 </div>
 
                                 <div class="mp-input-group">
-                                    <input type="checkbox" class="checkbox-color " style="margin-left:2px;margin-right:3px;" id="terms" name="terms">
+                                    <input type="checkbox" class="checkbox-color" style="margin-left:2px;margin-right:3px;" id="user_access" name="user_access">
                                     <label class="mp-input-group__label">Open Time / User Access</label>
                                 </div>
 
 
 
 
-                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
+                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_election" type="submit">
                                     <span>OPEN THIS ELECTION</span>
                                 </a>
-                                <a class="up-button btn-md button-animate-right mp-text-center">
+                                <a class="up-button btn-md button-animate-right mp-text-center" id="save_draft_election">
                                     <span>SAVE DRAFT ELECTION</span>
                                 </a>
-                                <a class="up-button-grey btn-md button-animate-right mp-text-center">
+                                <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_election">
                                     <span>CLEAR SETUP</span>
                                 </a>
 
@@ -1393,6 +1394,31 @@
 
 
 <script>
+    function reset() {
+        $("#election_year").val("").trigger("change");
+        $("#cluster_id").val("").trigger("change");
+        $("#election_date").val("").trigger("change");
+        $("#election_year").val("2023").trigger("change");
+        $("#time_open").val("").trigger("change");
+        $("#time_close").val("").trigger("change");
+        $("#user_access").val("").trigger("change");
+    }
+
+    function closeModal() {
+        $("#modalBackDrop").addClass("opacity-0")
+        $("#electionModal").addClass("opacity-0")
+        $("#candidateModal").addClass("opacity-0")
+        $("#viewAttachmentModal").addClass("opacity-0")
+        $("#changeModal").addClass("opacity-0")
+
+        setTimeout(function() {
+            $("#modalBackDrop").addClass("d-none")
+            $("#candidateModal").addClass("d-none")
+            $("#electionModal").addClass("d-none")
+            $("#viewAttachmentModal").addClass("d-none")
+            $("#changeModal").addClass("d-none")
+        }, 100)
+    }
     $(document).on('click', '#closeModal', function(e) {
         $("#modalBackDrop").addClass("opacity-0")
         $("#electionModal").addClass("opacity-0")
@@ -1490,249 +1516,71 @@
 
     })
 
+    $(document).on('click', '#save_election', function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var formData = $("#election_form").serialize();
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('save_election') }}",
+            data: formData,
+            success: function(data) {
+                reset();
+                if (data.success != '') {
+                    Swal.fire({
+                        text: 'Election has been added Successfully.',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+
+                }
+                closeModal();
+
+            }
+        });
+    });
+
+    $(document).on('click', '#save_draft_election', function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var formData = $("#election_form").serialize();
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('save_election') }}",
+            data: formData,
+            success: function(data) {
+                reset();
+                if (data.success != '') {
+                    Swal.fire({
+                        text: 'Election has been saved as draft!',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+
+                }
+                closeModal();
+
+            }
+        });
+    });
+
+    $(document).on('click', '#clear_election', function() {
+        reset();
+    });
+
+
     document.querySelector("input[type=number]")
         .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1))
 </script>
-
-
-<!-- <div class="mp-card  mp-ph2 mp-pv2">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-4">
-                                <div class="top-label">
-                                    <label>Setup New Election Module</label>
-                                    <br>
-                                    <label class="account-info">Allow user to create Election
-                                    </label>
-                                    {{ csrf_field() }}
-                                    <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
-
-                                        <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
-                                            <input type="hidden" id="app_trailNo">
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Election Reference No:</label>
-                                                <label class="mp-input-group__label">102-2912</label>
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Select Cluster</label>
-                                                <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                                    <option value="1">Cluster 1</option>
-                                                    <option value="0">Cluster 2</option>
-                                                </select>
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Election Year</label>
-                                                <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                                    <option value="1">2020</option>
-                                                    <option value="0">2021</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Election Date</label>
-                                                <input type="date" id="from" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
-                                            </div>
-
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Time Open</label>
-                                                <input type="time" id="from" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Time Close</label>
-                                                <input type="time" id="from" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
-                                            </div>
-
-                                            <div class="mp-input-group">
-                                                <input type="checkbox" class="checkbox-color " style="margin-left:2px;margin-right:3px;" id="terms" name="terms">
-                                                <label class="mp-input-group__label">Open Time / User Access</label>
-                                            </div>
-
-
-
-
-                                            <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
-                                                <span>OPEN THIS ELECTION</span>
-                                            </a>
-                                            <a class="up-button btn-md button-animate-right mp-text-center">
-                                                <span>SAVE DRAFT ELECTION</span>
-                                            </a>
-                                            <a class="up-button-grey btn-md button-animate-right mp-text-center">
-                                                <span>CLEAR SETUP</span>
-                                            </a>
-
-
-                                        </div>
-
-                                    </form>
-
-                                </div>
-
-                            </div>
-
-                            <div class="col-lg-4">
-                                <div class="top-label">
-                                    <label>Manage Candidates</label>
-                                    <br>
-                                    <button class="mp-input-group__label button-active button-menu">1-15 Category</button>
-                                    <button class="mp-input-group__label button-menu">16 Above Category</button>
-                                    {{ csrf_field() }}
-                                    <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
-
-                                        <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
-                                            <input type="hidden" id="app_trailNo">
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Salary Grade</label>
-                                                <label class="mp-input-group__label">1-15 Category</label>
-
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Select Candidate Name</label>
-                                                <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                                    <option value="1">Name 1</option>
-                                                    <option value="0">Name 2</option>
-                                                </select>
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Select Cluster</label>
-                                                <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                                    <option value="1">Cluster 1</option>
-                                                    <option value="0">Cluster 2</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Select Running Position</label>
-                                                <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
-                                            </div>
-
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Select Campus</label>
-                                                <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                                    <option value="1">Campus 1</option>
-                                                    <option value="0">Campus 2</option>
-                                                </select>
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">Select Candidate Image/Photo *</label>
-                                                <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
-                                            </div>
-                                            <div class="mp-input-group">
-                                                <label class="mp-input-group__label">File Attachment</label>
-                                                <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
-                                            </div>
-
-
-
-
-
-
-
-                                            <a class="up-button btn-md button-animate-right mp-text-center">
-                                                <span>ADD CANDIDATE</span>
-                                            </a>
-
-
-
-
-                                        </div>
-
-                                    </form>
-
-
-                                </div>
-                            </div>
-
-
-                            <div class="col-lg-4">
-
-                                <div class="top-label">
-                                    <label>Candidates</label>
-                                    <div class="mp-input-group">
-                                        <label class="mp-input-group__label">PRESIDENTIAL CANDIDATES</label>
-
-                                        <div class="candidates">
-                                            <label>Candidate No 1:</label>
-                                            <h5>Denneb Gomez</h5>
-                                            <div class="profile-img">
-                                                <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
-                                            </div>
-
-                                            <div class="candidate-button-container">
-                                                <div> <button class="up-button-green edit_coll" style="border-radius: 5px;">
-                                                        VIEW
-                                                        <i style="float:none; margin:0px;" class=" fa fa-eye" aria-hidden="true"></i>
-
-                                                    </button>
-                                                </div>
-                                                <div>
-                                                    <button class="up-button-green edit_coll" style="border-radius: 5px;">
-                                                        EDIT
-                                                        <i style="float:none; margin:0px;" class=" fa fa-edit" aria-hidden="true"></i>
-
-                                                    </button>
-                                                </div>
-                                                <div>
-                                                    <button class="up-button" style="border-radius: 5px;">
-                                                        DELETE
-                                                        <i style="float:none; margin:0px;" class="fa fa-trash" aria-hidden="true"></i>
-
-                                                    </button>
-                                                </div>
-
-                                            </div>
-
-
-
-
-                                        </div>
-                                        <div class="candidates">
-                                            <label>Candidate No 2:</label>
-                                            <h5>Denneb Gomez</h5>
-                                            <div class="profile-img">
-                                                <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
-                                            </div>
-
-                                            <div class="candidate-button-container">
-                                                <div> <button class="up-button-green edit_coll" style="border-radius: 5px;">
-                                                        VIEW
-                                                        <i style="float:none; margin:0px;" class=" fa fa-eye" aria-hidden="true"></i>
-
-                                                    </button>
-                                                </div>
-                                                <div>
-                                                    <button class="up-button-green edit_coll" style="border-radius: 5px;">
-                                                        EDIT
-                                                        <i style="float:none; margin:0px;" class=" fa fa-edit" aria-hidden="true"></i>
-
-                                                    </button>
-                                                </div>
-                                                <div>
-                                                    <button class="up-button" style="border-radius: 5px;">
-                                                        DELETE
-                                                        <i style="float:none; margin:0px;" class="fa fa-trash" aria-hidden="true"></i>
-
-                                                    </button>
-                                                </div>
-
-                                            </div>
-
-
-
-
-                                        </div>
-
-
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                </div> -->
-
-
-
 
 @endsection
