@@ -95,58 +95,115 @@
                     <div class="top-label">
                         <label>Manage Candidates</label>
                         <br>
-                        <button class="mp-input-group__label button-active button-menu">1-15 Category</button>
-                        <button class="mp-input-group__label button-menu">16 Above Category</button>
-                        {{ csrf_field() }}
-                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+                        <button class="mp-input-group__label button-active button-menu" id="sg15_button">1-15 Category</button>
+                        <button class="mp-input-group__label button-menu" id="sg16_button">16 Above Category</button>
 
-                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
-                                <input type="hidden" id="app_trailNo">
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Salary Grade</label>
-                                    <label class="mp-input-group__label">1-15 Category</label>
+                        <div id="candidates_sg15">
+                            {{ csrf_field() }}
+                            <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
 
-                                </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Select Cluster</label>
-                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                        <option value="">Select Cluster No.</option>
-                                        <option value="1">Cluster 1 - DSB</option>
-                                        <option value="2">Cluster 2 - LBOU</option>
-                                        <option value="3">Cluster 3 - MLAPGH</option>
-                                        <option value="4">Cluster 4 - CVM</option>
-                                    </select>
-                                </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Select Campus</label>
-                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                        <option value="1">Campus 1</option>
-                                        <option value="0">Campus 2</option>
-                                    </select>
-                                </div>
+                                <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
+                                    <input type="hidden" id="app_trailNo">
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Salary Grade</label>
+                                        <label class="mp-input-group__label">1-15 Category</label>
+
+                                    </div>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Select Cluster</label>
+                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                            <option value="">Select Cluster No.</option>
+                                            <option value="1">Cluster 1 - DSB</option>
+                                            <option value="2">Cluster 2 - LBOU</option>
+                                            <option value="3">Cluster 3 - MLAPGH</option>
+                                            <option value="4">Cluster 4 - CVM</option>
+                                        </select>
+                                    </div>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Select Campus</label>
+                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                            <option value="1">Campus 1</option>
+                                            <option value="0">Campus 2</option>
+                                        </select>
+                                    </div>
 
 
 
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Select Candidate Name</label>
-                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                        <option value="1">Name 1</option>
-                                        <option value="0">Name 2</option>
-                                    </select>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Select Candidate Name</label>
+                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                            <option value="1">Name 1</option>
+                                            <option value="0">Name 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Select Candidate Image/Photo *</label>
+                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                    </div>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">File Attachment</label>
+                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                    </div>
+                                    <a class="up-button btn-md button-animate-right mp-text-center">
+                                        <span>ADD CANDIDATE</span>
+                                    </a>
                                 </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">Select Candidate Image/Photo *</label>
-                                    <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                            </form>
+                        </div>
+
+                        <div id="candidates_sg16" class="d-none opacity-0">
+                            {{ csrf_field() }}
+                            <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+
+                                <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
+                                    <input type="hidden" id="app_trailNo">
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Salary Grade</label>
+                                        <label class="mp-input-group__label">16-Above Category</label>
+
+                                    </div>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Select Cluster</label>
+                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                            <option value="">Select Cluster No.</option>
+                                            <option value="1">Cluster 1 - DSB</option>
+                                            <option value="2">Cluster 2 - LBOU</option>
+                                            <option value="3">Cluster 3 - MLAPGH</option>
+                                            <option value="4">Cluster 4 - CVM</option>
+                                        </select>
+                                    </div>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Select Campus</label>
+                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                            <option value="1">Campus 1</option>
+                                            <option value="0">Campus 2</option>
+                                        </select>
+                                    </div>
+
+
+
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Select Candidate Name</label>
+                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                            <option value="1">Name 1</option>
+                                            <option value="0">Name 2</option>
+                                        </select>
+                                    </div>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Select Candidate Image/Photo *</label>
+                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                    </div>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">File Attachment</label>
+                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                    </div>
+                                    <a class="up-button btn-md button-animate-right mp-text-center">
+                                        <span>ADD CANDIDATE</span>
+                                    </a>
                                 </div>
-                                <div class="mp-input-group">
-                                    <label class="mp-input-group__label">File Attachment</label>
-                                    <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
-                                </div>
-                                <a class="up-button btn-md button-animate-right mp-text-center">
-                                    <span>ADD CANDIDATE</span>
-                                </a>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1586,6 +1643,51 @@
             $("#user_access").val(null);
         }
     });
+
+    $(document).on('click', "#sg15_button", function() {
+        showSG15();
+        hideSG16();
+        activeSG15()
+
+    });
+
+    $(document).on('click', "#sg16_button", function() {
+        hideSG15();
+        showSG16();
+        activeSG16()
+    });
+
+
+    function hideSG15() {
+        $("#candidates_sg15").addClass("d-none");
+        $("#candidates_sg15").addClass("opacity-0");
+    }
+
+    function showSG15() {
+        $("#candidates_sg15").removeClass("d-none");
+        $("#candidates_sg15").removeClass("opacity-0");
+    }
+
+    function hideSG16() {
+        $("#candidates_sg16").addClass("d-none");
+        $("#candidates_sg16").addClass("opacity-0");
+    }
+
+    function showSG16() {
+        $("#candidates_sg16").removeClass("d-none");
+        $("#candidates_sg16").removeClass("opacity-0");
+    }
+
+    function activeSG15() {
+        $("#sg15_button").addClass("button-active");
+        $("#sg16_button").removeClass("button-active");
+    }
+
+    function activeSG16() {
+        $("#sg15_button").removeClass("button-active");
+        $("#sg16_button").addClass("button-active");
+    }
+
 
 
 
