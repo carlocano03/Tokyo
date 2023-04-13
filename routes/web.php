@@ -76,6 +76,7 @@ Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('adm
 
 //admin members
 Route::get('/admin/members', [AdminController::class, 'memberlist'])->name('admin.memberlist.memberlist');
+Route::get('/admin/members/analytics', [AdminController::class, 'member_analytics'])->name('member_analytics');
 Route::get('/admin/members/member-details', [AdminController::class, 'memberDetails'])->name('admin.memberlist.member-details');
 Route::get('/admin/members/insurance-reports', [AdminController::class, 'insuranceReports'])->name('admin.memberlist.insurance-reports');
 Route::get('/admin/members/summary-reports', [AdminController::class, 'summaryReports'])->name('admin.memberlist.summary-reports');
@@ -122,6 +123,9 @@ Route::post('/admin/countElection', [AdminController::class, 'countElection'])->
 Route::post('/admin/election/save-election', [AdminController::class, 'saveElection'])->name('save_election');
 Route::post('/admin/election/save-election-draft', [AdminController::class, 'saveElectionDraft'])->name('save_election_draft');
 
+
+//election saving
+Route::post('/admin/election/save-election', [AdminController::class, 'saveElection'])->name('save_election');
 
 //admin settings links
 Route::get('/admin/settings/manage-account', [AdminController::class, 'manageAccount'])->name('admin.settings-config.manage-account');
