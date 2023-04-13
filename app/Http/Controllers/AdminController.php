@@ -2182,12 +2182,14 @@ class AdminController extends Controller
       $nestedData['cluster_id'] = $row->cluster_name;
       $nestedData['status'] = $row->status;
       $nestedData['action'] = '
+          <a href="/admin/edit-election/' . $row->election_id .  '" style="padding:0px !important; color:white;"> 
             <button class="up-button-green edit_campus" style="border-radius: 5px;" data-id='  . $row->election_id . ' >
             <span>
-             <a href="/admin/edit-election/' . $row->election_id .  '" style="padding:0px !important; color:white;"> 
-             <i  class="fa fa-edit" style="padding:3px;font-size:17px;" aria-hidden="true"></i></a>
+            
+             <i  class="fa fa-edit" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
             </span>
           </button>
+          </a>
             
           <button class="up-button delete_campus" style="border-radius: 5px;" data-id=' . $row->election_id .  ' >
             <span>

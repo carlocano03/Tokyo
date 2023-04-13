@@ -1216,9 +1216,7 @@
                                                 <a class="up-button btn-md button-animate-right mp-text-center">
                                                     <span>Edit Election</span>
                                                 </a>
-                                                <a class="up-button-grey btn-md button-animate-right mp-text-center">
-                                                    <span>Reset Election</span>
-                                                </a>
+
 
 
                                             </div>
