@@ -107,7 +107,9 @@ Route::get('/admin/get_members', [AdminController::class, 'get_members'])->name(
 Route::get('/admin/election', [AdminController::class, 'election'])->name('admin.election.election');
 Route::get('/admin/create-election', [AdminController::class, 'createElection'])->name('admin.election.create-election');
 
-Route::get('/admin/edit-election/{id}', [AdminController::class, 'editElection'])->name('admin.election.edidt-election');
+
+Route::post('/admin/update-election-record', [AdminController::class, 'updateElectionRecord'])->name('update_election_record');
+Route::get('/admin/edit-election/{id}', [AdminController::class, 'editElection'])->name('admin.election.edit-election');
 Route::get('/admin/election-record', [AdminController::class, 'electionRecord'])->name('admin.election.election-election');
 Route::get('/admin/election-analytics', [AdminController::class, 'electionAnalytics'])->name('admin.election.election-analytics');
 
@@ -118,6 +120,8 @@ Route::post('/admin/members/update_employee_details', [HomeController::class, 'u
 //get election data
 Route::get('/admin/election-list', [AdminController::class, 'getElectionDetails'])->name('getElectionDetails');
 Route::post('/admin/countElection', [AdminController::class, 'countElection'])->name('count_election');
+Route::post('/admin/electionValidation', [AdminController::class, 'electionValidation'])->name('election_validation');
+
 
 //election saving
 Route::post('/admin/election/save-election', [AdminController::class, 'saveElection'])->name('save_election');

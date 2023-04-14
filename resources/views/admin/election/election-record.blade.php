@@ -841,7 +841,7 @@
 
                                                             </span>
                                                             <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                                                                <span>Open - Close <label class="reset_button" id="reset_time">Reset</label></span>
+                                                                <span>Open - Close </span>
                                                                 <div class="date_range d-flex">
                                                                     <input type="time" id="time_open" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                                                     <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>

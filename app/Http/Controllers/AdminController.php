@@ -2034,10 +2034,8 @@ class AdminController extends Controller
       $last_id = DB::table('election_tbl')->insertGetId($inserts_election);
 
 
-      $candidates = DB::table('candidates_tbl')->select('*')->whereRaw("candidates_tbl.election_id = $last_id ");
       return [
-        'last_id' => $last_id,
-        'candidates' => $candidates
+        'last_id' => $last_id
       ];
     });
 
@@ -2255,6 +2253,84 @@ class AdminController extends Controller
     } else {
       return redirect('/admin/election-record');
     }
+  }
+
+  public function electionValidation()
+  {
+
+    $success = false;
+
+    if (request()->has('view')) {
+      $open_election = DB::table('election_tbl')
+        ->where("status", "=", "OPEN")
+        ->count();
+
+      if ($open_election  <= 0) {
+        $update_election = DB::table('election_tbl')
+          ->where('election_id', request()->get('election_id'))
+          ->update([
+            'status' =>  "OPEN"
+          ]);
+      }
+    }
+
+    if (!empty($update_election)) {
+      $success = true;
+    } else if ($open_election >= 1) {
+      $success = false;
+    }
+    $data = array(
+      'open_election' => $open_election,
+      'success' => $success
+    );
+
+    echo json_encode($data);
+  }
+
+
+  public function updateElectionRecord(Request $request)
+  {
+    function clusterNameIdentifierUpdate($id)
+    {
+      if ($id == 1) {
+        return "Cluster 1 - DSB";
+      } else if ($id == 2) {
+        return "Cluster 2 - LBOU";
+      } else if ($id == 3) {
+        return "Cluster 3 - MLAPGH";
+      } else if ($id == 4) {
+        return "Cluster 4 - CVM";
+      }
+    }
+
+    $election_id = $request->input('election_id');
+    $election_year = $request->input('election_year');
+    $cluster_id = $request->input('cluster_id');
+    $cluster_name = clusterNameIdentifierUpdate($request->input('cluster_id'));
+    $election_date = $request->input('election_date');
+    $time_open = $request->input('user_access') == null ?  $request->input('time_open') : null;
+    $time_close = $request->input('user_access') == null ?  $request->input('time_close') : null;
+    $user_access = $request->input('user_access');
+    $status = $request->input('status');
+
+
+    $update_election = DB::table('election_tbl')
+      ->where('election_id', $election_id)
+      ->update([
+        'election_year' => $election_year,
+        'cluster_id' =>  $cluster_id,
+        'cluster_name' =>  $cluster_name,
+        'election_date' =>  $election_date,
+        'time_open' =>  $time_open,
+        'time_close' =>  $time_close,
+        'user_access' =>  $user_access,
+        'status' =>  $status,
+      ]);
+
+    if (!empty($update_election)) {
+      return redirect('/admin/edit-election/' . $election_id);
+    }
+    return redirect('/admin/edit-election/' . $election_id);
   }
   public function createElection()
   {

@@ -1252,6 +1252,9 @@
         if ($('#user_access').is(':checked')) {
             $("#time_open").prop("disabled", true);
             $("#time_close").prop("disabled", true);
+
+            $("#time_open").val("").trigger("change");
+            $("#time_close").val("").trigger("change");
             $("#user_access").val("OPEN");
         } else {
             $("#time_open").prop("disabled", false);
