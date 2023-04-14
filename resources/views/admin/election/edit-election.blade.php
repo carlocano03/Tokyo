@@ -10,12 +10,16 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </label>
                     <div class="">
-                        <label>Setup New Election Module</label>
+                        <label>Edit Election</label>
                         <br>
                         <label class="account-info">
                         </label>
                         <form id="election_form" class=" form-border-bottom" style="height: calc(100% - 100px) !important;">
                             {{ csrf_field() }}
+
+                            <input type="hidden" name="election_id" id="election_id" value="{{ $election_details->election_id }}">
+                            <input type="hidden" name="cluster_name" id="cluster_name" value="{{ $election_details->cluster_name }}">
+                            <input type="hidden" name="status" id="status" value="{{ $election_details->status }}">
                             <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
 
                                 <div class="mp-input-group">
@@ -64,15 +68,10 @@
 
 
 
-                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_election" type="submit">
-                                    <span>CREATE ELECTION</span>
+                                <a class="up-button btn-md button-animate-right mp-text-center" id="update_election_record" type="submit">
+                                    <span>UPDATE</span>
                                 </a>
-                                <a class="up-button btn-md button-animate-right mp-text-center" id="save_draft_election">
-                                    <span>SAVE DRAFT ELECTION</span>
-                                </a>
-                                <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_election">
-                                    <span>CLEAR SETUP</span>
-                                </a>
+
 
 
                             </div>
@@ -1241,9 +1240,10 @@
 
                                                     <label class="mp-input-group__label">Time Open: </label>
                                                     <label class="mp-input-group__label">{{$election_details->time_open == "" ? "Not Set" :$election_details->time_open }}</label>
-
+                                                    <br>
                                                     <label class="mp-input-group__label">Time Closed: </label>
                                                     <label class="mp-input-group__label">{{$election_details->time_close == "" ? "Not Set" :$election_details->time_close }}</label>
+
 
                                                 </div>
 
@@ -1266,12 +1266,12 @@
                                                 <br>
 
 
-                                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
+                                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="open_election" type="submit">
                                                     <span>Open Election</span>
                                                 </a>
 
-                                                <a class="up-button btn-md button-animate-right mp-text-center">
-                                                    <span>Edit Election</span>
+                                                <a id="open_edit_modal" class="up-button btn-md button-animate-right mp-text-center">
+                                                    <span>Update Election</span>
                                                 </a>
 
 
@@ -1487,13 +1487,32 @@
         }, 100)
     })
 
-    $(document).on('click', '#setupElection', function(e) {
+    $(document).on('click', '#open_edit_modal', function(e) {
 
         $("#modalBackDrop").removeClass("d-none")
         $("#candidateModal").addClass("d-none")
         $("#candidateModal").addClass("opacity-0")
         $("#electionModal").removeClass("d-none")
         $("#electionModal").removeClass("opacity-0")
+
+        var cluster_id = <?php echo json_encode($election_details->cluster_id) ?>;
+        var election_year = <?php echo json_encode($election_details->election_year) ?>;
+        var election_date = <?php echo json_encode($election_details->election_date) ?>;
+        var time_open = <?php echo json_encode($election_details->time_open) ?>;
+        var time_close = <?php echo json_encode($election_details->time_close) ?>;
+        var user_access = <?php echo json_encode($election_details->user_access) ?>;
+
+
+        //realtime value
+        $("#cluster_id").val(cluster_id).trigger("change");
+        $("#election_year").val(election_year).trigger("change");
+        $("#election_date").val(election_date).trigger("change");
+        $("#time_open").val(time_open).trigger("change");
+        $("#time_close").val(time_close).trigger("change");
+        $("#user_access").val(user_access).trigger("change");
+
+
+
         setTimeout(function() {
             $("#modalBackDrop").removeClass("opacity-0")
         }, 100)
@@ -1568,6 +1587,41 @@
 
     })
 
+    $(document).on('click', '#update_election_record', function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var formData = $("#election_form").serialize();
+        console.log(formData)
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('update_election_record') }}",
+            data: formData,
+            success: function(data) {
+                reset();
+                if (data.success != '') {
+                    console.log(data)
+                    Swal.fire({
+                        text: 'Election has been Updated Successfully.',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+
+                    setTimeout(function() {
+                        location.reload();
+                    }, 500)
+
+                }
+                closeModal();
+
+            }
+        });
+    });
+
     $(document).on('click', '#save_election', function() {
         $.ajaxSetup({
             headers: {
@@ -1579,36 +1633,6 @@
         $.ajax({
             type: 'POST',
             url: "{{ route('save_election') }}",
-            data: formData,
-            success: function(data) {
-                reset();
-                if (data.success != '') {
-                    console.log(data)
-                    Swal.fire({
-                        text: 'Election has been added Successfully.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Ok',
-                    });
-
-                }
-                closeModal();
-
-            }
-        });
-    });
-
-    $(document).on('click', '#save_draft_election', function() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        var formData = $("#election_form").serialize();
-        $.ajax({
-            type: 'POST',
-            url: "{{ route('save_election_draft') }}",
             data: formData,
             success: function(data) {
                 reset();
@@ -1627,6 +1651,56 @@
             }
         });
     });
+
+    $(document).on('click', '#open_election', function() {
+
+
+
+        var formData = $("#election_id").serialize();
+        getElectionStatus();
+        console.log("click");
+
+
+
+
+    });
+
+    function getElectionStatus(view = '') {
+
+        var election_id = <?php echo json_encode($election_details->election_id) ?>;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            url: "{{ route('election_validation') }}",
+            method: "POST",
+            data: {
+                view: view,
+                election_id: election_id
+            },
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                if (data.open_election <= 0) {
+                    Swal.fire({
+                        text: 'Election is now open!',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+                } else {
+                    Swal.fire({
+                        text: 'An existing election is open!',
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+                }
+            }
+        });
+    }
 
     $(document).on('click', '#clear_election', function() {
         reset();
