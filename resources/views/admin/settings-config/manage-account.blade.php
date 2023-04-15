@@ -444,29 +444,29 @@
                     <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">First Name</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="firstname" id="firstname" required />
+                      <input class="mp-input-group__input mp-text-field" type="text" name="firstname" id="firstname" required data-set="manage-account-validation" data-type="text"/>
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Middle Name</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required />
+                      <input class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required data-set="manage-account-validation" data-type="text"/>
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Last Name</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="lastname" id="lastname" required />
+                      <input class="mp-input-group__input mp-text-field" type="text" name="lastname" id="lastname" required data-set="manage-account-validation" data-type="text"/>
                     </div>
 
 
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Contact No.</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact_no" required />
+                      <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact_no" required data-set="manage-account-validation"/>
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Username/Email</label>
-                      <input class="mp-input-group__input mp-text-field" type="email" name="email" id="email" required />
+                      <input class="mp-input-group__input mp-text-field" type="email" name="email" id="email" required data-set="manage-account-validation"/>
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Password</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" id="initial_pass" name="initial_pass" readonly placeholder="AUTO GENERATE" required />
+                      <input class="mp-input-group__input mp-text-field" type="text" id="initial_pass" name="initial_pass" readonly placeholder="AUTO GENERATE" required data-set="manage-account-validation" data-type="text"/>
 
                     </div>
                     <a class="up-button-green btn-md button-animate-right mp-text-center" id="generate_password">
@@ -474,7 +474,7 @@
                     </a>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">User Level</label>
-                      <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="user_level" id="user_level" required>
+                      <select class="js-example-responsive mp-input-group__input mp-text-field select-error" style="width:100%;" name="user_level" id="user_level" required data-set="manage-account-validation" data-type="text">
                         <option value="">Select User Level</option>
                         <option value="AO">AO</option>
                         <option value="CFM">CFM</option>
@@ -485,7 +485,7 @@
                     </div>
                     <div class="mp-input-group cfm_div">
                       <label class="mp-input-group__label">AA/CFM Cluster No.</label>
-                      <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="cfm_cluster" id="cfm_cluster" required>
+                      <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="cfm_cluster" id="cfm_cluster" required data-set="manage-account-validation" data-type="text">
                         <option value="">Select Cluster No.</option>
                         <option value="1">Cluster 1 - DSB</option>
                         <option value="2">Cluster 2 - LBOU</option>
@@ -497,7 +497,7 @@
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Select Campus</label>
 
-                      <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
+                      <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required data-set="manage-account-validation" data-type="text">
                         <option value="">Select Campus</option>
                         @foreach($campus as $row)
                         <option value="{{ $row->id }}">{{ $row->name }}</option>
@@ -727,6 +727,7 @@
   });
   $('.cfm_div').hide();
   $(document).on('change', '#user_level', function() {
+    clearValidation('cfm_cluster', 'manage-account-validation', $('[data-set=manage-account-validation][name=cfm_cluster]'))
     if ($(this).val() == 'CFM') {
       $('.cfm_div').show();
     } else if ($(this).val() == 'AA') {
@@ -749,7 +750,145 @@
     $("#initial_pass").val(random);
 
   });
+
+  const inputField = document.querySelector('[name=contact_no]');
+
+  function formatInput(event) {
+        if (event.inputType == 'deleteContentBackward') {
+            let input = inputField.value;
+            if (input.length <= 3) {
+                inputField.value = '+63';
+            }
+            return
+        }
+        if (event.inputType == 'insertText') {
+            let input = inputField.value;
+            if (input == '+630' && input.length <= 4) {
+                inputField.value = '+63';
+                return
+            }
+
+        }
+
+        let input = inputField.value;
+        let formattedInput = input.replace(/\D/g, '');
+
+        // Set placeholder
+        inputField.placeholder = "XXXXXXXXXX";
+        if (formattedInput === '') {
+            // If the input is empty, display the "+63 " prefix
+            formattedInput = '+63';
+        } else if (formattedInput.startsWith('63')) {
+            // If the input starts with "63", replace it with "+63 " 
+
+            formattedInput = '+63' + formattedInput.slice(2);
+            let newformat = []
+            for (let x = 0; x < formattedInput.length; x++) {
+                newformat.push(formattedInput[x])
+                if (x == 2) {
+                    newformat.push('-')
+                }
+                if (x == 5) {
+                    newformat.push('-')
+                }
+                if (x == 8) {
+                    newformat.push('-')
+                }
+            }
+            formattedInput = newformat.toString().replace(/,/g, '')
+        } else if (formattedInput.length >= 4) {
+            // If the input has at least 4 digits, add the country code and separate the digits with spaces
+
+            formattedInput = '+63' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
+        } else if (formattedInput.length >= 1) {
+            // If the input has at least 1 digit, add the country code
+            formattedInput = '+63' + formattedInput;
+        }
+        // Limit the formatted input to 10 digits
+
+        formattedInput = formattedInput.slice(0, 16);
+
+        inputField.value = formattedInput;
+    }
+    document.addEventListener('DOMContentLoaded', formatInput);
+    inputField.addEventListener('input', formatInput);
+
   $(document).on('click', '#save_users', function() {
+    let hasError = false
+    const elements = $(document).find(`[data-set=manage-account-validation]`)
+    console.log(elements)
+    elements.map(function (){
+      if($(this).attr('err-name')) {
+        return
+      }
+      if($(this).attr('data-type') != 'text') return 
+      let status = true
+      status = validateField({
+        element: $(this),
+        target: 'manage-account-validation'
+      })
+      
+      if($(this).attr('name') == 'cfm_cluster') {
+        if(status && $('[data-set=manage-account-validation][name=user_level]').val() == "CFM") {
+          hasError = true
+        }
+        return
+      }
+      
+
+      if(!hasError && status) {
+        hasError = true
+      }
+    })
+    const email = $('[name=email]').val()
+    if (email.length == 0) {
+      status = validateField({
+        element:  $('[name=email]'),
+        target: 'manage-account-validation',
+        errText: "Invalid email."
+      })
+      hasError = true
+    } else {
+      var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+      if(emailRegex.test(email) == false) {
+        status = validateField({
+          element:  $('[name=email]'),
+          target: 'manage-account-validation',
+          errText: "Invalid email."
+        })
+        hasError = true
+      } else {
+        clearValidation('email', 'manage-account-validation', $('[name=email]'))
+      }
+    }
+    
+
+    const phoneRegex = /^(09|\+639)\d{9}$/;
+    const mobile_number = $("input[name=contact_no]")
+
+    if (!phoneRegex.test(mobile_number.val().replace(/-/g, ''))) {
+      status = validateField({
+          element: mobile_number,
+          target: 'manage-account-validation',
+          errText: 'Invalid contact number.',
+          isError: true
+      })
+      hasError = true
+    }
+    else {
+      status = validateField({
+          element: mobile_number,
+          target: 'manage-account-validation',
+          errText: 'Invalid contact number.',
+      })
+    }
+
+    
+    if(hasError) {
+      return
+    }
+    console.log('no error')
+
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -784,6 +923,9 @@
               $('#users_id').val('');
               $('.save_up').text('Save Record');
               $('.clear_txt').text('Clear');
+              $('#user_level').val('').trigger("change");
+              $('#campus').val('').trigger("change");
+              $('#cfm_cluster').val('').trigger("change");
               users_table.draw();
             } else {
               Swal.fire({
@@ -820,6 +962,11 @@
               $("#users_form")[0].reset();
               $('.save_up').text('Save Record');
               $('.clear_txt').text('Clear');
+              $('#user_level').val('').trigger("change");
+              $('#campus').val('').trigger("change");
+              $('#cfm_cluster').val('').trigger("change");
+              $("[name=contact_no]").val("+63")
+             
               users_table.draw();
             }
 
@@ -850,12 +997,13 @@
         $('#contact_no').val(data.contact_no);
         $('#initial_pass').val(data.intial_password);
         $('#user_level').val(data.user_level);
+
         if (data.user_level == "CFM") {
           $('.cfm_div').show();
-          $('#cfm_cluster').val(data.cfm_cluster);
-        } else if (data.user_level == "AA") {
+          $('#cfm_cluster').val(data.cfm_cluster).trigger("change");
+        } else if (data.user_level == "AO") {
           $('.cfm_div').show();
-          $('#cfm_cluster').val(data.cfm_cluster);
+          $('#cfm_cluster').val(data.cfm_cluster).trigger("change");
         } else {
           $('.cfm_div').hide();
           $('#cfm_cluster').val('');
@@ -907,6 +1055,9 @@
     $('#users_id').val('');
     $('.save_up').text('Save Record');
     $('.clear_txt').text('Clear');
+    $('#user_level').val('').trigger("change");
+    $('#campus').val('').trigger("change");
+    $('#cfm_cluster').val('').trigger("change");
   });
   $(document).on('click', '.remove_users', function() {
     $.ajaxSetup({
@@ -943,6 +1094,9 @@
               $('#users_id').val('');
               $('.save_up').text('Save Record');
               $('.clear_txt').text('Clear');
+              $('#user_level').val('').trigger("change");
+              $('#campus').val('').trigger("change");
+              $('#cfm_cluster').val('').trigger("change");
               users_table.draw();
             }
           }

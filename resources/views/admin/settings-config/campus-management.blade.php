@@ -98,15 +98,15 @@
                       <input type="hidden" id="campus_id" name="campus_id">
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Campus Key</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_key" id="campus_key" required="" data-set="validate-campus">
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Campus Name</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_name" id="campus_name" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="campus_name" id="campus_name" required="" data-set="validate-campus">
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Campus Cluster No.</label>
-                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="cluster_id" id="cluster_id" required>
+                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="cluster_id" id="cluster_id" required data-set="validate-campus">
                           <option value="">Select Cluster No.</option>
                           <option value="1">Cluster 1 - DSB</option>
                           <option value="2">Cluster 2 - LBOU</option>
@@ -235,8 +235,31 @@
     $('#campus_id').val('');
     $('.save_up').text('Save Record');
     $('.clear_txt').text('Clear');
+    $('#cluster_id').val('').trigger("change");
   });
   $(document).on('click', '#save_campus', function() {
+
+    let hasError = false
+
+    const elements = $(document).find(`[data-set=validate-campus]`)
+
+    elements.map(function () {
+      if($(this).attr('err-name')) {
+        return
+      }
+      let status = true
+      status = validateField({
+        element: $(this),
+        target: 'validate-campus'
+      })
+
+      if(!hasError && status) {
+        hasError = true
+      }
+    })
+
+    if(hasError) return
+
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -257,7 +280,8 @@
               confirmButtonText: 'Ok',
             });
             $("#campus_form")[0].reset();
-            $('#campus_id').val('');
+            $('#campus_id').val('').trigger("change");
+            $('#cluster_id').val('').trigger("change");
             $('.save_up').text('Save Record');
             $('.clear_txt').text('Clear');
 
@@ -281,6 +305,8 @@
               confirmButtonText: 'Ok',
             });
             $("#campus_form")[0].reset();
+            $('#campus_id').val('').trigger("change");
+            $('#cluster_id').val('').trigger("change");
             $('.save_up').text('Save Record');
             $('.clear_txt').text('Clear');
             campus_table.draw();
@@ -323,7 +349,8 @@
                 confirmButtonText: 'Ok',
               });
               $("#campus_form")[0].reset();
-              $('#campus_id').val('');
+              $('#campus_id').val('').trigger("change");
+              $('#cluster_id').val('').trigger("change");
               $('.save_up').text('Save Record');
               $('.clear_txt').text('Clear');
               campus_table.draw();
@@ -352,7 +379,7 @@
         $('#campus_id').val(data.id);
         $('#campus_key').val(data.campus_key);
         $('#campus_name').val(data.name);
-        $('#cluster_id').val(data.cluster_id);
+        $('#cluster_id').val(data.cluster_id).trigger("change");
         $('.save_up').text('Update Record');
         $('.clear_txt').text('Cancel');
       }

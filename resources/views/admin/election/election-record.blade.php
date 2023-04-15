@@ -707,12 +707,23 @@
     .create-button button {
         padding: 11px;
     }
+
+    .reset_button {
+        float: right;
+        cursor: pointer;
+        padding: 0px !important;
+        margin: 0px !important;
+    }
+
+    .reset_button:hover {
+        color: grey;
+    }
 </style>
 
 
 
 <div class="filler"></div>
-<div class="col-12  mp-text-fs-large mp-text-c-accent  dashboard mh-content" style="padding:0px !important;">
+<div class="col-12  mp-text-fs-large mp-text-c-accent  dashboard " style="overflow-x: auto !important; padding:5px !important;">
 
 
     <div class="container-fluid">
@@ -761,25 +772,25 @@
                                         <div class=" card d-flex justify-content-around   flex-row">
                                             <div class="text-center">
                                                 <div>
-                                                    <span class="font-bold font-lg">69</span>
+                                                    <span class="font-bold font-lg" id="ongoing_electon"></span>
                                                 </div>
                                                 <span class="font-sm">On Going Election</span>
                                             </div>
                                             <div class="text-center">
                                                 <div>
-                                                    <span class="font-bold font-lg">10</span>
+                                                    <span class="font-bold font-lg" id="close_election"></span>
                                                 </div>
                                                 <span class="font-sm">Closed Election</span>
                                             </div>
                                             <div class="text-center">
                                                 <div>
-                                                    <span class="font-bold font-lg">1</span>
+                                                    <span class="font-bold font-lg" id="total_sg15"></span>
                                                 </div>
                                                 <span class="font-sm">Total Number of Voters(SG 1-15)</span>
                                             </div>
                                             <div class="text-center">
                                                 <div>
-                                                    <span class="font-bold font-lg">40</span>
+                                                    <span class="font-bold font-lg" id="total_sg16"></span>
                                                 </div>
                                                 <span class="font-sm">Total Number of Voters(SG 16)</span>
                                             </div>
@@ -793,83 +804,70 @@
                                                     <div class="card-header filtering items-between d-flex">
                                                         <span>Filtering Section</span>
                                                         <span class="mp-pr2">
+                                                            <button class="up-button-grey f-button font-bold" id="reset">Clear</button>
+                                                            <button class="f-button font-bold">Export</button>
                                                             <button class="f-button font-bold up-button-green">Print</button>
-                                                            <button class="f-button font-bold up-button">Download</button>
                                                         </span>
                                                     </div>
 
 
                                                     <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
 
-                                                        <div class="table-form w-full" style="grid-template-columns: repeat(12, 1fr);">
+                                                        <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr); font-size:12px;">
                                                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                                <span>Election Date</span>
-                                                                <input type="date" name="" id="">
+                                                                <span>Year</span>
+                                                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="election_year">
+                                                                    <option value="">Show All</option>
+                                                                    @for ($i = 2023; $i <= 2099; $i++) <option value="{{ $i }}">
+                                                                        {{ $i }}
+                                                                        </option>
+                                                                        @endfor
+                                                                </select>
                                                             </span>
                                                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                                                 <span>Cluster</span>
-                                                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
+                                                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster">
                                                                     <option value="">Show All</option>
+                                                                    <option value="1">Cluster 1 - DSB</option>
+                                                                    <option value="2">Cluster 2 - LBOU</option>
+                                                                    <option value="3">Cluster 3 - MLAPGH</option>
+                                                                    <option value="4">Cluster 4 - CVM</option>
                                                                 </select>
                                                             </span>
-                                                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                                <span>Year</span>
-                                                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
-                                                                    <option value="">Show All</option>
-                                                                </select>
+                                                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
+                                                                <span>Election Date</span>
+
+                                                                <input type="date" id="election_date" class="radius-1 border-1 date-input outline" style="height: 30px;">
+
                                                             </span>
-                                                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                                <span>OPEN/CLOSED</span>
-                                                                <input type="date" name="" id="">
-                                                            </span>
-                                                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                                <span>Date Created</span>
-                                                                <input type="date" name="" id="">
+                                                            <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
+                                                                <span>Open - Close </span>
+                                                                <div class="date_range d-flex">
+                                                                    <input type="time" id="time_open" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                                    <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
+                                                                    <input type="time" id="time_close" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                                </div>
                                                             </span>
                                                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                                                 <span>Status</span>
-                                                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
+                                                                <select name="status" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status">
                                                                     <option value="">Show All</option>
+                                                                    <option value="OPEN">OPEN</option>
+                                                                    <option value="CLOSE">CLOSE</option>
+                                                                    <option value="DRAFT">DRAFT</option>
+
                                                                 </select>
                                                             </span>
 
                                                         </div>
-                                                        <!-- <div class="">
-                                            <label for="row">Membership Date</label>
-                                            <div class="row date_range">
-                                                <input type="date" id="from" class="radius-1 border-1 date-input outline"
-                                                    style="height: 30px;">
-                                                <span for="" class="self_center mv-1"
-                                                    style="margin-left:15px; margin-right:15px;">to</span>
-                                                <input type="date" id="to" class="radius-1 border-1 date-input outline"
-                                                    style="height: 30px;">
-                                            </div>
-                                        </div> -->
-
                                                     </div>
                                                 </div>
                                                 <div class="card d-flex flex-column">
                                                     <div class="d-flex flex-row items-between">
-                                                        <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value" />
-                                                        <!-- <span class="d-flex flex-row gap-10 justify-content-center align-items-center">
-                                <select name="" id="" class="radius-1 outline select-field" style="height: 30px">
-                                    <option value="">
-                                        Select Action
-                                    </option>
-                                    <option value="">
-                                        Forward to HRDO
-                                    </option>
-                                    <option value="">
-                                        Forward to CFM
-                                    </option>
-                                </select>
-                                <span>
-                                    <button class="f-button mar-bg" id="modal_proceed">Proceed</button>
-                                </span>
-                            </span> -->
+
                                                     </div>
-                                                    <div class="mp-mt3 table-container">
-                                                        <table class="members-table" style="height: auto;" width="100%">
+                                                    <div class="mp-mt3  ">
+                                                        <table class="members-table" id="election_table" style="height: auto;" width="100%">
                                                             <thead>
                                                                 <tr>
 
@@ -880,32 +878,26 @@
                                                                         <span>ELECTION YEAR</span>
                                                                     </th>
                                                                     <th>
-                                                                        <span>CLUSTER</span>
-                                                                    </th>
-                                                                    <th>
-                                                                        <span>SG CATEGORY</span>
-                                                                    </th>
-                                                                    <th>
                                                                         <span>ELECTION DATE</span>
                                                                     </th>
+
+
                                                                     <th>
-                                                                        <span>DATE/TIME OPENED</span>
+                                                                        <span> TIME OPENED</span>
                                                                     </th>
                                                                     <th>
-                                                                        <span>DATE/TIME CLOSED</span>
+                                                                        <span> TIME CLOSED</span>
                                                                     </th>
                                                                     <th>
-                                                                        <span>REMAINING TIME</span>
+                                                                        <span>USER ACCESS</span>
                                                                     </th>
                                                                     <th>
-                                                                        <span>DATE CREATED</span>
+                                                                        <span>CLUSTER</span>
                                                                     </th>
                                                                     <th>
                                                                         <span>STATUS</span>
                                                                     </th>
-                                                                    <th>
-                                                                        <span>NO OF VOTERS</span>
-                                                                    </th>
+
                                                                     <th>
                                                                         <span>Action</span>
                                                                     </th>
@@ -955,5 +947,127 @@
         }
 
     })
+
+    $(document).ready(function() {
+        getElectionCount();
+        election_table = $('#election_table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('getElectionDetails') }}",
+                "data": function(data) {
+                    data.time_open = $('#time_open').val();
+                    data.time_close = $('#time_close').val();
+                    data.status = $('#status').val();
+                    data.election_date = $('#election_date').val();
+                    data.election_year = $('#election_year').val();
+                    data.cluster = $('#cluster').val();
+                },
+            },
+            columns: [{
+                    data: 'election_id',
+                    name: 'election_id'
+                },
+                {
+                    data: 'election_year',
+                    name: 'election_year'
+                },
+                {
+                    data: 'election_date',
+                    name: 'election_date'
+                },
+                {
+                    data: 'time_open',
+                    name: 'time_open'
+                },
+                {
+                    data: 'time_close',
+                    name: 'time_close'
+                },
+                {
+                    data: 'user_access',
+                    name: 'user_access'
+                },
+                {
+                    data: 'cluster_id',
+                    name: 'cluster_id'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+
+                {
+                    data: 'action',
+                    name: 'action',
+
+                },
+
+
+            ]
+        });
+        $('#status').on('change', function() {
+            election_table.draw();
+        });
+        $('#election_year').on('change', function() {
+            election_table.draw();
+        });
+        $('#election_date').on('change', function() {
+            election_table.draw();
+        });
+        $('#cluster').on('change', function() {
+            election_table.draw();
+        });
+        $('#time_open').on('change', function() {
+            election_table.draw();
+        });
+        $('#time_close').on('change', function() {
+            election_table.draw();
+        });
+        $('#reset_time').on('click', function() {
+            $('#time_open').val("").trigger("change");
+            $('#time_close').val("").trigger("change");
+            election_table.draw();
+        });
+
+        $('#reset').on('click', function() {
+            resetFilterDate()
+            election_table.draw();
+        });
+
+    });
+
+
+    function resetFilterDate() {
+        $('#time_open').val("").trigger("change");
+        $('#time_close').val("").trigger("change");
+        $('#cluster').val("").trigger("change");
+        $('#election_date').val("").trigger("change");
+        $('#status').val("").trigger("change");
+        $('#election_year').val("").trigger("change");
+    }
+
+    function getElectionCount(view = '') {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('count_election') }}",
+            method: "POST",
+            data: {
+                view: view
+            },
+            dataType: "json",
+            success: function(data) {
+                $('#ongoing_electon').text(data.total_ongoing > 0 ? data.total_ongoing : "0");
+                $('#close_election').text(data.total_close > 0 ? data.total_close : "0");
+                $('#total_sg15').text(data.total_SG15 > 0 ? data.total_SG15 : "0");
+                $('#total_sg16').text(data.total_SG16 > 0 ? data.total_SG16 : "0");
+            }
+        });
+    }
 </script>
 @endsection

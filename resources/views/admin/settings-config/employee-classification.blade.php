@@ -158,11 +158,11 @@
                       <input type="hidden" id="app_trailNo">
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Classification Name</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="classif_name" id="classif_name" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="classif_name" id="classif_name" required="" data-set="validate-classification">
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Status</label>
-                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required data-set="validate-classification">
                           <option value="1">Active</option>
                           <option value="0">In Active</option>
                         </select>
@@ -175,7 +175,7 @@
                       <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_class" type="submit">
                         <span>Save Record</span>
                       </a>
-                      <a class="up-button-grey btn-md button-animate-right mp-text-center">
+                      <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_form">
                         <span>Clear</span>
                       </a>
                       <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
@@ -261,7 +261,36 @@
     }
 
   })
+  $(document).on('click', '#clear_form', function(e) {
+    $('#classif_name').val('');
+    $('#status').val(1);
+  })
   $(document).on('click', '#save_class', function() {
+
+
+    let hasError = false
+
+    const elements = $(document).find(`[data-set=validate-classification]`)
+
+    elements.map(function () {
+
+      if($(this).attr('err-name')) {
+        return
+      }
+
+      let status = true
+      status = validateField({
+        element: $(this),
+        target: 'validate-classification'
+      })
+
+      if(!hasError && status) {
+        hasError = true
+      }
+    })
+
+    if(hasError) return
+
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -274,6 +303,8 @@
       url: "{{ route('save-class') }}",
       data: formData,
       success: function(data) {
+        $('#classif_name').val('');
+        $('#status').val(1);
         if (data.success != '') {
           Swal.fire({
             text: 'Classification Name has been added Successfully.',
@@ -335,6 +366,8 @@
         status: status
       },
       success: function(data) {
+        $('#classif_name').val('');
+        $('#status').val(1);
         if (data.success != '') {
           Swal.fire({
             text: 'Status has been added Changed.',

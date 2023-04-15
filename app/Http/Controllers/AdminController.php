@@ -9,9 +9,13 @@ use DB;
 use PDF;
 use Excel;
 use DataTables;
+use App\Models\Election;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\processMail;
+use GrahamCampbell\ResultType\Success;
+
+
 // use Illuminate\Support\Facades\Log;
 class AdminController extends Controller
 {
@@ -251,7 +255,15 @@ class AdminController extends Controller
 
   public function members_analytics()
   {
-    return view('admin.members.analytics');
+    $campuses = DB::table('campus')->get();
+    $data = array(
+      'campuses' => $campuses,
+      // 'user_privileges' => DB::table('users')
+      // ->join('user_prev', 'users.id', '=', 'user_prev.users_id')
+      // ->where('users.id', $user->id)
+      // ->get()
+    );
+    return view('admin.members.analytics')->with($data);
   }
 
   public function members_view_record($id)
@@ -1559,7 +1571,7 @@ class AdminController extends Controller
     );
     return view('admin.members.view.fmvalidation')->with($data);
   }
-  
+
 
   public function members_application_trail()
   {
@@ -1896,7 +1908,7 @@ class AdminController extends Controller
     } else if ($users == 'CFM') {
       $href = '/admin/members/records/view/aa/';
     }
-    
+
 
     $posts = $records->skip($start)
       ->take($rowperpage)
@@ -1956,13 +1968,378 @@ class AdminController extends Controller
   {
     return view('admin.election.election');
   }
+
+  //save election
+  public function saveElection(Request $request)
+  {
+    function clusterNameIdentifier($id)
+    {
+      if ($id == 1) {
+        return "Cluster 1 - DSB";
+      } else if ($id == 2) {
+        return "Cluster 2 - LBOU";
+      } else if ($id == 3) {
+        return "Cluster 3 - MLAPGH";
+      } else if ($id == 4) {
+        return "Cluster 4 - CVM";
+      }
+    }
+
+    $datadb = DB::transaction(function () use ($request) {
+      $inserts_election = array(
+        'election_year' => $request->input('election_year'),
+        'cluster_id' => $request->input('cluster_id'),
+        'cluster_name' => clusterNameIdentifier($request->input('cluster_id')),
+        'election_date' => $request->input('election_date'),
+        'time_open' => $request->input('user_access') == null ?  $request->input('time_open') : null,
+        'time_close' => $request->input('user_access') == null ?  $request->input('time_close') : null,
+        'user_access' => $request->input('user_access'),
+        'status' => "CLOSE"
+      );
+      $last_id = DB::table('election_tbl')->insertGetId($inserts_election);
+      return [
+        'last_id' => $last_id,
+      ];
+    });
+    return response()->json(['success' => $datadb['last_id']]);
+  }
+
+
+  public function saveElectionDraft(Request $request)
+  {
+    function clusterNameIdentifierDraft($id)
+    {
+      if ($id == 1) {
+        return "Cluster 1 - DSB";
+      } else if ($id == 2) {
+        return "Cluster 2 - LBOU";
+      } else if ($id == 3) {
+        return "Cluster 3 - MLAPGH";
+      } else if ($id == 4) {
+        return "Cluster 4 - CVM";
+      }
+    }
+    $datadb = DB::transaction(function () use ($request) {
+      $inserts_election = array(
+        'election_year' => $request->input('election_year'),
+        'cluster_id' => $request->input('cluster_id'),
+        'cluster_name' => clusterNameIdentifierDraft($request->input('cluster_id')),
+        'election_date' => $request->input('election_date'),
+        'time_open' => $request->input('user_access') == null ?  $request->input('time_open') : null,
+        'time_close' => $request->input('user_access') == null ?  $request->input('time_close') : null,
+        'user_access' => $request->input('user_access'),
+        'status' => "DRAFT"
+      );
+
+      $last_id = DB::table('election_tbl')->insertGetId($inserts_election);
+
+
+      return [
+        'last_id' => $last_id
+      ];
+    });
+
+
+
+    return response()->json([
+      'success' => true,
+      'last_id' => $datadb['last_id'],
+    ]);
+  }
+
+
+  public function getElectionDetails(Request $request)
+  {
+    $columns = [
+      0 => 'election_id',
+      1 => 'election_year',
+      2 => 'election_date',
+      3 => 'time_open',
+      4 => 'time_close',
+      5 => 'user_access',
+      6 => 'cluster_id',
+      7 => 'status'
+    ];
+    $totalData = Election::count();
+    $limit = $request->input('length');
+    $start = $request->input('start');
+    $order = $columns[$request->input('order.0.column')];
+    $dir = $request->input('order.0.dir');
+    $searchValue =  $request->input('search.value');
+    $status_select = $request->input('status');
+    $time_open  = $request->get('time_open');
+    $time_close  = $request->get('time_close');
+
+    $election_date  = $request->get('election_date');
+    $election_year  = $request->get('election_year');
+    $cluster = $request->get('cluster');
+
+    //filter codes
+    if (!empty($searchValue)) {
+      $election = DB::table('election_tbl')
+        ->where('election_id', 'like', "%{$searchValue}%")
+        ->orWhere('election_year', 'like', "%{$searchValue}%")
+        ->orWhere('status', 'like', "%{$searchValue}%")
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    } else {
+      $election = DB::table('election_tbl')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($status_select)) {
+      $election = DB::table('election_tbl')
+        ->where('status', '=',  $status_select)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($election_date)) {
+      $election = DB::table('election_tbl')
+        ->where('election_date', '=',  $election_date)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($election_year)) {
+      $election = DB::table('election_tbl')
+        ->where('election_year', '=',  $election_year)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($cluster)) {
+      $election = DB::table('election_tbl')
+        ->where('cluster_id', '=',  $cluster)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($time_open) && !empty($time_close)) {
+      $election = DB::table('election_tbl')
+        ->where('time_open', '>=',  $time_open)
+        ->where('time_close', '<=',  $time_close)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($election_year) && !empty($cluster)) {
+      $election = DB::table('election_tbl')
+        ->where('election_year', '=',  $election_year)
+        ->where('cluster_id', '=',  $cluster)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($election_year) && !empty($cluster) && !empty($election_date)) {
+      $election = DB::table('election_tbl')
+        ->where('election_year', '=',  $election_year)
+        ->where('cluster_id', '=',  $cluster)
+        ->where('election_date', '=',  $election_date)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($election_year) && !empty($cluster) && !empty($election_date) && !empty($status_select)) {
+      $election = DB::table('election_tbl')
+        ->where('election_year', '=',  $election_year)
+        ->where('cluster_id', '=',  $cluster)
+        ->where('election_date', '=',  $election_date)
+        ->where('status_select', '=',  $status_select)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+
+
+    $totalFiltered = Election::when($searchValue, function ($query) use ($searchValue) {
+      $query->where('election_id', 'like', "%{$searchValue}%")->orWhere('election_id', 'like', "%{$searchValue}%");
+    })
+      ->count();
+
+    $data = [];
+    foreach ($election as $row) {
+      $nestedData['election_id'] = $row->election_id;
+      $nestedData['election_year'] = $row->election_year;
+      $nestedData['election_date'] = $row->election_date;
+      $nestedData['time_open'] = $row->time_open;
+      $nestedData['time_close'] = $row->time_close;
+      $nestedData['user_access'] = $row->user_access;
+      $nestedData['cluster_id'] = $row->cluster_name;
+      $nestedData['status'] = $row->status;
+      $nestedData['action'] = '
+          <a href="/admin/edit-election/' . $row->election_id .  '" style="padding:0px !important; color:white;"> 
+            <button class="up-button-green edit_campus" style="border-radius: 5px;" data-id='  . $row->election_id . ' >
+            <span>
+            
+             <i  class="fa fa-edit" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
+            </span>
+          </button>
+          </a>
+            
+          <button class="up-button delete_campus" style="border-radius: 5px;" data-id=' . $row->election_id .  ' >
+            <span>
+              <i class="fa fa-trash" style="color:white;padding:3px;font-size:17px;" aria-hidden="true"></i>
+            </span>
+          </button>';
+
+      $data[] = $nestedData;
+    }
+    $json_data = [
+      "draw" => intval($request->input('draw')),
+      "recordsTotal" => intval($totalData),
+      "recordsFiltered" => intval($totalFiltered),
+      "data" => $data,
+    ];
+
+    return response()->json($json_data);
+  }
+
+
+  //count election details 
+  public function countElection()
+  {
+    if (request()->has('view')) {
+      $total_ongoing = DB::table('election_tbl')->where('status', 'OPEN')->count();
+      $total_close = DB::table('election_tbl')->where('status', 'CLOSE')->count();
+
+      //inner join to employee
+      $total_SG15 = DB::table('membership_id')
+        ->join("employee_details", "membership_id.employee_no", "=", "employee_details.employee_no")
+        ->select("membership.*", "employee_details.salary_grade")
+        ->whereBetween("salary_grade", [1, 15])
+        ->count();
+
+      $total_SG16 = DB::table('membership_id')
+        ->join("employee_details", "membership_id.employee_no", "=", "employee_details.employee_no")
+        ->select("membership.*", "employee_details.salary_grade")
+        ->whereBetween("salary_grade", [16, 30])
+        ->count();
+    }
+
+    $data = array(
+      'total_ongoing' => $total_ongoing,
+      'total_close' => $total_close,
+      'total_SG15' => $total_SG15,
+      'total_SG16' => $total_SG16,
+    );
+
+    echo json_encode($data);
+  }
+
+  public function editElection($id)
+  {
+    $election_details = DB::table('election_tbl')
+      ->where('election_id', '=',  $id)
+      ->get()->first();
+
+    $data['election_details'] = $election_details;
+    $data['candidates'] = $election_details;
+
+    if (!empty($election_details)) {
+      return view('admin.election.edit-election', compact('election_details'));
+    } else {
+      return redirect('/admin/election-record');
+    }
+  }
+
+  public function electionValidation()
+  {
+
+    $success = false;
+
+    if (request()->has('view')) {
+      $open_election = DB::table('election_tbl')
+        ->where("status", "=", "OPEN")
+        ->count();
+
+      if ($open_election  <= 0) {
+        $update_election = DB::table('election_tbl')
+          ->where('election_id', request()->get('election_id'))
+          ->update([
+            'status' =>  "OPEN"
+          ]);
+      }
+    }
+
+    if (!empty($update_election)) {
+      $success = true;
+    } else if ($open_election >= 1) {
+      $success = false;
+    }
+    $data = array(
+      'open_election' => $open_election,
+      'success' => $success
+    );
+
+    echo json_encode($data);
+  }
+
+
+  public function updateElectionRecord(Request $request)
+  {
+    function clusterNameIdentifierUpdate($id)
+    {
+      if ($id == 1) {
+        return "Cluster 1 - DSB";
+      } else if ($id == 2) {
+        return "Cluster 2 - LBOU";
+      } else if ($id == 3) {
+        return "Cluster 3 - MLAPGH";
+      } else if ($id == 4) {
+        return "Cluster 4 - CVM";
+      }
+    }
+
+    $election_id = $request->input('election_id');
+    $election_year = $request->input('election_year');
+    $cluster_id = $request->input('cluster_id');
+    $cluster_name = clusterNameIdentifierUpdate($request->input('cluster_id'));
+    $election_date = $request->input('election_date');
+    $time_open = $request->input('user_access') == null ?  $request->input('time_open') : null;
+    $time_close = $request->input('user_access') == null ?  $request->input('time_close') : null;
+    $user_access = $request->input('user_access');
+    $status = $request->input('status');
+
+
+    $update_election = DB::table('election_tbl')
+      ->where('election_id', $election_id)
+      ->update([
+        'election_year' => $election_year,
+        'cluster_id' =>  $cluster_id,
+        'cluster_name' =>  $cluster_name,
+        'election_date' =>  $election_date,
+        'time_open' =>  $time_open,
+        'time_close' =>  $time_close,
+        'user_access' =>  $user_access,
+        'status' =>  $status,
+      ]);
+
+    if (!empty($update_election)) {
+      return redirect('/admin/edit-election/' . $election_id);
+    }
+    return redirect('/admin/edit-election/' . $election_id);
+  }
   public function createElection()
   {
     return view('admin.election.create-election');
   }
   public function electionRecord()
   {
-    return view('admin.election.election-record');
+    $election = DB::table('election_tbl')->get();
+    return view('admin.election.election-record', compact('election'));
   }
   public function electionAnalytics()
   {
@@ -2007,5 +2384,25 @@ class AdminController extends Controller
       ->get()->first();
 
     return response()->json($results);
+  }
+
+  public function member_analytics(Request $request)
+  {
+    $query = DB::table('mem_app')
+      ->leftJoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->select('mem_app.app_status', DB::raw('COUNT(*) as count'))
+      ->whereIn('mem_app.app_status', ['NEW APPLICATION', 'DRAFT APPLICATION', 'PROCESSING', 'APPROVED APPLICATION', 'RETURNED APPLICATION', 'REJECTED APPLICATION']);
+
+    if ($request->has('start_date') && $request->has('end_date')) {
+      $query->whereBetween('mem_app.app_date', [$request->input('start_date'), $request->input('end_date')]);
+    }
+
+    if ($request->has('campus')) {
+      $query->where('employee_details.campus', $request->input('campus'));
+    }
+
+    $appStatusCounts = $query->groupBy('mem_app.app_status')->get();
+
+    return response()->json($appStatusCounts);
   }
 }

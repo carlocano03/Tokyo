@@ -98,19 +98,19 @@
                       <input type="hidden" id="ref_sgid" name="ref_sgid">
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Salary Grade Number</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="salaryg_num" id="salaryg_num" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="salaryg_num" id="salaryg_num" required="" data-set="validate-sg">
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Salary Grade Amount(from)</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="salaryg_frm" id="salaryg_frm" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="salaryg_frm" id="salaryg_frm" required="" data-set="validate-sg">
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Salary Grade Amount(to)</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="slaryg_to" id="slaryg_to" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="slaryg_to" id="slaryg_to" required="" data-set="validate-sg">
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Salary Grade Category</label>
-                        <select class="mp-input-group__input mp-text-field" name="salarycat" id="salarycat" required>
+                        <select class="mp-input-group__input mp-text-field" name="salarycat" id="salarycat" required data-set="validate-sg">
                           <option value="1-15">1-15</option>
                           <option value="16-33">16-33</option>
                         </select>
@@ -247,6 +247,28 @@
     $('.clear_txt').text('Clear');
   });
   $(document).on('click', '#save_sg', function() {
+
+    let hasError = false
+
+    const elements = $(document).find(`[data-set=validate-sg]`)
+
+    elements.map(function () {
+      if($(this).attr('err-name')) {
+        return
+      }
+      let status = true
+      status = validateField({
+        element: $(this),
+        target: 'validate-sg'
+      })
+
+      if(!hasError && status) {
+        hasError = true
+      }
+    })
+
+    if(hasError) return
+
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

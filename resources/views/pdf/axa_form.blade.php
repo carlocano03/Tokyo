@@ -180,7 +180,7 @@
             <label class="mobileNo_value absolute " style="margin-left:485px; font-size:10px;">{{$axa_info->contact_no}}</label>
         </div>
         <div class="col-5" style="margin-top:45px;">
-            <label class="lastname_value absolute " style="font-size:10px;">{{$member->emp_union_assoc}}</label>
+            <label class="lastname_value absolute " style="font-size:10px;">{{$axa_info->emp_union_assoc}}</label>
             <label class="firstname_value absolute " style="margin-left:245px; font-size:10px;">{{$axa_info->occupation}}</label>
             <label class="middlename_value absolute " style="margin-left:400px; font-size:10px;">{{$member->tin_no}}</label>
             <label class="middlename_value absolute " style="margin-left:560px; font-size:10px;">{{$axa_info->sss_gsis}}</label>

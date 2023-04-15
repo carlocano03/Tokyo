@@ -353,7 +353,6 @@
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
 
-
         <div class="mp-input-group" data-set="middlename">
 
             <label class="mp-input-group__label">Middle Name (Please input your complete middle name.)</label><br>
@@ -647,7 +646,7 @@
             <label class="mp-input-group__label">Department </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="department" id="department" required>
                 <option value="">Select Department</option>
-                <option value="OTHER">Others</option>
+                <option value="OTHER" selected>Others</option>
                 {{-- <option>DEPED </option> --}}
             </select>
             <div id="other-dept-div" class=" d-none opacity-0">
@@ -1221,11 +1220,11 @@
 
                     <br>
                 <li>
-                    <b> Name Of Member:</b> Sample Name
+                    <b> Name Of Member:</b><label id="step5_name"></label>
                     <br>
-                    <b> Campus: </b>Up Diliman
+                    <b> Campus: </b><label id="step5_campus"></label>
                     <br>
-                    <b> Date: </b>May 6, 1999
+                    <b> Date: </b><label id="step5_date"></label>
                 </li>
                 <br><br>
 
@@ -1370,6 +1369,7 @@
 <script>
     $(document).ready(function() {
         $('.js-example-responsive').select2();
+
     });
 </script>
 @endsection

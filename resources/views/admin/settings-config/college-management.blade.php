@@ -96,11 +96,11 @@
                     <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">College / Unit Name</label>
-                        <input class="mp-input-group__input mp-text-field" type="text" name="college_name" id="college_name" required="">
+                        <input class="mp-input-group__input mp-text-field" type="text" name="college_name" id="college_name" required="" data-set="validate-college">
                       </div>
                       <div class="mp-input-group">
                         <label class="mp-input-group__label">Campus</label>
-                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
+                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required data-set="validate-college">
                           <option value="">Select Campus</option>
                           @foreach($campus as $row)
                           <option value="{{ $row->id }}">{{ $row->name }}</option>
@@ -198,6 +198,30 @@
 
   })
   $(document).on('click', '#save_college', function() {
+
+    let hasError = false
+
+    const elements = $(document).find(`[data-set=validate-college]`)
+
+    elements.map(function () {
+      if($(this).attr('err-name')) {
+        return
+      }
+      let status = true
+      status = validateField({
+        element: $(this),
+        target: 'validate-college'
+      })
+      console.log($(this))
+      if(!hasError && status) {
+        hasError = true
+      }
+    })
+
+  
+
+    if(hasError) return
+    
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -219,6 +243,8 @@
                 confirmButtonText: 'Ok',
               });
               $("#college_form")[0].reset();
+              $("#college_name").val('').trigger("change");
+              $("#campus").val('').trigger("change");
               tbl_clss.draw();
             }
           }
@@ -230,12 +256,15 @@
           data: formData,
           success: function(data) {
             if (data.success != '') {
+              $("#college_name").val('').trigger("change");
+              $("#campus").val('').trigger("change");
               Swal.fire({
                 text: 'College/Unit has been added Successfully.',
                 icon: 'success',
                 confirmButtonColor: '#3085d6',
                 confirmButtonText: 'Ok',
               });
+
               tbl_clss.draw();
             }
           }
@@ -298,6 +327,8 @@
             id_college: id_college
           },
           success: function(data) {
+            $("#college_name").val('').trigger("change");
+            $("#campus").val('').trigger("change");
             if (data.success) {
               Swal.fire({
                 text: 'College/Unit has been Removed Successfully.',
@@ -319,6 +350,8 @@
     $('#cu_no').val('');
     $('.save_up').text('Save');
     $('.clear_txt').text('Clear');
+    $("#college_name").val('').trigger("change");
+    $("#campus").val('').trigger("change");
 
   });
   $(document).on('click', '.edit_coll', function() {
@@ -337,7 +370,7 @@
       success: function(data) {
         $('#cu_no').val(data.cu_no);
         $('#college_name').val(data.college_unit_name);
-        $('#campus').val(data.camp_id);
+        $('#campus').val(data.camp_id).trigger("change");
         $('.save_up').text('Update');
         $('.clear_txt').text('Cancel');
       }
