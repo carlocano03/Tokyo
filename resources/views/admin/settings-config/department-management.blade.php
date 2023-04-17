@@ -222,8 +222,8 @@
 
     const elements = $(document).find(`[data-set=validate-department]`)
 
-    elements.map(function () {
-      if($(this).attr('err-name')) {
+    elements.map(function() {
+      if ($(this).attr('err-name')) {
         return
       }
       let status = true
@@ -232,12 +232,12 @@
         target: 'validate-department'
       })
 
-      if(!hasError && status) {
+      if (!hasError && status) {
         hasError = true
       }
     })
 
-    if(hasError) return
+    if (hasError) return
 
     $.ajaxSetup({
       headers: {
@@ -284,7 +284,16 @@
           url: "{{ route('save-department') }}",
           data: formData,
           success: function(data) {
-            if (data.success != '') {
+            if (data.department_name_exist == true) {
+              $('[name=dept_name]').val("").trigger("change");
+              status = validateField({
+                element: $('[name=dept_name]'),
+                target: 'validate-department',
+                errText: "Department Name Already Exist!"
+              })
+
+            }
+            if (data.success != false) {
               Swal.fire({
                 text: 'Department has been added Successfully.',
                 icon: 'success',
@@ -397,6 +406,7 @@
     $("#college_unit").html("<option selected value='' > Select College/Unit</option>");
   });
   $(document).on('click', '.edit_dept', function() {
+    clearValidation('dept_name', 'validate-department', $('[name=dept_name]'))
     var campus_id = $(this).data('campus_id');
     var college_unit_id = $(this).data('cu_no');
     $.ajaxSetup({

@@ -103,18 +103,55 @@ class Settings extends Controller
   }
   public function save_campus(Request $request)
   {
-    $datadb = DB::transaction(function () use ($request) {
-      $inserts_campus = array(
-        'campus_key' => strtoupper($request->input('campus_key')),
-        'name' => strtoupper($request->input('campus_name')),
-        'cluster_id' => $request->input('cluster_id')
+
+    $check_existing_ck = DB::table('campus')
+      ->where("campus_key", "=", $request->input('campus_key'))
+      ->count();
+
+    $check_existing_cn = DB::table('campus')
+      ->where("name", "=", $request->input('campus_name'))
+      ->count();
+    if ($check_existing_ck >= 1 && $check_existing_cn <= 0) {
+      return response()->json(
+        [
+          'success' => false,
+          'campus_key_exist' => true,
+          'campus_name_exist' => false,
+        ]
       );
-      $last_id = DB::table('campus')->insertGetId($inserts_campus);
-      return [
-        'last_id' => $last_id,
-      ];
-    });
-    return response()->json(['success' => $datadb['last_id']]);
+    } else if ($check_existing_ck >= 1 && $check_existing_cn >= 1) {
+
+      return response()->json(
+        [
+          'success' => false,
+          'campus_key_exist' => true,
+          'campus_name_exist' => true,
+        ]
+      );
+    } else if ($check_existing_ck >= 0 && $check_existing_cn >= 1) {
+
+      return response()->json(
+        [
+          'success' => false,
+          'campus_key_exist' => false,
+          'campus_name_exist' => true,
+        ]
+      );
+    } else {
+      $datadb = DB::transaction(function () use ($request) {
+        $inserts_campus = array(
+          'campus_key' => strtoupper($request->input('campus_key')),
+          'name' => strtoupper($request->input('campus_name')),
+          'cluster_id' => $request->input('cluster_id')
+        );
+        $last_id = DB::table('campus')->insertGetId($inserts_campus);
+        return [
+          'success' => true,
+          'last_id' => $last_id,
+        ];
+      });
+      return response()->json(['success' => $datadb['success'], 'last_id' => $datadb['last_id']]);
+    }
   }
   public function get_campus(Request $request)
   {
@@ -149,18 +186,30 @@ class Settings extends Controller
   }
   public function save_classif(Request $request)
   {
-    $datadb = DB::transaction(function () use ($request) {
-      $inserts_campus = array(
-        'classification_name' => strtoupper($request->input('classif_name')),
-        'status' => $request->input('status'),
-        'added_by' => Auth::user()->id
-      );
-      $last_id = DB::table('classification')->insertGetId($inserts_campus);
-      return [
-        'last_id' => $last_id,
-      ];
-    });
-    return response()->json(['success' => $datadb['last_id']]);
+
+    $classification_name = DB::table('classification')
+      ->where("classification_name", "=", strtoupper($request->input('classif_name')))
+      ->count();
+
+    if ($classification_name >= 1) {
+      return response()->json([
+        'classification_name_exist' => true,
+        "success" => false
+      ]);
+    } else {
+      $datadb = DB::transaction(function () use ($request) {
+        $inserts_campus = array(
+          'classification_name' => strtoupper($request->input('classif_name')),
+          'status' => $request->input('status'),
+          'added_by' => Auth::user()->id
+        );
+        $last_id = DB::table('classification')->insertGetId($inserts_campus);
+        return [
+          'last_id' => $last_id,
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id']]);
+    }
   }
   public function classification_table(Request $request)
   {
@@ -232,18 +281,29 @@ class Settings extends Controller
 
   public function save_college(Request $request)
   {
-    $datadb = DB::transaction(function () use ($request) {
-      $inserts_college = array(
-        'college_unit_name' => strtoupper($request->input('college_name')),
-        'campus_id' => $request->input('campus'),
-        'added_by' => Auth::user()->id
-      );
-      $last_id = DB::table('college_unit')->insertGetId($inserts_college);
-      return [
-        'last_id' => $last_id,
-      ];
-    });
-    return response()->json(['success' => $datadb['last_id']]);
+    $college_unit_name = DB::table('college_unit')
+      ->where("college_unit_name", "=", strtoupper($request->input('college_name')))
+      ->count();
+
+    if ($college_unit_name >= 1) {
+      return response()->json([
+        'college_unit_name_exist' => true,
+        "success" => false
+      ]);
+    } else {
+      $datadb = DB::transaction(function () use ($request) {
+        $inserts_college = array(
+          'college_unit_name' => strtoupper($request->input('college_name')),
+          'campus_id' => $request->input('campus'),
+          'added_by' => Auth::user()->id
+        );
+        $last_id = DB::table('college_unit')->insertGetId($inserts_college);
+        return [
+          'last_id' => $last_id,
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id']]);
+    }
   }
   public function college_table(Request $request)
   {
@@ -360,19 +420,32 @@ class Settings extends Controller
   }
   public function save_department(Request $request)
   {
-    $datadb = DB::transaction(function () use ($request) {
-      $inserts_department = array(
-        'department_name' => strtoupper($request->input('dept_name')),
-        'campus_id' => $request->input('campus'),
-        'cu_no' => $request->input('college_unit'),
-        'added_by' => Auth::user()->id
-      );
-      $last_id = DB::table('department')->insertGetId($inserts_department);
-      return [
-        'last_id' => $last_id,
-      ];
-    });
-    return response()->json(['success' => $datadb['last_id']]);
+    $department_name = DB::table('department')
+      ->where("department_name", "=", strtoupper($request->input('dept_name')))
+      ->where("campus_id", "=", $request->input('campus'))
+      ->where("cu_no", "=", $request->input('college_unit'))
+      ->count();
+
+    if ($department_name >= 1) {
+      return response()->json([
+        'department_name_exist' => true,
+        "success" => false
+      ]);
+    } else {
+      $datadb = DB::transaction(function () use ($request) {
+        $inserts_department = array(
+          'department_name' => strtoupper($request->input('dept_name')),
+          'campus_id' => $request->input('campus'),
+          'cu_no' => $request->input('college_unit'),
+          'added_by' => Auth::user()->id
+        );
+        $last_id = DB::table('department')->insertGetId($inserts_department);
+        return [
+          'last_id' => $last_id,
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id']]);
+    }
   }
   public function department_table(Request $request)
   {
@@ -474,18 +547,30 @@ class Settings extends Controller
   }
   public function save_appointment(Request $request)
   {
-    $datadb = DB::transaction(function () use ($request) {
-      $inserts_appt = array(
-        'appointment_name' => strtoupper($request->input('appointment_name')),
-        'status_flag' => 1,
-        'added_by' => Auth::user()->id
-      );
-      $last_id = DB::table('appointment')->insertGetId($inserts_appt);
-      return [
-        'last_id' => $last_id,
-      ];
-    });
-    return response()->json(['success' => $datadb['last_id']]);
+
+    $appointment_name = DB::table('appointment')
+      ->where("appointment_name", "=", strtoupper($request->input('appointment_name')))
+      ->count();
+
+    if ($appointment_name >= 1) {
+      return response()->json([
+        'appointment_name_exist' => true,
+        "success" => false
+      ]);
+    } else {
+      $datadb = DB::transaction(function () use ($request) {
+        $inserts_appt = array(
+          'appointment_name' => strtoupper($request->input('appointment_name')),
+          'status_flag' => 1,
+          'added_by' => Auth::user()->id
+        );
+        $last_id = DB::table('appointment')->insertGetId($inserts_appt);
+        return [
+          'last_id' => $last_id,
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id']]);
+    }
   }
   public function appointment_table(Request $request)
   {
@@ -729,6 +814,26 @@ class Settings extends Controller
 
     return response()->json($json_data);
   }
+
+  //manage account validation
+  public function checkUsername(Request $request)
+  {
+    $success = false;
+    $check_email = DB::table('users')
+      ->where("email", "=", $request->input('email'))
+      ->count();
+
+    if ($check_email >= 1) {
+      $success = true;
+    } else {
+      $success = false;
+    }
+    $json_data = [
+      "email_exist" => $success,
+    ];
+    return response()->json($json_data);
+  }
+
   public function save_users(Request $request)
   {
 
