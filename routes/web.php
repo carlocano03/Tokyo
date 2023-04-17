@@ -142,10 +142,8 @@ Route::get('/admin/settings/history-logs', [AdminController::class, 'historyLogs
 Route::get('/admin/settings/sg-modules', [AdminController::class, 'sgModules'])->name('admin.settings-config.sg-modules');
 Route::get('/admin/settings/status-appointment', [AdminController::class, 'statusAppointment'])->name('admin.settings-config.status-appointment');
 
-// Route::get('/admin/dashboard', 'AdminController@index');
-
-//admin
-// Route::get('/admin/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+//admin settings validation
+Route::post('/admin/manageAccountValidation', [Settings::class, 'checkUsername'])->name('check_username');
 
 //member
 Route::get('/member/dashboard', [MemberController::class, 'dashboard'])->name('member.dashboard');

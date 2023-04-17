@@ -203,8 +203,8 @@
 
     const elements = $(document).find(`[data-set=validate-college]`)
 
-    elements.map(function () {
-      if($(this).attr('err-name')) {
+    elements.map(function() {
+      if ($(this).attr('err-name')) {
         return
       }
       let status = true
@@ -213,15 +213,15 @@
         target: 'validate-college'
       })
       console.log($(this))
-      if(!hasError && status) {
+      if (!hasError && status) {
         hasError = true
       }
     })
 
-  
 
-    if(hasError) return
-    
+
+    if (hasError) return
+
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -255,9 +255,18 @@
           url: "{{ route('save-college') }}",
           data: formData,
           success: function(data) {
-            if (data.success != '') {
-              $("#college_name").val('').trigger("change");
-              $("#campus").val('').trigger("change");
+            $("#college_name").val('').trigger("change");
+            $("#campus").val('').trigger("change");
+            if (data.college_unit_name_exist == true) {
+              status = validateField({
+                element: $('[name=college_name]'),
+                target: 'validate-college',
+                errText: "Collge/Unit Name Already Exist!"
+              })
+            }
+
+            if (data.success != false) {
+
               Swal.fire({
                 text: 'College/Unit has been added Successfully.',
                 icon: 'success',
@@ -355,6 +364,8 @@
 
   });
   $(document).on('click', '.edit_coll', function() {
+
+    clearValidation('college_name', 'validate-college', $('[name=college_name]'))
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
