@@ -6828,3 +6828,18 @@ text.highcharts-credits {
     padding: 20px;
     border: solid 2px #dcd6d6;
 }
+
+.settings-buttons {
+    font-size: 15px;
+}
+
+.back-button-default {
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.back-button-default:hover {
+    color: grey;
+}
