@@ -1710,9 +1710,9 @@
                                                     <button class="up-button-green btn-md button-animate-right mp-text-center" id="view_beneficiaries" type="button">
                                                         <span>View Beneficiaries</span>
                                                     </button>
-                                                    <button class="up-button btn-md button-animate-right mp-text-center" id="modify_contributions" type="button">
+                                                    <!-- <button class="up-button btn-md button-animate-right mp-text-center" id="modify_contributions" type="button">
                                                         <span>Modify Contributions</span>
-                                                    </button>
+                                                    </button> -->
                                                     <button class="up-button-grey btn-md button-animate-right mp-text-center">
                                                         <span>Reset Password</span>
                                                     </button>
