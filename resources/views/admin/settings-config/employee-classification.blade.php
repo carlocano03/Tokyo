@@ -272,9 +272,9 @@
 
     const elements = $(document).find(`[data-set=validate-classification]`)
 
-    elements.map(function () {
+    elements.map(function() {
 
-      if($(this).attr('err-name')) {
+      if ($(this).attr('err-name')) {
         return
       }
 
@@ -284,12 +284,12 @@
         target: 'validate-classification'
       })
 
-      if(!hasError && status) {
+      if (!hasError && status) {
         hasError = true
       }
     })
 
-    if(hasError) return
+    if (hasError) return
 
     $.ajaxSetup({
       headers: {
@@ -305,7 +305,16 @@
       success: function(data) {
         $('#classif_name').val('');
         $('#status').val(1);
-        if (data.success != '') {
+
+        if (data.classification_name_exist == true) {
+          status = validateField({
+            element: $('[name=classif_name]'),
+            target: 'validate-classification',
+            errText: "Classification Name Already Exist!"
+          })
+        }
+
+        if (data.success != false) {
           Swal.fire({
             text: 'Classification Name has been added Successfully.',
             icon: 'success',
@@ -347,6 +356,7 @@
     });
   });
   $(document).on('click', '#up_status', function() {
+    clearValidation('classif_name', 'validate-classification', $('[name=classif_name]'))
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

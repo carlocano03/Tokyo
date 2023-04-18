@@ -444,29 +444,29 @@
                     <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">First Name</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="firstname" id="firstname" required data-set="manage-account-validation" data-type="text"/>
+                      <input class="mp-input-group__input mp-text-field" type="text" name="firstname" id="firstname" required data-set="manage-account-validation" data-type="text" />
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Middle Name</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required data-set="manage-account-validation" data-type="text"/>
+                      <input class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required data-set="manage-account-validation" data-type="text" />
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Last Name</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="lastname" id="lastname" required data-set="manage-account-validation" data-type="text"/>
+                      <input class="mp-input-group__input mp-text-field" type="text" name="lastname" id="lastname" required data-set="manage-account-validation" data-type="text" />
                     </div>
 
 
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Contact No.</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact_no" required data-set="manage-account-validation"/>
+                      <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact_no" required data-set="manage-account-validation" />
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Username/Email</label>
-                      <input class="mp-input-group__input mp-text-field" type="email" name="email" id="email" required data-set="manage-account-validation"/>
+                      <input class="mp-input-group__input mp-text-field" type="email" name="email" id="email" required data-set="manage-account-validation" />
                     </div>
                     <div class="mp-input-group">
                       <label class="mp-input-group__label">Password</label>
-                      <input class="mp-input-group__input mp-text-field" type="text" id="initial_pass" name="initial_pass" readonly placeholder="AUTO GENERATE" required data-set="manage-account-validation" data-type="text"/>
+                      <input class="mp-input-group__input mp-text-field" type="text" id="initial_pass" name="initial_pass" readonly placeholder="AUTO GENERATE" required data-set="manage-account-validation" data-type="text" />
 
                     </div>
                     <a class="up-button-green btn-md button-animate-right mp-text-center" id="generate_password">
@@ -754,105 +754,105 @@
   const inputField = document.querySelector('[name=contact_no]');
 
   function formatInput(event) {
-        if (event.inputType == 'deleteContentBackward') {
-            let input = inputField.value;
-            if (input.length <= 3) {
-                inputField.value = '+63';
-            }
-            return
-        }
-        if (event.inputType == 'insertText') {
-            let input = inputField.value;
-            if (input == '+630' && input.length <= 4) {
-                inputField.value = '+63';
-                return
-            }
-
-        }
-
-        let input = inputField.value;
-        let formattedInput = input.replace(/\D/g, '');
-
-        // Set placeholder
-        inputField.placeholder = "XXXXXXXXXX";
-        if (formattedInput === '') {
-            // If the input is empty, display the "+63 " prefix
-            formattedInput = '+63';
-        } else if (formattedInput.startsWith('63')) {
-            // If the input starts with "63", replace it with "+63 " 
-
-            formattedInput = '+63' + formattedInput.slice(2);
-            let newformat = []
-            for (let x = 0; x < formattedInput.length; x++) {
-                newformat.push(formattedInput[x])
-                if (x == 2) {
-                    newformat.push('-')
-                }
-                if (x == 5) {
-                    newformat.push('-')
-                }
-                if (x == 8) {
-                    newformat.push('-')
-                }
-            }
-            formattedInput = newformat.toString().replace(/,/g, '')
-        } else if (formattedInput.length >= 4) {
-            // If the input has at least 4 digits, add the country code and separate the digits with spaces
-
-            formattedInput = '+63' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
-        } else if (formattedInput.length >= 1) {
-            // If the input has at least 1 digit, add the country code
-            formattedInput = '+63' + formattedInput;
-        }
-        // Limit the formatted input to 10 digits
-
-        formattedInput = formattedInput.slice(0, 16);
-
-        inputField.value = formattedInput;
+    if (event.inputType == 'deleteContentBackward') {
+      let input = inputField.value;
+      if (input.length <= 3) {
+        inputField.value = '+63';
+      }
+      return
     }
-    document.addEventListener('DOMContentLoaded', formatInput);
-    inputField.addEventListener('input', formatInput);
+    if (event.inputType == 'insertText') {
+      let input = inputField.value;
+      if (input == '+630' && input.length <= 4) {
+        inputField.value = '+63';
+        return
+      }
+
+    }
+
+    let input = inputField.value;
+    let formattedInput = input.replace(/\D/g, '');
+
+    // Set placeholder
+    inputField.placeholder = "XXXXXXXXXX";
+    if (formattedInput === '') {
+      // If the input is empty, display the "+63 " prefix
+      formattedInput = '+63';
+    } else if (formattedInput.startsWith('63')) {
+      // If the input starts with "63", replace it with "+63 " 
+
+      formattedInput = '+63' + formattedInput.slice(2);
+      let newformat = []
+      for (let x = 0; x < formattedInput.length; x++) {
+        newformat.push(formattedInput[x])
+        if (x == 2) {
+          newformat.push('-')
+        }
+        if (x == 5) {
+          newformat.push('-')
+        }
+        if (x == 8) {
+          newformat.push('-')
+        }
+      }
+      formattedInput = newformat.toString().replace(/,/g, '')
+    } else if (formattedInput.length >= 4) {
+      // If the input has at least 4 digits, add the country code and separate the digits with spaces
+
+      formattedInput = '+63' + formattedInput.slice(3, 2) + ' ' + formattedInput.slice(3, 6) + ' ' + formattedInput.slice(6, 10);
+    } else if (formattedInput.length >= 1) {
+      // If the input has at least 1 digit, add the country code
+      formattedInput = '+63' + formattedInput;
+    }
+    // Limit the formatted input to 10 digits
+
+    formattedInput = formattedInput.slice(0, 16);
+
+    inputField.value = formattedInput;
+  }
+  document.addEventListener('DOMContentLoaded', formatInput);
+  inputField.addEventListener('input', formatInput);
 
   $(document).on('click', '#save_users', function() {
     let hasError = false
     const elements = $(document).find(`[data-set=manage-account-validation]`)
     console.log(elements)
-    elements.map(function (){
-      if($(this).attr('err-name')) {
+    elements.map(function() {
+      if ($(this).attr('err-name')) {
         return
       }
-      if($(this).attr('data-type') != 'text') return 
+      if ($(this).attr('data-type') != 'text') return
       let status = true
       status = validateField({
         element: $(this),
         target: 'manage-account-validation'
       })
-      
-      if($(this).attr('name') == 'cfm_cluster') {
-        if(status && $('[data-set=manage-account-validation][name=user_level]').val() == "CFM") {
+
+      if ($(this).attr('name') == 'cfm_cluster') {
+        if (status && $('[data-set=manage-account-validation][name=user_level]').val() == "CFM") {
           hasError = true
         }
         return
       }
-      
 
-      if(!hasError && status) {
+
+      if (!hasError && status) {
         hasError = true
       }
     })
     const email = $('[name=email]').val()
     if (email.length == 0) {
       status = validateField({
-        element:  $('[name=email]'),
+        element: $('[name=email]'),
         target: 'manage-account-validation',
         errText: "Invalid email."
       })
       hasError = true
     } else {
       var emailRegex = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-      if(emailRegex.test(email) == false) {
+      if (emailRegex.test(email) == false) {
         status = validateField({
-          element:  $('[name=email]'),
+          element: $('[name=email]'),
           target: 'manage-account-validation',
           errText: "Invalid email."
         })
@@ -861,30 +861,29 @@
         clearValidation('email', 'manage-account-validation', $('[name=email]'))
       }
     }
-    
+
 
     const phoneRegex = /^(09|\+639)\d{9}$/;
     const mobile_number = $("input[name=contact_no]")
 
     if (!phoneRegex.test(mobile_number.val().replace(/-/g, ''))) {
       status = validateField({
-          element: mobile_number,
-          target: 'manage-account-validation',
-          errText: 'Invalid contact number.',
-          isError: true
+        element: mobile_number,
+        target: 'manage-account-validation',
+        errText: 'Invalid contact number.',
+        isError: true
       })
       hasError = true
-    }
-    else {
+    } else {
       status = validateField({
-          element: mobile_number,
-          target: 'manage-account-validation',
-          errText: 'Invalid contact number.',
+        element: mobile_number,
+        target: 'manage-account-validation',
+        errText: 'Invalid contact number.',
       })
     }
 
-    
-    if(hasError) {
+
+    if (hasError) {
       return
     }
     console.log('no error')
@@ -949,33 +948,55 @@
         var formData = $("#users_form").serialize();
         $.ajax({
           type: 'POST',
-          url: "{{ route('add_users') }}",
+          url: "{{ route('check_username') }}",
           data: formData,
           success: function(data) {
-            if (data.success != '') {
-              Swal.fire({
-                text: 'User has been added Successfully.',
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Ok',
+            if (data.email_exist == false) {
+              $.ajax({
+                type: 'POST',
+                url: "{{ route('add_users') }}",
+                data: formData,
+                success: function(data) {
+                  if (data.success != '') {
+                    Swal.fire({
+                      text: 'User has been added Successfully.',
+                      icon: 'success',
+                      confirmButtonColor: '#3085d6',
+                      confirmButtonText: 'Ok',
+                    });
+                    $("#users_form")[0].reset();
+                    $('.save_up').text('Save Record');
+                    $('.clear_txt').text('Clear');
+                    $('#user_level').val('').trigger("change");
+                    $('#campus').val('').trigger("change");
+                    $('#cfm_cluster').val('').trigger("change");
+                    $("[name=contact_no]").val("+63")
+
+                    users_table.draw();
+                  }
+
+                }
               });
-              $("#users_form")[0].reset();
-              $('.save_up').text('Save Record');
-              $('.clear_txt').text('Clear');
-              $('#user_level').val('').trigger("change");
-              $('#campus').val('').trigger("change");
-              $('#cfm_cluster').val('').trigger("change");
-              $("[name=contact_no]").val("+63")
-             
-              users_table.draw();
+            } else {
+
+              $("[name=email]").val("")
+              status = validateField({
+                element: $('[name=email]'),
+                target: 'manage-account-validation',
+                errText: "Email Already Exist!"
+              })
+              hasError = true
+              $("[name=email]").focus();
             }
 
           }
         });
+
       }
     }
   });
   $(document).on('click', '.edit_users', function() {
+    clearValidation('email', 'manage-account-validation', $('[name=email]'))
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

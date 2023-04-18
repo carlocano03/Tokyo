@@ -257,11 +257,11 @@
 
   $(document).on('click', '#save_appointment', function() {
 
-    if($('#appointment_name').val() == ""){
+    if ($('#appointment_name').val() == "") {
       console.log('123')
-      addError($('#appointment_name'), 'Please fill out this field.','validate')
+      addError($('#appointment_name'), 'Please fill out this field.', 'validate')
       return
-    } else{
+    } else {
       clearValidation('appointment_name', 'validate', $('#appointment_name'))
     }
 
@@ -279,7 +279,11 @@
         data: formData,
         success: function(data) {
           $("#appointment_name").val('').trigger("change");
-          if (data.success != '') {
+
+          if (data.appointment_name_exist == true) {
+            addError($('#appointment_name'), 'Appointment Name already Exist.', 'validate')
+          }
+          if (data.success != false) {
             Swal.fire({
               text: 'Appointment has been added Successfully.',
               icon: 'success',
@@ -326,6 +330,7 @@
     });
   });
   $(document).on('click', '#up_status', function() {
+    clearValidation('appointment_name', 'validate', $('#appointment_name'))
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

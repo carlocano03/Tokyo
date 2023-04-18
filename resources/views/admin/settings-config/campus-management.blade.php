@@ -243,8 +243,8 @@
 
     const elements = $(document).find(`[data-set=validate-campus]`)
 
-    elements.map(function () {
-      if($(this).attr('err-name')) {
+    elements.map(function() {
+      if ($(this).attr('err-name')) {
         return
       }
       let status = true
@@ -253,12 +253,12 @@
         target: 'validate-campus'
       })
 
-      if(!hasError && status) {
+      if (!hasError && status) {
         hasError = true
       }
     })
 
-    if(hasError) return
+    if (hasError) return
 
     $.ajaxSetup({
       headers: {
@@ -297,7 +297,27 @@
         url: "{{ route('add_campus') }}",
         data: formData,
         success: function(data) {
-          if (data.success != '') {
+          if (data.campus_key_exist == true) {
+            $("[name=campus_key]").val("")
+            status = validateField({
+              element: $('[name=campus_key]'),
+              target: 'validate-campus',
+              errText: "Campus Key Already Exist!"
+            })
+            hasError = true
+            $("[name=campus_key]").focus();
+          }
+          if (data.campus_name_exist == true) {
+            $('#campus_name').val("").trigger("change");
+            status = true;
+            hasError = true
+            status = validateField({
+              element: $('#campus_name'),
+              target: 'validate-campus',
+              errText: "Campus Name Already Exist!"
+            })
+          }
+          if (data.success == true) {
             Swal.fire({
               text: 'Campus has been added Successfully.',
               icon: 'success',
@@ -363,6 +383,8 @@
 
   });
   $(document).on('click', '.edit_campus', function() {
+    clearValidation('campus_key', 'validate-campus', $('[name=campus_key]'))
+    clearValidation('campus_name', 'validate-campus', $('[name=campus_name]'))
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
