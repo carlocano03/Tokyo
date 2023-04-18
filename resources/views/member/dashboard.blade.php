@@ -1302,6 +1302,33 @@
         }
     }
 
+    .col-lg-6:nth-child(1) {
+        padding-right: 0px;
+    }
+    .col-lg-6:nth-child(2) {
+        padding-left: 0px;
+    }
+
+    .padding-content {
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+    }
+    @media (max-width:990px) {
+        .col-lg-6:nth-child(1) {
+            padding-right: 15px;
+        }
+        .col-lg-6:nth-child(2) {
+            padding-left: 15px;
+        }
+
+        .padding-content {
+            padding-bottom: 5rem;
+            padding-top: 5rem;
+        }
+
+        
+    }
+
     .siderbar {
         max-width: 15px;
         min-width: 15px;
@@ -1610,7 +1637,7 @@
     })
 </script>
 <div class="filler"></div>
-<div class="col-12 mp-ph2 mp-text mp-text-c-accent dashboard mh-content">
+<div class="col-12 padding-content mp-text mp-text-c-accent dashboard mh-content">
 <div class="d-flex flex-wrap">
                             <div class="col-lg-5 mp-pr0 mp-mt2" style="width: 100%;">
                                 <div class="mp-card mp-p4 ">
@@ -1810,7 +1837,7 @@
 
 
                                     <div class="row">
-                                        <div class="col-lg-6" style="padding-right:0px;">
+                                        <div class="col-lg-6" >
                                             <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
                                                 <h3>Your Members Equity</h3>
                                                 <div class="mp-input-group details-div">
@@ -1846,7 +1873,7 @@
 
                                             </div>
                                         </div>
-                                        <div class="col-lg-6" style="padding-left:0px;">
+                                        <div class="col-lg-6" >
                                             <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="height: 100%;">
                                                 <h3>Your Outstanding Loan</h3>
                                                 <div class="mp-input-group details-div">
