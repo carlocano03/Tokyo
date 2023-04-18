@@ -1472,7 +1472,7 @@
                     <div class="settings-tab">
                         <div class="top-label">
                             <label>Election Module</label>
-                            <i class="fa fa-cog" aria-hidden="true"></i>
+
                         </div>
 
                         <div class="settings-buttons">

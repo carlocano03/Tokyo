@@ -609,6 +609,7 @@ html {
 @media (min-width:656px) {
 
 
+
     .container {
         max-width: 656px
     }
@@ -644,6 +645,7 @@ html {
 }
 
 @media (min-width:992px) {
+
     .container {
         max-width: 960px
     }
@@ -6454,7 +6456,16 @@ tfoot {
     overflow-y: auto !important;
 }
 
+.admin-settingtab {
+    height: 1500px;
+}
+
+
 @media (max-width:1244px) {
+    .admin-settingtab {
+        height: 1220px;
+    }
+
     .mh-content {
         height: calc(100vh - 100px) !important;
         overflow-y: scroll !important;
@@ -6462,6 +6473,11 @@ tfoot {
 }
 
 @media (max-width:655px) {
+    .admin-settingtab {
+        margin-top: 50px;
+        height: 220px;
+    }
+
     .top-items {
         font-size: 14px !important;
         margin-left: 20px;
@@ -6496,9 +6512,6 @@ tfoot {
     border: 1px solid var(--c-red-clr-80) !important;
 }
 
-.admin-settingtab {
-    height: 1500px;
-}
 
 
 .disabled {
@@ -6842,4 +6855,28 @@ text.highcharts-credits {
 
 .back-button-default:hover {
     color: grey;
+}
+
+.election_modal_title {
+    position: absolute;
+    top: 0px;
+    margin-top: 15px;
+    left: 0px;
+    background-color: var(--c-accent);
+    color: white;
+    padding: 20px;
+    margin: 0px;
+    width: 100%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.close-button {
+    color: white !important;
+    position: absolute;
+    right: 15 !important;
+    top: 5 !important;
+    margin: 10px;
+    font-size: 25px;
+    z-index: 10;
 }
