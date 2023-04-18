@@ -10,7 +10,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </label>
                     <div class="">
-                        <label>Setup New Election Module</label>
+                        <label class="election_modal_title">Setup New Election Module</label>
                         <br>
                         <label class="account-info">
                         </label>
@@ -93,7 +93,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </label>
                     <div class="top-label">
-                        <label>Manage Candidates</label>
+                        <label class="election_modal_title">Manage Candidates</label>
                         <br>
                         <button class="mp-input-group__label button-active button-menu" id="sg15_button">1-15 Category</button>
                         <button class="mp-input-group__label button-menu" id="sg16_button">16 Above Category</button>
@@ -110,32 +110,27 @@
 
                                     </div>
                                     <div class="mp-input-group">
-                                        <label class="mp-input-group__label">Select Cluster</label>
-                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                            <option value="">Select Cluster No.</option>
-                                            <option value="1">Cluster 1 - DSB</option>
-                                            <option value="2">Cluster 2 - LBOU</option>
-                                            <option value="3">Cluster 3 - MLAPGH</option>
-                                            <option value="4">Cluster 4 - CVM</option>
+                                        <label class="mp-input-group__label">Select Candidate Name</label> <br>
+                                        <select class="js-example-responsive mp-input-group__input mp-text-field " style="width:100%; " name="candidates_dropdown" id="candidates_dropdown" required>
+
                                         </select>
                                     </div>
                                     <div class="mp-input-group">
-                                        <label class="mp-input-group__label">Select Campus</label>
-                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                            <option value="1">Campus 1</option>
-                                            <option value="0">Campus 2</option>
-                                        </select>
+                                        <label class="mp-input-group__label">Candidate Cluster</label>
+                                        <input style="height: 40px; " type="text" id="candidate_cluster" disabled value="" class="mp-input-group__input mp-text-field radius-1 border-1  " style=" height: 30px;">
+
                                     </div>
-
-
-
                                     <div class="mp-input-group">
-                                        <label class="mp-input-group__label">Select Candidate Name</label>
-                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                            <option value="1">Name 1</option>
-                                            <option value="0">Name 2</option>
-                                        </select>
+                                        <label class="mp-input-group__label">Candidate Campus</label>
+                                        <input style="height: 40px; " type="text" id="candidate_campus" disabled value="" class="mp-input-group__input mp-text-field radius-1 border-1  " style=" height: 30px;">
                                     </div>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Candidate Position</label>
+                                        <input style="height: 40px; " type="text" id="candidate_position" disabled value="" class="mp-input-group__input mp-text-field radius-1 border-1  " style=" height: 30px;">
+                                    </div>
+
+
+
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">Select Candidate Image/Photo *</label>
                                         <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
@@ -218,7 +213,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </label>
                     <div class="top-label">
-                        <label>Edit Info</label>
+                        <label class="election_modal_title"> Edit Info</label>
                         <br>
                         {{ csrf_field() }}
                         <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
@@ -281,7 +276,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </label>
                     <div class="top-label">
-                        <label>Denneb Gomez - President | Attachment</label>
+                        <label class="election_modal_title">Denneb Gomez - President | Attachment</label>
                         <br>
                         {{ csrf_field() }}
                         <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
@@ -1020,8 +1015,7 @@
         margin-top: 100px;
         padding: 0;
         border-radius: 17px;
-        transition: all .5s;
-        padding-bottom: 30px;
+        transition: all 1s;
     }
 
     .modalBody {
@@ -1156,6 +1150,10 @@
         margin: 10px;
         font-size: 25px;
     }
+
+    .selection {
+        font-size: 12px !important;
+    }
 </style>
 
 
@@ -1169,11 +1167,11 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
-                <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
+                <div class="mp-card admin-settingtab election-tab-shrink" style="padding-bottom:150px;">
                     <div class="settings-tab">
                         <div class="top-label">
                             <label>Election Module</label>
-                            <i class="fa fa-cog" aria-hidden="true"></i>
+
                         </div>
 
                         <div class="settings-buttons">
@@ -1475,7 +1473,7 @@
             $("#electionModal").addClass("d-none")
             $("#viewAttachmentModal").addClass("d-none")
             $("#changeModal").addClass("d-none")
-        }, 100)
+        }, 1000)
     }
     $(document).on('click', '#closeModal', function(e) {
         $("#modalBackDrop").addClass("opacity-0")
@@ -1525,7 +1523,7 @@
     })
 
     $(document).on('click', '#addCandidates', function(e) {
-
+        $("#candidates_dropdown").html("");
         $("#modalBackDrop").removeClass("d-none")
         $("#electionModal").addClass("d-none")
         $("#electionModal").addClass("opacity-0")
@@ -1534,8 +1532,54 @@
         setTimeout(function() {
             $("#modalBackDrop").removeClass("opacity-0")
         }, 100)
+
+
+        //get members dropdown serach
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('election_candidates_list') }}",
+            data: {
+                sg_category: "SG15"
+            },
+            success: function(data) {
+                console.log(data)
+                $.each(data, function(key, value) {
+                    var fullname = value.firstname + " " + value.middlename + " " + value.lastname;
+                    $("#candidates_dropdown").append("<option value='" + value.membership_id + "' data-cluster_id='" + value.cluster_id + "' data-campus_name='" +
+                        value.campus_name + "'" + "' data-position='" + value.classification + "'>" + value.employee_no + "- " + fullname + "</option>");
+                });
+            }
+        });
+
     })
 
+    function clusterNameIdentifier(id) {
+        if (id == 1) {
+            return "Cluster 1 - DSB";
+        } else if (id == 2) {
+            return "Cluster 2 - LBOU";
+        } else if (id == 3) {
+            return "Cluster 3 - MLAPGH";
+        } else if (id == 4) {
+            return "Cluster 4 - CVM";
+        }
+    }
+    $("#candidates_dropdown").change(function() {
+        var selected_cluster = $(this).find(':selected').data('cluster_id');
+        var selected_campus_name = $(this).find(':selected').data('campus_name');
+        var selected_position = $(this).find(':selected').data('position');
+        var selected_membership_id = $(this).val();
+
+
+        $("#candidate_cluster").val(clusterNameIdentifier(selected_cluster)).trigger("change");
+        $("#candidate_campus").val(selected_campus_name).trigger("change");
+        $("#candidate_position").val(selected_position).trigger("change");
+    });
     $(document).on('click', '#viewAttachmentButton', function(e) {
 
         $("#modalBackDrop").removeClass("d-none")
@@ -1736,6 +1780,8 @@
         showSG16();
         activeSG16()
     });
+
+
 
 
     function hideSG15() {

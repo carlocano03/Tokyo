@@ -1622,14 +1622,14 @@ class AdminController extends Controller
     //   ->where('mem_app.app_no', 'like', '%' . $search . '%')
     //   ->where('mem_app.app_status', $aa_1)
     //   ->where('mem_app.app_status', $aa_2);
-    
+
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
       ->where('mem_app.app_status', '!=', 'deleted')
       ->groupBy('mem_app.app_no');
-      
+
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -1717,7 +1717,7 @@ class AdminController extends Controller
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-      ->leftjoin('membership_id', 'mem_app.employee_no', '=' ,'membership_id.employee_no')
+      ->leftjoin('membership_id', 'mem_app.employee_no', '=', 'membership_id.employee_no')
       ->where('mem_app.app_no', 'like', '%' . $search . '%')
       ->groupBy('mem_app.app_no');
     DB::enableQueryLog();
@@ -1806,11 +1806,11 @@ class AdminController extends Controller
     // Fetch records
     DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
-    ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
-    ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
-    ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-    ->where('mem_app.app_no', 'like', '%' . $search . '%')
-    ->groupBy('mem_app.app_no');
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
+      ->where('mem_app.app_no', 'like', '%' . $search . '%')
+      ->groupBy('mem_app.app_no');
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -1830,7 +1830,6 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $approved)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
-
     } else if ($users == 'HRDO') {
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
@@ -2329,6 +2328,34 @@ class AdminController extends Controller
     }
     return redirect('/admin/edit-election/' . $election_id);
   }
+
+  //election candidate dropdown search query
+  public function getCandidates(Request $request)
+  {
+
+    // $query = $request->sg_category;
+
+    $query = "SG15";
+    if ($query == "SG15") {
+      $results = DB::table('employee_details')
+        // ->whereRaw("employee_details.sg_category = '1-15'")
+        ->join('membership_id', 'membership_id.employee_no', '=', 'employee_details.employee_no')
+        ->join('mem_app', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+        ->join('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+        ->join('campus', 'campus.campus_key', '=', 'employee_details.campus')
+        ->select('employee_details.*', 'membership_id.*', 'mem_app.*', 'personal_details.*', 'campus.name as campus_name', 'campus.cluster_id')
+        ->orderBy('employee_details.employee_no', 'asc')->get();
+    } else if ($query == "SG16") {
+      $results = DB::table('employee_details')
+        // ->whereRaw("employee_details.sg_category = '16-33'")
+        ->join('membership_id', 'membership_id.employee_no', '=', 'employee_details.employee_no')
+        ->select('employee_details.*', 'membership_id.*')
+        ->orderBy('employee_details.employee_no', 'asc')->get();
+    };
+    return response()->json($results);
+  }
+
+
   public function createElection()
   {
     return view('admin.election.create-election');

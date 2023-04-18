@@ -121,6 +121,8 @@ Route::post('/admin/members/update_employee_details', [HomeController::class, 'u
 Route::get('/admin/election-list', [AdminController::class, 'getElectionDetails'])->name('getElectionDetails');
 Route::post('/admin/countElection', [AdminController::class, 'countElection'])->name('count_election');
 Route::post('/admin/electionValidation', [AdminController::class, 'electionValidation'])->name('election_validation');
+//candidates
+Route::post('/admin/electionCandidatesList', [AdminController::class, 'getCandidates'])->name('election_candidates_list');
 
 
 //election saving
