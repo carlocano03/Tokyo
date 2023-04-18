@@ -1622,11 +1622,14 @@ class AdminController extends Controller
     //   ->where('mem_app.app_no', 'like', '%' . $search . '%')
     //   ->where('mem_app.app_status', $aa_1)
     //   ->where('mem_app.app_status', $aa_2);
+    
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-      ->where('mem_app.app_status', '!=', 'deleted');
+      ->where('mem_app.app_status', '!=', 'deleted')
+      ->groupBy('mem_app.app_no');
+      
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -1669,14 +1672,6 @@ class AdminController extends Controller
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'HRDO') {
-      // $aa_1 = $userId;
-      // $cfm = 'FORWARDED TO HRDO';
-      // $process = 'PROCESSING';
-      // $approved = 'APPROVED APPLICATION';
-      // $records->where('mem_app.forwarded_user', $aa_1);
-      // $records->where('mem_app.validator_remarks', $cfm);
-      // $records->orWhere('mem_app.validator_remarks', $approved);
-
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
       $process = 'PROCESSING';
@@ -1717,11 +1712,14 @@ class AdminController extends Controller
     $totalRecords = $records->count();
 
     // Total records with filter
+    DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-      ->where('mem_app.app_no', 'like', '%' . $search . '%');
+      ->leftjoin('membership_id', 'mem_app.employee_no', '=' ,'membership_id.employee_no')
+      ->where('mem_app.app_no', 'like', '%' . $search . '%')
+      ->groupBy('mem_app.app_no');
     DB::enableQueryLog();
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
@@ -1765,14 +1763,6 @@ class AdminController extends Controller
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'HRDO') {
-      // $aa_1 = $userId;
-      // $cfm = 'FORWARDED TO HRDO';
-      // $process = 'PROCESSING';
-      // $approved = 'APPROVED APPLICATION';
-      // $records->where('mem_app.forwarded_user', $aa_1);
-      // $records->where('mem_app.validator_remarks', $cfm);
-      // $records->orWhere('mem_app.validator_remarks', $approved);
-
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
       $process = 'PROCESSING';
@@ -1814,11 +1804,13 @@ class AdminController extends Controller
     $totalRecordswithFilter = $records->count();
 
     // Fetch records
+    DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
-      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
-      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
-      ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-      ->where('mem_app.app_no', 'like', '%' . $search . '%');
+    ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+    ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+    ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
+    ->where('mem_app.app_no', 'like', '%' . $search . '%')
+    ->groupBy('mem_app.app_no');
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -1838,6 +1830,7 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $approved)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
+
     } else if ($users == 'HRDO') {
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
@@ -1908,7 +1901,6 @@ class AdminController extends Controller
     } else if ($users == 'CFM') {
       $href = '/admin/members/records/view/aa/';
     }
-
 
     $posts = $records->skip($start)
       ->take($rowperpage)

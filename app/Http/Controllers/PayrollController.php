@@ -88,70 +88,21 @@ class PayrollController extends Controller
       $records->where('mem_app.validator_remarks', $validator_remarks);
     }
     if ($users == 'AO') {
-      // $aa_1 = 'NEW APPLICATION';
-      // $cfm = 'AO VERIFIED';
-      // $process = 'PROCESSING';
-      // $query_serch = 'DRAFT APPLICATION';
-      // $rejected = 'REJECTED';
-      // $approved = 'APPROVED APPLICATION';
-      // $records->where(function ($query) use ($aa_1, $cfm, $process, $query_serch, $rejected, $approved) {
-      //   $query->where('mem_app.app_status', $aa_1)
-      //     ->orWhere('mem_app.validator_remarks', $cfm)
-      //     ->orWhere('mem_app.app_status', $query_serch)
-      //     ->orWhere('mem_app.app_status', $process)
-      //     ->orWhere('mem_app.app_status', $rejected)
-      //     ->orWhere('mem_app.app_status', $approved)
-      //     ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
-      // });
       $payroll = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($payroll) {
         $query->where('mem_app.validator_remarks', $payroll);
-        // $query->where('mem_app.app_status', $aa_1)
-        //   ->orWhere('mem_app.validator_remarks', $cfm)
-        //   ->orWhere('mem_app.app_status', $query_serch)
-        //   ->orWhere('mem_app.app_status', $process)
-        //   ->orWhere('mem_app.app_status', $rejected)
-        //   ->orWhere('mem_app.app_status', $approved)
-        //   ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
-      
-    // } else if ($users == 'HRDO') {
-    //   // $aa_1 = $userId;
-    //   // $cfm = 'FORWARDED TO HRDO';
-    //   // $process = 'PROCESSING';
-    //   // $approved = 'APPROVED APPLICATION';
-    //   // $records->where('mem_app.forwarded_user', $aa_1);
-    //   // $records->where('mem_app.validator_remarks', $cfm);
-    //   // $records->orWhere('mem_app.validator_remarks', $approved);
-
-    //   $aa_1 = $userId;
-    //   $cfm = 'FORWARDED TO HRDO';
-    //   $process = 'PROCESSING';
-    //   $approved = 'APPROVED APPLICATION';
-    //   $records->where('mem_app.forwarded_user', $aa_1);
-    //   $records->where('mem_app.validator_remarks', $cfm);
-    //   $records->orWhere('mem_app.app_status', $approved);
-    //   $records->orWhere('mem_app.app_status', $approved);
-    //   $records->orWhere('mem_app.validator_remarks', $approved);
-    //   $records->orWhere('mem_app.validator_remarks', 'FORWARD TO FM');
     } else if ($users == 'CFM') {
-      // $cfm = 'AO VERIFIED';
-      // $records->where('mem_app.app_status', $cfm);
       $payroll = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($payroll) {
         $query->where('mem_app.validator_remarks', $payroll);
-          // ->orWhere('mem_app.validator_remarks', $cfm)
-          // ->orWhere('mem_app.app_status', $process)
-          // ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
-      // $approved = 'APPROVED APPLICATION';
       $approved = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($process, $approved, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
           ->where('employee_details.campus', $allowCampus->campus_key)
-          // ->orWhere('mem_app.app_status', $approved);
           ->orWhere('mem_app.validator_remarks', $approved);
       });
     }
@@ -191,70 +142,21 @@ class PayrollController extends Controller
       $records->where('mem_app.validator_remarks', $validator_remarks);
     }
     if ($users == 'AO') {
-      // $aa_1 = 'NEW APPLICATION';
-      // $cfm = 'AO VERIFIED';
-      // $process = 'PROCESSING';
-      // $query_serch = 'DRAFT APPLICATION';
-      // $rejected = 'REJECTED';
-      // $approved = 'APPROVED APPLICATION';
-      // $records->where(function ($query) use ($aa_1, $cfm, $process, $query_serch, $rejected, $approved) {
-      //   $query->where('mem_app.app_status', $aa_1)
-      //     ->orWhere('mem_app.validator_remarks', $cfm)
-      //     ->orWhere('mem_app.app_status', $query_serch)
-      //     ->orWhere('mem_app.app_status', $process)
-      //     ->orWhere('mem_app.app_status', $rejected)
-      //     ->orWhere('mem_app.app_status', $approved)
-      //     ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
-      // });
       $payroll = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($payroll) {
         $query->where('mem_app.validator_remarks', $payroll);
-        // $query->where('mem_app.app_status', $aa_1)
-        //   ->orWhere('mem_app.validator_remarks', $cfm)
-        //   ->orWhere('mem_app.app_status', $query_serch)
-        //   ->orWhere('mem_app.app_status', $process)
-        //   ->orWhere('mem_app.app_status', $rejected)
-        //   ->orWhere('mem_app.app_status', $approved)
-        //   ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
-    // } else if ($users == 'HRDO') {
-    //   // $aa_1 = $userId;
-    //   // $cfm = 'FORWARDED TO HRDO';
-    //   // $process = 'PROCESSING';
-    //   // $approved = 'APPROVED APPLICATION';
-    //   // $records->where('mem_app.forwarded_user', $aa_1);
-    //   // $records->where('mem_app.validator_remarks', $cfm);
-    //   // $records->orWhere('mem_app.validator_remarks', $approved);
-
-    //   $aa_1 = $userId;
-    //   $cfm = 'FORWARDED TO HRDO';
-    //   $process = 'PROCESSING';
-    //   $approved = 'APPROVED APPLICATION';
-    //   $records->where('mem_app.forwarded_user', $aa_1);
-    //   $records->where('mem_app.validator_remarks', $cfm);
-    //   $records->orWhere('mem_app.app_status', $approved);
-    //   $records->orWhere('mem_app.app_status', $approved);
-    //   $records->orWhere('mem_app.validator_remarks', $approved);
-    //   $records->orWhere('mem_app.validator_remarks', 'FORWARD TO FM');
     } else if ($users == 'CFM') {
-      // $aa_1 = 'NEW APPLICATION';
-      // $cfm = 'AO VERIFIED';
-      // $process = 'PROCESSING';
       $payroll = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($payroll) {
         $query->where('mem_app.validator_remarks', $payroll);
-          // ->orWhere('mem_app.validator_remarks', $cfm)
-          // ->orWhere('mem_app.app_status', $process)
-          // ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'FM') {
       $process = 'FORWARDED TO FM';
-      // $approved = 'APPROVED APPLICATION';
       $payroll = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($process, $payroll, $allowCampus) {
         $query->where('mem_app.validator_remarks', $process)
           ->where('employee_details.campus', $allowCampus->campus_key)
-          // ->orWhere('mem_app.app_status', $approved);
           ->orWhere('mem_app.validator_remarks', $payroll);
       });
     }
@@ -262,66 +164,32 @@ class PayrollController extends Controller
     $totalRecordswithFilter = $records->count();
 
     // Fetch records
+    DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
       ->leftjoin('membership_id', 'mem_app.employee_no', '=' ,'membership_id.employee_no')
-      ->where('mem_app.app_no', 'like', '%' . $search . '%');
+      ->where('mem_app.app_no', 'like', '%' . $search . '%')
+      ->groupBy('mem_app.app_no');
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
     if ($users == 'AO') {
-      // $aa_1 = 'NEW APPLICATION';
-      // $cfm = 'AO VERIFIED';
-      // $process = 'PROCESSING';
-      // $query_serch = 'DRAFT APPLICATION';
-      // $rejected = 'REJECTED';
-      // $approved = 'APPROVED APPLICATION';
       $payroll = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($payroll) {
         $query->where('mem_app.validator_remarks', $payroll);
-        // $query->where('mem_app.app_status', $aa_1)
-        //   ->orWhere('mem_app.validator_remarks', $cfm)
-        //   ->orWhere('mem_app.app_status', $query_serch)
-        //   ->orWhere('mem_app.app_status', $process)
-        //   ->orWhere('mem_app.app_status', $rejected)
-        //   ->orWhere('mem_app.app_status', $approved)
-        //   ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
-    // } else if ($users == 'HRDO') {
-    //   $aa_1 = $userId;
-    //   $cfm = 'FORWARDED TO HRDO';
-    //   $process = 'PROCESSING';
-    //   $approved = 'APPROVED APPLICATION';
-    //   $records->where('mem_app.forwarded_user', $aa_1);
-    //   $records->where('mem_app.validator_remarks', $cfm);
-    //   $records->orWhere('mem_app.app_status', $approved);
-    //   $records->orWhere('mem_app.app_status', $approved);
-    //   $records->orWhere('mem_app.validator_remarks', $approved);
-    //   $records->orWhere('mem_app.validator_remarks', 'FORWARD TO FM');
     } else if ($users == 'CFM') {
-      // $aa_1 = 'NEW APPLICATION';
-      // $cfm = 'AO VERIFIED';
-      // $process = 'PROCESSING';
-      // $approved = 'APPROVED APPLICATION';
       $payroll = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($payroll) {
         $query->where('mem_app.validator_remarks', $payroll);
-          // ->orWhere('mem_app.validator_remarks', $payroll);
-          // ->orWhere('mem_app.app_status', $process)
-          // ->orWhere('mem_app.app_status', $approved)
-          // ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'FM') {
-      // $process = 'FORWARDED TO FM';
-      // $approved = 'APPROVED APPLICATION';
       $payroll = 'FOR PAYROLL ADVISE';
       $records->where(function ($query) use ($payroll, $allowCampus) {
         $query->where('mem_app.validator_remarks', $payroll)
           ->where('employee_details.campus', $allowCampus->campus_key);
-          // ->orWhere('mem_app.app_status', $approved);
-          // ->orWhere('mem_app.validator_remarks', $approved);
       });
     }
     $dd = DB::getQueryLog();
@@ -353,7 +221,7 @@ class PayrollController extends Controller
       foreach ($posts as $r) {
         $start++;
         $row = array();
-        $row[] = '# '.$r->mem_id;
+        $row[] = '# '.$start;
         $row[] = $r->membership_id;
         $row[] = $r->employee_no;
         $row[] = '<span class="mp-text-fw-heavy">' . $r->lastname . ', ' . $r->firstname . ' ' . $r->middlename . '</span>';

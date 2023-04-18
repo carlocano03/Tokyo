@@ -1041,7 +1041,13 @@
                 search: '',
                 searchPlaceholder: "Search Here...",
                 processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><br>Loading...',
+                "info": "_START_-_END_ of _TOTAL_ entries",
+                paginate: {
+                    next: '<i class="fas fa-chevron-right"></i>',
+                    previous: '<i class="fas fa-chevron-left"></i>'
+                }
             },
+            "info": false,
             "ordering": false,
             "searching": false,
             "processing": true,
