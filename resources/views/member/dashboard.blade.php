@@ -1327,6 +1327,7 @@
         }
 
         
+        
     }
 
     .siderbar {
@@ -1575,6 +1576,26 @@
         padding: 20px;
 
     }
+    
+    .payroll-table>thead>tr>th{
+        min-width: 100px;
+    }
+    .payroll-table>tbody>tr>td{
+        min-width: 100px;
+    }
+ 
+    
+    @media (max-width:990px) {
+        .payroll-table{
+            width: auto;
+            min-width: 100%;
+        }
+
+        
+        
+    }
+   
+
 </style>
 <script src="{{ asset('/dist/adminDashboard.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
@@ -1895,7 +1916,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
+                                    <div class="row" style="overflow-y: auto;">
                                         <div class="col-1g-12" style="padding:15px;">
                                             <div class="d-flex flex-column">
                                                 <div class="header-table">
@@ -1965,7 +1986,7 @@
                                     </div>
 
 
-                                    <div class="row">
+                                    <div class="row" style="overflow-y: auto;">
                                         <div class="col-1g-12" style="padding:15px;">
                                             <div class="d-flex flex-column">
                                                 <div class="header-table">
