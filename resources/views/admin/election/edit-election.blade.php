@@ -10,16 +10,12 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </label>
                     <div class="">
-                        <label>Edit Election</label>
+                        <label>Setup New Election Module</label>
                         <br>
                         <label class="account-info">
                         </label>
                         <form id="election_form" class=" form-border-bottom" style="height: calc(100% - 100px) !important;">
                             {{ csrf_field() }}
-
-                            <input type="hidden" name="election_id" id="election_id" value="{{ $election_details->election_id }}">
-                            <input type="hidden" name="cluster_name" id="cluster_name" value="{{ $election_details->cluster_name }}">
-                            <input type="hidden" name="status" id="status" value="{{ $election_details->status }}">
                             <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
 
                                 <div class="mp-input-group">
@@ -68,10 +64,15 @@
 
 
 
-                                <a class="up-button btn-md button-animate-right mp-text-center" id="update_election_record" type="submit">
-                                    <span>UPDATE</span>
+                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_election" type="submit">
+                                    <span>CREATE ELECTION</span>
                                 </a>
-
+                                <!-- <a class="up-button btn-md button-animate-right mp-text-center" id="save_draft_election">
+                                    <span>SAVE DRAFT ELECTION</span>
+                                </a> -->
+                                <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_election">
+                                    <span>CLEAR SETUP</span>
+                                </a>
 
 
                             </div>
@@ -1177,10 +1178,10 @@
 
                         <div class="settings-buttons">
                             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
-                                <li class="options " onclick="location.href='/admin/create-election'">
+                                <!-- <li class="options " onclick="location.href='/admin/create-election'">
                                     <a href="#" class="no-padding ">Create New Election</a><br>
 
-                                </li>
+                                </li> -->
                                 <li class="options options-active" onclick="location.href='/admin/election-record'">
                                     <a href="#" class="no-padding options-a-active">Election Records</a><br>
 
@@ -1200,6 +1201,11 @@
             <div class="col-lg-10 mp-mt3 gap-10" id="settingsContent">
                 <div class="button-container mp-mb3">
                     <button class="f-button magenta-bg" id="showSettings">Hide Tab</button>
+                </div>
+                <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
+                    <a href="/admin/election-record/" style="margin-left:-10px;"><span class="  back-button-default">
+                            < Back </span></a>
+
                 </div>
                 <div class="mp-card  mp-ph2 mp-pv2">
                     <div class="container-fluid">

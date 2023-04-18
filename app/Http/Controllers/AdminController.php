@@ -1985,23 +1985,37 @@ class AdminController extends Controller
       }
     }
 
-    $datadb = DB::transaction(function () use ($request) {
-      $inserts_election = array(
-        'election_year' => $request->input('election_year'),
-        'cluster_id' => $request->input('cluster_id'),
-        'cluster_name' => clusterNameIdentifier($request->input('cluster_id')),
-        'election_date' => $request->input('election_date'),
-        'time_open' => $request->input('user_access') == null ?  $request->input('time_open') : null,
-        'time_close' => $request->input('user_access') == null ?  $request->input('time_close') : null,
-        'user_access' => $request->input('user_access'),
-        'status' => "CLOSE"
+
+    $validate_election_date = DB::table('election_tbl')
+      ->where("election_date", "=",  $request->input('election_date'))
+      ->count();
+
+    if ($validate_election_date >= 1) {
+      return response()->json(
+        [
+          'election_date_exist' => true,
+          'success' => false
+        ]
       );
-      $last_id = DB::table('election_tbl')->insertGetId($inserts_election);
-      return [
-        'last_id' => $last_id,
-      ];
-    });
-    return response()->json(['success' => $datadb['last_id']]);
+    } else {
+      $datadb = DB::transaction(function () use ($request) {
+        $inserts_election = array(
+          'election_year' => $request->input('election_year'),
+          'cluster_id' => $request->input('cluster_id'),
+          'cluster_name' => clusterNameIdentifier($request->input('cluster_id')),
+          'election_date' => $request->input('election_date'),
+          'time_open' => $request->input('user_access') == null ?  $request->input('time_open') : null,
+          'time_close' => $request->input('user_access') == null ?  $request->input('time_close') : null,
+          'user_access' => $request->input('user_access'),
+          'status' => "DRAFT"
+        );
+        $last_id = DB::table('election_tbl')->insertGetId($inserts_election);
+        return [
+          'last_id' => $last_id,
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id']]);
+    }
   }
 
 
@@ -2180,20 +2194,11 @@ class AdminController extends Controller
       $nestedData['cluster_id'] = $row->cluster_name;
       $nestedData['status'] = $row->status;
       $nestedData['action'] = '
-          <a href="/admin/edit-election/' . $row->election_id .  '" style="padding:0px !important; color:white;"> 
-            <button class="up-button-green edit_campus" style="border-radius: 5px;" data-id='  . $row->election_id . ' >
-            <span>
-            
-             <i  class="fa fa-edit" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
-            </span>
-          </button>
-          </a>
-            
-          <button class="up-button delete_campus" style="border-radius: 5px;" data-id=' . $row->election_id .  ' >
-            <span>
-              <i class="fa fa-trash" style="color:white;padding:3px;font-size:17px;" aria-hidden="true"></i>
-            </span>
-          </button>';
+      <a href="/admin/edit-election/' . $row->election_id .  '" data-md-tooltip="Manage Election" class="view_member md-tooltip--top view-member" style="cursor: pointer">
+                 <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+               </a>
+          
+         ';
 
       $data[] = $nestedData;
     }
