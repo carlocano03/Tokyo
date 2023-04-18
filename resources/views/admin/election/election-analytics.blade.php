@@ -1477,19 +1477,19 @@
 
                         <div class="settings-buttons">
                             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
-                                <li class="options options-active" onclick="location.href='election-analytics'">
-                                    <a href="#" class="no-padding options-a-active">Election Day Analytics</a><br>
 
-                                </li>
-                                <li class="options " onclick="location.href='create-election'">
+                                <!-- <li class="options " onclick="location.href='create-election'">
                                     <a href="#" class="no-padding ">Create New Election</a><br>
 
-                                </li>
+                                </li> -->
                                 <li class="options" onclick="location.href='election-record'">
                                     <a href="#" class="no-padding">Election Records</a><br>
 
                                 </li>
+                                <li class="options options-active" onclick="location.href='election-analytics'">
+                                    <a href="#" class="no-padding options-a-active">Election Day Analytics</a><br>
 
+                                </li>
 
 
                             </ul>

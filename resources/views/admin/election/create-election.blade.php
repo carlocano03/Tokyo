@@ -67,9 +67,9 @@
                                 <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_election" type="submit">
                                     <span>CREATE ELECTION</span>
                                 </a>
-                                <a class="up-button btn-md button-animate-right mp-text-center" id="save_draft_election">
+                                <!-- <a class="up-button btn-md button-animate-right mp-text-center" id="save_draft_election">
                                     <span>SAVE DRAFT ELECTION</span>
-                                </a>
+                                </a> -->
                                 <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_election">
                                     <span>CLEAR SETUP</span>
                                 </a>

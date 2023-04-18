@@ -1622,11 +1622,14 @@ class AdminController extends Controller
     //   ->where('mem_app.app_no', 'like', '%' . $search . '%')
     //   ->where('mem_app.app_status', $aa_1)
     //   ->where('mem_app.app_status', $aa_2);
+    
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-      ->where('mem_app.app_status', '!=', 'deleted');
+      ->where('mem_app.app_status', '!=', 'deleted')
+      ->groupBy('mem_app.app_no');
+      
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -1669,14 +1672,6 @@ class AdminController extends Controller
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'HRDO') {
-      // $aa_1 = $userId;
-      // $cfm = 'FORWARDED TO HRDO';
-      // $process = 'PROCESSING';
-      // $approved = 'APPROVED APPLICATION';
-      // $records->where('mem_app.forwarded_user', $aa_1);
-      // $records->where('mem_app.validator_remarks', $cfm);
-      // $records->orWhere('mem_app.validator_remarks', $approved);
-
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
       $process = 'PROCESSING';
@@ -1717,11 +1712,14 @@ class AdminController extends Controller
     $totalRecords = $records->count();
 
     // Total records with filter
+    DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-      ->where('mem_app.app_no', 'like', '%' . $search . '%');
+      ->leftjoin('membership_id', 'mem_app.employee_no', '=' ,'membership_id.employee_no')
+      ->where('mem_app.app_no', 'like', '%' . $search . '%')
+      ->groupBy('mem_app.app_no');
     DB::enableQueryLog();
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
@@ -1765,14 +1763,6 @@ class AdminController extends Controller
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
     } else if ($users == 'HRDO') {
-      // $aa_1 = $userId;
-      // $cfm = 'FORWARDED TO HRDO';
-      // $process = 'PROCESSING';
-      // $approved = 'APPROVED APPLICATION';
-      // $records->where('mem_app.forwarded_user', $aa_1);
-      // $records->where('mem_app.validator_remarks', $cfm);
-      // $records->orWhere('mem_app.validator_remarks', $approved);
-
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
       $process = 'PROCESSING';
@@ -1814,11 +1804,13 @@ class AdminController extends Controller
     $totalRecordswithFilter = $records->count();
 
     // Fetch records
+    DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
-      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
-      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
-      ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-      ->where('mem_app.app_no', 'like', '%' . $search . '%');
+    ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+    ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+    ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
+    ->where('mem_app.app_no', 'like', '%' . $search . '%')
+    ->groupBy('mem_app.app_no');
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -1838,6 +1830,7 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $approved)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
+
     } else if ($users == 'HRDO') {
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
@@ -1908,7 +1901,6 @@ class AdminController extends Controller
     } else if ($users == 'CFM') {
       $href = '/admin/members/records/view/aa/';
     }
-
 
     $posts = $records->skip($start)
       ->take($rowperpage)
@@ -1985,23 +1977,37 @@ class AdminController extends Controller
       }
     }
 
-    $datadb = DB::transaction(function () use ($request) {
-      $inserts_election = array(
-        'election_year' => $request->input('election_year'),
-        'cluster_id' => $request->input('cluster_id'),
-        'cluster_name' => clusterNameIdentifier($request->input('cluster_id')),
-        'election_date' => $request->input('election_date'),
-        'time_open' => $request->input('user_access') == null ?  $request->input('time_open') : null,
-        'time_close' => $request->input('user_access') == null ?  $request->input('time_close') : null,
-        'user_access' => $request->input('user_access'),
-        'status' => "CLOSE"
+
+    $validate_election_date = DB::table('election_tbl')
+      ->where("election_date", "=",  $request->input('election_date'))
+      ->count();
+
+    if ($validate_election_date >= 1) {
+      return response()->json(
+        [
+          'election_date_exist' => true,
+          'success' => false
+        ]
       );
-      $last_id = DB::table('election_tbl')->insertGetId($inserts_election);
-      return [
-        'last_id' => $last_id,
-      ];
-    });
-    return response()->json(['success' => $datadb['last_id']]);
+    } else {
+      $datadb = DB::transaction(function () use ($request) {
+        $inserts_election = array(
+          'election_year' => $request->input('election_year'),
+          'cluster_id' => $request->input('cluster_id'),
+          'cluster_name' => clusterNameIdentifier($request->input('cluster_id')),
+          'election_date' => $request->input('election_date'),
+          'time_open' => $request->input('user_access') == null ?  $request->input('time_open') : null,
+          'time_close' => $request->input('user_access') == null ?  $request->input('time_close') : null,
+          'user_access' => $request->input('user_access'),
+          'status' => "DRAFT"
+        );
+        $last_id = DB::table('election_tbl')->insertGetId($inserts_election);
+        return [
+          'last_id' => $last_id,
+        ];
+      });
+      return response()->json(['success' => $datadb['last_id']]);
+    }
   }
 
 
@@ -2180,20 +2186,11 @@ class AdminController extends Controller
       $nestedData['cluster_id'] = $row->cluster_name;
       $nestedData['status'] = $row->status;
       $nestedData['action'] = '
-          <a href="/admin/edit-election/' . $row->election_id .  '" style="padding:0px !important; color:white;"> 
-            <button class="up-button-green edit_campus" style="border-radius: 5px;" data-id='  . $row->election_id . ' >
-            <span>
-            
-             <i  class="fa fa-edit" style="padding:3px;font-size:17px;" aria-hidden="true"></i>
-            </span>
-          </button>
-          </a>
-            
-          <button class="up-button delete_campus" style="border-radius: 5px;" data-id=' . $row->election_id .  ' >
-            <span>
-              <i class="fa fa-trash" style="color:white;padding:3px;font-size:17px;" aria-hidden="true"></i>
-            </span>
-          </button>';
+      <a href="/admin/edit-election/' . $row->election_id .  '" data-md-tooltip="Manage Election" class="view_member md-tooltip--top view-member" style="cursor: pointer">
+                 <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+               </a>
+          
+         ';
 
       $data[] = $nestedData;
     }
