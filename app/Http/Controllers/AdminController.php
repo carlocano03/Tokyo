@@ -1622,14 +1622,14 @@ class AdminController extends Controller
     //   ->where('mem_app.app_no', 'like', '%' . $search . '%')
     //   ->where('mem_app.app_status', $aa_1)
     //   ->where('mem_app.app_status', $aa_2);
-    
+
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
       ->where('mem_app.app_status', '!=', 'deleted')
       ->groupBy('mem_app.app_no');
-      
+
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -1717,7 +1717,7 @@ class AdminController extends Controller
       ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
       ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
       ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-      ->leftjoin('membership_id', 'mem_app.employee_no', '=' ,'membership_id.employee_no')
+      ->leftjoin('membership_id', 'mem_app.employee_no', '=', 'membership_id.employee_no')
       ->where('mem_app.app_no', 'like', '%' . $search . '%')
       ->groupBy('mem_app.app_no');
     DB::enableQueryLog();
@@ -1806,11 +1806,11 @@ class AdminController extends Controller
     // Fetch records
     DB::statement("SET SESSION sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))");
     $records = MemApp::leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
-    ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
-    ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
-    ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
-    ->where('mem_app.app_no', 'like', '%' . $search . '%')
-    ->groupBy('mem_app.app_no');
+      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->leftjoin('membership_details', 'mem_app.app_no', '=', 'membership_details.app_no')
+      ->leftjoin('campus', 'campus.campus_key', '=', 'employee_details.campus')
+      ->where('mem_app.app_no', 'like', '%' . $search . '%')
+      ->groupBy('mem_app.app_no');
     if ($cfmCluster > 0) {
       $records->where('campus.cluster_id', $cfmCluster);
     }
@@ -1830,7 +1830,6 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $approved)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
-
     } else if ($users == 'HRDO') {
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
@@ -2284,6 +2283,50 @@ class AdminController extends Controller
     echo json_encode($data);
   }
 
+  //insert candidates form
+  public function addCandidates(Request $request)
+  {
+
+
+    $cluster_id = $request->input('cluster_id');
+    $campus_id = $request->input('campus_id');
+    $election_id = $request->input('election_id');
+    $membership_id = $request->input('membership_id');
+    $sg_category = $request->input('sg_category');
+
+    $candidate_photo = $request->file('candidate_photo');
+    $candidate_attachment = $request->file('candidate_attachment');
+
+
+
+    if ($request->file('candidate_photo')  != null && $request->file('candidate_photo')  != null) {
+      $candidate_photo_file = $candidate_photo->getClientOriginalName();
+      $file_candidate_photo = $request->input('membership_id') . '_' . $candidate_photo_file;
+
+      $candidate_attachment_file = $candidate_attachment->getClientOriginalName();
+      $file_candidate_attachment = $request->input('membership_id') . '_' . $candidate_attachment_file;
+
+      $candidate_photo->storeAs('candidates', $file_candidate_photo, 'public');
+      $candidate_attachment->storeAs('candidates', $file_candidate_attachment, 'public');
+      // $path = $file_candidate_photo->storeAs('candidate_filee', $file_candidate_photo, 'public');
+    } else {
+      $path = null;
+    }
+
+
+    $insertCandidates = [
+      'cluster_id' => $cluster_id,
+      'campus_id' => $campus_id,
+      'election_id' =>  $election_id,
+      'membership_id' => $membership_id,
+      'sg_category' => $sg_category,
+      'candidate_photo' => $file_candidate_photo,
+      'candidate_attachment' => $file_candidate_attachment
+    ];
+    DB::table('candidates_tbl')->insert($insertCandidates);
+
+    return response()->json(['message' => 'Success']);
+  }
 
   public function updateElectionRecord(Request $request)
   {
@@ -2329,6 +2372,34 @@ class AdminController extends Controller
     }
     return redirect('/admin/edit-election/' . $election_id);
   }
+
+  //election candidate dropdown search query
+  public function getCandidates(Request $request)
+  {
+
+    // $query = $request->sg_category;
+
+    $query = "SG15";
+    if ($query == "SG15") {
+      $results = DB::table('employee_details')
+        // ->whereRaw("employee_details.sg_category = '1-15'")
+        ->join('membership_id', 'membership_id.employee_no', '=', 'employee_details.employee_no')
+        ->join('mem_app', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+        ->join('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+        ->join('campus', 'campus.campus_key', '=', 'employee_details.campus')
+        ->select('employee_details.*', 'membership_id.*', 'mem_app.*', 'personal_details.*', 'campus.name as campus_name', 'campus.id as campus_id', 'campus.cluster_id')
+        ->orderBy('employee_details.employee_no', 'asc')->get();
+    } else if ($query == "SG16") {
+      $results = DB::table('employee_details')
+        // ->whereRaw("employee_details.sg_category = '16-33'")
+        ->join('membership_id', 'membership_id.employee_no', '=', 'employee_details.employee_no')
+        ->select('employee_details.*', 'membership_id.*')
+        ->orderBy('employee_details.employee_no', 'asc')->get();
+    };
+    return response()->json($results);
+  }
+
+
   public function createElection()
   {
     return view('admin.election.create-election');

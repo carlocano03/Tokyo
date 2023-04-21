@@ -10,7 +10,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </label>
                     <div class="">
-                        <label>Setup New Election Module</label>
+                        <label class="election_modal_title">Setup New Election Module</label>
                         <br>
                         <label class="account-info">
                         </label>
@@ -1320,7 +1320,20 @@
         });
 
     });
+    $(document).on('click', "#user_access", function() {
+        if ($('#user_access').is(':checked')) {
+            $("#time_open").prop("disabled", true);
+            $("#time_close").prop("disabled", true);
 
+            $("#time_open").val("").trigger("change");
+            $("#time_close").val("").trigger("change");
+            $("#user_access").val("OPEN");
+        } else {
+            $("#time_open").prop("disabled", false);
+            $("#time_close").prop("disabled", false);
+            $("#user_access").val(null);
+        }
+    });
 
     function resetFilterDate() {
         $('#time_open_filter').val("").trigger("change");
@@ -1376,6 +1389,38 @@
         })
 
         if (hasError) return
+
+        var selected_date = new Date($('#election_date').val());
+        var date_today = new Date();
+
+        if (selected_date < date_today) {
+            $('#election_date').val("").trigger("change");
+            status = validateField({
+                element: $('#election_date'),
+                target: 'validate-election',
+                errText: "Election Date Invalid!"
+            })
+            return
+        }
+
+        var time_from = $('#time_open').val();
+        var time_to = $('#time_close').val();
+        if (time_from != "" && time_to != "" && time_from > time_to) {
+            $('#time_open').val("").trigger("change");
+            $('#time_close').val("").trigger("change");
+            status = validateField({
+                element: $('#time_open'),
+                target: 'validate-election',
+                errText: "Time Invalid!"
+            })
+            status = validateField({
+                element: $('#time_close'),
+                target: 'validate-election',
+                errText: "Time Invalid!"
+            })
+            return
+        }
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

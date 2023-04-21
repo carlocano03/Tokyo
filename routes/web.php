@@ -121,12 +121,14 @@ Route::post('/admin/members/update_employee_details', [HomeController::class, 'u
 Route::get('/admin/election-list', [AdminController::class, 'getElectionDetails'])->name('getElectionDetails');
 Route::post('/admin/countElection', [AdminController::class, 'countElection'])->name('count_election');
 Route::post('/admin/electionValidation', [AdminController::class, 'electionValidation'])->name('election_validation');
+//candidates
+Route::post('/admin/electionCandidatesList', [AdminController::class, 'getCandidates'])->name('election_candidates_list');
 
 
 //election saving
 Route::post('/admin/election/save-election', [AdminController::class, 'saveElection'])->name('save_election');
 Route::post('/admin/election/save-election-draft', [AdminController::class, 'saveElectionDraft'])->name('save_election_draft');
-
+Route::post('/admin/election/add-candidates', [AdminController::class, 'addCandidates'])->name('add_candidates');
 
 //election saving
 Route::post('/admin/election/save-election', [AdminController::class, 'saveElection'])->name('save_election');
