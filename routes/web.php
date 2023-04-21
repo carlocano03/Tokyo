@@ -128,7 +128,7 @@ Route::post('/admin/electionCandidatesList', [AdminController::class, 'getCandid
 //election saving
 Route::post('/admin/election/save-election', [AdminController::class, 'saveElection'])->name('save_election');
 Route::post('/admin/election/save-election-draft', [AdminController::class, 'saveElectionDraft'])->name('save_election_draft');
-
+Route::post('/admin/election/add-candidates', [AdminController::class, 'addCandidates'])->name('add_candidates');
 
 //election saving
 Route::post('/admin/election/save-election', [AdminController::class, 'saveElection'])->name('save_election');

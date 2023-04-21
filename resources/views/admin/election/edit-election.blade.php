@@ -99,8 +99,9 @@
                         <button class="mp-input-group__label button-menu" id="sg16_button">16 Above Category</button>
 
                         <div id="candidates_sg15">
-                            {{ csrf_field() }}
-                            <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
+                            <form id="addCandidateForm" method="" enctype="multipart/form-data" style="height: calc(100% - 100px) !important;">
+                                @csrf
 
                                 <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
                                     <input type="hidden" id="app_trailNo">
@@ -133,13 +134,13 @@
 
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">Select Candidate Image/Photo *</label>
-                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                        <input style="height: 40px;border: none;" type="file" name="candidate_photo" id="candidate_photo" accept=" image/png, image/gif, image/jpeg, image/jpg" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline">
                                     </div>
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">File Attachment</label>
-                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                        <input style="height: 40px;border: none;" type="file" name="candidate_attachment" id="candidate_attachment" accept="image/png, image/gif, image/jpeg, image/jpg" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline">
                                     </div>
-                                    <a class="up-button btn-md button-animate-right mp-text-center">
+                                    <a class="up-button btn-md button-animate-right mp-text-center" id="saveCandidate">
                                         <span>ADD CANDIDATE</span>
                                     </a>
                                 </div>
@@ -149,7 +150,8 @@
                         <div id="candidates_sg16" class="d-none opacity-0">
                             {{ csrf_field() }}
                             <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
-
+                                @csrf
+                                {{ csrf_field() }}
                                 <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
                                     <input type="hidden" id="app_trailNo">
                                     <div class="mp-input-group">
@@ -186,11 +188,11 @@
                                     </div>
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">Select Candidate Image/Photo *</label>
-                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                        <input style="height: 40px;border: none;" type="file" accept="image/png, image/gif, image/jpeg, image/jpg" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
                                     </div>
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">File Attachment</label>
-                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                        <input style="height: 40px;border: none;" type="file" accept="image/png, image/gif, image/jpeg, image/jpg" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
                                     </div>
                                     <a class="up-button btn-md button-animate-right mp-text-center">
                                         <span>ADD CANDIDATE</span>
@@ -1213,8 +1215,6 @@
 
                                     <div class="setup-election">
 
-
-
                                         <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;">
                                             <h4 style="color: white;
                                             padding: 15px;
@@ -1300,8 +1300,10 @@
                                     <div class="setup-election">
                                         <br>
 
-                                        {{ csrf_field() }}
+
                                         <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;">
+                                            @csrf
+                                            {{ csrf_field() }}
                                             <h4 style="color: white;
                                             padding: 15px;
                                             background-color: var(--c-accent);
@@ -1550,8 +1552,9 @@
                 console.log(data)
                 $.each(data, function(key, value) {
                     var fullname = value.firstname + " " + value.middlename + " " + value.lastname;
-                    $("#candidates_dropdown").append("<option value='" + value.membership_id + "' data-cluster_id='" + value.cluster_id + "' data-campus_name='" +
-                        value.campus_name + "'" + "' data-position='" + value.classification + "'>" + value.employee_no + "- " + fullname + "</option>");
+                    $("#candidates_dropdown").append("<option value='" + value.mem_id + "' data-cluster_id='" + value.cluster_id + "' data-campus_name='" +
+                        value.campus_name + "'" + "' data-campus_id='" +
+                        value.campus_id + "'" + "' data-position='" + value.classification + "'>" + value.employee_no + "- " + fullname + "</option>");
                 });
             }
         });
@@ -1573,13 +1576,59 @@
         var selected_cluster = $(this).find(':selected').data('cluster_id');
         var selected_campus_name = $(this).find(':selected').data('campus_name');
         var selected_position = $(this).find(':selected').data('position');
+        var selected_campus_id = $(this).find(':selected').data('campus_id');
         var selected_membership_id = $(this).val();
-
 
         $("#candidate_cluster").val(clusterNameIdentifier(selected_cluster)).trigger("change");
         $("#candidate_campus").val(selected_campus_name).trigger("change");
         $("#candidate_position").val(selected_position).trigger("change");
     });
+
+    $(document).on('click', '#saveCandidate', function(e) {
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var form = $('#addCandidateForm')[0];
+        var formData = new FormData(form);
+        var photoFile = $('#candidate_photo')[0].files;
+        var attachmentFile = $('#candidate_attachment')[0].files;
+
+        var sg_category = "1-15";
+        var selected_cluster = $('#candidates_dropdown').find(':selected').data('cluster_id');
+        var selected_campus_id = $('#candidates_dropdown').find(':selected').data('campus_id');
+        var selected_position = $('#candidates_dropdown').find(':selected').data('position');
+        var selected_membership_id = $('#candidates_dropdown').val();
+
+
+        formData.append('cluster_id', $('#candidates_dropdown').find(':selected').data('cluster_id'));
+        formData.append('campus_id', $('#candidates_dropdown').find(':selected').data('campus_id'));
+        formData.append('election_id', <?php echo json_encode($election_details->election_id) ?>);
+        formData.append('membership_id', $('#candidates_dropdown').val());
+        formData.append('sg_category', sg_category);
+        formData.append('candidate_photo', photoFile[0]);
+        formData.append('candidate_attachment', attachmentFile[0]);
+
+        // console.log(election_id);
+        // console.log(selected_membership_id);
+        console.log(photoFile[0])
+        $.ajax({
+            url: "{{ route('add_candidates') }}",
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+            },
+        });
+
+    })
+
     $(document).on('click', '#viewAttachmentButton', function(e) {
 
         $("#modalBackDrop").removeClass("d-none")
