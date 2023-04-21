@@ -1,36 +1,46 @@
 @extends('layouts/main')
 @section('content_body')
 
+<style>
+
+@media (max-width:652px) {
+        .members-module {
+            margin-top: 53px;
+        }
+
+        .siderbar {
+            position: absolute;
+            height: 100%;
+            min-height: 95vh;
+            z-index: 100;
+        }
+    }
+    
+</style>
 
 <div class="filler"></div>
-  <div class="col-12 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-accent mp-overflow-y dashboard mh-content">
-         <div class="row no-gutters mp-mt5">
-            <div class="col-6 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-primary">
-                Your Account History
-            </div>
-            <div class="col-6">
-                <div class=" mp-top-button"
-                    style="display: flex; flex-direction: row; gap: 10px; justify-content: right; margin-right:30px; ">
-                    
-                        <!-- <span>
-                            <a href="{{ url('/admin/summary') }}"
-                                class="toggle text_link mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small">Generate
-                                Summary Report</a>
-                        </span> -->
-                    
-                    <span>
-                        <a href="#" id="exportEquity"
-                            class="toggle text_link mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small">Export
-                            Data</a>
-                    </span>
-                    {{-- <button type="button" id="printMember">Print</button> --}}
-                </div>
-            </div>
-        </div>
-
+  <div class="col-12 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-accent mp-overflow-y dashboard mh-content members-module">
+        
 
 
         <div class="row no-gutters mp-mb4">
+            <div class="col-12 mp-pt5 mp-pb2 d-flex items-between">
+                <div class="container d-flex items-between">
+                    <span class=" mp-text-fs-large mp-text-c-primary">
+                        Your Account History
+                    </span>
+                    
+                    <span>
+                        <a href="#" id="exportEquity"
+                            class="toggle text_link mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small" style="background-color: var(--c-accent) !important;
+                            color: white !important;
+                            ">Export  Data</a>
+                    </span>
+                    {{-- <button type="button" id="printMember">Print</button> --}}
+                </div>
+                    
+           </div>
+
             <div class="col-12 mp-ph2 mp-pv2">
 
                 <div class="row no-gutters">

@@ -31,7 +31,12 @@ class MemberController extends Controller
   }
   public function loan()
   {
-    return view('member.loan');
+    return view('member.loan_application.index');
+  }
+
+  public function new_loan()
+  {
+    return view('member.loan_application.new_loan');
   }
 
   public function member()
