@@ -2287,27 +2287,51 @@ class AdminController extends Controller
   public function addCandidates(Request $request)
   {
 
+    if ($request->input('sg_category') == '1-15') {
+      $cluster_id = $request->input('cluster_id');
+      $campus_id = $request->input('campus_id');
+      $election_id = $request->input('election_id');
+      $membership_id = $request->input('membership_id');
+      $sg_category = $request->input('sg_category');
 
-    $cluster_id = $request->input('cluster_id');
-    $campus_id = $request->input('campus_id');
-    $election_id = $request->input('election_id');
-    $membership_id = $request->input('membership_id');
-    $sg_category = $request->input('sg_category');
+      $candidate_photo = $request->file('candidate_photo');
+      $candidate_attachment = $request->file('candidate_attachment');
+    } else if ($request->input('sg_category') == '16-33') {
+      $cluster_id = $request->input('cluster_idSG16');
+      $campus_id = $request->input('campus_idSG16');
+      $election_id = $request->input('election_idSG16');
+      $membership_id = $request->input('membership_idSG16');
+      $sg_category = $request->input('sg_category');
 
-    $candidate_photo = $request->file('candidate_photo');
-    $candidate_attachment = $request->file('candidate_attachment');
+      $candidate_photo = $request->file('candidate_photoSG16');
+      $candidate_attachment = $request->file('candidate_attachmentSG16');
+    }
 
 
 
-    if ($request->file('candidate_photo')  != null && $request->file('candidate_photo')  != null) {
-      $candidate_photo_file = $candidate_photo->getClientOriginalName();
-      $file_candidate_photo = $request->input('membership_id') . '_' . $candidate_photo_file;
 
-      $candidate_attachment_file = $candidate_attachment->getClientOriginalName();
-      $file_candidate_attachment = $request->input('membership_id') . '_' . $candidate_attachment_file;
+    if ($request->file('candidate_photo')  != null && $request->file('candidate_photo') || $request->file('candidate_photoSG16')  != null && $request->file('candidate_photoSG16')) {
 
-      $candidate_photo->storeAs('candidates', $file_candidate_photo, 'public');
-      $candidate_attachment->storeAs('candidates', $file_candidate_attachment, 'public');
+      if ($sg_category == "1-15") {
+        $candidate_photo_file = $candidate_photo->getClientOriginalName();
+        $file_candidate_photo = $request->input('membership_id') . '_' . $candidate_photo_file;
+
+        $candidate_attachment_file = $candidate_attachment->getClientOriginalName();
+        $file_candidate_attachment = $request->input('membership_id') . '_' . $candidate_attachment_file;
+
+        $candidate_photo->storeAs('candidates', $file_candidate_photo, 'public');
+        $candidate_attachment->storeAs('candidates', $file_candidate_attachment, 'public');
+      } else if ($sg_category == "16-33") {
+        $candidate_photo_file = $candidate_photo->getClientOriginalName();
+        $file_candidate_photo = $request->input('membership_idSG16') . '_' . $candidate_photo_file;
+
+        $candidate_attachment_file = $candidate_attachment->getClientOriginalName();
+        $file_candidate_attachment = $request->input('membership_idSG16') . '_' . $candidate_attachment_file;
+
+        $candidate_photo->storeAs('candidates', $file_candidate_photo, 'public');
+        $candidate_attachment->storeAs('candidates', $file_candidate_attachment, 'public');
+      }
+
       // $path = $file_candidate_photo->storeAs('candidate_filee', $file_candidate_photo, 'public');
     } else {
       $path = null;
@@ -2379,10 +2403,11 @@ class AdminController extends Controller
 
     // $query = $request->sg_category;
 
-    $query = "SG15";
+    $query = request()->get('sg_category');
     if ($query == "SG15") {
       $results = DB::table('employee_details')
-        // ->whereRaw("employee_details.sg_category = '1-15'")
+        ->whereRaw("employee_details.sg_category = '1-15'")
+        ->whereRaw("membership_id.mem_id NOT IN (select membership_id from candidates_tbl)")
         ->join('membership_id', 'membership_id.employee_no', '=', 'employee_details.employee_no')
         ->join('mem_app', 'mem_app.employee_no', '=', 'employee_details.employee_no')
         ->join('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
@@ -2391,9 +2416,13 @@ class AdminController extends Controller
         ->orderBy('employee_details.employee_no', 'asc')->get();
     } else if ($query == "SG16") {
       $results = DB::table('employee_details')
-        // ->whereRaw("employee_details.sg_category = '16-33'")
+        ->whereRaw("employee_details.sg_category = '16-33'")
+        ->whereRaw("membership_id.mem_id NOT IN (select membership_id from candidates_tbl)")
         ->join('membership_id', 'membership_id.employee_no', '=', 'employee_details.employee_no')
-        ->select('employee_details.*', 'membership_id.*')
+        ->join('mem_app', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+        ->join('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+        ->join('campus', 'campus.campus_key', '=', 'employee_details.campus')
+        ->select('employee_details.*', 'membership_id.*', 'mem_app.*', 'personal_details.*', 'campus.name as campus_name', 'campus.id as campus_id', 'campus.cluster_id')
         ->orderBy('employee_details.employee_no', 'asc')->get();
     };
     return response()->json($results);
