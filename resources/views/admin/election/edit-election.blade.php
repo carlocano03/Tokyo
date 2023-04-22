@@ -190,7 +190,7 @@
                                         <input style="height: 40px;border: none;" type="file" name="candidate_attachmentSG16" data-set=validate-election-field2 id="candidate_attachmentSG16" accept="image/png, image/gif, image/jpeg, image/jpg" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline">
                                     </div>
                                     <a class="up-button btn-md button-animate-right mp-text-center" id="saveCandidateSG16">
-                                        <span>ADD CANDIDATE</span>
+                                        <span>ADD CANDIDATE </span>
                                     </a>
                                 </div>
                             </form>
