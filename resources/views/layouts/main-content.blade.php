@@ -401,6 +401,13 @@
   #bypass-color {
     color: grey;
   }
+
+  .background-member {
+    background-image: url("{!! asset('assets/images/member-dashboard-bg.svg') !!}");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
 </style>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -556,6 +563,13 @@
   <script>
     $(document).ready(function() {
       $('.js-example-responsive').select2();
+      var link = window.location.href;
+      var urlParts = link.split("/"); // split the link using "/"
+      var userType = urlParts[3]; // get the third element of the resulting array
+    
+      if(userType == "member") {
+        $('.contents').addClass('background-member')
+      }
     });
     var click = 0;
     $(document).on('click', '#membersDropdown', function(e) {
