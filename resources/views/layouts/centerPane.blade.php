@@ -1106,7 +1106,7 @@
                         return
                     }
                     if (name == 'gender') {
-                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select gender.")
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your sex at birth.")
                         $("[data-set=" + name + "]>select").addClass('input-error')
                         return
                     }
@@ -1155,7 +1155,19 @@
                         return
                     }
                     if (name == 'birthday') {
-                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid Age, you must be 15 years old or older.")
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your date of birth.")
+                        return
+                    }
+                    if (name == 'firstname') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please enter your complete first name/s.")
+                        return
+                    }
+                    if (name == 'middlename') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please enter your complete middle name.")
+                        return
+                    }
+                    if (name == 'lastname') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please enter your last name.")
                         return
                     }
                     console.log('name', name)
@@ -1357,6 +1369,11 @@
             if (college_unit.val() == "") {
                 empty.push(college_unit[0])
             }
+
+            var department = $('#member_forms_con').find("[name=department]")
+            if (department.val() == "") {
+                empty.push(department[0])
+            }
             var appointment = $('#member_forms_con').find("[name=appointment]")
             if (appointment.val() == "") {
                 empty.push(appointment[0])
@@ -1411,6 +1428,13 @@
                     if (name == 'appointment') {
                         $("[data-set=" + name + "]>#err-msg").text("Please select an appointment status.")
                     }
+                    if (name == 'college_unit') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your college/unit.")
+                    }
+                    if (name == 'department') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your department.")
+                    }
+
 
                 })
                 empty.first().focus();
@@ -3306,7 +3330,16 @@
         var college_unit = $('#member_forms_con').find("[name=college_unit]")
         if (college_unit.val() == "") {
             empty.push(college_unit[0])
+            $("[data-set=college_unit]>#err-msg").removeClass('d-none').text("Please select your college/unit.")
+            $("[data-set=college_unit]>.input").addClass('input-error')
         }
+        var department = $('#member_forms_con').find("[name=department]")
+        if (department.val() == "") {
+            empty.push(department[0])
+            $("[data-set=department]>#err-msg").removeClass('d-none').text("Please select your department.")
+            $("[data-set=department]>.input").addClass('input-error')
+        }
+
         var appointment = $('#member_forms_con').find("[name=appointment]")
         if (appointment.val() == "") {
             empty.push(appointment[0])

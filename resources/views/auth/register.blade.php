@@ -363,7 +363,7 @@
         </div>
 
         <div class="mp-input-group" data-set="lastname">
-            <label class="mp-input-group__label">Last Name (Please input your complete last name/s)</label>
+            <label class="mp-input-group__label">Last Name</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
@@ -423,7 +423,7 @@
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group input" data-set="gender">
-            <label class="mp-input-group__label">Gender </label>
+            <label class="mp-input-group__label">Sex at Birth </label>
             <select class="mp-input-group__input mp-text-field" name="gender">
                 <option value="">Select Gender</option>
                 <option value="Male">Male</option>
@@ -450,6 +450,9 @@
 
                 <input type="radio" value="Widowed" id="widowed" name="civilstatus" />
                 <label class="mp-input-group__label" for="widowed" style="margin-top: 1px;">Widowed</label>
+
+                <input type="radio" value="Annulled/Legally separated" id="anulled" name="civilstatus" />
+                <label class="mp-input-group__label" for="anulled" style="margin-top: 1px;">Annulled/Legally separated</label>
             </div>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
@@ -478,7 +481,7 @@
 
             <label class="mp-input-group__label">Present Address </label><br>
             <label class="mp-input-group__label">Province
-                <div class="tooltip">
+                <!-- <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
                         <div class="text-content">
@@ -488,7 +491,7 @@
                         </div>
                         <i></i>
                     </div>
-                </div>
+                </div> -->
             </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="present_province" name="present_province">
                 <option value="">Select Province </option>
@@ -582,9 +585,9 @@
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
-            <div class="mp-input-group mp-mt5 mp-input-group__label">
-                <input type="checkbox" id="terms" name="terms" />
-                Sign up for emails to get updates on products, offers and member benefits.<br><br>
+            <div class="mp-input-group  mp-input-group__label">
+                <input type="checkbox" id="terms" name="terms" checked />
+                I agree to receive emails on updates to my account<br><br>
                 By clicking Next, you agree to UP Provident Fund Inc.’s <b class="mp-link link_style" id="termsbtn">Terms of Use</b> and <b id="privacybtn" class="mp-link link_style">Privacy Policy</b>.<br>
                 <!--<a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>-->
@@ -632,27 +635,29 @@
         </div>
         <div class="mp-input-group" data-set="employee_no">
             <label class="mp-input-group__label">Employee Number (Please refer to your UP ID)</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="employee_no" required />
+            <input class="mp-input-group__input mp-text-field" type="number" name="employee_no" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="college_unit">
             <label class="mp-input-group__label">College / Unit </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="college_unit" id="college_unit">
                 <option value="">Select Unit</option>
                 {{-- <option>Unit </option> --}}
             </select>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="department">
             <label class="mp-input-group__label">Department </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="department" id="department" required>
                 <option value="">Select Department</option>
-                <option value="OTHER" selected>Others</option>
+                <option value="OTHER">Others</option>
                 {{-- <option>DEPED </option> --}}
             </select>
             <div id="other-dept-div" class=" d-none opacity-0">
                 <label class="mp-input-group__label">Other Department (Please Specify)</label>
                 <input class="mp-input-group__input mp-text-field" type="text" value="" name="other_department" id="other_department" />
             </div>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Academic Rank/ Position </label>
@@ -735,7 +740,7 @@
         </div>
         <div class="mp-input-group" data-set="tin_no">
             <label class="mp-input-group__label">Taxpayer Identification Number (TIN) </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
+            <input class="mp-input-group__input mp-text-field" type="number" name="tin_no" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_as_draft_1">
