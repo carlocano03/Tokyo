@@ -283,6 +283,7 @@ class Settings extends Controller
   {
     $college_unit_name = DB::table('college_unit')
       ->where("college_unit_name", "=", strtoupper($request->input('college_name')))
+      ->where("campus_id", "=", $request->input('campus'))
       ->count();
 
     if ($college_unit_name >= 1) {

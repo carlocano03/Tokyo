@@ -1151,6 +1151,12 @@
     .selection {
         font-size: 12px !important;
     }
+
+    .empty-candidates {
+        text-align: center;
+        border: 1px solid #adaaaa;
+        padding: 20px;
+    }
 </style>
 
 
@@ -1296,29 +1302,30 @@
                                         <br>
 
 
-                                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;">
-                                            @csrf
-                                            {{ csrf_field() }}
+                                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;  border-bottom: none;">
+
                                             <h4 style="color: white;
                                             padding: 15px;
                                             background-color: var(--c-accent);
                                             margin: 0;width: 100%;">Salary Grade 1-15
                                             </h4>
 
+                                            @forelse($candidates_detailsSG15 as $candidate_rowSG15)
 
                                             <div class="container-fluid">
                                                 <div class="row" style="padding: 25px;">
                                                     <div class="col-4">
 
                                                         <div class="profile-img">
-                                                            <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                                            <img src="{{ storage_path('app/public/candidates/'.$candidate_rowSG15->candidate_photo) }}" alt="">
+
                                                         </div>
                                                     </div>
                                                     <div class="col-8">
                                                         <div class="profile-text">
-                                                            <span>Denneb Gomez</span>
-                                                            <span> 1231231312</span>
-                                                            <span> Up Losbanos / Farm Worker</span>
+                                                            <span>{{ $candidate_rowSG15->firstname }} {{ $candidate_rowSG15->middlename }} {{ $candidate_rowSG15->lastname }}</span>
+                                                            <span> {{ $candidate_rowSG15->membership_id }}</span>
+                                                            <span> {{ $candidate_rowSG15->campus_name }} / {{ $candidate_rowSG15->classification }}</span>
 
                                                         </div>
                                                         <div class="profile-button">
@@ -1332,86 +1339,44 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            @empty
+                                            <p class="empty-candidates">No SG 1-15 Candidates Yet</p>
+                                            @endforelse
 
-                                            <div class="container-fluid">
-                                                <div class="row" style="padding: 25px;">
-                                                    <div class="col-4">
-
-                                                        <div class="profile-img">
-                                                            <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-8">
-                                                        <div class="profile-text">
-                                                            <span>Denneb Gomez</span>
-                                                            <span> 1231231312</span>
-                                                            <span> Up Losbanos / Farm Worker</span>
-
-                                                        </div>
-                                                        <div class="profile-button">
-                                                            <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
-                                                            <button type="button" class="up-button-green" id="changeButton">Change</button>
-                                                            <button type="button" class="up-button-red" id="removeButton">Remove</button>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                         </form>
+
                                     </div>
 
 
                                     <br>
 
                                     {{ csrf_field() }}
-                                    <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;">
+
+                                    <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important; border-bottom: none;">
+
                                         <h4 style="color: white;
                                             padding: 15px;
                                             background-color: var(--c-accent);
-                                            margin: 0;width: 100%;">Salary Grade 16-above
+                                            margin: 0;width: 100%;">Salary Grade 16-Above
                                         </h4>
 
-                                        <br>
+                                        @forelse($candidates_detailsSG16 as $candidate_rowSG16)
+
                                         <div class="container-fluid">
                                             <div class="row" style="padding: 25px;">
                                                 <div class="col-4">
 
                                                     <div class="profile-img">
-                                                        <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                                        <img src="{{ storage_path('app/public/candidates/'.$candidate_rowSG16->candidate_photo) }}" alt="">
+
                                                     </div>
                                                 </div>
                                                 <div class="col-8">
                                                     <div class="profile-text">
-                                                        <span>Denneb Gomez</span>
-                                                        <span> 1231231312</span>
-                                                        <span> Up Losbanos / Farm Worker</span>
-
-                                                    </div>
-                                                    <div class="profile-button">
-
-                                                        <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
-                                                        <button type="button" class="up-button-green" id="changeButton">Change</button>
-                                                        <button type="button" class="up-button-red" id="removeButton">Remove</button>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="container-fluid">
-                                            <div class="row" style="padding: 25px;">
-                                                <div class="col-4">
-
-                                                    <div class="profile-img">
-                                                        <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-8">
-                                                    <div class="profile-text">
-                                                        <span>Denneb Gomez</span>
-                                                        <span> 1231231312</span>
-                                                        <span> Up Losbanos / Farm Worker</span>
+                                                        <span>{{ $candidate_rowSG16->firstname }} {{ $candidate_rowSG16->middlename }} {{ $candidate_rowSG16->lastname }}</span>
+                                                        <span> {{ $candidate_rowSG16->membership_id }}</span>
+                                                        <span> {{ $candidate_rowSG16->campus_name }} / {{ $candidate_rowSG16->classification }}</span>
 
                                                     </div>
                                                     <div class="profile-button">
@@ -1427,10 +1392,12 @@
                                         </div>
 
 
-
-
+                                        @empty
+                                        <p class="empty-candidates">No SG 16-33 Candidates Yet</p>
+                                        @endforelse
 
                                     </form>
+
                                 </div>
 
 
@@ -1549,8 +1516,8 @@
                 $.each(data, function(key, value) {
                     var fullname = value.firstname + " " + value.middlename + " " + value.lastname;
                     $("#candidates_dropdown").append("<option value='" + value.mem_id + "' data-cluster_id='" + value.cluster_id + "' data-campus_name='" +
-                        value.campus_name + "'" + "' data-campus_id='" +
-                        value.campus_id + "'" + "' data-position='" + value.classification + "'>" + value.employee_no + "- " + fullname + "</option>");
+                        value.campus_name + "' data-campus_id='" + value.campus_id + "' data-position='" + value.classification + "'" +
+                        "data-personal_id='" + value.personal_id + "' >" + value.employee_no + "- " + fullname + "</option>");
 
                     if (key == 0) {
                         $("#candidate_cluster").val(clusterNameIdentifier(value.cluster_id)).trigger("change");
@@ -1573,8 +1540,8 @@
 
                     var fullname = value.firstname + " " + value.middlename + " " + value.lastname;
                     $("#candidates_dropdownSG16").append("<option value='" + value.mem_id + "' data-cluster_id='" + value.cluster_id + "' data-campus_name='" +
-                        value.campus_name + "'" + "' data-campus_id='" +
-                        value.campus_id + "'" + "' data-position='" + value.classification + "'  selected >" + value.employee_no + "- " + fullname + "</option>");
+                        value.campus_name + "' data-campus_id='" + value.campus_id + "' data-position='" + value.classification + "'" +
+                        "data-personal_id='" + value.personal_id + "' >" + value.employee_no + "- " + fullname + "</option>");
                     if (key == 0) {
                         $("#candidate_clusterSG16").val(clusterNameIdentifier(value.cluster_id)).trigger("change");
                         $("#candidate_campusSG16").val(value.campus_name).trigger("change");
@@ -1666,8 +1633,8 @@
         var selected_cluster = $('#candidates_dropdown').find(':selected').data('cluster_id');
         var selected_campus_id = $('#candidates_dropdown').find(':selected').data('campus_id');
         var selected_position = $('#candidates_dropdown').find(':selected').data('position');
+        var selected_personal_id = $('#candidates_dropdown').find(':selected').data('personal_id');
         var selected_membership_id = $('#candidates_dropdown').val();
-
 
         formData.append('cluster_id', $('#candidates_dropdown').find(':selected').data('cluster_id'));
         formData.append('campus_id', $('#candidates_dropdown').find(':selected').data('campus_id'));
@@ -1676,10 +1643,8 @@
         formData.append('sg_category', sg_category);
         formData.append('candidate_photo', photoFile[0]);
         formData.append('candidate_attachment', attachmentFile[0]);
+        formData.append('personal_id', $('#candidates_dropdown').find(':selected').data('personal_id'));
 
-        // console.log(election_id);
-        // console.log(selected_membership_id);
-        console.log(photoFile[0])
         $.ajax({
             url: "{{ route('add_candidates') }}",
             method: "POST",
@@ -1744,7 +1709,7 @@
         var selected_campus_id = $('#candidates_dropdownSG16').find(':selected').data('campus_id');
         var selected_position = $('#candidates_dropdownSG16').find(':selected').data('position');
         var selected_membership_id = $('#candidates_dropdownSG16').val();
-
+        var selected_personal_id = $('#candidates_dropdown16').find(':selected').data('personal_id');
 
         formData.append('cluster_idSG16', $('#candidates_dropdownSG16').find(':selected').data('cluster_id'));
         formData.append('campus_idSG16', $('#candidates_dropdownSG16').find(':selected').data('campus_id'));
@@ -1753,6 +1718,7 @@
         formData.append('sg_category', sg_categorySG16);
         formData.append('candidate_photoSG16', photoFile[0]);
         formData.append('candidate_attachmentSG16', attachmentFile[0]);
+        formData.append('personal_idSG16', $('#candidates_dropdownSG16').find(':selected').data('personal_id'));
 
         // console.log(election_id);
         // console.log(selected_membership_id);

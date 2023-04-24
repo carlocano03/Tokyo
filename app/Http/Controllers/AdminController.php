@@ -2241,11 +2241,30 @@ class AdminController extends Controller
       ->where('election_id', '=',  $id)
       ->get()->first();
 
-    $data['election_details'] = $election_details;
-    $data['candidates'] = $election_details;
+    $candidates_detailsSG15 = DB::table('candidates_tbl')
+      ->where('candidates_tbl.election_id', '=',  $id)
+      ->where('candidates_tbl.sg_category', '=',  '1-15')
+      ->join("personal_details", "candidates_tbl.personal_id", "=", "personal_details.personal_id")
+      ->join("campus", "candidates_tbl.campus_id", "=", "campus.id")
+      ->join("membership_id", "candidates_tbl.membership_id", "=", "membership_id.mem_id")
+      ->join("employee_details", "membership_id.employee_no", "=", "employee_details.employee_no")
+      ->select('candidates_tbl.*', 'personal_details.*', 'campus.name as campus_name', 'membership_id.*', 'employee_details.*')
+      ->get();
+    $candidates_detailsSG16 = DB::table('candidates_tbl')
+      ->where('candidates_tbl.election_id', '=',  $id)
+      ->where('candidates_tbl.sg_category', '=',  '16-33')
+      ->join("personal_details", "candidates_tbl.personal_id", "=", "personal_details.personal_id")
+      ->join("campus", "candidates_tbl.campus_id", "=", "campus.id")
+      ->join("membership_id", "candidates_tbl.membership_id", "=", "membership_id.mem_id")
+      ->join("employee_details", "membership_id.employee_no", "=", "employee_details.employee_no")
+      ->select('candidates_tbl.*', 'personal_details.*', 'campus.name as campus_name', 'membership_id.*', 'employee_details.*')
+      ->get();
 
+    $data['election_details'] = $election_details;
+    $data['candidatesSG15'] = $candidates_detailsSG15;
+    $data['candidatesSG16'] = $candidates_detailsSG16;
     if (!empty($election_details)) {
-      return view('admin.election.edit-election', compact('election_details'));
+      return view('admin.election.edit-election', compact('election_details', 'candidates_detailsSG15', 'candidates_detailsSG16'));
     } else {
       return redirect('/admin/election-record');
     }
@@ -2293,6 +2312,7 @@ class AdminController extends Controller
       $election_id = $request->input('election_id');
       $membership_id = $request->input('membership_id');
       $sg_category = $request->input('sg_category');
+      $personal_id = $request->input('personal_id');
 
       $candidate_photo = $request->file('candidate_photo');
       $candidate_attachment = $request->file('candidate_attachment');
@@ -2302,6 +2322,7 @@ class AdminController extends Controller
       $election_id = $request->input('election_idSG16');
       $membership_id = $request->input('membership_idSG16');
       $sg_category = $request->input('sg_category');
+      $personal_id = $request->input('personal_idSG16');
 
       $candidate_photo = $request->file('candidate_photoSG16');
       $candidate_attachment = $request->file('candidate_attachmentSG16');
@@ -2344,6 +2365,7 @@ class AdminController extends Controller
       'election_id' =>  $election_id,
       'membership_id' => $membership_id,
       'sg_category' => $sg_category,
+      'personal_id' => $personal_id,
       'candidate_photo' => $file_candidate_photo,
       'candidate_attachment' => $file_candidate_attachment
     ];
