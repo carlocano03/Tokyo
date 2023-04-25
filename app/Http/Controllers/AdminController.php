@@ -2553,4 +2553,22 @@ class AdminController extends Controller
   {
     return view('admin.transaction.transaction-analytics');
   }
+
+
+
+  //admin loan backend
+  public function loanMatrix()
+  {
+    return view('admin.loan.loan-matrix');
+  }
+
+  public function loanApplication()
+  {
+    return view('admin.loan.loan-application');
+  }
+
+  public function loanAnalytics()
+  {
+    return view('admin.loan.loan-analytics');
+  }
 }

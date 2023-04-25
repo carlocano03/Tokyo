@@ -1471,23 +1471,23 @@
                 <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
                     <div class="settings-tab">
                         <div class="top-label">
-                            <label>Transaction Module</label>
+                            <label>Loan Module</label>
 
                         </div>
 
                         <div class="settings-buttons">
                             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
 
-                                <li class="options " onclick="location.href='/admin/transaction'">
-                                    <a href="#" class="no-padding ">Monthly Contributions</a><br>
+                                <li class="options " onclick="location.href='/admin/loan/loan-matrix'">
+                                    <a href="#" class="no-padding ">Loan Matrix Details</a><br>
 
                                 </li>
-                                <li class="options options-active" onclick="location.href='/admin/transaction/loan-payment'">
-                                    <a href="#" class="no-padding options-a-active">Loans Payment</a><br>
+                                <li class="options " onclick="location.href='/admin/loan/loan-application'">
+                                    <a href="#" class="no-padding ">Loans Application</a><br>
 
                                 </li>
-                                <li class="options " onclick="location.href='/admin/transaction/transaction-analytics'">
-                                    <a href="#" class="no-padding ">Analytics</a><br>
+                                <li class="options options-active" onclick="location.href='/admin/loan/loan-analytics'">
+                                    <a href="#" class="no-padding options-a-active">Analytics</a><br>
 
                                 </li>
 
@@ -1516,7 +1516,7 @@
 
                     <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
 
-                        <div class="table-form w-full" style="grid-template-columns: repeat(8, 1fr); font-size:12px; padding:10px;">
+                        <div class="table-form w-full" style="grid-template-columns: repeat(8, 1fr); font-size:12px;">
                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                 <span>Search</span>
                                 <input type="text" id="election_date_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
@@ -1564,340 +1564,250 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="card d-flex flex-column mp-mt2">
-                    <div class="top-label">
-                        <label>LOANS PAYMENT</label>
-                    </div>
-                    <a href="#" style="padding: 2px; color:#6c1242; font-size: 13px; text-align: right;" class="link_style">
-                        Update Multiple Payments
-                    </a>
-                    <div class="table-container">
-                        <table class="members-table" style="height: auto;" width="100%">
-                            <thead>
-                                <tr>
-                                    <th style="width:60px">
-                                        <span>Checked</span>
-                                    </th>
-                                    <th>
-                                        <span>Actions</span>
-                                    </th>
-                                    <th>
-                                        <span>Loan Type</span>
-                                    </th>
-                                    <th>
-                                        <span>Members ID</span>
-                                    </th>
-                                    <th>
-                                        <span>Member Name</span>
-                                    </th>
-                                    <th>
-                                        <span>Campus/Unit</span>
-                                    </th>
-                                    <th>
-                                        <span>Loan Amount</span>
-                                    </th>
-                                    <th>
-                                        <span>Monthly Amortization</span>
-                                    </th>
-                                    <th>
-                                        <span>Balance</span>
-                                    </th>
-                                    <th>
-                                        <span>Start Amortization Date</span>
-                                    </th>
-                                    <th>
-                                        <span>End Amortization Date</span>
-                                    </th>
-                                    <th>
-                                        <span>Last Transaction Date</span>
-                                    </th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <span style="justify-content: center;">
-                                            <input type="checkbox" name="check[]" class="select_item" id="select_item">
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            <a href="#" data-md-tooltip="Action" class="view_member md-tooltip--right view-member" style="cursor: pointer">
-                                                <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                                            </a>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            PEL
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            201163236
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Sample Name
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Campus A
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Php 200,000
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            16,000
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Php 200,000
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            07/01/2019
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            07/01/2019
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            07/01/2019
-                                        </span>
-                                    </td>
-                                </tr>
-
-                            </tbody>
+                <div class="mp-card  mp-ph2 mp-pv2">
+                    <div class=" ">
 
 
 
-                        </table>
+                        <div class="tally">
+
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <figure class="highcharts-figure" style="width: 100%">
+                                            <div id="container">
+                                                <div id="chart-members" style="width: 100%">
+
+                                                </div>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <figure class="highcharts-figure" style="width: 100%">
+                                            <div id="container">
+                                                <div id="chart-application" style="width: 100%">
+
+                                                </div>
+                                            </div>
+                                        </figure>
+                                    </div>
+                                </div>
+                            </div>
 
 
-                    </div>
-                    <div class="top-label" style="text-align:right;">
-                        <label>Acount Receivables</label>
-                        <br>
-                        <label style="font-size: 30px;">PHP 300, 123</label>
+
+
+                            <br>
+
+
+
+                        </div>
+
+
+
                     </div>
                 </div>
 
             </div>
-
         </div>
     </div>
-</div>
 
 
-<script>
-    $(document).on('click', '#showSettings', function(e) {
-        if ($("#settingsTab").hasClass("col-lg-2")) {
-            $("#settingsTab").addClass("d-none");
-            $("#settingsTab").removeClass("col-lg-2");
-            $("#settingsContent").removeClass("col-lg-10");
-            $("#settingsContent").addClass("col-lg-12");
+    <script>
+        $(document).on('click', '#showSettings', function(e) {
+            if ($("#settingsTab").hasClass("col-lg-2")) {
+                $("#settingsTab").addClass("d-none");
+                $("#settingsTab").removeClass("col-lg-2");
+                $("#settingsContent").removeClass("col-lg-10");
+                $("#settingsContent").addClass("col-lg-12");
 
-            $("#showSettings").text("Show Tab")
+                $("#showSettings").text("Show Tab")
 
-        } else {
-            $("#settingsTab").removeClass("d-none");
-            $("#settingsTab").addClass("col-lg-2");
-            $("#settingsContent").removeClass("col-lg-12");
-            $("#settingsContent").addClass("col-lg-10");
+            } else {
+                $("#settingsTab").removeClass("d-none");
+                $("#settingsTab").addClass("col-lg-2");
+                $("#settingsContent").removeClass("col-lg-12");
+                $("#settingsContent").addClass("col-lg-10");
 
-            $("#showSettings").text("Hide Tab")
-        }
-
-    })
-    Highcharts.chart('chart-application', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: '',
-            align: 'left'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
+                $("#showSettings").text("Hide Tab")
             }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
-            }
-        },
-        series: [{
-            name: 'Brands',
-            colorByPoint: true,
-            data: [{
-                name: 'New',
-                y: 74.77,
-                // sliced: true,
-                // selected: true
-            }, {
-                name: 'Processing',
-                y: 12.82
-            }, {
-                name: 'Approved',
-                y: 4.63
-            }, {
-                name: 'Draft',
-                y: 2.44
-            }, {
-                name: 'Returned',
-                y: 2.02
-            }, {
-                name: 'Rejected',
-                y: 3.28
-            }]
-        }]
-    });
-    Highcharts.chart('chart-members', {
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Members Per Campus',
-            align: 'left'
-        },
-        // subtitle: {
-        //   text: 'Source: <a ' +
-        //     'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
-        //     'target="_blank">Wikipedia.org</a>',
-        //   align: 'left'
-        // },
-        xAxis: {
-            categories: [
 
-                'UP Diliman',
-                'UP Los Baños',
-                'PGH',
-                'UP Manila',
-                'UP Visayas',
-                'System Admin',
-                'UP Baguio',
-                'UP Cebu',
-                'UP Mindanao',
-                'UP Open University',
-            ],
+        })
+        Highcharts.chart('chart-application', {
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false,
+                type: 'pie'
+            },
             title: {
-                text: null
-            }
-        },
-        // yAxis: {
-        //   min: 0,
-        //   title: {
-        //     text: 'Population (members)',
-        //     align: 'high'
-        //   },
-        //   labels: {
-        //     overflow: 'justify'
-        //   }
-        // },
-        tooltip: {
-            valueSuffix: ' members'
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
+                text: '',
+                align: 'left'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            accessibility: {
+                point: {
+                    valueSuffix: '%'
                 }
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -40,
-            y: 80,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-            shadow: true
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: 'Members',
-            color: 'rgb(124, 181, 236)',
-            data: [{
-                    y: 631,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 1300,
-                    color: '#1a8981'
-                },
-                {
-                    y: 3202,
-                    color: 'rgb(124, 181, 236)'
-                },
-                {
-                    y: 721,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 300,
-                    color: 'rgb(144, 237, 125)'
-                },
-                {
-                    y: 631,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 727,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 3202,
-                    color: 'rgb(124, 181, 236)'
-                },
-                {
-                    y: 2000,
-                    color: '#1a8981'
-                },
-                {
-                    y: 50,
-                    color: 'rgb(144, 237, 125)'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
                 }
+            },
+            series: [{
+                name: 'Brands',
+                colorByPoint: true,
+                data: [{
+                    name: 'New',
+                    y: 74.77,
+                    // sliced: true,
+                    // selected: true
+                }, {
+                    name: 'Processing',
+                    y: 12.82
+                }, {
+                    name: 'Approved',
+                    y: 4.63
+                }, {
+                    name: 'Draft',
+                    y: 2.44
+                }, {
+                    name: 'Returned',
+                    y: 2.02
+                }, {
+                    name: 'Rejected',
+                    y: 3.28
+                }]
+            }]
+        });
+        Highcharts.chart('chart-members', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'Members Per Campus',
+                align: 'left'
+            },
+            // subtitle: {
+            //   text: 'Source: <a ' +
+            //     'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
+            //     'target="_blank">Wikipedia.org</a>',
+            //   align: 'left'
+            // },
+            xAxis: {
+                categories: [
 
-            ]
-        }, ]
-    });
-    document.querySelector("input[type=number]")
-        .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1));
-</script>
+                    'UP Diliman',
+                    'UP Los Baños',
+                    'PGH',
+                    'UP Manila',
+                    'UP Visayas',
+                    'System Admin',
+                    'UP Baguio',
+                    'UP Cebu',
+                    'UP Mindanao',
+                    'UP Open University',
+                ],
+                title: {
+                    text: null
+                }
+            },
+            // yAxis: {
+            //   min: 0,
+            //   title: {
+            //     text: 'Population (members)',
+            //     align: 'high'
+            //   },
+            //   labels: {
+            //     overflow: 'justify'
+            //   }
+            // },
+            tooltip: {
+                valueSuffix: ' members'
+            },
+            plotOptions: {
+                bar: {
+                    dataLabels: {
+                        enabled: true
+                    }
+                }
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'top',
+                x: -40,
+                y: 80,
+                floating: true,
+                borderWidth: 1,
+                backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+                shadow: true
+            },
+            credits: {
+                enabled: false
+            },
+            series: [{
+                name: 'Members',
+                color: 'rgb(124, 181, 236)',
+                data: [{
+                        y: 631,
+                        color: 'rgb(247, 163, 92)'
+                    },
+                    {
+                        y: 1300,
+                        color: '#1a8981'
+                    },
+                    {
+                        y: 3202,
+                        color: 'rgb(124, 181, 236)'
+                    },
+                    {
+                        y: 721,
+                        color: 'rgb(247, 163, 92)'
+                    },
+                    {
+                        y: 300,
+                        color: 'rgb(144, 237, 125)'
+                    },
+                    {
+                        y: 631,
+                        color: 'rgb(247, 163, 92)'
+                    },
+                    {
+                        y: 727,
+                        color: 'rgb(247, 163, 92)'
+                    },
+                    {
+                        y: 3202,
+                        color: 'rgb(124, 181, 236)'
+                    },
+                    {
+                        y: 2000,
+                        color: '#1a8981'
+                    },
+                    {
+                        y: 50,
+                        color: 'rgb(144, 237, 125)'
+                    }
+
+                ]
+            }, ]
+        });
+        document.querySelector("input[type=number]")
+            .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1));
+    </script>
 
 
 
 
 
 
-@endsection
+    @endsection

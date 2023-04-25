@@ -1471,22 +1471,22 @@
                 <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
                     <div class="settings-tab">
                         <div class="top-label">
-                            <label>Transaction Module</label>
+                            <label>Loan Module</label>
 
                         </div>
 
                         <div class="settings-buttons">
                             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
 
-                                <li class="options " onclick="location.href='/admin/transaction'">
-                                    <a href="#" class="no-padding ">Monthly Contributions</a><br>
+                                <li class="options options-active" onclick="location.href='/admin/loan/loan-matrix'">
+                                    <a href="#" class="no-padding options-a-active">Loan Matrix Details</a><br>
 
                                 </li>
-                                <li class="options options-active" onclick="location.href='/admin/transaction/loan-payment'">
-                                    <a href="#" class="no-padding options-a-active">Loans Payment</a><br>
+                                <li class="options " onclick="location.href='/admin/loan/loan-application'">
+                                    <a href="#" class="no-padding ">Loans Application</a><br>
 
                                 </li>
-                                <li class="options " onclick="location.href='/admin/transaction/transaction-analytics'">
+                                <li class="options " onclick="location.href='/admin/loan/loan-analytics'">
                                     <a href="#" class="no-padding ">Analytics</a><br>
 
                                 </li>
@@ -1503,183 +1503,140 @@
                     <button class="f-button magenta-bg" id="showSettings">Hide Tab</button>
                 </div>
 
-                <div class="card-container card p-0">
-                    <div class="card-header filtering items-between d-flex" style="background-color:#894168;">
-                        <span>Filtering Section</span>
-                        <span class="mp-pr2">
-                            <button class="up-button-grey f-button font-bold" id="reset">Clear</button>
-                            <button class="f-button font-bold">Export</button>
-                            <button class="f-button font-bold up-button-green">Print</button>
-                        </span>
-                    </div>
 
-
-                    <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
-
-                        <div class="table-form w-full" style="grid-template-columns: repeat(8, 1fr); font-size:12px; padding:10px;">
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Search</span>
-                                <input type="text" id="election_date_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Cluster</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
-                                    <option value="1">Cluster 1 - DSB</option>
-                                    <option value="2">Cluster 2 - LBOU</option>
-                                    <option value="3">Cluster 3 - MLAPGH</option>
-                                    <option value="4">Cluster 4 - CVM</option>
-                                </select>
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
-                                <span>Campus</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
-
-                                </select>
-
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
-                                <span>Amortization Date</span>
-
-                                <input type="date" id="election_date_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Loan Type</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
-
-                                </select>
-                            </span>
-                            <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                                <span>Transaction Date</span>
-                                <div class="date_range d-flex">
-                                    <input type="date" id="time_open_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                    <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                    <input type="date" id="time_close_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                </div>
-                            </span>
-
-                        </div>
-                    </div>
-                </div>
 
                 <div class="card d-flex flex-column mp-mt2">
                     <div class="top-label">
-                        <label>LOANS PAYMENT</label>
+                        <label>LOANS MATRIX DETAILS</label>
                     </div>
-                    <a href="#" style="padding: 2px; color:#6c1242; font-size: 13px; text-align: right;" class="link_style">
-                        Update Multiple Payments
-                    </a>
-                    <div class="table-container">
-                        <table class="members-table" style="height: auto;" width="100%">
+
+                    <div class="">
+                        <table class="members-table" style="height: auto; color:black;" width="100%">
                             <thead>
                                 <tr>
-                                    <th style="width:60px">
-                                        <span>Checked</span>
+                                    <th style="width:80px">
+                                        <span>TYPES OF LOAN</span>
                                     </th>
                                     <th>
-                                        <span>Actions</span>
+                                        <span>PERSONAL EQUITY LOAN (PEL)</span>
                                     </th>
                                     <th>
-                                        <span>Loan Type</span>
+                                        <span>CO-BORROWER LOAN (CBL)</span>
                                     </th>
                                     <th>
-                                        <span>Members ID</span>
+                                        <span>BRIDGE LOAN (BL)</span>
                                     </th>
                                     <th>
-                                        <span>Member Name</span>
+                                        <span>EMERGENCY LOAN (EML)</span>
                                     </th>
                                     <th>
-                                        <span>Campus/Unit</span>
+                                        <span>BALANCE TRANSFER LOAN (BTL)</span>
                                     </th>
-                                    <th>
-                                        <span>Loan Amount</span>
-                                    </th>
-                                    <th>
-                                        <span>Monthly Amortization</span>
-                                    </th>
-                                    <th>
-                                        <span>Balance</span>
-                                    </th>
-                                    <th>
-                                        <span>Start Amortization Date</span>
-                                    </th>
-                                    <th>
-                                        <span>End Amortization Date</span>
-                                    </th>
-                                    <th>
-                                        <span>Last Transaction Date</span>
-                                    </th>
+
                                 </tr>
                             </thead>
 
                             <tbody>
+
+
+                                <!-- dito start ng copy -->
                                 <tr>
                                     <td>
-                                        <span style="justify-content: center;">
-                                            <input type="checkbox" name="check[]" class="select_item" id="select_item">
+                                        <span>
+                                            <b>ELIGIBILITY</b>
                                         </span>
                                     </td>
                                     <td>
                                         <span>
-                                            <a href="#" data-md-tooltip="Action" class="view_member md-tooltip--right view-member" style="cursor: pointer">
-                                                <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                                            </a>
+                                            <ul>
+                                                &#10003; Member must be in good standing. <br><br>
+                                                &#10003; The net take home pay per month is greater
+                                                than P5,000 (amount changes, depending on
+                                                General Appropriations Act passed by Congress,
+                                                DBM rule).
+
+
                                         </span>
                                     </td>
                                     <td>
                                         <span>
-                                            PEL
+
+                                            &#10003; Member must be in good standing.
+                                            <br> <br>
+                                            &#10003; The net take home pay per month is greater
+                                            than P5,000 (amount changes, depending on
+                                            General Appropriations Act passed by Congress,
+                                            DBM rule).
                                         </span>
                                     </td>
                                     <td>
                                         <span>
-                                            201163236
+                                            &#10003; Any member who is no longer
+                                            eligible to avail of a Personal
+                                            Equity Loan (that is, net pay
+                                            can no longer cover for the
+                                            amortization) but with
+                                            remaining loanable equity
                                         </span>
                                     </td>
                                     <td>
                                         <span>
-                                            Sample Name
+                                            &#10003; Any member with an existing
+                                            bridge loan (in good standing)
+                                            but with remaining loanable
+                                            equity.
                                         </span>
                                     </td>
                                     <td>
                                         <span>
-                                            Campus A
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Php 200,000
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            16,000
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Php 200,000
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            07/01/2019
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            07/01/2019
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            07/01/2019
+                                            &#10003; Any UP Provident Fund member in good standing
+                                            (i.e., no loan default)<br><br>
+                                            &#10003;Net take-home pay must be greater than
+                                            Php5,000 per month (as per latest DBM rule)
+
                                         </span>
                                     </td>
                                 </tr>
+                                <!-- end ng copy -->
+
+
+                                <!-- dito start ng copy -->
+                                <tr>
+                                    <td>
+                                        <span>
+                                            <b>ELIGIBILITY</b>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span>
+                                            <ul>
+                                                &#10003;
+
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span>
+
+
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span>
+
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span>
+
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span>
+
+                                        </span>
+                                    </td>
+                                </tr>
+                                <!-- end ng copy -->
 
                             </tbody>
 
@@ -1689,11 +1646,7 @@
 
 
                     </div>
-                    <div class="top-label" style="text-align:right;">
-                        <label>Acount Receivables</label>
-                        <br>
-                        <label style="font-size: 30px;">PHP 300, 123</label>
-                    </div>
+
                 </div>
 
             </div>
