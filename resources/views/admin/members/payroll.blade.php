@@ -856,7 +856,7 @@
 </script>
 <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
 <div class="members-module">
-    <div class="siderbar d-flex flex-column showed" style="position:relative">
+    <!-- <div class="siderbar d-flex flex-column showed" style="position:relative">
         <span class="toggle-icon" style="cursor: pointer">
             <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
             <i class="fa fa-chevron-circle-right mp-text-fs-base magenta-clr d-none" style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
@@ -888,144 +888,201 @@
             </span>
 
         </div>
+    </div> -->
+
+    <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
+        <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
+            <div class="settings-tab">
+                <div class="top-label">
+                    <label>Members Module</label>
+
+                </div>
+
+                <div class="settings-buttons">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                        <li class="options" onclick="location.href='/admin/members/records'">
+                            <a href="#" class="no-padding"> Application Records</a><br>
+
+                        </li>
+                        <li class="options options-active" onclick="location.href='/admin/members/records/payroll'">
+                            <a href="#" class="no-padding  options-a-active">Payroll Advise Reports</a><br>
+
+                        </li>
+                        <li class="options" onclick="location.href='/admin/members/records/movement'">
+                            <a href="#" class="no-padding">Application Movement Reports</a><br>
+
+                        </li>
+                        <li class="options" onclick="location.href='/admin/members/records/analytics'">
+                            <a href="#" class="no-padding ">Application Analytics</a><br>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
     </div>
-    <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
-        <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
-            Payroll Advise Reports
+    <div class="col-lg-10 mp-mt3 gap-10" id="settingsContent">
+        <div class="button-container ">
+            <button class="f-button magenta-bg" id="showSettings">Hide Settings</button>
         </div>
-        <div class="table-form gap-5 details-container">
-            <div class="card-container card p-0 span-6">
-                <div class="card-header filtering items-between d-flex magenta-bg">
-                    <span>Enter Details</span>
-                </div>
-                <div class="card-body filtering-section-body gap-5 flex-column">
-                    <span class="mp-text-fs-base mp-text-fw-medium">To: </span>
-                    <span class="mp-text-fs-small">Name of Accounting Head</span>
-                    <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
-                    <span class="mp-text-fs-small">Designation</span>
-                    <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
-                    <span class="mp-text-fs-small">Unit and Campus</span>
-                    <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
-                        <option value="">Select Campus</option>
-                        {{-- @foreach ($campuses as $row)
+        <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
+            <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
+                Payroll Advise Reports
+            </div>
+            <div class="table-form gap-5 details-container">
+                <div class="card-container card p-0 span-6">
+                    <div class="card-header filtering items-between d-flex magenta-bg">
+                        <span>Enter Details</span>
+                    </div>
+                    <div class="card-body filtering-section-body gap-5 flex-column">
+                        <span class="mp-text-fs-base mp-text-fw-medium">To: </span>
+                        <span class="mp-text-fs-small">Name of Accounting Head</span>
+                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
+                        <span class="mp-text-fs-small">Designation</span>
+                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
+                        <span class="mp-text-fs-small">Unit and Campus</span>
+                        <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
+                            <option value="">Select Campus</option>
+                            {{-- @foreach ($campuses as $row)
                             <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
-                        @endforeach --}}
-                    </select>
-                    <span class="mp-text-fs-base mp-mt2 mp-text-fw-medium">Thru: </span>
-                    <span class="mp-text-fs-small">Names of Accountable Payroll Partner</span>
-                    <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
-                    <span class="mp-text-fs-small">Payroll Section</span>
-                    <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
-                    <span class="mp-text-fs-base mp-mt2 mp-text-fw-medium">RE: </span>
-                    <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" placeholder="Salary Deduction Advise of the Month of" />
-                    <br />
-                    <span class="mp-text-fs-small">From: User / User Access Level (Position) </span>
-                    <span class="mp-text-fs-small">Date Prepared: March 11, 2023 11:00 PM </span>
+                            @endforeach --}}
+                        </select>
+                        <span class="mp-text-fs-base mp-mt2 mp-text-fw-medium">Thru: </span>
+                        <span class="mp-text-fs-small">Names of Accountable Payroll Partner</span>
+                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
+                        <span class="mp-text-fs-small">Payroll Section</span>
+                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
+                        <span class="mp-text-fs-base mp-mt2 mp-text-fw-medium">RE: </span>
+                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" placeholder="Salary Deduction Advise of the Month of" />
+                        <br />
+                        <span class="mp-text-fs-small">From: User / User Access Level (Position) </span>
+                        <span class="mp-text-fs-small">Date Prepared: March 11, 2023 11:00 PM </span>
 
-                </div>
-            </div>
-            <div class="card-container card p-0 span-6">
-                <div class="card-header filtering items-between d-flex">
-                    <span>Filtering Section</span>
-                </div>
-                <div class="card-body filtering-section-body justify-content-center gap-10 flex-column h-100">
-                    <div class="w-full d-flex flex-row flex-wrap gap-10">
-
-                        <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                            <span>Select Cluster</span>
-                            <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="status_select">
-                                <option value="">Select Cluster No.</option>
-                                <option value="1">Cluster 1 - DSB</option>
-                                <option value="2">Cluster 2 - LBOU</option>
-                                <option value="3">Cluster 3 - MLAPGH</option>
-                                <option value="4">Cluster 4 - CVM</option>
-                            </select>
-                        </span>
-                        <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                            <span>Select Campus</span>
-                            <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="status_select">
-                                <option value="">Show All</option>
-                                <option value="DRAFT APPLICATION">DRAFT APPLICATION</option>
-                                <option value="NEW APPLICATION">NEW APPLICATION</option>
-                                <option value="PROCESSING">PROCESSING</option>
-                                <option value="REJECTED">REJECTED</option>
-                            </select>
-                        </span>
-                    </div>
-                    <!-- <br> -->
-                    <div class="w-full d-flex flex-column flex-wrap gap-10 h-100">
-                        <button class="f-button mp-text-fs-medium gray-bg" style="margin-top: auto">CLEAR ALL</button>
-                        <button class="f-button magenta-bg mp-text-fs-medium">GENERATE REPORTS</button>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="card-container card p-0">
-            <div class="card-header filtering items-between d-flex magenta-bg">
-                <span>A. New Members</span>
-            </div>
-
-
-            <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
-
-                <div class="d-flex flex-column">
-                    <div class="header-table">
-                        <table class="payroll-table" style="height: auto;">
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <span>Sequence #</span>
-                                    </th>
-                                    <th>
-                                        <span>Members ID No.</span>
-                                    </th>
-                                    <th>
-                                        <span>Employee No.</span>
-                                    </th>
-                                    <th>
-                                        <span>Full Name</span>
-                                    </th>
-                                    <th>
-                                        <span>Cluster</span>
-                                    </th>
-                                    <th>
-                                        <span>Campus/Unit</span>
-                                    </th>
-                                    <th>
-                                        <span>Membership Date</span>
-                                    </th>
-                                    <th>
-                                        <span>Monthly Salary</span>
-                                    </th>
-                                    <th>
-                                        <span>Contribution Type</span>
-                                    </th>
-                                    <th>
-                                        <span>Amount</span>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                
-                            </tbody>
-                        </table>
+                <div class="card-container card p-0 span-6">
+                    <div class="card-header filtering items-between d-flex">
+                        <span>Filtering Section</span>
                     </div>
-                    <!-- <div class="body-table">
+                    <div class="card-body filtering-section-body justify-content-center gap-10 flex-column h-100">
+                        <div class="w-full d-flex flex-row flex-wrap gap-10">
+
+                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                <span>Select Cluster</span>
+                                <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="status_select">
+                                    <option value="">Select Cluster No.</option>
+                                    <option value="1">Cluster 1 - DSB</option>
+                                    <option value="2">Cluster 2 - LBOU</option>
+                                    <option value="3">Cluster 3 - MLAPGH</option>
+                                    <option value="4">Cluster 4 - CVM</option>
+                                </select>
+                            </span>
+                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                <span>Select Campus</span>
+                                <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="status_select">
+                                    <option value="">Show All</option>
+                                    <option value="DRAFT APPLICATION">DRAFT APPLICATION</option>
+                                    <option value="NEW APPLICATION">NEW APPLICATION</option>
+                                    <option value="PROCESSING">PROCESSING</option>
+                                    <option value="REJECTED">REJECTED</option>
+                                </select>
+                            </span>
+                        </div>
+                        <!-- <br> -->
+                        <div class="w-full d-flex flex-column flex-wrap gap-10 h-100">
+                            <button class="f-button mp-text-fs-medium gray-bg" style="margin-top: auto">CLEAR ALL</button>
+                            <button class="f-button magenta-bg mp-text-fs-medium">GENERATE REPORTS</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-container card p-0">
+                <div class="card-header filtering items-between d-flex magenta-bg">
+                    <span>A. New Members</span>
+                </div>
+
+
+                <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
+
+                    <div class="d-flex flex-column">
+                        <div class="header-table">
+                            <table class="payroll-table" style="height: auto;">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            <span>Sequence #</span>
+                                        </th>
+                                        <th>
+                                            <span>Members ID No.</span>
+                                        </th>
+                                        <th>
+                                            <span>Employee No.</span>
+                                        </th>
+                                        <th>
+                                            <span>Full Name</span>
+                                        </th>
+                                        <th>
+                                            <span>Cluster</span>
+                                        </th>
+                                        <th>
+                                            <span>Campus/Unit</span>
+                                        </th>
+                                        <th>
+                                            <span>Membership Date</span>
+                                        </th>
+                                        <th>
+                                            <span>Monthly Salary</span>
+                                        </th>
+                                        <th>
+                                            <span>Contribution Type</span>
+                                        </th>
+                                        <th>
+                                            <span>Amount</span>
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- <div class="body-table">
                         <table class="payroll-table" style="height: auto;" width="100%">
                             <tbody>
                                 
                             </tbody>
                         </table>
                     </div> -->
+                    </div>
+
                 </div>
 
             </div>
-
         </div>
     </div>
 </div>
 
 <script>
+    $(document).on('click', '#showSettings', function(e) {
+        if ($("#settingsTab").hasClass("col-lg-2")) {
+            $("#settingsTab").addClass("d-none");
+            $("#settingsTab").removeClass("col-lg-2");
+            $("#settingsContent").removeClass("col-lg-10");
+            $("#settingsContent").addClass("col-lg-12");
+
+            $("#showSettings").text("Show Settings")
+
+        } else {
+            $("#settingsTab").removeClass("d-none");
+            $("#settingsTab").addClass("col-lg-2");
+            $("#settingsContent").removeClass("col-lg-12");
+            $("#settingsContent").addClass("col-lg-10");
+
+            $("#showSettings").text("Hide Settings")
+        }
+
+    })
     $(document).ready(function() {
         $.getJSON('/options', function(options) {
             $.each(options, function(index, option) {
@@ -1035,7 +1092,7 @@
                 }));
             });
         });
-        
+
         tablePayroll = $('.payroll-table').DataTable({
             language: {
                 search: '',

@@ -77,59 +77,47 @@
           <div class="settings-tab">
             <div class="top-label">
               <label>Settings</label>
-              <i class="fa fa-cog" aria-hidden="true"></i>
+              <!-- <i class="fa fa-cog" aria-hidden="true"></i> -->
             </div>
 
             <div class="settings-buttons">
               <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
                 <li class="options options-active" onclick="location.href='status-appointment'">
                   <a href="#" class="no-padding options-a-active">Status and Appointments</a><br>
-                  <label class="option-info  options-info-active">Allow User to pre-setup, manage the employee status and appointments.
-                  </label>
+
                 </li>
                 <li class="options" onclick="location.href='manage-account'">
                   <a href="#" class="no-padding">Manage Accounts</a><br>
-                  <label class="option-info">Allow User to create and manage system user accounts, You also can manage permissions and
-                    authorizations.
-                  </label>
+
                 </li>
                 <li class="options " onclick="location.href='campus-management'">
                   <a href="#" class="no-padding ">Campus Management</a><br>
-                  <label class="option-info">Allow User to manage respective campus; key, names, and clusters
-                  </label>
+
                 </li>
                 <li class="options " onclick="location.href='employee-classification'">
                   <a href="#" class="no-padding ">Employee Classification</a><br>
-                  <label class="option-info">Allow User to add and manage employee Classifications
-                  </label>
+
                 </li>
                 <li class="options " onclick="location.href='college-management'">
                   <a href="#" class="no-padding">College / Unit Management</a><br>
-                  <label class="option-info">Allow User to manage respective College and units
-                  </label>
+
                 </li>
                 <li class="options" onclick="location.href='department-management'">
                   <a href="#" class="no-padding ">Department Management</a><br>
-                  <label class="option-info ">Allow User to manage respective departments per campuses
-                  </label>
+
                 </li>
 
                 <li class="options " onclick="location.href='sg-modules'">
                   <a href="#" class="no-padding ">SG Modules</a><br>
-                  <label class="option-info">Allow User to pre-setup salary grade range and assign salary grade category for election
-                    modules
-                  </label>
+
                 </li>
                 <li class="options " onclick="location.href='history-logs'">
                   <a href="#" class="no-padding ">History Logs</a><br>
-                  <label class="option-info">Allow User to retrieve and monitor user activity using History logs module.
-                    modules
-                  </label>
+
                 </li>
                 <li class="options " onclick="location.href='backup-database'">
                   <a href="#" class="no-padding ">Backup Database</a><br>
-                  <label class="option-info ">Allow User to download and backup system database for documentations and risk management
-                  </label>
+
                 </li>
               </ul>
             </div>

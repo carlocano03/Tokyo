@@ -859,7 +859,7 @@
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
 <div class="members-module">
-    <div class="siderbar d-flex flex-column showed" style="position:relative">
+    <!-- <div class="siderbar d-flex flex-column showed" style="position:relative">
         <span class="toggle-icon" style="cursor: pointer">
             <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
             <i class="fa fa-chevron-circle-right mp-text-fs-base magenta-clr d-none" style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
@@ -891,50 +891,87 @@
             </span>
 
         </div>
-    </div>
-    <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
-        <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
-            Application Analytics Reports
-        </div>
-        <div class="card-container card p-0">
-            <div class="card-header filtering items-between d-flex magenta-bg">
-                <span>Filtering Section</span>
-            </div>
+    </div> -->
 
-
-            <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
-
-                <div class="w-full d-flex flex-row flex-wrap gap-10">
-                    <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                        <span>Application Date</span>
-                        <div class="date_range d-flex">
-                            <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                            <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                            <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                        </div>
-                    </span>
-                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                        <span>Select Cluster</span>
-                        <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="remarks_select">
-                            <option value="">Select Cluster No.</option>
-                            <option value="1">Cluster 1 - DSB</option>
-                            <option value="2">Cluster 2 - LBOU</option>
-                            <option value="3">Cluster 3 - MLAPGH</option>
-                            <option value="4">Cluster 4 - CVM</option>
-                        </select>
-                    </span>
-                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                        <span>Select Campus</span>
-                        <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="campus_select">
-                            <option value="">Show All</option>
-                            @foreach ($campuses as $row)
-                            <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
-                            @endforeach
-                        </select>
-                    </span>
+    <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
+        <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
+            <div class="settings-tab">
+                <div class="top-label">
+                    <label>Members Module</label>
 
                 </div>
-                <!-- <div class="">
+
+                <div class="settings-buttons">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                        <li class="options " onclick="location.href='/admin/members/records'">
+                            <a href="#" class="no-padding "> Application Records</a><br>
+
+                        </li>
+                        <li class="options" onclick="location.href='/admin/members/records/payroll'">
+                            <a href="#" class="no-padding">Payroll Advise Reports</a><br>
+
+                        </li>
+                        <li class="options" onclick="location.href='/admin/members/records/movement'">
+                            <a href="#" class="no-padding">Application Movement Reports</a><br>
+
+                        </li>
+                        <li class="options options-active" onclick="location.href='/admin/members/records/analytics'">
+                            <a href="#" class="no-padding options-a-active">Application Analytics</a><br>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-lg-10 mp-mt3 gap-10" id="settingsContent">
+        <div class="button-container ">
+            <button class="f-button magenta-bg" id="showSettings">Hide Settings</button>
+        </div>
+        <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
+            <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
+                Application Analytics Reports
+            </div>
+            <div class="card-container card p-0">
+                <div class="card-header filtering items-between d-flex magenta-bg">
+                    <span>Filtering Section</span>
+                </div>
+
+
+                <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
+
+                    <div class="w-full d-flex flex-row flex-wrap gap-10">
+                        <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
+                            <span>Application Date</span>
+                            <div class="date_range d-flex">
+                                <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
+                                <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                            </div>
+                        </span>
+                        <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                            <span>Select Cluster</span>
+                            <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="remarks_select">
+                                <option value="">Select Cluster No.</option>
+                                <option value="1">Cluster 1 - DSB</option>
+                                <option value="2">Cluster 2 - LBOU</option>
+                                <option value="3">Cluster 3 - MLAPGH</option>
+                                <option value="4">Cluster 4 - CVM</option>
+                            </select>
+                        </span>
+                        <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                            <span>Select Campus</span>
+                            <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="campus_select">
+                                <option value="">Show All</option>
+                                @foreach ($campuses as $row)
+                                <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
+                                @endforeach
+                            </select>
+                        </span>
+
+                    </div>
+                    <!-- <div class="">
                                 <label for="row">Membership Date</label>
                                 <div class="row date_range">
                                     <input type="date" id="from" class="radius-1 border-1 date-input outline"
@@ -946,45 +983,65 @@
                                 </div>
                             </div> -->
 
+                </div>
             </div>
-        </div>
-        <div>
-            <figure class="highcharts-figure">
-                <div id="container"></div>
-            </figure>
+            <div>
+                <figure class="highcharts-figure">
+                    <div id="container"></div>
+                </figure>
+            </div>
         </div>
     </div>
 </div>
 
 
 <script>
+    $(document).on('click', '#showSettings', function(e) {
+        if ($("#settingsTab").hasClass("col-lg-2")) {
+            $("#settingsTab").addClass("d-none");
+            $("#settingsTab").removeClass("col-lg-2");
+            $("#settingsContent").removeClass("col-lg-10");
+            $("#settingsContent").addClass("col-lg-12");
 
-    function getAnalytics(payload={}) {
+            $("#showSettings").text("Show Settings")
+
+        } else {
+            $("#settingsTab").removeClass("d-none");
+            $("#settingsTab").addClass("col-lg-2");
+            $("#settingsContent").removeClass("col-lg-12");
+            $("#settingsContent").addClass("col-lg-10");
+
+            $("#showSettings").text("Hide Settings")
+        }
+
+    })
+
+    function getAnalytics(payload = {}) {
         $.ajax({
-        type: 'GET',
-        url: "{{ route('member_analytics') }}",
-        data: payload,
-        success: function(response) {
-            // Handle successful response
-            console.log(response,'responsezz');
+            type: 'GET',
+            url: "{{ route('member_analytics') }}",
+            data: payload,
+            success: function(response) {
+                // Handle successful response
+                console.log(response, 'responsezz');
 
-            const chartData = response.map(data => {
-                return {
-                    name: data.app_status,
-                    y: data.count
-                }
-            })
-
-            if(chartData.length == 0) {
-                chartData.push({
-                    name: "NO DATA",
-                    y: 100,
-                    color:'gray'
+                const chartData = response.map(data => {
+                    return {
+                        name: data.app_status,
+                        y: data.count
+                    }
                 })
-            }
 
-            $('container').empty()
-            Highcharts.chart('container', {
+                if (chartData.length == 0) {
+                    chartData.push({
+                        name: "NO DATA",
+                        y: 100,
+                        color: 'gray'
+                    })
+                }
+
+                $('container').empty()
+                Highcharts.chart('container', {
                     chart: {
                         plotBackgroundColor: null,
                         plotBorderWidth: null,
@@ -1019,12 +1076,12 @@
                         data: chartData
                     }]
                 });
-        },
-        error: function(xhr, status, error) {
-            // Handle error
-            console.log(error);
-        }
-    });
+            },
+            error: function(xhr, status, error) {
+                // Handle error
+                console.log(error);
+            }
+        });
     }
 
     $(document).ready(function() {
@@ -1036,43 +1093,39 @@
     let campus = ""
 
 
-    function getNewAnalytics () {
+    function getNewAnalytics() {
 
         const newPayload = {}
 
-        if(start_date != "") {
+        if (start_date != "") {
             newPayload.start_date = start_date
         }
-        if(end_date != "") {
+        if (end_date != "") {
             newPayload.end_date = end_date
         }
-        if(campus != "") {
+        if (campus != "") {
             newPayload.campus = campus
         }
 
-        console.log(newPayload,'newPayload')
-        if((start_date == "" && end_date != "") || (end_date == "" && start_date != "") ) return
+        console.log(newPayload, 'newPayload')
+        if ((start_date == "" && end_date != "") || (end_date == "" && start_date != "")) return
         getAnalytics(newPayload)
     }
 
-    $(document).on('change', '#from', function (){
+    $(document).on('change', '#from', function() {
         start_date = $(this).val()
         getNewAnalytics()
     });
 
-    $(document).on('change', '#to', function (){
+    $(document).on('change', '#to', function() {
         end_date = $(this).val()
         getNewAnalytics()
 
     });
 
-    $(document).on('change', '#campus_select', function (){
+    $(document).on('change', '#campus_select', function() {
         campus = $(this).val()
         getNewAnalytics()
     });
-    
-
-    
-
 </script>
 @endsection

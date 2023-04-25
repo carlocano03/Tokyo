@@ -1495,7 +1495,7 @@
  </script>
  <div class="filler"></div>
  <div class="members-module">
-     <div class="siderbar d-flex flex-column showed" style="position:relative">
+     <!-- <div class="siderbar d-flex flex-column showed" style="position:relative">
          <span class="toggle-icon" style="cursor: pointer">
              <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
              <i class="fa fa-chevron-circle-right mp-text-fs-base magenta-clr d-none" style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
@@ -1539,205 +1539,238 @@
              </span>
 
          </div>
-     </div>
-     <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
-         <div class="container-fluid">
-             <div class="row">
+     </div> -->
 
-                 <div class="col-lg-12 mp-mt3 gap-10" id="settingsContent">
-                     <div class="no-gutter ml-0 mr-0 p-5px mh-content view-all-members ">
-                         <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
-                             <span class="d-inline-flex align-items-center " style="color: black;
+     <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
+         <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
+             <div class="settings-tab">
+                 <div class="top-label">
+                     <label>Members Module</label>
+
+                 </div>
+
+                 <div class="settings-buttons">
+                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                         <li class="options " onclick="location.href='/admin/members/new-members'">
+                             <a href="#" class="no-padding"> New Members</a><br>
+
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members/'">
+                             <a href="#" class="no-padding"> Master List</a><br>
+
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members/summary-reports'">
+                             <a href="#" class="no-padding">Summary Reports</a><br>
+
+                         </li>
+                         <li class="options options-active" onclick="location.href='/admin/members/contribution-reports'">
+                             <a href="#" class="no-padding options-a-active"> Contribution Reports</a><br>
+
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members/insurance-reports'">
+                             <a href="#" class="no-padding">Insurance Reports</a><br>
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members/voter-list'">
+                             <a href="#" class="no-padding"> Members Voter List</a><br>
+                         </li>
+                     </ul>
+                 </div>
+             </div>
+
+         </div>
+     </div>
+
+
+     <div class="col-lg-10 mp-mt3 gap-10" id="settingsContent">
+         <div class="button-container">
+             <button class="f-button magenta-bg" id="showSettings">Hide Settings</button>
+         </div>
+         <div class="no-gutter ml-0 mr-0 p-5px mh-content view-all-members ">
+             <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
+                 <span class="d-inline-flex align-items-center " style="color: black;
                                 font-weight: bold;
                                 margin-bottom: 10px;">
-                                 Members Module > &nbsp; Contribution Reports
-                             </span>
+                     Members Module > &nbsp; Contribution Reports
+                 </span>
 
-                         </div>
-                         <div class="col-12 mp-pr0" style="width: 100%;">
+             </div>
+             <div class="col-12 mp-pr0" style="width: 100%;">
 
-                             <div class="w-full justify-content-center d-flex">
-                                 <div class="d-flex flex-row w-full gap-10">
-                                     <div class="d-flex flex-column gap-10 middle-content full">
-                                         <div class="card-container card p-0">
-                                             <div class="card-header filtering items-between d-flex">
-                                                 <span>Filtering Section</span>
-                                                 <span class="mp-pr2">
-                                                     <button class="f-button font-bold">Export</button>
-                                                     <button class="f-button up-button-green font-bold up-button-green">Print</button>
-                                                 </span>
+                 <div class="w-full justify-content-center d-flex">
+                     <div class="d-flex flex-row w-full gap-10">
+                         <div class="d-flex flex-column gap-10 middle-content full">
+                             <div class="card-container card p-0">
+                                 <div class="card-header filtering items-between d-flex">
+                                     <span>Filtering Section</span>
+                                     <span class="mp-pr2">
+                                         <button class="f-button font-bold">Export</button>
+                                         <button class="f-button up-button-green font-bold up-button-green">Print</button>
+                                     </span>
+                                 </div>
+
+
+                                 <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
+
+                                     <div class="table-form w-full" style="grid-template-columns: repeat(9, 1fr); font-size:12px;">
+                                         <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
+                                             <span>Membership Date</span>
+                                             <div class="date_range d-flex">
+                                                 <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                 <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
+                                                 <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                              </div>
+                                         </span>
+                                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                             <span>Campus</span>
+                                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campuses_select">
+                                                 <option value="">Show All</option>
 
+                                             </select>
+                                         </span>
+                                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                             <span>Cluster</span>
+                                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
+                                                 <option value="">Show All</option>
 
-                                             <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
+                                             </select>
+                                         </span>
+                                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                             <span>Status</span>
+                                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
+                                                 <option value="">Show All</option>
+                                                 <option value="">New Members</option>
+                                                 <option value="">Updated Members Contributions</option>
+                                                 <option value="">Stopped/Deleted Contributions</option>
 
-                                                 <div class="table-form w-full" style="grid-template-columns: repeat(9, 1fr); font-size:12px;">
-                                                     <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                                                         <span>Membership Date</span>
-                                                         <div class="date_range d-flex">
-                                                             <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                                             <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                                             <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                                         </div>
-                                                     </span>
-                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                         <span>Campus</span>
-                                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campuses_select">
-                                                             <option value="">Show All</option>
-
-                                                         </select>
-                                                     </span>
-                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                         <span>Cluster</span>
-                                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
-                                                             <option value="">Show All</option>
-
-                                                         </select>
-                                                     </span>
-                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                         <span>Status</span>
-                                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
-                                                             <option value="">Show All</option>
-                                                             <option value="">New Members</option>
-                                                             <option value="">Updated Members Contributions</option>
-                                                             <option value="">Stopped/Deleted Contributions</option>
-
-                                                         </select>
-                                                     </span>
+                                             </select>
+                                         </span>
 
 
 
 
-                                                 </div>
-                                             </div>
-                                         </div>
-                                         <div class="card d-flex flex-column">
-                                             <div class="d-flex flex-row items-between">
-                                                 <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value" />
-
-
-                                             </div>
-                                             <div class="mp-mt3 table-container">
-                                                 <table class="members-table" style="height: auto;" width="100%">
-                                                     <thead>
-                                                         <tr>
-                                                             <th style="width:40px">
-                                                                 <span>#</span>
-                                                             </th>
-
-                                                             <th>
-                                                                 <span>Members ID</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Member Name</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Membership Date</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Campus</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Class</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Monthly Salary</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Monthly Contribution</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Amount</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Change Amount</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Status</span>
-                                                             </th>
-                                                         </tr>
-                                                     </thead>
-
-                                                     <tbody>
-                                                         <tr>
-                                                             <td>
-                                                                 <span>
-                                                                     1
-                                                                 </span>
-                                                             </td>
-
-                                                             <td>
-                                                                 <span>
-                                                                     1231232
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     Member Name
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     January 20, 1999
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     Up Diliman
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     Class A
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     Php 20,000.00
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     1%
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     Php 200.00
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     Php 200.00
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     New Members
-                                                                 </span>
-                                                             </td>
-                                                         </tr>
-
-                                                     </tbody>
-
-
-
-                                                 </table>
-
-                                             </div>
-                                         </div>
                                      </div>
+                                 </div>
+                             </div>
+                             <div class="card d-flex flex-column">
+                                 <div class="d-flex flex-row items-between">
+                                     <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value" />
+
+
+                                 </div>
+                                 <div class="mp-mt3 table-container">
+                                     <table class="members-table" style="height: auto;" width="100%">
+                                         <thead>
+                                             <tr>
+                                                 <th style="width:40px">
+                                                     <span>#</span>
+                                                 </th>
+
+                                                 <th>
+                                                     <span>Members ID</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Member Name</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Membership Date</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Campus</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Class</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Monthly Salary</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Monthly Contribution</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Amount</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Change Amount</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Status</span>
+                                                 </th>
+                                             </tr>
+                                         </thead>
+
+                                         <tbody>
+                                             <tr>
+                                                 <td>
+                                                     <span>
+                                                         1
+                                                     </span>
+                                                 </td>
+
+                                                 <td>
+                                                     <span>
+                                                         1231232
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         Member Name
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         January 20, 1999
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         Up Diliman
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         Class A
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         Php 20,000.00
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         1%
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         Php 200.00
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         Php 200.00
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         New Members
+                                                     </span>
+                                                 </td>
+                                             </tr>
+
+                                         </tbody>
+
+
+
+                                     </table>
+
                                  </div>
                              </div>
                          </div>
                      </div>
-
-
                  </div>
-
              </div>
          </div>
-
      </div>
  </div>
 
@@ -1746,6 +1779,24 @@
 
 
  <script>
+     $(document).on('click', '#showSettings', function(e) {
+         if ($("#settingsTab").hasClass("col-lg-2")) {
+             $("#settingsTab").addClass("d-none");
+             $("#settingsTab").removeClass("col-lg-2");
+             $("#settingsContent").removeClass("col-lg-10");
+             $("#settingsContent").addClass("col-lg-12");
 
+             $("#showSettings").text("Show Settings")
+
+         } else {
+             $("#settingsTab").removeClass("d-none");
+             $("#settingsTab").addClass("col-lg-2");
+             $("#settingsContent").removeClass("col-lg-12");
+             $("#settingsContent").addClass("col-lg-10");
+
+             $("#showSettings").text("Hide Settings")
+         }
+
+     })
  </script>
  @endsection

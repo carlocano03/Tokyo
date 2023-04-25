@@ -1501,7 +1501,7 @@
  </script>
  <div class="filler"></div>
  <div class="members-module">
-     <div class="siderbar d-flex flex-column showed" style="position:relative">
+     <!-- <div class="siderbar d-flex flex-column showed" style="position:relative">
          <span class="toggle-icon" style="cursor: pointer">
              <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
              <i class="fa fa-chevron-circle-right mp-text-fs-base magenta-clr d-none" style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
@@ -1545,160 +1545,190 @@
              </span>
 
          </div>
-     </div>
-     <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
-         <div class="container-fluid">
-             <div class="row">
+     </div> -->
 
-                 <div class="col-lg-12 mp-mt3 gap-10" id="settingsContent">
-                     <div class="no-gutter ml-0 mr-0 p-5px mh-content view-all-members ">
-                         <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
-                             <span class="d-inline-flex align-items-center " style="color: black;
-                                font-weight: bold;
-                                margin-bottom: 10px;">
-                                 Members Module > &nbsp; Summary Reports
-                             </span>
+     <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
+         <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
+             <div class="settings-tab">
+                 <div class="top-label">
+                     <label>Members Module</label>
 
-                         </div>
-                         <div class=" ">
+                 </div>
 
-                             <div class="card-container card p-0" style="padding-bottom: 10px;">
-                                 <div class="card-header filtering items-between d-flex">
-                                     <span>Filtering Section</span>
-                                     <span class="mp-pr2">
-                                         <button class="f-button font-bold">Export</button>
-                                         <button class="f-button font-bold up-button-green">Print</button>
-                                     </span>
-                                 </div>
+                 <div class="settings-buttons">
+                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                         <li class="options " onclick="location.href='/admin/members/new-members'">
+                             <a href="#" class="no-padding"> New Members</a><br>
 
-                                 <div class="table-form w-full" style="grid-template-columns: repeat(7, 1fr); font-size:12px; padding: 10px;">
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members/'">
+                             <a href="#" class="no-padding"> Master List</a><br>
 
-                                     <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                                         <span>Membership Date</span>
-                                         <div class="date_range d-flex">
-                                             <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                             <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                             <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                         </div>
-                                     </span>
-                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                         <span>Cluster</span>
-                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status_select">
-                                             <option value="">Show All</option>
+                         </li>
+                         <li class="options options-active" onclick="location.href='/admin/members/summary-reports'">
+                             <a href="#" class="no-padding options-a-active">Summary Reports</a><br>
 
-                                         </select>
-                                     </span>
-                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                         <span>Campus</span>
-                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="remarks_select">
-                                             <option value="">Show All</option>
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members/contribution-reports'">
+                             <a href="#" class="no-padding"> Contribution Reports</a><br>
 
-                                         </select>
-                                     </span>
-
-                                 </div>
-                             </div>
-
-                         </div>
-
-                         <div class="container-fluid">
-                             <div class="row" style="padding:0px;margin-top: 5px;">
-                                 <div class="col-lg-6 " style="width: 100%; padding: 0px;">
-                                     <div class="mp-card ">
-                                         <div class="highchart-container" style="padding:10px;">
-                                             <figure class="highcharts-figure" style="width: 100%">
-                                                 <div id="container">
-                                                     <div id="chart-members" style="width: 100%">
-
-                                                     </div>
-                                                 </div>
-                                             </figure>
-                                         </div>
-
-                                     </div>
-
-                                 </div>
-
-                                 <div class="col-lg-6 " style="width: 100%; padding: 0px;">
-                                     <div class="mp-card ">
-                                         <div class="highchart-container" style="padding:10px;">
-                                             <figure class="highcharts-figure">
-                                                 <div id="circle"></div>
-                                             </figure>
-                                             <script>
-                                                 Highcharts.chart('circle', {
-                                                     chart: {
-                                                         plotBackgroundColor: null,
-                                                         plotBorderWidth: null,
-                                                         plotShadow: false,
-                                                         type: 'pie'
-                                                     },
-                                                     title: {
-                                                         text: '',
-                                                         align: 'left'
-                                                     },
-                                                     tooltip: {
-                                                         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                                                     },
-                                                     accessibility: {
-                                                         point: {
-                                                             valueSuffix: '%'
-                                                         }
-                                                     },
-                                                     plotOptions: {
-                                                         pie: {
-                                                             allowPointSelect: true,
-                                                             cursor: 'pointer',
-                                                             dataLabels: {
-                                                                 enabled: false
-                                                             },
-                                                             showInLegend: true
-                                                         }
-                                                     },
-                                                     series: [{
-                                                         name: 'Brands',
-                                                         colorByPoint: true,
-                                                         data: [{
-                                                             name: 'New',
-                                                             y: 74.77,
-                                                             // sliced: true,
-                                                             // selected: true
-                                                         }, {
-                                                             name: 'Processing',
-                                                             y: 12.82
-                                                         }, {
-                                                             name: 'Approved',
-                                                             y: 4.63
-                                                         }, {
-                                                             name: 'Draft',
-                                                             y: 2.44
-                                                         }, {
-                                                             name: 'Returned',
-                                                             y: 2.02
-                                                         }, {
-                                                             name: 'Rejected',
-                                                             y: 3.28
-                                                         }]
-                                                     }]
-                                                 });
-                                             </script>
-                                         </div>
-                                     </div>
-
-                                 </div>
-
-                             </div>
-                         </div>
-                     </div>
-
-
-
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members/insurance-reports'">
+                             <a href="#" class="no-padding">Insurance Reports</a><br>
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members/voter-list'">
+                             <a href="#" class="no-padding"> Members Voter List</a><br>
+                         </li>
+                     </ul>
                  </div>
              </div>
 
-
          </div>
+     </div>
 
+     <div class="col-lg-10 mp-mt3 gap-10" id="settingsContent">
+         <div class="button-container">
+             <button class="f-button magenta-bg" id="showSettings">Hide Settings</button>
+         </div>
+         <div class="no-gutter ml-0 mr-0 p-5px mh-content view-all-members ">
+             <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
+                 <span class="d-inline-flex align-items-center " style="color: black;
+                                font-weight: bold;
+                                margin-bottom: 10px;">
+                     Members Module > &nbsp; Summary Reports
+                 </span>
+
+             </div>
+             <div class=" ">
+
+                 <div class="card-container card p-0" style="padding-bottom: 10px;">
+                     <div class="card-header filtering items-between d-flex">
+                         <span>Filtering Section</span>
+                         <span class="mp-pr2">
+                             <button class="f-button font-bold">Export</button>
+                             <button class="f-button font-bold up-button-green">Print</button>
+                         </span>
+                     </div>
+
+                     <div class="table-form w-full" style="grid-template-columns: repeat(7, 1fr); font-size:12px; padding: 10px;">
+
+                         <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
+                             <span>Membership Date</span>
+                             <div class="date_range d-flex">
+                                 <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                 <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
+                                 <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                             </div>
+                         </span>
+                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                             <span>Cluster</span>
+                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status_select">
+                                 <option value="">Show All</option>
+
+                             </select>
+                         </span>
+                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                             <span>Campus</span>
+                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="remarks_select">
+                                 <option value="">Show All</option>
+
+                             </select>
+                         </span>
+
+                     </div>
+                 </div>
+
+             </div>
+
+             <div class="container-fluid">
+                 <div class="row" style="padding:0px;margin-top: 5px;">
+                     <div class="col-lg-6 " style="width: 100%; padding: 0px;">
+                         <div class="mp-card ">
+                             <div class="highchart-container" style="padding:10px;">
+                                 <figure class="highcharts-figure" style="width: 100%">
+                                     <div id="container">
+                                         <div id="chart-members" style="width: 100%">
+
+                                         </div>
+                                     </div>
+                                 </figure>
+                             </div>
+
+                         </div>
+
+                     </div>
+
+                     <div class="col-lg-6 " style="width: 100%; padding: 0px;">
+                         <div class="mp-card ">
+                             <div class="highchart-container" style="padding:10px;">
+                                 <figure class="highcharts-figure">
+                                     <div id="circle"></div>
+                                 </figure>
+                                 <script>
+                                     Highcharts.chart('circle', {
+                                         chart: {
+                                             plotBackgroundColor: null,
+                                             plotBorderWidth: null,
+                                             plotShadow: false,
+                                             type: 'pie'
+                                         },
+                                         title: {
+                                             text: '',
+                                             align: 'left'
+                                         },
+                                         tooltip: {
+                                             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                                         },
+                                         accessibility: {
+                                             point: {
+                                                 valueSuffix: '%'
+                                             }
+                                         },
+                                         plotOptions: {
+                                             pie: {
+                                                 allowPointSelect: true,
+                                                 cursor: 'pointer',
+                                                 dataLabels: {
+                                                     enabled: false
+                                                 },
+                                                 showInLegend: true
+                                             }
+                                         },
+                                         series: [{
+                                             name: 'Brands',
+                                             colorByPoint: true,
+                                             data: [{
+                                                 name: 'New',
+                                                 y: 74.77,
+                                                 // sliced: true,
+                                                 // selected: true
+                                             }, {
+                                                 name: 'Processing',
+                                                 y: 12.82
+                                             }, {
+                                                 name: 'Approved',
+                                                 y: 4.63
+                                             }, {
+                                                 name: 'Draft',
+                                                 y: 2.44
+                                             }, {
+                                                 name: 'Returned',
+                                                 y: 2.02
+                                             }, {
+                                                 name: 'Rejected',
+                                                 y: 3.28
+                                             }]
+                                         }]
+                                     });
+                                 </script>
+                             </div>
+                         </div>
+
+                     </div>
+
+                 </div>
+             </div>
+         </div>
      </div>
  </div>
 
@@ -1710,6 +1740,25 @@
 
 
  <script>
+     $(document).on('click', '#showSettings', function(e) {
+         if ($("#settingsTab").hasClass("col-lg-2")) {
+             $("#settingsTab").addClass("d-none");
+             $("#settingsTab").removeClass("col-lg-2");
+             $("#settingsContent").removeClass("col-lg-10");
+             $("#settingsContent").addClass("col-lg-12");
+
+             $("#showSettings").text("Show Settings")
+
+         } else {
+             $("#settingsTab").removeClass("d-none");
+             $("#settingsTab").addClass("col-lg-2");
+             $("#settingsContent").removeClass("col-lg-12");
+             $("#settingsContent").addClass("col-lg-10");
+
+             $("#showSettings").text("Hide Settings")
+         }
+
+     })
      Highcharts.chart('chart-members', {
          chart: {
              type: 'bar'
