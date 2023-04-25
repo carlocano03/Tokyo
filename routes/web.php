@@ -146,6 +146,11 @@ Route::get('/admin/settings/history-logs', [AdminController::class, 'historyLogs
 Route::get('/admin/settings/sg-modules', [AdminController::class, 'sgModules'])->name('admin.settings-config.sg-modules');
 Route::get('/admin/settings/status-appointment', [AdminController::class, 'statusAppointment'])->name('admin.settings-config.status-appointment');
 
+//admin transaction links
+Route::get('/admin/transaction', [AdminController::class, 'transaction'])->name('admin.transaction.transaction');
+Route::get('/admin/transaction/loan-payment', [AdminController::class, 'loanPayments'])->name('admin.transaction.loan-payment');
+Route::get('/admin/transaction/transaction-analytics', [AdminController::class, 'transactionAnalytics'])->name('admin.transaction.transaction-analytics');
+
 //admin settings validation
 Route::post('/admin/manageAccountValidation', [Settings::class, 'checkUsername'])->name('check_username');
 

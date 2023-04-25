@@ -407,7 +407,6 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
-
 </style>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -445,7 +444,7 @@
       <li><a href="/admin/members" class="{{ Request::is('admin/members')  ? 'active-nav' : '' }}"><i class="fa fa-address-book"></i>Members Module</a></li>
       <li><a href="#"><i class="fa fa-credit-card"></i>Loan Module</a></li>
       <li><a href="#"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
-      <li><a href="#"><i class="fa fa-bar-chart"></i>Transaction & Equity </a></li>
+      <li><a href="/admin/transaction" class="{{ Request::is('admin/transaction')  ? 'active-nav' : '' }}"><i class="fa fa-bar-chart"></i>Transaction & Equity </a></li>
       <li><a href="/admin/election-record" class="{{ Request::is('admin/election')  ? 'active-nav' : '' }}">
           <i class="fa fa-flash"></i>Election Module</a></li>
       <li><a href="/admin/settings/manage-account" class="{{ Request::is('admin/settings/manage-account')  ? 'active-nav' : '' }}">
@@ -566,8 +565,8 @@
       var link = window.location.href;
       var urlParts = link.split("/"); // split the link using "/"
       var userType = urlParts[3]; // get the third element of the resulting array
-    
-      if(userType == "member") {
+
+      if (userType == "member") {
         $('.contents').addClass('background-member')
       }
     });
