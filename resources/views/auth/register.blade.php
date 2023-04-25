@@ -424,11 +424,15 @@
         </div>
         <div class="mp-input-group input" data-set="gender">
             <label class="mp-input-group__label">Sex at Birth </label>
-            <select class="mp-input-group__input mp-text-field" name="gender">
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
+            <br>
+            <div style="width: 100%; display: flex">
+                <span >
+                    <input type="radio" id="gender" name="gender" value="Male"> 
+                    <label class="mp-input-group__label" for="single" style="margin-top: 1px;">Male</label>
+                    <input type="radio" id="gender" name="gender" value="Female"> 
+                    <label class="mp-input-group__label" for="single" style="margin-top: 1px;">Female</label>
+                </span>
+            </div>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group" data-set="civilstatus">
@@ -577,7 +581,11 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Landline Number </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="landline_no" id="landline-format" />
+            <span class="mp-input-group__input" style="width: 100%">
+                <input class=" mp-text-field" type="text" placeholder="Area code" name="area_code" style="width: 30%; text-align:center" maxlength="3"/> - 
+                <input class=" mp-text-field" type="text" placeholder="(8676 - 1234)" name="landline" id="landline-format" style="width: 50%; padding-left: 10px;"/>
+                <!-- <input class=" mp-text-field" type="text" placeholder="Local" name="landline_no" id="landline-format" style="width: 20%; text-align:center"/> -->
+            </span>
         </div>
         <div class="mp-input-group" data-set="email">
             <label class="mp-input-group__label">Email Address </label>
@@ -710,10 +718,14 @@
         </div>
         <div class="mp-input-group" data-set="appointment">
             <label class="mp-input-group__label">Appointment Status </label>
-            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="appointment" id="appointment" required>
+            <div class="dflex">
+                <span class="appointment">
+                </span>
+            </div>
+            <!-- <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" required>
                 <option value="">Select Status</option>
                 <option value="OTHER">Other Status Please Specify</option>
-            </select>
+            </select> -->
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group d-none opacity-0" id="other_status">
@@ -761,10 +773,10 @@
                 MONTHLY CONTRIBUTION
             </label>
             <label class="mp-input-group__label">
-                (The amount that you decide here will serve as your monthly contribution to your UP Provident
+                The amount that you decide here will serve as your monthly contribution to your UP Provident
                 Fund account, and will be deducted from your salary every month. Choose between:<br><br>
                 (a) Percentage of Basic Salary, minimum of 1%; or <br>
-                (b) A Fixed amount <br><br>
+                (b) A Fixed amount, must also be a minimum of 1% of your basic salary <br><br>
                 You may change this anytime by filling out the Member's Data Updating Form at any of our offices.
                 <br><br>
                 Amount is subject to the DBM rule on net take-home pay threshold.
@@ -799,16 +811,18 @@
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group d-flex gap-5 flex-column">
-            <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
+            <label class="mp-input-group__label mp-mb2" style="font-style: italic">(The beneficiary/ies you indicate below shall receive your UP Provident Fund 
+                benefits (your retirement savings and earnings thereon) in the event of your 
+                death. If left blank, your benefits shall be divided among your heirs in 
+                accordance with the New Family Code.)
+            </label>
+            <label class="mp-input-group__label mp-mb2" style="font-style: italic">Please enter your beneficiary/ies’ full name, date of birth, and relationship to 
+                you. You may add as many beneficiaries as you like
+            </label>
 
-            <label class="mp-input-group__label" style="
-                background-color: var(--c-active-hover-bg);
-                color: white;
-                padding: 10px;
-                margin-left: -8px;
-                font-size: 15px;
-                margin-right: -8px;">
-                Dependents </label>
+            <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
+                Beneficiary/ies
+            </label>
 
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" name="dependent_name" placeholder="Name" data-set="validate_dependent_3" />
             <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_name"></label>
@@ -861,21 +875,24 @@
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" name="dependent_relation" placeholder="Relationship" data-set="validate_dependent_3" />
             <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_relation"></label>
             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
-                <span id="add_dependent">Add Dependent</span> </a>
+                <span id="add_dependent">Add Beneficiary</span> </a>
         </div>
-        <table class=" mp-mh2" id="dependentTable" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Birthday</th>
-                    <th>Relationship</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="dflex flex-row" style="overflow-y: auto;">
+            <table class=" mp-mh2" id="dependentTable" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="width: 30%"><span class="mp-text-no-wrap">Full Name</span></th>
+                        <th style="width: 20%"><span class="mp-text-no-wrap">Date of Birth</span></th>
+                        <th style="width: 20%"><span class="mp-text-no-wrap">Relationship</span></th>
+                        <th style="width: 20%"></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+        
 
 
 
