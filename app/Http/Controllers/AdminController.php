@@ -2419,6 +2419,19 @@ class AdminController extends Controller
     return redirect('/admin/edit-election/' . $election_id);
   }
 
+
+  //delete candidate 
+  public function delete_candidate(Request $request)
+  {
+    $candidate_id = request()->get('candidate_id');
+    $delete = DB::table('candidates_tbl')->where('candidate_id', '=', $candidate_id)->delete();
+
+    if ($delete) {
+      return response()->json(['success' => true]);
+    }
+  }
+
+
   //election candidate dropdown search query
   public function getCandidates(Request $request)
   {
