@@ -1275,9 +1275,9 @@
                                                     <span>Open Election</span>
                                                 </a>
 
-                                                <a id="open_edit_modal" class="up-button btn-md button-animate-right mp-text-center">
+                                                <!-- <a id="open_edit_modal" class="up-button btn-md button-animate-right mp-text-center">
                                                     <span>Update Election</span>
-                                                </a>
+                                                </a> -->
 
 
 
@@ -1332,7 +1332,7 @@
 
                                                             <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
                                                             <button type="button" class="up-button-green" id="changeButton">Change</button>
-                                                            <button type="button" class="up-button-red" id="removeButton">Remove</button>
+                                                            <button type="button" class="up-button-red" id="removeButton" value="{{$candidate_rowSG15->candidate_id}}">Remove</button>
 
                                                         </div>
 
@@ -1383,7 +1383,7 @@
 
                                                         <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
                                                         <button type="button" class="up-button-green" id="changeButton">Change</button>
-                                                        <button type="button" class="up-button-red" id="removeButton">Remove</button>
+                                                        <button type="button" class="up-button-red" id="removeButton" value="{{$candidate_rowSG16->candidate_id}}">Remove</button>
 
                                                     </div>
 
@@ -1779,7 +1779,38 @@
         }).then((result) => {
 
             if (result.isDenied) {
-                Swal.fire('Deleted!', '', 'success')
+                var value = $(this).attr("value");
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('delete-candidate') }}",
+                    method: "POST",
+                    data: {
+                        candidate_id: value
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                        if (data.success == true) {
+                            Swal.fire({
+                                text: 'Candidate has been deleted successfully.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Ok',
+                            }).then(okay => {
+                                if (okay) {
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            Swal.fire('Something went wrong!', '', 'error')
+                        }
+                    }
+                });
+
             }
         })
 
@@ -1869,6 +1900,8 @@
             }
         });
     });
+
+
 
     $(document).on('click', '#open_election', function() {
 

@@ -107,6 +107,8 @@ Route::get('/admin/get_members', [AdminController::class, 'get_members'])->name(
 Route::get('/admin/election', [AdminController::class, 'election'])->name('admin.election.election');
 Route::get('/admin/create-election', [AdminController::class, 'createElection'])->name('admin.election.create-election');
 
+Route::post('/admin/delete-candidate', [AdminController::class, 'delete_candidate'])->name('delete-candidate');
+
 
 Route::post('/admin/update-election-record', [AdminController::class, 'updateElectionRecord'])->name('update_election_record');
 Route::get('/admin/edit-election/{id}', [AdminController::class, 'editElection'])->name('admin.election.edit-election');
