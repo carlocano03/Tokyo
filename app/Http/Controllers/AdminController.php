@@ -2537,4 +2537,38 @@ class AdminController extends Controller
 
     return response()->json($appStatusCounts);
   }
+
+  //admin transaction backend
+  public function transaction()
+  {
+    return view('admin.transaction.transaction');
+  }
+
+  public function loanPayments()
+  {
+    return view('admin.transaction.loan-payment');
+  }
+
+  public function transactionAnalytics()
+  {
+    return view('admin.transaction.transaction-analytics');
+  }
+
+
+
+  //admin loan backend
+  public function loanMatrix()
+  {
+    return view('admin.loan.loan-matrix');
+  }
+
+  public function loanApplication()
+  {
+    return view('admin.loan.loan-application');
+  }
+
+  public function loanAnalytics()
+  {
+    return view('admin.loan.loan-analytics');
+  }
 }
