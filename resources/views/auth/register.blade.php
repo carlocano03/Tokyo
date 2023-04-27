@@ -1418,7 +1418,7 @@
 
                     <br> <br>
                 <li>
-                    <b> Name Of Member:</b><label id="step5_name"></label>
+                    <b> Name Of Member: </b><label id="step5_name"></label>
                     <br>
                     <b> Campus: </b><label id="step5_campus"></label>
                     <br>
