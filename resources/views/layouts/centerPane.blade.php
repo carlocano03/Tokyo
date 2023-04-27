@@ -149,16 +149,16 @@
 <script>
     let appointmentStatus = []
 
-    function initializeAppointmentSelect (){
+    function initializeAppointmentSelect() {
         $('.appointment').empty()
-        for(var i=0; i<appointmentStatus.length; i++) {
+        for (var i = 0; i < appointmentStatus.length; i++) {
             var radioBtn = $(`<input type="radio" value="${appointmentStatus[i].appoint_id}" name="appointment" id="${appointmentStatus[i].appointment_name}">`).click(appointmentClick);
             $('.appointment').append(radioBtn);
             $('.appointment').append(`<label for="${appointmentStatus[i].appointment_name}" class="mp-input-group__label" style="margin-left: 5px; margin-right: 5px">${appointmentStatus[i].appointment_name}</label>`)
         }
         var radioBtn = $(`<input type="radio" value="OTHER" name="appointment" id="OTHER">`).click(appointmentClick);
-            $('.appointment').append(radioBtn);
-            $('.appointment').append(`<label for="OTHER" class="mp-input-group__label" style="margin-left: 5px; margin-right: 5px">Other Status Please Specify</label>`)
+        $('.appointment').append(radioBtn);
+        $('.appointment').append(`<label for="OTHER" class="mp-input-group__label" style="margin-left: 5px; margin-right: 5px">Other Status Please Specify</label>`)
     }
 
     function appointmentClick() {
@@ -300,13 +300,13 @@
 
     $('#landline-format').on('input', function() {
         var inputNumber = $(this).val().replace(/\D/g, ''); // remove non-digit characters
-        if($(this).val().length > 11 ){
+        if ($(this).val().length > 11) {
             $(this).val($(this).val().slice(0, 11));
         } else {
             var formattedNumber = formatPhoneNumber(inputNumber); // format the phone number
             $(this).val(formattedNumber); // update the input field with the formatted number
         }
-        
+
     });
 
     function formatPhoneNumber(number) {
@@ -315,12 +315,12 @@
         var prefixLength = isLandline ? 2 : 3; // prefix length is 2 for landline and 3 for mobile number
         // console.log(number.length)
         let formattedNumber = number
-        if(number.length >= 4){
+        if (number.length >= 4) {
             const newFormattedNumberArray = []
             for (let i = 0; i < formattedNumber.length; i += 4) {
-                newFormattedNumberArray.push(number.slice(i, i + 4));                
+                newFormattedNumberArray.push(number.slice(i, i + 4));
             }
-            formattedNumber =  newFormattedNumberArray.join(" - ")
+            formattedNumber = newFormattedNumberArray.join(" - ")
         }
         // // Split the number into prefix and the remaining digits
         // var prefix = number.slice(0, prefixLength);
@@ -624,7 +624,7 @@
     // // });
 
     var stepTitle = ["Step 1: Enter your Personal Information", "Step 2: Enter your Employment Details",
-        "Step 3: Enter your Membership Details", "Step 4: Insurance Form", "Step 5: Proxy Form"
+        "Step 3: Enter your Membership Details", "Step 4: Fill out your AXA Group Insurance Form", "Step 5: Sign the Proxy Form"
     ]
     var steps = ["Step 1: ", "Step 2: ", "Step 3: ", "Step 4: ", "Step 5:"]
     var present_provcode;
@@ -1086,14 +1086,13 @@
                 selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val())
             }
             var currentDate = new Date();
-            if(selectedDate == "Invalid Date") {
+            if (selectedDate == "Invalid Date") {
                 var birthday = $('#member_forms').find("[name=date_birth_month]")
                 $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none')
                 $("[data-set=birthday]> .input").addClass('input-error')
                 $("[data-set=birthday]>#err-msg").removeClass('d-none').text("Please select your date of birth.")
                 empty.push(birthday[0])
-            }
-            else if (selectedDate > fifteenYearsAgo ) {
+            } else if (selectedDate > fifteenYearsAgo) {
                 var birthday = $('#member_forms').find("[name=date_birth_month]")
                 $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none')
                 $("[data-set=birthday]> .input").addClass('input-error')
@@ -1230,10 +1229,10 @@
                     var newFormData = []
                     // Loop through the form fields array and remove the "field2" pair
                     for (var i = 0; i < formFields.length; i++) {
-                        if(formFields[i].split("=")[0] == "area_code") continue;
-                        if(formFields[i].split("=")[0] == "landline") continue;
+                        if (formFields[i].split("=")[0] == "area_code") continue;
+                        if (formFields[i].split("=")[0] == "landline") continue;
                         newFormData.push(formFields[i])
-                        
+
                     }
 
                     // Join the modified form fields array back into a serialized data string
@@ -1242,7 +1241,7 @@
                     var additionalData = {
                         'mem_id': mem_id,
                         'personnel_id': pers_id,
-                        'landline' : landline
+                        'landline': landline
                     };
                     formDatas += '&' + $.param(additionalData);
 
@@ -1281,17 +1280,17 @@
                         var newFormData = []
                         // Loop through the form fields array and remove the "field2" pair
                         for (var i = 0; i < formFields.length; i++) {
-                            if(formFields[i].split("=")[0] == "area_code") continue;
-                            if(formFields[i].split("=")[0] == "landline") continue;
+                            if (formFields[i].split("=")[0] == "area_code") continue;
+                            if (formFields[i].split("=")[0] == "landline") continue;
                             newFormData.push(formFields[i])
-                            
+
                         }
 
                         // Join the modified form fields array back into a serialized data string
                         formData = newFormData.join("&");
                         const landline = ($('input[name=area_code]').val() + $('input[name=landline]').val()).replace(" - ", "")
                         var additionalData = {
-                            'landline' : landline
+                            'landline': landline
                         };
                         formDatas += '&' + $.param(additionalData);
 
@@ -1725,26 +1724,26 @@
                 $("[data-set=fixed_amount_check]>input").addClass('input-error')
                 hasError = true
             }
-            if(!percentage_check && !fixed_amount_check){
+            if (!percentage_check && !fixed_amount_check) {
                 $("[data-set=percentage_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly type.")
                 $("[data-set=fixed_amount_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly type.")
                 hasError = true
             }
 
 
-           
+
 
             if (hasError || (!percentage_check && !fixed_amount_check)) {
                 return false
             }
-            console.log(parseFloat(fixed_amount.trim().replace(/\D/g, '')) , parseFloat($('#month_sal_text').text().replace(/\D/g, '')),parseFloat(fixed_amount.trim()) >= parseFloat($('#month_sal_text').text().replace(/\D/g, '')))
-            if(parseFloat(fixed_amount.trim().replace(/\D/g, '')) >= parseFloat($('#month_sal_text').text().replace(/\D/g, ''))) {
+            console.log(parseFloat(fixed_amount.trim().replace(/\D/g, '')), parseFloat($('#month_sal_text').text().replace(/\D/g, '')), parseFloat(fixed_amount.trim()) >= parseFloat($('#month_sal_text').text().replace(/\D/g, '')))
+            if (parseFloat(fixed_amount.trim().replace(/\D/g, '')) >= parseFloat($('#month_sal_text').text().replace(/\D/g, ''))) {
                 $("[data-set=fixed_amount_check]>#err-msg").removeClass('d-none').text("Your contribution should not be higher than your current salary.")
                 $("[data-set=fixed_amount_check]>input").addClass('input-error')
                 return false
             }
 
-            if($($("#dependentTable tbody tr td")[0]).hasClass("dataTables_empty")){
+            if ($($("#dependentTable tbody tr td")[0]).hasClass("dataTables_empty")) {
                 swal.fire({
                     title: 'Are you sure?',
                     text: " Are you sure you don’t want to indicate any beneficiary/ies? If left blank, your benefits shall be dividedamong your heirs in accordance with the New Famly Code in the event of your death",
@@ -1753,39 +1752,39 @@
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
                     confirmButtonText: 'Yes, delete it!'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            var appNo = query;
-                            var ref = reference_no;
-                            if (ref != undefined) {
-                                $('#test_no').val(ref);
-                            } else {
-                                $('#test_no').val(query);
-                            }
-                            var formData = $("#member_forms_3").serialize()
-                            $.ajax({
-                                method: 'POST',
-                                url: "{{ route('add_member_details') }}",
-                                data: formData,
-                                success: function(data) {
-                                    if (data.success != '') {
-                                        $("#step-3").removeClass('d-flex').addClass("d-none");
-                                        $("#step-4").removeClass('d-none').addClass("d-flex");
-                                        $("#back").attr('value', 'step-3')
-                                        $("#line").removeClass('step-3').addClass('step-4')
-                                        $("#registration-title").text(stepTitle[3])
-                                        $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
-                                        $("#stepper-4").addClass("active")
-                                        $("#axa_contact_no").val("+63")
-                                    }
-                                },
-                            });
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var appNo = query;
+                        var ref = reference_no;
+                        if (ref != undefined) {
+                            $('#test_no').val(ref);
+                        } else {
+                            $('#test_no').val(query);
                         }
-                    })
+                        var formData = $("#member_forms_3").serialize()
+                        $.ajax({
+                            method: 'POST',
+                            url: "{{ route('add_member_details') }}",
+                            data: formData,
+                            success: function(data) {
+                                if (data.success != '') {
+                                    $("#step-3").removeClass('d-flex').addClass("d-none");
+                                    $("#step-4").removeClass('d-none').addClass("d-flex");
+                                    $("#back").attr('value', 'step-3')
+                                    $("#line").removeClass('step-3').addClass('step-4')
+                                    $("#registration-title").text(stepTitle[3])
+                                    $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
+                                    $("#stepper-4").addClass("active")
+                                    $("#axa_contact_no").val("+63")
+                                }
+                            },
+                        });
+                    }
+                })
                 return false
             }
 
-            
+
             var appNo = query;
             var ref = reference_no;
             if (ref != undefined) {
@@ -2991,6 +2990,7 @@
         formdata.append('dependent_middle_name', $('#dependent_middle_name').val());
         formdata.append('dependent_first_name', $('#dependent_first_name').val());
         formdata.append('relationship_tomember', $('#dependent_relationship').val());
+        formdata.append('benefit_percent', $('#benefit_percent').val());
         formdata.append('bday', formattedDate);
         formdata.append('dependent_insurance', $('#dependent_insurance').val());
         formdata.append('dependent_rights', $('#dependent_rights').val());
@@ -3022,6 +3022,7 @@
                     $('#dependent_middle_name').val('');
                     $('#dependent_first_name').val('');
                     $('#dependent_relationship').val('');
+                    $('#benefit_percent').val('');
                     // $('#dependent_insurance').val('');
                     // $('#dependent_rights').val('');
                 }
@@ -3059,6 +3060,19 @@
     });
 
     $(document).ready(function() {
+
+        $('#benefit_percent').keyup(function() {
+
+            console.log(this.value);
+
+            if (parseInt(this.value) > 100 || parseInt(this.value) < 1) {
+                console.log("tumbok")
+                $('#benefit_percent').val(1).trigger("change");
+            }
+
+            this.value = this.value.replace(/[^0-9\.]/g, '');
+        });
+
         var tableDependentAxa = $('.axa-table').DataTable({
             ordering: false,
             info: false,
@@ -3083,6 +3097,10 @@
                 {
                     data: 'ben_relationship',
                     name: 'ben_relationship'
+                },
+                {
+                    data: 'benefit_with_percent',
+                    name: 'benefit_with_percent'
                 },
                 {
                     data: 'action',

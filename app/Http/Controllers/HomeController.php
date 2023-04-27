@@ -80,6 +80,8 @@ class HomeController extends Controller
           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm delete" id="' . $row->ben_ID . '">Remove</a>';
           return $btn;
         })
+
+
         ->rawColumns(['action'])
         ->make(true);
     }
@@ -98,7 +100,11 @@ class HomeController extends Controller
           $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm delete_axa_beneficiary" id="' . $row->axa_ben_id . '">Remove</a>';
           return $btn;
         })
-        ->rawColumns(['action'])
+        ->addColumn('benefit_with_percent', function ($data) {
+          return
+            '<td>' . $data->benefit_percent . ' %</td>';
+        })
+        ->rawColumns(['action', 'benefit_with_percent'])
         ->make(true);
     }
   }
@@ -114,6 +120,7 @@ class HomeController extends Controller
         'date_of_bday' => $request->input('bday'),
         'ben_relationship' => $request->input('relationship_tomember'),
         'insured_type' => $request->input('dependent_insurance'),
+        'benefit_percent' => $request->input('benefit_percent'),
         'according_rights' => $request->input('dependent_rights'),
       );
       DB::table('axa_beneficiaries')->insert($axa_beneficiaries);
