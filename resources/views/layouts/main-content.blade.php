@@ -443,7 +443,7 @@
       <li><a href="/admin/members/records" class=" {{ Request::is('admin/members/records') ? 'active-nav' : '' }} "><i class="fa fa-users"></i>Online Application</a></li>
       <li><a href="/admin/members" class="{{ Request::is('admin/members')  ? 'active-nav' : '' }}"><i class="fa fa-address-book"></i>Members Module</a></li>
       <li><a href="/admin/loan/loan-matrix"><i class="fa fa-credit-card"></i>Loan Module</a></li>
-      <li><a href="#"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
+      <li><a href="/admin/benefit/benefit-matrix"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
       <li><a href="/admin/transaction" class="{{ Request::is('admin/transaction')  ? 'active-nav' : '' }}"><i class="fa fa-bar-chart"></i>Transaction & Equity </a></li>
       <li><a href="/admin/election-record" class="{{ Request::is('admin/election')  ? 'active-nav' : '' }}">
           <i class="fa fa-flash"></i>Election Module</a></li>

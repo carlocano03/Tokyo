@@ -2571,4 +2571,20 @@ class AdminController extends Controller
   {
     return view('admin.loan.loan-analytics');
   }
+
+  //benifit backend
+  public function benefitMatrix()
+  {
+    return view('admin.benefit.benefit-matrix');
+  }
+
+  public function benefitList()
+  {
+    return view('admin.benefit.benefit-list');
+  }
+
+  public function benefitAnalytics()
+  {
+    return view('admin.benefit.benefit-analytics');
+  }
 }
