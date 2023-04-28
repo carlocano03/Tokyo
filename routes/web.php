@@ -156,6 +156,11 @@ Route::get('/admin/loan/loan-matrix', [AdminController::class, 'loanMatrix'])->n
 Route::get('/admin/loan/loan-application', [AdminController::class, 'loanApplication'])->name('admin.loan.loan-application');
 Route::get('/admin/loan/loan-analytics', [AdminController::class, 'loanAnalytics'])->name('admin.loan.loan-analytics');
 
+//admin benefit links
+Route::get('/admin/benefit/benefit-matrix', [AdminController::class, 'benefitMatrix'])->name('admin.benefit.benefit-matrix');
+Route::get('/admin/benefit/benefit-list', [AdminController::class, 'benefitList'])->name('admin.benefit.benefit-list');
+Route::get('/admin/benefit/benefit-analytics', [AdminController::class, 'benefitAnalytics'])->name('admin.benefit.benefit-analytics');
+
 //admin settings validation
 Route::post('/admin/manageAccountValidation', [Settings::class, 'checkUsername'])->name('check_username');
 
