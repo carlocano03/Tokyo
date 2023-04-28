@@ -155,6 +155,12 @@ Route::get('/admin/transaction/transaction-analytics', [AdminController::class, 
 Route::get('/admin/loan/loan-matrix', [AdminController::class, 'loanMatrix'])->name('admin.loan.loan-matrix');
 Route::get('/admin/loan/loan-application', [AdminController::class, 'loanApplication'])->name('admin.loan.loan-application');
 Route::get('/admin/loan/loan-analytics', [AdminController::class, 'loanAnalytics'])->name('admin.loan.loan-analytics');
+Route::get('/admin/loan/loan-application/details', [AdminController::class, 'loanApplicationDetails'])->name('admin.loan.loan-application-details');
+
+//admin benefit links
+Route::get('/admin/benefit/benefit-matrix', [AdminController::class, 'benefitMatrix'])->name('admin.benefit.benefit-matrix');
+Route::get('/admin/benefit/benefit-list', [AdminController::class, 'benefitList'])->name('admin.benefit.benefit-list');
+Route::get('/admin/benefit/benefit-analytics', [AdminController::class, 'benefitAnalytics'])->name('admin.benefit.benefit-analytics');
 
 //admin benefit links
 Route::get('/admin/benefit/benefit-matrix', [AdminController::class, 'benefitMatrix'])->name('admin.benefit.benefit-matrix');
@@ -185,6 +191,7 @@ Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('
 Route::get('/downloadCoco', [PDFController::class, 'downloadCoco'])->name('download_coco');
 Route::get('/downloadProxy', [PDFController::class, 'downloadProxy'])->name('download_proxy');
 
+Route::get('/admin/loan/loan-details/generate-payslip', [PDFController::class, 'generatePayslip'])->name('generate-payslip');
 
 
 Route::get('/memberform/{id}', [PDFController::class, 'memberform'])->name('memberform');
