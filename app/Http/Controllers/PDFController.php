@@ -184,4 +184,14 @@ class PDFController extends Controller
 
         return $pdf->stream();
     }
+
+
+    public function generatePayslip()
+    {
+
+
+        $pdf = PDF::loadView('pdf.generate-payslip');
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream();
+    }
 }

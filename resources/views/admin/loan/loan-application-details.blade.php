@@ -1449,6 +1449,29 @@
         background-color: var(--c-accent) !important;
         color: white !important;
     }
+
+    .top-text-details {
+        display: inline-grid;
+        /* margin: 0px; */
+        color: black;
+        font-size: 17px;
+
+    }
+
+    .details-div {
+        margin: 0px !important;
+    }
+
+    .details-container {
+        padding: 20px;
+    }
+
+    .generate-button {
+        float: right;
+        border-radius: 15px;
+        padding: 3px 15px 3px 15px;
+        font-size: 14px;
+    }
 </style>
 
 
@@ -1503,211 +1526,141 @@
                     <button class="f-button magenta-bg" id="showSettings">Hide Tab</button>
                 </div>
 
-                <div class="top-label" style="margin-bottom:-20px;">
-                    <label>LOAN APPLICATION</label>
+                <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
+                    <a href="/admin/loan/loan-application/" style="margin-left:-10px; margin-top:-10px;"><span class=" back-button-default">
+                            < Back </span></a>
 
                 </div>
 
-                <div class=" w-full d-flex flex-row justify-content-center mp-mh3">
-                    <div class=" card d-flex justify-content-around w-full flex-row">
-                        <div class="text-center">
-                            <div>
-                                <span class="font-bold font-lg">69</span>
-                            </div>
-                            <span class="font-sm">On Going Election</span>
+                <div class="" style="margin-top:-20px;">
+
+
+                    <div class="mp-card ">
+
+                        <div style=" color: white; padding: 15px; background-color: var(--c-active-hover-bg); margin: 0;width: 100%;">
+                            LOAN DETAILS
+                            <a href="/admin/loan/loan-details/generate-payslip" class="up-button generate-button">GENERATE LOAN INFO SLIP</a>
                         </div>
-                        <div class="text-center">
-                            <div>
-                                <span class="font-bold font-lg">10</span>
-                            </div>
-                            <span class="font-sm">Closed Election</span>
-                        </div>
-                        <div class="text-center">
-                            <div>
-                                <span class="font-bold font-lg">1</span>
-                            </div>
-                            <span class="font-sm">Total Number of Voters(SG 1-15)</span>
-                        </div>
-                        <div class="text-center">
-                            <div>
-                                <span class="font-bold font-lg">40</span>
-                            </div>
-                            <span class="font-sm">Total Number of Voters(SG 16)</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-container card p-0">
-                    <div class="card-header filtering items-between d-flex" style="background-color:#894168;">
-                        <span>Filtering Section</span>
-                        <span class="mp-pr2">
-                            <button class="up-button-grey f-button font-bold" id="reset">Clear</button>
-                            <button class="f-button font-bold">Export</button>
-                            <button class="f-button font-bold up-button-green">Print</button>
-                        </span>
-                    </div>
 
 
-                    <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
+                        <div class="row">
+                            <div class="col-lg-5" style="padding-right:0px; ">
+                                <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="gap: 0;">
+                                    <div class="details-container">
 
-                        <div class="table-form w-full" style="padding:10px; grid-template-columns: repeat(11, 1fr); font-size:12px;">
+                                        <div class="top-text-details">
+                                            <label style="margin-top:-30px ;"><b> LOAN APPLICATION NO :</b> 1-2020-06-00003</label>
+                                            <label><b> APPLICATION TYPE:</b> RENEWAL</label>
+                                            <label><b> MEMBER:</b> GARCIA, MARIA</label>
+                                        </div>
 
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Loan Type</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
-                                    <option value="1">PEL</option>
 
-                                </select>
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Application Type</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
-                                    <option value="1"></option>
+                                        <div class="mp-input-group details-div">
+                                            <label class="mp-input-group__label">Current Status:</label>
+                                            <label class="mp-input-group__label value">CANCELLED</label>
+                                        </div>
+                                        <div class="mp-input-group details-div">
+                                            <label class="mp-input-group__label">Loan Type:</label>
+                                            <label class="mp-input-group__label value">Personal Equity Loan</label>
+                                        </div>
+                                        <div class="mp-input-group details-div">
+                                            <label class="mp-input-group__label">Active Email:</label>
+                                            <label class="mp-input-group__label value">markdennebg@gmail.com</label>
+                                        </div>
+                                        <div class="mp-input-group details-div">
+                                            <label class="mp-input-group__label">Member No.:</label>
+                                            <label class="mp-input-group__label value">12313132</label>
+                                        </div>
 
-                                </select>
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Status</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
-                                    <option value="1"></option>
+                                        <div class="mp-input-group details-div">
+                                            <label class="mp-input-group__label">Date Submitted:</label>
+                                            <label class="mp-input-group__label value">06/25/2020 03:18 PM</label>
+                                        </div>
+                                        <br>
+                                        <label style="color:black;"><b> BANK DETAILS</b></label>
+                                        <div class="mp-input-group details-div">
+                                            <label class="mp-input-group__label">Bank:</label>
+                                            <label class="mp-input-group__label value">DEVELOPMENT BANK OF THE PHILIPPINES</label>
+                                        </div>
 
-                                </select>
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
-                                <span>Campus</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
-
-                                </select>
-
-                            </span>
-                            <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                                <span>Date Applied</span>
-                                <div class="date_range d-flex">
-                                    <input type="date" id="time_open_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                    <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                    <input type="date" id="time_close_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                        <div class="mp-input-group details-div">
+                                            <label class="mp-input-group__label">
+                                                Account Name:
+                                            </label>
+                                            <label class="mp-input-group__label value">
+                                                Re-Loan test
+                                            </label>
+                                        </div>
+                                        <div class="mp-input-group details-div">
+                                            <label class="mp-input-group__label">
+                                                Account Number:
+                                            </label>
+                                            <label class="mp-input-group__label value">
+                                                123456789
+                                            </label>
+                                        </div>
+                                        <div class="mp-input-group details-div">
+                                            <label class="mp-input-group__label">
+                                                Renewal Type:
+                                            </label>
+                                            <label class="mp-input-group__label value">
+                                                FULL EQUITY
+                                            </label>
+                                        </div>
+                                        <br>
+                                        <label style="color:black;"><b> REASON FOR CANCELLATION</b></label>
+                                        <div class="mp-input-group details-div">
+                                            <label class="mp-input-group__label">Remarks:</label>
+                                            <label class="mp-input-group__label value">Cancelled!</label>
+                                        </div>
+                                    </div>
                                 </div>
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Search</span>
-                                <input type="text" id="election_date_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                            </span>
+                            </div>
+                            <div class="col-lg-7" style="padding-left:0px;">
+                                <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="height: 100%; gap:0;">
+
+                                    <div class="details-container">
+                                        <label style="color:black;"><b>ATTACHMENTS</b></label>
+
+                                    </div>
+                                    <div class="mp-input-group details-div" style="text-align:center;">
+                                        <label style="color:black;"><b> ID</b></label>
+                                        <br>
+                                        <img src="{!! asset('assets/images/bg-member.png') !!}" style=" width: 70%;" alt="UPPFI">
+                                    </div>
+                                    <br>
+                                    <div class="mp-input-group details-div" style="text-align:center;">
+                                        <label style="color:black;"><b> Payslip 1</b></label>
+                                        <br>
+                                        <img src="{!! asset('assets/images/bg-member.png') !!}" style=" width: 70%;" alt="UPPFI">
+                                    </div>
+                                    <br>
+                                    <div class="mp-input-group details-div" style="text-align:center;">
+                                        <label style="color:black;"><b> Payslip 2</b></label>
+                                        <br>
+                                        <img src="{!! asset('assets/images/bg-member.png') !!}" style=" width: 70%;" alt="UPPFI">
+                                    </div>
+                                    <br>
+                                    <div class="mp-input-group details-div" style="text-align:center;">
+                                        <label style="color:black;"><b> Payslip 3</b></label>
+                                        <br>
+                                        <img src="{!! asset('assets/images/bg-member.png') !!}" style=" width: 70%;" alt="UPPFI">
+                                    </div>
 
 
+                                </div>
+                            </div>
                         </div>
+
+
+
+
                     </div>
                 </div>
 
 
 
 
-                <div class="card d-flex flex-column mp-mt2">
-
-                    <div class=" table-container">
-                        <table class="members-table" style="height: auto;" width="100%">
-                            <thead>
-                                <tr>
-                                    <th style="width:60px">
-                                        <span>Action</span>
-                                    </th>
-                                    <th>
-                                        <span>Date Applied</span>
-                                    </th>
-                                    <th>
-                                        <span>Member No</span>
-                                    </th>
-                                    <th>
-                                        <span>Loan Application Number</span>
-                                    </th>
-                                    <th>
-                                        <span>Full Name</span>
-                                    </th>
-                                    <th>
-                                        <span>Campus</span>
-                                    </th>
-                                    <th>
-                                        <span>Loan Type</span>
-                                    </th>
-                                    <th>
-                                        <span>Application Type</span>
-                                    </th>
-                                    <th>
-                                        <span>Loan Status</span>
-                                    </th>
-
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <span style="text-align:center;">
-
-                                            <a href="/admin/loan/loan-application/details" data-md-tooltip="Review Application" class="view_member md-tooltip--right view-member" style="cursor: pointer">
-                                                <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                                            </a>
-
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            2023-001
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            1231232
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            1231232
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Sample Full Name
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Campus A
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            PEL
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            NEW
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            CANCELLED
-                                        </span>
-                                    </td>
-
-                                </tr>
-
-                            </tbody>
-
-
-
-                        </table>
-                        <!-- <a href="#" style="padding: 0px;font-size: 13px;" class="link_style">
-                            Process Payment Contributions
-                        </a>
-                        <a href="#" style="margin-left:3px; color:#6c1242; font-size: 13px;" class="link_style">
-                            Process All Contribution
-                        </a> -->
-                    </div>
-                </div>
 
 
 

@@ -2566,6 +2566,10 @@ class AdminController extends Controller
   {
     return view('admin.loan.loan-application');
   }
+  public function loanApplicationDetails()
+  {
+    return view('admin.loan.loan-application-details');
+  }
 
   public function loanAnalytics()
   {
