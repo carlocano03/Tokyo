@@ -510,21 +510,14 @@
       <li><a href="/member/transaction" class="{{ Request::is('member/transaction') ? 'active-nav' : '' }}">
           <i class="fa fa-line-chart"></i>Transactions </a>
       </li>
-
+      <li><a href="/member/loan" class="{{ Request::is('member/loan') ? 'active-nav' : '' }}">
+          <i class="fa fa-address-book"></i>Loan Application</a>
+      </li>
       <li><a id="click_form" class="{{ Request::is('member/member') ? 'active-nav' : '' }}">
           <i class="fa fa-envelope" aria-hidden="true"></i> Member Forms </a>
       </li>
 
-      <li><a href="/member/loan" class="{{ Request::is('member/loan') ? 'active-nav' : '' }}">
-          <i class="fa fa-address-book"></i>Loan Application</a>
-      </li>
-      <li><a href="/member/settings" class="{{ Request::is('member/settings')
-                  || Request::is('member/update-password')  ? 'active-nav' : '' }}">
-          <i class="fa fa-gears"></i>Account & Settings</a>
-      </li>
-      <li><a href="https://www.upprovidentfund.com/contact-us/" target="_blank">
-          <i class="fa fa-phone-square" aria-hidden="true"></i>Contact Us</a>
-      </li>
+      
 
 
     </ul>
