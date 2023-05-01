@@ -2642,8 +2642,8 @@ ul {
 }
 
 .mp-dashboard__title {
-    font-size: 2rem;
-    font-size: var(--fs-xxlarge)
+    font-size: 3rem;
+    /* font-size: var(--fs-xxlarge) */
 }
 
 .mp-dashboard__body {
@@ -2683,7 +2683,7 @@ ul {
     fill: var(--c-primary-80)
 }
 
-@media (min-width:576px) {
+/* @media (min-width:576px) {
     .mp-dashboard__title {
         font-size: 2.5rem;
         font-size: var(--fs-xxxlarge)
@@ -2695,7 +2695,7 @@ ul {
         font-size: 2rem;
         font-size: var(--fs-xxlarge)
     }
-}
+} */
 
 @media (min-width:992px) {
     .mp-dashboard__body {
@@ -2707,10 +2707,10 @@ ul {
         z-index: auto
     }
 
-    .mp-dashboard__title {
+    /* .mp-dashboard__title {
         font-size: 2.5rem;
         font-size: var(--fs-xxxlarge)
-    }
+    } */
 }
 
 body,
@@ -5515,6 +5515,11 @@ tfoot {
     font-size: var(--fs-large)
 }
 
+.dashboard-total-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
 .ml-auto {
     margin-left: auto;
 }
@@ -6359,10 +6364,29 @@ tfoot {
 
 .magenta-bg {
     background-color: #1a8981;
+    color: white !important;
+}
+
+.magenta-bg-dark {
+    background-color: #00c2b5;
+}
+.magenta-clr {
+    color: #1a8981 !important;
+}
+
+.white-clr {
+    color: white !important;
+}
+
+.black-clr {
+    color: black !important;
 }
 
 .maroon-bg {
     background-color: #894168;
+}
+.maroon-bg-dark {
+    background-color: #b68ba1;
 }
 
 .red-bg {
@@ -6527,6 +6551,12 @@ tfoot {
     color: var(--c-base-10) !important
 }
 
+.gray-bg-light {
+    background-color: #d1d1d1 !important;
+    color: #ececec !important;
+    color: var(--c-base-10) !important
+}
+
 
 
 .scroll-top-button {
@@ -6636,6 +6666,10 @@ tfoot {
 
 .h-100 {
     height: 100%;
+}
+
+.h-auto {
+    height: auto;
 }
 
 text.highcharts-credits {
