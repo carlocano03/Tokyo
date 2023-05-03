@@ -174,6 +174,8 @@ Route::post('/admin/manageAccountValidation', [Settings::class, 'checkUsername']
 Route::get('/member/dashboard', [MemberController::class, 'dashboard'])->name('member.dashboard');
 Route::get('/member/settings', [MemberController::class, 'settings'])->name('member.settings');
 Route::get('/member/loan', [MemberController::class, 'loan'])->name('member.loan');
+Route::get('/member/loan/calculator', [MemberController::class, 'calculator'])->name('member.calculator');
+Route::get('/member/loan/schedule', [MemberController::class, 'schedule'])->name('member.schedule');
 Route::get('/member/new-loan', [MemberController::class, 'new_loan'])->name('member.new_loan');
 Route::get('/member/transaction', [MemberController::class, 'transaction'])->name('member.transaction');
 Route::get('/member/member', [MemberController::class, 'member'])->name('member.member');
