@@ -54,7 +54,7 @@ class MemberController extends Controller
     return view('member.updatepassword');
   }
 
-  public function calculator()
+  public function application()
   {
     return view('member.loan_application.calculator');
   }
@@ -62,6 +62,11 @@ class MemberController extends Controller
   public function schedule()
   {
     return view('member.loan_application.schedule');
+  }
+
+  public function submission()
+  {
+    return view('member.loan_application.submission');
   }
   
 }
