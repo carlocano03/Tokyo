@@ -10,6 +10,7 @@ use PDF;
 use Excel;
 use DataTables;
 use App\Models\Election;
+use App\Models\Loans;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\processMail;
@@ -2566,6 +2567,177 @@ class AdminController extends Controller
   {
     return view('admin.loan.loan-application');
   }
+
+
+  public function getLoanApplications(Request $request)
+  {
+    $columns = [
+      0 => 'loan_applications.id',
+      1 => 'date_created',
+      2 => 'member_no',
+      3 => 'control_number',
+      4 => 'full_name',
+      5 => 'campus',
+      6 => 'loan_type',
+      7 => 'application_type',
+      8 => 'status'
+    ];
+    $totalData = Loans::count();
+    $limit = $request->input('length');
+    $start = $request->input('start');
+    $order = $columns[$request->input('order.0.column')];
+    $dir = $request->input('order.0.dir');
+    $searchValue =  $request->input('search.value');
+    $status_select = $request->input('status');
+    $application_type = $request->input('application_type');
+    $loan_type = $request->input('loan_type');
+    $date_applied_from  = $request->get('date_applied_from');
+    $date_applied_to  = $request->get('date_applied_to');
+
+
+    //filter codes
+    if (!empty($searchValue)) {
+      $loan_applicaton = DB::table('loan_applications')
+
+
+
+        // ->orWhere('election_year', 'like', "%{$searchValue}%")
+        // ->orWhere('status', 'like', "%{$searchValue}%")
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    } else {
+      $loan_applicaton = DB::table('loan_applications')
+        ->select(
+          'users.*',
+          'loan_applications.*',
+          'member.*',
+          'old_campus.*',
+          'old_campus.name as campus_name',
+          'loan_type.name as loan_type_name',
+          'loan_applications_peb.*',
+          'loan_applications_peb.type as loan_application_type'
+        )
+        ->join('member', 'member.member_no', '=', 'loan_applications.member_no')
+        ->join('users', 'member.user_id', '=', 'users.id')
+        ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
+        ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
+        ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
+
+        // ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    // if (!empty($status_select)) {
+    //   $election = DB::table('election_tbl')
+    //     ->where('status', '=',  $status_select)
+    //     ->orderBy($order, $dir)
+    //     ->offset($start)
+    //     ->limit($limit)
+    //     ->get();
+    // }
+    // if (!empty($election_date)) {
+    //   $election = DB::table('election_tbl')
+    //     ->where('election_date', '=',  $election_date)
+    //     ->orderBy($order, $dir)
+    //     ->offset($start)
+    //     ->limit($limit)
+    //     ->get();
+    // }
+    // if (!empty($election_year)) {
+    //   $election = DB::table('election_tbl')
+    //     ->where('election_year', '=',  $election_year)
+    //     ->orderBy($order, $dir)
+    //     ->offset($start)
+    //     ->limit($limit)
+    //     ->get();
+    // }
+    // if (!empty($cluster)) {
+    //   $election = DB::table('election_tbl')
+    //     ->where('cluster_id', '=',  $cluster)
+    //     ->orderBy($order, $dir)
+    //     ->offset($start)
+    //     ->limit($limit)
+    //     ->get();
+    // }
+    // if (!empty($time_open) && !empty($time_close)) {
+    //   $election = DB::table('election_tbl')
+    //     ->where('time_open', '>=',  $time_open)
+    //     ->where('time_close', '<=',  $time_close)
+    //     ->orderBy($order, $dir)
+    //     ->offset($start)
+    //     ->limit($limit)
+    //     ->get();
+    // }
+    // if (!empty($election_year) && !empty($cluster)) {
+    //   $election = DB::table('election_tbl')
+    //     ->where('election_year', '=',  $election_year)
+    //     ->where('cluster_id', '=',  $cluster)
+    //     ->orderBy($order, $dir)
+    //     ->offset($start)
+    //     ->limit($limit)
+    //     ->get();
+    // }
+    // if (!empty($election_year) && !empty($cluster) && !empty($election_date)) {
+    //   $election = DB::table('election_tbl')
+    //     ->where('election_year', '=',  $election_year)
+    //     ->where('cluster_id', '=',  $cluster)
+    //     ->where('election_date', '=',  $election_date)
+    //     ->orderBy($order, $dir)
+    //     ->offset($start)
+    //     ->limit($limit)
+    //     ->get();
+    // }
+    // if (!empty($election_year) && !empty($cluster) && !empty($election_date) && !empty($status_select)) {
+    //   $election = DB::table('election_tbl')
+    //     ->where('election_year', '=',  $election_year)
+    //     ->where('cluster_id', '=',  $cluster)
+    //     ->where('election_date', '=',  $election_date)
+    //     ->where('status_select', '=',  $status_select)
+    //     ->orderBy($order, $dir)
+    //     ->offset($start)
+    //     ->limit($limit)
+    //     ->get();
+    // }
+
+
+    $totalFiltered = Loans::when($searchValue, function ($query) use ($searchValue) {
+      $query->where('id', 'like', "%{$searchValue}%")->orWhere('status', 'like', "%{$searchValue}%");
+    })
+      ->count();
+
+    $data = [];
+    foreach ($loan_applicaton as $row) {
+      $nestedData['date_created'] = $row->date_created;
+      $nestedData['member_no'] = $row->member_no;
+      $nestedData['control_number'] = $row->control_number;
+      $nestedData['full_name'] = $row->last_name . "," . $row->first_name . " " . $row->middle_name;
+      $nestedData['campus'] = $row->campus_name;
+      $nestedData['loan_type'] = $row->loan_type_name;
+      $nestedData['application_type'] = $row->loan_application_type;
+      $nestedData['status'] = $row->status;
+      $nestedData['action'] = '
+      <a href="/admin/loan/loan-details/' . $row->id .  '" data-md-tooltip="View Loan Details" class="view_member md-tooltip--top view-member" style="cursor: pointer">
+                 <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+               </a>
+          
+         ';
+
+      $data[] = $nestedData;
+    }
+    $json_data = [
+      "draw" => intval($request->input('draw')),
+      "recordsTotal" => intval($totalData),
+      "recordsFiltered" => intval($totalFiltered),
+      "data" => $data,
+    ];
+
+    return response()->json($json_data);
+  }
+
+
   public function loanApplicationDetails()
   {
     return view('admin.loan.loan-application-details');

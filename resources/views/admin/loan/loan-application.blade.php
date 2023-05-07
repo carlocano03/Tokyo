@@ -1591,10 +1591,7 @@
                                     <input type="date" id="time_close_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                 </div>
                             </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Search</span>
-                                <input type="text" id="election_date_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                            </span>
+
 
 
                         </div>
@@ -1606,8 +1603,8 @@
 
                 <div class="card d-flex flex-column mp-mt2">
 
-                    <div class=" table-container">
-                        <table class="members-table" style="height: auto;" width="100%">
+                    <div class=" ">
+                        <table class="members-table" id="loan_table" style="height: auto;" width="100%">
                             <thead>
                                 <tr>
                                     <th style="width:60px">
@@ -1642,7 +1639,7 @@
                             </thead>
 
                             <tbody>
-                                <tr>
+                                <!-- <tr>
                                     <td>
                                         <span style="text-align:center;">
 
@@ -1693,7 +1690,7 @@
                                         </span>
                                     </td>
 
-                                </tr>
+                                </tr> -->
 
                             </tbody>
 
@@ -1738,7 +1735,97 @@
             $("#showSettings").text("Hide Tab")
         }
 
-    })
+    });
+    $(document).ready(function() {
+
+        loan_table = $('#loan_table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('getLoanApplications') }}",
+                "data": function(data) {
+                    // data.time_open = $('#time_open_filter').val();
+                    // data.time_close = $('#time_close_filter').val();
+                    // data.status = $('#status_filter').val();
+                    // data.election_date = $('#election_date_filter').val();
+                    // data.election_year = $('#election_year_filter').val();
+                    // data.cluster = $('#cluster_filter').val();
+                },
+            },
+            columns: [{
+                    data: 'action',
+                    name: 'action',
+
+                },
+                {
+                    data: 'date_created',
+                    name: 'date_created'
+                },
+                {
+                    data: 'member_no',
+                    name: 'member_no'
+                },
+                {
+                    data: 'control_number',
+                    name: 'control_number'
+                },
+                {
+                    data: 'full_name',
+                    name: 'full_name'
+                },
+                {
+                    data: 'campus',
+                    name: 'campus'
+                },
+                {
+                    data: 'loan_type',
+                    name: 'loan_type'
+                },
+                {
+                    data: 'application_type',
+                    name: 'application_type'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+
+
+
+
+            ]
+        });
+        // $('#status').on('change', function() {
+        //     election_table.draw();
+        // });
+        // $('#election_year_filter').on('change', function() {
+        //     election_table.draw();
+        // });
+        // $('#election_date_filter').on('change', function() {
+        //     election_table.draw();
+        // });
+        // $('#cluster_filter').on('change', function() {
+        //     election_table.draw();
+        // });
+        // $('#time_open_filter').on('change', function() {
+        //     election_table.draw();
+        // });
+        // $('#time_close_filter').on('change', function() {
+        //     election_table.draw();
+        // });
+        // $('#reset_time').on('click', function() {
+        //     $('#time_open_filter').val("").trigger("change");
+        //     $('#time_close_filter').val("").trigger("change");
+        //     election_table.draw();
+        // });
+
+        // $('#reset').on('click', function() {
+        //     resetFilterDate()
+        //     election_table.draw();
+        // });
+
+    });
+
     Highcharts.chart('chart-application', {
         chart: {
             plotBackgroundColor: null,
