@@ -35,276 +35,341 @@
 
         }
 
+        .side-dashboard {
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        }
+
+        .side-dashboard>.card>.content-right {
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+
+        .side-dashboard>.card>.content-right>label {
+            margin-bottom: 0px;
+            margin-top: 0px !important;
+        }
+
+        @media (max-width:652px) {
+            .side-dashboard {
+                grid-template-columns: 1fr 1fr
+            }
+            .members-header {
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                margin-bottom: 20px;
+            }
+
+        }
+
+        .payroll-table {
+            border-collapse: collapse;
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            table-layout: fixed;
+            border: 1px solid #ececec;
+        }
+
+        .payroll-table>thead>tr>th {
+            font-size: 13px;
+            padding-left: 5px;
+            padding-right: 5px;
+            background-color: #1a8981;
+            color: white !important;
+            border-left: 1px solid white;
+            font-weight: 500;
+            border-top: 2px solid #1a8981;
+            border-bottom: 2px solid #1a8981;
+            height: auto;
+            text-transform: uppercase;
+            width: 100px;
+        }
+
+        .payroll-table>thead>tr>th:first-child {
+            border-left: 1px solid #1a8981;
+        }
+
+        .payroll-table>thead>tr>th:last-child {
+            border-right: 1px solid #1a8981;
+        }
+
+        .payroll-table>thead>tr>th>span {
+            display: flex;
+            height: 100%;
+        }
+
+        .payroll-table>tbody>tr>td>span {
+            display: flex;
+            padding: 5px 2px;
+
+        }
+
+        .payroll-table>tbody>tr>td {
+            font-size: 12px;
+            padding-left: 5px;
+            padding-right: 5px;
+            min-width: 100px;
+        }
+
+        .apply-button{
+            justify-content: end;
+        }
+
+        
+        @media (max-width:652px) {
+            .apply-button{
+                justify-content: center;
+            }
+
+        }
+
+
     </style>
     <div class="filler"></div>
-    <div class="container mp-container mh-content members-module">
+    <div class="mp-container mh-content members-module">
 
         <div class="row no-gutters mp-mt5">
             <div class="col-12 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-primary members-header">
                 Loan Application
                 <span style="position: relative; float: right;">
-                    <a href="{{ url('/member/new-loan') }}" class="mp-button mp-button--primary">
+                    <!-- <a href="{{ url('/member/new-loan') }}" class="mp-button mp-button--primary">
                         Apply for Loan
-                    </a>
+                    </a> -->
+                    <button class="up-button f-button magenta-bg">Generate Loan Balance</button>
+                    <button class="up-button-grey f-button" id="reset">Export Records</button>
                 </span>
             </div>
 
         </div>
-
+        <div class="row no-gutters mp-mb4">
+            <div class="col-12 mp-ph2 mp-pv2">
+                <div class="card-container card p-0">
+                    <div class="card-header d-flex maroon-bg">
+                        <span>Filtering Section</span>
+                    </div>
+                        <div class="card-body justify-content-center gap-10 flex-row p-0 mp-ph2">
+                            <div class="container-fluid no-gutters black-clr">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="mp-input-group">
+                                            <label class="mp-input-group__label black-clr mp-mb2">Filter by Loan Type</label>
+                                            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%; " required>
+                                                <option value="">Select Loan Type</option>
+                                                <option value="">(PEL) Personal Equity Loan</option>
+                                                <option value="">(CBL) Co Borrower Plan</option>
+                                                <option value="">(BL) Bridge Loan</option>
+                                                <option value="">(EML) Emergency Loan</option>
+                                                <option value="">(BTL) Balance Transfer Loan</option>
+                                            </select>
+                                        </div>
+                                        <div class="mp-input-group mp-mt3">
+                                            <label class="mp-input-group__label black-clr mp-mb2">Filter by Application Status</label>
+                                            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%; " required>
+                                                <option value="">Select Loan Type</option>
+                                                <option value="">(PEL) Personal Equity Loan</option>
+                                                <option value="">(CBL) Co Borrower Plan</option>
+                                                <option value="">(BL) Bridge Loan</option>
+                                                <option value="">(EML) Emergency Loan</option>
+                                                <option value="">(BTL) Balance Transfer Loan</option>
+                                            </select>
+                                        </div>
+                                        <div class="mp-input-group mp-mt3 mp-mb2">
+                                            <label class="mp-input-group__label black-clr mp-mb2">Filter by Loan Application Date</label>
+                                            <br>
+                                            <span class="d-flex items-between flex-row">
+                                                <label class="mp-input-group__label black-clr mp-ml2 align-self-center">Date From:</label>
+                                                <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px">
+                                            </span>
+                                            <br>
+                                            <span class="d-flex items-between flex-row">
+                                                <label class="mp-input-group__label black-clr mp-ml2 align-self-center">Date To:</label>
+                                                <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div>
+                                            <h3 class="magenta-clr">
+                                                Application Summary
+                                            </h3>
+                                        </div>
+                                        <div class="right-dashboard col grid side-dashboard gap-10 font-sm card mp-mb2" style="color: black;">
+                                            <div class="text-center d-flex flex-column justify-content-center">
+                                                <div>
+                                                    <span class="font-bold font-lg magenta-clr" id="new_app">0</span>
+                                                </div>
+                                                <span class="font-sm min-h-40">New Loan Application</span>
+                                            </div>
+                                            <div class="text-center d-flex flex-column justify-content-center">
+                                                <div>
+                                                    <span class="font-bold font-lg magenta-clr" id="forApproval">0</span>
+                                                </div>
+                                                <span class="font-sm min-h-40">Processing Loan Application</span>
+                                            </div>
+                                            <div class="text-center d-flex flex-column justify-content-center">
+                                                <div>
+                                                    <span class="font-bold font-lg magenta-clr" id="draft">0</span>
+                                                </div>
+                                                <span class="font-sm min-h-40">For Review Loan Application</span>
+                                            </div>
+                                            <div class="text-center d-flex flex-column justify-content-center">
+                                                <div>
+                                                    <span class="font-bold font-lg magenta-clr" id="draft">0</span>
+                                                </div>
+                                                <span class="font-sm min-h-40">Approved Loan Application</span>
+                                            </div>
+                                            <div class="text-center d-flex flex-column justify-content-center">
+                                                <div>
+                                                    <span class="font-bold font-lg magenta-clr" id="rejected">0</span>
+                                                </div>
+                                                <span class="font-sm min-h-40 ">Rejected Loan Application</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
 
         <div class="row no-gutters mp-mb4">
             <div class="col-12 mp-ph2 mp-pv2">
-                <div class="row no-gutters">
-
-                    <div class="col-6 col-lg-3">
-                        <div class="mp-tab mp-tab--active">
-                            <a class="mp-tab__link" href="#">
-                                Loan Application
-                            </a>
-                        </div>
-                        
+                <div class="card-container card p-0">
+                    <div class="card-header d-flex maroon-bg">
+                        <span>Loan Application</span>
                     </div>
-                    <span style="margin-left: auto">
-                        <a href="#" id="exportLoanApplication" 
-                            class="toggle text_link mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small up-button">Export
-                            Data
-                        </a>
-                    </span>
-                    <!--    <div class="col-6 col-lg-3">
-              <div class="mp-tab ">
-                <a class="mp-tab__link" href="#">
-                  Co-Borrower Loan
-                </a>
-              </div>
-            </div> -->
-
-                </div>
-                <div class="row no-gutters">
-                    <div class="col">
-                    <div class="mp-ph4 mp-pv4 ft-card border-bottom-0 border-top-left-0">
-                            <div class="row mp-pv4">
-                                <label for="" class="mp-text-fs-xlarge mp-text--c-white ">Filtering Section</label>
-                            </div>
-                            <div class="row items-between mp-pv4">
-                                <div class="col-md-12 col-xl-6">
-                                    <div class="row mp-text--c-white">
-                                        <label for="row">Fields</label>
-                                    </div>
-                                    <div class="row field-filter">
-                                        <select name="" class="radius-1 outline select-field"
-                                            style="width: 100%; height: 30px" id="loan_type">
-                                            <option value="">Filter By Loan Type</option>
-                                            
-                                        </select>
-                                        <select name="" class="radius-1 outline select-field"
-                                            style="width: 100%; height: 30px" id="loan_status">
-                                            <option value="">Filter By Status</option>
-                                            <option value="PROCESSING">PROCESSING</option>
-                                            <option value="DONE">DONE</option>
-                                            <option value="CONFIRMED">CONFIRMED</option>
-                                            <option value="CANCELLED">CANCELLED</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-12 col-xl-5">
-                                    <div class="row mp-text--c-white">
-                                        <label for="row">Date Range based on Date Applied Date</label>
-                                    </div>
-                                    <div class="row date_range">
-                                        <input type="date" id="from"
-                                            class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                        <span for="" class="self_center mh-1 mp-text--c-white">to</span>
-                                        <input type="date" id="to"
-                                            class="radius-1 border-1 date-input outline" style="height: 30px;">
+                        <div class="card-body justify-content-center gap-10 flex-row p-0 mp-ph2">
+                            <div class="container-fluid no-gutters black-clr">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="mp-mt2 d-flex apply-button">
+                                        <span class="">
+                                            <a href="{{ url('/member/loan/application') }}" class="mp-button mp-button--primary">
+                                                Apply for Loan
+                                            </a>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mp-ph4 mp-pv4 tb-card border-top-0">
-
-                            <div class="mp-text-fs-medium {{ Session::has('error') or (Session::has('success') ? 'mp-mb4' : '') }}"
-                                align="center">
-                                @if (Session::has('error'))
-                                    <span style="color:red"><strong>{{ Session::get('error') }}</strong></span>
-                                @endif
-                                @if (Session::has('success'))
-                                    <span style="color:green"><strong>{{ Session::get('success') }}</strong></span>
-                                @endif
-                            </div>
-
-
-                            <br>
-
-                            <div class="mp-overflow-x">
-                                <!-- <div class="mp-ph4 mp-pv4 ft-card border-bottom-0">
-                                    <div class="row mp-pv4">
-                                        <label for="" class="mp-text-fs-xlarge mp-text--c-white ">Filtering
-                                            Section</label>
-                                    </div>
-                                    <div class="row items-between mp-pv4">
-                                        <div class="col-md-12 col-xl-6">
-                                            <div class="row mp-text--c-white">
-                                                <label for="row">Fields</label>
-                                            </div>
-                                            <div class="row field-filter">
-                                                <select name="" class="radius-1 outline select-field"
-                                                    style="width: 100%; height: 30px" id="loan_type">
-                                                    <option value="">Filter By Loan Type</option>
-                                                   
-                                                </select>
-                                                <select name="" class="radius-1 outline select-field"
-                                                    style="width: 100%; height: 30px" id="loan_status">
-                                                    <option value="">Filter By Status</option>
-                                                    <option value="PROCESSING">PROCESSING</option>
-                                                    <option value="DONE">DONE</option>
-                                                    <option value="CONFIRMED">CONFIRMED</option>
-                                                    <option value="CANCELLED">CANCELLED</option>
-
-                                                </select>
-                                            </div>
+                            <div class="row" style="overflow-y: auto;">
+                                <div class="col-1g-12" style="padding:15px;">
+                                    <div class="d-flex flex-column">
+                                        <div class="header-table">
+                                            <table class="payroll-table" style="height: auto;" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 60px">
+                                                            <span>Action</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Application Date</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Loan Application Number</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Loan Type</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Loan Status</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Remarks</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Loanable Amount</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Monthly Amortization</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Interest Rate</span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td >
+                                                            <a data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="8100" style="cursor: pointer">
+                                                                <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <span>Date</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>123</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>PEL</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>ACT</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>GUD</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>PHP 123,123</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>PHP 123,123</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>PHP 123,123</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width: 60px">
+                                                            <a data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="8100" style="cursor: pointer">
+                                                                <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <span>Date</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>123</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>PEL</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>ACT</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>GUD</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>PHP 123,123</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>PHP 123,123</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>PHP 123,123</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
                                         </div>
-                                        <div class="col-md-12 col-xl-5">
-                                            <div class="row mp-text--c-white">
-                                                <label for="row">Date Range based on Date Applied Date</label>
-                                            </div>
-                                            <div class="row date_range">
-                                                <input type="date" id="from"
-                                                    class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                                <span for="" class="self_center mh-1 mp-text--c-white">to</span>
-                                                <input type="date" id="to"
-                                                    class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                            </div>
-                                        </div>
+                                        
                                     </div>
-                                </div> -->
-                           
-                                <table class="mp-table mp-text-fs-small" id="member_loan_table" cellspacing="0"
-                                    width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th class="mp-text-center"></th>
-                                            <th class="mp-text-center">Date Applied</th>
-                                            <th class="mp-text-center">Loan Application Number</th>
-                                            <th class="mp-text-center">Loan Type</th>
-                                            <th class="mp-text-center">Loan Status</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>
-                                            <a data-md-tooltip="View Details" href="#" id="member_loandet" data-id="47">
-                                                <i class="mp-icon md-tooltip icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                                            </a>
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                           
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <a data-md-tooltip="View Details" href="#" id="member_loandet" data-id="47">
-                                                <i class="mp-icon md-tooltip icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                                            </a>
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                           
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <a data-md-tooltip="View Details" href="#" id="member_loandet" data-id="47">
-                                                <i class="mp-icon md-tooltip icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                                            </a>
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                           
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <a data-md-tooltip="View Details" href="#" id="member_loandet" data-id="47">
-                                                <i class="mp-icon md-tooltip icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                                            </a>
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                           
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            <a data-md-tooltip="View Details" href="#" id="member_loandet" data-id="47">
-                                                <i class="mp-icon md-tooltip icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                                            </a>
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                            <td>
-                                                asdasdsad
-                                            </td>
-                                           
-                                        </tr>
-                                    </tbody>
-                                </table>
-
+                                </div>
                             </div>
-
-
-
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+    </div>
     </div>
     </div>
     </div>
