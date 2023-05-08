@@ -155,10 +155,11 @@ Route::get('/admin/transaction/transaction-analytics', [AdminController::class, 
 Route::get('/admin/loan/loan-matrix', [AdminController::class, 'loanMatrix'])->name('admin.loan.loan-matrix');
 Route::get('/admin/loan/loan-application', [AdminController::class, 'loanApplication'])->name('admin.loan.loan-application');
 Route::get('/admin/loan/loan-analytics', [AdminController::class, 'loanAnalytics'])->name('admin.loan.loan-analytics');
-Route::get('/admin/loan/loan-application/details', [AdminController::class, 'loanApplicationDetails'])->name('admin.loan.loan-application-details');
+Route::get('/admin/loan/loan-application/details/{id}', [AdminController::class, 'loanApplicationDetails'])->name('admin.loan.loan-application-details');
 
 //loan data retrieve
 Route::get('/admin/loan/loan-details', [AdminController::class, 'getLoanApplications'])->name('getLoanApplications');
+Route::post('/admin/countLoans', [AdminController::class, 'countLoans'])->name('count_loans');
 
 //admin benefit links
 Route::get('/admin/benefit/benefit-matrix', [AdminController::class, 'benefitMatrix'])->name('admin.benefit.benefit-matrix');

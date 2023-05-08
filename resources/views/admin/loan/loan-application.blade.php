@@ -1512,27 +1512,27 @@
                     <div class=" card d-flex justify-content-around w-full flex-row">
                         <div class="text-center">
                             <div>
-                                <span class="font-bold font-lg">69</span>
+                                <span class="font-bold font-lg" id="total_confirmed">69</span>
                             </div>
-                            <span class="font-sm">On Going Election</span>
+                            <span class="font-sm">Total Confirmed Loans</span>
                         </div>
                         <div class="text-center">
                             <div>
-                                <span class="font-bold font-lg">10</span>
+                                <span class="font-bold font-lg" id="total_done">10</span>
                             </div>
-                            <span class="font-sm">Closed Election</span>
+                            <span class="font-sm">Total Done Loans</span>
                         </div>
                         <div class="text-center">
                             <div>
-                                <span class="font-bold font-lg">1</span>
+                                <span class="font-bold font-lg" id="total_processing">1</span>
                             </div>
-                            <span class="font-sm">Total Number of Voters(SG 1-15)</span>
+                            <span class="font-sm">Total Processing Loans</span>
                         </div>
                         <div class="text-center">
                             <div>
-                                <span class="font-bold font-lg">40</span>
+                                <span class="font-bold font-lg" id="total_cancelled">40</span>
                             </div>
-                            <span class="font-sm">Total Number of Voters(SG 16)</span>
+                            <span class="font-sm">Total Cancelled Loans</span>
                         </div>
                     </div>
                 </div>
@@ -1540,7 +1540,7 @@
                     <div class="card-header filtering items-between d-flex" style="background-color:#894168;">
                         <span>Filtering Section</span>
                         <span class="mp-pr2">
-                            <button class="up-button-grey f-button font-bold" id="reset">Clear</button>
+                            <button class="up-button-grey f-button font-bold" id="clear_filter">Clear</button>
                             <button class="f-button font-bold">Export</button>
                             <button class="f-button font-bold up-button-green">Print</button>
                         </span>
@@ -1553,32 +1553,38 @@
 
                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                 <span>Loan Type</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
+                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="loan_filter">
                                     <option value="">Show All</option>
-                                    <option value="1">PEL</option>
+                                    <option value="PEL">PEL</option>
 
                                 </select>
                             </span>
                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                 <span>Application Type</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
+                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="application_filter">
                                     <option value="">Show All</option>
-                                    <option value="1"></option>
-
+                                    <option value="RENEW">RENEW</option>
+                                    <option value="NEW">NEW</option>
                                 </select>
                             </span>
                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                 <span>Status</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
+                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status_filter">
                                     <option value="">Show All</option>
-                                    <option value="1"></option>
-
+                                    <option value="CONFIRMED">CONFIRMED</option>
+                                    <option value="CANCELLED">CANCELLED</option>
+                                    <option value="PROCESSING">PROCESSING</option>
+                                    <option value="DONE">DONE</option>
                                 </select>
                             </span>
                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
                                 <span>Campus</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
+                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campus_filter">
                                     <option value="">Show All</option>
+                                    @forelse($campus_details as $campus)
+                                    <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                                    @empty
+                                    @endforelse
 
                                 </select>
 
@@ -1586,9 +1592,9 @@
                             <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
                                 <span>Date Applied</span>
                                 <div class="date_range d-flex">
-                                    <input type="date" id="time_open_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                    <input type="date" id="date_applied_from" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                     <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                    <input type="date" id="time_close_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                    <input type="date" id="date_applied_to" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                 </div>
                             </span>
 
@@ -1638,7 +1644,7 @@
                                 </tr>
                             </thead>
 
-                            <tbody>
+                            <tbody style="color:black;">
                                 <!-- <tr>
                                     <td>
                                         <span style="text-align:center;">
@@ -1736,20 +1742,52 @@
         }
 
     });
-    $(document).ready(function() {
 
+    function resetFilter() {
+        $('#campus_filter').val("").trigger("change");
+        $('#status_filter').val("").trigger("change");
+        $('#application_filter').val("").trigger("change");
+        $('#loan_filter').val("").trigger("change");
+        $('#date_applied_from').val("").trigger("change");
+        $('#date_applied_to').val("").trigger("change");
+    }
+
+    function getLoanCount(view = '') {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('count_loans') }}",
+            method: "POST",
+            data: {
+                view: view
+            },
+            dataType: "json",
+            success: function(data) {
+                $('#total_cancelled').text(data.total_cancelled > 0 ? data.total_cancelled : "0");
+                $('#total_done').text(data.total_done > 0 ? data.total_done : "0");
+                $('#total_processing').text(data.total_processing > 0 ? data.total_processing : "0");
+                $('#total_confirmed').text(data.total_confirmed > 0 ? data.total_confirmed : "0");
+            }
+        });
+    }
+    $(document).ready(function() {
+        getLoanCount();
         loan_table = $('#loan_table').DataTable({
             processing: true,
             serverSide: true,
             ajax: {
                 url: "{{ route('getLoanApplications') }}",
                 "data": function(data) {
-                    // data.time_open = $('#time_open_filter').val();
-                    // data.time_close = $('#time_close_filter').val();
-                    // data.status = $('#status_filter').val();
-                    // data.election_date = $('#election_date_filter').val();
-                    // data.election_year = $('#election_year_filter').val();
-                    // data.cluster = $('#cluster_filter').val();
+                    data.campus_filter = $('#campus_filter').val();
+                    data.status_filter = $('#status_filter').val();
+                    data.application_filter = $('#application_filter').val();
+                    data.loan_filter = $('#loan_filter').val();
+                    data.date_applied_from = $('#date_applied_from').val();
+                    data.date_applied_to = $('#date_applied_to').val();
                 },
             },
             columns: [{
@@ -1795,34 +1833,33 @@
 
             ]
         });
-        // $('#status').on('change', function() {
-        //     election_table.draw();
-        // });
-        // $('#election_year_filter').on('change', function() {
-        //     election_table.draw();
-        // });
-        // $('#election_date_filter').on('change', function() {
-        //     election_table.draw();
-        // });
-        // $('#cluster_filter').on('change', function() {
-        //     election_table.draw();
-        // });
-        // $('#time_open_filter').on('change', function() {
-        //     election_table.draw();
-        // });
-        // $('#time_close_filter').on('change', function() {
-        //     election_table.draw();
-        // });
-        // $('#reset_time').on('click', function() {
-        //     $('#time_open_filter').val("").trigger("change");
-        //     $('#time_close_filter').val("").trigger("change");
-        //     election_table.draw();
-        // });
+        $('#campus_filter').on('change', function() {
+            loan_table.draw();
+        });
+        $('#status_filter').on('change', function() {
+            loan_table.draw();
+        });
+        $('#application_filter').on('change', function() {
+            loan_table.draw();
+        });
+        $('#loan_filter').on('change', function() {
+            loan_table.draw();
+        });
 
-        // $('#reset').on('click', function() {
-        //     resetFilterDate()
-        //     election_table.draw();
-        // });
+
+        $('#date_applied_from').on('change', function() {
+            loan_table.draw();
+        });
+        $('#date_applied_to').on('change', function() {
+            loan_table.draw();
+        });
+
+
+        $(document).on('click', '#clear_filter', function() {
+            resetFilter();
+            loan_table.draw();
+        });
+
 
     });
 

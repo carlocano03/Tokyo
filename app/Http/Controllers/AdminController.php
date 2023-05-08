@@ -2565,10 +2565,29 @@ class AdminController extends Controller
 
   public function loanApplication()
   {
-    return view('admin.loan.loan-application');
+    $campus_details = DB::table('old_campus')->get();
+    return view('admin.loan.loan-application', compact('campus_details'));
   }
 
+  //count election details 
+  public function countLoans()
+  {
+    if (request()->has('view')) {
+      $total_cancelled = DB::table('loan_applications')->where('status', 'CANCELLED')->count();
+      $total_done = DB::table('loan_applications')->where('status', 'DONE')->count();
+      $total_confirmed = DB::table('loan_applications')->where('status', 'CONFIRMED')->count();
+      $total_processing = DB::table('loan_applications')->where('status', 'PROCESSING')->count();
+    }
 
+    $data = array(
+      'total_cancelled' => $total_cancelled,
+      'total_done' => $total_done,
+      'total_processing' => $total_processing,
+      'total_confirmed' => $total_confirmed,
+    );
+
+    echo json_encode($data);
+  }
   public function getLoanApplications(Request $request)
   {
     $columns = [
@@ -2580,7 +2599,7 @@ class AdminController extends Controller
       5 => 'campus',
       6 => 'loan_type',
       7 => 'application_type',
-      8 => 'status'
+      8 => 'status',
     ];
     $totalData = Loans::count();
     $limit = $request->input('length');
@@ -2588,21 +2607,35 @@ class AdminController extends Controller
     $order = $columns[$request->input('order.0.column')];
     $dir = $request->input('order.0.dir');
     $searchValue =  $request->input('search.value');
-    $status_select = $request->input('status');
-    $application_type = $request->input('application_type');
-    $loan_type = $request->input('loan_type');
+    $campus = $request->input('campus_filter');
+    $status_select = $request->input('status_filter');
+    $application_type = $request->input('application_filter');
+    $loan_type = $request->input('loan_filter');
     $date_applied_from  = $request->get('date_applied_from');
     $date_applied_to  = $request->get('date_applied_to');
 
 
     //filter codes
     if (!empty($searchValue)) {
+
       $loan_applicaton = DB::table('loan_applications')
-
-
-
-        // ->orWhere('election_year', 'like', "%{$searchValue}%")
-        // ->orWhere('status', 'like', "%{$searchValue}%")
+        ->select(
+          'users.*',
+          'loan_applications.*',
+          'member.*',
+          'old_campus.*',
+          'old_campus.name as campus_name',
+          'loan_type.name as loan_type_name',
+          'loan_applications_peb.*',
+          'loan_applications_peb.type as loan_application_type'
+        )
+        ->where('loan_type.name', 'like', "%{$searchValue}%")
+        ->orWhere('loan_applications.member_no', 'like', "%{$searchValue}%")
+        ->join('member', 'member.member_no', '=', 'loan_applications.member_no')
+        ->join('users', 'member.user_id', '=', 'users.id')
+        ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
+        ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
+        ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
         ->orderBy($order, $dir)
         ->offset($start)
         ->limit($limit)
@@ -2624,83 +2657,150 @@ class AdminController extends Controller
         ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
         ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
         ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
-
-        // ->orderBy($order, $dir)
+        ->orderBy($order, $dir)
         ->offset($start)
         ->limit($limit)
         ->get();
     }
-    // if (!empty($status_select)) {
-    //   $election = DB::table('election_tbl')
-    //     ->where('status', '=',  $status_select)
-    //     ->orderBy($order, $dir)
-    //     ->offset($start)
-    //     ->limit($limit)
-    //     ->get();
-    // }
-    // if (!empty($election_date)) {
-    //   $election = DB::table('election_tbl')
-    //     ->where('election_date', '=',  $election_date)
-    //     ->orderBy($order, $dir)
-    //     ->offset($start)
-    //     ->limit($limit)
-    //     ->get();
-    // }
-    // if (!empty($election_year)) {
-    //   $election = DB::table('election_tbl')
-    //     ->where('election_year', '=',  $election_year)
-    //     ->orderBy($order, $dir)
-    //     ->offset($start)
-    //     ->limit($limit)
-    //     ->get();
-    // }
-    // if (!empty($cluster)) {
-    //   $election = DB::table('election_tbl')
-    //     ->where('cluster_id', '=',  $cluster)
-    //     ->orderBy($order, $dir)
-    //     ->offset($start)
-    //     ->limit($limit)
-    //     ->get();
-    // }
-    // if (!empty($time_open) && !empty($time_close)) {
-    //   $election = DB::table('election_tbl')
-    //     ->where('time_open', '>=',  $time_open)
-    //     ->where('time_close', '<=',  $time_close)
-    //     ->orderBy($order, $dir)
-    //     ->offset($start)
-    //     ->limit($limit)
-    //     ->get();
-    // }
-    // if (!empty($election_year) && !empty($cluster)) {
-    //   $election = DB::table('election_tbl')
-    //     ->where('election_year', '=',  $election_year)
-    //     ->where('cluster_id', '=',  $cluster)
-    //     ->orderBy($order, $dir)
-    //     ->offset($start)
-    //     ->limit($limit)
-    //     ->get();
-    // }
-    // if (!empty($election_year) && !empty($cluster) && !empty($election_date)) {
-    //   $election = DB::table('election_tbl')
-    //     ->where('election_year', '=',  $election_year)
-    //     ->where('cluster_id', '=',  $cluster)
-    //     ->where('election_date', '=',  $election_date)
-    //     ->orderBy($order, $dir)
-    //     ->offset($start)
-    //     ->limit($limit)
-    //     ->get();
-    // }
-    // if (!empty($election_year) && !empty($cluster) && !empty($election_date) && !empty($status_select)) {
-    //   $election = DB::table('election_tbl')
-    //     ->where('election_year', '=',  $election_year)
-    //     ->where('cluster_id', '=',  $cluster)
-    //     ->where('election_date', '=',  $election_date)
-    //     ->where('status_select', '=',  $status_select)
-    //     ->orderBy($order, $dir)
-    //     ->offset($start)
-    //     ->limit($limit)
-    //     ->get();
-    // }
+    if (!empty($status_select)) {
+      $loan_applicaton = DB::table('loan_applications')
+        ->select(
+          'users.*',
+          'loan_applications.*',
+          'member.*',
+          'old_campus.*',
+          'old_campus.name as campus_name',
+          'loan_type.name as loan_type_name',
+          'loan_applications_peb.*',
+          'loan_applications_peb.type as loan_application_type'
+        )
+        ->where('loan_applications.status', '=', $status_select)
+        ->orWhere('member.campus_id', '=', $campus)
+
+        ->orWhere('loan_applications_peb.type', '=', $application_type)
+        ->orWhere('loan_type.name', '=', $loan_type)
+
+        ->join('member', 'member.member_no', '=', 'loan_applications.member_no')
+        ->join('users', 'member.user_id', '=', 'users.id')
+        ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
+        ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
+        ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    //campus
+    if (!empty($campus)) {
+      $loan_applicaton = DB::table('loan_applications')
+        ->select(
+          'users.*',
+          'loan_applications.*',
+          'member.*',
+          'old_campus.*',
+          'old_campus.name as campus_name',
+          'loan_type.name as loan_type_name',
+          'loan_applications_peb.*',
+          'loan_applications_peb.type as loan_application_type'
+        )
+        ->where('member.campus_id', '=', $campus)
+        ->orWhere('loan_applications.status', '=', $status_select)
+        ->orWhere('loan_applications_peb.type', '=', $application_type)
+        ->orWhere('loan_type.name', '=', $loan_type)
+
+        ->join('member', 'member.member_no', '=', 'loan_applications.member_no')
+        ->join('users', 'member.user_id', '=', 'users.id')
+        ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
+        ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
+        ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($application_type)) {
+      $loan_applicaton = DB::table('loan_applications')
+        ->select(
+          'users.*',
+          'loan_applications.*',
+          'member.*',
+          'old_campus.*',
+          'old_campus.name as campus_name',
+          'loan_type.name as loan_type_name',
+          'loan_applications_peb.*',
+          'loan_applications_peb.type as loan_application_type'
+        )
+        ->where('loan_applications_peb.type', '=', $application_type)
+        ->orWhere('member.campus_id', '=', $campus)
+        ->orWhere('loan_applications.status', '=', $status_select)
+        ->orWhere('loan_type.name', '=', $loan_type)
+
+        ->join('member', 'member.member_no', '=', 'loan_applications.member_no')
+        ->join('users', 'member.user_id', '=', 'users.id')
+        ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
+        ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
+        ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($loan_type)) {
+      $loan_applicaton = DB::table('loan_applications')
+        ->select(
+          'users.*',
+          'loan_applications.*',
+          'member.*',
+          'old_campus.*',
+          'old_campus.name as campus_name',
+          'loan_type.name as loan_type_name',
+          'loan_applications_peb.*',
+          'loan_applications_peb.type as loan_application_type'
+        )
+        ->where('loan_type.name', '=', $loan_type)
+        ->orWhere('member.campus_id', '=', $campus)
+        ->orWhere('loan_applications.status', '=', $status_select)
+        ->orWhere('loan_applications_peb.type', '=', $application_type)
+
+        ->join('member', 'member.member_no', '=', 'loan_applications.member_no')
+        ->join('users', 'member.user_id', '=', 'users.id')
+        ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
+        ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
+        ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($date_applied_from) && !empty($date_applied_to)) {
+      $loan_applicaton = DB::table('loan_applications')
+        ->select(
+          'users.*',
+          'loan_applications.*',
+          'member.*',
+          'old_campus.*',
+          'old_campus.name as campus_name',
+          'loan_type.name as loan_type_name',
+          'loan_applications_peb.*',
+          'loan_applications_peb.type as loan_application_type'
+        )
+        ->orWhere('member.campus_id', '=', $campus)
+        ->orWhere('loan_applications.status', '=', $status_select)
+        ->orWhere('loan_applications_peb.type', '=', $application_type)
+        ->orWhere('loan_type.name', '=', $loan_type)
+        ->where('loan_applications.date_created', '>=',  $date_applied_from)
+        ->orWhere('loan_applications.date_created', '<=',  $date_applied_to)
+        ->join('member', 'member.member_no', '=', 'loan_applications.member_no')
+        ->join('users', 'member.user_id', '=', 'users.id')
+        ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
+        ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
+        ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+
 
 
     $totalFiltered = Loans::when($searchValue, function ($query) use ($searchValue) {
@@ -2719,7 +2819,7 @@ class AdminController extends Controller
       $nestedData['application_type'] = $row->loan_application_type;
       $nestedData['status'] = $row->status;
       $nestedData['action'] = '
-      <a href="/admin/loan/loan-details/' . $row->id .  '" data-md-tooltip="View Loan Details" class="view_member md-tooltip--top view-member" style="cursor: pointer">
+      <a href="/admin/loan/loan-application/details/' . $row->id .  '" target="_blank" data-md-tooltip="View Loan Details" class="view_member md-tooltip--top view-member" style="cursor: pointer">
                  <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
                </a>
           
@@ -2738,9 +2838,35 @@ class AdminController extends Controller
   }
 
 
-  public function loanApplicationDetails()
+  public function loanApplicationDetails($id)
   {
-    return view('admin.loan.loan-application-details');
+    $loan_application = DB::table('loan_applications')
+      ->select(
+        'users.*',
+        'loan_applications.*',
+        'member.*',
+        'old_campus.*',
+        'old_campus.name as campus_name',
+        'loan_type.name as loan_type_name',
+        'loan_applications_peb.*',
+        'loan_applications_peb.type as loan_application_type',
+        'users.email as user_email'
+      )
+      ->where('loan_applications.id', '=', $id)
+
+      ->join('member', 'member.member_no', '=', 'loan_applications.member_no')
+      ->join('users', 'member.user_id', '=', 'users.id')
+      ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
+      ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
+      ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
+      ->first();
+
+    // $campus_details = DB::table('old_campus')->get();
+    if (!empty($loan_application)) {
+      return view('admin.loan.loan-application-details', compact('loan_application'));
+    } else {
+      return redirect('/admin/loan/loan-application/');
+    }
   }
 
   public function loanAnalytics()

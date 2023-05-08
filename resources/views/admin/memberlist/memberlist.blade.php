@@ -1646,7 +1646,7 @@
                                                 <option value="REJECTED">REJECTED</option>
                                             </select>
                                         </span>
-                                        <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                        <!-- <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                             <span>Remarks</span>
                                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="remarks_select">
                                                 <option value="">Show All</option>
@@ -1655,8 +1655,8 @@
                                                 <option value="FORWARDED TO FM">FORWARDED TO FM</option>
                                                 <option value="HRDO RETURNED APPLICATIONS">HRDO RETURNED APPLICATIONS</option>
                                             </select>
-                                        </span>
-                                        <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
+                                        </span> -->
+                                        <!-- <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
                                             @if(Auth::user()->user_level == 'ADMIN')
                                             <span>View User Option</span>
                                             <select name="view_all" id="view_all" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;" <?= Auth::user()->user_level != 'ADMIN' ? 'disabled' : '' ?>>
@@ -1668,7 +1668,7 @@
                                             @endif
 
 
-                                        </span>
+                                        </span> -->
                                     </div>
                                 </div>
                             </div>
