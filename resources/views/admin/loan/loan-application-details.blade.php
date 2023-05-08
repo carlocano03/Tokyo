@@ -1549,38 +1549,54 @@
                                     <div class="details-container">
 
                                         <div class="top-text-details">
-                                            <label style="margin-top:-30px ;"><b> LOAN APPLICATION NO :</b> 1-2020-06-00003</label>
-                                            <label><b> APPLICATION TYPE:</b> RENEWAL</label>
-                                            <label><b> MEMBER:</b> GARCIA, MARIA</label>
+                                            <label style="margin-top:-30px ;"><b> LOAN APPLICATION NO :</b> {{$loan_application->control_number}}</label>
+                                            <label><b> APPLICATION TYPE:</b> {{$loan_application->type}} </label>
+                                            <label><b> MEMBER:</b> {{$loan_application->last_name}} , {{$loan_application->first_name}} {{$loan_application->middle_name}} </label>
                                         </div>
 
 
                                         <div class="mp-input-group details-div">
                                             <label class="mp-input-group__label">Current Status:</label>
-                                            <label class="mp-input-group__label value">CANCELLED</label>
+                                            <label class="mp-input-group__label value" style="{{$loan_application->status == 'CANCELLED'? 'color:red' : 'color:blue;'}}">{{$loan_application->status}}</label>
                                         </div>
                                         <div class="mp-input-group details-div">
                                             <label class="mp-input-group__label">Loan Type:</label>
-                                            <label class="mp-input-group__label value">Personal Equity Loan</label>
+                                            <label class="mp-input-group__label value">{{$loan_application->loan_type_name}}</label>
                                         </div>
                                         <div class="mp-input-group details-div">
                                             <label class="mp-input-group__label">Active Email:</label>
-                                            <label class="mp-input-group__label value">markdennebg@gmail.com</label>
+                                            <label class="mp-input-group__label value">{{$loan_application->user_email}}</label>
                                         </div>
                                         <div class="mp-input-group details-div">
                                             <label class="mp-input-group__label">Member No.:</label>
-                                            <label class="mp-input-group__label value">12313132</label>
+                                            <label class="mp-input-group__label value">{{$loan_application->member_no}}</label>
                                         </div>
 
                                         <div class="mp-input-group details-div">
                                             <label class="mp-input-group__label">Date Submitted:</label>
-                                            <label class="mp-input-group__label value">06/25/2020 03:18 PM</label>
+                                            <label class="mp-input-group__label value">{{$loan_application->date_created}}</label>
                                         </div>
                                         <br>
                                         <label style="color:black;"><b> BANK DETAILS</b></label>
                                         <div class="mp-input-group details-div">
                                             <label class="mp-input-group__label">Bank:</label>
-                                            <label class="mp-input-group__label value">DEVELOPMENT BANK OF THE PHILIPPINES</label>
+                                            <label class="mp-input-group__label value">
+                                                {{$loan_application->bank}} -
+                                                @if($loan_application->bank=='LB')
+                                                LANDBANK
+                                                @endif
+                                                @if($loan_application->bank=='PNB')
+                                                PHILIPPINE NATIONAL BANK
+                                                @endif
+                                                @if($loan_application->bank=='DBP')
+                                                DEVELOPMENT BANK OF THE PHILIPPINES
+                                                @endif
+                                                @if($loan_application->bank=='Veterans')
+                                                PHILIPPINE VETERANS BANK
+                                                @endif
+
+
+                                            </label>
                                         </div>
 
                                         <div class="mp-input-group details-div">
@@ -1588,7 +1604,7 @@
                                                 Account Name:
                                             </label>
                                             <label class="mp-input-group__label value">
-                                                Re-Loan test
+                                                {{$loan_application->account_name}}
                                             </label>
                                         </div>
                                         <div class="mp-input-group details-div">
@@ -1596,7 +1612,7 @@
                                                 Account Number:
                                             </label>
                                             <label class="mp-input-group__label value">
-                                                123456789
+                                                {{$loan_application->account_number}}
                                             </label>
                                         </div>
                                         <div class="mp-input-group details-div">
@@ -1604,15 +1620,18 @@
                                                 Renewal Type:
                                             </label>
                                             <label class="mp-input-group__label value">
-                                                FULL EQUITY
+                                                {{$loan_application->renewal_type}}
                                             </label>
                                         </div>
                                         <br>
+                                        @if($loan_application->status=='CANCELLED')
                                         <label style="color:black;"><b> REASON FOR CANCELLATION</b></label>
                                         <div class="mp-input-group details-div">
                                             <label class="mp-input-group__label">Remarks:</label>
-                                            <label class="mp-input-group__label value">Cancelled!</label>
+                                            <label class="mp-input-group__label value" style="color:red;">{{$loan_application->cancellation_reason}}</label>
                                         </div>
+                                        @endif
+
                                     </div>
                                 </div>
                             </div>

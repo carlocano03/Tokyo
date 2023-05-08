@@ -1725,7 +1725,7 @@
         </div>
         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="5">
             <span>
-                Members Voter List
+                Members Voter List asd
             </span>
 
         </div>
@@ -1935,7 +1935,7 @@
                                             background-color: var(--c-active-hover-bg);
                                             margin: 0;width: 100%;">Statement of Account
                                         <div class="info-text">
-                                            <label style="color:white;">As of: May 6, 1999 - 10:00pm</label>
+                                            <label style="color:white;">As of: {{ date('m/d/Y') }}</label>
                                         </div>
                                     </div>
 
@@ -1946,32 +1946,33 @@
                                                 <h3>Your Members Equity</h3>
                                                 <div class="mp-input-group details-div">
                                                     <label class="mp-input-group__label">Total Members Contribution</label>
-                                                    <label class="mp-input-group__label value">PHP 100,000.00</label>
+                                                    <label class="mp-input-group__label value">PHP {{ number_format($contributions['membercontribution'], 2) }}</label>
                                                 </div>
                                                 <div class="mp-input-group details-div">
                                                     <label class="mp-input-group__label">Total UP Contribution</label>
-                                                    <label class="mp-input-group__label value">PHP 100,000.00</label>
+                                                    <label class="mp-input-group__label value">PHP {{ number_format($contributions['upcontribution'], 2) }}</label>
                                                 </div>
                                                 <div class="mp-input-group details-div">
                                                     <label class="mp-input-group__label">Earnings on Members Contribution</label>
-                                                    <label class="mp-input-group__label value">PHP 100,000.00</label>
+                                                    <label class="mp-input-group__label value">PHP {{ number_format($contributions['emcontribution'], 2) }}</label>
                                                 </div>
                                                 <div class="mp-input-group details-div">
                                                     <label class="mp-input-group__label">Earnings on UP Contribution</label>
-                                                    <label class="mp-input-group__label value">PHP 100,000.00</label>
+                                                    <label class="mp-input-group__label value">PHP {{ number_format($contributions['eupcontribution'], 2) }}</label>
                                                 </div>
 
                                                 <div class="mp-input-group details-div">
                                                     <label class="mp-input-group__label">Total Equity Balance</label>
-                                                    <label class="mp-input-group__label value">PHP 400,000.00</label>
+                                                    <label class="mp-input-group__label value">PHP {{ number_format($totalcontributions, 2) }}</label>
                                                 </div>
                                                 <div class="mp-input-group details-div">
                                                     <label class="mp-input-group__label">
-                                                        Total Equity Balance
+                                                        Your Outstanding Loans
                                                     </label>
                                                     <label class="mp-input-group__label value">
-                                                        <h2>PHP 600,000.00</h3>
+                                                        <h2>PHP {{ number_format($totalloanbalance, 2) }}</h2>
                                                     </label>
+
                                                 </div>
 
 
@@ -1979,8 +1980,27 @@
                                         </div>
                                         <div class="col-lg-6" style="padding-left:0px;">
                                             <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="height: 100%;">
+
+
+                                                @if (!empty($outstandingloans))
                                                 <h3>Your Outstanding Loan</h3>
+                                                @foreach ($outstandingloans as $oloans)
                                                 <div class="mp-input-group details-div">
+                                                    <label class="mp-input-group__label">{{ $oloans->type }}</label>
+                                                    <label class="mp-input-group__label value">PHP {{ number_format($oloans->balance, 2) }}</label>
+                                                </div>
+                                                @endforeach
+                                                <hr class="mp-mt3">
+                                                <div class="mp-input-group details-div">
+                                                    <label class="mp-input-group__label">
+                                                        Total Outstanding Loan Balance
+                                                    </label>
+                                                    <label class="mp-input-group__label value">
+                                                        <h2>PHP {{ number_format($totalloanbalance, 2) }}</h3>
+                                                    </label>
+                                                </div>
+                                                @endif
+                                                <!-- <div class="mp-input-group details-div">
                                                     <label class="mp-input-group__label">PEL</label>
                                                     <label class="mp-input-group__label value">PHP 100,000.00</label>
                                                 </div>
@@ -1992,7 +2012,7 @@
                                                     <label class="mp-input-group__label value">
                                                         <h2>PHP 200,000.00</h3>
                                                     </label>
-                                                </div>
+                                                </div> -->
 
 
                                             </div>
@@ -2008,7 +2028,10 @@
                                                         <label style="margin-top: -13px;margin-bottom: 10px;">Recent Transaction</label>
                                                     </div>
                                                     <div class="info-text">
-                                                        <label style="margin-top: -13px;margin-bottom: 10px;">As of: May 6, 1999 - 10:00pm</label>
+                                                        <label style="margin-top: -13px;margin-bottom: 10px;">As of:
+                                                            {{ date('m/d/Y', strtotime($recentcontributions[0]->date)) }}
+                                                            <!-- May 6, 1999 - 10:00pm -->
+                                                        </label>
                                                     </div>
                                                     <table class="payroll-table" style="height: auto;" width="100%">
                                                         <thead>
@@ -2022,14 +2045,14 @@
                                                                 <th>
                                                                     <span>Account</span>
                                                                 </th>
-                                                                <th>
+                                                                <!-- <th>
                                                                     <span>Debit</span>
                                                                 </th>
                                                                 <th>
                                                                     <span>Credit</span>
-                                                                </th>
+                                                                </th> -->
                                                                 <th>
-                                                                    <span>Balance</span>
+                                                                    <span>Amount</span>
                                                                 </th>
 
                                                             </tr>
@@ -2039,7 +2062,17 @@
                                                 <div class="body-table">
                                                     <table class="payroll-table" style="height: auto;" width="100%">
                                                         <tbody>
+                                                            @foreach ($recentcontributions as $contribution)
                                                             <tr>
+                                                                <td>{{ date('m/d/Y', strtotime($contribution->date)) }}</td>
+                                                                <td>{{ $contribution->reference_no }}</td>
+                                                                <td>{{ $contribution->name }}</td>
+                                                                <td class="mp-text-right">PHP {{ number_format($contribution->amount, 2) }}
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                            <!-- <tr>
+
                                                                 <td>
                                                                     <span>May 6, 1999</span>
                                                                 </td>
@@ -2059,7 +2092,7 @@
                                                                     <span>PHP 123,123 </span>
                                                                 </td>
 
-                                                            </tr>
+                                                            </tr> -->
 
                                                         </tbody>
                                                     </table>
@@ -2083,7 +2116,12 @@
                                                     <table class="payroll-table" style="height: auto;" width="100%">
                                                         <thead>
                                                             <tr>
-                                                                <th>
+                                                                <th>Date</th>
+                                                                <th>Account</th>
+                                                                <th class="mp-text-center">Monthly Amort.</th>
+                                                                <th class="mp-text-center">Amount</th>
+                                                                <th class="mp-text-right">Principal Balance</th>
+                                                                <!-- <th>
                                                                     <span>Date</span>
                                                                 </th>
                                                                 <th>
@@ -2097,7 +2135,7 @@
                                                                 </th>
                                                                 <th>
                                                                     <span>interest</span>
-                                                                </th>
+                                                                </th> -->
 
 
                                                             </tr>
@@ -2107,7 +2145,32 @@
                                                 <div class="body-table">
                                                     <table class="payroll-table" style="height: auto;" width="100%">
                                                         <tbody>
+
+                                                            <?php $date = ''; ?>
+                                                            @foreach ($recentloans as $loans)
+                                                            <?php
+                                                            $samedate = true;
+                                                            if ($date == date('m/d/Y', strtotime($loans->date))) {
+                                                                $samedate = false;
+                                                            } else {
+                                                                $samedate = true;
+                                                            }
+                                                            $date = date('m/d/Y', strtotime($loans->date));
+                                                            ?>
                                                             <tr>
+                                                                <td>{{ date('m/d/Y', strtotime($loans->date)) }}</td>
+                                                                <td class="mp-text-center">{{ $loans->name }}</td>
+                                                                <td class="mp-text-center">
+                                                                    {{ $loans->amortization == 0 ? '' : 'PHP ' . number_format($loans->amortization, 2) }}
+                                                                </td>
+                                                                <td class="mp-text-center">{{ 'PHP ' . number_format($loans->amount, 2) }}
+                                                                </td>
+                                                                <td class="mp-text-right">
+                                                                    {{ !$samedate ? '' : 'PHP ' . number_format($loans->balance, 2) }}
+                                                                </td>
+                                                            </tr>
+                                                            @endforeach
+                                                            <!-- <tr>
                                                                 <td>
                                                                     <span>May 6, 1999</span>
                                                                 </td>
@@ -2125,7 +2188,7 @@
                                                                 </td>
 
 
-                                                            </tr>
+                                                            </tr> -->
 
                                                         </tbody>
                                                     </table>
