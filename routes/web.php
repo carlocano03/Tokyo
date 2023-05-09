@@ -113,6 +113,13 @@ Route::get('/admin/create-election', [AdminController::class, 'createElection'])
 Route::get('/admin/members/get-member-details', [AdminController::class, 'getMemberMasterList'])->name('getMemberMasterList');
 Route::get('/admin/members', [AdminController::class, 'memberlist'])->name('admin.memberlist.memberlist');
 
+//update admin member status
+Route::post('/admin/members/update-member-status', [AdminController::class, 'updateMemberStatus'])->name('update_member_status');
+//manage admin member beneficiaries
+Route::get('/admin/members/get_member_beneficiary', [AdminController::class, 'getMemberBeneficiaries'])->name('get_member_beneficiary');
+Route::post('/admin/members/add_old_member_beneficiary', [AdminController::class, 'addOldMemberBeneficiaries'])->name('add_member_oldbeneficiaries');
+Route::post('/admin/members/delete_old_member_beneficiary', [AdminController::class, 'deleteOldMemberBeneficiaries'])->name('delete_member_oldbeneficiaries');
+
 
 //eleciton part
 Route::post('/admin/delete-candidate', [AdminController::class, 'delete_candidate'])->name('delete-candidate');

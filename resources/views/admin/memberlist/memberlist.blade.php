@@ -1779,94 +1779,98 @@
         }
 
     })
+    // $(document).on('click', '#load', function(e) {
+    //     $('#loading').show();
+
+    //     setTimeout(() => {
+    //         $('#loading').hide();
+    //     }, 2000);
+    // })
     var tableMemberApp;
     $(document).ready(function() {
-        $(document).ready(function() {
 
-            loan_table = $('#member-masterlist').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('getMemberMasterList') }}",
-                    "data": function(data) {
-                        data.campus_filter = $('#campus_filter').val();
-                        data.status_filter = $('#status_filter').val();
-                        data.application_filter = $('#application_filter').val();
-                        data.loan_filter = $('#loan_filter').val();
-                        data.date_applied_from = $('#date_applied_from').val();
-                        data.date_applied_to = $('#date_applied_to').val();
-                    },
+        loan_table = $('#member-masterlist').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('getMemberMasterList') }}",
+                "data": function(data) {
+                    data.campus_filter = $('#campus_filter').val();
+                    data.status_filter = $('#status_filter').val();
+                    data.application_filter = $('#application_filter').val();
+                    data.loan_filter = $('#loan_filter').val();
+                    data.date_applied_from = $('#date_applied_from').val();
+                    data.date_applied_to = $('#date_applied_to').val();
                 },
-                columns: [
-                    // {
+            },
+            columns: [
+                // {
 
-                    //     data: 'checkbox',
-                    //     name: 'checkbox',
+                //     data: 'checkbox',
+                //     name: 'checkbox',
 
-                    // },
-                    {
-                        data: 'action',
-                        name: 'action'
-                    },
-                    {
-                        data: 'member_no',
-                        name: 'member_no'
-                    },
-                    {
-                        data: 'full_name',
-                        name: 'full_name'
-                    },
-                    {
-                        data: 'memdate',
-                        name: 'memdate'
-                    },
-                    {
-                        data: 'positions',
-                        name: 'positions'
-                    },
-                    {
-                        data: 'positions',
-                        name: 'positions'
-                    },
-                    {
-                        data: 'campus',
-                        name: 'campus'
-                    },
-
-
-
-
-                ]
-            });
-            $('#campus_filter').on('change', function() {
-                loan_table.draw();
-            });
-            $('#status_filter').on('change', function() {
-                loan_table.draw();
-            });
-            $('#application_filter').on('change', function() {
-                loan_table.draw();
-            });
-            $('#loan_filter').on('change', function() {
-                loan_table.draw();
-            });
+                // },
+                {
+                    data: 'action',
+                    name: 'action'
+                },
+                {
+                    data: 'member_no',
+                    name: 'member_no'
+                },
+                {
+                    data: 'full_name',
+                    name: 'full_name'
+                },
+                {
+                    data: 'memdate',
+                    name: 'memdate'
+                },
+                {
+                    data: 'positions',
+                    name: 'positions'
+                },
+                {
+                    data: 'positions',
+                    name: 'positions'
+                },
+                {
+                    data: 'campus',
+                    name: 'campus'
+                },
 
 
-            $('#date_applied_from').on('change', function() {
-                loan_table.draw();
-            });
-            $('#date_applied_to').on('change', function() {
-                loan_table.draw();
-            });
 
 
-            $(document).on('click', '#clear_filter', function() {
-                resetFilter();
-                loan_table.draw();
-            });
-
-
+            ]
         });
+        $('#campus_filter').on('change', function() {
+            loan_table.draw();
+        });
+        $('#status_filter').on('change', function() {
+            loan_table.draw();
+        });
+        $('#application_filter').on('change', function() {
+            loan_table.draw();
+        });
+        $('#loan_filter').on('change', function() {
+            loan_table.draw();
+        });
+
+
+        $('#date_applied_from').on('change', function() {
+            loan_table.draw();
+        });
+        $('#date_applied_to').on('change', function() {
+            loan_table.draw();
+        });
+
+
+        $(document).on('click', '#clear_filter', function() {
+            resetFilter();
+            loan_table.draw();
+        });
+
 
     });
 </script>
