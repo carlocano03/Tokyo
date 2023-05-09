@@ -12,6 +12,7 @@ use DataTables;
 use App\Models\Election;
 use App\Models\Loans;
 use App\Models\OLDMembers;
+use App\Models\OLDBeneficiaries;
 use App\Models\LoanTransaction;
 use App\Models\ContributionTransaction;
 use App\Models\User;
@@ -123,10 +124,8 @@ class AdminController extends Controller
         ->orderBy($order, $dir)
         ->offset($start)
         ->limit($limit)
+        ->where('member.member_no', 'like', '%' . $searchValue . '%')
         ->get();
-      // ->where('member_no', 'like', '%' . $search . '%');
-
-
     } else {
       $records = OLDMembers::select('users.*', DB::raw('CONCAT(users.first_name," ",users.last_name) AS full_name'), 'member.member_no as member_no', 'member.position_id', 'old_campus.name as campus', 'department.department_name as department', 'member.membership_date as memdate')
         ->leftjoin('users', 'member.user_id', 'users.id')
@@ -168,7 +167,7 @@ class AdminController extends Controller
 
 
     $totalFiltered = OLDMembers::when($searchValue, function ($query) use ($searchValue) {
-      $query->where('id', 'like', "%{$searchValue}%")->orWhere('status', 'like', "%{$searchValue}%");
+      // $query->where('id', 'like', "%{$searchValue}%")->orWhere('status', 'like', "%{$searchValue}%");
     })
       ->count();
 
@@ -188,7 +187,7 @@ class AdminController extends Controller
          ';
       $nestedData['action'] = '
       
-             <a href="/admin/members/member-details/' . $row->id . '" data-md-tooltip="View Member" class="view_member md-tooltip--right view-member" style="cursor: pointer">
+             <a href="/admin/members/member-details/' . $row->id . '" data-md-tooltip="View Member" target="_blank" class="view_member md-tooltip--right view-member" style="cursor: pointer">
                                                             <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
                                                         </a>
          ';
@@ -207,8 +206,9 @@ class AdminController extends Controller
   public function memberDetails($id)
   {
     $member = User::where('users.id', $id)
-      ->select('*', 'member.id as member_id', 'users.id as user_id', 'campus.name as campus_name')
+      ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
       ->leftjoin('member', 'users.id', '=', 'member.user_id')
+      ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
       ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
 
       ->first();
@@ -290,8 +290,79 @@ class AdminController extends Controller
     return view('admin.memberlist.member-details', array('member' => $member, 'recentcontributions' => $recentcontributions, 'recentloans' => $recentloans, 'contributions' => $contributions, 'totalcontributions' => $totalcontributions, 'outstandingloans' => $outstandingloans, 'totalloanbalance' => $totalloanbalance));
   }
 
+  //update member status
+  public function updateMemberStatus(Request $request)
+  {
+    $member_id  = $request->get('member_id');
+    $status  = $request->get('status');
+
+    $update_member_status = DB::table('member')
+      ->where('member_no', $member_id)
+      ->update([
+        'membership_status' => $status,
+      ]);
+
+    if (!empty($update_member_status)) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
+  }
+
+  //get old member beneficiaries
+  public function getMemberBeneficiaries(Request $request)
+  {
+    if ($request->ajax()) {
+      $member_no = $request->get('member_no');
+      $data = OLDBeneficiaries::where('member_no', $member_no)->select('*');
+      return Datatables::of($data)
+        ->addIndexColumn()
+        ->addColumn('action', function ($row) {
+          $btn = '<button  class="delete_btn btn btn-primary btn-sm delete"  id="delete_beneficiaries" value=' . $row->id . '>
+          <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </button>';
+          return $btn;
+        })
 
 
+        ->rawColumns(['action'])
+        ->make(true);
+    }
+  }
+
+  //add old beneficiaries
+  public function addOldMemberBeneficiaries(Request $request)
+  {
+
+    $added_by = Auth::user()->id;
+
+    $payload = array(
+      'member_no' => $request->get('member_no'),
+      'beni_name' => $request->get('beni_name'),
+      'relationship' =>  $request->get('relationship'),
+      'birth_date' => $request->get('birth_date'),
+      'added_by' => $added_by,
+    );
+    $insertOldBeneficiaries = DB::table('old_beneficiaries')->insert($payload);
+
+    if (!empty($insertOldBeneficiaries)) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
+  }
+
+  //delete old beneficiaries
+  public function deleteOldMemberBeneficiaries(Request $request)
+  {
+    $deleteOldBeneficiaries = DB::table('old_beneficiaries')->where('id', $request->get('beneficiary_id'))->delete();
+
+    if (!empty($deleteOldBeneficiaries)) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
+  }
 
   public function multipleMemberView()
   {
