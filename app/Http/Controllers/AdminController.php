@@ -187,7 +187,7 @@ class AdminController extends Controller
          ';
       $nestedData['action'] = '
       
-             <a href="/admin/members/member-details/' . $row->id . '" data-md-tooltip="View Member" target="_blank" class="view_member md-tooltip--right view-member" style="cursor: pointer">
+             <a href="/admin/members/member-details/' . $row->id . '" data-md-tooltip="View Member" id="member_load" class="view_member md-tooltip--right view-member" style="cursor: pointer">
                                                             <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
                                                         </a>
          ';
@@ -303,6 +303,69 @@ class AdminController extends Controller
       ]);
 
     if (!empty($update_member_status)) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
+  }
+
+  //update member details
+  public function updateMemberDetails(Request $request)
+  {
+    $member_no  = $request->get('member_no');
+    $user_id  = $request->get('user_id');
+
+    $update_member = DB::table('member')
+      ->where('member_no', $member_no)
+      ->update([
+        'position_id' => $request->get('position_id'),
+        'membership_date' => $request->get('membership_date'),
+      ]);
+
+    $update_member_details = DB::table('member_detail')
+      ->where('member_no', $member_no)
+      ->update([
+        'landline' => $request->get('landline'),
+        'gender' => $request->get('gender'),
+        'employee_no' => $request->get('employee_no'),
+        'appointment_status' => $request->get('appointment_status'),
+        'permanent_address' => $request->get('permanent_address'),
+        'current_address' => $request->get('current_address'),
+        'tin' => $request->get('tin'),
+        'birth_date' => $request->get('birth_date'),
+        'monthly_salary' => $request->get('monthly_salary'),
+      ]);
+
+
+    $update_user_details = DB::table('users')
+      ->where('id', $user_id)
+      ->update([
+        'first_name' => $request->get('first_name'),
+        'middle_name' => $request->get('middle_name'),
+        'last_name' => $request->get('last_name'),
+        'contact_no' => $request->get('contact_no'),
+        'email' => $request->get('email'),
+      ]);
+    if (!empty($update_member_details) || !empty($update_user_details) || !empty($$update_member)) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
+  }
+
+  //update other member details
+  public function updateMemberOtherDetails(Request $request)
+  {
+    $member_no  = $request->get('member_no');
+    $update_other_member = DB::table('member_detail')
+      ->where('member_no', $member_no)
+      ->update([
+        'contribution_type' => $request->get('contribution_type'),
+        'contribution' =>  intval($request->get('contribution')),
+        'with_cocolife_form' => intval($request->get('with_cocolife_form')),
+      ]);
+
+    if (!empty($update_other_member)) {
       return response()->json(['success' => true]);
     } else {
       return response()->json(['success' => false]);
