@@ -68,5 +68,10 @@ class MemberController extends Controller
   {
     return view('member.loan_application.submission');
   }
+
+  public function view()
+  {
+    return view('member.loan_application.view');
+  }
   
 }
