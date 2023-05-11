@@ -899,7 +899,7 @@
           url: "{{ route('update-users') }}",
           data: formData,
           success: function(data) {
-            if (data.success != '') {
+            if (data.success != null) {
               Swal.fire({
                 text: 'Users has been added Updated Successfully.',
                 icon: 'success',
@@ -913,6 +913,7 @@
               $('#user_level').val('').trigger("change");
               $('#campus').val('').trigger("change");
               $('#cfm_cluster').val('').trigger("change");
+              $("[name=contact_no]").val("+63")
               users_table.draw();
             } else {
               Swal.fire({

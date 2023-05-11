@@ -117,6 +117,7 @@ Route::get('/admin/members', [AdminController::class, 'memberlist'])->name('admi
 Route::post('/admin/members/update-member-status', [AdminController::class, 'updateMemberStatus'])->name('update_member_status');
 Route::post('/admin/members/update-member-details', [AdminController::class, 'updateMemberDetails'])->name('update_member_details');
 Route::post('/admin/members/update-other-member-details', [AdminController::class, 'updateMemberOtherDetails'])->name('update_other_member_details');
+Route::post('/admin/members/reset-password', [AdminController::class, 'resetPassword'])->name('reset_password');
 
 //manage admin member beneficiaries
 Route::get('/admin/members/get_member_beneficiary', [AdminController::class, 'getMemberBeneficiaries'])->name('get_member_beneficiary');

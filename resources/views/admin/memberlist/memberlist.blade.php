@@ -1615,7 +1615,7 @@
                                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campuses_select">
                                                 <option value="">Show All</option>
                                                 @foreach ($campuses as $row)
-                                                <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
+                                                <option value="{{ $row->id }}">{{ $row->name }}</option>
                                                 @endforeach
                                             </select>
                                         </span>
@@ -1624,16 +1624,16 @@
                                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
                                                 <option value="">Show All</option>
                                                 @foreach ($department as $row)
-                                                <option value="{{ $row->dept_no }}">{{ $row->department_name }}</option>
+                                                <option value="{{ $row->id }}">{{ $row->description }}</option>
                                                 @endforeach
                                             </select>
                                         </span>
                                         <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
                                             <span>Membership Date</span>
                                             <div class="date_range d-flex">
-                                                <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                <input type="date" id="date_from_select" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                                 <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                                <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                <input type="date" id="date_to_select" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                             </div>
                                         </span>
                                         <!-- <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
@@ -1800,12 +1800,11 @@
             ajax: {
                 url: "{{ route('getMemberMasterList') }}",
                 "data": function(data) {
-                    data.campus_filter = $('#campus_filter').val();
-                    data.status_filter = $('#status_filter').val();
-                    data.application_filter = $('#application_filter').val();
-                    data.loan_filter = $('#loan_filter').val();
-                    data.date_applied_from = $('#date_applied_from').val();
-                    data.date_applied_to = $('#date_applied_to').val();
+                    data.campuses_select = $('#campuses_select').val();
+                    data.department_select = $('#department_select').val();
+                    data.date_from_select = $('#date_from_select').val();
+                    data.date_to_select = $('#date_to_select').val();
+
                 },
             },
             columns: [
@@ -1816,7 +1815,7 @@
 
                 // },
                 {
-                    data: 'action',
+                    data: '200 mm',
                     name: 'action'
                 },
                 {
@@ -1849,26 +1848,20 @@
 
             ]
         });
-        $('#campus_filter').on('change', function() {
+        $('#campuses_select').on('change', function() {
             loan_table.draw();
         });
-        $('#status_filter').on('change', function() {
+        $('#department_select').on('change', function() {
             loan_table.draw();
         });
-        $('#application_filter').on('change', function() {
+        $('#date_from_select').on('change', function() {
             loan_table.draw();
         });
-        $('#loan_filter').on('change', function() {
+        $('#date_to_select').on('change', function() {
             loan_table.draw();
         });
 
 
-        $('#date_applied_from').on('change', function() {
-            loan_table.draw();
-        });
-        $('#date_applied_to').on('change', function() {
-            loan_table.draw();
-        });
 
 
         $(document).on('click', '#clear_filter', function() {

@@ -1749,7 +1749,7 @@
                                                     <button class="up-button btn-md button-animate-right mp-text-center" id="modify_contributions" type="button">
                                                         <span>Edit Member Details</span>
                                                     </button>
-                                                    <button class="up-button-grey btn-md button-animate-right mp-text-center">
+                                                    <button class="up-button-grey btn-md button-animate-right mp-text-center" id="resetPassword">
                                                         <span>Reset Password</span>
                                                     </button>
                                                 </div>
@@ -2117,20 +2117,20 @@
 
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Full Name</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="bene_fullname" id="bene_fullname" required />
+                                                <input class="mp-input-group__input mp-text-field" type="text" data-set="bene_validation" name="bene_fullname" id="bene_fullname" required />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Relationship</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="bene_relationship" id="bene_relationship" required />
+                                                <input class="mp-input-group__input mp-text-field" type="text" data-set="bene_validation" name="bene_relationship" id="bene_relationship" required />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Birthdate</label>
-                                                <input class="mp-input-group__input mp-text-field" type="date" name="bene_birthdate" id="bene_birthdate" required />
+                                                <input class="mp-input-group__input mp-text-field" type="date" data-set="bene_validation" name="bene_birthdate" id="bene_birthdate" required />
                                             </div>
 
-                                            <a id="save_beneficiaries" class="up-button btn-md button-animate-right mp-text-center" id="save_users" name="save_users" type="submit">
+                                            <button id="save_beneficiaries" class="up-button btn-md button-animate-right mp-text-center" type="button">
                                                 <span class="save_beneficiaries">Add New Record</span>
-                                            </a>
+                                            </button>
                                             <a id="clear_beneficiaries" class="up-button-grey btn-md button-animate-right mp-text-center" id="cancel">
                                                 <span class="clear_beneficiaries">Clear</span>
                                             </a>
@@ -2462,12 +2462,68 @@
 
 <script>
     //reusable functions
+
+    function clearBeneValidation() {
+        clearValidation('bene_fullname', 'bene_validation', $('[name=bene_fullname]'))
+        clearValidation('bene_relationship', 'bene_validation', $('[name=bene_relationship]'))
+        clearValidation('bene_birthdate', 'bene_validation', $('[name=bene_birthdate]'))
+    }
+
     function resetBeneficiaryForm() {
         $('#bene_fullname').val('').trigger("change");
         $('#bene_relationship').val('').trigger("change");
         $('#bene_birthdate').val('').trigger("change");
+        clearBeneValidation();
     }
 
+
+
+    // resetPassword button click
+    $(document).on('click', '#resetPassword', function() {
+        var user_id = <?php echo $member->user_id ?>;
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will change this member's password!",
+            icon: "question",
+            confirmButtonColor: '#1a8981',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: "Cancel",
+            showCancelButton: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((okay) => {
+            if (okay.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('reset_password') }}",
+                    data: {
+                        user_id: user_id,
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.success == true) {
+                            Swal.fire({
+                                title: "New Password: " + data.password,
+                                text: data.member.first_name + " " + data.member.middle_name + " " + data.member.last_name + "'s password has been reset!",
+                                icon: "success",
+                                confirmButtonColor: '#1a8981',
+                            })
+                        } else {
+                            Swal.close();
+                        }
+                    }
+                });
+            } else if (okay.isDenied) {
+                Swal.close();
+            }
+        });
+
+    })
     $(document).ready(function() {
 
         //disable letters function
@@ -2491,6 +2547,9 @@
             });
 
         });
+
+        //validate save bene button
+
 
 
         var memberBeneficiaries = $('#member-beneficiries').DataTable({
@@ -2534,16 +2593,48 @@
             var relationship = $('#bene_relationship').val();
             var birthdate = $('#bene_birthdate').val();
 
+            let hasError = false;
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
+
+            if (fullname == '') {
+                status = validateField({
+                    element: $('#bene_fullname'),
+                    target: 'bene_validation',
+                    errText: "Please input beneficiary full name!"
+                })
+                hasError = true;
+            }
+            if (relationship == '') {
+                status = validateField({
+                    element: $('#bene_relationship'),
+                    target: 'bene_validation',
+                    errText: "Please input beneficiary relationship!"
+                })
+                hasError = true;
+            }
+            if (birthdate == '') {
+                status = validateField({
+                    element: $('#bene_birthdate'),
+                    target: 'bene_validation',
+                    errText: "Please input beneficiary birthdate!"
+                })
+                hasError = true;
+            }
+
+            if (hasError) {
+                return
+            }
+
             Swal.fire({
                 title: "Are you sure?",
                 text: "You will add this beneficiary!",
-                type: "warning",
-                confirmButtonColor: '#DD6B55',
+                icon: "question",
+                confirmButtonColor: '#1a8981',
                 confirmButtonText: 'Confirm',
                 cancelButtonText: "Cancel",
                 showCancelButton: true,
@@ -2588,8 +2679,8 @@
             Swal.fire({
                 title: "Are you sure?",
                 text: "You will delete this beneficiary!",
-                type: "warning",
-                confirmButtonColor: '#DD6B55',
+                icon: "question",
+                confirmButtonColor: '#1a8981',
                 confirmButtonText: 'Confirm',
                 cancelButtonText: "Cancel",
                 allowOutsideClick: false,
@@ -2606,6 +2697,7 @@
                         success: function(data) {
                             console.log(data)
                             if (data.success == true) {
+                                clearBeneValidation();
                                 memberBeneficiaries.draw();
                             }
                         }
@@ -2634,8 +2726,8 @@
         Swal.fire({
             title: "Are you sure?",
             text: "You will change the status of this member!",
-            type: "warning",
-            confirmButtonColor: '#DD6B55',
+            icon: "question",
+            confirmButtonColor: '#1a8981',
             confirmButtonText: 'Confirm',
             cancelButtonText: "Cancel",
             showCancelButton: true,
@@ -2658,7 +2750,7 @@
                             Swal.fire({
                                 title: "No Changes Made!",
                                 type: "error",
-                                confirmButtonColor: '#DD6B55',
+                                confirmButtonColor: '#1a8981',
                             })
                         }
                     }
@@ -2737,8 +2829,8 @@
         Swal.fire({
             title: "Are you sure?",
             text: "You will change this member's details!",
-            type: "warning",
-            confirmButtonColor: '#DD6B55',
+            icon: "question",
+            confirmButtonColor: '#1a8981',
             confirmButtonText: 'Confirm',
             cancelButtonText: "Cancel",
             showCancelButton: true,
@@ -2778,7 +2870,7 @@
                             Swal.fire({
                                 title: "No Changes Made!",
                                 type: "error",
-                                confirmButtonColor: '#DD6B55',
+                                confirmButtonColor: '#1a8981',
                             })
                         }
                     }
@@ -2803,8 +2895,8 @@
         Swal.fire({
             title: "Are you sure?",
             text: "You will change this member's membership details!",
-            type: "warning",
-            confirmButtonColor: '#DD6B55',
+            icon: "question",
+            confirmButtonColor: '#1a8981',
             confirmButtonText: 'Confirm',
             cancelButtonText: "Cancel",
             showCancelButton: true,
@@ -2830,7 +2922,7 @@
                             Swal.fire({
                                 title: "No Changes Made!",
                                 type: "error",
-                                confirmButtonColor: '#DD6B55',
+                                confirmButtonColor: '#1a8981',
                             })
                         }
                     }
