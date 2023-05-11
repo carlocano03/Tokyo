@@ -844,7 +844,7 @@ class Settings extends Controller
         'middle_name' => strtoupper($request->input('middlename')),
         'last_name' => strtoupper($request->input('lastname')),
         'email' => $request->input('email'),
-        'intial_password' => $request->input('initial_pass'),
+        'initial_password' => $request->input('initial_pass'),
         'password' => Hash::make($request->input('initial_pass')),
         'contact_no' => $request->input('contact_no'),
         'user_level' => strtoupper($request->input('user_level')),
@@ -889,7 +889,7 @@ class Settings extends Controller
         'middle_name' => strtoupper($request->input('middlename')),
         'last_name' => strtoupper($request->input('lastname')),
         'email' => $request->input('email'),
-        'intial_password' => $request->input('initial_pass'),
+        'initial_password' => $request->input('initial_pass'),
         'contact_no' => $request->input('contact_no'),
         'user_level' => $request->input('user_level'),
         'campus_id' => $request->input('campus'),
@@ -944,7 +944,7 @@ class Settings extends Controller
   {
     $datadb = DB::transaction(function () use ($request) {
       DB::table('users')->where('id', $request->input('users_id'))->delete();
-      DB::table('user_prev')->where('users_id ', $request->input('users_id'))->delete();
+      // DB::table('user_prev')->where('users_id ', $request->input('users_id'))->delete();
     });
     return response()->json(['success' => true]);
   }

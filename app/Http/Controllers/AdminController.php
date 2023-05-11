@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\processMail;
 use GrahamCampbell\ResultType\Success;
-
+use Mockery\Undefined;
 
 // use Illuminate\Support\Facades\Log;
 class AdminController extends Controller
@@ -74,9 +74,9 @@ class AdminController extends Controller
 
   public function memberlist()
   {
-    $data['department'] = DB::table('department')->get();
+    $data['department'] = DB::table('old_department')->get();
 
-    $data['campuses'] = DB::table('campus')->get();
+    $data['campuses'] = DB::table('old_campus')->get();
 
     return view('admin.memberlist.memberlist')->with($data);
   }
@@ -107,63 +107,77 @@ class AdminController extends Controller
     $order = $columns[$request->input('order.0.column')];
     $dir = $request->input('order.0.dir');
     $searchValue =  $request->input('search.value');
-    $campus = $request->input('campus_filter');
-    $status_select = $request->input('status_filter');
-    $application_type = $request->input('application_filter');
-    $loan_type = $request->input('loan_filter');
-    $date_applied_from  = $request->get('date_applied_from');
-    $date_applied_to  = $request->get('date_applied_to');
+
+    $campuses_select = $request->input('campuses_select');
+    $department_select = $request->input('department_select');
+
+    $date_from_select  = $request->get('date_from_select');
+    $date_to_select  = $request->get('date_to_select');
 
 
     //filter codes
     if (!empty($searchValue)) {
-      $records = OLDMembers::select('users.*', DB::raw('CONCAT(users.first_name," ",users.last_name) AS full_name'), 'member.member_no as member_no', 'member.position_id', 'campus.name as campus', 'department.department_name as department', 'member.membership_date as memdate')
+      $records = OLDMembers::select('users.*', DB::raw('CONCAT(users.first_name," ",users.last_name) AS full_name'), 'member.member_no as member_no', 'member.position_id', 'old_campus.name as campus', 'old_department.name as department', 'member.membership_date as memdate')
         ->leftjoin('users', 'member.user_id', 'users.id')
-        ->leftjoin('campus', 'member.campus_id', 'campus.id')
-        ->leftjoin('department', 'member.department_id', 'department.dept_no')
+        ->leftjoin('old_campus', 'member.campus_id', 'old_campus.id')
+        ->leftjoin('old_department', 'member.department_id', 'old_department.id')
         ->orderBy($order, $dir)
         ->offset($start)
         ->limit($limit)
         ->where('member.member_no', 'like', '%' . $searchValue . '%')
+        ->orWhere('users.last_name', 'like', '%' . $searchValue . '%')
+        ->orWhere('users.first_name', 'like', '%' . $searchValue . '%')
+        ->orWhere('users.middle_name', 'like', '%' . $searchValue . '%')
         ->get();
     } else {
-      $records = OLDMembers::select('users.*', DB::raw('CONCAT(users.first_name," ",users.last_name) AS full_name'), 'member.member_no as member_no', 'member.position_id', 'old_campus.name as campus', 'department.department_name as department', 'member.membership_date as memdate')
+      $records = OLDMembers::select('users.*', DB::raw('CONCAT(users.first_name," ",users.last_name) AS full_name'), 'member.member_no as member_no', 'member.position_id', 'old_campus.name as campus', 'old_department.name as department', 'member.membership_date as memdate')
         ->leftjoin('users', 'member.user_id', 'users.id')
         ->leftjoin('old_campus', 'member.campus_id', 'old_campus.id')
-        ->leftjoin('department', 'member.department_id', 'department.dept_no')
+        ->leftjoin('old_department', 'member.department_id', 'old_department.id')
         ->orderBy($order, $dir)
         ->offset($start)
         ->limit($limit)
         ->get();
     }
-    // if (!empty($status_select)) {
-    //   $loan_applicaton = DB::table('loan_applications')
-    //     ->select(
-    //       'users.*',
-    //       'loan_applications.*',
-    //       'member.*',
-    //       'old_campus.*',
-    //       'old_campus.name as campus_name',
-    //       'loan_type.name as loan_type_name',
-    //       'loan_applications_peb.*',
-    //       'loan_applications_peb.type as loan_application_type'
-    //     )
-    //     ->where('loan_applications.status', '=', $status_select)
-    //     ->orWhere('member.campus_id', '=', $campus)
+    if (!empty($campuses_select)) {
+      $records = OLDMembers::select('users.*', DB::raw('CONCAT(users.first_name," ",users.last_name) AS full_name'), 'member.member_no as member_no', 'member.position_id', 'old_campus.name as campus', 'old_department.name as department', 'member.membership_date as memdate')
+        ->leftjoin('users', 'member.user_id', 'users.id')
+        ->leftjoin('old_campus', 'member.campus_id', 'old_campus.id')
+        ->leftjoin('old_department', 'member.department_id', 'old_department.id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
 
-    //     ->orWhere('loan_applications_peb.type', '=', $application_type)
-    //     ->orWhere('loan_type.name', '=', $loan_type)
+        ->Where('member.campus_id', '=', $campuses_select)
+        ->orWhere('member.department_id', '=', $department_select)
 
-    //     ->join('member', 'member.member_no', '=', 'loan_applications.member_no')
-    //     ->join('users', 'member.user_id', '=', 'users.id')
-    //     ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
-    //     ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
-    //     ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
-    //     ->orderBy($order, $dir)
-    //     ->offset($start)
-    //     ->limit($limit)
-    //     ->get();
-    // }
+        ->get();
+    }
+    if (!empty($department_select)) {
+      $records = OLDMembers::select('users.*', DB::raw('CONCAT(users.first_name," ",users.last_name) AS full_name'), 'member.member_no as member_no', 'member.position_id', 'old_campus.name as campus', 'old_department.name as department', 'member.membership_date as memdate')
+        ->leftjoin('users', 'member.user_id', 'users.id')
+        ->leftjoin('old_campus', 'member.campus_id', 'old_campus.id')
+        ->leftjoin('old_department', 'member.department_id', 'old_department.id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+
+        ->where('member.department_id', '=', $department_select)
+        ->orWhere('member.campus_id', '=', $campuses_select)
+        ->get();
+    }
+    if (!empty($date_from_select) && !empty($date_to_select)) {
+      $records = OLDMembers::select('users.*', DB::raw('CONCAT(users.first_name," ",users.last_name) AS full_name'), 'member.member_no as member_no', 'member.position_id', 'old_campus.name as campus', 'old_department.name as department', 'member.membership_date as memdate')
+        ->leftjoin('users', 'member.user_id', 'users.id')
+        ->leftjoin('old_campus', 'member.campus_id', 'old_campus.id')
+        ->leftjoin('old_department', 'member.department_id', 'old_department.id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->whereBetween('member.membership_date', [$date_from_select, $date_to_select])
+
+        ->get();
+    }
 
 
     $totalFiltered = OLDMembers::when($searchValue, function ($query) use ($searchValue) {
@@ -185,21 +199,37 @@ class AdminController extends Controller
                                     <input   type="checkbox" name="check[]" class="select_item" id="select_item">
                                  </span>
          ';
-      $nestedData['action'] = '
+
+      if (!empty($row)) {
+        $nestedData['action'] = '
       
              <a href="/admin/members/member-details/' . $row->id . '" data-md-tooltip="View Member" id="member_load" class="view_member md-tooltip--right view-member" style="cursor: pointer">
                                                             <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
                                                         </a>
          ';
-
+      }
       $data[] = $nestedData;
     }
-    $json_data = [
-      "draw" => intval($request->input('draw')),
-      "recordsTotal" => intval($totalData),
-      "recordsFiltered" => intval($totalFiltered),
-      "data" => $data,
-    ];
+
+    if (empty($data)) {
+      $json_data = [
+        "draw" => intval($request->input('draw')),
+        "recordsTotal" => intval($totalData),
+        "recordsFiltered" => intval($totalFiltered),
+        "data" => [],
+      ];
+    } else {
+      $json_data = [
+        "draw" => intval($request->input('draw')),
+        "recordsTotal" => intval($totalData),
+        "recordsFiltered" => intval($totalFiltered),
+        "data" => $data,
+      ];
+    }
+
+
+
+
 
     return response()->json($json_data);
   }
@@ -422,6 +452,34 @@ class AdminController extends Controller
 
     if (!empty($deleteOldBeneficiaries)) {
       return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
+  }
+
+  //reset password
+  public function resetPassword(Request $request)
+  {
+    $id =  $request->get('user_id');
+
+    $tempass_length = 10;
+    $tempass = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'), 1, $tempass_length);
+    $hashedpass = Hash::make($tempass);
+
+    $password_reset =  DB::table('users')->where('id', $id)
+      ->update(['password' => $hashedpass, 'password_set' => 0]);
+
+    $member = DB::table('users')->select('*')
+      ->where('id', '=', $id)
+      ->first();
+    // dd($member);
+
+    if (!empty($password_reset)) {
+      return response()->json([
+        'success' => true,
+        'password' => $tempass,
+        'member' => $member,
+      ]);
     } else {
       return response()->json(['success' => false]);
     }
