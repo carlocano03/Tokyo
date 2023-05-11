@@ -1852,16 +1852,15 @@
                                 <label for="">May 4, 2023 11:06 AM</label>
                             </div>
                         </div>
-                        <div class="col-lg-12 d-flex mp-mt2">
+                        <div class="col-lg-12 d-flex mp-mh4 flex-column">
                             <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto magenta-bg">
                                 <span class="save_up">GENERATE LOAN APPLICATION FORM</span>
                             </a>
-                        </div>
-                        <div class="col-lg-12 d-flex mp-pb3">
-                            <a class="up-button btn-md mp-text-center w-400-px mp-mt2 gray-bg">
+                            <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto gray-bg">
                                 <span class="save_up">GENERATE LOAN INFORMATION SLIP</span>
                             </a>
                         </div>
+                       
 
                     </div>
                 </div>

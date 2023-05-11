@@ -296,7 +296,7 @@
                                                 <tbody>
                                                     <tr>
                                                         <td >
-                                                            <a data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="8100" style="cursor: pointer">
+                                                            <a data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="view-loan" style="cursor: pointer">
                                                                 <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
                                                             </a>
                                                         </td>
@@ -327,7 +327,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="width: 60px">
-                                                            <a data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="8100" style="cursor: pointer">
+                                                            <a data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="view-loan" style="cursor: pointer">
                                                                 <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
                                                             </a>
                                                         </td>
@@ -387,7 +387,7 @@
                 "ordering": false,
                 "processing": true,
                 "serverSide": true,
-                ,
+                
             });
             $(document).on('change', '#loan_type', function(e) {
                 member_loan_table.draw();
@@ -428,6 +428,15 @@
             // window.location.href = url;
             window.open(url, '_blank');
         });
+
+        $(document).on('click', '#view-loan', function(e) {
+            var id = $(this).attr('data-id');
+            console.log(id);
+            var url = "#" + '/' + id; //YOUR CHANGES HERE...
+            // window.location.href = url;
+            window.open(url, '_blank');
+        });
+
 
         $(document).on('click', '#exportLoanApplication', function(e) {
             if ($('#loan_type').val() != "") {
