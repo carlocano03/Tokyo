@@ -1731,7 +1731,7 @@
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="info-text">
-                                                    <h1> {{ $member->last_name }}, {{ $member->first_name }}</h1>
+                                                    <h1> {{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}</h1>
                                                     <label>{{ $member->campus_name }}</label>
                                                     <label>{{ $member->position_id }}</label>
                                                 </div>
@@ -1915,15 +1915,11 @@
                                                 </div>
 
                                                 <div class="mp-input-group details-div">
-                                                    <label class="mp-input-group__label">Total Equity Balance</label>
-                                                    <label class="mp-input-group__label value">PHP {{ number_format($totalcontributions, 2) }}</label>
-                                                </div>
-                                                <div class="mp-input-group details-div">
                                                     <label class="mp-input-group__label">
-                                                        Your Outstanding Loans
+                                                        Total Equity Balance
                                                     </label>
                                                     <label class="mp-input-group__label value">
-                                                        <h2>PHP {{ number_format($totalloanbalance, 2) }}</h2>
+                                                        <h2>PHP {{ number_format($totalcontributions, 2) }}</h2>
                                                     </label>
 
                                                 </div>
@@ -1953,19 +1949,7 @@
                                                     </label>
                                                 </div>
                                                 @endif
-                                                <!-- <div class="mp-input-group details-div">
-                                                    <label class="mp-input-group__label">PEL</label>
-                                                    <label class="mp-input-group__label value">PHP 100,000.00</label>
-                                                </div>
 
-                                                <div class="mp-input-group details-div">
-                                                    <label class="mp-input-group__label">
-                                                        Total Outstanding Loan Balance
-                                                    </label>
-                                                    <label class="mp-input-group__label value">
-                                                        <h2>PHP 200,000.00</h3>
-                                                    </label>
-                                                </div> -->
 
 
                                             </div>
@@ -1983,7 +1967,7 @@
                                                     <div class="info-text">
                                                         <label style="margin-top: -13px;margin-bottom: 10px;">As of:
                                                             {{ date('m/d/Y', strtotime($recentcontributions[0]->date)) }}
-                                                            <!-- May 6, 1999 - 10:00pm -->
+
                                                         </label>
                                                     </div>
                                                     <table class="payroll-table" style="height: auto;" width="100%">
@@ -1998,12 +1982,7 @@
                                                                 <th>
                                                                     <span>Account</span>
                                                                 </th>
-                                                                <!-- <th>
-                                                                    <span>Debit</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Credit</span>
-                                                                </th> -->
+
                                                                 <th>
                                                                     <span>Amount</span>
                                                                 </th>
@@ -2024,28 +2003,6 @@
                                                                 </td>
                                                             </tr>
                                                             @endforeach
-                                                            <!-- <tr>
-
-                                                                <td>
-                                                                    <span>May 6, 1999</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>OR#210312</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>Member Contribution</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 655 </span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 123</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 123,123 </span>
-                                                                </td>
-
-                                                            </tr> -->
 
                                                         </tbody>
                                                     </table>
@@ -2064,7 +2021,13 @@
                                                         <label style="margin-top: -13px;margin-bottom: 10px;">Recent Transaction</label>
                                                     </div>
                                                     <div class="info-text">
-                                                        <label style="margin-top: -13px;margin-bottom: 10px;">As of: May 6, 1999 - 10:00pm</label>
+                                                        <label style="margin-top: -13px;margin-bottom: 10px;">As of:
+                                                            @foreach ($recentloans as $loans)
+                                                            @if ($loans[0] != null)
+                                                            {{ $loans[0]->date  }}
+                                                            @endif
+                                                            @endforeach
+                                                        </label>
                                                     </div>
                                                     <table class="payroll-table" style="height: auto;" width="100%">
                                                         <thead>
@@ -2074,23 +2037,6 @@
                                                                 <th class="mp-text-center">Monthly Amort.</th>
                                                                 <th class="mp-text-center">Amount</th>
                                                                 <th class="mp-text-right">Principal Balance</th>
-                                                                <!-- <th>
-                                                                    <span>Date</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Transaction</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Account</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Monthly Amortization</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>interest</span>
-                                                                </th> -->
-
-
                                                             </tr>
                                                         </thead>
                                                     </table>
@@ -2111,7 +2057,7 @@
                                                             $date = date('m/d/Y', strtotime($loans->date));
                                                             ?>
                                                             <tr>
-                                                                <td>{{ date('m/d/Y', strtotime($loans->date)) }}</td>
+                                                                <td>{{ date('m/d/Y', strtotime($date)) }}</td>
                                                                 <td class="mp-text-center">{{ $loans->name }}</td>
                                                                 <td class="mp-text-center">
                                                                     {{ $loans->amortization == 0 ? '' : 'PHP ' . number_format($loans->amortization, 2) }}
@@ -2188,7 +2134,7 @@
                                             <a id="clear_beneficiaries" class="up-button-grey btn-md button-animate-right mp-text-center" id="cancel">
                                                 <span class="clear_beneficiaries">Clear</span>
                                             </a>
-                                            <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
 
                                         </div>
 
@@ -2210,12 +2156,6 @@
                                             <tbody>
 
                                             </tbody>
-                                            <!-- <tr>
-                                                <td>1</td>
-                                                <td>Denneb Gomez </td>
-                                                <td>May 6, 1999</td>
-                                                <td>Brother</td>
-                                            </tr> -->
 
 
                                         </table>
@@ -2248,12 +2188,37 @@
                                         <div class="mp-input-group">
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label" style="margin-top: 10px;float: left;">Change Status</label>
-                                                <select class="mp-input-group__input mp-text-field" name="status_select" id="status_select" required>
+                                                <select class="mp-input-group__input mp-text-field" value="{{$member->membership_status }}" name="status_select" id="status_select" required>
+                                                    @if ($member->membership_status == 'ACTIVE')
+                                                    <option value="ACTIVE" selected>ACTIVE</option>
+                                                    @else
                                                     <option value="ACTIVE">ACTIVE</option>
+                                                    @endif
+
+                                                    @if ($member->membership_status == 'RETIRED')
+                                                    <option value="RETIRED" selected>RETIRED</option>
+                                                    @else
                                                     <option value="RETIRED">RETIRED</option>
+                                                    @endif
+
+                                                    @if ($member->membership_status == 'RESIGNED')
+                                                    <option value="RESIGNED" selected>RESIGNED</option>
+                                                    @else
                                                     <option value="RESIGNED">RESIGNED</option>
+                                                    @endif
+
+                                                    @if ($member->membership_status == 'WITHDREW')
+                                                    <option value="WITHDREW" selected>WITHDREW</option>
+                                                    @else
                                                     <option value="WITHDREW">WITHDREW</option>
+                                                    @endif
+
+                                                    @if ($member->membership_status == 'DECEASED')
+                                                    <option value="DECEASED" selected>DECEASED</option>
+                                                    @else
                                                     <option value="DECEASED">DECEASED</option>
+                                                    @endif
+
                                                 </select>
                                             </div>
                                         </div>
@@ -2267,7 +2232,7 @@
 
                                     <div class="tab">
                                         <div class="tooltip">
-                                            <button class="active-tab " style="border-top-left-radius: 10px;">
+                                            <button class="active-tab" id="update_personal_button" style="border-top-left-radius: 10px;">
                                                 <i class="fa fa-user" aria-hidden="true"></i>
                                             </button>
                                             <span class="tooltiptext">Personal & Employee Details</span>
@@ -2275,35 +2240,30 @@
 
                                         <div class="tooltip">
 
-                                            <button><i class="fa fa-users" aria-hidden="true"></i></button>
+                                            <button style="border-top-right-radius: 10px;" id="update_membership_button"><i class="fa fa-users" aria-hidden="true"></i></button>
                                             <span class="tooltiptext">Membership Details</span>
                                         </div>
 
-                                        <div class="tooltip">
-                                            <button style="border-top-right-radius: 10px;">
-                                                <i class="fa fa-file" aria-hidden="true"></i>
-                                            </button>
-                                            <span class="tooltiptext">File Attachment</span>
-                                        </div>
+
                                     </div>
                                     <form id="users_form" class=" form-border-bottom">
 
-                                        <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3  mp-pv2 ">
+                                        <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3  mp-pv2 " id="update_personal_div">
                                             <input type="hidden" id="users_id" name="users_id">
                                             <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">First Name</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
+                                                <input class="mp-input-group__input mp-text-field" type="text" value="{{$member->first_name }}" name="first_name" id="first_name" />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Middle Name</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="middle_name" id="middle_name" />
+                                                <input class="mp-input-group__input mp-text-field" type="text" value="{{$member->middle_name }}" name="middle_name" id="middle_name" />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Last Name</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
+                                                <input class="mp-input-group__input mp-text-field" type="text" value="{{$member->last_name }}" name="last_name" id="last_name" />
                                             </div>
-                                            <div class="mp-input-group">
+                                            <!-- <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Campus</label>
                                                 <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
                                                     <option value="">Select Campus</option>
@@ -2316,10 +2276,10 @@
                                                     <option value="">Select Department</option>
                                                     <option value=" ">Department 1</option>
                                                 </select>
-                                            </div>
+                                            </div> -->
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Position</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                                <input class="mp-input-group__input mp-text-field" value="{{ $member->position_id }}" type="text" name="position_id" id="position_id" />
                                             </div>
                                             <!-- <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Appointment Date</label>
@@ -2327,57 +2287,145 @@
                                             </div> -->
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Membership Date</label>
-                                                <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
+                                                <input class="mp-input-group__input mp-text-field" value="{{ $member->membership_date }}" type="date" name="membership_date" id="membership_date" />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Cellphone Number</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                                <input class="mp-input-group__input mp-text-field" type="text" value="{{ $member->contact_no }}" name="contact_no" id="contact_no" />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Landline Number</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                                <input class="mp-input-group__input mp-text-field" type="text" value="{{ $member->landline }}" name="landline" id="landline" />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Gender</label>
-                                                <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                                    <option value="">Female</option>
-                                                    <option value="">Male</option>
+                                                <select class="mp-input-group__input mp-text-field" id="gender" required>
+                                                    @if ($member->gender == 'FEMALE')
+                                                    <option value="FEMALE" selected>Female</option>
+                                                    @else
+                                                    <option value="FEMALE">Female</option>
+                                                    @endif
+
+                                                    @if ($member->gender == 'MALE')
+                                                    <option value="MALE" selected>Male</option>
+                                                    @else
+                                                    <option value="MALE">Male</option>
+                                                    @endif
+
                                                 </select>
                                             </div>
 
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Employee Number</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                                <input class="mp-input-group__input mp-text-field" value="{{ $member->employee_no }}" type="text" id="employee_no" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Monthly Salary</label>
+                                                <input class="mp-input-group__input mp-text-field" value="{{ $member->monthly_salary }}" type="text" id="monthly_salary" />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Status Appointment</label>
-                                                <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                                    <option value="">PERMANENT</option>
-                                                    <option value="">PERMANENT</option>
-                                                    <option value="">PERMANENT</option>
+                                                <select class="mp-input-group__input mp-text-field" value="{{ $member->appointment_status }}" name="appointment_status" id="appointment_status" required>
+
+                                                    @if ($member->appointment_status == 'PERMANENT')
+                                                    <option value="PERMANENT" selected>PERMANENT</option>
+                                                    @else
+                                                    <option value="PERMANENT">PERMANENT</option>
+                                                    @endif
+
+                                                    @if ($member->appointment_status == 'CONTRACTUAL')
+                                                    <option value="CONTRACTUAL" selected>CONTRACTUAL</option>
+                                                    @else
+                                                    <option value="CONTRACTUAL">CONTRACTUAL</option>
+                                                    @endif
+
+                                                    @if ($member->appointment_status == 'TEMPORARY')
+                                                    <option value="TEMPORARY" selected>TEMPORARY</option>
+                                                    @else
+                                                    <option value="TEMPORARY">TEMPORARY</option>
+                                                    @endif
+
+                                                    @if ($member->appointment_status == 'JOB ORDER')
+                                                    <option value="JOB ORDER" selected>JOB ORDER</option>
+                                                    @else
+                                                    <option value="JOB ORDER">JOB ORDER</option>
+                                                    @endif
+
+
                                                 </select>
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Permanent Address</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                                <input class="mp-input-group__input mp-text-field" value="{{ $member->permanent_address }}" type="text" id="permanent_address" />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Current Address</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                                <input class="mp-input-group__input mp-text-field" value="{{ $member->current_address }}" type="text" id="current_address" />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Tin</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                                <input class="mp-input-group__input mp-text-field" value="{{ $member->tin }}" type="text" id="tin" />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Birthdate</label>
-                                                <input class="mp-input-group__input mp-text-field" type="date" id=" email_add" />
+                                                <input class="mp-input-group__input mp-text-field" value="{{ $member->birth_date }}" type="date" id="birth_date" />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Email</label>
-                                                <input class="mp-input-group__input mp-text-field" type="email" id=" email_add" />
+                                                <input class="mp-input-group__input mp-text-field" value="{{ $member->email }}" type="email" id="email" />
                                             </div>
-                                            <a class="up-button btn-md button-animate-right mp-text-center" id="save_users" name="save_users" type="submit">
+                                            <a class="up-button btn-md button-animate-right mp-text-center" id="update_member_details" name="update_member_details" type="submit">
+                                                <span class="save_up">Update Record</span>
+                                            </a>
+
+                                            <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
+
+                                        </div>
+
+
+                                        <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3  mp-pv2 d-none opacity-0" id="update_membership_div">
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Membership Contribution Type</label>
+                                                <select class="mp-input-group__input mp-text-field" name="contribution_type" id="contribution_type" required>
+                                                    @if ($member->contribution_type == "FIXED")
+                                                    <option value="FIXED" selected>FIXED</option>
+                                                    @else
+                                                    <option value="FIXED">FIXED</option>
+                                                    @endif
+
+                                                    @if ($member->contribution_type == "PERCENTAGE")
+                                                    <option value="PERCENTAGE" selected>PERCENTAGE</option>
+                                                    @else
+                                                    <option value="PERCENTAGE">PERCENTAGE</option>
+                                                    @endif
+                                                </select>
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Monthly Contribution Amount</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" value="{{$member->contribution }}" name="contribution" id="contribution" />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Cocolife Insurance</label>
+                                                <select class="mp-input-group__input mp-text-field" name="with_cocolife_form" id="with_cocolife_form" required>
+                                                    @if ($member->with_cocolife_form == 1)
+                                                    <option value="1" selected>Yes</option>
+                                                    @else
+                                                    <option value="1">Yes</option>
+                                                    @endif
+
+                                                    @if ($member->with_cocolife_form == 0)
+                                                    <option value="0" selected>NO</option>
+                                                    @else
+                                                    <option value="0">NO</option>
+                                                    @endif
+                                                </select>
+                                            </div>
+                                            <!-- <div class="mp-input-group">
+                                                <label class="mp-input-group__label">Proxy Form Validity</label>
+
+                                            </div> -->
+
+                                            <a class="up-button btn-md button-animate-right mp-text-center" id="update_other_member_details" name="update_other_member_details" type="submit">
                                                 <span class="save_up">Update Record</span>
                                             </a>
 
@@ -2421,6 +2469,30 @@
     }
 
     $(document).ready(function() {
+
+        //disable letters function
+        $(function() {
+            var regExp = /[a-z]/i;
+            $('#monthly_salary').on('keydown keyup', function(e) {
+                var value = String.fromCharCode(e.which) || e.key;
+                // No letters
+                if (regExp.test(value)) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            $('#contribution').on('keydown keyup', function(e) {
+                var value = String.fromCharCode(e.which) || e.key;
+                // No letters
+                if (regExp.test(value)) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+        });
+
+
         var memberBeneficiaries = $('#member-beneficiries').DataTable({
             ordering: false,
             info: false,
@@ -2559,8 +2631,6 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-
-
         Swal.fire({
             title: "Are you sure?",
             text: "You will change the status of this member!",
@@ -2584,6 +2654,12 @@
                         if (data.success == true) {
                             $('#loading').show();
                             location.reload();
+                        } else {
+                            Swal.fire({
+                                title: "No Changes Made!",
+                                type: "error",
+                                confirmButtonColor: '#DD6B55',
+                            })
                         }
                     }
                 });
@@ -2600,6 +2676,171 @@
         resetBeneficiaryForm();
     })
 
+    $(document).on('click', '#update_personal_button', function() {
+        $('#update_personal_button').addClass('active-tab');
+        $('#update_membership_button').removeClass('active-tab');
+
+        $('#update_personal_div').removeClass("d-none");
+        $('#update_personal_div').removeClass("opacity-0");
+
+        if ($('#update_membership_div').hasClass('d-none') && $('#update_membership_div').hasClass('opacity-0')) {
+            return
+        } else {
+            $('#update_membership_div').addClass("d-none");
+            $('#update_membership_div').addClass("opacity-0");
+        }
+
+    })
+
+    $(document).on('click', '#update_membership_button', function() {
+        $('#update_membership_button').addClass('active-tab');
+        $('#update_personal_button').removeClass('active-tab');
+
+        $('#update_membership_div').removeClass("d-none");
+        $('#update_membership_div').removeClass("opacity-0");
+
+        if ($('#update_personal_div').hasClass('d-none') && $('#update_personal_div').hasClass('opacity-0')) {
+            return
+        } else {
+            $('#update_personal_div').addClass("d-none");
+            $('#update_personal_div').addClass("opacity-0");
+        }
+
+    })
+
+    //update member details click
+    $(document).on('click', '#update_member_details', function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var user_id = <?php echo $member->user_id ?>;
+        var member_no = <?php echo $member->member_no ?>;
+        var first_name = $('#first_name').val();
+        var middle_name = $('#middle_name').val();
+        var last_name = $('#last_name').val();
+        var position_id = $('#position_id').val();
+        var membership_date = $('#membership_date').val();
+        var contact_no = $('#contact_no').val();
+        var landline = $('#landline').val();
+        var gender = $('#gender').val();
+        var employee_no = $('#employee_no').val();
+        var appointment_status = $('#appointment_status').val();
+        var permanent_address = $('#permanent_address').val();
+        var current_address = $('#current_address').val();
+        var tin = $('#tin').val();
+        var birth_date = $('#birth_date').val();
+        var email = $('#email').val();
+        var monthly_salary = $('#monthly_salary').val();
+
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will change this member's details!",
+            type: "warning",
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: "Cancel",
+            showCancelButton: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((okay) => {
+            if (okay.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('update_member_details') }}",
+                    data: {
+                        user_id: user_id,
+                        member_no: member_no,
+                        first_name: first_name,
+                        middle_name: middle_name,
+                        last_name: last_name,
+                        position_id: position_id,
+                        membership_date: membership_date,
+                        contact_no: contact_no,
+                        landline: landline,
+                        gender: gender,
+                        employee_no: employee_no,
+                        appointment_status: appointment_status,
+                        permanent_address: permanent_address,
+                        current_address: current_address,
+                        tin: tin,
+                        birth_date: birth_date,
+                        email: email,
+                        monthly_salary: monthly_salary,
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.success == true) {
+                            $('#loading').show();
+                            location.reload();
+                        } else {
+                            Swal.fire({
+                                title: "No Changes Made!",
+                                type: "error",
+                                confirmButtonColor: '#DD6B55',
+                            })
+                        }
+                    }
+                });
+            } else if (okay.isDenied) {
+                Swal.close();
+            }
+        });
+    });
+
+    //update other member details click
+    $(document).on('click', '#update_other_member_details', function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var member_no = <?php echo $member->member_no ?>;
+        var contribution_type = $('#contribution_type').val();
+        var contribution = $('#contribution').val();
+        var with_cocolife_form = $('#with_cocolife_form').val();
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will change this member's membership details!",
+            type: "warning",
+            confirmButtonColor: '#DD6B55',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: "Cancel",
+            showCancelButton: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((okay) => {
+            if (okay.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('update_other_member_details') }}",
+                    data: {
+                        member_no: member_no,
+                        contribution_type: contribution_type,
+                        contribution: contribution,
+                        with_cocolife_form: with_cocolife_form,
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.success == true) {
+                            $('#loading').show();
+                            location.reload();
+                        } else {
+                            Swal.fire({
+                                title: "No Changes Made!",
+                                type: "error",
+                                confirmButtonColor: '#DD6B55',
+                            })
+                        }
+                    }
+                });
+            } else if (okay.isDenied) {
+                Swal.close();
+            }
+        });
+    });
+
     $(document).on('click', '#member-detail-toggle', function(e) {
         if ($(".member-detail-body").hasClass("open-details")) {
             $(".member-detail-body").removeClass("open-details")
@@ -2613,7 +2854,7 @@
             $(".member-down").removeClass("d-none")
             $(".member-up").addClass("d-none")
         }
-    })
+    });
 
     $(document).on('click', '#view_beneficiaries', function(e) {
 

@@ -1760,6 +1760,11 @@
 
 
 <script>
+    //load when member is click
+    $(document).on('click', '#member_load', function(e) {
+        $('#loading').show();
+    })
+
     $(document).on('click', '#showSettings', function(e) {
         if ($("#settingsTab").hasClass("col-lg-2")) {
             $("#settingsTab").addClass("d-none");
