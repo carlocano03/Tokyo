@@ -283,6 +283,7 @@ class Settings extends Controller
   {
     $college_unit_name = DB::table('college_unit')
       ->where("college_unit_name", "=", strtoupper($request->input('college_name')))
+      ->where("campus_id", "=", $request->input('campus'))
       ->count();
 
     if ($college_unit_name >= 1) {
@@ -888,7 +889,7 @@ class Settings extends Controller
         'middle_name' => strtoupper($request->input('middlename')),
         'last_name' => strtoupper($request->input('lastname')),
         'email' => $request->input('email'),
-        'intial_password' => $request->input('initial_pass'),
+        'initial_password' => $request->input('initial_pass'),
         'contact_no' => $request->input('contact_no'),
         'user_level' => $request->input('user_level'),
         'campus_id' => $request->input('campus'),
@@ -943,7 +944,7 @@ class Settings extends Controller
   {
     $datadb = DB::transaction(function () use ($request) {
       DB::table('users')->where('id', $request->input('users_id'))->delete();
-      DB::table('user_prev')->where('users_id ', $request->input('users_id'))->delete();
+      // DB::table('user_prev')->where('users_id ', $request->input('users_id'))->delete();
     });
     return response()->json(['success' => true]);
   }

@@ -1,4 +1,198 @@
 @extends('layouts/main')
+<div id="modalBackDrop" class="d-none opacity-0">
+    <div class="modalContent">
+
+        <div class="d-none opacity-0" id="electionModal">
+            <div class="modalBody">
+
+                <div class="d-flex flex-column gap-10" style="width: 700px;"> <span style="font-weight: bold; font-size: x-large"></span>
+                    <label class="close-button" id="closeModal">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </label>
+                    <div class="">
+                        <label class="election_modal_title">Setup New Election Module</label>
+                        <br>
+                        <label class="account-info">
+                        </label>
+                        <form id="election_form" class=" form-border-bottom" style="height: calc(100% - 100px) !important;">
+                            {{ csrf_field() }}
+                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
+
+                                <div class="mp-input-group">
+                                    <!-- <label class="mp-input-group__label">Election Reference No:</label>
+                                    <label class="mp-input-group__label">102-2912</label> -->
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Select Cluster</label>
+                                    <select class=" mp-input-group__input mp-text-field" name="cluster_id" id="cluster_id" required data-set="validate-election">
+                                        <option value="">Select Cluster No.</option>
+                                        <option value="1">Cluster 1 - DSB</option>
+                                        <option value="2">Cluster 2 - LBOU</option>
+                                        <option value="3">Cluster 3 - MLAPGH</option>
+                                        <option value="4">Cluster 4 - CVM</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Election Year</label>
+                                    <select class=" mp-input-group__input mp-text-field" name="election_year" id="election_year" required data-set="validate-election">
+                                        @for ($i = 2023; $i <= 2099; $i++) <option value="{{ $i }}">
+                                            {{ $i }}
+                                            </option>
+                                            @endfor
+                                    </select>
+                                </div>
+
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Election Date</label>
+                                    <input type="date" id="election_date" required data-set="validate-election" name="election_date" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Time Open</label>
+                                    <input type="time" name="time_open" id="time_open" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Time Close</label>
+                                    <input type="time" name="time_close" id="time_close" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+
+                                <div class="mp-input-group">
+                                    <input type="checkbox" class="checkbox-color" style="margin-left:2px;margin-right:3px;" id="user_access" name="user_access">
+                                    <label class="mp-input-group__label">Open Time / User Access</label>
+                                </div>
+
+
+
+
+                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_election" type="submit">
+                                    <span>CREATE ELECTION</span>
+                                </a>
+                                <!-- <a class="up-button btn-md button-animate-right mp-text-center" id="save_draft_election">
+                                    <span>SAVE DRAFT ELECTION</span>
+                                </a> -->
+                                <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_election">
+                                    <span>CLEAR SETUP</span>
+                                </a>
+
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        <!-- change attachment modal -->
+        <div class="d-none opacity-0" id="changeModal">
+            <div class="modalBody">
+
+                <div class="d-flex flex-column gap-10" style="width: 700px;"> <span style="font-weight: bold; font-size: x-large"></span>
+                    <label class="close-button" id="closeModal">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </label>
+                    <div class="top-label">
+                        <label>Edit Info</label>
+                        <br>
+                        {{ csrf_field() }}
+                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+
+                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
+                                <input type="hidden" id="app_trailNo">
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change Salary Grade</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">1-15 Category</option>
+                                        <option value="0">16-above Category</option>
+                                    </select>
+
+
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change Candidate Name</label>
+                                    <input class="mp-input-group__input mp-text-field" type="text" name="first_name" />
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change Cluster</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">Cluster 1</option>
+                                        <option value="0">Cluster 2</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change Campus</label>
+                                    <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                        <option value="1">Campus 1</option>
+                                        <option value="0">Campus 2</option>
+                                    </select>
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change Candidate Image/Photo *</label>
+                                    <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+                                <div class="mp-input-group">
+                                    <label class="mp-input-group__label">Change File Attachment</label>
+                                    <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                </div>
+                                <a class="up-button btn-md button-animate-right mp-text-center">
+                                    <span>Change</span>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- view attachment modal end -->
+
+        <!-- view attachment modal -->
+        <div class="d-none opacity-0" id="viewAttachmentModal">
+            <div class="modalBody">
+
+                <div class="d-flex flex-column gap-10" style="width: 700px;"> <span style="font-weight: bold; font-size: x-large"></span>
+                    <label class="close-button" id="closeModal">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </label>
+                    <div class="top-label">
+                        <label>Denneb Gomez - President | Attachment</label>
+                        <br>
+                        {{ csrf_field() }}
+                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+
+                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
+                                <input type="hidden" id="app_trailNo">
+                                <div class="mp-input-group" style="text-align:center;">
+                                    <label class="mp-input-group__label">Attachment Info</label>
+                                </div>
+                                <i class="fa fa-database db-text" style="text-align:center; margin:0px;" aria-hidden="true"></i>
+                                <!-- <a id="closeModal" class="up-button btn-md button-animate-right mp-text-center">
+                                    <span>Close</span>
+                                </a> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+        <!-- view attachment modal end -->
+
+
+        <!-- <div class="modalFooter gap-10">
+            <button id="agree">
+                I Agree
+            </button>
+            <button id="disagree">
+                I do not Agree
+            </button>
+        </div> -->
+    </div>
+</div>
 @section('content_body')
 
 <style>
@@ -708,6 +902,37 @@
         padding: 11px;
     }
 
+
+    .profile-text span {
+        margin-bottom: -10px;
+    }
+
+    .profile-text {
+        display: inline-grid;
+        margin-bottom: 20px;
+    }
+
+    .profile-button {
+        display: inline-flex;
+        font-size: 15px;
+        gap: 5px;
+    }
+
+    .profile-button button {
+        padding-left: 10px;
+        padding-right: 10px;
+
+        border-radius: 12px;
+    }
+
+    .close-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 10px;
+        font-size: 25px;
+    }
+
     .reset_button {
         float: right;
         cursor: pointer;
@@ -732,8 +957,8 @@
                 <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
                     <div class="settings-tab">
                         <div class="top-label">
-                            <label>Election Module</label>
-                            <i class="fa fa-cog" aria-hidden="true"></i>
+                            <label>Election Module </label>
+
                         </div>
 
                         <div class="settings-buttons">
@@ -742,10 +967,10 @@
                                     <a href="#" class="no-padding options-a-active">Election Records</a><br>
 
                                 </li>
-                                <li class="options" onclick="location.href='create-election'">
+                                <!-- <li class="options" onclick="location.href='create-election'">
                                     <a href="#" class="no-padding">Create New Election</a><br>
 
-                                </li>
+                                </li> -->
                                 <li class="options" onclick="location.href='election-analytics'">
                                     <a href="#" class="no-padding">Election Day Analytics</a><br>
 
@@ -767,7 +992,13 @@
                             <div class="row no-gutter ml-0 mr-0 p-5px mh-content view-all-members">
 
                                 <div class="col-12 mp-pr0" style="width: 100%;">
-
+                                    <div class="top-label">
+                                        <label>Create New Election</label>
+                                        <br>
+                                        <button class="up-button-green btn-md button-animate-right mp-text-center" type="button" id="setupElection">
+                                            <span>Setup</span>
+                                        </button>
+                                    </div>
                                     <div class=" w-full d-flex flex-row justify-content-center mp-mh3">
                                         <div class=" card d-flex justify-content-around   flex-row">
                                             <div class="text-center">
@@ -816,7 +1047,7 @@
                                                         <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr); font-size:12px;">
                                                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                                                 <span>Year</span>
-                                                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="election_year">
+                                                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="election_year_filter">
                                                                     <option value="">Show All</option>
                                                                     @for ($i = 2023; $i <= 2099; $i++) <option value="{{ $i }}">
                                                                         {{ $i }}
@@ -826,7 +1057,7 @@
                                                             </span>
                                                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                                                 <span>Cluster</span>
-                                                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster">
+                                                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
                                                                     <option value="">Show All</option>
                                                                     <option value="1">Cluster 1 - DSB</option>
                                                                     <option value="2">Cluster 2 - LBOU</option>
@@ -837,20 +1068,20 @@
                                                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
                                                                 <span>Election Date</span>
 
-                                                                <input type="date" id="election_date" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                                <input type="date" id="election_date_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
 
                                                             </span>
                                                             <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
                                                                 <span>Open - Close </span>
                                                                 <div class="date_range d-flex">
-                                                                    <input type="time" id="time_open" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                                    <input type="time" id="time_open_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                                                     <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                                                    <input type="time" id="time_close" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                                    <input type="time" id="time_close_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                                                 </div>
                                                             </span>
                                                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                                                 <span>Status</span>
-                                                                <select name="status" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status">
+                                                                <select name="status_filter" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status">
                                                                     <option value="">Show All</option>
                                                                     <option value="OPEN">OPEN</option>
                                                                     <option value="CLOSE">CLOSE</option>
@@ -862,6 +1093,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="card d-flex flex-column">
                                                     <div class="d-flex flex-row items-between">
 
@@ -928,6 +1160,58 @@
 
 
 <script>
+    function reset() {
+        $("#election_year").val("").trigger("change");
+        $("#cluster_id").val("").trigger("change");
+        $("#election_date").val("").trigger("change");
+        $("#election_year").val("2023").trigger("change");
+        $("#time_open").val("").trigger("change");
+        $("#time_close").val("").trigger("change");
+        $("#user_access").val("").trigger("change");
+    }
+
+    function closeModal() {
+        $("#modalBackDrop").addClass("opacity-0")
+        $("#electionModal").addClass("opacity-0")
+        $("#candidateModal").addClass("opacity-0")
+        $("#viewAttachmentModal").addClass("opacity-0")
+        $("#changeModal").addClass("opacity-0")
+
+        setTimeout(function() {
+            $("#modalBackDrop").addClass("d-none")
+            $("#candidateModal").addClass("d-none")
+            $("#electionModal").addClass("d-none")
+            $("#viewAttachmentModal").addClass("d-none")
+            $("#changeModal").addClass("d-none")
+        }, 100)
+    }
+    $(document).on('click', '#closeModal', function(e) {
+        $("#modalBackDrop").addClass("opacity-0")
+        $("#electionModal").addClass("opacity-0")
+        $("#candidateModal").addClass("opacity-0")
+        $("#viewAttachmentModal").addClass("opacity-0")
+        $("#changeModal").addClass("opacity-0")
+
+        setTimeout(function() {
+            $("#modalBackDrop").addClass("d-none")
+            $("#candidateModal").addClass("d-none")
+            $("#electionModal").addClass("d-none")
+            $("#viewAttachmentModal").addClass("d-none")
+            $("#changeModal").addClass("d-none")
+        }, 100)
+    })
+
+    $(document).on('click', '#setupElection', function(e) {
+
+        $("#modalBackDrop").removeClass("d-none")
+        $("#candidateModal").addClass("d-none")
+        $("#candidateModal").addClass("opacity-0")
+        $("#electionModal").removeClass("d-none")
+        $("#electionModal").removeClass("opacity-0")
+        setTimeout(function() {
+            $("#modalBackDrop").removeClass("opacity-0")
+        }, 100)
+    })
     $(document).on('click', '#showSettings', function(e) {
         if ($("#settingsTab").hasClass("col-lg-2")) {
             $("#settingsTab").addClass("d-none");
@@ -956,12 +1240,12 @@
             ajax: {
                 url: "{{ route('getElectionDetails') }}",
                 "data": function(data) {
-                    data.time_open = $('#time_open').val();
-                    data.time_close = $('#time_close').val();
-                    data.status = $('#status').val();
-                    data.election_date = $('#election_date').val();
-                    data.election_year = $('#election_year').val();
-                    data.cluster = $('#cluster').val();
+                    data.time_open = $('#time_open_filter').val();
+                    data.time_close = $('#time_close_filter').val();
+                    data.status = $('#status_filter').val();
+                    data.election_date = $('#election_date_filter').val();
+                    data.election_year = $('#election_year_filter').val();
+                    data.cluster = $('#cluster_filter').val();
                 },
             },
             columns: [{
@@ -1009,24 +1293,24 @@
         $('#status').on('change', function() {
             election_table.draw();
         });
-        $('#election_year').on('change', function() {
+        $('#election_year_filter').on('change', function() {
             election_table.draw();
         });
-        $('#election_date').on('change', function() {
+        $('#election_date_filter').on('change', function() {
             election_table.draw();
         });
-        $('#cluster').on('change', function() {
+        $('#cluster_filter').on('change', function() {
             election_table.draw();
         });
-        $('#time_open').on('change', function() {
+        $('#time_open_filter').on('change', function() {
             election_table.draw();
         });
-        $('#time_close').on('change', function() {
+        $('#time_close_filter').on('change', function() {
             election_table.draw();
         });
         $('#reset_time').on('click', function() {
-            $('#time_open').val("").trigger("change");
-            $('#time_close').val("").trigger("change");
+            $('#time_open_filter').val("").trigger("change");
+            $('#time_close_filter').val("").trigger("change");
             election_table.draw();
         });
 
@@ -1036,15 +1320,28 @@
         });
 
     });
+    $(document).on('click', "#user_access", function() {
+        if ($('#user_access').is(':checked')) {
+            $("#time_open").prop("disabled", true);
+            $("#time_close").prop("disabled", true);
 
+            $("#time_open").val("").trigger("change");
+            $("#time_close").val("").trigger("change");
+            $("#user_access").val("OPEN");
+        } else {
+            $("#time_open").prop("disabled", false);
+            $("#time_close").prop("disabled", false);
+            $("#user_access").val(null);
+        }
+    });
 
     function resetFilterDate() {
-        $('#time_open').val("").trigger("change");
-        $('#time_close').val("").trigger("change");
-        $('#cluster').val("").trigger("change");
-        $('#election_date').val("").trigger("change");
-        $('#status').val("").trigger("change");
-        $('#election_year').val("").trigger("change");
+        $('#time_open_filter').val("").trigger("change");
+        $('#time_close_filter').val("").trigger("change");
+        $('#cluster_filter').val("").trigger("change");
+        $('#election_date_filter').val("").trigger("change");
+        $('#status_filter').val("").trigger("change");
+        $('#election_year_filter').val("").trigger("change");
     }
 
     function getElectionCount(view = '') {
@@ -1069,5 +1366,142 @@
             }
         });
     }
+
+    $(document).on('click', '#save_election', function() {
+
+        let hasError = false
+
+        const elements = $(document).find(`[data-set=validate-election]`)
+
+        elements.map(function() {
+            if ($(this).attr('err-name')) {
+                return
+            }
+            let status = true
+            status = validateField({
+                element: $(this),
+                target: 'validate-election'
+            })
+
+            if (!hasError && status) {
+                hasError = true
+            }
+        })
+
+        if (hasError) return
+
+        var selected_date = new Date($('#election_date').val());
+        var date_today = new Date();
+
+        if (selected_date < date_today) {
+            $('#election_date').val("").trigger("change");
+            status = validateField({
+                element: $('#election_date'),
+                target: 'validate-election',
+                errText: "Election Date Invalid!"
+            })
+            return
+        }
+
+        var time_from = $('#time_open').val();
+        var time_to = $('#time_close').val();
+        if (time_from != "" && time_to != "" && time_from > time_to) {
+            $('#time_open').val("").trigger("change");
+            $('#time_close').val("").trigger("change");
+            status = validateField({
+                element: $('#time_open'),
+                target: 'validate-election',
+                errText: "Time Invalid!"
+            })
+            status = validateField({
+                element: $('#time_close'),
+                target: 'validate-election',
+                errText: "Time Invalid!"
+            })
+            return
+        }
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var formData = $("#election_form").serialize();
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('save_election') }}",
+            data: formData,
+            success: function(data) {
+
+
+                if (data.election_date_exist == true) {
+                    $('#election_date').val("").trigger("change");
+                    status = validateField({
+                        element: $('#election_date'),
+                        target: 'validate-election',
+                        errText: "Election Date Already Exist!"
+                    })
+                }
+                if (data.success != false) {
+                    reset();
+                    closeModal();
+                    console.log(data.election_id)
+                    Swal.fire({
+                        text: 'Election has been created Successfully.',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    }).then(okay => {
+                        if (okay) {
+                            window.location = "/admin/edit-election/" + data.success;
+                        }
+                    });
+
+
+                }
+
+
+
+            }
+        });
+    });
+
+    $(document).on('click', '#save_draft_election', function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var formData = $("#election_form").serialize();
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('save_election_draft') }}",
+            data: formData,
+            success: function(data) {
+                reset();
+                if (data.success != '') {
+                    console.log(data)
+                    Swal.fire({
+                        text: 'Election has been saved as draft!',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    }).then(okay => {
+                        if (okay) {
+                            window.location = "/admin/edit-election/" + data.success;
+                        }
+                    });
+                }
+                closeModal();
+
+            }
+        });
+    });
+
+    $(document).on('click', '#clear_election', function() {
+        reset();
+    });
 </script>
 @endsection

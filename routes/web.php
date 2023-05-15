@@ -75,9 +75,9 @@ Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciari
 Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
 
 //admin members
-Route::get('/admin/members', [AdminController::class, 'memberlist'])->name('admin.memberlist.memberlist');
+
 Route::get('/admin/members/analytics', [AdminController::class, 'member_analytics'])->name('member_analytics');
-Route::get('/admin/members/member-details', [AdminController::class, 'memberDetails'])->name('admin.memberlist.member-details');
+Route::get('/admin/members/member-details/{id}', [AdminController::class, 'memberDetails'])->name('admin.memberlist.member-details');
 Route::get('/admin/members/insurance-reports', [AdminController::class, 'insuranceReports'])->name('admin.memberlist.insurance-reports');
 Route::get('/admin/members/summary-reports', [AdminController::class, 'summaryReports'])->name('admin.memberlist.summary-reports');
 Route::get('/admin/members/view-all', [AdminController::class, 'memberlistViewAll'])->name('admin.memberlist.memberlist-viewall');
@@ -108,6 +108,25 @@ Route::get('/admin/election', [AdminController::class, 'election'])->name('admin
 Route::get('/admin/create-election', [AdminController::class, 'createElection'])->name('admin.election.create-election');
 
 
+
+//member details master list
+Route::get('/admin/members/get-member-details', [AdminController::class, 'getMemberMasterList'])->name('getMemberMasterList');
+Route::get('/admin/members', [AdminController::class, 'memberlist'])->name('admin.memberlist.memberlist');
+
+//update admin member status,details
+Route::post('/admin/members/update-member-status', [AdminController::class, 'updateMemberStatus'])->name('update_member_status');
+Route::post('/admin/members/update-member-details', [AdminController::class, 'updateMemberDetails'])->name('update_member_details');
+Route::post('/admin/members/update-other-member-details', [AdminController::class, 'updateMemberOtherDetails'])->name('update_other_member_details');
+Route::post('/admin/members/reset-password', [AdminController::class, 'resetPassword'])->name('reset_password');
+
+//manage admin member beneficiaries
+Route::get('/admin/members/get_member_beneficiary', [AdminController::class, 'getMemberBeneficiaries'])->name('get_member_beneficiary');
+Route::post('/admin/members/add_old_member_beneficiary', [AdminController::class, 'addOldMemberBeneficiaries'])->name('add_member_oldbeneficiaries');
+Route::post('/admin/members/delete_old_member_beneficiary', [AdminController::class, 'deleteOldMemberBeneficiaries'])->name('delete_member_oldbeneficiaries');
+
+
+//eleciton part
+Route::post('/admin/delete-candidate', [AdminController::class, 'delete_candidate'])->name('delete-candidate');
 Route::post('/admin/update-election-record', [AdminController::class, 'updateElectionRecord'])->name('update_election_record');
 Route::get('/admin/edit-election/{id}', [AdminController::class, 'editElection'])->name('admin.election.edit-election');
 Route::get('/admin/election-record', [AdminController::class, 'electionRecord'])->name('admin.election.election-election');
@@ -121,12 +140,14 @@ Route::post('/admin/members/update_employee_details', [HomeController::class, 'u
 Route::get('/admin/election-list', [AdminController::class, 'getElectionDetails'])->name('getElectionDetails');
 Route::post('/admin/countElection', [AdminController::class, 'countElection'])->name('count_election');
 Route::post('/admin/electionValidation', [AdminController::class, 'electionValidation'])->name('election_validation');
+//candidates
+Route::post('/admin/electionCandidatesList', [AdminController::class, 'getCandidates'])->name('election_candidates_list');
 
 
 //election saving
 Route::post('/admin/election/save-election', [AdminController::class, 'saveElection'])->name('save_election');
 Route::post('/admin/election/save-election-draft', [AdminController::class, 'saveElectionDraft'])->name('save_election_draft');
-
+Route::post('/admin/election/add-candidates', [AdminController::class, 'addCandidates'])->name('add_candidates');
 
 //election saving
 Route::post('/admin/election/save-election', [AdminController::class, 'saveElection'])->name('save_election');
@@ -142,6 +163,31 @@ Route::get('/admin/settings/history-logs', [AdminController::class, 'historyLogs
 Route::get('/admin/settings/sg-modules', [AdminController::class, 'sgModules'])->name('admin.settings-config.sg-modules');
 Route::get('/admin/settings/status-appointment', [AdminController::class, 'statusAppointment'])->name('admin.settings-config.status-appointment');
 
+//admin transaction links
+Route::get('/admin/transaction', [AdminController::class, 'transaction'])->name('admin.transaction.transaction');
+Route::get('/admin/transaction/loan-payment', [AdminController::class, 'loanPayments'])->name('admin.transaction.loan-payment');
+Route::get('/admin/transaction/transaction-analytics', [AdminController::class, 'transactionAnalytics'])->name('admin.transaction.transaction-analytics');
+
+//admin loan links
+Route::get('/admin/loan/loan-matrix', [AdminController::class, 'loanMatrix'])->name('admin.loan.loan-matrix');
+Route::get('/admin/loan/loan-application', [AdminController::class, 'loanApplication'])->name('admin.loan.loan-application');
+Route::get('/admin/loan/loan-analytics', [AdminController::class, 'loanAnalytics'])->name('admin.loan.loan-analytics');
+Route::get('/admin/loan/loan-application/details/{id}', [AdminController::class, 'loanApplicationDetails'])->name('admin.loan.loan-application-details');
+
+//loan data retrieve
+Route::get('/admin/loan/loan-details', [AdminController::class, 'getLoanApplications'])->name('getLoanApplications');
+Route::post('/admin/countLoans', [AdminController::class, 'countLoans'])->name('count_loans');
+
+//admin benefit links
+Route::get('/admin/benefit/benefit-matrix', [AdminController::class, 'benefitMatrix'])->name('admin.benefit.benefit-matrix');
+Route::get('/admin/benefit/benefit-list', [AdminController::class, 'benefitList'])->name('admin.benefit.benefit-list');
+Route::get('/admin/benefit/benefit-analytics', [AdminController::class, 'benefitAnalytics'])->name('admin.benefit.benefit-analytics');
+
+//admin benefit links
+Route::get('/admin/benefit/benefit-matrix', [AdminController::class, 'benefitMatrix'])->name('admin.benefit.benefit-matrix');
+Route::get('/admin/benefit/benefit-list', [AdminController::class, 'benefitList'])->name('admin.benefit.benefit-list');
+Route::get('/admin/benefit/benefit-analytics', [AdminController::class, 'benefitAnalytics'])->name('admin.benefit.benefit-analytics');
+
 //admin settings validation
 Route::post('/admin/manageAccountValidation', [Settings::class, 'checkUsername'])->name('check_username');
 
@@ -149,6 +195,10 @@ Route::post('/admin/manageAccountValidation', [Settings::class, 'checkUsername']
 Route::get('/member/dashboard', [MemberController::class, 'dashboard'])->name('member.dashboard');
 Route::get('/member/settings', [MemberController::class, 'settings'])->name('member.settings');
 Route::get('/member/loan', [MemberController::class, 'loan'])->name('member.loan');
+Route::get('/member/loan/view', [MemberController::class, 'view'])->name('member.view');
+Route::get('/member/loan/application', [MemberController::class, 'application'])->name('member.application');
+Route::get('/member/loan/schedule', [MemberController::class, 'schedule'])->name('member.schedule');
+Route::get('/member/new-loan', [MemberController::class, 'new_loan'])->name('member.new_loan');
 Route::get('/member/transaction', [MemberController::class, 'transaction'])->name('member.transaction');
 Route::get('/member/member', [MemberController::class, 'member'])->name('member.member');
 Route::get('/member/equity', [MemberController::class, 'equity'])->name('member.equity');
@@ -165,6 +215,7 @@ Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('
 Route::get('/downloadCoco', [PDFController::class, 'downloadCoco'])->name('download_coco');
 Route::get('/downloadProxy', [PDFController::class, 'downloadProxy'])->name('download_proxy');
 
+Route::get('/admin/loan/loan-details/generate-payslip', [PDFController::class, 'generatePayslip'])->name('generate-payslip');
 
 
 Route::get('/memberform/{id}', [PDFController::class, 'memberform'])->name('memberform');
@@ -243,7 +294,11 @@ Route::post('/save_fm_validation', [App_Validation::class, 'fm_validation_save']
 
 //Payroll Advise
 Route::get('/admin/get_payroll_advise', [PayrollController::class, 'get_payroll_advise'])->name('getPayrollAdvise');
-
+Route::post('/admin/get_cluster', [PayrollController::class, 'get_cluster'])->name('getCluster');
+Route::post('/admin/save_payroll_advise', [PayrollController::class, 'save_payroll_advise'])->name('add_payroll_advise');
+Route::post('/admin/save_payroll_advise_report', [PayrollController::class, 'save_payroll_advise_report'])->name('add_payroll_advise_report');
+Route::get('/admin/get_payroll_advise_report', [PayrollController::class, 'get_payroll_advise_report'])->name('getPayrollAdviseReports');
+Route::get('/admin/download-file/{filename}', [PayrollController::class, 'download_payroll']);
 //AXA
 Route::get('/admin/get_beneficiary_axa', [HomeController::class, 'get_beneficiary_axa'])->name('getBeneficiaryAxa');
 Route::post('/admin/add_beneficiary_axa', [HomeController::class, 'add_beneficiary_axa'])->name('add_beneficiary_axa');

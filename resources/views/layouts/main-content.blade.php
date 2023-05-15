@@ -401,6 +401,12 @@
   #bypass-color {
     color: grey;
   }
+
+  .background-member {
+    background-image: url("{!! asset('assets/images/member-dashboard-bg.svg') !!}");
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
 </style>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -436,9 +442,9 @@
       </li>
       <li><a href="/admin/members/records" class=" {{ Request::is('admin/members/records') ? 'active-nav' : '' }} "><i class="fa fa-users"></i>Online Application</a></li>
       <li><a href="/admin/members" class="{{ Request::is('admin/members')  ? 'active-nav' : '' }}"><i class="fa fa-address-book"></i>Members Module</a></li>
-      <li><a href="#"><i class="fa fa-credit-card"></i>Loan Module</a></li>
-      <li><a href="#"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
-      <li><a href="#"><i class="fa fa-bar-chart"></i>Transaction & Equity </a></li>
+      <li><a href="/admin/loan/loan-matrix"><i class="fa fa-credit-card"></i>Loan Module</a></li>
+      <li><a href="/admin/benefit/benefit-matrix"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
+      <li><a href="/admin/transaction" class="{{ Request::is('admin/transaction')  ? 'active-nav' : '' }}"><i class="fa fa-bar-chart"></i>Transaction & Equity </a></li>
       <li><a href="/admin/election-record" class="{{ Request::is('admin/election')  ? 'active-nav' : '' }}">
           <i class="fa fa-flash"></i>Election Module</a></li>
       <li><a href="/admin/settings/manage-account" class="{{ Request::is('admin/settings/manage-account')  ? 'active-nav' : '' }}">
@@ -503,21 +509,14 @@
       <li><a href="/member/transaction" class="{{ Request::is('member/transaction') ? 'active-nav' : '' }}">
           <i class="fa fa-line-chart"></i>Transactions </a>
       </li>
-
+      <li><a href="/member/loan" class="{{ Request::is('member/loan') ? 'active-nav' : '' }}">
+          <i class="fa fa-address-book"></i>Loan Application</a>
+      </li>
       <li><a id="click_form" class="{{ Request::is('member/member') ? 'active-nav' : '' }}">
           <i class="fa fa-envelope" aria-hidden="true"></i> Member Forms </a>
       </li>
 
-      <li><a href="/member/loan" class="{{ Request::is('member/loan') ? 'active-nav' : '' }}">
-          <i class="fa fa-address-book"></i>Loan Application</a>
-      </li>
-      <li><a href="/member/settings" class="{{ Request::is('member/settings')
-                  || Request::is('member/update-password')  ? 'active-nav' : '' }}">
-          <i class="fa fa-gears"></i>Account & Settings</a>
-      </li>
-      <li><a href="https://www.upprovidentfund.com/contact-us/" target="_blank">
-          <i class="fa fa-phone-square" aria-hidden="true"></i>Contact Us</a>
-      </li>
+      
 
 
     </ul>
@@ -556,6 +555,13 @@
   <script>
     $(document).ready(function() {
       $('.js-example-responsive').select2();
+      var link = window.location.href;
+      var urlParts = link.split("/"); // split the link using "/"
+      var userType = urlParts[3]; // get the third element of the resulting array
+
+      if (userType == "member") {
+        $('.contents').addClass('background-member')
+      }
     });
     var click = 0;
     $(document).on('click', '#membersDropdown', function(e) {

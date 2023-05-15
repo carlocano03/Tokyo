@@ -10,16 +10,12 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </label>
                     <div class="">
-                        <label>Edit Election</label>
+                        <label class="election_modal_title">Setup New Election Module</label>
                         <br>
                         <label class="account-info">
                         </label>
                         <form id="election_form" class=" form-border-bottom" style="height: calc(100% - 100px) !important;">
                             {{ csrf_field() }}
-
-                            <input type="hidden" name="election_id" id="election_id" value="{{ $election_details->election_id }}">
-                            <input type="hidden" name="cluster_name" id="cluster_name" value="{{ $election_details->cluster_name }}">
-                            <input type="hidden" name="status" id="status" value="{{ $election_details->status }}">
                             <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1">
 
                                 <div class="mp-input-group">
@@ -68,10 +64,15 @@
 
 
 
-                                <a class="up-button btn-md button-animate-right mp-text-center" id="update_election_record" type="submit">
-                                    <span>UPDATE</span>
+                                <a class="up-button-green btn-md button-animate-right mp-text-center" id="save_election" type="submit">
+                                    <span>CREATE ELECTION</span>
                                 </a>
-
+                                <!-- <a class="up-button btn-md button-animate-right mp-text-center" id="save_draft_election">
+                                    <span>SAVE DRAFT ELECTION</span>
+                                </a> -->
+                                <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_election">
+                                    <span>CLEAR SETUP</span>
+                                </a>
 
 
                             </div>
@@ -92,14 +93,15 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </label>
                     <div class="top-label">
-                        <label>Manage Candidates</label>
+                        <label class="election_modal_title">Manage Candidates</label>
                         <br>
                         <button class="mp-input-group__label button-active button-menu" id="sg15_button">1-15 Category</button>
                         <button class="mp-input-group__label button-menu" id="sg16_button">16 Above Category</button>
 
                         <div id="candidates_sg15">
-                            {{ csrf_field() }}
-                            <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
+                            <form id="addCandidateForm" method="" enctype="multipart/form-data" style="height: calc(100% - 100px) !important;">
+                                @csrf
 
                                 <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
                                     <input type="hidden" id="app_trailNo">
@@ -109,41 +111,36 @@
 
                                     </div>
                                     <div class="mp-input-group">
-                                        <label class="mp-input-group__label">Select Cluster</label>
-                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                            <option value="">Select Cluster No.</option>
-                                            <option value="1">Cluster 1 - DSB</option>
-                                            <option value="2">Cluster 2 - LBOU</option>
-                                            <option value="3">Cluster 3 - MLAPGH</option>
-                                            <option value="4">Cluster 4 - CVM</option>
+                                        <label class="mp-input-group__label">Select Candidate Name</label> <br>
+                                        <select class="js-example-responsive mp-input-group__input mp-text-field " data-set="validate-election-field" style="width:100%; " name="candidates_dropdown" id="candidates_dropdown" required>
+
                                         </select>
                                     </div>
                                     <div class="mp-input-group">
-                                        <label class="mp-input-group__label">Select Campus</label>
-                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                            <option value="1">Campus 1</option>
-                                            <option value="0">Campus 2</option>
-                                        </select>
+                                        <label class="mp-input-group__label">Candidate Cluster</label>
+                                        <input style="height: 40px; " type="text" id="candidate_cluster" disabled value="" data-set="validate-election-field" class="mp-input-group__input mp-text-field radius-1 border-1  " style=" height: 30px;">
+
                                     </div>
-
-
-
                                     <div class="mp-input-group">
-                                        <label class="mp-input-group__label">Select Candidate Name</label>
-                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                            <option value="1">Name 1</option>
-                                            <option value="0">Name 2</option>
-                                        </select>
+                                        <label class="mp-input-group__label">Candidate Campus</label>
+                                        <input style="height: 40px; " type="text" id="candidate_campus" disabled value="" data-set="validate-election-field" class="mp-input-group__input mp-text-field radius-1 border-1  " style=" height: 30px;">
                                     </div>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Candidate Position</label>
+                                        <input style="height: 40px; " type="text" id="candidate_position" disabled value="" data-set="validate-election-field" class="mp-input-group__input mp-text-field radius-1 border-1  " style=" height: 30px;">
+                                    </div>
+
+
+
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">Select Candidate Image/Photo *</label>
-                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                        <input style="height: 40px;border: none;" type="file" name="candidate_photo" data-set="validate-election-field" id="candidate_photo" accept=" image/png, image/gif, image/jpeg, image/jpg" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline">
                                     </div>
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">File Attachment</label>
-                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                        <input style="height: 40px;border: none;" type="file" name="candidate_attachment" data-set="validate-election-field" id="candidate_attachment" accept="image/png, image/gif, image/jpeg, image/jpg" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline">
                                     </div>
-                                    <a class="up-button btn-md button-animate-right mp-text-center">
+                                    <a class="up-button btn-md button-animate-right mp-text-center" id="saveCandidateSG15">
                                         <span>ADD CANDIDATE</span>
                                     </a>
                                 </div>
@@ -151,53 +148,49 @@
                         </div>
 
                         <div id="candidates_sg16" class="d-none opacity-0">
-                            {{ csrf_field() }}
-                            <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
+                            <meta name="csrf-token" content="{{ csrf_token() }}">
+                            <form id="addCandidateFormSG16" method="" enctype="multipart/form-data" style="height: calc(100% - 100px) !important;">
+                                @csrf
 
                                 <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="margin-top: -2px;">
-                                    <input type="hidden" id="app_trailNo">
+
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">Salary Grade</label>
-                                        <label class="mp-input-group__label">16-Above Category</label>
+                                        <label class="mp-input-group__label">1-16 Category</label>
 
                                     </div>
                                     <div class="mp-input-group">
-                                        <label class="mp-input-group__label">Select Cluster</label>
-                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                            <option value="">Select Cluster No.</option>
-                                            <option value="1">Cluster 1 - DSB</option>
-                                            <option value="2">Cluster 2 - LBOU</option>
-                                            <option value="3">Cluster 3 - MLAPGH</option>
-                                            <option value="4">Cluster 4 - CVM</option>
+                                        <label class="mp-input-group__label">Select Candidate Name</label> <br>
+                                        <select class="js-example-responsive mp-input-group__input mp-text-field " data-set=validate-election-field2 style="width:100%; " name="candidates_dropdownSG16" id="candidates_dropdownSG16" required>
+
                                         </select>
                                     </div>
                                     <div class="mp-input-group">
-                                        <label class="mp-input-group__label">Select Campus</label>
-                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                            <option value="1">Campus 1</option>
-                                            <option value="0">Campus 2</option>
-                                        </select>
+                                        <label class="mp-input-group__label">Candidate Cluster</label>
+                                        <input style="height: 40px; " type="text" id="candidate_clusterSG16" data-set=validate-election-field2 disabled value="" class="mp-input-group__input mp-text-field radius-1 border-1  " style=" height: 30px;">
+
                                     </div>
-
-
-
                                     <div class="mp-input-group">
-                                        <label class="mp-input-group__label">Select Candidate Name</label>
-                                        <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                            <option value="1">Name 1</option>
-                                            <option value="0">Name 2</option>
-                                        </select>
+                                        <label class="mp-input-group__label">Candidate Campus</label>
+                                        <input style="height: 40px; " type="text" id="candidate_campusSG16" data-set=validate-election-field2 disabled value="" class="mp-input-group__input mp-text-field radius-1 border-1  " style=" height: 30px;">
                                     </div>
+                                    <div class="mp-input-group">
+                                        <label class="mp-input-group__label">Candidate Position</label>
+                                        <input style="height: 40px; " type="text" id="candidate_positionSG16" data-set=validate-election-field2 disabled value="" class="mp-input-group__input mp-text-field radius-1 border-1  " style=" height: 30px;">
+                                    </div>
+
+
+
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">Select Candidate Image/Photo *</label>
-                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                        <input style="height: 40px;border: none;" type="file" name="candidate_photoSG16" data-set=validate-election-field2 id="candidate_photoSG16" accept=" image/png, image/gif, image/jpeg, image/jpg" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline">
                                     </div>
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">File Attachment</label>
-                                        <input style="height: 40px;border: none;" type="file" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline" style=" height: 30px;">
+                                        <input style="height: 40px;border: none;" type="file" name="candidate_attachmentSG16" data-set=validate-election-field2 id="candidate_attachmentSG16" accept="image/png, image/gif, image/jpeg, image/jpg" class="mp-input-group__input mp-text-field radius-1 border-1 date-input outline">
                                     </div>
-                                    <a class="up-button btn-md button-animate-right mp-text-center">
-                                        <span>ADD CANDIDATE</span>
+                                    <a class="up-button btn-md button-animate-right mp-text-center" id="saveCandidateSG16">
+                                        <span>ADD CANDIDATE </span>
                                     </a>
                                 </div>
                             </form>
@@ -217,7 +210,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </label>
                     <div class="top-label">
-                        <label>Edit Info</label>
+                        <label class="election_modal_title"> Edit Info</label>
                         <br>
                         {{ csrf_field() }}
                         <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
@@ -280,7 +273,7 @@
                         <i class="fa fa-times" aria-hidden="true"></i>
                     </label>
                     <div class="top-label">
-                        <label>Denneb Gomez - President | Attachment</label>
+                        <label class="election_modal_title">Denneb Gomez - President | Attachment</label>
                         <br>
                         {{ csrf_field() }}
                         <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(100% - 100px) !important;">
@@ -1019,8 +1012,7 @@
         margin-top: 100px;
         padding: 0;
         border-radius: 17px;
-        transition: all .5s;
-        padding-bottom: 30px;
+        transition: all 1s;
     }
 
     .modalBody {
@@ -1155,6 +1147,16 @@
         margin: 10px;
         font-size: 25px;
     }
+
+    .selection {
+        font-size: 12px !important;
+    }
+
+    .empty-candidates {
+        text-align: center;
+        border: 1px solid #adaaaa;
+        padding: 20px;
+    }
 </style>
 
 
@@ -1168,19 +1170,19 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
-                <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
+                <div class="mp-card admin-settingtab election-tab-shrink" style="padding-bottom:150px;">
                     <div class="settings-tab">
                         <div class="top-label">
                             <label>Election Module</label>
-                            <i class="fa fa-cog" aria-hidden="true"></i>
+
                         </div>
 
                         <div class="settings-buttons">
                             <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
-                                <li class="options " onclick="location.href='/admin/create-election'">
+                                <!-- <li class="options " onclick="location.href='/admin/create-election'">
                                     <a href="#" class="no-padding ">Create New Election</a><br>
 
-                                </li>
+                                </li> -->
                                 <li class="options options-active" onclick="location.href='/admin/election-record'">
                                     <a href="#" class="no-padding options-a-active">Election Records</a><br>
 
@@ -1201,6 +1203,11 @@
                 <div class="button-container mp-mb3">
                     <button class="f-button magenta-bg" id="showSettings">Hide Tab</button>
                 </div>
+                <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
+                    <a href="/admin/election-record/" style="margin-left:-10px;"><span class="  back-button-default">
+                            < Back </span></a>
+
+                </div>
                 <div class="mp-card  mp-ph2 mp-pv2">
                     <div class="container-fluid">
                         <div class="row">
@@ -1208,8 +1215,6 @@
                                 <div class="top-label">
 
                                     <div class="setup-election">
-
-
 
                                         <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;">
                                             <h4 style="color: white;
@@ -1270,9 +1275,9 @@
                                                     <span>Open Election</span>
                                                 </a>
 
-                                                <a id="open_edit_modal" class="up-button btn-md button-animate-right mp-text-center">
+                                                <!-- <a id="open_edit_modal" class="up-button btn-md button-animate-right mp-text-center">
                                                     <span>Update Election</span>
-                                                </a>
+                                                </a> -->
 
 
 
@@ -1296,128 +1301,89 @@
                                     <div class="setup-election">
                                         <br>
 
-                                        {{ csrf_field() }}
-                                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;">
+
+                                        <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;  border-bottom: none;">
+
                                             <h4 style="color: white;
                                             padding: 15px;
                                             background-color: var(--c-accent);
                                             margin: 0;width: 100%;">Salary Grade 1-15
                                             </h4>
 
+                                            @forelse($candidates_detailsSG15 as $candidate_rowSG15)
 
                                             <div class="container-fluid">
                                                 <div class="row" style="padding: 25px;">
                                                     <div class="col-4">
 
                                                         <div class="profile-img">
-                                                            <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                                            <img src="{{ storage_path('app/public/candidates/'.$candidate_rowSG15->candidate_photo) }}" alt="">
+
                                                         </div>
                                                     </div>
                                                     <div class="col-8">
                                                         <div class="profile-text">
-                                                            <span>Denneb Gomez</span>
-                                                            <span> 1231231312</span>
-                                                            <span> Up Losbanos / Farm Worker</span>
+                                                            <span>{{ $candidate_rowSG15->firstname }} {{ $candidate_rowSG15->middlename }} {{ $candidate_rowSG15->lastname }}</span>
+                                                            <span> {{ $candidate_rowSG15->membership_id }}</span>
+                                                            <span> {{ $candidate_rowSG15->campus_name }} / {{ $candidate_rowSG15->classification }}</span>
 
                                                         </div>
                                                         <div class="profile-button">
 
                                                             <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
                                                             <button type="button" class="up-button-green" id="changeButton">Change</button>
-                                                            <button type="button" class="up-button-red" id="removeButton">Remove</button>
+                                                            <button type="button" class="up-button-red" id="removeButton" value="{{$candidate_rowSG15->candidate_id}}">Remove</button>
 
                                                         </div>
 
                                                     </div>
                                                 </div>
                                             </div>
+                                            @empty
+                                            <p class="empty-candidates">No SG 1-15 Candidates Yet</p>
+                                            @endforelse
 
-                                            <div class="container-fluid">
-                                                <div class="row" style="padding: 25px;">
-                                                    <div class="col-4">
-
-                                                        <div class="profile-img">
-                                                            <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-8">
-                                                        <div class="profile-text">
-                                                            <span>Denneb Gomez</span>
-                                                            <span> 1231231312</span>
-                                                            <span> Up Losbanos / Farm Worker</span>
-
-                                                        </div>
-                                                        <div class="profile-button">
-                                                            <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
-                                                            <button type="button" class="up-button-green" id="changeButton">Change</button>
-                                                            <button type="button" class="up-button-red" id="removeButton">Remove</button>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
 
                                         </form>
+
                                     </div>
 
 
                                     <br>
 
                                     {{ csrf_field() }}
-                                    <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important;">
+
+                                    <form id="classif_form" class="mh-reg-form form-border-bottom" style="height: calc(50% - 100px) !important; border-bottom: none;">
+
                                         <h4 style="color: white;
                                             padding: 15px;
                                             background-color: var(--c-accent);
-                                            margin: 0;width: 100%;">Salary Grade 16-above
+                                            margin: 0;width: 100%;">Salary Grade 16-Above
                                         </h4>
 
-                                        <br>
+                                        @forelse($candidates_detailsSG16 as $candidate_rowSG16)
+
                                         <div class="container-fluid">
                                             <div class="row" style="padding: 25px;">
                                                 <div class="col-4">
 
                                                     <div class="profile-img">
-                                                        <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                                        <img src="{{ storage_path('app/public/candidates/'.$candidate_rowSG16->candidate_photo) }}" alt="">
+
                                                     </div>
                                                 </div>
                                                 <div class="col-8">
                                                     <div class="profile-text">
-                                                        <span>Denneb Gomez</span>
-                                                        <span> 1231231312</span>
-                                                        <span> Up Losbanos / Farm Worker</span>
+                                                        <span>{{ $candidate_rowSG16->firstname }} {{ $candidate_rowSG16->middlename }} {{ $candidate_rowSG16->lastname }}</span>
+                                                        <span> {{ $candidate_rowSG16->membership_id }}</span>
+                                                        <span> {{ $candidate_rowSG16->campus_name }} / {{ $candidate_rowSG16->classification }}</span>
 
                                                     </div>
                                                     <div class="profile-button">
 
                                                         <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
                                                         <button type="button" class="up-button-green" id="changeButton">Change</button>
-                                                        <button type="button" class="up-button-red" id="removeButton">Remove</button>
-
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="container-fluid">
-                                            <div class="row" style="padding: 25px;">
-                                                <div class="col-4">
-
-                                                    <div class="profile-img">
-                                                        <img src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-8">
-                                                    <div class="profile-text">
-                                                        <span>Denneb Gomez</span>
-                                                        <span> 1231231312</span>
-                                                        <span> Up Losbanos / Farm Worker</span>
-
-                                                    </div>
-                                                    <div class="profile-button">
-
-                                                        <button type="button" class="up-button" id="viewAttachmentButton">View Attachment</button>
-                                                        <button type="button" class="up-button-green" id="changeButton">Change</button>
-                                                        <button type="button" class="up-button-red" id="removeButton">Remove</button>
+                                                        <button type="button" class="up-button-red" id="removeButton" value="{{$candidate_rowSG16->candidate_id}}">Remove</button>
 
                                                     </div>
 
@@ -1426,10 +1392,12 @@
                                         </div>
 
 
-
-
+                                        @empty
+                                        <p class="empty-candidates">No SG 16-33 Candidates Yet</p>
+                                        @endforelse
 
                                     </form>
+
                                 </div>
 
 
@@ -1469,7 +1437,7 @@
             $("#electionModal").addClass("d-none")
             $("#viewAttachmentModal").addClass("d-none")
             $("#changeModal").addClass("d-none")
-        }, 100)
+        }, 1000)
     }
     $(document).on('click', '#closeModal', function(e) {
         $("#modalBackDrop").addClass("opacity-0")
@@ -1519,7 +1487,8 @@
     })
 
     $(document).on('click', '#addCandidates', function(e) {
-
+        $("#candidates_dropdown").html("");
+        $("#candidates_dropdownSG16").html("");
         $("#modalBackDrop").removeClass("d-none")
         $("#electionModal").addClass("d-none")
         $("#electionModal").addClass("opacity-0")
@@ -1528,6 +1497,255 @@
         setTimeout(function() {
             $("#modalBackDrop").removeClass("opacity-0")
         }, 100)
+
+
+        //get members dropdown serach
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('election_candidates_list') }}",
+            data: {
+                sg_category: "SG15"
+            },
+            success: function(data) {
+                console.log(data)
+                $.each(data, function(key, value) {
+                    var fullname = value.firstname + " " + value.middlename + " " + value.lastname;
+                    $("#candidates_dropdown").append("<option value='" + value.mem_id + "' data-cluster_id='" + value.cluster_id + "' data-campus_name='" +
+                        value.campus_name + "' data-campus_id='" + value.campus_id + "' data-position='" + value.classification + "'" +
+                        "data-personal_id='" + value.personal_id + "' >" + value.employee_no + "- " + fullname + "</option>");
+
+                    if (key == 0) {
+                        $("#candidate_cluster").val(clusterNameIdentifier(value.cluster_id)).trigger("change");
+                        $("#candidate_campus").val(value.campus_name).trigger("change");
+                        $("#candidate_position").val(value.classification).trigger("change");
+                    }
+                });
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: "{{ route('election_candidates_list') }}",
+            data: {
+                sg_category: "SG16"
+            },
+            success: function(data) {
+                console.log(data)
+                $.each(data, function(key, value) {
+
+                    var fullname = value.firstname + " " + value.middlename + " " + value.lastname;
+                    $("#candidates_dropdownSG16").append("<option value='" + value.mem_id + "' data-cluster_id='" + value.cluster_id + "' data-campus_name='" +
+                        value.campus_name + "' data-campus_id='" + value.campus_id + "' data-position='" + value.classification + "'" +
+                        "data-personal_id='" + value.personal_id + "' >" + value.employee_no + "- " + fullname + "</option>");
+                    if (key == 0) {
+                        $("#candidate_clusterSG16").val(clusterNameIdentifier(value.cluster_id)).trigger("change");
+                        $("#candidate_campusSG16").val(value.campus_name).trigger("change");
+                        $("#candidate_positionSG16").val(value.classification).trigger("change");
+                    }
+
+                });
+            }
+        });
+
+    })
+
+
+
+    function clusterNameIdentifier(id) {
+        if (id == 1) {
+            return "Cluster 1 - DSB";
+        } else if (id == 2) {
+            return "Cluster 2 - LBOU";
+        } else if (id == 3) {
+            return "Cluster 3 - MLAPGH";
+        } else if (id == 4) {
+            return "Cluster 4 - CVM";
+        }
+    }
+    $("#candidates_dropdown").change(function() {
+        console.log(selected_campus_id)
+        var selected_cluster = $(this).find(':selected').data('cluster_id');
+        var selected_campus_name = $(this).find(':selected').data('campus_name');
+        var selected_position = $(this).find(':selected').data('position');
+        var selected_campus_id = $(this).find(':selected').data('campus_id');
+        var selected_membership_id = $(this).val();
+
+        $("#candidate_cluster").val(clusterNameIdentifier(selected_cluster)).trigger("change");
+        $("#candidate_campus").val(selected_campus_name).trigger("change");
+        $("#candidate_position").val(selected_position).trigger("change");
+    });
+
+
+    $("#candidates_dropdownSG16").change(function() {
+        var selected_cluster = $(this).find(':selected').data('cluster_id');
+        var selected_campus_name = $(this).find(':selected').data('campus_name');
+        var selected_position = $(this).find(':selected').data('position');
+        var selected_campus_id = $(this).find(':selected').data('campus_id');
+        var selected_membership_id = $(this).val();
+
+
+        $("#candidate_clusterSG16").val(clusterNameIdentifier(selected_cluster)).trigger("change");
+        $("#candidate_campusSG16").val(selected_campus_name).trigger("change");
+        $("#candidate_positionSG16").val(selected_position).trigger("change");
+    });
+    $(document).on('click', '#saveCandidateSG15', function(e) {
+
+
+        let hasError = false
+
+        const elements = $(document).find(`[data-set=validate-election-field]`)
+
+        elements.map(function() {
+
+            if ($(this).attr('err-name')) {
+                return
+            }
+
+            let status = true
+            status = validateField({
+                element: $(this),
+                target: 'validate-election-field'
+            })
+
+            if (!hasError && status) {
+                hasError = true
+            }
+        })
+
+        if (hasError) return
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var form = $('#addCandidateForm')[0];
+        var formData = new FormData(form);
+        var photoFile = $('#candidate_photo')[0].files;
+        var attachmentFile = $('#candidate_attachment')[0].files;
+
+        var sg_category = "1-15";
+        var selected_cluster = $('#candidates_dropdown').find(':selected').data('cluster_id');
+        var selected_campus_id = $('#candidates_dropdown').find(':selected').data('campus_id');
+        var selected_position = $('#candidates_dropdown').find(':selected').data('position');
+        var selected_personal_id = $('#candidates_dropdown').find(':selected').data('personal_id');
+        var selected_membership_id = $('#candidates_dropdown').val();
+
+        formData.append('cluster_id', $('#candidates_dropdown').find(':selected').data('cluster_id'));
+        formData.append('campus_id', $('#candidates_dropdown').find(':selected').data('campus_id'));
+        formData.append('election_id', <?php echo json_encode($election_details->election_id) ?>);
+        formData.append('membership_id', $('#candidates_dropdown').val());
+        formData.append('sg_category', sg_category);
+        formData.append('candidate_photo', photoFile[0]);
+        formData.append('candidate_attachment', attachmentFile[0]);
+        formData.append('personal_id', $('#candidates_dropdown').find(':selected').data('personal_id'));
+
+        $.ajax({
+            url: "{{ route('add_candidates') }}",
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                closeModal();
+                Swal.fire({
+                    text: 'SG 1-15 Candidate has been created Successfully.',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok',
+                }).then(okay => {
+                    if (okay) {
+                        location.reload();
+                    }
+                });
+            },
+        });
+
+    })
+
+    $(document).on('click', '#saveCandidateSG16', function(e) {
+        let hasError = false
+
+        const elements = $(document).find(`[data-set=validate-election-field2]`)
+
+        elements.map(function() {
+
+            if ($(this).attr('err-name')) {
+                return
+            }
+
+            let status = true
+            status = validateField({
+                element: $(this),
+                target: 'validate-election-field2'
+            })
+
+            if (!hasError && status) {
+                hasError = true
+            }
+        })
+
+        if (hasError) return
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        var form = $('#addCandidateFormSG16')[0];
+        var formData = new FormData(form);
+        var photoFile = $('#candidate_photoSG16')[0].files;
+        var attachmentFile = $('#candidate_attachmentSG16')[0].files;
+
+        var sg_categorySG16 = "16-33";
+        var selected_cluster = $('#candidates_dropdownSG16').find(':selected').data('cluster_id');
+        var selected_campus_id = $('#candidates_dropdownSG16').find(':selected').data('campus_id');
+        var selected_position = $('#candidates_dropdownSG16').find(':selected').data('position');
+        var selected_membership_id = $('#candidates_dropdownSG16').val();
+        var selected_personal_id = $('#candidates_dropdown16').find(':selected').data('personal_id');
+
+        formData.append('cluster_idSG16', $('#candidates_dropdownSG16').find(':selected').data('cluster_id'));
+        formData.append('campus_idSG16', $('#candidates_dropdownSG16').find(':selected').data('campus_id'));
+        formData.append('election_idSG16', <?php echo json_encode($election_details->election_id) ?>);
+        formData.append('membership_idSG16', $('#candidates_dropdownSG16').val());
+        formData.append('sg_category', sg_categorySG16);
+        formData.append('candidate_photoSG16', photoFile[0]);
+        formData.append('candidate_attachmentSG16', attachmentFile[0]);
+        formData.append('personal_idSG16', $('#candidates_dropdownSG16').find(':selected').data('personal_id'));
+
+        // console.log(election_id);
+        // console.log(selected_membership_id);
+        console.log(photoFile[0])
+        $.ajax({
+            url: "{{ route('add_candidates') }}",
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            success: function(data) {
+                console.log(data);
+                closeModal();
+                Swal.fire({
+                    text: 'SG 16-33 Candidate has been created Successfully.',
+                    icon: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok',
+                }).then(okay => {
+                    if (okay) {
+                        location.reload();
+                    }
+                });
+            },
+        });
+
     })
 
     $(document).on('click', '#viewAttachmentButton', function(e) {
@@ -1561,7 +1779,38 @@
         }).then((result) => {
 
             if (result.isDenied) {
-                Swal.fire('Deleted!', '', 'success')
+                var value = $(this).attr("value");
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "{{ route('delete-candidate') }}",
+                    method: "POST",
+                    data: {
+                        candidate_id: value
+                    },
+                    dataType: "json",
+                    success: function(data) {
+                        console.log(data);
+                        if (data.success == true) {
+                            Swal.fire({
+                                text: 'Candidate has been deleted successfully.',
+                                icon: 'success',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Ok',
+                            }).then(okay => {
+                                if (okay) {
+                                    location.reload();
+                                }
+                            });
+                        } else {
+                            Swal.fire('Something went wrong!', '', 'error')
+                        }
+                    }
+                });
+
             }
         })
 
@@ -1652,6 +1901,8 @@
         });
     });
 
+
+
     $(document).on('click', '#open_election', function() {
 
 
@@ -1721,15 +1972,18 @@
     $(document).on('click', "#sg15_button", function() {
         showSG15();
         hideSG16();
-        activeSG15()
+        activeSG15();
 
     });
 
     $(document).on('click', "#sg16_button", function() {
         hideSG15();
         showSG16();
-        activeSG16()
+        activeSG16();
+
     });
+
+
 
 
     function hideSG15() {

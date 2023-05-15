@@ -1495,257 +1495,245 @@
  </script>
  <div class="filler"></div>
  <div class="members-module">
-     <div class="siderbar d-flex flex-column showed" style="position:relative">
-         <span class="toggle-icon" style="cursor: pointer">
-             <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
-             <i class="fa fa-chevron-circle-right mp-text-fs-base magenta-clr d-none" style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
-         </span>
-         <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
-             Members Module
-         </div>
-         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="0">
-             <span>
-                 New Members
-             </span>
+     <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
+         <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
+             <div class="settings-tab">
+                 <div class="top-label">
+                     <label>Members Module</label>
 
-         </div>
-         <div class="item flex-column gap-5 mp-ph3 mp-pv3 " id="sider-item" data-set="1">
-             <span>
-                 Master List
-             </span>
+                 </div>
 
-         </div>
-         <div class="item flex-column gap-5 mp-ph3 mp-pv3 " id="sider-item" data-set="2">
-             <span>
-                 Members Summary Reports
-             </span>
+                 <div class="settings-buttons">
+                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                         <li class="options " onclick="location.href='/admin/members/new-members'">
+                             <a href="#" class="no-padding"> New Members</a><br>
 
-         </div>
-         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
-             <span>
-                 Contribution Reports
-             </span>
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members'">
+                             <a href="#" class="no-padding"> Master List</a><br>
 
-         </div>
-         <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="4">
-             <span>
-                 Insurance Reports
-             </span>
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members/summary-reports'">
+                             <a href="#" class="no-padding">Summary Reports</a><br>
 
-         </div>
-         <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="5">
-             <span>
-                 Members Voter List
-             </span>
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members/contribution-reports'">
+                             <a href="#" class="no-padding"> Contribution Reports</a><br>
+
+                         </li>
+                         <li class="options options-active" onclick="location.href='/admin/members/insurance-reports'">
+                             <a href="#" class="no-padding options-a-active">Insurance Reports</a><br>
+                         </li>
+                         <li class="options" onclick="location.href='/admin/members/voter-list'">
+                             <a href="#" class="no-padding"> Members Voter List</a><br>
+                         </li>
+                     </ul>
+                 </div>
+             </div>
 
          </div>
      </div>
-     <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
-         <div class="container-fluid">
-             <div class="row">
 
-                 <div class="col-lg-12 mp-mt3 gap-10" id="settingsContent">
-                     <div class="no-gutter ml-0 mr-0 p-5px mh-content view-all-members ">
-                         <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
-                             <span class="d-inline-flex align-items-center " style="color: black;
+
+     <div class="col-lg-10 mp-mt3 gap-10" id="settingsContent">
+         <div class="button-container ">
+             <button class="f-button magenta-bg" id="showSettings">Hide Settings</button>
+         </div>
+         <div class="no-gutter ml-0 mr-0 p-5px mh-content view-all-members ">
+             <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
+                 <span class="d-inline-flex align-items-center " style="color: black;
                                 font-weight: bold;
                                 margin-bottom: 10px;">
-                                 Members Module > &nbsp; Insurance Reports
-                             </span>
+                     Members Module > &nbsp; Insurance Reports
+                 </span>
 
-                         </div>
-                         <div class="col-12 mp-pr0" style="width: 100%;">
+             </div>
+             <div class="col-12 mp-pr0" style="width: 100%;">
 
-                             <div class="w-full justify-content-center d-flex">
-                                 <div class="d-flex flex-row w-full gap-10">
-                                     <div class="d-flex flex-column gap-10 middle-content full">
-                                         <div class="card-container card p-0">
-                                             <div class="card-header filtering items-between d-flex">
-                                                 <span>Filtering Section</span>
-                                                 <span class="mp-pr2">
-                                                     <button class="f-button font-bold">Export</button>
-                                                     <button class="f-button font-bold up-button-green">Print</button>
-                                                 </span>
+                 <div class="w-full justify-content-center d-flex">
+                     <div class="d-flex flex-row w-full gap-10">
+                         <div class="d-flex flex-column gap-10 middle-content full">
+                             <div class="card-container card p-0">
+                                 <div class="card-header filtering items-between d-flex">
+                                     <span>Filtering Section</span>
+                                     <span class="mp-pr2">
+                                         <button class="f-button font-bold">Export</button>
+                                         <button class="f-button font-bold up-button-green">Print</button>
+                                     </span>
+                                 </div>
+
+
+                                 <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
+
+                                     <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr); font-size:12px;">
+                                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                             <span>Campus</span>
+                                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campuses_select">
+                                                 <option value="">Show All</option>
+
+                                             </select>
+                                         </span>
+                                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                             <span>Cluster</span>
+                                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
+                                                 <option value="">Show All</option>
+
+                                             </select>
+                                         </span>
+                                         <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
+                                             <span>Membership Date</span>
+                                             <div class="date_range d-flex">
+                                                 <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                 <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
+                                                 <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                              </div>
+                                         </span>
+                                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                             <span>Status</span>
+                                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status_select">
+                                                 <option value="">Show All</option>
+                                                 <option value="DRAFT APPLICATION">W/ Insurance</option>
+                                                 <option value="NEW APPLICATION">W/O Insurance</option>
+
+                                             </select>
+                                         </span>
+                                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                             <span>Mode Of Seperation</span>
+                                             <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="remarks_select">
+                                                 <option value="">All</option>
+                                                 <option value="AA VERIFIED">Retirement</option>
+                                                 <option value="FORWARDED TO HRDO">Resignation</option>
+                                                 <option value="FORWARDED TO FM">Withdrawal</option>
+                                                 <option value="HRDO RETURNED APPLICATIONS">Death</option>
+                                                 <option value="HRDO RETURNED APPLICATIONS">InActive</option>
+                                             </select>
+                                         </span>
+                                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
+                                             @if(Auth::user()->user_level == 'ADMIN')
+                                             <span>View User Option</span>
+                                             <select name="view_all" id="view_all" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;" <?= Auth::user()->user_level != 'ADMIN' ? 'disabled' : '' ?>>
+                                                 <option value="">All Records</option>
+                                                 <option value="AA" <?= Auth::user()->user_level == 'AA' ? 'selected' : '' ?>>AO</option>
+                                                 <option value="CFM" <?= Auth::user()->user_level == 'CFM' ? 'selected' : '' ?>>CFM</option>
+                                                 <option value="HRDO" <?= Auth::user()->user_level == 'HRDO' ? 'selected' : '' ?>>HRDO</option>
+                                             </select>
+                                             @endif
 
 
-                                             <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
-
-                                                 <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr); font-size:12px;">
-                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                         <span>Campus</span>
-                                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campuses_select">
-                                                             <option value="">Show All</option>
-
-                                                         </select>
-                                                     </span>
-                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                         <span>Cluster</span>
-                                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
-                                                             <option value="">Show All</option>
-
-                                                         </select>
-                                                     </span>
-                                                     <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                                                         <span>Membership Date</span>
-                                                         <div class="date_range d-flex">
-                                                             <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                                             <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                                             <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                                         </div>
-                                                     </span>
-                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                         <span>Status</span>
-                                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status_select">
-                                                             <option value="">Show All</option>
-                                                             <option value="DRAFT APPLICATION">W/ Insurance</option>
-                                                             <option value="NEW APPLICATION">W/O Insurance</option>
-
-                                                         </select>
-                                                     </span>
-                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                         <span>Mode Of Seperation</span>
-                                                         <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="remarks_select">
-                                                             <option value="">All</option>
-                                                             <option value="AA VERIFIED">Retirement</option>
-                                                             <option value="FORWARDED TO HRDO">Resignation</option>
-                                                             <option value="FORWARDED TO FM">Withdrawal</option>
-                                                             <option value="HRDO RETURNED APPLICATIONS">Death</option>
-                                                             <option value="HRDO RETURNED APPLICATIONS">InActive</option>
-                                                         </select>
-                                                     </span>
-                                                     <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
-                                                         @if(Auth::user()->user_level == 'ADMIN')
-                                                         <span>View User Option</span>
-                                                         <select name="view_all" id="view_all" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;" <?= Auth::user()->user_level != 'ADMIN' ? 'disabled' : '' ?>>
-                                                             <option value="">All Records</option>
-                                                             <option value="AA" <?= Auth::user()->user_level == 'AA' ? 'selected' : '' ?>>AO</option>
-                                                             <option value="CFM" <?= Auth::user()->user_level == 'CFM' ? 'selected' : '' ?>>CFM</option>
-                                                             <option value="HRDO" <?= Auth::user()->user_level == 'HRDO' ? 'selected' : '' ?>>HRDO</option>
-                                                         </select>
-                                                         @endif
-
-
-                                                     </span>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                         <div class="card d-flex flex-column">
-                                             <div class="d-flex flex-row items-between">
-                                                 <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value" />
-
-
-                                             </div>
-                                             <div class="mp-mt3 table-container">
-                                                 <table class="members-table" style="height: auto;" width="100%">
-                                                     <thead>
-                                                         <tr>
-                                                             <th style="width:40px">
-                                                                 <span>#</span>
-                                                             </th>
-
-                                                             <th>
-                                                                 <span>Members ID</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Member Name</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Membership Date</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Campus</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Class</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Insurance</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>MO's</span>
-                                                             </th>
-                                                             <th>
-                                                                 <span>Action</span>
-                                                             </th>
-
-                                                         </tr>
-                                                     </thead>
-
-                                                     <tbody>
-                                                         <tr>
-                                                             <td>
-                                                                 <span>
-                                                                     1
-                                                                 </span>
-                                                             </td>
-
-                                                             <td>
-                                                                 <span>
-                                                                     1231232
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     Member Name
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     January 20, 1999
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     Up Diliman
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     Class A
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     Yes
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     Death
-                                                                 </span>
-                                                             </td>
-                                                             <td>
-                                                                 <span>
-                                                                     <button href="#" class="view_member md-tooltip--right view-member" style="cursor: pointer">
-
-                                                                         <i class="fa fa-file mp-icon mp-text-c-primary mp-text-fs-large" aria-hidden="true"></i>
-                                                                     </button>
-                                                                     <button href="#" class="view_member md-tooltip--right view-member" style="cursor: pointer">
-
-                                                                         <i class="fa fa-plus-square mp-icon mp-text-c-primary mp-text-fs-large" aria-hidden="true"></i>
-                                                                     </button>
-                                                                 </span>
-                                                             </td>
-                                                         </tr>
-
-                                                     </tbody>
-
-
-
-                                                 </table>
-
-                                             </div>
-                                         </div>
+                                         </span>
                                      </div>
+                                 </div>
+                             </div>
+                             <div class="card d-flex flex-column">
+                                 <div class="d-flex flex-row items-between">
+                                     <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value" />
+
+
+                                 </div>
+                                 <div class="mp-mt3 table-container">
+                                     <table class="members-table" style="height: auto;" width="100%">
+                                         <thead>
+                                             <tr>
+                                                 <th style="width:40px">
+                                                     <span>#</span>
+                                                 </th>
+
+                                                 <th>
+                                                     <span>Members ID</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Member Name</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Membership Date</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Campus</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Class</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Insurance</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>MO's</span>
+                                                 </th>
+                                                 <th>
+                                                     <span>Action</span>
+                                                 </th>
+
+                                             </tr>
+                                         </thead>
+
+                                         <tbody>
+                                             <tr>
+                                                 <td>
+                                                     <span>
+                                                         1
+                                                     </span>
+                                                 </td>
+
+                                                 <td>
+                                                     <span>
+                                                         1231232
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         Member Name
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         January 20, 1999
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         Up Diliman
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         Class A
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         Yes
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         Death
+                                                     </span>
+                                                 </td>
+                                                 <td>
+                                                     <span>
+                                                         <button href="#" class="view_member md-tooltip--right view-member" style="cursor: pointer">
+
+                                                             <i class="fa fa-file mp-icon mp-text-c-primary mp-text-fs-large" aria-hidden="true"></i>
+                                                         </button>
+                                                         <button href="#" class="view_member md-tooltip--right view-member" style="cursor: pointer">
+
+                                                             <i class="fa fa-plus-square mp-icon mp-text-c-primary mp-text-fs-large" aria-hidden="true"></i>
+                                                         </button>
+                                                     </span>
+                                                 </td>
+                                             </tr>
+
+                                         </tbody>
+
+
+
+                                     </table>
+
                                  </div>
                              </div>
                          </div>
                      </div>
-
-
                  </div>
-
              </div>
          </div>
 
@@ -1757,6 +1745,24 @@
 
 
  <script>
+     $(document).on('click', '#showSettings', function(e) {
+         if ($("#settingsTab").hasClass("col-lg-2")) {
+             $("#settingsTab").addClass("d-none");
+             $("#settingsTab").removeClass("col-lg-2");
+             $("#settingsContent").removeClass("col-lg-10");
+             $("#settingsContent").addClass("col-lg-12");
 
+             $("#showSettings").text("Show Settings")
+
+         } else {
+             $("#settingsTab").removeClass("d-none");
+             $("#settingsTab").addClass("col-lg-2");
+             $("#settingsContent").removeClass("col-lg-12");
+             $("#settingsContent").addClass("col-lg-10");
+
+             $("#showSettings").text("Hide Settings")
+         }
+
+     })
  </script>
  @endsection

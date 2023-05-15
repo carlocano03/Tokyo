@@ -174,6 +174,10 @@ dfn {
     font-style: italic
 }
 
+.fs-italic {
+    font-style: italic
+}
+
 b,
 strong {
     font-weight: bolder
@@ -609,6 +613,7 @@ html {
 @media (min-width:656px) {
 
 
+
     .container {
         max-width: 656px
     }
@@ -644,6 +649,7 @@ html {
 }
 
 @media (min-width:992px) {
+
     .container {
         max-width: 960px
     }
@@ -2640,8 +2646,8 @@ ul {
 }
 
 .mp-dashboard__title {
-    font-size: 2rem;
-    font-size: var(--fs-xxlarge)
+    font-size: 3rem;
+    /* font-size: var(--fs-xxlarge) */
 }
 
 .mp-dashboard__body {
@@ -2681,7 +2687,7 @@ ul {
     fill: var(--c-primary-80)
 }
 
-@media (min-width:576px) {
+/* @media (min-width:576px) {
     .mp-dashboard__title {
         font-size: 2.5rem;
         font-size: var(--fs-xxxlarge)
@@ -2693,7 +2699,7 @@ ul {
         font-size: 2rem;
         font-size: var(--fs-xxlarge)
     }
-}
+} */
 
 @media (min-width:992px) {
     .mp-dashboard__body {
@@ -2705,10 +2711,10 @@ ul {
         z-index: auto
     }
 
-    .mp-dashboard__title {
+    /* .mp-dashboard__title {
         font-size: 2.5rem;
         font-size: var(--fs-xxxlarge)
-    }
+    } */
 }
 
 body,
@@ -5289,6 +5295,14 @@ tfoot {
     width: 100%;
 }
 
+.w-400-px {
+    width: 400px;
+}
+
+.w-300-px {
+    width: 300px;
+}
+
 .gap-10 {
     gap: 10px;
 }
@@ -5511,6 +5525,11 @@ tfoot {
 .reg-title {
     font-size: 1.17rem;
     font-size: var(--fs-large)
+}
+
+.dashboard-total-title {
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
 .ml-auto {
@@ -6357,10 +6376,33 @@ tfoot {
 
 .magenta-bg {
     background-color: #1a8981;
+    color: white !important;
+}
+
+.magenta-bg-dark {
+    background-color: #00c2b5;
+}
+.magenta-clr {
+    color: #1a8981 !important;
+}
+
+.white-clr {
+    color: white !important;
+}
+
+.black-clr {
+    color: black !important;
+}
+
+.black-bg {
+    background-color: black !important;
 }
 
 .maroon-bg {
     background-color: #894168;
+}
+.maroon-bg-dark {
+    background-color: #b68ba1;
 }
 
 .red-bg {
@@ -6451,10 +6493,18 @@ tfoot {
 
 .mh-content {
     height: calc(100vh - 50px) !important;
-    overflow-y: auto !important;
 }
 
+.admin-settingtab {
+    height: 1500px;
+}
+
+
 @media (max-width:1244px) {
+    .admin-settingtab {
+        height: 1220px;
+    }
+
     .mh-content {
         height: calc(100vh - 100px) !important;
         overflow-y: scroll !important;
@@ -6462,6 +6512,11 @@ tfoot {
 }
 
 @media (max-width:655px) {
+    .admin-settingtab {
+        margin-top: 50px;
+        height: 220px;
+    }
+
     .top-items {
         font-size: 14px !important;
         margin-left: 20px;
@@ -6496,9 +6551,6 @@ tfoot {
     border: 1px solid var(--c-red-clr-80) !important;
 }
 
-.admin-settingtab {
-    height: 1500px;
-}
 
 
 .disabled {
@@ -6510,6 +6562,16 @@ tfoot {
 
 .gray-bg {
     background-color: #969696 !important;
+    color: #ececec !important;
+    color: var(--c-base-10) !important
+}
+
+.gray-clr {
+    color: #969696 !important;
+}
+
+.gray-bg-light {
+    background-color: #d1d1d1 !important;
     color: #ececec !important;
     color: var(--c-base-10) !important
 }
@@ -6625,6 +6687,10 @@ tfoot {
     height: 100%;
 }
 
+.h-auto {
+    height: auto;
+}
+
 text.highcharts-credits {
     display: none;
 }
@@ -6737,6 +6803,18 @@ text.highcharts-credits {
     border: 1px solid #ececec;
 }
 
+.tb-card {
+    width: 100%;
+    background-color: #fff;
+    background-color: var(--c-white);
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 1px 3px 0 var(--c-shadow);
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch
+}
+
 .payroll-table>thead>tr>th {
     font-size: 13px;
     padding-left: 5px;
@@ -6827,4 +6905,186 @@ text.highcharts-credits {
 #message-box {
     padding: 20px;
     border: solid 2px #dcd6d6;
+}
+
+.settings-buttons {
+    font-size: 15px;
+}
+
+.back-button-default {
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.back-button-default:hover {
+    color: grey;
+}
+
+
+
+.new-peldiv strong {
+    display: flex;
+    text-align: left;
+    padding-left: 5%;
+}
+
+.new-peldiv strong > span > i {
+    margin-top: 3px;
+    margin-left: 3px;
+}
+
+.flex-form {
+    display: flex;
+    padding-left: 10%;
+    gap: 10px;
+
+}
+
+.flex-form-col-2 {
+    display: flex;
+    padding-left: 0;
+    gap: 10px;
+}
+
+.flex-form input {
+    height: 32px;
+}
+.flex-form label {
+    margin-top: 4px;
+}
+.flex-form-margin {
+    margin-left: 0px;
+}
+
+.flex-form-padding {
+    padding-left: 0px;
+}
+
+.new-peldiv .col-12 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.new-peldiv {
+    position: relative
+}
+
+.check-form {
+    text-align: left;
+    display: inline-block;
+    padding: 6%;
+}
+
+
+
+@media (max-width:576px) {
+    .flex-form-margin > input{
+        width: 100% !important;
+    }
+    .field-filter {
+        grid-template-columns: 1fr;
+    }
+    .input-form-field-2 {
+        grid-template-columns: 1fr;
+        padding-left: 0%;
+    }
+
+    .date_range {
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .flex-form {
+        padding-left: 10px !important;
+    }
+
+    .flex-form-col-2 {
+        padding-left: 10px !important;
+    }
+
+    .check-form {
+        padding: 0;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    .new-peldiv strong {
+        padding-left: 0;
+    }
+    
+
+    .search_field {
+        width: 100%;
+        padding: 4px;
+        padding-top: 6px;
+    }
+}
+
+
+@media (min-width:1200px) {
+    .loan_container {
+        max-width: 1217px;
+    }
+}
+
+@media (max-width:768px) {
+    .input-responsive-1 {
+        width: 100%;
+    }
+}
+.election_modal_title {
+    position: absolute;
+    top: 0px;
+    margin-top: 15px;
+    left: 0px;
+    background-color: var(--c-accent);
+    color: white;
+    padding: 20px;
+    margin: 0px;
+    width: 100%;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.close-button {
+    color: white !important;
+    position: absolute;
+    right: 15 !important;
+    top: 5 !important;
+    margin: 10px;
+    font-size: 25px;
+    z-index: 10;
+}
+
+.font-lg {
+    font-size: 30px !important;
+}
+
+.font-sm {
+    font-size: 13px !important;
+}
+
+.font-md {
+    font-size: 15px !important;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.min-h-40 {
+    min-height: 40px;
+}
+
+page[size="A4"] {
+  background: white;
+  width: 21cm;
+  height: 29.7cm;
+  display: block;
+  margin: 0 auto;
+  
 }

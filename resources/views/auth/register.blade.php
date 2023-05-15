@@ -363,7 +363,7 @@
         </div>
 
         <div class="mp-input-group" data-set="lastname">
-            <label class="mp-input-group__label">Last Name (Please input your complete last name/s)</label>
+            <label class="mp-input-group__label">Last Name</label>
             <input class="mp-input-group__input mp-text-field" type="text" name="lastname" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
@@ -423,12 +423,16 @@
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group input" data-set="gender">
-            <label class="mp-input-group__label">Gender </label>
-            <select class="mp-input-group__input mp-text-field" name="gender">
-                <option value="">Select Gender</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-            </select>
+            <label class="mp-input-group__label">Sex at Birth </label>
+            <br>
+            <div style="width: 100%; display: flex">
+                <span>
+                    <input type="radio" id="gender" name="gender" value="Male">
+                    <label class="mp-input-group__label" for="single" style="margin-top: 1px;">Male</label>
+                    <input type="radio" id="gender" name="gender" value="Female">
+                    <label class="mp-input-group__label" for="single" style="margin-top: 1px;">Female</label>
+                </span>
+            </div>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group" data-set="civilstatus">
@@ -450,6 +454,9 @@
 
                 <input type="radio" value="Widowed" id="widowed" name="civilstatus" />
                 <label class="mp-input-group__label" for="widowed" style="margin-top: 1px;">Widowed</label>
+
+                <input type="radio" value="Annulled/Legally separated" id="anulled" name="civilstatus" />
+                <label class="mp-input-group__label" for="anulled" style="margin-top: 1px;">Annulled/Legally separated</label>
             </div>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
@@ -478,7 +485,7 @@
 
             <label class="mp-input-group__label">Present Address </label><br>
             <label class="mp-input-group__label">Province
-                <div class="tooltip">
+                <!-- <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
                     <div class="right">
                         <div class="text-content">
@@ -488,7 +495,7 @@
                         </div>
                         <i></i>
                     </div>
-                </div>
+                </div> -->
             </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" id="present_province" name="present_province">
                 <option value="">Select Province </option>
@@ -574,7 +581,11 @@
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Landline Number </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="landline_no" id="landline-format" />
+            <span class="mp-input-group__input" style="width: 100%">
+                <input class=" mp-text-field" type="text" placeholder="Area code" name="area_code" style="width: 30%; text-align:center" maxlength="3" /> -
+                <input class=" mp-text-field" type="text" placeholder="(8676 - 1234)" name="landline" id="landline-format" style="width: 50%; padding-left: 10px;" />
+                <!-- <input class=" mp-text-field" type="text" placeholder="Local" name="landline_no" id="landline-format" style="width: 20%; text-align:center"/> -->
+            </span>
         </div>
         <div class="mp-input-group" data-set="email">
             <label class="mp-input-group__label">Email Address </label>
@@ -582,9 +593,9 @@
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
-            <div class="mp-input-group mp-mt5 mp-input-group__label">
-                <input type="checkbox" id="terms" name="terms" />
-                Sign up for emails to get updates on products, offers and member benefits.<br><br>
+            <div class="mp-input-group  mp-input-group__label">
+                <input type="checkbox" id="terms" name="terms" checked />
+                I agree to receive emails on updates to my account<br><br>
                 By clicking Next, you agree to UP Provident Fund Inc.’s <b class="mp-link link_style" id="termsbtn">Terms of Use</b> and <b id="privacybtn" class="mp-link link_style">Privacy Policy</b>.<br>
                 <!--<a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Terms of Service</a> &
                 <a class="link_style" href="https://www.privacy.gov.ph/data-privacy-act/">Privacy Policy</a>-->
@@ -632,27 +643,29 @@
         </div>
         <div class="mp-input-group" data-set="employee_no">
             <label class="mp-input-group__label">Employee Number (Please refer to your UP ID)</label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="employee_no" required />
+            <input class="mp-input-group__input mp-text-field" type="number" name="employee_no" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="college_unit">
             <label class="mp-input-group__label">College / Unit </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="college_unit" id="college_unit">
                 <option value="">Select Unit</option>
                 {{-- <option>Unit </option> --}}
             </select>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
-        <div class="mp-input-group">
+        <div class="mp-input-group" data-set="department">
             <label class="mp-input-group__label">Department </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="department" id="department" required>
                 <option value="">Select Department</option>
-                <option value="OTHER" selected>Others</option>
+                <option value="OTHER">Others</option>
                 {{-- <option>DEPED </option> --}}
             </select>
             <div id="other-dept-div" class=" d-none opacity-0">
                 <label class="mp-input-group__label">Other Department (Please Specify)</label>
                 <input class="mp-input-group__input mp-text-field" type="text" value="" name="other_department" id="other_department" />
             </div>
+            <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group">
             <label class="mp-input-group__label">Academic Rank/ Position </label>
@@ -705,10 +718,14 @@
         </div>
         <div class="mp-input-group" data-set="appointment">
             <label class="mp-input-group__label">Appointment Status </label>
-            <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="appointment" id="appointment" required>
+            <div class="dflex">
+                <span class="appointment">
+                </span>
+            </div>
+            <!-- <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" required>
                 <option value="">Select Status</option>
                 <option value="OTHER">Other Status Please Specify</option>
-            </select>
+            </select> -->
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group d-none opacity-0" id="other_status">
@@ -735,7 +752,7 @@
         </div>
         <div class="mp-input-group" data-set="tin_no">
             <label class="mp-input-group__label">Taxpayer Identification Number (TIN) </label>
-            <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" required />
+            <input class="mp-input-group__input mp-text-field" type="number" name="tin_no" required />
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <a class="up-button btn-md mp-text-center magenta-bg" style="width: 100%" id="save_as_draft_1">
@@ -756,10 +773,10 @@
                 MONTHLY CONTRIBUTION
             </label>
             <label class="mp-input-group__label">
-                (The amount that you decide here will serve as your monthly contribution to your UP Provident
+                The amount that you decide here will serve as your monthly contribution to your UP Provident
                 Fund account, and will be deducted from your salary every month. Choose between:<br><br>
                 (a) Percentage of Basic Salary, minimum of 1%; or <br>
-                (b) A Fixed amount <br><br>
+                (b) A Fixed amount, must also be a minimum of 1% of your basic salary <br><br>
                 You may change this anytime by filling out the Member's Data Updating Form at any of our offices.
                 <br><br>
                 Amount is subject to the DBM rule on net take-home pay threshold.
@@ -794,17 +811,22 @@
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
         </div>
         <div class="mp-input-group d-flex gap-5 flex-column">
-            <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
-
-            <label class="mp-input-group__label" style="
-                background-color: var(--c-active-hover-bg);
-                color: white;
-                padding: 10px;
-                margin-left: -8px;
-                font-size: 15px;
-                margin-right: -8px;">
-                Dependents </label>
-
+            <label class="mp-input-group__label mp-mb2" style="font-style: italic">(The beneficiary/ies you indicate below shall receive your UP Provident Fund
+                benefits (your retirement savings and earnings thereon) in the event of your
+                death. If left blank, your benefits shall be divided among your heirs in
+                accordance with the New Family Code.)
+            </label>
+            <label class="mp-input-group__label mp-mb2" style="font-style: italic">Please enter your beneficiary/ies’ full name, date of birth, and relationship to
+                you. You may add as many beneficiaries as you like
+            </label>
+            <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
+                BENEFICIARY/IES
+            </label>
+            <br>
+            <label class="mp-input-group__label">
+                The beneficiary/ies you indicate below shall receive your AXA insurance benefits in the event of your death. Please fill
+                out all the fields for each beneficiary listed below:
+            </label>
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_name" name="dependent_name" placeholder="Name" data-set="validate_dependent_3" />
             <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_name"></label>
             <div class="mp-input-group">
@@ -856,21 +878,24 @@
             <input class="mp-input-group__input mp-text-field" type="text" id="dependent_relation" name="dependent_relation" placeholder="Relationship" data-set="validate_dependent_3" />
             <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_relation"></label>
             <a class="up-button mw-200 btn-md self-end mp-mt2 button-animate-right">
-                <span id="add_dependent">Add Dependent</span> </a>
+                <span id="add_dependent">Add Beneficiary</span> </a>
         </div>
-        <table class=" mp-mh2" id="dependentTable" cellspacing="0" width="100%">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Birthday</th>
-                    <th>Relationship</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
+        <div class="dflex flex-row" style="overflow-y: auto;">
+            <table class=" mp-mh2" id="dependentTable" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th style="width: 30%"><span class="mp-text-no-wrap">Full Name</span></th>
+                        <th style="width: 20%"><span class="mp-text-no-wrap">Date of Birth</span></th>
+                        <th style="width: 20%"><span class="mp-text-no-wrap">Relationship</span></th>
+                        <th style="width: 20%"></th>
+                    </tr>
+                </thead>
+                <tbody>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
 
 
 
@@ -894,8 +919,8 @@
         </a>
     </div>
 </form>
-
-<div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-4">
+<!--   -->
+<div class="mp-pt3 gap-10  d-none flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-4">
 
     <div class="mp-input-group">
         <label class="mp-input-group__label">Supporting Document </label>
@@ -909,14 +934,22 @@
             <div class="mp-input-group">
 
                 <hr>
-                <h3>Insurance Form</h3>
+
+                <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
+                    INSURANCE FORM
+                </label>
                 <ul>
-                    <li>
-                        Effective 01 January 2023, UPPF Members will now be covered by new Insurance Provider, i.e., AXA Philippines.
-                        <br> <br>
-                        All UPPF Members are required to fill out this Enrolment Form, as soon as possible, for records purposes.
-                        <br> <br>
-                        Your utmost cooperation and understanding is much appreciated.
+                    <li style="font-size: 13px; text-align: justify;">
+                        Becoming a member of the UP Provident Fund automatically entitles you to life insurance coverage of P100,000 from
+
+                        our accredited insurance provider, AXA Philippines. In the event of your death, your beneficiaries will receive a lump
+
+                        sum of P100,000. You are also entitled to other benefits in addition to life insurance
+
+                        (visit <a href="https://www.upprovidentfund.com/insurance-benefit/ ">https://www.upprovidentfund.com/insurance-benefit/</a>
+                        to see full list of insurance benefits).
+                        <br><br>
+                        Kindly fill out the fields below to enroll in AXA’s group life insurance
                     </li>
                     <input type="hidden" name="test_no" id="test_no">
                     <div class="mp-input-group">
@@ -949,16 +982,20 @@
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="maiden_name">
                     </div>
                     <div class="mp-input-group">
-                        <label class="mp-input-group__label mp-mt2">Insured Type</label>
+                        <label class="mp-input-group__label mp-mt2 d-none opacity-0">Insured Type</label>
                         <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
-                        <select name="insured_type" id="insured_type" class="radius-1 outline select-field mp-mt2" style="font-size: normal;" data-set="step-4-validation">
-                            <option value="INSURED">INSURED</option>
+                        <select name="insured_type" id="insured_type" class="radius-1 outline select-field mp-mt2 d-none opacity-0" style="font-size: normal;" data-set="step-4-validation">
+                            <option value="INSURED" selected>INSURED</option>
                             <option value="DEPENDENT">DEPENDENT</option>
                         </select>
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="insured_type">
                     </div>
                     <div class="mp-input-group"><br>
-                        <label class="mp-input-group__label"><b>PERSON TO BE CONTACED IN CASE OF EMERGENCY</b></label><br>
+                        <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
+                            PERSON TO BE CONTACED IN CASE OF EMERGENCY
+                        </label>
+                        <!-- <label class="mp-input-group__label"><b></b></label> -->
+                        <br>
                         <label class="mp-input-group__label">Last Name</label>
                         <input class="mp-input-group__input mp-text-field" type="text" name="last_name" id="last_name" data-set="step-4-validation" />
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="last_name">
@@ -992,21 +1029,26 @@
                     <div class="mp-input-group d-flex gap-5 flex-column">
                         <label class="mp-input-group__label mp-mb2" style="font-style: italic">(Those who will receive the fund benefits in case of the member's death; Please use add your dependents; If left blank, benefits shall be divided among heirs in accordance with the New Family Code.)</label>
 
-                        <label class="mp-input-group__label" style="
+                        <!-- <label class="mp-input-group__label" style="
                 background-color: var(--c-active-hover-bg);
                 color: white;
                 padding: 10px;
                 margin-left: -8px;
                 font-size: 15px;
                 margin-right: -8px;">
-                            Dependents </label>
+                            Dependents </label> -->
+                        <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
+                            DEPENDENTS
+                        </label>
 
                         <input class="mp-input-group__input mp-text-field" type="text" id="dependent_last_name" name="dependent_last_name" placeholder="Last Name" data-set="validate_dependent" />
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_last_name"></label>
-                        <input class="mp-input-group__input mp-text-field" type="text" id="dependent_middle_name" name="dependent_middle_name" placeholder="Middle Initial" data-set="validate_dependent" />
-                        <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_middle_name"></label>
                         <input class="mp-input-group__input mp-text-field" type="text" id="dependent_first_name" name="dependent_first_name" placeholder="First Name" data-set="validate_dependent" />
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_first_name"></label>
+                        <input class="mp-input-group__input mp-text-field" type="text" id="dependent_middle_name" name="dependent_middle_name" placeholder="Middle Initial" data-set="validate_dependent" />
+                        <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_middle_name"></label>
+                        <input class="mp-input-group__input mp-text-field" type="number" id="benefit_percent" min="1" max="100" required name="benefit_percent" placeholder="Benefit Percent" data-set="validate_dependent" />
+                        <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_middle_name"></label>
                         <div class="mp-input-group">
                             <label class="mp-input-group__label mp-mb1">Date Of Birth </label>
                             <div class="d-flex flex-row gap-10 mb-pb1 mp-text-field" name="birth_day">
@@ -1079,7 +1121,7 @@
                             <span id="add_dependent_axa">Add Dependent</span> </a>
                     </div>
                     <br>
-                    <table class="axa-table" style="height: auto;" width="100%">
+                    <table class="axa-table" style="height: auto; font-size: 13px;" width="100%">
                         <thead>
                             <tr>
                                 <th>
@@ -1091,7 +1133,9 @@
                                 <th>
                                     <span>Relationship</span>
                                 </th>
-
+                                <th>
+                                    <span>Benefit %</span>
+                                </th>
                                 <th>
                                     <span>Actions</span>
                                 </th>
@@ -1120,8 +1164,133 @@
                     </table>
 
                     <br>
+                    <div class="mp-input-group" style=" font-size: 13px; text-align:justify;">
+                        <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
+                            AXA BENEFICIARY DESIGNATION GUIDELINES:
+                        </label>
 
-                    <li>
+                        <li style=" font-size: 13px;">
+                            <b>What’s the difference between the beneficiaries I indicated in the previous step and the beneficiaries in the current
+                                step?</b><br><br>
+                            In the event of your death, the beneficiaries you indicated in the previous step will receive your UP Provident Fund
+                            retirement savings and earnings thereon, while the beneficiaries indicated in this step will receive your AXA insurance
+                            benefits.
+                            <br> <br>
+                            <b>Can I choose the same or different beneficiaries for Steps 3 and 4?</b>
+                            <br><br>
+                            Yes. You may choose to designate the same beneficiaries, or you may choose to designate different beneficiaries. It is up
+                            to you
+                            <br><br>
+                            <b>Who is a beneficiary as defined by the AXA beneficiary designation guidelines?</b>
+
+                            <br> <br>
+                            The beneficiary is the person designated by the insured to receive the death proceeds of the policy. An insurable interest
+                            of the beneficiary must be clearly established. Insurable interest exists if the beneficiary will suffer economic loss upon
+                            the death of the insured.
+                            <br> <br>
+                            Any person may be named beneficiary as long as he or she does not fall under any of those prohibited under Article 739
+                            of the Civil Code (e.g., extramarital partner / mistress / paramour, etc.). Common law partner should not be designated
+                            as beneficiary.
+                            <br> <br>
+                            In general the following are acceptable to be designated as beneficiaries:
+                            <label>
+                                <ol>
+                                    <li>1. legal spouse</li>
+                                    <li>2. children, natural or legally adopted</li>
+                                    <li>3. parents</li>
+                                    <li>4. siblings</li>
+                                    <li>5. grandparents & grandchildren</li>
+                                </ol>
+                            </label>
+
+                            <br> <br>
+
+                            <label>
+                                The customer may also opt to choose “Standard Beneficiary” wherein the persons designated to receive the death
+                                proceeds shall follow the order of preference as shown below:
+                                <ol>
+                                    <li>1. spouse</li>
+                                    <li>2. children</li>
+                                    <li>3. parents</li>
+                                    <li>4. siblings</li>
+                                    <li>5. estate</li>
+                                </ol>
+                            </label>
+                            <br> <br>
+                            <b>Can I choose the same or different beneficiaries for Steps 3 and 4?</b>
+                            <br> <br>
+                            If no designated beneficiary is indicated in the application, Underwriting will assign Estate as a default beneficiary.
+                            <br><br>
+
+                            <b>What details must I supply for my listed beneficiary/ies?</b>
+                            <br> <br>
+                            A beneficiary designation should be in such a way that no one can mistake the intention of the policy owner as to who
+                            should receive the insurance proceeds.
+                            <br>
+                            <label>
+                                <ol>
+                                    <li>1. The given name and surname and the relationship to the insured must be supplied</li>
+                                    <li>2. For minor beneficiary, the date of birth may be indicated</li>
+                                </ol>
+                            </label>
+                            <br><br>
+                            <b>What is the difference between a primary and a secondary beneficiary?</b>
+                            <br> <br>
+                            This pertains to classification of beneficiary/ies according to priority:
+                            <br><br>
+                            <label>
+                                <ol>
+                                    <li>1. <b>Primary</b> – This beneficiary will have first priority in receiving the death proceeds of an insurance policy.</li>
+                                    <li>2. <b>Secondary</b> – This beneficiary will only receive the death proceeds if the primary beneficiary pre-deceases the
+                                        insured and no other primary beneficiary had been designated anew.</li>
+                                </ol>
+                            </label>
+
+                            <br><br>
+                            <b>Can I designate all my beneficiaries as primary?</b>
+                            <br> <br>
+                            Yes. You may designate all your beneficiaries as primary. The designation of secondary beneficiary/ies is not mandatory.
+                            <br><br>
+                            <b>What is the difference between a revocable and an irrevocable beneficiary?</b>
+                            <br> <br>
+                            This pertains to classification of beneficiary/ies according to rights:
+                            <br><br>
+                            <label>
+                                <ol>
+                                    <li>1. <b>Revocable</b> – At any time while the policy is in force, the beneficiary may be changed (mere <b>expectancy rights</b>)
+                                        and the policy owner may exercise any and every right on the policy without this beneficiary’s written consent</li>
+                                    <li>2. <b>Irrevocable</b> –This beneficiary has vested rights over the policy and, therefore, the policy owner cannot exercise
+                                        his rights over the policy without the written consent of this beneficiary. After initial designation, members
+                                        cannot add other beneficiaries or change a beneficiary designation, without the express consent of all the listed
+                                        irrevocable beneficiary/ies.
+                                        <br><br>
+                                        Minor children (less than 18 years old) cannot give valid consent to any transaction. Hence, it is not
+                                        recommended to designate children as irrevocable beneficiaries to avoid problems in future policy transactions.
+                                    </li>
+                                </ol>
+                            </label>
+                            <br><br>
+                            Care and prudence must be exercised in thinking about who to designate as revocable/irrevocable beneficiary/ies.
+                            <br><br>
+                            Please refer to the following table for further guidance:
+                            <br><br>
+                            <div class="step4-image" style="text-align:center;">
+                                <img src="{!! asset('assets/images/image1-step4.jpg') !!}" style=" width: 300px;" alt="UPPFI">
+                            </div>
+                            <br><br>
+                            <b> How do I fill out the “benefit %” column?</b>
+                            <br> <br>
+                            For 2 or more persons as designated beneficiaries, the shares of the proceeds must be ideally specified for each
+                            beneficiary usually expressed as fraction or percentage rather than the absolute amounts. In the absence of any
+                            stipulation, benefits shall be shared equally by all of the named beneficiaries. You may also opt to give the full
+                            percentage to one beneficiary only.
+                            <br> <br>
+                            <b> For any further questions, kindly contact any of our offices.</b>
+                            <br> <br>
+
+                        </li>
+                    </div>
+                    <li style=" font-size: 13px;text-align:justify;">
                         <b>I HEREBY DECLARE AND AGREE THAT:</b><br>
                         All information in the enrollment whether or not written by my hand are to the best of my knowledge and belief complete and true;
                         <br> <br>
@@ -1142,6 +1311,25 @@
                         <br> <br>
                         I understand that company notices related to my policy may be sent to me through email or SMS in the address/number I provided above, otherwise,
                         sent to my residential address.
+
+                        <br> <br>
+
+                        <b> SIGNATURE</b>
+                        <br> <br>
+                        Please take a photo of your
+                        <br> <br>
+                        <ol>
+                            <li>&#10004; handwritten signature</li>
+                            <li>&#10004; printed name, and</li>
+                            <li>&#10004; date today</li>
+                        </ol>
+                        <br>
+                        and upload it below. Follow the format as follows:
+                        <br> <br>
+                        <div class="step4-image" style="text-align:center;">
+                            <img src="{!! asset('assets/images/image2-step4.jpg') !!}" style=" width: 300px;" alt="UPPFI">
+                        </div>
+                        <br>
                     </li>
                 </ul>
                 <div class="mp-input-group">
@@ -1187,14 +1375,24 @@
 <div class="mp-pt3 d-none gap-10 flex-column mp-pb5 member-form shadow-inset-1 mp-pv2 fill-block" id="step-5">
     <div id="proxy" style="margin-bottom: 20px; text-align: justify;">
         {{-- <input class="mp-input-group__input mp-mt1 mp-mb3" type="file" name="proxy_sign" id="file" accept="image/png, image/gif, image/jpeg, image/jpg" /> --}}
-        <div class="mp-input-group">
+        <div class="mp-input-group" style="text-align:justify;">
 
             <ul>
                 <li>
                     <div class="logo-img" style=" text-align: center; margin: 15px;">
                         <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI" style=" width: 75px;height: 75px;">
                     </div>
-
+                    The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
+                    <br> <br>
+                    In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
+                    <br> <br>
+                    For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.
+                    Know all men by these presents:
+                    <br> <br>
+                    <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
+                        PROXY FORM
+                    </label>
+                    <br>
 
                     <b> Know all men by these presents:</b>
                     <br>
@@ -1218,24 +1416,18 @@
                     This proxy shall be effective for five (5) years from the date hereof, or until withdrawn by
                     me through notice in writing delivered to the Secretary of the Corporation
 
-                    <br>
+                    <br> <br>
                 <li>
-                    <b> Name Of Member:</b><label id="step5_name"></label>
+                    <b> Name Of Member: </b><label id="step5_name"></label>
                     <br>
                     <b> Campus: </b><label id="step5_campus"></label>
                     <br>
                     <b> Date: </b><label id="step5_date"></label>
                 </li>
-                <br><br>
+                <br>
 
-                <h3>Proxy Form</h3>
-                The law allows UPPF Members to vote in person or by proxy. Much as physical voting is encouraged, there may be constraints in doing so. Good news is, through proxies, Members can ensure their participation and voting during the Annual General Membership Meeting, and protect their interest even though they may not be physically present.
-                <br> <br>
-                In addition, the system of proxy voting helps the Corporation achieve quorum during Members’ Meetings, and assists the Management secure the control of the Corporation.
-                <br> <br>
-                For purposes of efficiency, the Chairperson of UPPF Board of Trustees, or, in his absence, the Executive Director, shall represent the Member.
-                Know all men by these presents:
-                <br> <br>
+
+
 
                 </li>
 
@@ -1255,7 +1447,7 @@
 
                         </div>
                     </div> -->
-            <br>
+
         </div>
         <!-- <div class="tooltip">
                     <i class="fa fa-question-circle-o circle-design" aria-hidden="true"></i>
@@ -1278,8 +1470,12 @@
                 </div> -->
 
 
-        <br>
-        <h3>Electronic Signature</h3>
+
+
+        <label for="" class="mp-text-fs-medium mp-split-pane__title mp-text-c-primary">
+            ELECTRIC SIGNATURE
+        </label>
+        <!-- <h3>Electronic Signature</h3> -->
         <ul>
             <li>
                 Electronic signatures have been expressly recognized as legally binding (Republic Act 8792).
@@ -1303,7 +1499,7 @@
         <input class="mp-input-group__input mp-text-field" style="margin-top: 5px;" type="text" name="e_sig" id="e_sig" required />
         <br>
     </div>
-    <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="save_sign">
+    <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="save_sign" style="width: 100%;">
         <span>Submit</span>
     </button>
 </div>

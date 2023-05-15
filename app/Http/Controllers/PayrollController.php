@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\MemApp;
+use App\Models\PayrollAdvise;
 use Auth;
 use Hash;
 use DB;
@@ -241,7 +242,7 @@ class PayrollController extends Controller
         $row[] = number_format($r->monthly_salary, 2, '.', ',');
         $row[] = $r->contribution_set;
         if ($r->contribution_set == 'Fixed Amount') {
-            $amt = number_format($r->amount, 2, '.', ',');
+          $amt = number_format((float)$r->amount, 2, '.', ',');
         } else {
             $amt = $r->percentage;
         }
@@ -259,5 +260,118 @@ class PayrollController extends Controller
     );
     echo json_encode($json_data);
   }
+
+  public function get_payroll_advise_report(Request $request)
+  {
+    $campus_id = Auth::user()->campus_id;
+    $allowCampus = DB::table('campus')
+      ->where('id', $campus_id)
+      ->first();
+
+    if ($request->ajax()) {
+      $data = PayrollAdvise::leftjoin('tbl_payrol_advise_report', 'tbl_payrol_advise.payroll_no', '=', 'tbl_payrol_advise_report.payroll_no')
+      ->where('tbl_payrol_advise.cluster_id', $allowCampus->cluster_id);
+      return Datatables::of($data)
+        ->addIndexColumn()
+        ->addColumn('action', function ($row) {
+          $btn = '<button  class="delete_btn btn btn-primary btn-sm resend_email md-tooltip--left" data-md-tooltip="Resend Email"  id="'.$row->payroll_no.'">
+                  <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                  </button>
+
+                  <button  class="delete_btn btn btn-primary btn-sm download_payroll md-tooltip--left" data-md-tooltip="Download Payroll Reports"  id="'.$row->payroll_no.'" data-file="'.$row->file_name.'">
+                  <i class="fa fa-download" aria-hidden="true"></i>
+                  </button>';
+          return $btn;
+      })
+      ->rawColumns(['action'])
+      ->make(true);
+    }
+  }
+
+  public function get_cluster(Request $request)
+  {
+    $cluster = $request->input('id');
+    $results = DB::table('campus')->select('*')->whereRaw("campus_key = '$cluster'")
+      ->get()->first();
+    return response()->json($results);
+  }
+
+  public function save_payroll_advise(Request $request)
+  {
+    $datadb = DB::transaction(function () use ($request) {
+      $add_payroll_advise = array(
+        'payroll_no' => $request->input('payroll_no'),
+        'accounting_name' => $request->input('accounting_head'),
+        'designation' => $request->input('designation'),
+        'unit_campus' => $request->input('campus'),
+        'cluster_id' => $request->input('cluster_id'),
+        'payroll_partner' => $request->input('accountable_payroll'),
+        'payroll_section' => $request->input('payroll_section'),
+        'subject' => $request->input('subject'),
+        'from_user' => $request->input('from_user'),
+        'date_prepared' => date('Y-m-d'),
+        'payroll_status' => 'Submitted',
+      );
+      DB::table('tbl_payrol_advise')->insert($add_payroll_advise);
+      $message = 'Success';
+      return [
+        'error' => $message,
+      ];
+    });
+    return response()->json(['success' => $datadb['error']]);
+  }
+
+  public function save_payroll_advise_report(Request $request)
+  {
+    $data = $request->all();
+    $payroll_no = $request->input('payroll_no');
+    $subject = $request->input('subject');
+    $table_data = array();
+    foreach ($data['data_tables'] as $row) {
+      DB::table('tbl_payrol_advise_report')->insert([
+        'payroll_no' => $payroll_no,
+        'members_id_no' => $row[1],
+        'employee_no' => $row[2],
+        'contribution_type' => $row[8],
+        'amount' => $row[9],
+        'file_name' => 'payroll-advise-' . $payroll_no . '.pdf',
+      ]);
+
+      DB::table('mem_app')
+      ->where('employee_no', $row[2])
+      ->where('validator_remarks', 'FOR PAYROLL ADVISE')
+      ->update(['validator_remarks' => 'ALREADY GENERATED PAYROLL']);
+
+      $table_data[] = array(
+        'payroll_no' => $payroll_no,
+        'subject' => $subject,
+        'members_id_no' => $row[1],
+        'employee_no' => $row[2],
+        'contribution_type' => $row[8],
+        'amount' => $row[9],
+      );
+    }
+    // Generate PDF file
+    $pdf = PDF::loadView('admin.members.pdf.payroll-advise', ['table_data' => $table_data]);
+    $pdf_file = $pdf->output();
+    // Save PDF file to disk
+    $filename = 'payroll-advise-' . $payroll_no . '.pdf';
+    $filepath = storage_path('app/public/payroll_advise/' . $filename);
+    file_put_contents($filepath, $pdf_file);
+
+    return response()->json(['success' => true]);
+  }
+
+  public function download_payroll($filename)
+  {
+    $filepath = storage_path('app/public/payroll_advise/' . $filename);
+    // Check if the file exists
+    if (file_exists($filepath)) {
+      // Generate the response to download the file
+      return response()->download($filepath, $filename);
+    }
+    abort(404);
+  }
+
 
 }

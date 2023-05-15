@@ -1494,7 +1494,7 @@
 </script>
 <div class="filler"></div>
 <div class="members-module">
-    <div class="siderbar d-flex flex-column showed" style="position:relative">
+    <!-- <div class="siderbar d-flex flex-column showed" style="position:relative">
         <span class="toggle-icon" style="cursor: pointer">
             <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
             <i class="fa fa-chevron-circle-right mp-text-fs-base magenta-clr d-none" style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
@@ -1538,211 +1538,217 @@
             </span>
 
         </div>
-    </div>
-    <div class="members-content mp-pr2 d-flex flex-column gap-5 mh-content">
-        <div class="container-fluid">
-            <div class="row">
+    </div> -->
 
-                <div class="col-lg-12 mp-mt3 gap-10" id="settingsContent">
-                    <div class="no-gutter ml-0 mr-0 p-5px mh-content view-all-members ">
-                        <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
-                            <span class="d-inline-flex align-items-center " style="color: black;
+    <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
+        <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
+            <div class="settings-tab">
+                <div class="top-label">
+                    <label>Members Module</label>
+
+                </div>
+
+                <div class="settings-buttons">
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+                        <li class="options " onclick="location.href='/admin/members/new-members'">
+                            <a href="#" class="no-padding"> New Members</a><br>
+
+                        </li>
+                        <li class="options options-active" onclick="location.href=''">
+                            <a href="#" class="no-padding options-a-active"> Master List</a><br>
+
+                        </li>
+                        <li class="options" onclick="location.href='/admin/members/summary-reports'">
+                            <a href="#" class="no-padding">Summary Reports</a><br>
+
+                        </li>
+                        <li class="options" onclick="location.href='/admin/members/contribution-reports'">
+                            <a href="#" class="no-padding"> Contribution Reports</a><br>
+
+                        </li>
+                        <li class="options" onclick="location.href='/admin/members/insurance-reports'">
+                            <a href="#" class="no-padding">Insurance Reports</a><br>
+                        </li>
+                        <li class="options" onclick="location.href='/admin/members/voter-list'">
+                            <a href="#" class="no-padding"> Members Voter List</a><br>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-lg-10 mp-mt3 gap-10" id="settingsContent">
+        <div class="button-container">
+            <button class="f-button magenta-bg" id="showSettings">Hide Settings</button>
+        </div>
+        <div class="no-gutter ml-0 mr-0 p-5px mh-content view-all-members ">
+            <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
+                <span class="d-inline-flex align-items-center " style="color: black;
                                 font-weight: bold;
                                 margin-bottom: 10px;">
-                                Members Module</a> > &nbsp; Master List
-                            </span>
+                    Members Module</a> > &nbsp; Master List
+                </span>
 
-                        </div>
-                        <div class="col-12 mp-pr0" style="width: 100%;">
+            </div>
+            <div class="col-12 mp-pr0" style="width: 100%;">
 
-                            <div class="w-full justify-content-center d-flex">
-                                <div class="d-flex flex-row w-full gap-10">
-                                    <div class="d-flex flex-column gap-10 middle-content full">
-                                        <div class="card-container card p-0">
-                                            <div class="card-header filtering items-between d-flex">
-                                                <span>Filtering Section</span>
-                                                <span class="mp-pr2">
-                                                    <button class="f-button font-bold">Export</button>
-                                                    <button class="f-button font-bold up-button-green">Print</button>
-                                                </span>
+                <div class="w-full justify-content-center d-flex">
+                    <div class="d-flex flex-row w-full gap-10">
+                        <div class="d-flex flex-column gap-10 middle-content full">
+                            <div class="card-container card p-0">
+                                <div class="card-header filtering items-between d-flex">
+                                    <span>Filtering Section</span>
+                                    <span class="mp-pr2">
+                                        <button class="f-button font-bold">Export</button>
+                                        <button class="f-button font-bold up-button-green">Print</button>
+                                    </span>
+                                </div>
+
+
+                                <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
+
+                                    <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr); font-size:12px;">
+                                        <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                            <span>Campus</span>
+                                            <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campuses_select">
+                                                <option value="">Show All</option>
+                                                @foreach ($campuses as $row)
+                                                <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </span>
+                                        <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                            <span>Department</span>
+                                            <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
+                                                <option value="">Show All</option>
+                                                @foreach ($department as $row)
+                                                <option value="{{ $row->id }}">{{ $row->description }}</option>
+                                                @endforeach
+                                            </select>
+                                        </span>
+                                        <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
+                                            <span>Membership Date</span>
+                                            <div class="date_range d-flex">
+                                                <input type="date" id="date_from_select" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
+                                                <input type="date" id="date_to_select" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                             </div>
+                                        </span>
+                                        <!-- <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                            <span>Status</span>
+                                            <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status_select">
+                                                <option value="">Show All</option>
+                                                <option value="DRAFT APPLICATION">DRAFT APPLICATION</option>
+                                                <option value="NEW APPLICATION">NEW APPLICATION</option>
+                                                <option value="PROCESSING">PROCESSING</option>
+                                                <option value="REJECTED">REJECTED</option>
+                                            </select>
+                                        </span> -->
 
-
-                                            <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
-
-                                                <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr); font-size:12px;">
-                                                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                        <span>Campus</span>
-                                                        <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campuses_select">
-                                                            <option value="">Show All</option>
-                                                            @foreach ($campuses as $row)
-                                                            <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </span>
-                                                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                        <span>Department</span>
-                                                        <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="department_select">
-                                                            <option value="">Show All</option>
-                                                            @foreach ($department as $row)
-                                                            <option value="{{ $row->dept_no }}">{{ $row->department_name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </span>
-                                                    <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                                                        <span>Application Date</span>
-                                                        <div class="date_range d-flex">
-                                                            <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                                            <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                                            <input type="date" id="to" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                                        </div>
-                                                    </span>
-                                                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                        <span>Status</span>
-                                                        <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status_select">
-                                                            <option value="">Show All</option>
-                                                            <option value="DRAFT APPLICATION">DRAFT APPLICATION</option>
-                                                            <option value="NEW APPLICATION">NEW APPLICATION</option>
-                                                            <option value="PROCESSING">PROCESSING</option>
-                                                            <option value="REJECTED">REJECTED</option>
-                                                        </select>
-                                                    </span>
-                                                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                                        <span>Remarks</span>
-                                                        <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="remarks_select">
-                                                            <option value="">Show All</option>
-                                                            <option value="AA VERIFIED">AA VERIFIED</option>
-                                                            <option value="FORWARDED TO HRDO">FORWARDED TO HRDO</option>
-                                                            <option value="FORWARDED TO FM">FORWARDED TO FM</option>
-                                                            <option value="HRDO RETURNED APPLICATIONS">HRDO RETURNED APPLICATIONS</option>
-                                                        </select>
-                                                    </span>
-                                                    <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap view-options">
-                                                        @if(Auth::user()->user_level == 'ADMIN')
-                                                        <span>View User Option</span>
-                                                        <select name="view_all" id="view_all" class="radius-1 outline select-field mp-pr2" style="height: 30px;margin-top: auto;margin-bottom: auto;" <?= Auth::user()->user_level != 'ADMIN' ? 'disabled' : '' ?>>
-                                                            <option value="">All Records</option>
-                                                            <option value="AA" <?= Auth::user()->user_level == 'AA' ? 'selected' : '' ?>>AO</option>
-                                                            <option value="CFM" <?= Auth::user()->user_level == 'CFM' ? 'selected' : '' ?>>CFM</option>
-                                                            <option value="HRDO" <?= Auth::user()->user_level == 'HRDO' ? 'selected' : '' ?>>HRDO</option>
-                                                        </select>
-                                                        @endif
-
-
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="card d-flex flex-column">
-                                            <div class="d-flex flex-row items-between">
-                                                <input class="mp-text-field mp-pt2 sticky top-0 " type="text" placeholder="Search here" id="search_value" />
-
-
-                                            </div>
-                                            <div class="mp-mt3 table-container">
-                                                <table class="members-table" style="height: auto;" width="100%">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width:40px">
-                                                                <span> </span>
-                                                            </th>
-                                                            <th>
-                                                                <span>Action</span>
-                                                            </th>
-                                                            <th>
-                                                                <span>Members ID</span>
-                                                            </th>
-                                                            <th>
-                                                                <span>Member Name</span>
-                                                            </th>
-                                                            <th>
-                                                                <span>Membership Date</span>
-                                                            </th>
-                                                            <th>
-                                                                <span>Created At</span>
-                                                            </th>
-                                                            <th>
-                                                                <span>Class</span>
-                                                            </th>
-                                                            <th>
-                                                                <span>Position</span>
-                                                            </th>
-                                                            <th>
-                                                                <span>Campus</span>
-                                                            </th>
-                                                        </tr>
-                                                    </thead>
-
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>
-                                                                <span>
-                                                                    <input type="checkbox" name="check[]" class="select_item" id="select_item">
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span>
-                                                                    <a href="/admin/members/member-details" data-md-tooltip="Review Application" class="view_member md-tooltip--right view-member" style="cursor: pointer">
-                                                                        <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                                                                    </a>
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span>
-                                                                    1231232
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span>
-                                                                    Member Name
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span>
-                                                                    January 20, 1999
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span>
-                                                                    January 20, 1999
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span>
-                                                                    Class A
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span>
-                                                                    President
-                                                                </span>
-                                                            </td>
-                                                            <td>
-                                                                <span>
-                                                                    Up Diliman
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-
-                                                    </tbody>
-
-
-
-                                                </table>
-                                                <a href="/admin/members/view-all" style="padding: 0px;font-size: 12px;" class="link_style">
-                                                    VIEW ALl
-                                                </a>
-                                            </div>
-                                        </div>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="card d-flex flex-column">
+
+                                <div class="mp-mt3 ">
+                                    <table class="members-table" id="member-masterlist" style="height: auto;" width="100%">
+                                        <thead>
+                                            <tr>
+                                                <!-- <th style="width:40px">
+                                                    <span> </span>
+                                                </th> -->
+                                                <th>
+                                                    <span>Action</span>
+                                                </th>
+                                                <th>
+                                                    <span>Members ID</span>
+                                                </th>
+                                                <th>
+                                                    <span>Member Name</span>
+                                                </th>
+                                                <th>
+                                                    <span>Membership Date</span>
+                                                </th>
+
+                                                <th>
+                                                    <span>Class</span>
+                                                </th>
+                                                <th>
+                                                    <span>Position</span>
+                                                </th>
+                                                <th>
+                                                    <span>Campus</span>
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <!-- <tr>
+                                                <td>
+                                                    <span>
+                                                        <input type="checkbox" name="check[]" class="select_item" id="select_item">
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        <a href="/admin/members/member-details" data-md-tooltip="Review Application" class="view_member md-tooltip--right view-member" style="cursor: pointer">
+                                                            <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+                                                        </a>
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        1231232
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        Member Name
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        January 20, 1999
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        January 20, 1999
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        Class A
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        President
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        Up Diliman
+                                                    </span>
+                                                </td>
+                                            </tr> -->
+
+                                        </tbody>
+
+
+
+                                    </table>
+                                    <!-- <a href="/admin/members/view-all" style="padding: 0px;font-size: 12px;" class="link_style">
+                                        View Multiple
+                                    </a> -->
+                                    <br><br>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
         </div>
 
@@ -1754,257 +1760,115 @@
 
 
 <script>
+    //load when member is click
+    $(document).on('click', '#member_load', function(e) {
+        $('#loading').show();
+    })
+
+    $(document).on('click', '#showSettings', function(e) {
+        if ($("#settingsTab").hasClass("col-lg-2")) {
+            $("#settingsTab").addClass("d-none");
+            $("#settingsTab").removeClass("col-lg-2");
+            $("#settingsContent").removeClass("col-lg-10");
+            $("#settingsContent").addClass("col-lg-12");
+
+            $("#showSettings").text("Show Settings")
+
+        } else {
+            $("#settingsTab").removeClass("d-none");
+            $("#settingsTab").addClass("col-lg-2");
+            $("#settingsContent").removeClass("col-lg-12");
+            $("#settingsContent").addClass("col-lg-10");
+
+            $("#showSettings").text("Hide Settings")
+        }
+
+    })
+    // $(document).on('click', '#load', function(e) {
+    //     $('#loading').show();
+
+    //     setTimeout(() => {
+    //         $('#loading').hide();
+    //     }, 2000);
+    // })
     var tableMemberApp;
     $(document).ready(function() {
-        tableMemberApp = $('.members-table2').DataTable({
-            language: {
-                search: '',
-                searchPlaceholder: "Search Here...",
-                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><br>Loading...',
-            },
-            "ordering": false,
-            "searching": false,
-            "processing": true,
-            "serverSide": true,
-            "scrollX": true,
-            "ajax": {
-                "url": "{{ route('getMembers') }}",
-                "data": function(data) {
-                    data.campus = $('#campuses_select').val();
-                    data.department = $('#department_select').val();
-                    data.dt_from = $('#from').val();
-                    data.dt_to = $('#to').val();
-                    data.searchValue = $('#search_value').val();
-                    data.status = $('#status_select').val();
-                    data.remarks = $('#remarks_select').val();
-                }
-            },
-            "drawCallback": function(settings) {
-                if (tableMemberApp.data().length > 0) {
-                    if ($('#campuses_select').val() != '') {
-                        $('#check_all').css('background-color', '');
-                        $('#check_all').prop('disabled', false);
-                        campus_checked = $('#campuses_select').find(":selected").text();
-                        clicked_check = 0;
-                    } else {
-                        $('#check_all').css('background-color', 'gray');
-                        $('#check_all').prop('disabled', true);
-                        clicked_check = 0;
-                    }
-                } else {
-                    $('#check_all').css('background-color', 'gray');
-                    $('#check_all').prop('disabled', true);
-                    clicked_check = 0;
-                }
-            }
-        });
-        $('#check_all').click(function() {
-            // Loop through all checkboxes in the table body
-            $('.members-table tbody input[type="checkbox"]').each(function() {
-                // Check the checkbox if it is not disabled
-                if (!$(this).prop('disabled')) {
-                    if (!$(this).prop('checked')) {
-                        $(this).prop('checked', true);
-                        clicked_check++;
-                    }
-                    if (clicked_check > 0) {
-                        $('.proceed_fwd').css('background-color', '');
-                        $('.proceed_fwd').prop('disabled', false);
-                    } else {
-                        $('.proceed_fwd').css('background-color', 'gray');
-                        $('.proceed_fwd').prop('disabled', true);
-                    }
-                } else if ($(this).prop('checked')) {
-                    clicked_check--;
-                }
-            });
-        });
 
+        loan_table = $('#member-masterlist').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('getMemberMasterList') }}",
+                "data": function(data) {
+                    data.campuses_select = $('#campuses_select').val();
+                    data.department_select = $('#department_select').val();
+                    data.date_from_select = $('#date_from_select').val();
+                    data.date_to_select = $('#date_to_select').val();
+
+                },
+            },
+            columns: [
+                // {
+
+                //     data: 'checkbox',
+                //     name: 'checkbox',
+
+                // },
+                {
+                    data: '200 mm',
+                    name: 'action'
+                },
+                {
+                    data: 'member_no',
+                    name: 'member_no'
+                },
+                {
+                    data: 'full_name',
+                    name: 'full_name'
+                },
+                {
+                    data: 'memdate',
+                    name: 'memdate'
+                },
+                {
+                    data: 'positions',
+                    name: 'positions'
+                },
+                {
+                    data: 'positions',
+                    name: 'positions'
+                },
+                {
+                    data: 'campus',
+                    name: 'campus'
+                },
+
+
+
+
+            ]
+        });
         $('#campuses_select').on('change', function() {
-            tableMemberApp.draw();
-            campus_checked = $(this).find(":selected").text();
+            loan_table.draw();
         });
         $('#department_select').on('change', function() {
-            tableMemberApp.draw();
+            loan_table.draw();
         });
-        $('#search_value').on('change', function() {
-            tableMemberApp.draw();
+        $('#date_from_select').on('change', function() {
+            loan_table.draw();
         });
-        $('#status_select').on('change', function() {
-            tableMemberApp.draw();
+        $('#date_to_select').on('change', function() {
+            loan_table.draw();
         });
-        $('#remarks_select').on('change', function() {
-            tableMemberApp.draw();
-        });
-        $('#from').on('change', function() {
-            if ($('#from').val() > $('#to').val() && $('#to').val() != '') {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Invalid Date Range,Please Check the date. Thank you!',
-                });
-                $('#from').val('');
-            } else {
-                tableMemberApp.draw();
-            }
 
-        });
-        $('#to').on('change', function() {
-            if ($('#to').val() < $('#from').val()) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Invalid Date Range,Please Check the date. Thank you!',
-                });
-                $('#to').val('');
-            } else {
-                tableMemberApp.draw();
-            }
-        });
-    });
-    $('#modal_proceed').on('click', function() {
-        if ($('#forward_action').val()) {
-            $('.select_item:checked').each(function() {
-                var row = $(this).closest('tr');
-                var col3 = row.find('td:eq(2)').text();
-                var col4 = row.find('td:eq(3)').text();
-                var col5 = row.find('td:eq(4)').text();
-                var newRow = '<tr class="appended-row"><td>' + col3 + '</td><td>' + col4 + '</td><td>' + col5 + '</td></tr>';
-                $('#forward_tbl').append(newRow);
-            });
-            var campusspan = campus_checked + ' ' + $('#forward_action').val();
-            var forward_action = $('#forward_action').val();
-            $('#summaryModal').css('display', 'flex');
-            if ($('#forward_action').val() == 'FM') {
-                $('#campus_userlevel').text('User:');
-                $.getJSON('/hrdo_user', {
-                    department: campus_checked,
-                    forward_action: forward_action
-                }, function(options) {
-                    $.each(options, function(index, option) {
-                        $('#hrdo_user').append($('<option>', {
-                            value: option.id,
-                            text: forward_action + ' ' + option.first_name + ' ' + option.last_name,
-                        }));
-                    });
-                });
-            } else {
-                $('#campus_userlevel').text('Campus:');
-                $.getJSON('/hrdo_user', {
-                    department: campus_checked,
-                    forward_action: forward_action
-                }, function(options) {
-                    $.each(options, function(index, option) {
-                        $('#hrdo_user').append($('<option>', {
-                            value: option.id,
-                            text: campus_checked + ' ' + forward_action + ' ' + option.first_name + ' ' + option.last_name,
-                        }));
-                    });
-                });
-            }
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Please select an action. Thank you!',
-            });
-        }
-    });
-    $('.cancel_modal').on('click', function() {
-        $('#summaryModal').css('display', 'none');
-        $('#forward_tbl tbody').empty();
-        $('#hrdo_user').empty().append('<option value="">Please select</option>');
-    });
-    var campus_checked;
-    var clicked_check = 0;
-    $(document).ready(function() {
-        $('.proceed_fwd').css('background-color', 'gray');
-        $('.proceed_fwd').prop('disabled', true);
-        $('#check_all').css('background-color', 'gray');
-        $('#check_all').prop('disabled', true);
-        $(document).on('change click', '.select_item', function() {
-            clicked_check = 0;
-            if ($(this).is(':checked')) {
-                clicked_check++;
-                var row = $(this).closest('tr');
-                var campusValue = tableMemberApp.cell(row, 8).data();
-                campus_checked = campusValue;
-                // disable checkboxes in other rows that have different "campus" values
-                $('input.select_item').each(function() {
-                    var otherRow = $(this).closest('tr');
-                    var otherCampusValue = tableMemberApp.cell(otherRow, 8).data();
-                    if (otherCampusValue != campusValue) {
-                        $(this).prop('disabled', true);
-                    }
-                });
-            } else {
-                clicked_check--;
-                var row = $(this).closest('tr');
-                $('input.select_item').each(function() {
-                    var otherRow = $(this).closest('tr');
-                    var evaluatedValue = tableMemberApp.cell(row, 10).data();
-                    var otherevaluatedValue = tableMemberApp.cell(otherRow, 10).data();
-                    if (otherevaluatedValue == evaluatedValue) {
-                        $(this).prop('disabled', false);
-                    }
-                });
-            }
-            if (clicked_check > 0) {
-                $('.proceed_fwd').css('background-color', '');
-                $('.proceed_fwd').prop('disabled', false);
-            } else {
-                $('.proceed_fwd').css('background-color', 'gray');
-                $('.proceed_fwd').prop('disabled', true);
 
-            }
+
+
+        $(document).on('click', '#clear_filter', function() {
+            resetFilter();
+            loan_table.draw();
         });
-        // 
-        $(document).on('click', '#foward_confirm', function() {
-            event.preventDefault();
-            var formDatas = {};
-            var appNos = [];
-            if ($('#hrdo_user').val()) {
-                $('#forward_tbl tbody tr').each(function() {
-                    var appNo = $(this).find('td:eq(0)').text();
-                    appNos.push(appNo);
-                });
-                formDatas.app_nos = appNos;
-                formDatas.app_nos = appNos;
-                formDatas.hrdo_user = $('#hrdo_user').val();
-                formDatas.forward_action = $('#forward_action').val();
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('forward_application') }}",
-                    data: formDatas,
-                    success: function(data) {
-                        if (data.success != '') {
-                            Swal.fire({
-                                text: 'Application has been forwarded to ' + $('#forward_action').val() + ' successfully.',
-                                icon: 'success',
-                                confirmButtonColor: '#3085d6',
-                                confirmButtonText: 'Proceed',
-                            });
-                            tableMemberApp.draw();
-                            $('#summaryModal').css('display', 'none');;
-                            $('#forward_tbl tbody').empty();
-                            $('#forward_action').val('');
-                            $('.proceed_fwd').css('background-color', 'gray');
-                            $('.proceed_fwd').prop('disabled', true);
-                            $('#hrdo_user').empty().append('<option value="">Please select</option>');
-                        } else {
-                            swal.fire("Error!", "Saving failed", "error");
-                        }
-                    }
-                });
-            } else {
-                swal.fire("Error!", "Please select an user to forward this transaction.", "error");
-            }
-        });
+
 
     });
 </script>

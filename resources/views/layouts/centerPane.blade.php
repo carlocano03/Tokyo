@@ -147,6 +147,31 @@
 </div>
 <script src="moment.js"></script>
 <script>
+    let appointmentStatus = []
+
+    function initializeAppointmentSelect() {
+        $('.appointment').empty()
+        for (var i = 0; i < appointmentStatus.length; i++) {
+            var radioBtn = $(`<input type="radio" value="${appointmentStatus[i].appoint_id}" name="appointment" id="${appointmentStatus[i].appointment_name}">`).click(appointmentClick);
+            $('.appointment').append(radioBtn);
+            $('.appointment').append(`<label for="${appointmentStatus[i].appointment_name}" class="mp-input-group__label" style="margin-left: 5px; margin-right: 5px">${appointmentStatus[i].appointment_name}</label>`)
+        }
+        var radioBtn = $(`<input type="radio" value="OTHER" name="appointment" id="OTHER">`).click(appointmentClick);
+        $('.appointment').append(radioBtn);
+        $('.appointment').append(`<label for="OTHER" class="mp-input-group__label" style="margin-left: 5px; margin-right: 5px">Other Status Please Specify</label>`)
+    }
+
+    function appointmentClick() {
+        var appointment_value = $(this).val();
+        if (appointment_value === "OTHER") {
+            $("#other_status").removeClass("d-none");
+            $("#other_status").removeClass("opacity-0");
+        } else {
+            $("#other_status").addClass("d-none");
+            $("#other_status").addClass("opacity-0");
+        }
+    }
+
     const inputField = document.querySelector('#contact-number-input');
     const axaNumberField = document.querySelector('#axa_contact_no');
 
@@ -275,34 +300,47 @@
 
     $('#landline-format').on('input', function() {
         var inputNumber = $(this).val().replace(/\D/g, ''); // remove non-digit characters
-        var formattedNumber = formatPhoneNumber(inputNumber); // format the phone number
-        $(this).val(formattedNumber); // update the input field with the formatted number
+        if ($(this).val().length > 11) {
+            $(this).val($(this).val().slice(0, 11));
+        } else {
+            var formattedNumber = formatPhoneNumber(inputNumber); // format the phone number
+            $(this).val(formattedNumber); // update the input field with the formatted number
+        }
+
     });
 
     function formatPhoneNumber(number) {
         // Check if the number is a landline or mobile number
         var isLandline = number.slice(0, 2) == "02";
         var prefixLength = isLandline ? 2 : 3; // prefix length is 2 for landline and 3 for mobile number
-
-        // Split the number into prefix and the remaining digits
-        var prefix = number.slice(0, prefixLength);
-        var remainingDigits = number.slice(prefixLength);
-
-        // Format the remaining digits with dashes and parentheses if there are enough digits
-        var formattedRemainingDigits = remainingDigits.length >= 4 ? formatRemainingDigits(remainingDigits) : remainingDigits;
-
-        // Combine the prefix and formatted remaining digits, removing parentheses and dashes if they're not necessary
-        var formattedNumber = prefix + formattedRemainingDigits;
-        if (isLandline && formattedRemainingDigits.length >= 4) {
-            formattedNumber = "(" + prefix + ") " + formattedRemainingDigits;
-        } else if (!isLandline && formattedRemainingDigits.length >= 7) {
-            formattedNumber = "(" + prefix + ") " + formattedRemainingDigits.slice(0, 3) + "-" + formattedRemainingDigits.slice(3);
+        // console.log(number.length)
+        let formattedNumber = number
+        if (number.length >= 4) {
+            const newFormattedNumberArray = []
+            for (let i = 0; i < formattedNumber.length; i += 4) {
+                newFormattedNumberArray.push(number.slice(i, i + 4));
+            }
+            formattedNumber = newFormattedNumberArray.join(" - ")
         }
+        // // Split the number into prefix and the remaining digits
+        // var prefix = number.slice(0, prefixLength);
+        // var remainingDigits = number.slice(prefixLength);
 
-        // Remove the last dash if it's at the end of the formatted remaining digits
-        if (formattedRemainingDigits.slice(-1) == '-') {
-            formattedNumber = formattedNumber.slice(0, -1);
-        }
+        // // Format the remaining digits with dashes and parentheses if there are enough digits
+        // var formattedRemainingDigits = remainingDigits.length >= 4 ? formatRemainingDigits(remainingDigits) : remainingDigits;
+
+        // // Combine the prefix and formatted remaining digits, removing parentheses and dashes if they're not necessary
+        // var formattedNumber = prefix + formattedRemainingDigits;
+        // if (isLandline && formattedRemainingDigits.length >= 4) {
+        //     formattedNumber = "(" + prefix + ") " + formattedRemainingDigits;
+        // } else if (!isLandline && formattedRemainingDigits.length >= 7) {
+        //     formattedNumber = "(" + prefix + ") " + formattedRemainingDigits.slice(0, 3) + "-" + formattedRemainingDigits.slice(3);
+        // }
+
+        // // Remove the last dash if it's at the end of the formatted remaining digits
+        // if (formattedRemainingDigits.slice(-1) == '-') {
+        //     formattedNumber = formattedNumber.slice(0, -1);
+        // }
 
         return formattedNumber;
     }
@@ -367,13 +405,10 @@
             });
         });
         $.getJSON('/appointment', function(options) {
-            $.each(options, function(index, option) {
-                $('#appointment').append($('<option>', {
-                    value: option.appoint_id,
-                    text: option.appointment_name
-                }));
-            });
+            appointmentStatus = options
+            initializeAppointmentSelect()
         });
+
         $.getJSON('/options_psgc', function(options) {
             $.each(options, function(index, option) {
                 $('#province').append($('<option>', {
@@ -589,7 +624,7 @@
     // // });
 
     var stepTitle = ["Step 1: Enter your Personal Information", "Step 2: Enter your Employment Details",
-        "Step 3: Enter your Membership Details", "Step 4: Insurance Form", "Step 5: Proxy Form"
+        "Step 3: Enter your Membership Details", "Step 4: Fill out your AXA Group Insurance Form", "Step 5: Sign the Proxy Form"
     ]
     var steps = ["Step 1: ", "Step 2: ", "Step 3: ", "Step 4: ", "Step 5:"]
     var present_provcode;
@@ -989,9 +1024,9 @@
                 'birthday'
             ])
 
-            var gender = $('#member_forms').find("[name=gender]")
-            if (gender.val() == "") {
-                empty.push(gender[0])
+            var gender = $('#member_forms').find("[name=gender]:checked")
+            if (gender.val() == undefined) {
+                empty.push($('#member_forms').find("[name=gender]")[0])
             }
             var province = $('#member_forms').find("[name=present_province]")
             if (province.val() == "" || province.val() == null || province.val() == undefined) {
@@ -1051,10 +1086,17 @@
                 selectedDate = new Date($("#date_birth_month").val() + " " + $("#date_birth_days").val() + ", " + $("#date_birth_years").val())
             }
             var currentDate = new Date();
-            if (selectedDate > fifteenYearsAgo || selectedDate == "Invalid Date") {
-                var birthday = $('#member_forms').find("[data-set=birthday]")
+            if (selectedDate == "Invalid Date") {
+                var birthday = $('#member_forms').find("[name=date_birth_month]")
                 $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none')
                 $("[data-set=birthday]> .input").addClass('input-error')
+                $("[data-set=birthday]>#err-msg").removeClass('d-none').text("Please select your date of birth.")
+                empty.push(birthday[0])
+            } else if (selectedDate > fifteenYearsAgo) {
+                var birthday = $('#member_forms').find("[name=date_birth_month]")
+                $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none')
+                $("[data-set=birthday]> .input").addClass('input-error')
+                $("[data-set=birthday]>#err-msg").removeClass('d-none').text("Invalid age, Must be fifteen years old and above.")
                 empty.push(birthday[0])
             } else {
                 $("[data-set=date_appoint_months]>#err-msg").addClass('d-none')
@@ -1106,7 +1148,7 @@
                         return
                     }
                     if (name == 'gender') {
-                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select gender.")
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your sex at birth.")
                         $("[data-set=" + name + "]>select").addClass('input-error')
                         return
                     }
@@ -1155,10 +1197,20 @@
                         return
                     }
                     if (name == 'birthday') {
-                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Invalid Age, you must be 15 years old or older.")
                         return
                     }
-                    console.log('name', name)
+                    if (name == 'firstname') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please enter your complete first name/s.")
+                        return
+                    }
+                    if (name == 'middlename') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please enter your complete middle name.")
+                        return
+                    }
+                    if (name == 'lastname') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please enter your last name.")
+                        return
+                    }
                     $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please fill out this field.")
                     $("[data-set=" + name + "]>input").addClass('input-error')
                     $("[data-set=" + name + "]>.input").addClass('input-error')
@@ -1168,12 +1220,31 @@
                 // swal.fire("Error!", "Please fill out the required fields", "error");
             } else {
                 if ($('#app_trailNo').val() !== '' && personnel_id == undefined) {
+                    // var formDatas = $("#member_forms").serialize();
+                    // Serialize the form data
                     var formDatas = $("#member_forms").serialize();
+
+                    // Split the serialized data string into an array of "name=value" pairs
+                    var formFields = formDatas.split("&");
+                    var newFormData = []
+                    // Loop through the form fields array and remove the "field2" pair
+                    for (var i = 0; i < formFields.length; i++) {
+                        if (formFields[i].split("=")[0] == "area_code") continue;
+                        if (formFields[i].split("=")[0] == "landline") continue;
+                        newFormData.push(formFields[i])
+
+                    }
+
+                    // Join the modified form fields array back into a serialized data string
+                    formData = newFormData.join("&");
+                    const landline = ($('input[name=area_code]').val() + $('input[name=landline]').val()).replace(" - ", "")
                     var additionalData = {
                         'mem_id': mem_id,
                         'personnel_id': pers_id,
+                        'landline': landline
                     };
                     formDatas += '&' + $.param(additionalData);
+
                     $.ajax({
                         type: 'POST',
                         url: "{{ route('update_trail_member') }}",
@@ -1193,15 +1264,40 @@
                                 $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
                                 $("#stepper-2").addClass("active");
                                 // $("#back").removeClass("disabled");
+                                initializeAppointmentSelect()
                             }
                         }
                     });
                 } else {
                     if (!personnel_id) {
+
+                        // var formDatas = $("#member_forms").serialize();
+                        // Serialize the form data
+                        var formDatas = $("#member_forms").serialize();
+
+                        // Split the serialized data string into an array of "name=value" pairs
+                        var formFields = formDatas.split("&");
+                        var newFormData = []
+                        // Loop through the form fields array and remove the "field2" pair
+                        for (var i = 0; i < formFields.length; i++) {
+                            if (formFields[i].split("=")[0] == "area_code") continue;
+                            if (formFields[i].split("=")[0] == "landline") continue;
+                            newFormData.push(formFields[i])
+
+                        }
+
+                        // Join the modified form fields array back into a serialized data string
+                        formData = newFormData.join("&");
+                        const landline = ($('input[name=area_code]').val() + $('input[name=landline]').val()).replace(" - ", "")
+                        var additionalData = {
+                            'landline': landline
+                        };
+                        formDatas += '&' + $.param(additionalData);
+
                         $.ajax({
                             type: 'POST',
                             url: "{{ route('add_member') }}",
-                            data: $('#member_forms').serialize(),
+                            data: formDatas,
                             beforeSend: function() {
                                 $('#loading').show();
                             },
@@ -1305,6 +1401,7 @@
                         $("#registration-title").text(stepTitle[1])
                         $("#step-title").text(`${steps[1]}${stepTitle[1]}`)
                         $("#stepper-2").addClass("active")
+                        initializeAppointmentSelect()
                     }
                 }
             }
@@ -1357,10 +1454,17 @@
             if (college_unit.val() == "") {
                 empty.push(college_unit[0])
             }
-            var appointment = $('#member_forms_con').find("[name=appointment]")
-            if (appointment.val() == "") {
-                empty.push(appointment[0])
+
+            var department = $('#member_forms_con').find("[name=department]")
+            if (department.val() == "") {
+                empty.push(department[0])
             }
+            var appointment = $('#member_forms_con').find("input[name=appointment]:checked")
+            if (appointment.val() == undefined) {
+                empty.push($('#member_forms_con').find("input[name=appointment]")[0])
+            }
+
+            console.log($("#member_forms_con").serialize())
 
             var selectedDate = "Invalid Date";
             if ($("#date_appoint_months").val() != "" && $("#date_appoint_days").val() != "" && $("#date_appoint_years").val() != "") {
@@ -1368,7 +1472,6 @@
             }
 
             var currentDate = new Date();
-            console.log(selectedDate, '123123')
             if (selectedDate > currentDate || selectedDate == "Invalid Date") {
                 $("[data-set=date_appoint_months]>#err-msg").removeClass('d-none').text("Invalid appointment date, please check")
                 $("[data-set=date_appoint_months]>.input").addClass('input-error')
@@ -1411,6 +1514,13 @@
                     if (name == 'appointment') {
                         $("[data-set=" + name + "]>#err-msg").text("Please select an appointment status.")
                     }
+                    if (name == 'college_unit') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your college/unit.")
+                    }
+                    if (name == 'department') {
+                        $("[data-set=" + name + "]>#err-msg").removeClass('d-none').text("Please select your department.")
+                    }
+
 
                 })
                 empty.first().focus();
@@ -1614,8 +1724,63 @@
                 $("[data-set=fixed_amount_check]>input").addClass('input-error')
                 hasError = true
             }
+            if (!percentage_check && !fixed_amount_check) {
+                $("[data-set=percentage_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly type.")
+                $("[data-set=fixed_amount_check]>#err-msg").removeClass('d-none').text("Please input your desired monthly type.")
+                hasError = true
+            }
+
+
+
+
             if (hasError || (!percentage_check && !fixed_amount_check)) {
-                // swal.fire("Error!", "Please fill out the required fields", "error");
+                return false
+            }
+            console.log(parseFloat(fixed_amount.trim().replace(/\D/g, '')), parseFloat($('#month_sal_text').text().replace(/\D/g, '')), parseFloat(fixed_amount.trim()) >= parseFloat($('#month_sal_text').text().replace(/\D/g, '')))
+            if (parseFloat(fixed_amount.trim().replace(/\D/g, '')) >= parseFloat($('#month_sal_text').text().replace(/\D/g, ''))) {
+                $("[data-set=fixed_amount_check]>#err-msg").removeClass('d-none').text("Your contribution should not be higher than your current salary.")
+                $("[data-set=fixed_amount_check]>input").addClass('input-error')
+                return false
+            }
+
+            if ($($("#dependentTable tbody tr td")[0]).hasClass("dataTables_empty")) {
+                swal.fire({
+                    title: 'Are you sure?',
+                    text: " Are you sure you don’t want to indicate any beneficiary/ies? If left blank, your benefits shall be dividedamong your heirs in accordance with the New Famly Code in the event of your death",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        var appNo = query;
+                        var ref = reference_no;
+                        if (ref != undefined) {
+                            $('#test_no').val(ref);
+                        } else {
+                            $('#test_no').val(query);
+                        }
+                        var formData = $("#member_forms_3").serialize()
+                        $.ajax({
+                            method: 'POST',
+                            url: "{{ route('add_member_details') }}",
+                            data: formData,
+                            success: function(data) {
+                                if (data.success != '') {
+                                    $("#step-3").removeClass('d-flex').addClass("d-none");
+                                    $("#step-4").removeClass('d-none').addClass("d-flex");
+                                    $("#back").attr('value', 'step-3')
+                                    $("#line").removeClass('step-3').addClass('step-4')
+                                    $("#registration-title").text(stepTitle[3])
+                                    $("#step-title").text(`${steps[3]}${stepTitle[3]}`)
+                                    $("#stepper-4").addClass("active")
+                                    $("#axa_contact_no").val("+63")
+                                }
+                            },
+                        });
+                    }
+                })
                 return false
             }
 
@@ -2118,18 +2283,6 @@
             }
         });
 
-        //other status logic
-        $("#appointment").change(function() {
-            var appointment_value = $(this).val();
-
-            if (appointment_value === "OTHER") {
-                $("#other_status").removeClass("d-none");
-                $("#other_status").removeClass("opacity-0");
-            } else {
-                $("#other_status").addClass("d-none");
-                $("#other_status").addClass("opacity-0");
-            }
-        });
 
         //other department logic
         $("#department").change(function() {
@@ -2837,6 +2990,7 @@
         formdata.append('dependent_middle_name', $('#dependent_middle_name').val());
         formdata.append('dependent_first_name', $('#dependent_first_name').val());
         formdata.append('relationship_tomember', $('#dependent_relationship').val());
+        formdata.append('benefit_percent', $('#benefit_percent').val());
         formdata.append('bday', formattedDate);
         formdata.append('dependent_insurance', $('#dependent_insurance').val());
         formdata.append('dependent_rights', $('#dependent_rights').val());
@@ -2868,6 +3022,7 @@
                     $('#dependent_middle_name').val('');
                     $('#dependent_first_name').val('');
                     $('#dependent_relationship').val('');
+                    $('#benefit_percent').val('');
                     // $('#dependent_insurance').val('');
                     // $('#dependent_rights').val('');
                 }
@@ -2905,6 +3060,19 @@
     });
 
     $(document).ready(function() {
+
+        $('#benefit_percent').keyup(function() {
+
+            console.log(this.value);
+
+            if (parseInt(this.value) > 100 || parseInt(this.value) < 1) {
+                console.log("tumbok")
+                $('#benefit_percent').val(1).trigger("change");
+            }
+
+            this.value = this.value.replace(/[^0-9\.]/g, '');
+        });
+
         var tableDependentAxa = $('.axa-table').DataTable({
             ordering: false,
             info: false,
@@ -2929,6 +3097,10 @@
                 {
                     data: 'ben_relationship',
                     name: 'ben_relationship'
+                },
+                {
+                    data: 'benefit_with_percent',
+                    name: 'benefit_with_percent'
                 },
                 {
                     data: 'action',
@@ -3306,7 +3478,16 @@
         var college_unit = $('#member_forms_con').find("[name=college_unit]")
         if (college_unit.val() == "") {
             empty.push(college_unit[0])
+            $("[data-set=college_unit]>#err-msg").removeClass('d-none').text("Please select your college/unit.")
+            $("[data-set=college_unit]>.input").addClass('input-error')
         }
+        var department = $('#member_forms_con').find("[name=department]")
+        if (department.val() == "") {
+            empty.push(department[0])
+            $("[data-set=department]>#err-msg").removeClass('d-none').text("Please select your department.")
+            $("[data-set=department]>.input").addClass('input-error')
+        }
+
         var appointment = $('#member_forms_con').find("[name=appointment]")
         if (appointment.val() == "") {
             empty.push(appointment[0])
