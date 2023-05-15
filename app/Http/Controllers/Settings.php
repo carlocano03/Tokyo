@@ -844,7 +844,7 @@ class Settings extends Controller
         'middle_name' => strtoupper($request->input('middlename')),
         'last_name' => strtoupper($request->input('lastname')),
         'email' => $request->input('email'),
-        'intial_password' => $request->input('initial_pass'),
+        'initial_password' => $request->input('initial_pass'),
         'password' => Hash::make($request->input('initial_pass')),
         'contact_no' => $request->input('contact_no'),
         'user_level' => strtoupper($request->input('user_level')),
