@@ -2989,6 +2989,7 @@ class AdminController extends Controller
 
     echo json_encode($data);
   }
+
   public function getLoanApplications(Request $request)
   {
     $columns = [
@@ -3270,6 +3271,121 @@ class AdminController extends Controller
     }
   }
 
+
+  public function getLoanTransactions(Request $request)
+  {
+    $columns = [
+      0 => 'id',
+      1 => 'loan.id',
+      2 => 'loan.id',
+      3 => 'loan.id',
+      4 => 'loan.id',
+      5 => 'loan.id',
+      6 => 'loan.id',
+      7 => 'loan.id',
+      8 => 'loan.id',
+    ];
+    $totalData = LoanTransaction::count();
+    $limit = $request->input('length');
+    $start = $request->input('start');
+    $order = $columns[$request->input('order.0.column')];
+    $dir = $request->input('order.0.dir');
+    $searchValue =  $request->input('search.value');
+    $campus = $request->input('campus_filter');
+    $status_select = $request->input('status_filter');
+    $application_type = $request->input('application_filter');
+    $loan_type = $request->input('loan_filter');
+    $date_applied_from  = $request->get('date_applied_from');
+    $date_applied_to  = $request->get('date_applied_to');
+
+
+    //filter codes
+    if (!empty($searchValue)) {
+
+      $loan_transactions   = LoanTransaction::select(
+        'loan.id as id',
+        'loan_type.name as type',
+        'member.member_no as memberNo',
+        'users.first_name as firstname',
+        'users.middle_name as middlename',
+        'users.last_name as lastname',
+        DB::raw('MAX(date) as lastTransactionDate'),
+        DB::raw('SUM(amount) AS balance'),
+        DB::raw('MAX(start_amort_date) AS startAmortDate'),
+        DB::raw('MAX(end_amort_date) AS endAmortDate')
+      )
+        ->leftjoin('loan', 'loan_transaction.loan_id', '=', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', '=', 'loan_type.id')
+        ->leftjoin('member', 'loan.member_id', '=', 'member.id')
+        ->leftjoin('users', 'member.user_id', '=', 'users.id')
+        ->groupBy('loan.id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    } else {
+
+      $loan_transactions   = LoanTransaction::select(
+        'loan.id as id',
+        'loan_type.name as type',
+        'member.member_no as memberNo',
+        'users.first_name as firstname',
+        'users.middle_name as middlename',
+        'users.last_name as lastname',
+        DB::raw('MAX(date) as lastTransactionDate'),
+        DB::raw('SUM(amount) AS balance'),
+        DB::raw('MAX(start_amort_date) AS startAmortDate'),
+        DB::raw('MAX(end_amort_date) AS endAmortDate')
+      )
+        ->leftjoin('loan', 'loan_transaction.loan_id', '=', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', '=', 'loan_type.id')
+        ->leftjoin('member', 'loan.member_id', '=', 'member.id')
+        ->leftjoin('users', 'member.user_id', '=', 'users.id')
+        ->groupBy('loan.id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+
+
+
+
+    $totalFiltered = LoanTransaction::when($searchValue, function ($query) use ($searchValue) {
+      $query->where('id', 'like', "%{$searchValue}%")->orWhere('status', 'like', "%{$searchValue}%");
+    })
+      ->count();
+
+    $data = [];
+    foreach ($loan_transactions as $row) {
+      $nestedData['type'] = $row->type;
+      $nestedData['memberNo'] = $row->memberNo;
+      $nestedData['full_name'] = $row->lastname . ', ' . $row->firstname . ' ' . $row->middlename;
+
+      $nestedData['lastTransactionDate'] =  $row->lastTransactionDate == null ? '' : date('m/d/Y', strtotime($row->lastTransactionDate));
+      $nestedData['balance'] = 'PHP ' . number_format($row->balance, 2);
+      $nestedData['loan_type'] = $row->loan_type_name;
+      $nestedData['startAmortDate'] = $row->startAmortDate == null ? '' : date('m/d/Y', strtotime($row->startAmortDate));
+      $nestedData['endAmortDate'] = $row->endAmortDate == null ? '' : date('m/d/Y', strtotime($row->endAmortDate));
+      $nestedData['status'] = $row->status;
+      $nestedData['action'] = '
+      <a href="/admin/loan/loan-application/details/' . $row->id .  '" target="_blank" data-md-tooltip="View Loan Details" class="view_member md-tooltip--top view-member" style="cursor: pointer">
+                 <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+               </a>
+          
+         ';
+
+      $data[] = $nestedData;
+    }
+    $json_data = [
+      "draw" => intval($request->input('draw')),
+      "recordsTotal" => intval($totalData),
+      "recordsFiltered" => intval($totalFiltered),
+      "data" => $data,
+    ];
+
+    return response()->json($json_data);
+  }
   public function loanAnalytics()
   {
     return view('admin.loan.loan-analytics');

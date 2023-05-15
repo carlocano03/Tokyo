@@ -1572,8 +1572,8 @@
                     <a href="#" style="padding: 2px; color:#6c1242; font-size: 13px; text-align: right;" class="link_style">
                         Update Multiple Payments
                     </a>
-                    <div class="table-container">
-                        <table class="members-table" style="height: auto;" width="100%">
+                    <div class=" ">
+                        <table class="members-table" id="loan_payment_table" style="height: auto;" width="100%">
                             <thead>
                                 <tr>
                                     <th style="width:60px">
@@ -1591,9 +1591,9 @@
                                     <th>
                                         <span>Member Name</span>
                                     </th>
-                                    <th>
+                                    <!-- <th>
                                         <span>Campus/Unit</span>
-                                    </th>
+                                    </th> -->
                                     <th>
                                         <span>Loan Amount</span>
                                     </th>
@@ -1616,70 +1616,6 @@
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <span style="justify-content: center;">
-                                            <input type="checkbox" name="check[]" class="select_item" id="select_item">
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            <a href="#" data-md-tooltip="Action" class="view_member md-tooltip--right view-member" style="cursor: pointer">
-                                                <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                                            </a>
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            PEL
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            201163236
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Sample Name
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Campus A
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Php 200,000
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            16,000
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Php 200,000
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            07/01/2019
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            07/01/2019
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            07/01/2019
-                                        </span>
-                                    </td>
-                                </tr>
 
                             </tbody>
 
@@ -1723,6 +1659,80 @@
         }
 
     })
+
+    //get loan payment list data table
+    var loan_table;
+    $(document).ready(function() {
+        loan_table = $('#loan_payment_table').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('getLoanTransactions') }}",
+                "data": function(data) {
+                    data.campuses_select = $('#campuses_select').val();
+                    data.department_select = $('#department_select').val();
+                    data.date_from_select = $('#date_from_select').val();
+                    data.date_to_select = $('#date_to_select').val();
+
+                },
+            },
+            columns: [{
+
+                    data: 'action',
+                    name: 'action',
+
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                },
+                {
+                    data: 'type',
+                    name: 'type'
+                },
+                {
+                    data: 'memberNo',
+                    name: 'memberNo'
+                },
+                {
+                    data: 'full_name',
+                    name: 'full_name'
+                },
+                {
+                    data: 'lastTransactionDate',
+                    name: 'lastTransactionDate'
+                },
+                {
+                    data: 'balance',
+                    name: 'balance'
+                },
+                {
+                    data: 'type',
+                    name: 'type'
+                },
+            ]
+        });
+        $('#campuses_select').on('change', function() {
+            loan_table.draw();
+        });
+        $('#department_select').on('change', function() {
+            loan_table.draw();
+        });
+        $('#date_from_select').on('change', function() {
+            loan_table.draw();
+        });
+        $('#date_to_select').on('change', function() {
+            loan_table.draw();
+        });
+
+        $(document).on('click', '#clear_filter', function() {
+            resetFilter();
+            loan_table.draw();
+        });
+
+    });
+
+
     Highcharts.chart('chart-application', {
         chart: {
             plotBackgroundColor: null,
