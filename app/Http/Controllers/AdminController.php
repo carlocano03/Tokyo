@@ -652,7 +652,8 @@ class AdminController extends Controller
 
   public function members_payroll()
   {
-    return view('admin.members.payroll');
+    $data['payroll_no'] = "UPPFI".rand(1000, 5000);
+    return view('admin.members.payroll')->with($data);
   }
 
   public function members_analytics()
@@ -2232,6 +2233,7 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $approved)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
+
     } else if ($users == 'HRDO') {
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';

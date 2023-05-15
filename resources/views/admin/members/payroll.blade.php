@@ -726,6 +726,55 @@
         right: -7px;
         top: 20px;
     }
+
+    /* Table Reports */
+    .table_reports {
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+        border: 1px solid #ececec;
+    }
+
+    .table_reports>thead>tr>th {
+        font-size: 13px;
+        padding-left: 5px;
+        padding-right: 5px;
+        background-color: #1a8981;
+        color: white !important;
+        border-left: 1px solid white;
+        font-weight: 500;
+        border-top: 2px solid #1a8981;
+        border-bottom: 2px solid #1a8981;
+        height: auto;
+        text-transform: uppercase;
+    }
+
+    .table_reports>thead>tr>th:first-child {
+        border-left: 1px solid #1a8981;
+    }
+
+    .table_reports>thead>tr>th:last-child {
+        border-right: 1px solid #1a8981;
+    }
+
+    .table_reports>thead>tr>th>span {
+        display: flex;
+        height: 100%;
+    }
+
+    .table_reports>tbody>tr>td>span {
+        display: flex;
+        padding: 5px 2px;
+
+    }
+
+    .table_reports>tbody>tr>td {
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
 </style>
 <div id="summaryModal" class="">
 
@@ -938,61 +987,56 @@
                     <div class="card-body filtering-section-body gap-5 flex-column">
                         <span class="mp-text-fs-base mp-text-fw-medium">To: </span>
                         <span class="mp-text-fs-small">Name of Accounting Head</span>
-                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
+                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" name="accounting_head" id="accounting_head" />
                         <span class="mp-text-fs-small">Designation</span>
-                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
+                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" name="designation" id="designation" />
                         <span class="mp-text-fs-small">Unit and Campus</span>
                         <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="campus" id="campus" required>
                             <option value="">Select Campus</option>
-                            {{-- @foreach ($campuses as $row)
-                            <option value="{{ $row->campus_key }}">{{ $row->name }}</option>
-                            @endforeach --}}
                         </select>
+                        <input type="hidden" id="cluster_id" name="cluster_id">
+                        <input type="hidden" id="payroll_no" name="payroll_no" value="{{ $payroll_no }}">
                         <span class="mp-text-fs-base mp-mt2 mp-text-fw-medium">Thru: </span>
                         <span class="mp-text-fs-small">Names of Accountable Payroll Partner</span>
-                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
+                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" name="accountable_payroll" id="accountable_payroll" />
                         <span class="mp-text-fs-small">Payroll Section</span>
-                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" />
+                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" name="payroll_section" id="payroll_section" />
                         <span class="mp-text-fs-base mp-mt2 mp-text-fw-medium">RE: </span>
-                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" placeholder="Salary Deduction Advise of the Month of" />
+                        <input class="mp-input-group__input mp-text-field mp-text-fs-small" type="text" name="subject" id="subject" placeholder="Salary Deduction Advise of the Month of" />
                         <br />
-                        <span class="mp-text-fs-small">From: User / User Access Level (Position) </span>
-                        <span class="mp-text-fs-small">Date Prepared: March 11, 2023 11:00 PM </span>
+                        <span class="mp-text-fs-small" id="from_user">From: {{ Auth::user()->first_name }} {{ Auth::user()->last_name }} / {{ Auth::user()->user_level }}</span>
+                        <span class="mp-text-fs-small">Date Prepared: {{ date('F j, Y') }}</span>
 
                     </div>
                 </div>
                 <div class="card-container card p-0 span-6">
                     <div class="card-header filtering items-between d-flex">
-                        <span>Filtering Section</span>
+                        <span>Reports Generated</span>
                     </div>
                     <div class="card-body filtering-section-body justify-content-center gap-10 flex-column h-100">
-                        <div class="w-full d-flex flex-row flex-wrap gap-10">
+                        <div class="header-table">
+                            <table class="table_reports text-center" style="height: auto;">
+                                <thead>
+                                    <tr>
+                                        <th>DOC.#</th>
+                                        <th>CLUSTER</th>
+                                        <th>CAMPUS</th>
+                                        <th>ACCOUNTING HEAD</th>
+                                        <!-- <th>CREATED BY</th> -->
+                                        <th>CREATED DATE</th>
+                                        <th>FILE</th>
+                                        <th>ACTION</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
 
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Select Cluster</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="status_select">
-                                    <option value="">Select Cluster No.</option>
-                                    <option value="1">Cluster 1 - DSB</option>
-                                    <option value="2">Cluster 2 - LBOU</option>
-                                    <option value="3">Cluster 3 - MLAPGH</option>
-                                    <option value="4">Cluster 4 - CVM</option>
-                                </select>
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Select Campus</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="status_select">
-                                    <option value="">Show All</option>
-                                    <option value="DRAFT APPLICATION">DRAFT APPLICATION</option>
-                                    <option value="NEW APPLICATION">NEW APPLICATION</option>
-                                    <option value="PROCESSING">PROCESSING</option>
-                                    <option value="REJECTED">REJECTED</option>
-                                </select>
-                            </span>
+                                </tbody>
+                            </table>
                         </div>
                         <!-- <br> -->
                         <div class="w-full d-flex flex-column flex-wrap gap-10 h-100">
                             <button class="f-button mp-text-fs-medium gray-bg" style="margin-top: auto">CLEAR ALL</button>
-                            <button class="f-button magenta-bg mp-text-fs-medium">GENERATE REPORTS</button>
+                            <button class="f-button magenta-bg mp-text-fs-medium" id="generate_reports">GENERATE REPORTS</button>
                         </div>
                     </div>
                 </div>
@@ -1093,7 +1137,29 @@
             });
         });
 
-        tablePayroll = $('.payroll-table').DataTable({
+        $('#campus').change(function() {
+            var id = $(this).val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url: "{{ route('getCluster') }}",
+                method: "POST",
+                data: {
+                    id: id, 
+                },
+                success: function(data) {
+                    if (Object.keys(data).length > 0) {
+                        $('#cluster_id').val(data.cluster_id);
+                    }
+                }
+            });
+        });
+        
+        var tablePayroll = $('.payroll-table').DataTable({
             language: {
                 search: '',
                 searchPlaceholder: "Search Here...",
@@ -1111,16 +1177,142 @@
             "serverSide": true,
             "ajax": {
                 "url": "{{ route('getPayrollAdvise') }}",
-                // "data": function(data) {
-                //     data.campus = $('#campuses_select').val();
-                //     data.department = $('#department_select').val();
-                //     data.dt_from = $('#from').val();
-                //     data.dt_to = $('#to').val();
-                //     data.searchValue = $('#search_value').val();
-                //     data.status = $('#status_select').val();
-                //     data.remarks = $('#remarks_select').val();
-                // }
+                "data": function(data) {
+                    data.campus = $('#campus').val();
+                    // data.department = $('#department_select').val();
+                    // data.dt_from = $('#from').val();
+                    // data.dt_to = $('#to').val();
+                    // data.searchValue = $('#search_value').val();
+                    // data.status = $('#status_select').val();
+                    // data.remarks = $('#remarks_select').val();
+                }
             },
+        });
+
+        $('#campus').on('change', function() {
+            tablePayroll.draw();
+        });
+
+        var tableReports = $('.table_reports').DataTable({
+            language: {
+                search: '',
+                searchPlaceholder: "Search Here...",
+                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><br>Loading...',
+                "info": "_START_-_END_ of _TOTAL_ entries",
+                paginate: {
+                    next: '<i class="fas fa-chevron-right"></i>',
+                    previous: '<i class="fas fa-chevron-left"></i>'
+                }
+            },
+            "info": false,
+            "ordering": false,
+            "searching": false,
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "{{ route('getPayrollAdviseReports') }}",
+            },
+            columns: [{
+                    data: 'payroll_no',
+                    name: 'payroll_no'
+                },
+                {
+                    data: 'cluster_id',
+                    name: 'cluster_id'
+                },
+                {
+                    data: 'unit_campus',
+                    name: 'unit_campus'
+                },
+                {
+                    data: 'accounting_name',
+                    name: 'accounting_name'
+                },
+                {
+                    data: 'date_created',
+                    name: 'date_created',
+                    render: function(data, type, full, meta) {
+                        if (type === 'display' || type === 'filter') {
+                            // Convert the date format only for display and filtering
+                            var date = new Date(data);
+                            return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
+                        }
+                        
+                        // Return the original data for sorting and other purposes
+                        return data;
+                    }
+                },
+                {
+                    data: 'file_name',
+                    name: 'file_name '
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
+        });
+
+        $(document).on('click', '#generate_reports', function() {
+            if ($('.payroll-table').DataTable().data().length === 0) {
+                alert('There are no records in the datatable.');
+            } else {
+                var formdata = new FormData();
+                var table_data = [];
+                var payroll_no = $('#payroll_no').val();
+                var subject = $('#subject').val();
+
+                formdata.append('accounting_head', $('#accounting_head').val());
+                formdata.append('designation', $('#designation').val());
+                formdata.append('campus', $('#campus').val());
+                formdata.append('cluster_id', $('#cluster_id').val());
+                formdata.append('accountable_payroll', $('#accountable_payroll').val());
+                formdata.append('payroll_section', $('#payroll_section').val());
+                formdata.append('subject', $('#subject').val());
+                formdata.append('payroll_no', $('#payroll_no').val());
+                formdata.append('from_user', $('#from_user').text());
+
+                $.ajax({
+                    url: "{{ route('add_payroll_advise') }}",
+                    method: "POST",
+                    data: formdata,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        if (data.success == 'Success') {
+                            var table = $('.payroll-table').DataTable();
+                            var data = table.rows().data().toArray();
+                            $.ajax({
+                                url: "{{ route('add_payroll_advise_report') }}",
+                                method: "POST",
+                                data: {data_tables: data, payroll_no: payroll_no, subject:subject},
+                                success: function (response) {
+                                    if (response.success) {
+                                        alert('Data saved successfully');
+                                        tableReports.draw();
+                                        tablePayroll.draw();
+                                    } else {
+                                        alert('Error saving data');
+                                    }
+                                },
+                                error: function () {
+                                    alert('Error sending request');
+                                }
+                            });
+                        } else {
+                            alert('Failed');
+                        }
+                    }
+                });
+            }
+        });
+
+        $(document).on('click', '.download_payroll', function() {
+            var filename = $(this).data('file');
+            var url = "{{ URL::to('/admin/download-file/') }}" + '/' + filename; //CHANGE HERE
+            window.location.href = url;
         });
     });
 </script>
