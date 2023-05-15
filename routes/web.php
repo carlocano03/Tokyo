@@ -297,7 +297,11 @@ Route::post('/save_fm_validation', [App_Validation::class, 'fm_validation_save']
 
 //Payroll Advise
 Route::get('/admin/get_payroll_advise', [PayrollController::class, 'get_payroll_advise'])->name('getPayrollAdvise');
-
+Route::post('/admin/get_cluster', [PayrollController::class, 'get_cluster'])->name('getCluster');
+Route::post('/admin/save_payroll_advise', [PayrollController::class, 'save_payroll_advise'])->name('add_payroll_advise');
+Route::post('/admin/save_payroll_advise_report', [PayrollController::class, 'save_payroll_advise_report'])->name('add_payroll_advise_report');
+Route::get('/admin/get_payroll_advise_report', [PayrollController::class, 'get_payroll_advise_report'])->name('getPayrollAdviseReports');
+Route::get('/admin/download-file/{filename}', [PayrollController::class, 'download_payroll']);
 //AXA
 Route::get('/admin/get_beneficiary_axa', [HomeController::class, 'get_beneficiary_axa'])->name('getBeneficiaryAxa');
 Route::post('/admin/add_beneficiary_axa', [HomeController::class, 'add_beneficiary_axa'])->name('add_beneficiary_axa');
