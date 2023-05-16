@@ -166,7 +166,13 @@ Route::get('/admin/settings/status-appointment', [AdminController::class, 'statu
 //admin transaction links
 Route::get('/admin/transaction', [AdminController::class, 'transaction'])->name('admin.transaction.transaction');
 Route::get('/admin/transaction/loan-payment', [AdminController::class, 'loanPayments'])->name('admin.transaction.loan-payment');
+Route::get('/admin/transaction/loan-payment-details/{id}/{id2}', [AdminController::class, 'loanPaymentsDetails'])->name('admin.transaction.loan-payment-details');
 Route::get('/admin/transaction/transaction-analytics', [AdminController::class, 'transactionAnalytics'])->name('admin.transaction.transaction-analytics');
+Route::get('/admin/transaction/solo-loan-payment-details', [AdminController::class, 'getLoanPaymentDetails'])->name('getSoloLoanDetails');
+Route::get('/admin/generate/loanspertype/{id}', 'AdminController@generateloanspertype'); // solod pdf genedrate
+
+//admin loan payments list links
+Route::get('/admin/loan/loan-payments-list', [AdminController::class, 'getLoanTransactions'])->name('getLoanTransactions');
 
 //admin loan links
 Route::get('/admin/loan/loan-matrix', [AdminController::class, 'loanMatrix'])->name('admin.loan.loan-matrix');

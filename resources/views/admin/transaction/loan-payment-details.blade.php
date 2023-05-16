@@ -1503,115 +1503,49 @@
                     <button class="f-button magenta-bg" id="showSettings">Hide Tab</button>
                 </div>
 
-                <div class="card-container card p-0">
-                    <div class="card-header filtering items-between d-flex" style="background-color:#894168;">
-                        <span>Filtering Section</span>
-                        <span class="mp-pr2">
-                            <button class="up-button-grey f-button font-bold" id="reset">Clear</button>
-                            <button class="f-button font-bold">Export</button>
-                            <button class="f-button font-bold up-button-green">Print</button>
-                        </span>
-                    </div>
-
-
-                    <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
-
-                        <div class="table-form w-full" style="grid-template-columns: repeat(8, 1fr); font-size:12px; padding:10px;">
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Search</span>
-                                <input type="text" id="election_date_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Cluster</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
-                                    <option value="1">Cluster 1 - DSB</option>
-                                    <option value="2">Cluster 2 - LBOU</option>
-                                    <option value="3">Cluster 3 - MLAPGH</option>
-                                    <option value="4">Cluster 4 - CVM</option>
-                                </select>
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
-                                <span>Campus</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
-
-                                </select>
-
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
-                                <span>Amortization Date</span>
-
-                                <input type="date" id="election_date_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Loan Type</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
-
-                                </select>
-                            </span>
-                            <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                                <span>Transaction Date</span>
-                                <div class="date_range d-flex">
-                                    <input type="date" id="time_open_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                    <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                    <input type="date" id="time_close_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                                </div>
-                            </span>
-
-                        </div>
-                    </div>
-                </div>
+                <a class="mp-link mp-link--primary" href="{{url('/admin/transaction/loan-payment')}}">
+                    <i class="mp-icon icon-arrow-left mp-mr1 mp-text-fs-medium"></i>
+                    Back to Loan Details
+                </a>
 
                 <div class="card d-flex flex-column mp-mt2">
-                    <div class="top-label">
-                        <label>LOANS PAYMENT</label>
+
+                    <div class="top-label" style="display: flex;  flex-direction: column;">
+                        <label>{{$user_details->last_name}}, {{$user_details->first_name}} {{$user_details->middle_name}}</label>
+                        <label style="margin-top: -15px; font-weight: 400;">Member ID: {{$user_details->member_no}}</label>
+
                     </div>
-                    <a href="#" style="padding: 2px; color:#6c1242; font-size: 13px; text-align: right;" id="download_multiple" class="link_style">
-                        Download Multiple PDF
+                    <a href="{{ url('/admin/generate/loanspertype/' . $loan_id) }}" target="_blank" style=" padding: 2px; color:#6c1242; font-size: 13px; text-align: right;" class="link_style">
+                        Download PDF
                     </a>
                     <div class=" ">
-                        <table class="members-table" id="loan_payment_table" style="height: auto;" width="100%">
+                        <table class="members-table" id="transactions-table" style="height: auto;" width="100%">
                             <thead>
                                 <tr>
-                                    <th style="width:60px">
-                                        <span>Checked</span>
+
+                                    <th>
+                                        <span>Date</span>
                                     </th>
                                     <th>
-                                        <span>Actions</span>
+                                        <span> Transaction</span>
                                     </th>
                                     <th>
-                                        <span>Loan Type</span>
+                                        <span>Account</span>
                                     </th>
-                                    <th>
-                                        <span>Members ID</span>
-                                    </th>
-                                    <th>
-                                        <span>Member Name</span>
-                                    </th>
-                                    <!-- <th>
-                                        <span>Campus/Unit</span>
-                                    </th> -->
-                                    <!-- <th>
-                                        <span>Loan Amount</span>
-                                    </th> -->
+
                                     <th>
                                         <span>Monthly Amortization</span>
                                     </th>
                                     <th>
-                                        <span>Balance</span>
+                                        <span>Interest</span>
                                     </th>
                                     <th>
-                                        <span>Start Amortization Date</span>
+                                        <span>Amount</span>
                                     </th>
                                     <th>
-                                        <span>End Amortization Date</span>
+                                        <span>Principal Balance</span>
                                     </th>
-                                    <th>
-                                        <span>Last Transaction Date</span>
-                                    </th>
+
                                 </tr>
                             </thead>
 
@@ -1663,272 +1597,54 @@
     //get loan payment list data table
     var loan_table;
     $(document).ready(function() {
-        $(function() {
-            $('#download_multiple').click(function() {
-                var val = [];
-                $(':checkbox:checked').each(function(i) {
-                    val[i] = $(this).val();
 
 
-                    window.open(val[i], '_blank');
-                    console.log(val[i])
-                });
-            });
-        });
-        $('#loading').show();
-        setTimeout(function timeout() {
-            $('#loading').hide();
-        }, 9000)
+        console.log(<?php echo $loan_id  ?>);
 
-        loan_table = $('#loan_payment_table').DataTable({
+        var alltransactionTable = $('#transactions-table').DataTable({
+            ordering: false,
+            info: false,
+            searching: false,
             processing: true,
             serverSide: true,
             ajax: {
-                url: "{{ route('getLoanTransactions') }}",
-                "data": function(data) {
-                    data.campuses_select = $('#campuses_select').val();
-                    data.department_select = $('#department_select').val();
-                    data.date_from_select = $('#date_from_select').val();
-                    data.date_to_select = $('#date_to_select').val();
-
-                },
+                url: "{{ route('getSoloLoanDetails') }}",
+                data: function(d) {
+                    d.loan_id = <?php echo $loan_id  ?>
+                }
             },
             columns: [{
-
-                    data: 'checkbox',
-                    name: 'checkbox',
-
+                    data: 'date',
+                    name: 'date',
                 },
                 {
-                    data: 'action',
-                    name: 'action'
+                    data: 'reference_no',
+                    name: 'reference_no',
                 },
                 {
-                    data: 'type',
-                    name: 'type'
+                    data: 'name',
+                    name: 'name',
                 },
                 {
-                    data: 'memberNo',
-                    name: 'memberNo'
+                    data: 'amortization',
+                    name: 'amortization',
                 },
                 {
-                    data: 'full_name',
-                    name: 'full_name'
+                    data: 'interest',
+                    name: 'interest',
                 },
                 {
-                    data: 'lastTransactionDate',
-                    name: 'lastTransactionDate'
+                    data: 'amount',
+                    name: 'amount',
                 },
                 {
                     data: 'balance',
-                    name: 'balance'
-                },
-                {
-                    data: 'startAmortDate',
-                    name: 'startAmortDate'
-                },
-                {
-                    data: 'endAmortDate',
-                    name: 'endAmortDate'
-                },
-                {
-                    data: 'lastTransactionDate',
-                    name: 'lastTransactionDate'
+                    name: 'balance',
                 },
 
             ]
         });
-        $('#campuses_select').on('change', function() {
-            loan_table.draw();
-        });
-        $('#department_select').on('change', function() {
-            loan_table.draw();
-        });
-        $('#date_from_select').on('change', function() {
-            loan_table.draw();
-        });
-        $('#date_to_select').on('change', function() {
-            loan_table.draw();
-        });
-
-        $(document).on('click', '#clear_filter', function() {
-            resetFilter();
-            loan_table.draw();
-        });
-
     });
-
-
-    Highcharts.chart('chart-application', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: '',
-            align: 'left'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
-            }
-        },
-        series: [{
-            name: 'Brands',
-            colorByPoint: true,
-            data: [{
-                name: 'New',
-                y: 74.77,
-                // sliced: true,
-                // selected: true
-            }, {
-                name: 'Processing',
-                y: 12.82
-            }, {
-                name: 'Approved',
-                y: 4.63
-            }, {
-                name: 'Draft',
-                y: 2.44
-            }, {
-                name: 'Returned',
-                y: 2.02
-            }, {
-                name: 'Rejected',
-                y: 3.28
-            }]
-        }]
-    });
-    Highcharts.chart('chart-members', {
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Members Per Campus',
-            align: 'left'
-        },
-        // subtitle: {
-        //   text: 'Source: <a ' +
-        //     'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
-        //     'target="_blank">Wikipedia.org</a>',
-        //   align: 'left'
-        // },
-        xAxis: {
-            categories: [
-
-                'UP Diliman',
-                'UP Los Baños',
-                'PGH',
-                'UP Manila',
-                'UP Visayas',
-                'System Admin',
-                'UP Baguio',
-                'UP Cebu',
-                'UP Mindanao',
-                'UP Open University',
-            ],
-            title: {
-                text: null
-            }
-        },
-        // yAxis: {
-        //   min: 0,
-        //   title: {
-        //     text: 'Population (members)',
-        //     align: 'high'
-        //   },
-        //   labels: {
-        //     overflow: 'justify'
-        //   }
-        // },
-        tooltip: {
-            valueSuffix: ' members'
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -40,
-            y: 80,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-            shadow: true
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: 'Members',
-            color: 'rgb(124, 181, 236)',
-            data: [{
-                    y: 631,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 1300,
-                    color: '#1a8981'
-                },
-                {
-                    y: 3202,
-                    color: 'rgb(124, 181, 236)'
-                },
-                {
-                    y: 721,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 300,
-                    color: 'rgb(144, 237, 125)'
-                },
-                {
-                    y: 631,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 727,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 3202,
-                    color: 'rgb(124, 181, 236)'
-                },
-                {
-                    y: 2000,
-                    color: '#1a8981'
-                },
-                {
-                    y: 50,
-                    color: 'rgb(144, 237, 125)'
-                }
-
-            ]
-        }, ]
-    });
-    document.querySelector("input[type=number]")
-        .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1));
 </script>
 
 

@@ -1791,8 +1791,9 @@
     //         $('#loading').hide();
     //     }, 2000);
     // })
-    var tableMemberApp;
+    var loan_table;
     $(document).ready(function() {
+
 
         loan_table = $('#member-masterlist').DataTable({
             processing: true,
@@ -1815,7 +1816,7 @@
 
                 // },
                 {
-                    data: '200 mm',
+                    data: 'action',
                     name: 'action'
                 },
                 {
