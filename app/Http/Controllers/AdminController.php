@@ -652,7 +652,7 @@ class AdminController extends Controller
 
   public function members_payroll()
   {
-    $data['payroll_no'] = "UPPFI".rand(1000, 5000);
+    $data['payroll_no'] = "UPPFI" . rand(1000, 5000);
     return view('admin.members.payroll')->with($data);
   }
 
@@ -2233,7 +2233,6 @@ class AdminController extends Controller
           ->orWhere('mem_app.app_status', $approved)
           ->orWhere('mem_app.validator_remarks', '=', 'FOR COMPLIANCE');
       });
-
     } else if ($users == 'HRDO') {
       $aa_1 = $userId;
       $cfm = 'FORWARDED TO HRDO';
@@ -2953,6 +2952,93 @@ class AdminController extends Controller
     return view('admin.transaction.loan-payment');
   }
 
+
+  public function loanPaymentsDetails($id, $id2)
+  {
+    $user_details = DB::table('member')->select('users.*', 'users.id as user_id', 'member.*')
+      ->join('users', 'member.user_id', '=', 'users.id')
+      ->where('users.id', $id)
+      ->get()->first();
+
+    $loan_id =   $id2;
+
+    return view('admin.transaction.loan-payment-details', compact('user_details', 'loan_id'));
+  }
+
+  public function getLoanPaymentDetails(Request $request)
+  {
+    if ($request->ajax()) {
+      // $data = Beneficiaries::select('*');
+      $loan_id = $request->get('loan_id');
+      $data  = LoanTransaction::select('loan_transaction.id as loans_id', 'member.*', 'reference_no', 'date', 'loan_id', 'amortization', 'interest', 'amount', 'loan_type.name', DB::raw('(select SUM(amount) from loan_transaction as lt where lt.loan_id = loan.id and lt.date<=loan_transaction.date order by date desc) as balance'))
+        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+        ->leftjoin('member', 'loan.member_id', 'member.id')
+        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+        ->where('loan.id', '=', $loan_id)
+        ->Where('loan_transaction.amount', '<>', 0.00)
+        ->orderBy('loan.type_id', 'ASC')
+        ->orderBy('date', 'desc')->get();
+      $date = "";
+      $loan_data = [];
+      foreach ($data as $loan) {
+        $samedate = true;
+        if ($date == date("m/d/Y", strtotime($loan->date))) {
+          $samedate = false;
+        } else {
+          $samedate = true;
+        }
+
+        $date = date("m/d/Y", strtotime($loan->date));
+        $amortization = $loan->amortization == 0 ? '' : 'PHP ' . number_format($loan->amortization, 2);
+        $interest = $loan->interest == 0 ? '' : 'PHP ' . number_format($loan->interest, 2);
+        $bal = !$samedate ? '' : 'PHP ' . number_format($loan->balance, 2);
+
+        $nestedData['date'] =   date("m/d/Y", strtotime($loan->date));
+        $nestedData['reference_no'] = $loan->reference_no;
+        $nestedData['name'] =  $loan->name;
+        $nestedData['amortization'] = $amortization;
+        $nestedData['interest'] = $interest;
+        $nestedData['amount'] = 'PHP ' . number_format($loan->amount, 2);
+        $nestedData['balance'] = $bal;
+
+
+        $loan_data[] = $nestedData;
+      }
+
+      return Datatables::of($loan_data)
+        ->make(true);
+    }
+  }
+
+
+  //solo generate
+  public function generateloanspertype($id)
+  {
+    $loans = LoanTransaction::select('loan_transaction.id as id', 'member.*', 'reference_no', 'date', 'loan_id', 'amortization', 'interest', 'amount', 'loan_type.name', DB::raw('(select SUM(amount) from loan_transaction as lt where lt.loan_id = loan.id and lt.date<=loan_transaction.date order by date desc) as balance'))
+      ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+      ->leftjoin('member', 'loan.member_id', 'member.id')
+      ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+      ->where('loan.id', '=', $id)
+      ->Where('loan_transaction.amount', '<>', 0.00)
+      ->orderBy('loan.type_id', 'ASC')
+      ->orderBy('date', 'desc')
+      ->get();
+
+    $member = User::where('users.id', $loans[0]->user_id)
+      ->select('*', 'member.id as member_id', 'users.id as user_id', 'campus.name as campus_name')
+      ->leftjoin('member', 'users.id', '=', 'member.user_id')
+      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+      ->first();
+
+    $data['loans'] = $loans;
+    $data['member'] = $member;
+
+
+
+    $pdf = PDF::loadView('pdf.loans', $data);
+    return $pdf->setPaper('a4', 'landscape')->stream('loan.pdf');
+  }
+
   public function transactionAnalytics()
   {
     return view('admin.transaction.transaction-analytics');
@@ -3287,7 +3373,8 @@ class AdminController extends Controller
       7 => 'loan.id',
       8 => 'loan.id',
     ];
-    $totalData = LoanTransaction::count();
+    $totalData = LoanTransaction::groupBy('loan_id')->pluck('loan_id')->count();
+    $totalFiltered = LoanTransaction::groupBy('loan_id')->pluck('loan_id')->count();
     $limit = $request->input('length');
     $start = $request->input('start');
     $order = $columns[$request->input('order.0.column')];
@@ -3320,6 +3407,7 @@ class AdminController extends Controller
         ->leftjoin('loan_type', 'loan.type_id', '=', 'loan_type.id')
         ->leftjoin('member', 'loan.member_id', '=', 'member.id')
         ->leftjoin('users', 'member.user_id', '=', 'users.id')
+        ->where('balance', '>', 0)
         ->groupBy('loan.id')
         ->orderBy($order, $dir)
         ->offset($start)
@@ -3331,6 +3419,7 @@ class AdminController extends Controller
         'loan.id as id',
         'loan_type.name as type',
         'member.member_no as memberNo',
+        'users.id as  user_id',
         'users.first_name as firstname',
         'users.middle_name as middlename',
         'users.last_name as lastname',
@@ -3353,10 +3442,7 @@ class AdminController extends Controller
 
 
 
-    $totalFiltered = LoanTransaction::when($searchValue, function ($query) use ($searchValue) {
-      $query->where('id', 'like', "%{$searchValue}%")->orWhere('status', 'like', "%{$searchValue}%");
-    })
-      ->count();
+
 
     $data = [];
     foreach ($loan_transactions as $row) {
@@ -3369,12 +3455,16 @@ class AdminController extends Controller
       $nestedData['loan_type'] = $row->loan_type_name;
       $nestedData['startAmortDate'] = $row->startAmortDate == null ? '' : date('m/d/Y', strtotime($row->startAmortDate));
       $nestedData['endAmortDate'] = $row->endAmortDate == null ? '' : date('m/d/Y', strtotime($row->endAmortDate));
-      $nestedData['status'] = $row->status;
+
       $nestedData['action'] = '
-      <a href="/admin/loan/loan-application/details/' . $row->id .  '" target="_blank" data-md-tooltip="View Loan Details" class="view_member md-tooltip--top view-member" style="cursor: pointer">
+      <a href="/admin/transaction/loan-payment-details/' . $row->user_id .  '/' . $row->id .  '" target="_blank" data-md-tooltip="View Loan Details" class="view_member md-tooltip--top view-member" style="cursor: pointer">
                  <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
                </a>
           
+         ';
+      $nestedData['checkbox'] = ' <span style="display: flex; justify-content: center;" > 
+                                    <input   type="checkbox" name="check[]" value="/admin/generate/loanspertype/'  . $row->id .  '" class="select_item" id="select_item">
+                                 </span>
          ';
 
       $data[] = $nestedData;
