@@ -3631,10 +3631,9 @@ class AdminController extends Controller
     $data['membercontribution'] = $membercontribution->total;
     $data['member'] = $member;
 
-
-
+    $fullname = $member->last_name . ' , ' . $member->first_name . $member->middle_name;
     $pdf = PDF::loadView('pdf.soa', $data);
-    return $pdf->stream('soa.pdf');
+    return $pdf->stream('' . $fullname .  '-soa.pdf');
   }
 
   public function loanAnalytics()
