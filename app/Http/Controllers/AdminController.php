@@ -196,7 +196,7 @@ class AdminController extends Controller
       $nestedData['positions'] = $row->position_id;
 
       $nestedData['checkbox'] = ' <span style="display: flex; justify-content: center;" > 
-                                    <input   type="checkbox" name="check[]" class="select_item" id="select_item">
+                                    <input   type="checkbox" name="check[]" value="/admin/generate/soa/'  . $row->id .  '" class="select_item" id="select_item">
                                  </span>
          ';
 
@@ -2949,7 +2949,9 @@ class AdminController extends Controller
 
   public function loanPayments()
   {
-    return view('admin.transaction.loan-payment');
+    $campus_details = DB::table('old_campus')->get();
+    $loan_types = DB::table('loan_type')->get();
+    return view('admin.transaction.loan-payment', compact('campus_details', 'loan_types'));
   }
 
 
@@ -3380,12 +3382,13 @@ class AdminController extends Controller
     $order = $columns[$request->input('order.0.column')];
     $dir = $request->input('order.0.dir');
     $searchValue =  $request->input('search.value');
-    $campus = $request->input('campus_filter');
-    $status_select = $request->input('status_filter');
-    $application_type = $request->input('application_filter');
-    $loan_type = $request->input('loan_filter');
-    $date_applied_from  = $request->get('date_applied_from');
-    $date_applied_to  = $request->get('date_applied_to');
+
+    $campus = $request->input('campuses_select');
+    $amortization_date = $request->input('amortization_date');
+    $loan_select = $request->input('loan_select');
+    $transaction_date_from = $request->input('transaction_date_from');
+    $transaction_date_to  = $request->get('transaction_date_to');
+
 
 
     //filter codes
@@ -3407,7 +3410,10 @@ class AdminController extends Controller
         ->leftjoin('loan_type', 'loan.type_id', '=', 'loan_type.id')
         ->leftjoin('member', 'loan.member_id', '=', 'member.id')
         ->leftjoin('users', 'member.user_id', '=', 'users.id')
-        ->where('balance', '>', 0)
+        ->where('loan.member_id', 'like', "%{$searchValue}%")
+        ->orWhere('users.first_name', 'like', "%{$searchValue}%")
+        ->orWhere('users.middle_name', 'like', "%{$searchValue}%")
+        ->orWhere('users.last_name', 'like', "%{$searchValue}%")
         ->groupBy('loan.id')
         ->orderBy($order, $dir)
         ->offset($start)
@@ -3440,8 +3446,86 @@ class AdminController extends Controller
     }
 
 
+    if (!empty($campus)) {
+      $loan_transactions   = LoanTransaction::select(
+        'loan.id as id',
+        'loan_type.name as type',
+        'member.member_no as memberNo',
+        'users.id as  user_id',
+        'users.first_name as firstname',
+        'users.middle_name as middlename',
+        'users.last_name as lastname',
+        'member.campus_id',
+        DB::raw('MAX(date) as lastTransactionDate'),
+        DB::raw('SUM(amount) AS balance'),
+        DB::raw('MAX(start_amort_date) AS startAmortDate'),
+        DB::raw('MAX(end_amort_date) AS endAmortDate')
+      )
+        ->leftjoin('loan', 'loan_transaction.loan_id', '=', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', '=', 'loan_type.id')
+        ->leftjoin('member', 'loan.member_id', '=', 'member.id')
+        ->leftjoin('users', 'member.user_id', '=', 'users.id')
+        ->where('member.campus_id', '=', $campus)
+        ->groupBy('loan.id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
 
-
+    if (!empty($loan_select)) {
+      $loan_transactions   = LoanTransaction::select(
+        'loan.id as id',
+        'loan_type.name as type',
+        'member.member_no as memberNo',
+        'users.id as  user_id',
+        'users.first_name as firstname',
+        'users.middle_name as middlename',
+        'users.last_name as lastname',
+        'member.campus_id',
+        DB::raw('MAX(date) as lastTransactionDate'),
+        DB::raw('SUM(amount) AS balance'),
+        DB::raw('MAX(start_amort_date) AS startAmortDate'),
+        DB::raw('MAX(end_amort_date) AS endAmortDate')
+      )
+        ->leftjoin('loan', 'loan_transaction.loan_id', '=', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', '=', 'loan_type.id')
+        ->leftjoin('member', 'loan.member_id', '=', 'member.id')
+        ->leftjoin('users', 'member.user_id', '=', 'users.id')
+        ->where('loan.type_id', '=', $loan_select)
+        ->groupBy('loan.id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($transaction_date_from) && !empty($transaction_date_to)) {
+      $loan_transactions   = LoanTransaction::select(
+        'loan.id as id',
+        'loan_type.name as type',
+        'member.member_no as memberNo',
+        'users.id as  user_id',
+        'users.first_name as firstname',
+        'users.middle_name as middlename',
+        'users.last_name as lastname',
+        'member.campus_id',
+        DB::raw('MAX(date) as lastTransactionDate'),
+        DB::raw('SUM(amount) AS balance'),
+        DB::raw('MAX(start_amort_date) AS startAmortDate'),
+        DB::raw('MAX(end_amort_date) AS endAmortDate')
+      )
+        ->leftjoin('loan', 'loan_transaction.loan_id', '=', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', '=', 'loan_type.id')
+        ->leftjoin('member', 'loan.member_id', '=', 'member.id')
+        ->leftjoin('users', 'member.user_id', '=', 'users.id')
+        ->where('date', '>=', $transaction_date_from)
+        ->where('date', '<=', $transaction_date_to)
+        ->groupBy('loan.id')
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
 
 
     $data = [];
@@ -3478,6 +3562,81 @@ class AdminController extends Controller
 
     return response()->json($json_data);
   }
+
+
+  public function generatesoa($id)
+  {
+    $member = User::where('users.id', $id)
+      ->select('*', 'member.id as member_id', 'users.id as user_id', 'campus.name as campus_name')
+      ->leftjoin('member', 'users.id', '=', 'member.user_id')
+      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+      ->first();
+
+    $contributions = array();
+
+    $membercontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 2)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['membercontribution'] = $membercontribution->total;
+
+
+    $upcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 1)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['upcontribution'] = $upcontribution->total;
+
+
+    $eupcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 3)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['eupcontribution'] = $eupcontribution->total;
+
+
+    $emcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 4)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['emcontribution'] = $emcontribution->total;
+
+
+    $totalcontributions = array_sum($contributions);
+
+
+
+    $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+      ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+      ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+      ->where('loan.member_id', '=', $member->member_id)
+      ->groupBy('loan_type.name')
+      ->get();
+
+    $totalloanbalance = 0;
+    foreach ($outstandingloans as $loan) {
+      $totalloanbalance += $loan->balance;
+    }
+
+    $data['totalloanbalance'] = $totalloanbalance;
+    $data['outstandingloans'] = $outstandingloans;
+    $data['totalcontributions'] = $totalcontributions;
+    $data['emcontribution'] = $emcontribution->total;
+    $data['eupcontribution'] = $eupcontribution->total;
+    $data['upcontribution'] = $upcontribution->total;
+    $data['membercontribution'] = $membercontribution->total;
+    $data['member'] = $member;
+
+
+
+    $pdf = PDF::loadView('pdf.soa', $data);
+    return $pdf->stream('soa.pdf');
+  }
+
   public function loanAnalytics()
   {
     return view('admin.loan.loan-analytics');

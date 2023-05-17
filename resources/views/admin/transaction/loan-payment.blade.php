@@ -1507,7 +1507,7 @@
                     <div class="card-header filtering items-between d-flex" style="background-color:#894168;">
                         <span>Filtering Section</span>
                         <span class="mp-pr2">
-                            <button class="up-button-grey f-button font-bold" id="reset">Clear</button>
+                            <button class="up-button-grey f-button font-bold" id="clear_filter">Clear</button>
                             <button class="f-button font-bold">Export</button>
                             <button class="f-button font-bold up-button-green">Print</button>
                         </span>
@@ -1516,48 +1516,44 @@
 
                     <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
 
-                        <div class="table-form w-full" style="grid-template-columns: repeat(8, 1fr); font-size:12px; padding:10px;">
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Search</span>
-                                <input type="text" id="election_date_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Cluster</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
-                                    <option value="1">Cluster 1 - DSB</option>
-                                    <option value="2">Cluster 2 - LBOU</option>
-                                    <option value="3">Cluster 3 - MLAPGH</option>
-                                    <option value="4">Cluster 4 - CVM</option>
-                                </select>
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
-                                <span>Campus</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
-                                    <option value="">Show All</option>
+                        <div class="table-form w-full" style="grid-template-columns: repeat(11, 1fr); font-size:12px; padding:10px;">
 
-                                </select>
-
-                            </span>
-                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
-                                <span>Amortization Date</span>
-
-                                <input type="date" id="election_date_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
-
-                            </span>
                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                                 <span>Loan Type</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
+                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="loan_select">
                                     <option value="">Show All</option>
+                                    @forelse($loan_types as $loan)
+                                    <option value="{{ $loan->id }}">{{ $loan->name }}</option>
+                                    @empty
+                                    @endforelse
 
                                 </select>
                             </span>
+                            <!-- <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
+                                <span>Amortization Date</span>
+
+                                <input type="date" id="amortization_date" class="radius-1 border-1 date-input outline" style="height: 30px;">
+
+                            </span> -->
+
+                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
+                                <span>Campus</span>
+                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campuses_select">
+                                    <option value="">Show All</option>
+                                    @forelse($campus_details as $campus)
+                                    <option value="{{ $campus->id }}">{{ $campus->name }}</option>
+                                    @empty
+                                    @endforelse
+
+                                </select>
+
+                            </span>
                             <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
-                                <span>Transaction Date</span>
+                                <span>Last Transaction Date</span>
                                 <div class="date_range d-flex">
-                                    <input type="date" id="time_open_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                    <input type="date" id="transaction_date_from" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                     <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
-                                    <input type="date" id="time_close_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                    <input type="date" id="transaction_date_to" class="radius-1 border-1 date-input outline" style="height: 30px;">
                                 </div>
                             </span>
 
@@ -1597,9 +1593,9 @@
                                     <!-- <th>
                                         <span>Loan Amount</span>
                                     </th> -->
-                                    <th>
+                                    <!-- <th>
                                         <span>Monthly Amortization</span>
-                                    </th>
+                                    </th> -->
                                     <th>
                                         <span>Balance</span>
                                     </th>
@@ -1661,6 +1657,14 @@
     })
 
     //get loan payment list data table
+
+    function resetFilter() {
+        $('#campuses_select').val('').trigger("change");
+        $('#amortization_date').val('').trigger("change");
+        $('#loan_select').val('').trigger("change");
+        $('#transaction_date_from').val('').trigger("change");
+        $('#transaction_date_to').val('').trigger("change");
+    }
     var loan_table;
     $(document).ready(function() {
         $(function() {
@@ -1687,9 +1691,10 @@
                 url: "{{ route('getLoanTransactions') }}",
                 "data": function(data) {
                     data.campuses_select = $('#campuses_select').val();
-                    data.department_select = $('#department_select').val();
-                    data.date_from_select = $('#date_from_select').val();
-                    data.date_to_select = $('#date_to_select').val();
+                    data.amortization_date = $('#amortization_date').val();
+                    data.loan_select = $('#loan_select').val();
+                    data.transaction_date_from = $('#transaction_date_from').val();
+                    data.transaction_date_to = $('#transaction_date_to').val();
 
                 },
             },
@@ -1715,10 +1720,7 @@
                     data: 'full_name',
                     name: 'full_name'
                 },
-                {
-                    data: 'lastTransactionDate',
-                    name: 'lastTransactionDate'
-                },
+
                 {
                     data: 'balance',
                     name: 'balance'
@@ -1738,16 +1740,20 @@
 
             ]
         });
+
         $('#campuses_select').on('change', function() {
             loan_table.draw();
         });
-        $('#department_select').on('change', function() {
+        $('#loan_select').on('change', function() {
             loan_table.draw();
         });
-        $('#date_from_select').on('change', function() {
+        $('#amortization_date').on('change', function() {
             loan_table.draw();
         });
-        $('#date_to_select').on('change', function() {
+        $('#transaction_date_from').on('change', function() {
+            loan_table.draw();
+        });
+        $('#transaction_date_to').on('change', function() {
             loan_table.draw();
         });
 
@@ -1757,178 +1763,6 @@
         });
 
     });
-
-
-    Highcharts.chart('chart-application', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: '',
-            align: 'left'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
-            }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
-            }
-        },
-        series: [{
-            name: 'Brands',
-            colorByPoint: true,
-            data: [{
-                name: 'New',
-                y: 74.77,
-                // sliced: true,
-                // selected: true
-            }, {
-                name: 'Processing',
-                y: 12.82
-            }, {
-                name: 'Approved',
-                y: 4.63
-            }, {
-                name: 'Draft',
-                y: 2.44
-            }, {
-                name: 'Returned',
-                y: 2.02
-            }, {
-                name: 'Rejected',
-                y: 3.28
-            }]
-        }]
-    });
-    Highcharts.chart('chart-members', {
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Members Per Campus',
-            align: 'left'
-        },
-        // subtitle: {
-        //   text: 'Source: <a ' +
-        //     'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
-        //     'target="_blank">Wikipedia.org</a>',
-        //   align: 'left'
-        // },
-        xAxis: {
-            categories: [
-
-                'UP Diliman',
-                'UP Los Baños',
-                'PGH',
-                'UP Manila',
-                'UP Visayas',
-                'System Admin',
-                'UP Baguio',
-                'UP Cebu',
-                'UP Mindanao',
-                'UP Open University',
-            ],
-            title: {
-                text: null
-            }
-        },
-        // yAxis: {
-        //   min: 0,
-        //   title: {
-        //     text: 'Population (members)',
-        //     align: 'high'
-        //   },
-        //   labels: {
-        //     overflow: 'justify'
-        //   }
-        // },
-        tooltip: {
-            valueSuffix: ' members'
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -40,
-            y: 80,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-            shadow: true
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: 'Members',
-            color: 'rgb(124, 181, 236)',
-            data: [{
-                    y: 631,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 1300,
-                    color: '#1a8981'
-                },
-                {
-                    y: 3202,
-                    color: 'rgb(124, 181, 236)'
-                },
-                {
-                    y: 721,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 300,
-                    color: 'rgb(144, 237, 125)'
-                },
-                {
-                    y: 631,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 727,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 3202,
-                    color: 'rgb(124, 181, 236)'
-                },
-                {
-                    y: 2000,
-                    color: '#1a8981'
-                },
-                {
-                    y: 50,
-                    color: 'rgb(144, 237, 125)'
-                }
-
-            ]
-        }, ]
-    });
-    document.querySelector("input[type=number]")
-        .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1));
 </script>
 
 

@@ -1494,51 +1494,7 @@
 </script>
 <div class="filler"></div>
 <div class="members-module">
-    <!-- <div class="siderbar d-flex flex-column showed" style="position:relative">
-        <span class="toggle-icon" style="cursor: pointer">
-            <i class="fa fa-chevron-circle-left mp-text-fs-base magenta-clr " style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
-            <i class="fa fa-chevron-circle-right mp-text-fs-base magenta-clr d-none" style="background-color: white;border-radius: 50%" aria-hidden="true"></i>
-        </span>
-        <div class="title mp-text-fs-large mp-text-fw-heavy mp-ph3 mp-pv3">
-            Members Module
-        </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="0">
-            <span>
-                New Members
-            </span>
 
-        </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3 active" id="sider-item" data-set="1">
-            <span>
-                Master List
-            </span>
-
-        </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3 " id="sider-item" data-set="2">
-            <span>
-                Members Summary Reports
-            </span>
-
-        </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="3">
-            <span>
-                Contribution Reports
-            </span>
-
-        </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3 " id="sider-item" data-set="4">
-            <span>
-                Insurance Reports
-            </span>
-
-        </div>
-        <div class="item flex-column gap-5 mp-ph3 mp-pv3" id="sider-item" data-set="5">
-            <span>
-                Members Voter List
-            </span>
-
-        </div>
-    </div> -->
 
     <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
         <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
@@ -1650,102 +1606,55 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="card d-flex flex-column">
+                            <div class="div-table" style="margin-bottom:1000px !important;">
+                                <div class="card  ">
+                                    <a href="#" style="padding: 2px; color:#6c1242; font-size: 13px; text-align: right;" id="download_multiple" class="link_style">
+                                        Download Multiple PDF
+                                    </a>
+                                    <div class="mp-mt3 ">
+                                        <table class="members-table" id="member-masterlist" style="height: auto;" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:40px">
+                                                        <span> </span>
+                                                    </th>
+                                                    <th>
+                                                        <span>Action</span>
+                                                    </th>
+                                                    <th>
+                                                        <span>Members ID</span>
+                                                    </th>
+                                                    <th>
+                                                        <span>Member Name</span>
+                                                    </th>
+                                                    <th>
+                                                        <span>Membership Date</span>
+                                                    </th>
 
-                                <div class="mp-mt3 ">
-                                    <table class="members-table" id="member-masterlist" style="height: auto;" width="100%">
-                                        <thead>
-                                            <tr>
-                                                <!-- <th style="width:40px">
-                                                    <span> </span>
-                                                </th> -->
-                                                <th>
-                                                    <span>Action</span>
-                                                </th>
-                                                <th>
-                                                    <span>Members ID</span>
-                                                </th>
-                                                <th>
-                                                    <span>Member Name</span>
-                                                </th>
-                                                <th>
-                                                    <span>Membership Date</span>
-                                                </th>
+                                                    <th>
+                                                        <span>Class</span>
+                                                    </th>
+                                                    <th>
+                                                        <span>Position</span>
+                                                    </th>
+                                                    <th>
+                                                        <span>Campus</span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
 
-                                                <th>
-                                                    <span>Class</span>
-                                                </th>
-                                                <th>
-                                                    <span>Position</span>
-                                                </th>
-                                                <th>
-                                                    <span>Campus</span>
-                                                </th>
-                                            </tr>
-                                        </thead>
+                                            <tbody>
 
-                                        <tbody>
-                                            <!-- <tr>
-                                                <td>
-                                                    <span>
-                                                        <input type="checkbox" name="check[]" class="select_item" id="select_item">
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span>
-                                                        <a href="/admin/members/member-details" data-md-tooltip="Review Application" class="view_member md-tooltip--right view-member" style="cursor: pointer">
-                                                            <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
-                                                        </a>
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span>
-                                                        1231232
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span>
-                                                        Member Name
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span>
-                                                        January 20, 1999
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span>
-                                                        January 20, 1999
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span>
-                                                        Class A
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span>
-                                                        President
-                                                    </span>
-                                                </td>
-                                                <td>
-                                                    <span>
-                                                        Up Diliman
-                                                    </span>
-                                                </td>
-                                            </tr> -->
-
-                                        </tbody>
+                                            </tbody>
 
 
 
-                                    </table>
-                                    <!-- <a href="/admin/members/view-all" style="padding: 0px;font-size: 12px;" class="link_style">
-                                        View Multiple
-                                    </a> -->
-                                    <br><br>
+                                        </table>
+
+                                    </div>
                                 </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -1794,7 +1703,18 @@
     var loan_table;
     $(document).ready(function() {
 
+        $(function() {
+            $('#download_multiple').click(function() {
+                var val = [];
+                $(':checkbox:checked').each(function(i) {
+                    val[i] = $(this).val();
 
+
+                    window.open(val[i], '_blank');
+                    console.log(val[i])
+                });
+            });
+        });
         loan_table = $('#member-masterlist').DataTable({
             processing: true,
             serverSide: true,
@@ -1808,13 +1728,12 @@
 
                 },
             },
-            columns: [
-                // {
+            columns: [{
 
-                //     data: 'checkbox',
-                //     name: 'checkbox',
+                    data: 'checkbox',
+                    name: 'checkbox',
 
-                // },
+                },
                 {
                     data: 'action',
                     name: 'action'

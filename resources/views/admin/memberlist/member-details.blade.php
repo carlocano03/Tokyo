@@ -1949,7 +1949,9 @@
                                                     </label>
                                                 </div>
                                                 @endif
-
+                                                <a href="{{ url('/admin/generate/soa/' . $member->user_id) }}" target="_blank" style=" padding: 2px; color:#6c1242; font-size: 13px; text-align: right; bottom: 0; right: 0; position:absolute; margin-right: 10px;" id="" class="link_style">
+                                                    Download PDF
+                                                </a>
 
 
                                             </div>
