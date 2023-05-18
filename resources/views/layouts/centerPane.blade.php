@@ -2274,7 +2274,7 @@
         $("#classification").change(function() {
             var classification_value = $(this).val();
 
-            if (classification_value === "OTHER") {
+            if (classification_value === "OTHERS") {
                 $("#other_classification").removeClass("d-none");
                 $("#other_classification").removeClass("opacity-0");
             } else {

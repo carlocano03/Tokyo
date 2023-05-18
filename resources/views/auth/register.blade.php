@@ -632,7 +632,7 @@
             <label class="mp-input-group__label">Employee Classification </label>
             <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%;" name="classification" id="classification">
                 <option value="">Select Classification</option>
-                <option value="OTHER">Others</option>
+
                 {{-- <option>Class A </option> --}}
             </select>
             <label id="err-msg" class="mp-input-group__label red-clr d-none"></label>
