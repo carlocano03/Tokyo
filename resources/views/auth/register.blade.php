@@ -982,7 +982,7 @@
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="maiden_name">
                     </div>
                     <div class="mp-input-group">
-                        <label class="mp-input-group__label mp-mt2 d-none opacity-0">Insured Type</label>
+                        <label class="mp-input-group__label mp-mt2 d-none opacity-0">Type Of Beneficiary</label>
                         <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
                         <select name="insured_type" id="insured_type" class="radius-1 outline select-field mp-mt2 d-none opacity-0" style="font-size: normal;" data-set="step-4-validation">
                             <option value="INSURED" selected>INSURED</option>

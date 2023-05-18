@@ -221,7 +221,7 @@ Route::get('/downloadFormProxy', [PDFController::class, 'downloadForm'])->name('
 Route::get('/downloadCoco', [PDFController::class, 'downloadCoco'])->name('download_coco');
 Route::get('/downloadProxy', [PDFController::class, 'downloadProxy'])->name('download_proxy');
 Route::get('/admin/generate/soa/{id}', 'AdminController@generatesoa');
-
+Route::get('/admin/members_ledger/{id}', 'AdminController@member_ledger');
 
 Route::get('/admin/loan/loan-details/generate-payslip', [PDFController::class, 'generatePayslip'])->name('generate-payslip');
 

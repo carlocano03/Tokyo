@@ -196,7 +196,7 @@ class AdminController extends Controller
       $nestedData['positions'] = $row->position_id;
 
       $nestedData['checkbox'] = ' <span style="display: flex; justify-content: center;" > 
-                                    <input   type="checkbox" name="check[]" value="/admin/generate/soa/'  . $row->id .  '" class="select_item" id="select_item">
+                                    <input   type="checkbox" name="check[]" value="'  . $row->id .  '" class="select_item" id="select_item">
                                  </span>
          ';
 
@@ -3634,6 +3634,113 @@ class AdminController extends Controller
     $fullname = $member->last_name . ' , ' . $member->first_name . $member->middle_name;
     $pdf = PDF::loadView('pdf.soa', $data);
     return $pdf->stream('' . $fullname .  '-soa.pdf');
+  }
+
+  //member ledger pdf 
+  public function member_ledger($id)
+  {
+    $member = User::where('users.id', $id)
+      ->select('*', 'member.id as member_id', 'users.id as user_id', 'campus.name as campus_name')
+      ->leftjoin('member', 'users.id', '=', 'member.user_id')
+      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+      ->first();
+
+    $recentcontributions = ContributionTransaction::select('*')
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->leftjoin('contribution_account', 'contribution_transaction.account_id', 'contribution_account.id')
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->Where('contribution_transaction.amount', '<>', 0.00)
+      ->orderBy('contribution.date', 'desc')
+      ->orderBy('contribution.reference_no', 'desc')
+      // ->limit(3)
+      ->get();
+
+    $contributions = array();
+
+    $membercontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 2)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['membercontribution'] = $membercontribution->total;
+
+
+    $upcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 1)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['upcontribution'] = $upcontribution->total;
+
+
+    $eupcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 3)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['eupcontribution'] = $eupcontribution->total;
+
+
+    $emcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 4)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['emcontribution'] = $emcontribution->total;
+
+
+    $totalcontributions = array_sum($contributions);
+
+
+
+    $recentloans = LoanTransaction::select('loan_transaction.id as id', 'reference_no', 'date', 'loan_id', 'amortization', 'interest', 'amount', 'loan_type.name', DB::raw('(select SUM(amount) from loan_transaction as lt where lt.loan_id = loan.id and lt.date<=loan_transaction.date order by date desc) as balance'))
+      ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+      ->leftjoin('member', 'loan.member_id', 'member.id')
+      ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+      ->where(
+        'loan.member_id',
+        '=',
+        $member->member_id
+      )
+      ->Where('loan_transaction.amount', '<>', 0.00)
+      ->orderBy('date', 'desc')
+      // ->limit(3)
+      ->get();
+
+
+    $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+      ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+      ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+      ->where(
+        'loan.member_id',
+        '=',
+        $member->member_id
+      )
+      ->groupBy('loan_type.name')
+      ->get();
+
+    $totalloanbalance = 0;
+    foreach ($outstandingloans as $loan) {
+      $totalloanbalance += $loan->balance;
+    }
+
+
+    $data['member'] = $member;
+    $data['recentcontributions'] = $recentcontributions;
+    $data['recentloans'] = $recentloans;
+    $data['contributions'] = $contributions;
+    $data['totalcontributions'] = $totalcontributions;
+    $data['outstandingloans'] = $outstandingloans;
+    $data['totalloanbalance'] = $totalloanbalance;
+    $data['membercontribution'] = $membercontribution->total;
+    $data['emcontribution'] = $emcontribution->total;
+    $data['eupcontribution'] = $eupcontribution->total;
+    $data['upcontribution'] = $upcontribution->total;
+    $fullname = $member->last_name . ' , ' . $member->first_name . $member->middle_name;
+
+
+    $pdf = PDF::loadView('pdf.ledger', $data);
+    return $pdf->stream('' . $fullname .  '-ledger.pdf');
   }
 
   public function loanAnalytics()
