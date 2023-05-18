@@ -968,7 +968,7 @@
 
                 <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
 
-                    <div class="w-full d-flex flex-row flex-wrap gap-10">
+                    <div class="table-form w-full" style="grid-template-columns: repeat(9, 1fr); font-size:12px;">
                         <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
                             <span>Campus</span>
                             <select name="" class="radius-1 outline select-field" style="width: 200px; height: 30px" id="campuses_select">
@@ -1064,49 +1064,51 @@
                         </span>
                     </span>
                 </div>
-                <div class="table-container">
-                    <table class="members-table" style="height: auto;" width="100%">
-                        <thead>
-                            <tr>
-                                <th style="width: 20px;">
-                                    <span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check_all" id="check_all"></span>
-                                </th>
-                                <th style="width: 48px;">
-                                    <span>Action</span>
-                                </th>
-                                <th>
-                                    <span>Application No.</span>
-                                </th>
-                                <th>
-                                    <span>Date of Application</span>
-                                </th>
-                                <th>
-                                    <span>Full Name</span>
-                                </th>
-                                <th>
-                                    <span>Employee No</span>
-                                </th>
-                                <th>
-                                    <span>Class</span>
-                                </th>
-                                <th>
-                                    <span>Position</span>
-                                </th>
-                                <th>
-                                    <span>Campus</span>
-                                </th>
-                                <th>
-                                    <span>Status</span>
-                                </th>
-                                <th>
-                                    <span>Remarks</span>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                <div class=" ">
+                    <div class="div-table" style="margin-bottom:1000px !important;">
+                        <table class="members-table" style="height: auto;" width="100%">
+                            <thead>
+                                <tr>
+                                    <th style="width: 20px;">
+                                        <span style="width: 100%; display: flex; flex-direction:row; align-items: center; justify-content: center"><input type="checkbox" name="check_all" id="check_all"></span>
+                                    </th>
+                                    <th style="width: 48px;">
+                                        <span>Action</span>
+                                    </th>
+                                    <th>
+                                        <span>Application No.</span>
+                                    </th>
+                                    <th>
+                                        <span>Date of Application</span>
+                                    </th>
+                                    <th>
+                                        <span>Full Name</span>
+                                    </th>
+                                    <th>
+                                        <span>Employee No</span>
+                                    </th>
+                                    <th>
+                                        <span>Class</span>
+                                    </th>
+                                    <th>
+                                        <span>Position</span>
+                                    </th>
+                                    <th>
+                                        <span>Campus</span>
+                                    </th>
+                                    <th>
+                                        <span>Status</span>
+                                    </th>
+                                    <th>
+                                        <span>Remarks</span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
 
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1115,25 +1117,6 @@
 
 
 <script>
-    $(document).on('click', '#showSettings', function(e) {
-        if ($("#settingsTab").hasClass("col-lg-2")) {
-            $("#settingsTab").addClass("d-none");
-            $("#settingsTab").removeClass("col-lg-2");
-            $("#settingsContent").removeClass("col-lg-10");
-            $("#settingsContent").addClass("col-lg-12");
-
-            $("#showSettings").text("Show Settings")
-
-        } else {
-            $("#settingsTab").removeClass("d-none");
-            $("#settingsTab").addClass("col-lg-2");
-            $("#settingsContent").removeClass("col-lg-12");
-            $("#settingsContent").addClass("col-lg-10");
-
-            $("#showSettings").text("Hide Settings")
-        }
-
-    })
     var tableMemberApp;
     $(document).ready(function() {
         tableMemberApp = $('.members-table').DataTable({
@@ -1184,6 +1167,30 @@
                 }
             }
         });
+
+        $(document).on('click', '#showSettings', function(e) {
+
+            if ($("#settingsTab").hasClass("col-lg-2")) {
+                tableMemberApp.draw();
+                $("#settingsTab").addClass("d-none");
+                $("#settingsTab").removeClass("col-lg-2");
+                $("#settingsContent").removeClass("col-lg-10");
+                $("#settingsContent").addClass("col-lg-12");
+
+                $("#showSettings").text("Show Settings")
+
+            } else {
+                tableMemberApp.draw();
+                $("#settingsTab").removeClass("d-none");
+
+                $("#settingsTab").addClass("col-lg-2");
+                $("#settingsContent").removeClass("col-lg-12");
+                $("#settingsContent").addClass("col-lg-10");
+
+                $("#showSettings").text("Hide Settings")
+            }
+
+        })
         $('#check_all').click(function() {
             // Loop through all checkboxes in the table body
             $('.members-table tbody input[type="checkbox"]').each(function() {

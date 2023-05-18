@@ -982,7 +982,7 @@
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="maiden_name">
                     </div>
                     <div class="mp-input-group">
-                        <label class="mp-input-group__label mp-mt2 d-none opacity-0">Type Of Beneficiary</label>
+                        <label class="mp-input-group__label mp-mt2 d-none opacity-0">Insured Type</label>
                         <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
                         <select name="insured_type" id="insured_type" class="radius-1 outline select-field mp-mt2 d-none opacity-0" style="font-size: normal;" data-set="step-4-validation">
                             <option value="INSURED" selected>INSURED</option>
@@ -1099,7 +1099,7 @@
                         <label id="err-msg" class="mp-input-group__label red-clr d-none" name="dependent_relationship"></label>
 
                         <div class="mp-input-group">
-                            <label class="mp-input-group__label mp-mt2">Insured Type</label> <br>
+                            <label class="mp-input-group__label mp-mt2">Type Of Beneficiary</label> <br>
                             <!-- <input class="mp-input-group__input mp-text-field" type="text" name="occupation" id="occupation" /> -->
                             <select name="dependent_insurance" id="dependent_insurance" class="radius-1 outline select-field mp-mt2" style="font-size: normal;" data-set="validate_dependent">
                                 <option value="PRIMARY">PRIMARY</option>
