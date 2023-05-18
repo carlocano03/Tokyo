@@ -1608,9 +1608,15 @@
                             </div>
                             <div class="div-table" style="margin-bottom:1000px !important;">
                                 <div class="card  ">
-                                    <a href="#" style="padding: 2px; color:#6c1242; font-size: 13px; text-align: right;" id="download_multiple" class="link_style">
-                                        Download Multiple PDF
-                                    </a>
+                                    <div style="text-align:right;">
+                                        <a href="#" style="padding: 2px; color:#6c1242; font-size: 13px; " id="download_multiple_ledger" class="link_style">
+                                            Download Multiple Ledger
+                                        </a>
+                                        <a href="#" style="padding: 2px; color:#6c1242; font-size: 13px; " id="download_multiple" class="link_style">
+                                            Download Multiple SOA
+                                        </a>
+                                    </div>
+
                                     <div class="mp-mt3 ">
                                         <table class="members-table" id="member-masterlist" style="height: auto;" width="100%">
                                             <thead>
@@ -1710,10 +1716,21 @@
                     val[i] = $(this).val();
 
 
-                    window.open(val[i], '_blank');
+                    window.open('/admin/generate/soa/' + val[i], '_blank');
                     console.log(val[i])
                 });
             });
+            $('#download_multiple_ledger').click(function() {
+                var val = [];
+                $(':checkbox:checked').each(function(i) {
+                    val[i] = $(this).val();
+
+
+                    window.open('/admin/members_ledger/' + val[i], '_blank');
+                    console.log(val[i])
+                });
+            });
+
         });
         loan_table = $('#member-masterlist').DataTable({
             processing: true,

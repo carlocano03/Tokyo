@@ -232,7 +232,7 @@
                     {{ $ben->ben_relationship }}
                 </label>
                 <label class=" absolute b_benifit_value" style="margin-left:435px;">
-                    {{ $member->percentage }} %
+                    {{ $ben->benefit_percent }} %
                 </label>
                 <label class=" absolute b_primary_value" style="margin-left:510px;">
                     <span class="{{ $ben->insured_type == 'PRIMARY' ? 'gg-check' : '' }}"></span>
