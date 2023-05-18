@@ -950,11 +950,11 @@
                 </div>
                 <div class="col-5">
                     <div class="choices">
-                        <input type="checkbox" {{ $member->classification == 'Admin Staff' ? 'checked' : '' }}>
+                        <input type="checkbox" {{ $member->classification == 'ADMIN STAFF' ? 'checked' : '' }}>
                         <label class="title-font"> Admin Staff</label>
                     </div>
                     <div class="choices">
-                        <input type="checkbox" {{ $member->classification == 'Faculty' ? 'checked' : '' }}>
+                        <input type="checkbox" {{ $member->classification == 'FACULTY' ? 'checked' : '' }}>
                         <label class="title-font">Faculty</label>
                     </div>
                 </div>
