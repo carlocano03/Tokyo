@@ -37,43 +37,50 @@ class AdminController extends Controller
    */
   public function dashboard()
   {
-    $lastLogin = '';
-    $loginCount = DB::table('login_logs')
-      ->where('user_id', Auth::user()->id)
-      ->count();
-    $loginNew = DB::table('login_logs')
-      ->where('user_id', Auth::user()->id)
-      ->orderBy('login_date', 'DESC')
-      ->first();
-    if ($loginCount == 1) {
-      if ($loginNew) {
-        $lastLogin = $loginNew->login_date;
-      }
-    } else {
-      $login = DB::table('login_logs')
+    if (Auth::check()) {
+      $lastLogin = '';
+      $loginCount = DB::table('login_logs')
+        ->where('user_id', Auth::user()->id)
+        ->count();
+      $loginNew = DB::table('login_logs')
         ->where('user_id', Auth::user()->id)
         ->orderBy('login_date', 'DESC')
-        ->skip(1)
         ->first();
-      if ($login) {
-        $lastLogin = $login->login_date;
+      if ($loginCount == 1) {
+        if ($loginNew) {
+          $lastLogin = $loginNew->login_date;
+        }
+      } else {
+        $login = DB::table('login_logs')
+          ->where('user_id', Auth::user()->id)
+          ->orderBy('login_date', 'DESC')
+          ->skip(1)
+          ->first();
+        if ($login) {
+          $lastLogin = $login->login_date;
+        }
       }
+      // $user = Auth::user();
+      $campuses = DB::table('campus')->get();
+      $data = array(
+        'login' => $lastLogin,
+        'campuses' => $campuses,
+        // 'user_privileges' => DB::table('users')
+        // ->join('user_prev', 'users.id', '=', 'user_prev.users_id')
+        // ->where('users.id', $user->id)
+        // ->get()
+      );
+      return view('admin.dashboard')->with($data);
+    } else {
+      return redirect('/admin');
     }
-    // $user = Auth::user();
-    $campuses = DB::table('campus')->get();
-    $data = array(
-      'login' => $lastLogin,
-      'campuses' => $campuses,
-      // 'user_privileges' => DB::table('users')
-      // ->join('user_prev', 'users.id', '=', 'user_prev.users_id')
-      // ->where('users.id', $user->id)
-      // ->get()
-    );
-    return view('admin.dashboard')->with($data);
   }
 
   public function memberlist()
   {
+    if (!Auth::check()) {
+      return redirect('/admin');
+    }
     $data['department'] = DB::table('old_department')->get();
 
     $data['campuses'] = DB::table('old_campus')->get();

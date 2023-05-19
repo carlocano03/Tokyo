@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
-  
+
   // public function __construct()
   // {
   //   $this->middleware('auth');
@@ -17,61 +18,108 @@ class MemberController extends Controller
    */
   public function dashboard()
   {
-    return view('member.dashboard');
+    if (Auth::check()) {
+      return view('member.dashboard');
+    } else {
+      return redirect('/login');
+    }
   }
 
   public function settings()
   {
-    return view('member.settings');
+    if (Auth::check()) {
+      return view('member.settings');
+    } else {
+      return redirect('/login');
+    }
   }
 
   public function transaction()
   {
-    return view('member.transaction');
+    if (Auth::check()) {
+      return view('member.transaction');
+    } else {
+      return redirect('/login');
+    }
   }
   public function loan()
   {
-    return view('member.loan_application.index');
+    if (Auth::check()) {
+      return view('member.loan_application.index');
+    } else {
+      return redirect('/login');
+    }
   }
 
   public function new_loan()
   {
-    return view('member.loan_application.new_loan');
+    if (Auth::check()) {
+      return view('member.loan_application.new_loan');
+    } else {
+      return redirect('/login');
+    }
   }
 
   public function member()
   {
-    return view('member.member');
+    if (Auth::check()) {
+      return view('member.member');
+    } else {
+      return redirect('/login');
+    }
   }
 
   public function equity()
   {
-    return view('member.equity');
+    if (Auth::check()) {
+      return view('member.equity');
+    } else {
+      return redirect('/login');
+    }
   }
 
   public function updatepassword()
   {
-    return view('member.updatepassword');
+    if (Auth::check()) {
+      return view('member.updatepassword');
+    } else {
+      return redirect('/login');
+    }
   }
 
   public function application()
   {
-    return view('member.loan_application.calculator');
+    if (Auth::check()) {
+      return view('member.loan_application.calculator');
+    } else {
+      return redirect('/login');
+    }
   }
 
   public function schedule()
   {
-    return view('member.loan_application.schedule');
+    if (Auth::check()) {
+      return view('member.loan_application.schedule');
+    } else {
+      return redirect('/login');
+    }
   }
 
   public function submission()
   {
-    return view('member.loan_application.submission');
+    if (Auth::check()) {
+      return view('member.loan_application.submission');
+    } else {
+      return redirect('/login');
+    }
   }
 
   public function view()
   {
-    return view('member.loan_application.view');
+    if (Auth::check()) {
+      return view('member.loan_application.view');
+    } else {
+      return redirect('/login');
+    }
   }
-  
 }

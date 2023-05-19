@@ -40,10 +40,6 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
-    }
 
     public function login(Request $request)
     {
@@ -80,7 +76,7 @@ class LoginController extends Controller
                 $user = User::find(Auth::user()->id);
                 if ($user->password_set == 0) {
                     // return redirect('/admin/onboarding');
-                    return redirect('/admin/dashboard');
+                    return redirect('/member/dashboard');
                 } else {
                     return redirect('/member/dashboard');
                 }
