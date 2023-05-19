@@ -297,12 +297,12 @@
         });
     });
 
-//     $(document).ready(function() {
-//   $(document).on('mouseover', '#present_province option', function() {
-//     var value = $(this).val();
-//     console.log('Value:', value);
-//   });
-// });
+    //     $(document).ready(function() {
+    //   $(document).on('mouseover', '#present_province option', function() {
+    //     var value = $(this).val();
+    //     console.log('Value:', value);
+    //   });
+    // });
 
 
 
@@ -1045,7 +1045,7 @@
                             $('#sg_category').val('16-33');
                         }
                     } else {
-                        
+
                         $('#salary_grade').val('');
                     }
                 }
@@ -1064,7 +1064,7 @@
                 $('#sg_category').val('');
             }
             $(this).val(inputValue);
-            if($('#salary_grade').val() == '') {
+            if ($('#salary_grade').val() == '') {
                 if (!errorDisplayed) {
                     Swal.fire({
                         title: 'Salary Grade is not available. Please contact UPPF administratior.',
@@ -1097,37 +1097,41 @@
                 }));
             });
         });
-    $("#campus").change(function() {
-        var campus_key = $(this).val();
-        $('#college_unit').empty();  
-        $.getJSON('/college_unit',{ campus_key: campus_key }, function(options) {
-            $.each(options, function(index, option) {
-                $('#college_unit').append($('<option>', {
-                    value: option.cu_no,
-                    text: option.college_unit_name
-                }));
+        $("#campus").change(function() {
+            var campus_key = $(this).val();
+            $('#college_unit').empty();
+            $.getJSON('/college_unit', {
+                campus_key: campus_key
+            }, function(options) {
+                $.each(options, function(index, option) {
+                    $('#college_unit').append($('<option>', {
+                        value: option.cu_no,
+                        text: option.college_unit_name
+                    }));
+                });
+                $('#college_unit').val(college_unit).change();
             });
-            $('#college_unit').val(college_unit).change();
+
         });
-       
-    });
-    $("#college_unit").change(function() {
-        if(college_unit){
-            var college_id = college_unit;
-        }else{
-            var college_id = $(this).val();
-        }
-        $('#department').empty();  
-        $.getJSON('/department',{ college_id: college_id }, function(options) {
-            $.each(options, function(index, option) {
-                $('#department').append($('<option>', {
-                    value: option.dept_no,
-                    text: option.department_name
-                }));
+        $("#college_unit").change(function() {
+            if (college_unit) {
+                var college_id = college_unit;
+            } else {
+                var college_id = $(this).val();
+            }
+            $('#department').empty();
+            $.getJSON('/department', {
+                college_id: college_id
+            }, function(options) {
+                $.each(options, function(index, option) {
+                    $('#department').append($('<option>', {
+                        value: option.dept_no,
+                        text: option.department_name
+                    }));
+                });
+                $('#department').val(dept_no).change();
             });
-            $('#department').val(dept_no).change();
         });
-    });
         $.getJSON('/appointment', function(options) {
             $.each(options, function(index, option) {
                 $('#appointment').append($('<option>', {
@@ -1199,19 +1203,18 @@
         }
     });
     $("#fixed_amount").keyup(function() {
-            var inputValue = $(this).val();
-            inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            var decimalAdded = inputValue.split(".");
-            if (decimalAdded.length > 2) {
-                inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
-            }
-            $(this).val(inputValue);
+        var inputValue = $(this).val();
+        inputValue = inputValue.replace(/,/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        var decimalAdded = inputValue.split(".");
+        if (decimalAdded.length > 2) {
+            inputValue = decimalAdded[0] + "." + decimalAdded[1].substring(0, 1);
+        }
+        $(this).val(inputValue);
     });
     $('input[name="middlename"]').on("blur", function() {
         var middleName = $(this).val();
         if (middleName.length === 1) {
-            swal.fire("Error!", "Please input your complete MIDDLE NAME (Ex. GOMEZ). Thank you.", "error");
-            $('input[name="middlename"]').focus();
+
         }
     })
     $(document).on('click', '#citizenship', function(e) {
@@ -1376,12 +1379,12 @@
         //                     }, 1000);
         //                 }
         //             })
-        var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp; 
-                            window.open(url, 'targetWindow',
-                                'resizable=yes,width=1000,height=1000');
-                            setTimeout(function() {
-                                location.reload();
-                            }, 1000);
+        var url = "{{ URL::to('/memberform/') }}" + '/' + print_emp;
+        window.open(url, 'targetWindow',
+            'resizable=yes,width=1000,height=1000');
+        setTimeout(function() {
+            location.reload();
+        }, 1000);
     });
 
     function clearErrorField(names) {
@@ -1399,7 +1402,7 @@
 
     $(document).on('click', '#cont_app', function(e) {
         window.location.href = `/register?draft=${query}`;
-        
+
         // var app_trailno = query;
         // $.ajax({
         //     url: "{{ route('continued_trail') }}",
@@ -1506,7 +1509,7 @@
         //     }
 
         // });
-        
+
 
     });
 
@@ -1571,7 +1574,7 @@
     // });
 
     $(document).on('click', '#btn-coco', function() {
-   
+
     })
     $(document).on('click', '#no_middlename', function() {
         if ($(this).is(':checked')) {

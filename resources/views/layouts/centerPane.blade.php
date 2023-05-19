@@ -2405,8 +2405,8 @@
     $('input[name="middlename"]').on("blur", function() {
         var middleName = $(this).val();
         if (middleName.length === 1) {
-            swal.fire("Error!", "Please input your complete MIDDLE NAME (Ex. GOMEZ). Thank you.", "error");
-            $('input[name="middlename"]').focus();
+
+            // $('input[name="middlename"]').focus();
         }
     })
     $(document).on('click', '#citizenship', function(e) {

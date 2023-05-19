@@ -484,13 +484,13 @@ class HomeController extends Controller
 
   public function getCampuses()
   {
-    $options = DB::table('campus')->select('campus_key', 'name')->get();
+    $options = DB::table('campus')->select('campus_key', 'name')->orderBy('name', 'asc')->get();
     return response()->json($options);
   }
 
   public function getClassification()
   {
-    $options = DB::table('classification')->select('classification_id', 'classification_name')->where('status', 1)->get();
+    $options = DB::table('classification')->select('classification_id', 'classification_name')->where('status', 1)->orderBy('classification_name', 'asc')->get();
     return response()->json($options);
   }
 
@@ -501,7 +501,7 @@ class HomeController extends Controller
       ->join('campus', 'college_unit.campus_id', '=', 'campus.id')
       ->select('cu_no', 'college_unit_name')
       ->where('campus_key', $campus_key)
-      ->orderBy('college_unit_name', 'asc')
+      ->orderBy('college_unit.college_unit_name', 'asc')
       ->get();
     return response()->json($options);
   }
@@ -513,6 +513,7 @@ class HomeController extends Controller
       ->join('college_unit', 'college_unit.cu_no', '=', 'department.cu_no')
       ->select('dept_no', 'department_name')
       ->where('department.cu_no', $college_id)
+      ->orderBy('department.department_name', 'asc')
       ->get();
     return response()->json($options);
   }

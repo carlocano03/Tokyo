@@ -23,8 +23,21 @@ use App\Http\Controllers\Auth\LoginController;
 
 Auth::routes();
 
-Route::get('/logout', [LoginController::class, 'logout']);
+// Route::get('/logout_admin', [LoginController::class, 'logout_admin']);
+// Route::get('/logout_member', [LoginController::class, 'logout_member']);
+Route::get('logout_admin', function () {
+  auth()->logout();
+  Session()->flush();
 
+  return redirect()->back();
+})->name('logout_admin');
+
+Route::get('logout_member', function () {
+  auth()->logout();
+  Session()->flush();
+
+  return redirect()->back();
+})->name('logout_member');
 // Auth::routes('/admin');
 Route::get('/', function () {
   return redirect()->route('login');

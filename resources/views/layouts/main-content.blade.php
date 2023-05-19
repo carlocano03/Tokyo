@@ -432,7 +432,7 @@
         <div class="name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div><br>
         <div class="role">Cluster + Campus / {{ Auth::user()->user_level }}</div>
         <div class="logout-button">
-          <strong><a href="{{ url('/logout') }}">Log out </a> </strong>
+          <strong><a href="{{ url('/logout_admin') }}">Log out </a> </strong>
         </div>
       </div>
     </div>
@@ -496,7 +496,7 @@
         <div class="name">Member Account</div>
         <div class="role">Up Diliman | Midlaner</div>
         <div class="logout-button">
-          <strong><a href="{{ url('/logout') }}">Log out</a> </strong>
+          <strong><a href="{{ url('logout_member') }}">Log out</a> </strong>
         </div>
 
       </div>
@@ -516,7 +516,7 @@
           <i class="fa fa-envelope" aria-hidden="true"></i> Member Forms </a>
       </li>
 
-      
+
 
 
     </ul>
