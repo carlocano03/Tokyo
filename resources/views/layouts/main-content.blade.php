@@ -407,6 +407,22 @@
     background-repeat: no-repeat;
     background-size: cover;
   }
+
+  .sidebar-notification {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 23px;
+    height: 23px;
+    position: absolute;
+    right: 0px;
+    top: -5px;
+    z-index: 10000000;
+    text-align: center;
+    padding-top: 1px;
+  }
+
+
 </style>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

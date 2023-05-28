@@ -45,7 +45,7 @@ class LoginController extends Controller
     {
         $credentials = $this->credentials($request);
         if ($request->usertype == 'member') {
-            $member = DB::table('member')->where('member_No', $request->memberNo)
+            $member = DB::table('member')->where('member_no', $request->memberNo)
                 ->leftJoin('users', 'member.user_id', '=', 'users.id')
                 ->first();
             if ($member) {
@@ -78,6 +78,10 @@ class LoginController extends Controller
                     // return redirect('/admin/onboarding');
                     return redirect('/member/dashboard');
                 } else {
+                    $insertLoginHistory = array(
+                        'user_id' => Auth::user()->id,
+                    );
+                    DB::table('login_logs')->insert($insertLoginHistory);
                     return redirect('/member/dashboard');
                 }
             }
