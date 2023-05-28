@@ -1853,10 +1853,10 @@
                             </div>
                         </div>
                         <div class="col-lg-12 d-flex mp-mh4 flex-column">
-                            <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto magenta-bg">
+                            <a class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
                                 <span class="save_up">GENERATE LOAN APPLICATION FORM</span>
                             </a>
-                            <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto gray-bg">
+                            <a class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto gray-bg">
                                 <span class="save_up">GENERATE LOAN INFORMATION SLIP</span>
                             </a>
                         </div>
