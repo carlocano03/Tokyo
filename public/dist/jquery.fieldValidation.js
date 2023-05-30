@@ -7,7 +7,7 @@ function validateField ({element, target, errText = "Please fill out this field.
     return true
   }
   
-  if(newElement.val() == "") {
+  if(newElement.val().trim() == "") {
     addError(newElement , errText, target)
     return true
   }

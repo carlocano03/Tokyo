@@ -1742,7 +1742,7 @@
                                                         <span>Modify Contributions</span>
                                                     </button> -->
                                                     <button class="up-button-grey btn-md button-animate-right mp-text-center" id="view_password">
-                                                        <span>Reset Password</span>
+                                                        <span>Change Password</span>
                                                     </button>
                                                 </div>
                                                 <br>
@@ -2184,21 +2184,21 @@
                                             <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Full Name</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="firstname" id="firstname" required />
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="beneficiary-name" id="beneficiary-name" required />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Relationship</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required />
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="beneficiary-relationship" id="beneficiary-relationship" required />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Birthdate</label>
-                                                <input class="mp-input-group__input mp-text-field" type="date" name="lastname" id="lastname" required />
+                                                <input class="mp-input-group__input mp-text-field" type="date" name="beneficiary-birthday" id="beneficiary-birthday" required />
                                             </div>
 
-                                            <a class="up-button btn-md button-animate-right mp-text-center" id="save_users" name="save_users" type="submit">
+                                            <a class="up-button btn-md button-animate-right mp-text-center" id="add-new-beneficiary" name="add-new-beneficiary" type="submit">
                                                 <span class="save_up">Add New Record</span>
                                             </a>
-                                            <a class="up-button-grey btn-md button-animate-right mp-text-center" id="cancel">
+                                            <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_beneficiaries">
                                                 <span class="clear_txt">Clear</span>
                                             </a>
                                             <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
@@ -2209,26 +2209,19 @@
                                     <br>
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">Beneficiaries Records</label>
-                                        <table class="permission-table" style="transform: scale(1);">
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>FULL NAME</th>
-                                                <th>BIRTHDATE</th>
-                                                <th>RELATIONSHIP</th>
-                                            </tr>
-                                            @if (count($beneficiaries) == 0)
+                                        <table class="beneficiaries permission-table" id="beneficiaries-table"  style="transform: scale(1); border: 0">
+                                            <thead>
                                                 <tr>
-                                                    <td colspan="4">No Beneficiaries</td>
+
+                                                    <th>FULL NAME</th>
+                                                    <th>BIRTHDATE</th>
+                                                    <th>RELATIONSHIP</th>
+                                                    <th>ACTION</th>
                                                 </tr>
-                                            @endif
-                                            @foreach ($beneficiaries as $row)
-                                                <tr>
-                                                    <td>{{ $row->ben_ID }}</td>
-                                                    <td>{{ $row->fullname }}</td>
-                                                    <td>{{ $row->datebirth }}</td>
-                                                    <td>{{ $row->relationship }}</td>
-                                                </tr>
-                                            @endforeach
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
                                             
                                                 
 
@@ -2347,6 +2340,7 @@
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Membership Date</label>
                                                                             <input class="mp-input-group__input mp-text-field" type="date" name="membership_date" id="membership_date" />
+                                                                            
                                                                         </div>
                                                                             </div>
                                                                 </div>
@@ -2545,14 +2539,18 @@
                                             <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Password</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="firstname" id="firstname" required />
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="password" id="password" required />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">New Password</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="new-password" id="new-password" required />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Confirm Password</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required />
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="confirm-password" id="confirm-password" required />
                                             </div>
 
-                                            <a class="up-button btn-md mp-text-center" id="save_users" name="save_users" type="submit">
+                                            <a class="up-button btn-md mp-text-center" id="change-password" name="change-password" type="submit">
                                                 <span class="save_up">Update Password</span>
                                             </a>
                                             <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
@@ -2587,6 +2585,114 @@
         })
         
     }
+
+    
+    function clearBeneValidation() {
+        clearValidation('beneficiary-name', 'bene_validation', $('[name=beneficiary-name]'))
+        clearValidation('beneficiary-birthday', 'bene_validation', $('[name=beneficiary-birthday]'))
+        clearValidation('beneficiary-relationship', 'bene_validation', $('[name=beneficiary-relationship]'))
+    }
+
+    function resetBeneficiaryForm() {
+        $('#beneficiary-name').val('').trigger("change");
+        $('#beneficiary-birthday').val('').trigger("change");
+        $('#beneficiary-relationship').val('').trigger("change");
+        clearBeneValidation();
+    }
+
+    //clear beneficiaries click
+    $(document).on('click', '#clear_beneficiaries', function() {
+        resetBeneficiaryForm();
+    })
+
+    //old beneficiaries delete clicked
+    $(document).on('click', '#delete_beneficiaries', function() { 
+        var id = $('#delete_beneficiaries').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You will delete this beneficiary!",
+                icon: "question",
+                confirmButtonColor: '#1a8981',
+                confirmButtonText: 'Confirm',
+                cancelButtonText: "Cancel",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showCancelButton: true,
+            }).then((okay) => {
+                if (okay.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('delete_member_oldbeneficiaries') }}",
+                        data: {
+                            beneficiary_id: id,
+                        },
+                        success: function(data) {
+                            console.log(data)
+                            if (data.success == true) {
+                                clearBeneValidation();
+                                memberBeneficiaries.draw();
+                            }
+                        }
+                    });
+                } else if (okay.isDenied) {
+                    Swal.close();
+                }
+            });
+
+    });
+            
+
+       
+    
+
+
+   
+   
+    var memberBeneficiaries = $('#beneficiaries-table').DataTable({
+            ordering: false,
+            info: false,
+            searching: false,
+            paging: false,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('get_member_beneficiary') }}",
+                data: function(d) {
+                    d.member_no = <?php echo $member->member_no ?>
+                }
+            },
+            columns: [{
+                    data: 'beni_name',
+                    name: 'beni_name'
+                },
+                {
+                    data: 'birth_date',
+                    name: 'birth_date'
+                },
+                {
+                    data: 'relationship',
+                    name: 'relationship'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
+        });
+    function getBeneficiaries() {
+        
+        memberBeneficiaries.draw();
+
+    }
+   
    
      $(document).on('click', '.header-tabs > span', function(e) {
         // const linkSplit = window.location.href.split('/')
@@ -2596,6 +2702,136 @@
         setActiveTab(element)
         // window.location.href = '/admin/members/records/view/aa' + links[dataSet] + '/' + id
     })
+
+    $(document).on('click', '#add-new-beneficiary' ,function (){
+
+        
+        let status = validateField({
+            element: $('input[name=beneficiary-name]'),
+            target:"beneficiary-name"
+        })
+        let status1 = validateField({
+            element: $('input[name=beneficiary-relationship]'),
+            target:"beneficiary-relationship"
+        })
+        let status2 = validateField({
+            element: $('input[name=beneficiary-birthday]'),
+            target:"beneficiary-birthday"
+        })
+
+        if(status || status1 || status2) {
+            return false
+        }
+                
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will add this beneficiary!",
+            icon: "question",
+            confirmButtonColor: '#1a8981',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: "Cancel",
+            showCancelButton: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((okay) => {
+            if (okay.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: "/member/add_old_member_beneficiary",
+                    data: {
+                        beni_name: $('input[name=beneficiary-name]').val(),
+                        birth_date: $('input[name=beneficiary-birthday]').val(),
+                        relationship: $('input[name=beneficiary-relationship]').val(),
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.success == true) {
+                            resetBeneficiaryForm();
+                            getBeneficiaries();
+                        }
+                    }
+                });
+            } else if (okay.isDenied) {
+                Swal.close();
+            }
+        });
+    })
+
+    $(document).on('click', '#change-password', function(e) {
+        const password = $('input[name=password]').val()
+        const newPassword = $('input[name=new-password]').val()
+        const confirmPassword = $('input[name=confirm-password]').val()
+
+        const isPasswordValid = checkPassword({newPassword, confirmPassword})
+
+       
+
+        let status = validateField({
+            element: $('input[name=password]'),
+            target:"password"
+        })
+        let status1 = validateField({
+            element: $('input[name=new-password]'),
+            target:"new-password"
+        })
+        let status2 = validateField({
+            element: $('input[name=confirm-password]'),
+            target:"confirm-password"
+        })
+
+        if(status || status1 || status2) {
+            return false
+        }
+
+        if(newPassword != confirmPassword) {
+            return Swal.fire({
+                text: 'Password did not match.',
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+            });
+        }
+        else {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/change-password',
+                method: 'POST',
+                data: {
+                    current_password: password,
+                    new_password: newPassword,
+                    new_password_confirmation: confirmPassword
+                },
+                success: function(response) {
+                    Swal.fire({
+                        text: 'Password changed successfully.',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        text: xhr.responseJSON.message,
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+                    // Handle error response
+                }
+            });
+        }
+
+    })
+
     $(document).on('click', '#view_profile', function(e) {
         $("#beneficiariesDiv").addClass("d-none")
         $("#beneficiariesDiv").addClass("opacity-0")
@@ -2613,7 +2849,11 @@
         $('select[name=department]').val("{{$member->department_id}}")
         $('input[name=position]').val("{{$member->position_id}}")
         $('input[name=appointment_date]').val("{{$member->original_appointment_date}}")
-        $('input[name=membership_date]').val("{{$member->membership_date}}")
+        <?php
+            $memberDate = new DateTime($member->membership_date);
+            $memberDateString = $memberDate->format('Y-m-d');
+        ?>
+        $('input[name=membership_date]').val('{{$memberDateString}}')
         $('input[name=contact_no]').val("{{$member->contact_no}}")
         $('input[name=landline_no]').val("{{$member->landline}}")
         if("{{$member->gender}}" == "FEMALE") {

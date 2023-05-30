@@ -222,6 +222,11 @@ Route::get('/member/transaction', [MemberController::class, 'transaction'])->nam
 Route::get('/member/member', [MemberController::class, 'member'])->name('member.member');
 Route::get('/member/equity', [MemberController::class, 'equity'])->name('member.equity');
 
+//member request
+Route::post('/change-password', [MemberController::class, 'changePassword']);
+Route::post('/member/add_old_member_beneficiary', [MemberController::class, 'addMemberBeneficiaries'])->name('add_member_beneficiary');
+
+
 //member-profile
 Route::get('/member/update-password', [MemberController::class, 'updatepassword'])->name('member.updatepassword');
 

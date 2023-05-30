@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+
 use DB;
+use Hash;
+use DataTables;
+
+use App\Models\OLDBeneficiaries;
 use App\Models\User;
 
 class MemberController extends Controller
@@ -53,7 +59,7 @@ class MemberController extends Controller
       $campuses = DB::table('campus')->get();
       $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
       $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
-      $beneficiaries = DB::table('beneficiaries')->where('personal_id', $member->employee_no)->get();;
+      $beneficiaries = DB::table('old_beneficiaries')->where('member_no', $member->member_no)->get();;
       $data = array(
         'login' => $lastLogin,
         'member' => $member,
@@ -169,4 +175,64 @@ class MemberController extends Controller
       return redirect('/login');
     }
   }
+
+  public function changePassword(Request $request)
+  {
+    $this->validate($request, [
+      'current_password' => 'required',
+      'new_password' => 'required|string|min:8|confirmed',
+    ]);
+
+    $user = Auth::user();
+
+    if (!Hash::check($request->current_password, $user->password)) {
+      return response()->json(['message' => 'Current password is incorrect'], 401);
+    }
+    $hashedPassword = Hash::make($request->new_password);
+
+    DB::table('users')->where('id', $user->id)->update(['password' => $hashedPassword]);
+
+    return response()->json(['message' => 'Password changed successfully']);
+  }
+
+   //add old beneficiaries
+   public function addMemberBeneficiaries(Request $request)
+   {
+ 
+     $added_by = Auth::user()->id;
+
+     $member = DB::table('member')->where('user_id', Auth::user()->id)->get();
+
+     $payload = array(
+       'member_no' => $member[0]->member_no,
+       'beni_name' => $request->get('beni_name'),
+       'relationship' =>  $request->get('relationship'),
+       'birth_date' => $request->get('birth_date'),
+       'added_by' => $added_by,
+     );
+     $insertOldBeneficiaries = DB::table('old_beneficiaries')->insert($payload);
+ 
+     if (!empty($insertOldBeneficiaries)) {
+       return response()->json(['success' => true]);
+     } else {
+       return response()->json(['success' => false]);
+     }
+   }
+
+ 
+   //delete old beneficiaries
+   public function deleteOldMemberBeneficiaries(Request $request)
+   {
+     $deleteOldBeneficiaries = DB::table('old_beneficiaries')->where('id', $request->get('beneficiary_id'))->delete();
+ 
+     if (!empty($deleteOldBeneficiaries)) {
+       return response()->json(['success' => true]);
+     } else {
+       return response()->json(['success' => false]);
+     }
+   }
+
+
 }
+
+

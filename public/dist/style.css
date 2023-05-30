@@ -6098,7 +6098,7 @@ tfoot {
 }
 
 .permission-table {
-    width: 100%;
+    width: 100% !important;
     transform: scale(0.9);
     font-size: 12px;
     border: solid 1px #b1aaaa;
