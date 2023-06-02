@@ -1695,7 +1695,7 @@
                                                     <span style="   margin-top: -5px;
                                                                     color: var(--c-primary);
                                                                     font-size: 25px;
-                                                                    font-weight: 500;"> Active</span>
+                                                                    font-weight: 500;"> <?php echo $member->membership_status?></span>
 
 
                                                     <span style="color: #7c7272;"> Member ID: </span>
@@ -1703,8 +1703,14 @@
                                                     <span style="font-size: 25px;
                                                                 margin-top:-5px;
                                                                 color: black;
-                                                                font-weight: bold;">20022232</span>
+                                                                font-weight: bold;"><?php echo $member->member_no?></span>
+                                                    
+                                                   
                                                 </div>
+                                                <div style="width: 400px">
+                                                
+                                                </div>
+                                               
                                             </div>
                                         </div>
                                         <hr>
@@ -1714,15 +1720,15 @@
                                                     <label class="link_style magenta-clr mp-text-right">Generate SOA</label>
                                                 </div>
                                                 <div class="info-text">
-                                                    <h1>Gomez, Mark Denneb</h1>
-                                                    <label>System Admin</label>
-                                                    <label>ADMINISTRITIVE OFFICE IV</label>
+                                                    <h1>{{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}</h1>
+                                                    <label>{{ $member->campus_name }}</label>
+                                                    <label>{{ $member->position_id }}</label>
                                                 </div>
 
                                                 <div class="info-text-number">
 
-                                                    <label><i class="fa fa-envelope-o" aria-hidden="true"></i> markdennebg@gmail.com</label>
-                                                    <label style="float:right;"><i class="fa fa-phone" aria-hidden="true"></i>+639262586168</label>
+                                                    <label><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ $member->email }}</label>
+                                                    <label style="float:right;"><i class="fa fa-phone" aria-hidden="true"></i> {{ $member->contact_no }}</label>
                                                 </div>
 
                                                 <div class="profile-buttons  col-12 mp-mt2">
@@ -1736,7 +1742,7 @@
                                                         <span>Modify Contributions</span>
                                                     </button> -->
                                                     <button class="up-button-grey btn-md button-animate-right mp-text-center" id="view_password">
-                                                        <span>Reset Password</span>
+                                                        <span>Change Password</span>
                                                     </button>
                                                 </div>
                                                 <br>
@@ -2178,21 +2184,21 @@
                                             <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Full Name</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="firstname" id="firstname" required />
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="beneficiary-name" id="beneficiary-name" required />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Relationship</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required />
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="beneficiary-relationship" id="beneficiary-relationship" required />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Birthdate</label>
-                                                <input class="mp-input-group__input mp-text-field" type="date" name="lastname" id="lastname" required />
+                                                <input class="mp-input-group__input mp-text-field" type="date" name="beneficiary-birthday" id="beneficiary-birthday" required />
                                             </div>
 
-                                            <a class="up-button btn-md button-animate-right mp-text-center" id="save_users" name="save_users" type="submit">
+                                            <a class="up-button btn-md button-animate-right mp-text-center" id="add-new-beneficiary" name="add-new-beneficiary" type="submit">
                                                 <span class="save_up">Add New Record</span>
                                             </a>
-                                            <a class="up-button-grey btn-md button-animate-right mp-text-center" id="cancel">
+                                            <a class="up-button-grey btn-md button-animate-right mp-text-center" id="clear_beneficiaries">
                                                 <span class="clear_txt">Clear</span>
                                             </a>
                                             <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
@@ -2203,19 +2209,21 @@
                                     <br>
                                     <div class="mp-input-group">
                                         <label class="mp-input-group__label">Beneficiaries Records</label>
-                                        <table class="permission-table" style="transform: scale(1);">
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>FULL NAME</th>
-                                                <th>BIRTHDATE</th>
-                                                <th>RELATIONSHIP</th>
-                                            </tr>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Denneb Gomez </td>
-                                                <td>May 6, 1999</td>
-                                                <td>Brother</td>
-                                            </tr>
+                                        <table class="beneficiaries permission-table" id="beneficiaries-table"  style="transform: scale(1); border: 0">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>FULL NAME</th>
+                                                    <th>BIRTHDATE</th>
+                                                    <th>RELATIONSHIP</th>
+                                                    <th>ACTION</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+
+                                            </tbody>
+                                            
+                                                
 
 
                                         </table>
@@ -2261,6 +2269,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">First Name</label>
+                                                                            
                                                                             <input class="mp-input-group__input mp-text-field" type="text" name="first_name" id="first_name" />
                                                                         </div>
                                                                     </div>
@@ -2278,7 +2287,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Last Name</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="relationship_tomember" id="relationship_tomember" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="last_name" id="last_name" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2286,9 +2295,12 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Campus</label>
-                                                                            <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                                                            <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
                                                                                 <option value="">Select Campus</option>
-                                                                                <option value=" ">Campus 1</option>
+                                                                                @foreach ($campuses as $row)
+                                                                                    <option  value="{{ $row->id }}" >{{ $row->name }}</option>
+                                                                                @endforeach
+                                                                                
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -2297,10 +2309,13 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Department</label>
-                                                                            <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
+                                                                            <select class="mp-input-group__input mp-text-field" name="department" id="department" required>
                                                                                 <option value="">Select Department</option>
-                                                                                <option value=" ">Department 1</option>
+                                                                                @foreach ($department as $row)
+                                                                                    <option  value="{{ $row->dept_no }}" >{{ $row->department_name }}</option>
+                                                                                @endforeach
                                                                             </select>
+                                                                           
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2308,7 +2323,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Position</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="position" id="position" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2316,7 +2331,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Appointment Date</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="date" name="appointment_date" id="appointment_date" />
                                                                         </div>
                                                                             </div>
                                                                 </div>
@@ -2324,7 +2339,8 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Membership Date</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="date" name="email_add" id="email_add" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="date" name="membership_date" id="membership_date" />
+                                                                            
                                                                         </div>
                                                                             </div>
                                                                 </div>
@@ -2332,7 +2348,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Cellphone Number</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="contact_no" id="contact_no" />
                                                                         </div>
                                                                             </div>
                                                                 </div>
@@ -2340,7 +2356,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Landline Number</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="email_add" id="email_add" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="landline_no" id="landline_no" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2350,9 +2366,10 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Gender</label>
-                                                                            <select class="mp-input-group__input mp-text-field w-100" name="user_level" id="user_level" required>
-                                                                                <option value="">Female</option>
-                                                                                <option value="">Male</option>
+                                                                            <select class="mp-input-group__input mp-text-field w-100" name="gender" id="gender" required>
+                                                                                <option value="0">Select Gender</option>
+                                                                                <option value="1">Female</option>
+                                                                                <option value="2">Male</option>
                                                                             </select>
                                                                         </div>                                                                
                                                                     </div>
@@ -2361,7 +2378,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Employee Number</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="employee_no" id="employee_no" />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2369,10 +2386,13 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Status Appointment</label>
-                                                                            <select class="mp-input-group__input mp-text-field" name="user_level" id="user_level" required>
-                                                                                <option value="">PERMANENT</option>
-                                                                                <option value="">PERMANENT</option>
-                                                                                <option value="">PERMANENT</option>
+                                                                            <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                                                                <option value="PERMANENT" selected>Select Status</option>   
+                                                                                <option value="PERMANENT">PERMANENT</option>
+                                                                                <option value="CONTRACTUAL">CONTRACTUAL</option>
+                                                                                <option value="TEMPORARY">TEMPORARY</option>
+                                                                                <option value="JOB ORDER">JOB ORDER</option>
+
                                                                             </select>
                                                                         </div>
                                                                     </div>
@@ -2381,7 +2401,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Permanent Address</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="permanent_address" id="permanent_address"  />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2389,7 +2409,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Current Address</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="current_address" id="current_address"  />
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2397,7 +2417,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Tin</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="text" id=" email_add" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="text" name="tin_no" id="tin_no"/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2405,7 +2425,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Birthdate</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="date" id=" email_add" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="date" name="birthday" id="birthday"/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2413,13 +2433,13 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Email</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="email" id=" email_add" />
+                                                                            <input class="mp-input-group__input mp-text-field" type="email" name="email" id="email"/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">
                                                                     <div class="col-lg-11 mp-mvauto">
-                                                                        <a class="up-button btn-md mp-text-center w-100 mp-mt2" id="save_users" name="save_users" type="submit">
+                                                                        <a class="up-button btn-md mp-text-center w-100 mp-mt2" id="update_record" name="update_record" type="submit">
                                                                             <span class="save_up">Update Record</span>
                                                                         </a>
                                                                     </div>
@@ -2439,11 +2459,11 @@
                                                             <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
                                                             <div class="mp-input-group">
                                                                 <label class="mp-input-group__label">Monthly Contribution</label>
-                                                                <input class="mp-input-group__input mp-text-field" type="text" name="firstname" id="firstname" required />
+                                                                <input value="{{$member->contribution}}" class="mp-input-group__input mp-text-field" type="{{$member->contribution_type == 'PERCENTAGE' ? 'number' : 'text'}}" name="contribution" id="firstname" required />
                                                             </div>
                                                             <div class="mp-input-group">
                                                                 <label class="mp-input-group__label">Equivalent Value</label>
-                                                                <input class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required />
+                                                                <input value="{{$member->contribution_type == 'PERCENTAGE' ? $member->monthly_salary * (0.01 * $member->contribution) : $member->contribution}}" class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required />
                                                             </div>
 
                                                             <a class="up-button btn-md mp-text-center mp-mt3" id="save_users" name="save_users" type="submit">
@@ -2461,7 +2481,7 @@
                                                                 Membership Form
                                                             </span>
                                                             <span class="mp-text-fw-medium">
-                                                                <a class='view_member view-member' style='cursor: pointer; padding: 0'>
+                                                                <a href="javascript:void(0)" onclick="window.open('{{ URL::to('/memberform/') }}/{{ $member->employee_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" class='view_member view-member' style='cursor: pointer; padding: 0'>
                                                                     <span class="mp-link link_style">View Membership form</span>
                                                                 </a>
                                                             </span>
@@ -2476,7 +2496,7 @@
                                                                 Proxy Form
                                                             </span>
                                                             <span class="mp-text-fw-medium">
-                                                                <a class='view_member view-member' style='cursor: pointer; padding: 0'>
+                                                                <a onclick="window.open('{{ URL::to('/generateProxyForm/') }}/{{ $member->app_no }}', 'targetWindow', 'resizable=yes,width=1000,height=1000');" class='view_member view-member' style='cursor: pointer; padding: 0'>
                                                                     <span class="mp-link link_style">View Proxy form</span>
                                                                 </a>
                                                             </span>
@@ -2519,14 +2539,18 @@
                                             <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Password</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="firstname" id="firstname" required />
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="password" id="password" required />
+                                            </div>
+                                            <div class="mp-input-group">
+                                                <label class="mp-input-group__label">New Password</label>
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="new-password" id="new-password" required />
                                             </div>
                                             <div class="mp-input-group">
                                                 <label class="mp-input-group__label">Confirm Password</label>
-                                                <input class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required />
+                                                <input class="mp-input-group__input mp-text-field" type="text" name="confirm-password" id="confirm-password" required />
                                             </div>
 
-                                            <a class="up-button btn-md mp-text-center" id="save_users" name="save_users" type="submit">
+                                            <a class="up-button btn-md mp-text-center" id="change-password" name="change-password" type="submit">
                                                 <span class="save_up">Update Password</span>
                                             </a>
                                             <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
@@ -2561,6 +2585,114 @@
         })
         
     }
+
+    
+    function clearBeneValidation() {
+        clearValidation('beneficiary-name', 'bene_validation', $('[name=beneficiary-name]'))
+        clearValidation('beneficiary-birthday', 'bene_validation', $('[name=beneficiary-birthday]'))
+        clearValidation('beneficiary-relationship', 'bene_validation', $('[name=beneficiary-relationship]'))
+    }
+
+    function resetBeneficiaryForm() {
+        $('#beneficiary-name').val('').trigger("change");
+        $('#beneficiary-birthday').val('').trigger("change");
+        $('#beneficiary-relationship').val('').trigger("change");
+        clearBeneValidation();
+    }
+
+    //clear beneficiaries click
+    $(document).on('click', '#clear_beneficiaries', function() {
+        resetBeneficiaryForm();
+    })
+
+    //old beneficiaries delete clicked
+    $(document).on('click', '#delete_beneficiaries', function() { 
+        var id = $('#delete_beneficiaries').val();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You will delete this beneficiary!",
+                icon: "question",
+                confirmButtonColor: '#1a8981',
+                confirmButtonText: 'Confirm',
+                cancelButtonText: "Cancel",
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                showCancelButton: true,
+            }).then((okay) => {
+                if (okay.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('delete_member_oldbeneficiaries') }}",
+                        data: {
+                            beneficiary_id: id,
+                        },
+                        success: function(data) {
+                            console.log(data)
+                            if (data.success == true) {
+                                clearBeneValidation();
+                                memberBeneficiaries.draw();
+                            }
+                        }
+                    });
+                } else if (okay.isDenied) {
+                    Swal.close();
+                }
+            });
+
+    });
+            
+
+       
+    
+
+
+   
+   
+    var memberBeneficiaries = $('#beneficiaries-table').DataTable({
+            ordering: false,
+            info: false,
+            searching: false,
+            paging: false,
+            processing: true,
+            serverSide: true,
+            ajax: {
+                url: "{{ route('get_member_beneficiary') }}",
+                data: function(d) {
+                    d.member_no = <?php echo $member->member_no ?>
+                }
+            },
+            columns: [{
+                    data: 'beni_name',
+                    name: 'beni_name'
+                },
+                {
+                    data: 'birth_date',
+                    name: 'birth_date'
+                },
+                {
+                    data: 'relationship',
+                    name: 'relationship'
+                },
+                {
+                    data: 'action',
+                    name: 'action',
+                    orderable: false,
+                    searchable: false
+                },
+            ]
+        });
+    function getBeneficiaries() {
+        
+        memberBeneficiaries.draw();
+
+    }
+   
    
      $(document).on('click', '.header-tabs > span', function(e) {
         // const linkSplit = window.location.href.split('/')
@@ -2570,16 +2702,188 @@
         setActiveTab(element)
         // window.location.href = '/admin/members/records/view/aa' + links[dataSet] + '/' + id
     })
+
+    $(document).on('click', '#add-new-beneficiary' ,function (){
+
+        
+        let status = validateField({
+            element: $('input[name=beneficiary-name]'),
+            target:"beneficiary-name"
+        })
+        let status1 = validateField({
+            element: $('input[name=beneficiary-relationship]'),
+            target:"beneficiary-relationship"
+        })
+        let status2 = validateField({
+            element: $('input[name=beneficiary-birthday]'),
+            target:"beneficiary-birthday"
+        })
+
+        if(status || status1 || status2) {
+            return false
+        }
+                
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will add this beneficiary!",
+            icon: "question",
+            confirmButtonColor: '#1a8981',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: "Cancel",
+            showCancelButton: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((okay) => {
+            if (okay.isConfirmed) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: "/member/add_old_member_beneficiary",
+                    data: {
+                        beni_name: $('input[name=beneficiary-name]').val(),
+                        birth_date: $('input[name=beneficiary-birthday]').val(),
+                        relationship: $('input[name=beneficiary-relationship]').val(),
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.success == true) {
+                            resetBeneficiaryForm();
+                            getBeneficiaries();
+                        }
+                    }
+                });
+            } else if (okay.isDenied) {
+                Swal.close();
+            }
+        });
+    })
+
+    $(document).on('click', '#change-password', function(e) {
+        const password = $('input[name=password]').val()
+        const newPassword = $('input[name=new-password]').val()
+        const confirmPassword = $('input[name=confirm-password]').val()
+
+        const isPasswordValid = checkPassword({newPassword, confirmPassword})
+
+       
+
+        let status = validateField({
+            element: $('input[name=password]'),
+            target:"password"
+        })
+        let status1 = validateField({
+            element: $('input[name=new-password]'),
+            target:"new-password"
+        })
+        let status2 = validateField({
+            element: $('input[name=confirm-password]'),
+            target:"confirm-password"
+        })
+
+        if(status || status1 || status2) {
+            return false
+        }
+
+        if(newPassword != confirmPassword) {
+            return Swal.fire({
+                text: 'Password did not match.',
+                icon: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+            });
+        }
+        else {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            $.ajax({
+                url: '/change-password',
+                method: 'POST',
+                data: {
+                    current_password: password,
+                    new_password: newPassword,
+                    new_password_confirmation: confirmPassword
+                },
+                success: function(response) {
+                    Swal.fire({
+                        text: 'Password changed successfully.',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        text: xhr.responseJSON.message,
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+                    // Handle error response
+                }
+            });
+        }
+
+    })
+
     $(document).on('click', '#view_profile', function(e) {
         $("#beneficiariesDiv").addClass("d-none")
         $("#beneficiariesDiv").addClass("opacity-0")
-
         $("#memberstatusDiv").removeClass("d-none")
         $("#memberstatusDiv").removeClass("opacity-0")
         $("#statementDiv").addClass("d-none")
         $("#statementDiv").addClass("opacity-0")
         $("#resetPasswordDiv").addClass("d-none")
         $("#resetPasswordDiv").addClass("opacity-0")
+
+        $('input[name=first_name]').val("{{$member->first_name}}")
+        $('input[name=last_name]').val("{{$member->last_name}}")
+        $('input[name=middle_name]').val("{{$member->middle_name}}")
+        $('select[name=campus]').val("{{$member->campus_id}}")
+        $('select[name=department]').val("{{$member->department_id}}")
+        $('input[name=position]').val("{{$member->position_id}}")
+        $('input[name=appointment_date]').val("{{$member->original_appointment_date}}")
+        <?php
+            $memberDate = new DateTime($member->membership_date);
+            $memberDateString = $memberDate->format('Y-m-d');
+        ?>
+        $('input[name=membership_date]').val('{{$memberDateString}}')
+        $('input[name=contact_no]').val("{{$member->contact_no}}")
+        $('input[name=landline_no]').val("{{$member->landline}}")
+        if("{{$member->gender}}" == "FEMALE") {
+            $('select[name=gender]').val(1)
+        } else {
+            $('select[name=gender]').val(2)
+        }
+        $('input[name=employee_no]').val("{{$member->employee_no}}")
+        $('input[name=current_address]').val("{{$member->current_address}}")
+        $('input[name=permanent_address]').val("{{$member->permanent_address}}")
+        $('input[name=tin_no]').val("{{$member->tin}}")
+        $('input[name=birthday]').val("{{$member->birth_date}}")
+        $('input[name=email]').val("{{$member->email}}")
+        $('input[name=status]').val("{{$member->appointment_status}}")
+       
+       
+//         position
+// appointment_date
+// membership_date
+// contact_no
+// landline_no
+// gender
+// employee_no
+// status
+// permanent_address
+// current_address
+// tin_no
+// birthday
+// email
+
     })
 
     $(document).on('click', '#view_beneficiaries', function(e) {
