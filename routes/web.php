@@ -230,6 +230,10 @@ Route::post('/member/add_old_member_beneficiary', [MemberController::class, 'add
 //member-profile
 Route::get('/member/update-password', [MemberController::class, 'updatepassword'])->name('member.updatepassword');
 
+//member back end 
+Route::post('/member/add-new-pel-loans', [MemberController::class, 'add_new_pel_loan'])->name('add_loan_application');
+
+
 
 //PDF Generation
 Route::get('/generateCocolife/{id}', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
