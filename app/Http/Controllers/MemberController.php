@@ -64,11 +64,12 @@ class MemberController extends Controller
         }
       }
       $member = User::where('users.id', Auth::user()->id)
-        ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
-        ->leftjoin('member', 'users.id', '=', 'member.user_id')
-        ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
-        ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
-        ->first();
+      ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
+      ->leftjoin('member', 'users.id', '=', 'member.user_id')
+      ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+
+      ->first();
       $campuses = DB::table('campus')->get();
       $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
       $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
@@ -412,4 +413,52 @@ class MemberController extends Controller
       return response()->json(['success' => false]);
     }
   }
+  
+
+  //update member details
+  public function updateMemberDetails(Request $request)
+  {
+    $member_no  = $request->get('member_no');
+    $user_id  = $request->get('user_id');
+
+    $update_member = DB::table('member')
+      ->where('member_no', $member_no)
+      ->update([
+        'position_id' => $request->get('position_id'),
+        'membership_date' => $request->get('membership_date'),
+      ]);
+
+    $update_member_details = DB::table('member_detail')
+      ->where('member_no', $member_no)
+      ->update([
+        'landline' => $request->get('landline'),
+        'gender' => $request->get('gender'),
+        'employee_no' => $request->get('employee_no'),
+        'appointment_status' => $request->get('appointment_status'),
+        'permanent_address' => $request->get('permanent_address'),
+        'current_address' => $request->get('current_address'),
+        'tin' => $request->get('tin'),
+        'birth_date' => $request->get('birth_date'),
+      ]);
+
+
+    $update_user_details = DB::table('users')
+      ->where('id', $user_id)
+      ->update([
+        'first_name' => $request->get('first_name'),
+        'middle_name' => $request->get('middle_name'),
+        'last_name' => $request->get('last_name'),
+        'contact_no' => $request->get('contact_no'),
+        'email' => $request->get('email'),
+      ]);
+    if (!empty($update_member_details) || !empty($update_user_details) || !empty($update_member)) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
+  }
+
+
 }
+
+

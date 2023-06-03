@@ -225,6 +225,7 @@ Route::get('/member/equity', [MemberController::class, 'equity'])->name('member.
 //member request
 Route::post('/change-password', [MemberController::class, 'changePassword']);
 Route::post('/member/add_old_member_beneficiary', [MemberController::class, 'addMemberBeneficiaries'])->name('add_member_beneficiary');
+Route::post('/member/member-update', [MemberController::class, 'updateMemberDetails']);
 
 
 //member-profile
