@@ -221,6 +221,9 @@ Route::get('/member/new-loan', [MemberController::class, 'new_loan'])->name('mem
 Route::get('/member/transaction', [MemberController::class, 'transaction'])->name('member.transaction');
 Route::get('/member/member', [MemberController::class, 'member'])->name('member.member');
 Route::get('/member/equity', [MemberController::class, 'equity'])->name('member.equity');
+Route::get('/member/benefits', [MemberController::class, 'benefits'])->name('member.benefits');
+Route::get('/member/benefits/apply', [MemberController::class, 'benefitsClaim']);
+Route::get('/member/benefits/claim', [MemberController::class, 'benefitsApply']);
 
 //member request
 Route::post('/change-password', [MemberController::class, 'changePassword']);
@@ -231,7 +234,7 @@ Route::post('/member/member-update', [MemberController::class, 'updateMemberDeta
 //member-profile
 Route::get('/member/update-password', [MemberController::class, 'updatepassword'])->name('member.updatepassword');
 
-//member back end 
+//member back end m
 Route::post('/member/add-new-pel-loans', [MemberController::class, 'add_new_pel_loan'])->name('add_loan_application');
 
 

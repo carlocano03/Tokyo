@@ -528,6 +528,9 @@
       <li><a href="/member/loan" class="{{ Request::is('member/loan') ? 'active-nav' : '' }}">
           <i class="fa fa-address-book"></i>Loan Application</a>
       </li>
+      <li><a href="/member/benefits" class="{{ Request::is('member/benefits') ? 'active-nav' : '' }}">
+        <i class="fa fa-suitcase" aria-hidden="true"></i>Benefits</a>
+      </li>
       <li><a id="click_form" class="{{ Request::is('member/member') ? 'active-nav' : '' }}">
           <i class="fa fa-envelope" aria-hidden="true"></i> Member Forms </a>
       </li>
