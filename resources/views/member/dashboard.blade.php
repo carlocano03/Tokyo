@@ -1763,6 +1763,7 @@
                                         <div class="row justify-content-end">
                                             <div class="col-12 mp-text-right">
                                                 <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -2295,7 +2296,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Campus</label>
-                                                                            <select class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
+                                                                            <select disabled class="mp-input-group__input mp-text-field" name="campus" id="campus" required>
                                                                                 <option value="">Select Campus</option>
                                                                                 @foreach ($campuses as $row)
                                                                                     <option  value="{{ $row->id }}" >{{ $row->name }}</option>
@@ -2309,7 +2310,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Department</label>
-                                                                            <select class="mp-input-group__input mp-text-field" name="department" id="department" required>
+                                                                            <select disabled class="mp-input-group__input mp-text-field" name="department" id="department" required>
                                                                                 <option value="">Select Department</option>
                                                                                 @foreach ($department as $row)
                                                                                     <option  value="{{ $row->dept_no }}" >{{ $row->department_name }}</option>
@@ -2331,7 +2332,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Appointment Date</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="date" name="appointment_date" id="appointment_date" />
+                                                                            <input disabled class="mp-input-group__input mp-text-field" type="date" name="appointment_date" id="appointment_date" />
                                                                         </div>
                                                                             </div>
                                                                 </div>
@@ -2339,7 +2340,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Membership Date</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="date" name="membership_date" id="membership_date" />
+                                                                            <input disabled class="mp-input-group__input mp-text-field" type="date" name="membership_date" id="membership_date" />
                                                                             
                                                                         </div>
                                                                             </div>
@@ -2366,7 +2367,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Gender</label>
-                                                                            <select class="mp-input-group__input mp-text-field w-100" name="gender" id="gender" required>
+                                                                            <select disabled class="mp-input-group__input mp-text-field w-100" name="gender" id="gender" required>
                                                                                 <option value="0">Select Gender</option>
                                                                                 <option value="1">Female</option>
                                                                                 <option value="2">Male</option>
@@ -2386,8 +2387,8 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Status Appointment</label>
-                                                                            <select class="mp-input-group__input mp-text-field" name="status" id="status" required>
-                                                                                <option value="PERMANENT" selected>Select Status</option>   
+                                                                            <select disabled class="mp-input-group__input mp-text-field" name="status" id="status" required>
+                                                                                <option value="">Select Status</option>   
                                                                                 <option value="PERMANENT">PERMANENT</option>
                                                                                 <option value="CONTRACTUAL">CONTRACTUAL</option>
                                                                                 <option value="TEMPORARY">TEMPORARY</option>
@@ -2425,7 +2426,7 @@
                                                                     <div class="col-lg-11 mp-mvauto">
                                                                         <div class="mp-input-group">
                                                                             <label class="mp-input-group__label">Birthdate</label>
-                                                                            <input class="mp-input-group__input mp-text-field" type="date" name="birthday" id="birthday"/>
+                                                                            <input disabled class="mp-input-group__input mp-text-field" type="date" name="birthday" id="birthday"/>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -2457,16 +2458,45 @@
                                                         <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3  mp-pv2 row">
                                                             <input type="hidden" id="users_id" name="users_id">
                                                             <!-- <label class="mp-text-fs-medium">Personal Information</label> -->
+                                                            <label class="mp-input-group__label">Membership Contribution Type</label>
+                                                            <select class="mp-input-group__input mp-text-field" name="contribution_type" id="contribution_type" required>
+                                                                @if ($member->contribution_type == "FIXED")
+                                                                <option value="FIXED" selected>FIXED</option>
+                                                                @else
+                                                                <option value="FIXED">FIXED</option>
+                                                                @endif
+
+                                                                @if ($member->contribution_type == "PERCENTAGE")
+                                                                <option value="PERCENTAGE" selected>PERCENTAGE</option>
+                                                                @else
+                                                                <option value="PERCENTAGE">PERCENTAGE</option>
+                                                                @endif
+                                                            </select>
                                                             <div class="mp-input-group">
                                                                 <label class="mp-input-group__label">Monthly Contribution</label>
                                                                 <input value="{{$member->contribution}}" class="mp-input-group__input mp-text-field" type="{{$member->contribution_type == 'PERCENTAGE' ? 'number' : 'text'}}" name="contribution" id="firstname" required />
                                                             </div>
-                                                            <div class="mp-input-group">
+                                                            <!-- <div class="mp-input-group">
                                                                 <label class="mp-input-group__label">Equivalent Value</label>
-                                                                <input value="{{$member->contribution_type == 'PERCENTAGE' ? $member->monthly_salary * (0.01 * $member->contribution) : $member->contribution}}" class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required />
-                                                            </div>
+                                                                <input disabled value="{{$member->contribution_type == 'PERCENTAGE' ? $member->monthly_salary * (0.01 * $member->contribution) : $member->contribution}}" class="mp-input-group__input mp-text-field" type="text" name="middlename" id="middlename" required />
+                                                            </div> -->
+                                                            <div class="input-group">
+                                                                <label class="mp-input-group__label">Cocolife Insurance</label>
+                                                                <select class="mp-input-group__input mp-text-field" name="with_cocolife_form" id="with_cocolife_form" required>
+                                                                    @if ($member->with_cocolife_form == 1)
+                                                                    <option value="1" selected>Yes</option>
+                                                                    @else
+                                                                    <option value="1">Yes</option>
+                                                                    @endif
 
-                                                            <a class="up-button btn-md mp-text-center mp-mt3" id="save_users" name="save_users" type="submit">
+                                                                    @if ($member->with_cocolife_form == 0)
+                                                                    <option value="0" selected>NO</option>
+                                                                    @else
+                                                                    <option value="0">NO</option>
+                                                                    @endif
+                                                                </select>
+                                                            </div>
+                                                            <a class="up-button btn-md mp-text-center mp-mt3" id="update_membership" name="update_membership" type="submit">
                                                                 <span class="save_up">Update Record</span>
                                                             </a>
                                                             <!-- <button type="submit" class="sss" id="btn-submit">Submit</button> -->
@@ -2600,6 +2630,10 @@
         clearBeneValidation();
     }
 
+    $(document).ready(function () {
+        console.log(JSON.parse("{{$member}}".replace(/&quot;/g, '"')))
+    })
+
     //clear beneficiaries click
     $(document).on('click', '#clear_beneficiaries', function() {
         resetBeneficiaryForm();
@@ -2688,10 +2722,146 @@
             ]
         });
     function getBeneficiaries() {
-        
         memberBeneficiaries.draw();
-
     }
+
+     //update member details click
+     $(document).on('click', '#update_record', function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var user_id = <?php echo $member->user_id ?>;
+        var member_no = <?php echo $member->member_no ?>;
+
+        var first_name = $('input[name=first_name]').val()
+        var last_name = $('input[name=last_name]').val()
+        var middle_name = $('input[name=middle_name]').val()
+        // var sample = $('select[name=campus]').val()
+        // var sample = $('select[name=department]').val()
+        var position_id = $('input[name=position]').val()
+        var appointment_date = "{{$member->original_appointment_date}}"
+        var membership_date = "{{$member->membership_date}}"
+        var contact_no = $('input[name=contact_no]').val()
+        var landline = $('input[name=landline_no]').val()
+        var gender = "{{$member->gender}}"
+       
+        var employee_no = "{{$member->employee_no}}"
+        var current_address = $('input[name=current_address]').val()
+        var permanent_address = $('input[name=permanent_address]').val()
+        var tin = $('input[name=tin_no]').val()
+        var birth_date = "{{$member->birth_date}}"
+        var email = $('input[name=email]').val()
+        var appointment_status = $('select[name=status]').val()
+       
+
+    
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will change this member's details!",
+            icon: "question",
+            confirmButtonColor: '#1a8981',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: "Cancel",
+            showCancelButton: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((okay) => {
+            if (okay.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: "/member/member-update",
+                    data: {
+                        user_id: user_id,
+                        member_no: member_no,
+                        first_name: first_name,
+                        middle_name: middle_name,
+                        last_name: last_name,
+                        position_id: position_id,
+                        membership_date: membership_date,
+                        contact_no: contact_no,
+                        landline: landline,
+                        gender: gender,
+                        employee_no: employee_no,
+                        appointment_status: appointment_status,
+                        permanent_address: permanent_address,
+                        current_address: current_address,
+                        tin: tin,
+                        birth_date: birth_date,
+                        email: email,
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.success == true) {
+                            $('#loading').show();
+                            location.reload();
+                        } else {
+                            Swal.fire({
+                                title: "No Changes Made!",
+                                type: "error",
+                                confirmButtonColor: '#1a8981',
+                            })
+                        }
+                    }
+                });
+            } else if (okay.isDenied) {
+                Swal.close();
+            }
+        });
+    });
+
+    //update other member details click
+    $(document).on('click', '#update_membership', function() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        var member_no = <?php echo $member->member_no ?>;
+        var contribution_type = $('select[name=contribution_type]').val();
+        var contribution = $('input[name=contribution]').val();
+        var with_cocolife_form = $('select[name=with_cocolife_form]').val()
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You will change this member's membership details!",
+            icon: "question",
+            confirmButtonColor: '#1a8981',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: "Cancel",
+            showCancelButton: true,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        }).then((okay) => {
+            if (okay.isConfirmed) {
+                $.ajax({
+                    type: 'POST',
+                    url: "{{ route('update_other_member_details') }}",
+                    data: {
+                        member_no: member_no,
+                        contribution_type: contribution_type,
+                        contribution: contribution,
+                        with_cocolife_form: with_cocolife_form,
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.success == true) {
+                            $('#loading').show();
+                            location.reload();
+                        } else {
+                            Swal.fire({
+                                title: "No Changes Made!",
+                                type: "error",
+                                confirmButtonColor: '#1a8981',
+                            })
+                        }
+                    }
+                });
+            } else if (okay.isDenied) {
+                Swal.close();
+            }
+        });
+    });
    
    
      $(document).on('click', '.header-tabs > span', function(e) {
@@ -2701,11 +2871,14 @@
         const element = $(this)
         setActiveTab(element)
         // window.location.href = '/admin/members/records/view/aa' + links[dataSet] + '/' + id
+
+        $('input[name=first_name]').val("{{$member->first_name}}")
+
+        
     })
 
     $(document).on('click', '#add-new-beneficiary' ,function (){
 
-        
         let status = validateField({
             element: $('input[name=beneficiary-name]'),
             target:"beneficiary-name"
@@ -2867,22 +3040,8 @@
         $('input[name=tin_no]').val("{{$member->tin}}")
         $('input[name=birthday]').val("{{$member->birth_date}}")
         $('input[name=email]').val("{{$member->email}}")
-        $('input[name=status]').val("{{$member->appointment_status}}")
-       
-       
-//         position
-// appointment_date
-// membership_date
-// contact_no
-// landline_no
-// gender
-// employee_no
-// status
-// permanent_address
-// current_address
-// tin_no
-// birthday
-// email
+        $('select[name=status]').val("{{$member->appointment_status}}")
+
 
     })
 
