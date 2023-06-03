@@ -459,6 +459,36 @@ class MemberController extends Controller
   }
 
 
+  public function benefits()
+  {
+    if (Auth::check()) {
+      return view('member.benefits.index');
+    } else {
+      return redirect('/login');
+    }
+  }
+
+  public function benefitsClaim()
+  {
+    if (Auth::check()) {
+      return view('member.benefits.claim');
+    } else {
+      return redirect('/login');
+    }
+  }
+
+
+  public function benefitsApplication()
+  {
+    if (Auth::check()) {
+      return view('member.benefits.apply');
+    } else {
+      return redirect('/login');
+    }
+  }
+
+
+
 }
 
 
