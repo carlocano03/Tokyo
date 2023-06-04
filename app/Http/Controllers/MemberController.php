@@ -64,12 +64,11 @@ class MemberController extends Controller
         }
       }
       $member = User::where('users.id', Auth::user()->id)
-      ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
-      ->leftjoin('member', 'users.id', '=', 'member.user_id')
-      ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
-      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
-
-      ->first();
+        ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
+        ->leftjoin('member', 'users.id', '=', 'member.user_id')
+        ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+        ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+        ->first();
       $campuses = DB::table('campus')->get();
       $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
       $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
@@ -163,98 +162,99 @@ class MemberController extends Controller
         ->where('member.user_id', '=',  $user_id)
         ->join('old_campus', "old_campus.id", "=", "member.campus_id")
         ->join("users", "member.user_id", "=", "users.id")
-        ->select('member.*', 'users.*', 'old_campus.name as campus_name')
+        ->join("member_detail", "member_detail.member_no", "=", "member.member_no")
+        ->select('member.*', 'users.*', 'member_detail.*', 'old_campus.name as campus_name')
         ->get()->first();
 
       //1 PEL, 2 BL, 3 EML, 4 CBL, 5 BTL
 
       //pel
-      $pelBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
-        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
-        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
-        ->where('loan.member_id', '=', $member_details->member_no)
-        ->where('loan.type_id', '=', 1)
-        ->groupBy('loan_type.name')
-        ->get();
+      // $pelBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+      //   ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+      //   ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+      //   ->where('loan.member_id', '=', $member_details->member_no)
+      //   ->where('loan.type_id', '=', 1)
+      //   ->groupBy('loan_type.name')
+      //   ->get();
 
-      $totalPelBalance = 0;
-      foreach ($pelBalance as $loan) {
-        $totalPelBalance += $loan->balance;
-      }
+      // $totalPelBalance = 0;
+      // foreach ($pelBalance as $loan) {
+      //   $totalPelBalance += $loan->balance;
+      // }
 
-      //BL
-      $blBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
-        ->leftjoin(
-          'loan',
-          'loan_transaction.loan_id',
-          'loan.id'
-        )
-        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
-        ->where('loan.member_id', '=', $member_details->member_no)
-        ->where('loan.type_id', '=', 2)
-        ->groupBy('loan_type.name')
-        ->get();
+      // //BL
+      // $blBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+      //   ->leftjoin(
+      //     'loan',
+      //     'loan_transaction.loan_id',
+      //     'loan.id'
+      //   )
+      //   ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+      //   ->where('loan.member_id', '=', $member_details->member_no)
+      //   ->where('loan.type_id', '=', 2)
+      //   ->groupBy('loan_type.name')
+      //   ->get();
 
-      $totalBlBalance = 0;
-      foreach ($blBalance as $loan) {
-        $totalBlBalance += $loan->balance;
-      }
+      // $totalBlBalance = 0;
+      // foreach ($blBalance as $loan) {
+      //   $totalBlBalance += $loan->balance;
+      // }
 
 
 
-      //EML
-      $EMLBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
-        ->leftjoin(
-          'loan',
-          'loan_transaction.loan_id',
-          'loan.id'
-        )
-        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
-        ->where('loan.member_id', '=', $member_details->member_no)
-        ->where('loan.type_id', '=', 3)
-        ->groupBy('loan_type.name')
-        ->get();
+      // //EML
+      // $EMLBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+      //   ->leftjoin(
+      //     'loan',
+      //     'loan_transaction.loan_id',
+      //     'loan.id'
+      //   )
+      //   ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+      //   ->where('loan.member_id', '=', $member_details->member_no)
+      //   ->where('loan.type_id', '=', 3)
+      //   ->groupBy('loan_type.name')
+      //   ->get();
 
-      $totalEMLBalance = 0;
-      foreach ($EMLBalance as $loan) {
-        $totalEMLBalance += $loan->balance;
-      }
+      // $totalEMLBalance = 0;
+      // foreach ($EMLBalance as $loan) {
+      //   $totalEMLBalance += $loan->balance;
+      // }
 
-      //CBL
-      $CBLBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
-        ->leftjoin(
-          'loan',
-          'loan_transaction.loan_id',
-          'loan.id'
-        )
-        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
-        ->where('loan.member_id', '=', $member_details->member_no)
-        ->where('loan.type_id', '=', 4)
-        ->groupBy('loan_type.name')
-        ->get();
+      // //CBL
+      // $CBLBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+      //   ->leftjoin(
+      //     'loan',
+      //     'loan_transaction.loan_id',
+      //     'loan.id'
+      //   )
+      //   ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+      //   ->where('loan.member_id', '=', $member_details->member_no)
+      //   ->where('loan.type_id', '=', 4)
+      //   ->groupBy('loan_type.name')
+      //   ->get();
 
-      $totalCBLBalance = 0;
-      foreach ($CBLBalance as $loan) {
-        $totalCBLBalance += $loan->balance;
-      }
+      // $totalCBLBalance = 0;
+      // foreach ($CBLBalance as $loan) {
+      //   $totalCBLBalance += $loan->balance;
+      // }
 
-      // BTL
-      $BTLBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
-        ->leftjoin(
-          'loan',
-          'loan_transaction.loan_id',
-          'loan.id'
-        )
-        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
-        ->where('loan.member_id', '=', $member_details->member_no)
-        ->where('loan.type_id', '=', 5)
-        ->groupBy('loan_type.name')
-        ->get();
+      // // BTL
+      // $BTLBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+      //   ->leftjoin(
+      //     'loan',
+      //     'loan_transaction.loan_id',
+      //     'loan.id'
+      //   )
+      //   ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+      //   ->where('loan.member_id', '=', $member_details->member_no)
+      //   ->where('loan.type_id', '=', 5)
+      //   ->groupBy('loan_type.name')
+      //   ->get();
 
-      $totalBTLBalance = 0;
-      foreach ($BTLBalance as $loan) {
-        $totalBTLBalance += $loan->balance;
-      }
+      // $totalBTLBalance = 0;
+      // foreach ($BTLBalance as $loan) {
+      //   $totalBTLBalance += $loan->balance;
+      // }
 
       $loan_details = DB::table('candidates_tbl')
         ->where('candidates_tbl.election_id', '=',  $user_id)
@@ -265,19 +265,108 @@ class MemberController extends Controller
         ->join("employee_details", "membership_id.employee_no", "=", "employee_details.employee_no")
         ->select('candidates_tbl.*', 'personal_details.*', 'campus.name as campus_name', 'membership_id.*', 'employee_details.*')
         ->get();
+      $member = User::where('users.id', $user_id)
+        ->select('*', 'member.id as member_id', 'users.id as user_id', 'campus.name as campus_name')
+        ->leftjoin(
+          'member',
+          'users.id',
+          '=',
+          'member.user_id'
+        )
+        ->leftjoin(
+          'campus',
+          'member.campus_id',
+          '=',
+          'campus.id'
+        )
+        ->first();
+
+      $recentcontributions = ContributionTransaction::select('*')
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->leftjoin('contribution_account', 'contribution_transaction.account_id', 'contribution_account.id')
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->Where('contribution_transaction.amount', '<>', 0.00)
+        ->orderBy('contribution.date', 'desc')
+        ->orderBy('contribution.reference_no', 'desc')
+        // ->limit(3)
+        ->get();
+
+      $contributions = array();
+
+      $membercontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 2)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['membercontribution'] = $membercontribution->total;
 
 
-      return view('member.loan_application.calculator', compact(
-        'member_details',
-        'loan_details',
-        'totalPelBalance',
-        'totalBlBalance',
-        'totalEMLBalance',
-        'totalCBLBalance',
-        'totalBTLBalance',
+      $upcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 1)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['upcontribution'] = $upcontribution->total;
 
 
-      ));
+      $eupcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 3)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['eupcontribution'] = $eupcontribution->total;
+
+
+      $emcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 4)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['emcontribution'] = $emcontribution->total;
+
+
+      $totalcontributions = array_sum($contributions);
+
+
+      $years = OLDMembers::select(DB::raw("YEAR(original_appointment_date) - YEAR(CURDATE()) - (DATE_FORMAT(original_appointment_date,'%m%d') < DATE_FORMAT(CURDATE(),'%m%d')) as years"))
+        ->where('user_Id', '=', $member->user_id)->get();
+
+      $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+        ->where('loan.member_id', '=', $member->member_id)
+        ->groupBy('loan_type.name')
+        ->get();
+
+      $totalloanbalance = 0;
+      foreach ($outstandingloans as $loan) {
+        $totalloanbalance += $loan->balance;
+      }
+      return view(
+        'member.loan_application.calculator',
+        array(
+          'member_details' => $member_details,
+          'loan_details' => $loan_details,
+
+          'totalcontributions' => $totalcontributions,
+          'years' => abs($years[0]->years),
+          'outstandingloans' => $outstandingloans,
+          'totalloanbalance' => $totalloanbalance
+        )
+      );
+
+      // compact(
+      //   'member_details',
+      //   'loan_details',
+      //   'totalPelBalance',
+      //   'totalBlBalance',
+      //   'totalEMLBalance',
+      //   'totalCBLBalance',
+      //   'totalBTLBalance',
+      //   'totalcontributions',
+
+
+      // ));
     } else {
       return redirect('/login');
     }
@@ -303,11 +392,11 @@ class MemberController extends Controller
         ->where('loan_type', 1)
         ->update(['year' => $year, 'current_last' => $control_number, 'current_counter' => $current_counter]);
     }
-
+    $member_no = $request->input('member_no');
 
     $loanapp_id = DB::table('loan_applications')->insertGetId(
       [
-        'member_no' => $request->input('member_no'),
+        'member_no' => $member_no,
         'loan_type' => 1,
         'control_number' => $control_number,
         'active_email' => $request->input('active_email'),
@@ -413,7 +502,7 @@ class MemberController extends Controller
       return response()->json(['success' => false]);
     }
   }
-  
+
 
   //update member details
   public function updateMemberDetails(Request $request)
@@ -486,9 +575,4 @@ class MemberController extends Controller
       return redirect('/login');
     }
   }
-
-
-
 }
-
-

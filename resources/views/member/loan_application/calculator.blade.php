@@ -1754,14 +1754,14 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="info-text">
-                                <label for="">Appointment Date: January 10, 2023</label>
-                                <label for="">Years in Service: 2 Years</label>
+                                <label for="">Appointment Date: {{$member_details->original_appointment_date}} </label>
+                                <label for="">Years in Service: {{ $years}} Years</label>
                             </div>
                         </div>
                         <div class="col-12 mp-mt2">
                             <div class="info-text">
-                                <label for="">Salary Grade: 2</label>
-                                <label for="">Gross Monthly Salary: PHP 13,500.00</label>
+                                <label for="">Salary Grade: {{$member_details->salary_grade}}</label>
+                                <label for="">Gross Monthly Salary: PHP {{$member_details->monthly_salary}}</label>
                             </div>
                         </div>
                         <div class="col-12 mp-mt2">
@@ -1769,71 +1769,41 @@
                                 Loan Balance:
                             </h3>
                         </div>
+
+
                         <div class="col-12 mp-mb3">
-                            <div class="row">
-                                <div class="col-5 ">
-                                    <div class="info-text ">
-                                        <label for="" class="font-bold black-clr">PEL: PHP {{ $totalPelBalance }}</label>
-                                    </div>
-                                </div>
-                                <div class="col-7">
-                                    <div class="info-text">
-                                        <label for="" class="font-bold black-clr">Interest: 0%</label>
-                                    </div>
+                            @if (!empty($outstandingloans))
+                            @foreach ($outstandingloans as $oloans)
+
+                            <div class="info-text">
+                                <div>
+                                    <label>{{ $oloans->type }}</label>
+                                    <label>PHP {{ number_format($oloans->balance, 2) }}</label>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-5 ">
-                                    <div class="info-text ">
-                                        <label for="" class="font-bold black-clr">CBL: PHP {{ $totalCBLBalance }}</label>
-                                    </div>
-                                </div>
-                                <div class="col-7">
-                                    <div class="info-text">
-                                        <label for="" class="font-bold black-clr">Interest: 0%</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5 ">
-                                    <div class="info-text ">
-                                        <label for="" class="font-bold black-clr">BL: PHP {{ $totalBlBalance }}</label>
-                                    </div>
-                                </div>
-                                <div class="col-7">
-                                    <div class="info-text">
-                                        <label for="" class="font-bold black-clr">Interest: 0%</label>
-                                    </div>
+
+
+                            @endforeach
+
+                            <hr class="mp-mt3">
+                            <div class="info-text">
+                                <div>
+                                    <label class="mp-input-group__label">
+                                        Total Outstanding Loan Balance
+                                    </label>
+                                    <label class="mp-input-group__label value">
+                                        <h2>PHP {{ number_format($totalloanbalance, 2) }}</h3>
+
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-5 ">
-                                    <div class="info-text ">
-                                        <label for="" class="font-bold black-clr">EML: PHP {{ $totalEMLBalance }}</label>
-                                    </div>
-                                </div>
-                                <div class="col-7">
-                                    <div class="info-text">
-                                        <label for="" class="font-bold black-clr">Interest: 0%</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-5 ">
-                                    <div class="info-text ">
-                                        <label for="" class="font-bold black-clr">BTL: PHP {{ $totalBTLBalance }}</label>
-                                    </div>
-                                </div>
-                                <div class="col-7">
-                                    <div class="info-text">
-                                        <label for="" class="font-bold black-clr">Interest: 0%</label>
-                                    </div>
-                                </div>
-                            </div>
+
+
+
+                            @endif
                         </div>
                         <div class="col-12 mp-mb2">
                             <div class="info-text justify-content-end">
-                                <label for="" class="">As of May 4, 2023 11:03 AM</label>
+                                <label for="" class="">As of: <label id="date"></label></label>
                             </div>
 
                         </div>
@@ -1875,7 +1845,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="netpay" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
@@ -1887,7 +1857,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="bank_account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
@@ -1899,7 +1869,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="file" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="file" id="atm_screenshot" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
@@ -1907,249 +1877,272 @@
                                     <div class="row">
                                         <div class="col-lg-4 d-flex flex-column justify-content-center">
                                             <div class="info-text">
-                                                <label for="" class="black-clr">Enter your years of service</label>
+                                                <label for="" class="black-clr">Enter your years of service </label>
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="years" value="{{$years}}" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 d-flex mp-ph2">
-                                    <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto" id="save_users" name="save_users" type="submit">
+                                    <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto" id="compute_loan" name="save_users" type="submit">
                                         <span class="save_up">COMPUTE LOAN</span>
                                     </a>
                                 </div>
-                                <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2">
-                                    <div class="info-text">
-                                        <label for="" class="white-clr mp-ph2 font-md">Step 2. Select Loanable Amount</label>
+
+                                <div class="step-2-div d-none" id="step-2-div">
+                                    <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2">
+                                        <div class="info-text">
+                                            <label for="" class="white-clr mp-ph2 font-md">Step 2. Select Loanable Amount</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="info-text">
-                                        <label for="" class="">Amount of loan equity.</label>
+                                    <div class="col-lg-12">
+                                        <div class="info-text">
+                                            <label for="" class="">Amount of loan equity.</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="info-text">
-                                        <h4 for="" class="">Total Members Equity: PHP 350,000.00</h4>
+                                    <div class="col-lg-12">
+                                        <div class="info-text">
+                                            <h4 for="" class="">Total Members Equity: PHP {{ number_format($totalcontributions, 2) }}</h4>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="row" style="overflow-y: auto;">
-                                        <div class="col-lg-12">
-                                            <div class="d-flex flex-column">
-                                                <div class="header-table">
-                                                    <table class="payroll-table" style="height: auto;" width="100%">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>
-                                                                    <span>Years of Service</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Equity Percentage</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Amount</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Qualification</span>
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <span>Less Than 4 Years</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>75%</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 12,121.00</span>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <div style="display: inline-flex" class="green-bg mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
-                                                                            Qualified
+                                    <div class="col-lg-12">
+                                        <div class="row" style="overflow-y: auto;">
+                                            <div class="col-lg-12">
+                                                <div class="d-flex flex-column">
+                                                    <div class="header-table">
+                                                        <table class="payroll-table" style="height: auto;" width="100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        <span>Years of Service</span>
+                                                                    </th>
+                                                                    <th>
+                                                                        <span>Equity Percentage</span>
+                                                                    </th>
+                                                                    <th>
+                                                                        <span>Max Loan Amount</span>
+                                                                    </th>
+                                                                    <th>
+                                                                        <span>Qualification</span>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <span>Less Than 4 Years</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>75%</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>PHP {{number_format(($totalcontributions*.75)-$totalloanbalance, 2)  }}</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div>
+                                                                            @if($years < 4 || $years> 4 ) <div style="display: inline-flex" class="green-bg mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                                                    Qualified
+                                                                                </div>
+                                                                                @else
+                                                                                <div style="display: inline-flex" class="maroon-bg white-clr mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                                                    Not Qualified
+                                                                                </div>
+                                                                                @endif
                                                                         </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <span>4 - 14 Years</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>85%</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 12,121.00</span>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <div style="display: inline-flex" class="green-bg mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
-                                                                            Qualified
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <span>4 - 14 Years</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>85%</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>PHP {{number_format(($totalcontributions*.85) - $totalloanbalance, 2)  }} </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div>
+                                                                            @if($years >= 4 && $years < 15 || $years>= 15) <div style="display: inline-flex" class="green-bg mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                                                    Qualified
+                                                                                </div>
+                                                                                @else
+                                                                                <div style="display: inline-flex" class="maroon-bg white-clr mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                                                    Not Qualified
+                                                                                </div>
+                                                                                @endif
+
+
                                                                         </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <span>15 Years Above</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>100%</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 12,121.00</span>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <div style="display: inline-flex" class="maroon-bg white-clr mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
-                                                                            Not Qualified
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <span>15 Years Above</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>100%</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>PHP {{number_format(($totalcontributions*1)-$totalloanbalance, 2)  }} </span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div>
+                                                                            @if($years >= 15)
+                                                                            <div style="display: inline-flex" class="green-bg mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                                                Qualified
+                                                                            </div>
+                                                                            @else
+                                                                            <div style="display: inline-flex" class="maroon-bg white-clr mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                                                Not Qualified
+                                                                            </div>
+                                                                            @endif
+
                                                                         </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
                                                 </div>
-
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12 mp-mh2">
-                                    <div class="info-text">
-                                        <label for="" class="">Notes</label>
-                                        <label for="" class="">Loan amount for 1 year term up to PHP 10,000</label>
-                                        <label for="" class="">Loan amount for 2 years term up to PHP 10,000 - 30,000</label>
-                                        <label for="" class="">Loan amount for 3 years term up to PHP 30,001 - 99,999</label>
-                                        <label for="" class="">Loan amount for 4 years term up to PHP 100,000 - above</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mp-mh2">
-                                    <div class="info-text">
-                                        <label for="" class="font-bold magenta-clr">Max Loanable Amount: PHP 35,000.00</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mp-mh2">
-                                    <div class="info-text">
-                                        <label for="" class="font-bold magenta-clr">Max Payment Terms: 3 Years / 36 Months</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 mp-mt2">
-                                    <div class="row">
-                                        <div class="col-lg-4 d-flex flex-column justify-content-center">
-                                            <div class="info-text">
-                                                <label for="" class="black-clr">Enter Desired Loanable Amount (*)</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <input type="text" id="desired_amount" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                    <div class="col-lg-12 mp-mh2">
+                                        <div class="info-text">
+                                            <label for="" class="">Notes</label>
+                                            <label for="" class="">Loan amount for 1 year term up to PHP 10,000</label>
+                                            <label for="" class="">Loan amount for 2 years term up to PHP 10,000 - 30,000</label>
+                                            <label for="" class="">Loan amount for 3 years term up to PHP 30,001 - 99,999</label>
+                                            <label for="" class="">Loan amount for 4 years term up to PHP 100,000 - above</label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12 mp-mt2">
-                                    <div class="row">
-                                        <div class="col-lg-4 d-flex flex-column justify-content-center">
-                                            <div class="info-text">
-                                                <label for="" class="black-clr">Select Terms of Payment</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <select id="year_terms" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
-                                                <option value="">Select Terms</option>
-                                                <option value="1">1 Year</option>
-                                                <option value="2">2 Years</option>
-                                                <option value="3">3 Years</option>
-                                                <option value="4">4 Years</option>
-                                            </select>
-                                            <!-- <input type="text" class=" radius-1 border-1 date-input outline mp-pb1 mp-pt1"> -->
+                                    <div class="col-lg-6 mp-mh2">
+                                        <div class="info-text">
+                                            <label for="" class="font-bold magenta-clr">Max Loanable Amount: PHP <label id="max_loan"> </label> </label>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12 mp-mh2 mp-mt4">
-                                    <div class="info-text">
-                                        <label for="" class="">Notes</label>
-                                        <label for="" class="">Interest rate less than 4 years is 12%.</label>
-                                        <label for="" class="">Interest rate more than 4 years is 13%.</label>
+                                    <div class="col-lg-6 mp-mh2">
+                                        <div class="info-text">
+                                            <label for="" class="font-bold magenta-clr">Max Payment Terms: 3 Years / 36 Months</label>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="row" style="overflow-y: auto;">
-                                        <div class="col-lg-12">
-                                            <div class="d-flex flex-column">
-                                                <div class="header-table">
-                                                    <table class="payroll-table" style="height: auto;" width="100%">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>
-                                                                    <span>Principal Amount (Loanable)</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Interest %</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Interest Amount</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Payment Terms</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Monthly Amortization</span>
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <span>PHP 35,000.00</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>12%</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 4,200.00</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>36 Months</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 3,266.67</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <span>Service Fee</span>
-                                                                </td>
-                                                                <td colspan="4">
-                                                                    <span class="justify-content-center black-clr font-bold">PHP 200.00</span>
-                                                                </td>
-
-                                                            </tr>
-                                                            <tr class="magenta-bg">
-                                                                <td>
-                                                                    <span>Actual Amount for Release</span>
-                                                                </td>
-                                                                <td colspan="4">
-                                                                    <span class="justify-content-center font-bold">PHP 34,800.00</span>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                    <div class="col-lg-12 mp-mt2">
+                                        <div class="row">
+                                            <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                                <div class="info-text">
+                                                    <label for="" class="black-clr">Enter Desired Loanable Amount (*)</label>
                                                 </div>
-
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <input type="text" id="desired_amount" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-lg-12 mp-mt2">
+                                        <div class="row">
+                                            <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                                <div class="info-text">
+                                                    <label for="" class="black-clr">Select Terms of Payment</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <select id="year_terms" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
+                                                    <option value="">Select Terms</option>
+                                                    <option value="1">1 Year</option>
+                                                    <option value="2">2 Years</option>
+                                                    <option value="3">3 Years</option>
+                                                    <option value="4">4 Years</option>
+                                                </select>
+                                                <!-- <input type="text" class=" radius-1 border-1 date-input outline mp-pb1 mp-pt1"> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mp-mh2 mp-mt4">
+                                        <div class="info-text">
+                                            <label for="" class="">Notes</label>
+                                            <label for="" class="">Interest rate less than 4 years is 12%.</label>
+                                            <label for="" class="">Interest rate more than 4 years is 13%.</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="row" style="overflow-y: auto;">
+                                            <div class="col-lg-12">
+                                                <div class="d-flex flex-column">
+                                                    <div class="header-table">
+                                                        <table class="payroll-table" style="height: auto;" width="100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        <span>Principal Amount (Loanable)</span>
+                                                                    </th>
+                                                                    <th>
+                                                                        <span>Interest %</span>
+                                                                    </th>
+                                                                    <th>
+                                                                        <span>Interest Amount</span>
+                                                                    </th>
+                                                                    <th>
+                                                                        <span>Payment Terms</span>
+                                                                    </th>
+                                                                    <th>
+                                                                        <span>Monthly Amortization</span>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <span>PHP 35,000.00</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>12%</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>PHP 4,200.00</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>36 Months</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>PHP 3,266.67</span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <span>Service Fee</span>
+                                                                    </td>
+                                                                    <td colspan="4">
+                                                                        <span class="justify-content-center black-clr font-bold">PHP 200.00</span>
+                                                                    </td>
+
+                                                                </tr>
+                                                                <tr class="magenta-bg">
+                                                                    <td>
+                                                                        <span>Actual Amount for Release</span>
+                                                                    </td>
+                                                                    <td colspan="4">
+                                                                        <span class="justify-content-center font-bold">PHP 34,800.00</span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 d-flex mp-ph2">
+                                        <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto" id="continue" name="save_users" type="submit">
+                                            <span class="save_up">CONTINUE TO APPLICATION</span>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="col-lg-12 d-flex mp-ph2">
-                                    <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto" id="continue" name="save_users" type="submit">
-                                        <span class="save_up">CONTINUE TO APPLICATION</span>
-                                    </a>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -2380,6 +2373,29 @@
 </div>
 <script>
     $(document).ready(function() {
+        var d = new Date();
+        document.getElementById("date").innerHTML = d.toTimeString();
+
+        var years_of_service = <?php echo $years; ?>;
+        var total_equity = <?php echo $totalcontributions ?>;
+        var total_loan_balance = <?php echo $totalloanbalance ?>;
+        var total_loan_amount = 0;
+
+        //loanable code compute!
+        if (years_of_service < 4) {
+            total_loan_amount = (total_equity * .75) - total_loan_balance;
+        } else if (years_of_service >= 4 && years_of_service < 15) {
+            total_loan_amount = (total_equity * .85) - total_loan_balance;
+        } else if (years_of_service >= 15) {
+            total_loan_amount = (total_equity * 1) - total_loan_balance;
+        }
+
+
+
+        console.log("total" + total_loan_amount);
+        document.getElementById("max_loan").innerHTML = new Intl.NumberFormat().format(total_loan_amount - total_loan_balance);
+
+
 
         $('#back').on('click', function(e) {
             $('.loan-submission').addClass("d-none")
@@ -2399,6 +2415,31 @@
         });
     });
 
+    $('#compute_loan').on('click', function() {
+        var netpay = parseFloat($('#netpay').val());
+
+        var years_of_service = <?php echo $years; ?>;
+        var total_equity = <?php echo $totalcontributions ?>;
+        var total_loan_balance = <?php echo $totalloanbalance ?>;
+        var total_loan_amount = 0;
+        var desire_loan_amount = $('#desired_amount').val();
+
+        //loanable code compute!
+        if (years_of_service < 4) {
+            total_loan_amount = (total_equity * .75) - total_loan_balance;
+        } else if (years_of_service >= 4 && years_of_service < 15) {
+            total_loan_amount = (total_equity * .85) - total_loan_balance;
+        } else if (years_of_service >= 15) {
+            total_loan_amount = (total_equity * 1) - total_loan_balance;
+        }
+
+
+
+        if (netpay >= 5000) {
+            $('#step-2-div').removeClass("d-none");
+            alert("Total Loan Approved Amount:" + total_loan_amount);
+        }
+    });
 
 
     $('#desired_amount').on('change', function() {
@@ -2407,11 +2448,7 @@
     });
     $(document).on('click', '#submit_loan', function(e) {
         //member send form data 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+
         var file_form = $('#loan_files')[0];
         var formData = new FormData(file_form);
 
@@ -2427,9 +2464,9 @@
         var active_email = $('#active_email').val();
         var member_no = <?php echo json_encode($member_details->member_no); ?>
 
-        console.log($('#active_number').val())
+        console.log(member_no)
         formData.append('loan_amount', loan_amount);
-        formData.append('member_no', <?php echo json_encode($member_details->member_no); ?>);
+        formData.append('member_no', member_no);
         formData.append('year_terms', year_terms);
         formData.append('account_name', account_name);
         formData.append('account_number', account_number);
@@ -2439,6 +2476,13 @@
         formData.append('payslip_1', payslip_1[0]);
         formData.append('payslip_2', payslip_2[0]);
         formData.append('passbook', passbook[0]);
+
+        console.log(formData)
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
 
 
         $.ajax({
@@ -2462,6 +2506,9 @@
                     }
                 });
             },
+            error: function(data) {
+
+            }
         });
         console.log(formData);
     })
