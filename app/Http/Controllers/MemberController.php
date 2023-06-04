@@ -162,7 +162,8 @@ class MemberController extends Controller
         ->where('member.user_id', '=',  $user_id)
         ->join('old_campus', "old_campus.id", "=", "member.campus_id")
         ->join("users", "member.user_id", "=", "users.id")
-        ->select('member.*', 'users.*', 'old_campus.name as campus_name')
+        ->join("member_detail", "member_detail.member_no", "=", "member.member_no")
+        ->select('member.*', 'users.*', 'member_detail.*', 'old_campus.name as campus_name')
         ->get()->first();
 
       //1 PEL, 2 BL, 3 EML, 4 CBL, 5 BTL
@@ -264,19 +265,100 @@ class MemberController extends Controller
         ->join("employee_details", "membership_id.employee_no", "=", "employee_details.employee_no")
         ->select('candidates_tbl.*', 'personal_details.*', 'campus.name as campus_name', 'membership_id.*', 'employee_details.*')
         ->get();
+      $member = User::where('users.id', $user_id)
+        ->select('*', 'member.id as member_id', 'users.id as user_id', 'campus.name as campus_name')
+        ->leftjoin(
+          'member',
+          'users.id',
+          '=',
+          'member.user_id'
+        )
+        ->leftjoin(
+          'campus',
+          'member.campus_id',
+          '=',
+          'campus.id'
+        )
+        ->first();
+
+      $recentcontributions = ContributionTransaction::select('*')
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->leftjoin('contribution_account', 'contribution_transaction.account_id', 'contribution_account.id')
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->Where('contribution_transaction.amount', '<>', 0.00)
+        ->orderBy('contribution.date', 'desc')
+        ->orderBy('contribution.reference_no', 'desc')
+        // ->limit(3)
+        ->get();
+
+      $contributions = array();
+
+      $membercontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 2)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['membercontribution'] = $membercontribution->total;
 
 
-      return view('member.loan_application.calculator', compact(
-        'member_details',
-        'loan_details',
-        'totalPelBalance',
-        'totalBlBalance',
-        'totalEMLBalance',
-        'totalCBLBalance',
-        'totalBTLBalance',
+      $upcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 1)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['upcontribution'] = $upcontribution->total;
 
 
-      ));
+      $eupcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 3)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['eupcontribution'] = $eupcontribution->total;
+
+
+      $emcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 4)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['emcontribution'] = $emcontribution->total;
+
+
+      $totalcontributions = array_sum($contributions);
+
+
+      $years = OLDMembers::select(DB::raw("YEAR(original_appointment_date) - YEAR(CURDATE()) - (DATE_FORMAT(original_appointment_date,'%m%d') < DATE_FORMAT(CURDATE(),'%m%d')) as years"))
+        ->where('user_Id', '=', $member->user_id)->get();
+
+
+      return view(
+        'member.loan_application.calculator',
+        array(
+          'member_details' => $member_details,
+          'loan_details' => $loan_details,
+          'totalBlBalance' => $totalBlBalance,
+          'totalPelBalance' => $totalPelBalance,
+          'totalEMLBalance' => $totalEMLBalance,
+          'totalCBLBalance' => $totalCBLBalance,
+          'totalBTLBalance' => $totalBTLBalance,
+          'totalcontributions' => $totalcontributions,
+          'years' => abs($years[0]->years)
+        )
+      );
+
+      // compact(
+      //   'member_details',
+      //   'loan_details',
+      //   'totalPelBalance',
+      //   'totalBlBalance',
+      //   'totalEMLBalance',
+      //   'totalCBLBalance',
+      //   'totalBTLBalance',
+      //   'totalcontributions',
+
+
+      // ));
     } else {
       return redirect('/login');
     }

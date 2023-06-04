@@ -1754,14 +1754,14 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="info-text">
-                                <label for="">Appointment Date: January 10, 2023</label>
-                                <label for="">Years in Service: 2 Years</label>
+                                <label for="">Appointment Date: {{$member_details->original_appointment_date}} </label>
+                                <label for="">Years in Service: {{ $years}} Years</label>
                             </div>
                         </div>
                         <div class="col-12 mp-mt2">
                             <div class="info-text">
-                                <label for="">Salary Grade: 2</label>
-                                <label for="">Gross Monthly Salary: PHP 13,500.00</label>
+                                <label for="">Salary Grade: {{$member_details->salary_grade}}</label>
+                                <label for="">Gross Monthly Salary: PHP {{$member_details->monthly_salary}}</label>
                             </div>
                         </div>
                         <div class="col-12 mp-mt2">
@@ -1833,7 +1833,7 @@
                         </div>
                         <div class="col-12 mp-mb2">
                             <div class="info-text justify-content-end">
-                                <label for="" class="">As of May 4, 2023 11:03 AM</label>
+                                <label for="" class="">As of: <label id="date"></label></label>
                             </div>
 
                         </div>
@@ -1907,16 +1907,16 @@
                                     <div class="row">
                                         <div class="col-lg-4 d-flex flex-column justify-content-center">
                                             <div class="info-text">
-                                                <label for="" class="black-clr">Enter your years of service</label>
+                                                <label for="" class="black-clr">Enter your years of service </label>
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" value="{{$years}}" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 d-flex mp-ph2">
-                                    <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto" id="save_users" name="save_users" type="submit">
+                                    <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto" id="compute_loan" name="save_users" type="submit">
                                         <span class="save_up">COMPUTE LOAN</span>
                                     </a>
                                 </div>
@@ -1932,7 +1932,7 @@
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="info-text">
-                                        <h4 for="" class="">Total Members Equity: PHP 350,000.00</h4>
+                                        <h4 for="" class="">Total Members Equity: PHP {{ number_format($totalcontributions, 2) }}</h4>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
@@ -1970,407 +1970,204 @@
                                                                 </td>
                                                                 <td>
                                                                     <div>
-                                                                        <div style="display: inline-flex" class="green-bg mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                                        @if($years < 4) <div style="display: inline-flex" class="green-bg mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
                                                                             Qualified
-                                                                        </div>
                                                                     </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <span>4 - 14 Years</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>85%</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 12,121.00</span>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <div style="display: inline-flex" class="green-bg mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
-                                                                            Qualified
-                                                                        </div>
+                                                                    @else
+                                                                    <div style="display: inline-flex" class="maroon-bg white-clr mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                                        Not Qualified
                                                                     </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <span>15 Years Above</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>100%</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 12,121.00</span>
-                                                                </td>
-                                                                <td>
-                                                                    <div>
-                                                                        <div style="display: inline-flex" class="maroon-bg white-clr mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
-                                                                            Not Qualified
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                    @endif
                                                 </div>
+                                                </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <span>4 - 14 Years</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>85%</span>
+                                                    </td>
+                                                    <td>
+                                                        <span>PHP 12,121.00</span>
+                                                    </td>
+                                                    <td>
+                                                        <div>
+                                                            @if($years >= 4 && $years < 15) <div style="display: inline-flex" class="green-bg mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                                Qualified
+                                                        </div>
+                                                        @else
+                                                        <div style="display: inline-flex" class="maroon-bg white-clr mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                            Not Qualified
+                                                        </div>
+                                                        @endif
+
 
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 mp-mh2">
-                                    <div class="info-text">
-                                        <label for="" class="">Notes</label>
-                                        <label for="" class="">Loan amount for 1 year term up to PHP 10,000</label>
-                                        <label for="" class="">Loan amount for 2 years term up to PHP 10,000 - 30,000</label>
-                                        <label for="" class="">Loan amount for 3 years term up to PHP 30,001 - 99,999</label>
-                                        <label for="" class="">Loan amount for 4 years term up to PHP 100,000 - above</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mp-mh2">
-                                    <div class="info-text">
-                                        <label for="" class="font-bold magenta-clr">Max Loanable Amount: PHP 35,000.00</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 mp-mh2">
-                                    <div class="info-text">
-                                        <label for="" class="font-bold magenta-clr">Max Payment Terms: 3 Years / 36 Months</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 mp-mt2">
-                                    <div class="row">
-                                        <div class="col-lg-4 d-flex flex-column justify-content-center">
-                                            <div class="info-text">
-                                                <label for="" class="black-clr">Enter Desired Loanable Amount (*)</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <input type="text" id="desired_amount" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 mp-mt2">
-                                    <div class="row">
-                                        <div class="col-lg-4 d-flex flex-column justify-content-center">
-                                            <div class="info-text">
-                                                <label for="" class="black-clr">Select Terms of Payment</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <select id="year_terms" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
-                                                <option value="">Select Terms</option>
-                                                <option value="1">1 Year</option>
-                                                <option value="2">2 Years</option>
-                                                <option value="3">3 Years</option>
-                                                <option value="4">4 Years</option>
-                                            </select>
-                                            <!-- <input type="text" class=" radius-1 border-1 date-input outline mp-pb1 mp-pt1"> -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 mp-mh2 mp-mt4">
-                                    <div class="info-text">
-                                        <label for="" class="">Notes</label>
-                                        <label for="" class="">Interest rate less than 4 years is 12%.</label>
-                                        <label for="" class="">Interest rate more than 4 years is 13%.</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="row" style="overflow-y: auto;">
-                                        <div class="col-lg-12">
-                                            <div class="d-flex flex-column">
-                                                <div class="header-table">
-                                                    <table class="payroll-table" style="height: auto;" width="100%">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>
-                                                                    <span>Principal Amount (Loanable)</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Interest %</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Interest Amount</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Payment Terms</span>
-                                                                </th>
-                                                                <th>
-                                                                    <span>Monthly Amortization</span>
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <span>PHP 35,000.00</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>12%</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 4,200.00</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>36 Months</span>
-                                                                </td>
-                                                                <td>
-                                                                    <span>PHP 3,266.67</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    <span>Service Fee</span>
-                                                                </td>
-                                                                <td colspan="4">
-                                                                    <span class="justify-content-center black-clr font-bold">PHP 200.00</span>
-                                                                </td>
+                                            </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span>15 Years Above</span>
+                                                </td>
+                                                <td>
+                                                    <span>100%</span>
+                                                </td>
+                                                <td>
+                                                    <span>PHP 12,121.00</span>
+                                                </td>
+                                                <td>
+                                                    <div>
+                                                        @if($years >= 15)
+                                                        <div style="display: inline-flex" class="green-bg mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                            Qualified
+                                                        </div>
+                                                        @else
+                                                        <div style="display: inline-flex" class="maroon-bg white-clr mp-ph1 mp-pv2 mp-ml2 br-top-2 br-bottom-2">
+                                                            Not Qualified
+                                                        </div>
+                                                        @endif
 
-                                                            </tr>
-                                                            <tr class="magenta-bg">
-                                                                <td>
-                                                                    <span>Actual Amount for Release</span>
-                                                                </td>
-                                                                <td colspan="4">
-                                                                    <span class="justify-content-center font-bold">PHP 34,800.00</span>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-
-                                            </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                            </table>
                                         </div>
+
                                     </div>
-                                </div>
-                                <div class="col-lg-12 d-flex mp-ph2">
-                                    <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto" id="continue" name="save_users" type="submit">
-                                        <span class="save_up">CONTINUE TO APPLICATION</span>
-                                    </a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-8 mp-pr0 mp-mt2 loan-submission d-none" style="width: 100%;">
-            <button class="up-button btn-md button-animate-left hover-back mp-mb2" id="back" value="">
-                <span>Back</span>
-            </button>
-            <div class="br-top-2 row" style="color: white;
-                                            padding: 5px 10px;
-                                            background-color: var(--c-accent);
-                                            margin: 0;width: 100%;">LOAN APPLICATION
-            </div>
-            <div class="mp-card mp-p4 h-auto" style="padding:20px;">
-
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
-
-                                <div class="col-lg-7">
-                                    <div class="info-text">
-                                        <label for="" class="font-md">(PEL) Personal Equity Loan.</label>
-                                        <label for="" class="font-md">Loan Application Number: <span>PEL - 2023-2231</span></label>
-                                        <label for="" class="font-md">Loan Status: <span>New Application</span></label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="info-text mp-text-right">
-                                        <h3 for="" class="gray-clr  mp-pb0 mp-mb0">Loanable Amount:</h3>
-                                        <label for="" id="loanable_amount" class="font-lg font-bold magenta-clr">PHP 34,000.00</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2">
-                                    <div class="info-text">
-                                        <label for="" class="white-clr mp-ph2 font-md">A. Bank Details</label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 mp-mt2">
-                                    <div class="row">
-                                        <div class="col-lg-12 d-flex flex-column justify-content-center">
-                                            <div class="info-text">
-                                                <label for="" class="black-clr">1. Please choose the bank where you want your loan proceeds deposited. (*)</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 mp-pv4 mp-ph2">
-                                            <div class="info-text">
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(LPB) Land Bank of the Philippines</label>
-                                                </span>
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(PNB) Philippine National Bank</label>
-                                                </span>
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(DBP) Development Bank of the Philippines</label>
-                                                </span>
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(PVB) Philippine Veterans Bank</label>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-12 d-flex flex-column justify-content-center">
-                                            <div class="info-text">
-                                                <label for="" class="black-clr">2. Input the account number and the account name. (*)</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 mp-mt2">
-                                            <div class="row">
-                                                <div class="col-lg-4 d-flex flex-column justify-content-center">
-                                                    <div class="info-text">
-                                                        <label for="" class="black-clr">Account Number: (*) </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-8">
-                                                    <input type="text" id="account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-12 mp-mt2">
-                                            <div class="row">
-                                                <div class="col-lg-4 d-flex flex-column justify-content-center">
-                                                    <div class="info-text">
-                                                        <label for="" class="black-clr">Account Name: (*) </label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-8">
-                                                    <input type="text" id="account_name" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2 mp-mt3">
-                                    <div class="info-text">
-                                        <label for="" class="white-clr mp-ph2 font-md">B. Attachments</label>
-                                    </div>
-                                </div>
-                                <meta name="csrf-token" content="{{ csrf_token() }}">
-                                <form id="loan_files" method="" enctype="multipart/form-data" style="height: calc(100% - 100px) !important;">
-                                    @csrf
-                                    <div class="col-lg-12">
-
-                                        <div class="row">
-                                            <div class="col-lg-12 mp-mt2">
-                                                <div class="row">
-                                                    <div class="col-lg-12 d-flex flex-column justify-content-center">
-                                                        <div class="info-text">
-                                                            <label for="" class="black-clr">1. UP Employee ID or any valid government issued ID (Drivers license, Passport, GSIS UMID, Philhealth, etc) (*)</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="row mp-mt2">
-                                                            <div class="col-lg-6">
-                                                                <input type="file" id="valid_id" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12 mp-mt2">
-                                                <div class="row">
-                                                    <div class="col-lg-12 d-flex flex-column justify-content-center">
-                                                        <div class="info-text">
-                                                            <label for="" class="black-clr">2. Last 2 months payslip (latest). (*)</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="row mp-mt2">
-                                                            <div class="col-lg-6">
-                                                                <input type="file" id="payslip_1" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <input type="file" id="payslip_2" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mp-mt2">
-                                                    <div class="col-lg-12 d-flex flex-column justify-content-center">
-                                                        <div class="info-text">
-                                                            <label for="" class="black-clr">3. Passbook / ATM / any documents or proof showing bank account number where loan proceeds will be deposited. (*)</label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-12">
-                                                        <div class="row mp-mt2">
-                                                            <div class="col-lg-6">
-                                                                <input type="file" id="passbook" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2 mp-mt3">
-                                        <div class="info-text">
-                                            <label for="" class="white-clr mp-ph2 font-md">C. Additional Information</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 mp-mt2">
-                                        <div class="row">
-                                            <div class="col-lg-12 mp-mt2">
-                                                <div class="row">
-                                                    <div class="col-lg-4 d-flex flex-column justify-content-center">
-                                                        <div class="info-text">
-                                                            <label for="" class="black-clr">Active Email: (*) </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-8">
-                                                        <input type="text" id="active_email" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-12 mp-mt2">
-                                                <div class="row">
-                                                    <div class="col-lg-4 d-flex flex-column justify-content-center">
-                                                        <div class="info-text">
-                                                            <label for="" class="black-clr">Active Mobile Number: (*) </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-8">
-                                                        <input type="text" id="active_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 mp-ph4">
-                                        <div class="row">
-                                            <div class="col-lg-6 d-flex justify-content-center">
-                                                <div class="row f-flex">
-                                                    <span class="d-flex flex-row justify-content-center">
-                                                        <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto gray-bg" id="save_users" name="save_users" type="submit">
-                                                            SAVE AS DRAFT APPLICATION
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 d-flex justify-content-center">
-                                                <div class="row f-flex">
-                                                    <span class="d-flex flex-row justify-content-center">
-                                                        <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto" id="submit_loan" name="submit_loan" type="submit">
-                                                            SUBMIT THIS APPLICATION
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </form>
+                        <div class="col-lg-12 mp-mh2">
+                            <div class="info-text">
+                                <label for="" class="">Notes</label>
+                                <label for="" class="">Loan amount for 1 year term up to PHP 10,000</label>
+                                <label for="" class="">Loan amount for 2 years term up to PHP 10,000 - 30,000</label>
+                                <label for="" class="">Loan amount for 3 years term up to PHP 30,001 - 99,999</label>
+                                <label for="" class="">Loan amount for 4 years term up to PHP 100,000 - above</label>
                             </div>
+                        </div>
+                        <div class="col-lg-6 mp-mh2">
+                            <div class="info-text">
+                                <label for="" class="font-bold magenta-clr">Max Loanable Amount: PHP <label id="max_loan"> </label> </label>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 mp-mh2">
+                            <div class="info-text">
+                                <label for="" class="font-bold magenta-clr">Max Payment Terms: 3 Years / 36 Months</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mp-mt2">
+                            <div class="row">
+                                <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                    <div class="info-text">
+                                        <label for="" class="black-clr">Enter Desired Loanable Amount (*)</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <input type="text" id="desired_amount" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mp-mt2">
+                            <div class="row">
+                                <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                    <div class="info-text">
+                                        <label for="" class="black-clr">Select Terms of Payment</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-8">
+                                    <select id="year_terms" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
+                                        <option value="">Select Terms</option>
+                                        <option value="1">1 Year</option>
+                                        <option value="2">2 Years</option>
+                                        <option value="3">3 Years</option>
+                                        <option value="4">4 Years</option>
+                                    </select>
+                                    <!-- <input type="text" class=" radius-1 border-1 date-input outline mp-pb1 mp-pt1"> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mp-mh2 mp-mt4">
+                            <div class="info-text">
+                                <label for="" class="">Notes</label>
+                                <label for="" class="">Interest rate less than 4 years is 12%.</label>
+                                <label for="" class="">Interest rate more than 4 years is 13%.</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <div class="row" style="overflow-y: auto;">
+                                <div class="col-lg-12">
+                                    <div class="d-flex flex-column">
+                                        <div class="header-table">
+                                            <table class="payroll-table" style="height: auto;" width="100%">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            <span>Principal Amount (Loanable)</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Interest %</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Interest Amount</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Payment Terms</span>
+                                                        </th>
+                                                        <th>
+                                                            <span>Monthly Amortization</span>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <span>PHP 35,000.00</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>12%</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>PHP 4,200.00</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>36 Months</span>
+                                                        </td>
+                                                        <td>
+                                                            <span>PHP 3,266.67</span>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span>Service Fee</span>
+                                                        </td>
+                                                        <td colspan="4">
+                                                            <span class="justify-content-center black-clr font-bold">PHP 200.00</span>
+                                                        </td>
+
+                                                    </tr>
+                                                    <tr class="magenta-bg">
+                                                        <td>
+                                                            <span>Actual Amount for Release</span>
+                                                        </td>
+                                                        <td colspan="4">
+                                                            <span class="justify-content-center font-bold">PHP 34,800.00</span>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 d-flex mp-ph2">
+                            <a class="up-button btn-md mp-text-center w-400-px mp-mt2 mp-mvauto" id="continue" name="save_users" type="submit">
+                                <span class="save_up">CONTINUE TO APPLICATION</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -2378,8 +2175,250 @@
         </div>
     </div>
 </div>
+<div class="col-lg-8 mp-pr0 mp-mt2 loan-submission d-none" style="width: 100%;">
+    <button class="up-button btn-md button-animate-left hover-back mp-mb2" id="back" value="">
+        <span>Back</span>
+    </button>
+    <div class="br-top-2 row" style="color: white;
+                                            padding: 5px 10px;
+                                            background-color: var(--c-accent);
+                                            margin: 0;width: 100%;">LOAN APPLICATION
+    </div>
+    <div class="mp-card mp-p4 h-auto" style="padding:20px;">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="row">
+
+                        <div class="col-lg-7">
+                            <div class="info-text">
+                                <label for="" class="font-md">(PEL) Personal Equity Loan.</label>
+                                <label for="" class="font-md">Loan Application Number: <span>PEL - 2023-2231</span></label>
+                                <label for="" class="font-md">Loan Status: <span>New Application</span></label>
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <div class="info-text mp-text-right">
+                                <h3 for="" class="gray-clr  mp-pb0 mp-mb0">Loanable Amount:</h3>
+                                <label for="" id="loanable_amount" class="font-lg font-bold magenta-clr">PHP 34,000.00</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2">
+                            <div class="info-text">
+                                <label for="" class="white-clr mp-ph2 font-md">A. Bank Details</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 mp-mt2">
+                            <div class="row">
+                                <div class="col-lg-12 d-flex flex-column justify-content-center">
+                                    <div class="info-text">
+                                        <label for="" class="black-clr">1. Please choose the bank where you want your loan proceeds deposited. (*)</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mp-pv4 mp-ph2">
+                                    <div class="info-text">
+                                        <span class="d-flex flex-row justify-items-center gap-10">
+                                            <input type="radio" class="mp-pt1">
+                                            <label for="" class="font-sm">(LPB) Land Bank of the Philippines</label>
+                                        </span>
+                                        <span class="d-flex flex-row justify-items-center gap-10">
+                                            <input type="radio" class="mp-pt1">
+                                            <label for="" class="font-sm">(PNB) Philippine National Bank</label>
+                                        </span>
+                                        <span class="d-flex flex-row justify-items-center gap-10">
+                                            <input type="radio" class="mp-pt1">
+                                            <label for="" class="font-sm">(DBP) Development Bank of the Philippines</label>
+                                        </span>
+                                        <span class="d-flex flex-row justify-items-center gap-10">
+                                            <input type="radio" class="mp-pt1">
+                                            <label for="" class="font-sm">(PVB) Philippine Veterans Bank</label>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 d-flex flex-column justify-content-center">
+                                    <div class="info-text">
+                                        <label for="" class="black-clr">2. Input the account number and the account name. (*)</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mp-mt2">
+                                    <div class="row">
+                                        <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                            <div class="info-text">
+                                                <label for="" class="black-clr">Account Number: (*) </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input type="text" id="account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mp-mt2">
+                                    <div class="row">
+                                        <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                            <div class="info-text">
+                                                <label for="" class="black-clr">Account Name: (*) </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input type="text" id="account_name" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2 mp-mt3">
+                            <div class="info-text">
+                                <label for="" class="white-clr mp-ph2 font-md">B. Attachments</label>
+                            </div>
+                        </div>
+                        <meta name="csrf-token" content="{{ csrf_token() }}">
+                        <form id="loan_files" method="" enctype="multipart/form-data" style="height: calc(100% - 100px) !important;">
+                            @csrf
+                            <div class="col-lg-12">
+
+                                <div class="row">
+                                    <div class="col-lg-12 mp-mt2">
+                                        <div class="row">
+                                            <div class="col-lg-12 d-flex flex-column justify-content-center">
+                                                <div class="info-text">
+                                                    <label for="" class="black-clr">1. UP Employee ID or any valid government issued ID (Drivers license, Passport, GSIS UMID, Philhealth, etc) (*)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="row mp-mt2">
+                                                    <div class="col-lg-6">
+                                                        <input type="file" id="valid_id" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mp-mt2">
+                                        <div class="row">
+                                            <div class="col-lg-12 d-flex flex-column justify-content-center">
+                                                <div class="info-text">
+                                                    <label for="" class="black-clr">2. Last 2 months payslip (latest). (*)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="row mp-mt2">
+                                                    <div class="col-lg-6">
+                                                        <input type="file" id="payslip_1" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <input type="file" id="payslip_2" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mp-mt2">
+                                            <div class="col-lg-12 d-flex flex-column justify-content-center">
+                                                <div class="info-text">
+                                                    <label for="" class="black-clr">3. Passbook / ATM / any documents or proof showing bank account number where loan proceeds will be deposited. (*)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="row mp-mt2">
+                                                    <div class="col-lg-6">
+                                                        <input type="file" id="passbook" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2 mp-mt3">
+                                <div class="info-text">
+                                    <label for="" class="white-clr mp-ph2 font-md">C. Additional Information</label>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mp-mt2">
+                                <div class="row">
+                                    <div class="col-lg-12 mp-mt2">
+                                        <div class="row">
+                                            <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                                <div class="info-text">
+                                                    <label for="" class="black-clr">Active Email: (*) </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <input type="text" id="active_email" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mp-mt2">
+                                        <div class="row">
+                                            <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                                <div class="info-text">
+                                                    <label for="" class="black-clr">Active Mobile Number: (*) </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <input type="text" id="active_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 mp-ph4">
+                                <div class="row">
+                                    <div class="col-lg-6 d-flex justify-content-center">
+                                        <div class="row f-flex">
+                                            <span class="d-flex flex-row justify-content-center">
+                                                <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto gray-bg" id="save_users" name="save_users" type="submit">
+                                                    SAVE AS DRAFT APPLICATION
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 d-flex justify-content-center">
+                                        <div class="row f-flex">
+                                            <span class="d-flex flex-row justify-content-center">
+                                                <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto" id="submit_loan" name="submit_loan" type="submit">
+                                                    SUBMIT THIS APPLICATION
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
 <script>
     $(document).ready(function() {
+        var d = new Date();
+        document.getElementById("date").innerHTML = d.toTimeString();
+
+        var years_of_service = <?php echo $years; ?>;
+        var total_equity = <?php echo $totalcontributions ?>;
+        var total_loan_amount = 0;
+        if (years_of_service < 4) {
+            total_loan_amount = total_equity * .75;
+        } else if (years_of_service >= 4 && years_of_service < 15) {
+            total_loan_amount = total_equity * .85;
+        } else if (years_of_service >= 15) {
+            total_loan_amount = total_equity * 1;
+        }
+
+        console.log("total" + total_loan_amount);
+        document.getElementById("max_loan").innerHTML = total_loan_amount;
+
+        $('#compute_loan').on('click', function(e) {
+            alert("maxloan : " + total_loan_amount);
+        });
 
         $('#back').on('click', function(e) {
             $('.loan-submission').addClass("d-none")
