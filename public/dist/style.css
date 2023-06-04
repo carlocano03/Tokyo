@@ -7064,6 +7064,10 @@ text.highcharts-credits {
     font-size: 30px !important;
 }
 
+.font-xs {
+    font-size: 13px !important;
+}
+
 .font-sm {
     font-size: 13px !important;
 }

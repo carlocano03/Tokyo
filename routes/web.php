@@ -222,8 +222,8 @@ Route::get('/member/transaction', [MemberController::class, 'transaction'])->nam
 Route::get('/member/member', [MemberController::class, 'member'])->name('member.member');
 Route::get('/member/equity', [MemberController::class, 'equity'])->name('member.equity');
 Route::get('/member/benefits', [MemberController::class, 'benefits'])->name('member.benefits');
-Route::get('/member/benefits/apply', [MemberController::class, 'benefitsClaim']);
-Route::get('/member/benefits/claim', [MemberController::class, 'benefitsApply']);
+Route::get('/member/benefits/apply', [MemberController::class, 'benefitsApply']);
+Route::get('/member/benefits/claim', [MemberController::class, 'benefitsClaim']);
 
 //member request
 Route::post('/change-password', [MemberController::class, 'changePassword']);
