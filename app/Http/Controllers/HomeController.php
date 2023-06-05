@@ -321,6 +321,14 @@ class HomeController extends Controller
       DB::table('personal_details')->where('personal_id', $request->input('personnel_id'))
         ->update($inserts);
 
+      $mem_appinst = array(
+        'app_status' => 'NEW APPLICATION',
+        'validator_remarks' => NULL,
+        'aa_cfm_user' => 0
+      );
+      DB::table('mem_app')->where('personal_id', $request->input('personnel_id'))
+        ->update($mem_appinst);
+      
       return [
         'last_id' => $request->input('personnel_id'),
         'mem_id' => $request->input('mem_id'),
@@ -545,11 +553,19 @@ class HomeController extends Controller
   public function continued_trail_status(Request $request)
   {
     $query = $request->input('app_trailno');
-    $results = DB::table('mem_app')->select('*')->whereRaw("mem_app.app_no = '$query'")
-      ->leftjoin('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
-      ->leftjoin('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
-      ->leftjoin('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
-      ->get()->first();
+    $results = DB::table('mem_app')
+      ->join('personal_details', 'mem_app.personal_id', '=', 'personal_details.personal_id')
+      ->join('employee_details', 'mem_app.employee_no', '=', 'employee_details.employee_no')
+      ->join('membership_details', 'membership_details.app_no', '=', 'mem_app.app_no')
+      ->select(
+          'mem_app.*',
+          'mem_app.personal_id AS person_ID',
+          'personal_details.*',
+          'employee_details.*',
+          'membership_details.*'
+      )
+      ->where('mem_app.app_no', '=', $query)
+      ->first();
 
     return response()->json($results);
   }
