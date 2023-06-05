@@ -440,8 +440,8 @@
                         // reference_no = data.app_no == null ? '' : data.app_no;
                         reference_no = app_trailno == '' ? 'N/A' : app_trailno;
 
-                        
                         $("[name='classification']").val(data.classification).trigger('change');
+
                         // $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
                         $('#app_no').val(app_trailno == '' ? 'N/A' : app_trailno);
                         $('#app_number').val(app_trailno == '' ? 'N/A' : app_trailno);
@@ -505,8 +505,6 @@
                             $('#bldg_street').val(data.bldg_street);
                             $('#zipcode').val(data.zipcode);
                         }
-
-                        
 
                         if (data.appointment == 1) {
                             $('input[name="appointment"][value="1"]').prop('checked', true);
