@@ -392,11 +392,11 @@ class MemberController extends Controller
         ->where('loan_type', 1)
         ->update(['year' => $year, 'current_last' => $control_number, 'current_counter' => $current_counter]);
     }
-    $member_no = $request->input('member_no');
+    $member_no = request()->get('member_no');
 
     $loanapp_id = DB::table('loan_applications')->insertGetId(
       [
-        'member_no' => $member_no,
+        'member_no' => request()->get('member_no'),
         'loan_type' => 1,
         'control_number' => $control_number,
         'active_email' => $request->input('active_email'),

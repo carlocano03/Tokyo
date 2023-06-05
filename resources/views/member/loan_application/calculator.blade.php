@@ -1704,19 +1704,19 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <span>PHP 35,000.00</span>
+                                            <label id="table2_loan_amount"></label>
                                         </td>
                                         <td>
-                                            <span>12%</span>
+                                            <label id="table2_interest"></label>
                                         </td>
                                         <td>
-                                            <span>PHP 4,200.00</span>
+                                            <label id="table2_interest_amount"></label>
                                         </td>
                                         <td>
-                                            <span>36 Months</span>
+                                            <label id="table2_payment_terms"></label>
                                         </td>
                                         <td>
-                                            <span>PHP 3,266.67</span>
+                                            <label id="table2_monthly_amortization"></label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -2096,19 +2096,19 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td>
-                                                                        <span>PHP 35,000.00</span>
+                                                                        <label id="table1_loan_amount"></label>
                                                                     </td>
                                                                     <td>
-                                                                        <span>12%</span>
+                                                                        <label id="table1_interest"></label>
                                                                     </td>
                                                                     <td>
-                                                                        <span>PHP 4,200.00</span>
+                                                                        <label id="table1_interest_amount"></label>
                                                                     </td>
                                                                     <td>
-                                                                        <span>36 Months</span>
+                                                                        <label id="table1_payment_terms"></label>
                                                                     </td>
                                                                     <td>
-                                                                        <span>PHP 3,266.67</span>
+                                                                        <label id="table1_monthly_amortization"></label>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -2383,20 +2383,62 @@
 
         //loanable code compute!
         if (years_of_service < 4) {
-            total_loan_amount = (total_equity * .75) - total_loan_balance;
+            total_loan_amount = (total_equity * .75);
         } else if (years_of_service >= 4 && years_of_service < 15) {
-            total_loan_amount = (total_equity * .85) - total_loan_balance;
+            total_loan_amount = (total_equity * .85);
         } else if (years_of_service >= 15) {
-            total_loan_amount = (total_equity * 1) - total_loan_balance;
+            total_loan_amount = (total_equity * 1);
+        }
+
+        function getTotalLoanAmount() {
+            var total_loan_balance = <?php echo $totalloanbalance ?>;
+            var total_loan_amount = 0;
+            var years_of_service = <?php echo $years; ?>;
+            //loanable code compute!
+            if (years_of_service < 4) {
+                total_loan_amount = (total_equity * .75);
+            } else if (years_of_service >= 4 && years_of_service < 15) {
+                total_loan_amount = (total_equity * .85);
+            } else if (years_of_service >= 15) {
+                total_loan_amount = (total_equity * 1);
+            }
+
+            return parseFloat(total_loan_amount);
         }
 
 
-
         console.log("total" + total_loan_amount);
-        document.getElementById("max_loan").innerHTML = new Intl.NumberFormat().format(total_loan_amount - total_loan_balance);
+        document.getElementById("max_loan").innerHTML = new Intl.NumberFormat().format(total_loan_amount);
 
+        function continueLoanHide() {
+            $('.loan-submission').removeClass("d-none")
+            $('.loan-calculator').addClass("d-none")
+            $('input').first().focus()
+            $('#back').focus()
+        }
 
+        function getDesiredLoanAmount() {
+            var loan_amount = parseFloat($('#desired_amount').val());
+            return loan_amount;
+        }
 
+        function getLoanInterest() {
+            var year_terms = parseInt($('#year_terms').val());
+
+            var percent = 0;
+            if (year_terms <= 4) {
+                percent = 12;
+            } else if (year_terms > 4) {
+                percent = 13;
+            }
+            return percent;
+        }
+
+        function getLoanInterestAmount() {
+            return getDesiredLoanAmount() * (getLoanInterest() * 0.01);
+        }
+
+        console.log(getLoanInterestAmount());
         $('#back').on('click', function(e) {
             $('.loan-submission').addClass("d-none")
             $('.loan-calculator').removeClass("d-none")
@@ -2407,13 +2449,63 @@
             $('.loan-calculator').removeClass("d-none")
             $('input').first().focus()
         });
+
+
+
         $('#continue').on('click', function(e) {
-            $('.loan-submission').removeClass("d-none")
-            $('.loan-calculator').addClass("d-none")
-            $('input').first().focus()
-            $('#back').focus()
+            var year_terms = parseInt($('#year_terms').val());
+            var desire_loan_amount = parseFloat($('#desired_amount').val());
+
+            if (getTotalLoanAmount() >= desire_loan_amount) {
+                if (year_terms == 1 && desire_loan_amount <= 10000) {
+                    continueLoanHide();
+                } else if (year_terms == 2 && desire_loan_amount >= 10001 && desire_loan_amount <= 30000) {
+                    continueLoanHide();
+                } else if (year_terms == 3 && desire_loan_amount >= 30001 && desire_loan_amount <= 99999) {
+                    continueLoanHide();
+                } else if (year_terms == 4 && desire_loan_amount >= 100000) {
+                    continueLoanHide();
+                } else {
+                    alert("invalid loan amount and terms!");
+                }
+            } else {
+                alert("desired loan amount higher than max loan amount");
+            }
+
+
         });
+        $("#desired_amount").change(function() {
+            var loan_amount = $('#desired_amount').val();
+
+            $('#table1_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table2_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+
+            $('#table1_interest').html(getLoanInterest() + " %").trigger("change");
+            $('#table2_interest').html(getLoanInterest() + " %").trigger("change");
+
+
+            $('#table1_interest_amount').html(getLoanInterest() + " %").trigger("change");
+            $('#table1_payment_terms').html(getLoanInterest() + " %").trigger("change");
+            $('#table1_monthly_amortization').html(getLoanInterest() + " %").trigger("change");
+
+            // $('#table_loan_amount').html("asds").trigger("change");
+
+        });
+
+        $("#desired_amount").change(function() {
+            var loan_amount = $('#desired_amount').val();
+            var year_terms = parseInt($('#year_terms').val());
+
+
+            $('#table1_loan_amount').html("PHP " + new Intl.NumberFormat().format(loan_amount)).trigger("change");
+            $('#table2_loan_amount').html("PHP " + new Intl.NumberFormat().format(loan_amount)).trigger("change");
+
+            // $('#table_loan_amount').html("asds").trigger("change");
+
+        });
+
     });
+
 
     $('#compute_loan').on('click', function() {
         var netpay = parseFloat($('#netpay').val());
@@ -2422,7 +2514,7 @@
         var total_equity = <?php echo $totalcontributions ?>;
         var total_loan_balance = <?php echo $totalloanbalance ?>;
         var total_loan_amount = 0;
-        var desire_loan_amount = $('#desired_amount').val();
+
 
         //loanable code compute!
         if (years_of_service < 4) {
@@ -2442,10 +2534,7 @@
     });
 
 
-    $('#desired_amount').on('change', function() {
-        var loan_amount = $('#desired_amount').val();
-        $('#loanable_amount').text("PHP " + new Intl.NumberFormat().format(loan_amount));
-    });
+
     $(document).on('click', '#submit_loan', function(e) {
         //member send form data 
 
@@ -2491,7 +2580,7 @@
             data: formData,
             contentType: false,
             processData: false,
-            dataType: 'json',
+            dataType: "json",
             success: function(data) {
                 console.log(data);
 
