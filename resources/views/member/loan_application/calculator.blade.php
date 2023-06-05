@@ -1733,7 +1733,7 @@
                                             <span>Actual Amount for Release</span>
                                         </td>
                                         <td colspan="4">
-                                            <span class="justify-content-center font-bold">PHP 34,800.00</span>
+                                            <label class="justify-content-center font-bold" id="table2_actual_amount_release"></label>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1861,18 +1861,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 mp-mt2">
-                                    <div class="row">
-                                        <div class="col-lg-4 d-flex flex-column justify-content-center">
-                                            <div class="info-text">
-                                                <label for="" class="black-clr">Upload Image (Screenshot of your ATM/ Bank details showing clearly the account number)</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <input type="file" id="atm_screenshot" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="col-lg-12 mp-mt2">
                                     <div class="row">
                                         <div class="col-lg-4 d-flex flex-column justify-content-center">
@@ -1938,7 +1927,7 @@
                                                                         <span>75%</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>PHP {{number_format(($totalcontributions*.75)-$totalloanbalance, 2)  }}</span>
+                                                                        <span>PHP {{number_format($totalcontributions*.75, 2)  }}</span>
                                                                     </td>
                                                                     <td>
                                                                         <div>
@@ -1961,7 +1950,7 @@
                                                                         <span>85%</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>PHP {{number_format(($totalcontributions*.85) - $totalloanbalance, 2)  }} </span>
+                                                                        <span>PHP {{number_format($totalcontributions*.85, 2)  }} </span>
                                                                     </td>
                                                                     <td>
                                                                         <div>
@@ -1986,7 +1975,7 @@
                                                                         <span>100%</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>PHP {{number_format(($totalcontributions*1)-$totalloanbalance, 2)  }} </span>
+                                                                        <span>PHP {{number_format($totalcontributions*1, 2)  }} </span>
                                                                     </td>
                                                                     <td>
                                                                         <div>
@@ -2125,7 +2114,7 @@
                                                                         <span>Actual Amount for Release</span>
                                                                     </td>
                                                                     <td colspan="4">
-                                                                        <span class="justify-content-center font-bold">PHP 34,800.00</span>
+                                                                        <label class="justify-content-center font-bold" id="table1_actual_amount_release"></label>
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -2407,7 +2396,6 @@
         }
 
 
-        console.log("total" + total_loan_amount);
         document.getElementById("max_loan").innerHTML = new Intl.NumberFormat().format(total_loan_amount);
 
         function continueLoanHide() {
@@ -2424,21 +2412,51 @@
 
         function getLoanInterest() {
             var year_terms = parseInt($('#year_terms').val());
-
-            var percent = 0;
-            if (year_terms <= 4) {
-                percent = 12;
-            } else if (year_terms > 4) {
-                percent = 13;
+            if (year_terms < 4 && year_terms > 0) {
+                return 12;
+            } else if (year_terms >= 4) {
+                return 13;
             }
-            return percent;
+
+        }
+
+
+
+        function getPaymentTerms() {
+
+            var year_terms = parseInt($('#year_terms').val());
+            // parseInt($('#year_terms').val());
+            console.log(year_terms);
+            return year_terms * 12;
         }
 
         function getLoanInterestAmount() {
+            var year_terms = parseInt($('#year_terms').val());
+
+            var months_per_year = getPaymentTerms() / year_terms;
+
+            var getPerYear = getDesiredLoanAmount() / 12;
+
+
+
+
             return getDesiredLoanAmount() * (getLoanInterest() * 0.01);
         }
 
-        console.log(getLoanInterestAmount());
+        function getTotalLoanAmountMonthly() {
+
+            var desired_loan = getDesiredLoanAmount();
+            var loan_interest = getLoanInterestAmount();
+            var paymentterms = getPaymentTerms();
+
+            var totalLoan = (desired_loan + loan_interest);
+
+            return totalLoan / paymentterms;
+
+        }
+
+
+
         $('#back').on('click', function(e) {
             $('.loan-submission').addClass("d-none")
             $('.loan-calculator').removeClass("d-none")
@@ -2456,6 +2474,7 @@
             var year_terms = parseInt($('#year_terms').val());
             var desire_loan_amount = parseFloat($('#desired_amount').val());
 
+
             if (getTotalLoanAmount() >= desire_loan_amount) {
                 if (year_terms == 1 && desire_loan_amount <= 10000) {
                     continueLoanHide();
@@ -2466,17 +2485,31 @@
                 } else if (year_terms == 4 && desire_loan_amount >= 100000) {
                     continueLoanHide();
                 } else {
-                    alert("invalid loan amount and terms!");
+                    Swal.fire({
+                        title: 'hi',
+                        html: 'First line<br>Second line'
+                    });
+                    Swal.fire("Invalid loan amount and terms!",
+                        "Notes \n\n Interest rate less than 4 years is 12%.  \n\n Interest rate more than 4 years is 13%.",
+                        "error");
+
                 }
             } else {
-                alert("desired loan amount higher than max loan amount");
+                Swal.fire("Desired loan amount higher than max loan amount!", "", "error");
+
             }
 
 
         });
         $("#desired_amount").change(function() {
             var loan_amount = $('#desired_amount').val();
+            // console.log(getLoanInterest()); 
+            // console.log(parseInt($('#year_terms').val()));
 
+            console.log(getDesiredLoanAmount());
+            console.log(getLoanInterest());
+
+            console.log(getLoanInterestAmount());
             $('#table1_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
             $('#table2_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
 
@@ -2484,25 +2517,130 @@
             $('#table2_interest').html(getLoanInterest() + " %").trigger("change");
 
 
-            $('#table1_interest_amount').html(getLoanInterest() + " %").trigger("change");
-            $('#table1_payment_terms').html(getLoanInterest() + " %").trigger("change");
-            $('#table1_monthly_amortization').html(getLoanInterest() + " %").trigger("change");
+            $('#table1_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table1_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table1_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
 
+            $('#table2_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table2_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table2_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
+
+
+            $('#table1_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
+            $('#table2_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
             // $('#table_loan_amount').html("asds").trigger("change");
 
         });
 
-        $("#desired_amount").change(function() {
+        $("#year_terms").change(function() {
             var loan_amount = $('#desired_amount').val();
-            var year_terms = parseInt($('#year_terms').val());
+            var total_release_amount = getDesiredLoanAmount() + 200;
 
 
-            $('#table1_loan_amount').html("PHP " + new Intl.NumberFormat().format(loan_amount)).trigger("change");
-            $('#table2_loan_amount').html("PHP " + new Intl.NumberFormat().format(loan_amount)).trigger("change");
+            console.log(getDesiredLoanAmount());
+
+
+            console.log(getLoanInterest());
+            console.log(getLoanInterestAmount());
+            $('#table1_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table2_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+
+            $('#table1_interest').html(getLoanInterest() + " %").trigger("change");
+            $('#table2_interest').html(getLoanInterest() + " %").trigger("change");
+
+
+            $('#table1_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table1_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table1_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
+
+            $('#table2_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table2_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table2_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
+
+
+            $('#table1_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
+            $('#table2_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
 
             // $('#table_loan_amount').html("asds").trigger("change");
 
         });
+
+        $(document).on('click', '#submit_loan', function(e) { //member send form data 
+
+
+
+            //loan input details
+            var loan_amount = $('#desired_amount').val();
+            var total_release_amount = getDesiredLoanAmount() + 200;
+            var monthly_amort = getTotalLoanAmountMonthly();
+            var year_terms = $('#year_terms').val();
+            var account_name = $('#account_name').val();
+            var account_number = $('#account_number').val();
+            var active_number = $('#active_number').val();
+            var active_email = $('#active_email').val();
+            var member_no = <?php echo json_encode($member_details->member_no); ?>
+
+
+            var file_form = $('#loan_files')[0];
+            var formData = new FormData(file_form);
+
+
+
+            var valid_id = $('#valid_id')[0].files;
+            var payslip_1 = $('#payslip_1')[0].files;
+            var payslip_2 = $('#payslip_2')[0].files;
+            var passbook = $('#passbook')[0].files;
+
+
+
+            console.log(member_no)
+            formData.append('loan_amount', loan_amount);
+            formData.append('member_no', member_no);
+            formData.append('year_terms', year_terms);
+            formData.append('account_name', account_name);
+            formData.append('account_number', account_number);
+            formData.append('active_number', $('#active_number').val());
+            formData.append('active_email', $('#active_email').val());
+            formData.append('valid_id', valid_id[0]);
+            formData.append('payslip_1', payslip_1[0]);
+            formData.append('payslip_2', payslip_2[0]);
+            formData.append('passbook', passbook[0]);
+
+            console.log(formData)
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+
+            $.ajax({
+                url: "{{ route('add_loan_application') }}",
+                method: "POST",
+                data: formData,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function(data) {
+                    console.log(data);
+
+                    Swal.fire({
+                        text: 'Loan Application Sent',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    }).then(okay => {
+                        if (okay) {
+                            location.reload();
+                        }
+                    });
+                },
+                error: function(data) {
+
+                }
+            });
+            console.log(formData);
+        })
 
     });
 
@@ -2518,88 +2656,22 @@
 
         //loanable code compute!
         if (years_of_service < 4) {
-            total_loan_amount = (total_equity * .75) - total_loan_balance;
+            total_loan_amount = (total_equity * .75);
         } else if (years_of_service >= 4 && years_of_service < 15) {
-            total_loan_amount = (total_equity * .85) - total_loan_balance;
+            total_loan_amount = (total_equity * .85);
         } else if (years_of_service >= 15) {
-            total_loan_amount = (total_equity * 1) - total_loan_balance;
+            total_loan_amount = (total_equity * 1);
         }
 
 
 
         if (netpay >= 5000) {
             $('#step-2-div').removeClass("d-none");
-            alert("Total Loan Approved Amount:" + total_loan_amount);
+            var message = "Max Loan Amount = Php " + new Intl.NumberFormat().format(total_loan_amount);
+            Swal.fire("Success!", message, "success");
+        } else {
+            Swal.fire("Invalid Netpay!", "NetPay is less than Php 5,000.00", "error");
         }
     });
-
-
-
-    $(document).on('click', '#submit_loan', function(e) {
-        //member send form data 
-
-        var file_form = $('#loan_files')[0];
-        var formData = new FormData(file_form);
-
-        var valid_id = $('#valid_id')[0].files;
-        var payslip_1 = $('#payslip_1')[0].files;
-        var payslip_2 = $('#payslip_2')[0].files;
-        var passbook = $('#passbook')[0].files;
-        var loan_amount = $('#desired_amount').val();
-        var year_terms = $('#year_terms').val();
-        var account_name = $('#account_name').val();
-        var account_number = $('#account_number').val();
-        var active_number = $('#active_number').val();
-        var active_email = $('#active_email').val();
-        var member_no = <?php echo json_encode($member_details->member_no); ?>
-
-        console.log(member_no)
-        formData.append('loan_amount', loan_amount);
-        formData.append('member_no', member_no);
-        formData.append('year_terms', year_terms);
-        formData.append('account_name', account_name);
-        formData.append('account_number', account_number);
-        formData.append('active_number', $('#active_number').val());
-        formData.append('active_email', $('#active_email').val());
-        formData.append('valid_id', valid_id[0]);
-        formData.append('payslip_1', payslip_1[0]);
-        formData.append('payslip_2', payslip_2[0]);
-        formData.append('passbook', passbook[0]);
-
-        console.log(formData)
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-
-        $.ajax({
-            url: "{{ route('add_loan_application') }}",
-            method: "POST",
-            data: formData,
-            contentType: false,
-            processData: false,
-            dataType: "json",
-            success: function(data) {
-                console.log(data);
-
-                Swal.fire({
-                    text: 'Loan Application Sent',
-                    icon: 'success',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Ok',
-                }).then(okay => {
-                    if (okay) {
-                        location.reload();
-                    }
-                });
-            },
-            error: function(data) {
-
-            }
-        });
-        console.log(formData);
-    })
 </script>
 @endsection
