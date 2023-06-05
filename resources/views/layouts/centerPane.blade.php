@@ -423,7 +423,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-
+            
             $.ajax({
                 url: "{{ route('continued_trail') }}",
                 data: {
@@ -431,6 +431,7 @@
                 },
                 method: "POST",
                 success: function(data) {
+                    
                     if (Object.keys(data).length > 0) {
                         pers_id = data.personal_id;
                         mems_id = data.employee_details_ID;
@@ -438,6 +439,9 @@
                         employee_no = data.employee_no == null ? '' : data.employee_no;
                         // reference_no = data.app_no == null ? '' : data.app_no;
                         reference_no = app_trailno == '' ? 'N/A' : app_trailno;
+
+                        
+
                         // $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
                         $('#app_no').val(app_trailno == '' ? 'N/A' : app_trailno);
                         $('#app_number').val(app_trailno == '' ? 'N/A' : app_trailno);
@@ -446,6 +450,46 @@
                         // $('#app_trailNo').val(data.app_no == null ? '' : data.app_no);
                         $('#app_trailNo').val(app_trailno == '' ? 'N/A' : app_trailno);
                         $("[name='lastname']").val(data.lastname == null ? '' : data.lastname);
+
+                        $('#present_province').val(data.present_province_code).trigger('change');
+                        $('#present_province_name').val(data.present_province);
+                        present_muncode = data.present_municipality_code;
+                        $('#present_city').val(data.present_municipality_code).trigger('change');
+                        present_brgycode = data.present_barangay_code;
+                        $('#present_municipality_name').val(data.present_municipality);
+                        
+                        if (data.same_add == 1) {
+                            $('#perm_add_check').prop("checked", true);
+                            var valueAfterTargetChar = (data.bldg_street == null ? '' : data
+                                    .bldg_street) + ' ' + data.present_barangay + ' ' + data
+                                .present_municipality + ' ' + data.present_province + ', ' + (data
+                                    .present_zipcode == null ? '' : data.present_zipcode) + ' ';
+                            $('#same_add').val(valueAfterTargetChar);
+                            $('.same_div').hide();
+                        } else {
+                            $('#perm_add_check').prop("checked", false);
+                            $('#same_add').val('');
+                            $('.same_div').show();
+                            $('#province').val(data.province_code).trigger('change');
+                            $('#province_name').val(data.province);
+                            $('#city').val(data.municipality_code);
+                            perm_muncode = data.municipality_code;
+                            $('#municipality_name').val(data.municipality);
+                            perm_brgycode = data.barangay_code;
+                            $('#bldg_street').val(data.bldg_street);
+                            $('#zipcode').val(data.zipcode);
+                        }
+
+                        if (data.appointment == 1) {
+                            $('input[name="appointment"][value="1"]').prop('checked', true);
+                        } else if(data.appointment == 2) {
+                            $('input[name="appointment"][value="2"]').prop('checked', true);
+                        } else if(data.appointment == 3) {
+                            $('input[name="appointment"][value="3"]').prop('checked', true);
+                        } else if(data.appointment == 'OTHER') {
+                            $('input[name="appointment"][value="OTHER"]').prop('checked', true);
+                        }
+
                         if (data.no_middlename == 1) {
                             $('#no_middlename').prop('checked', true);
                             $("[name='middlename']").val('N/A')
@@ -471,7 +515,14 @@
                         $("[name='date_birth_month']").val((date_bd.getMonth() + 1).toString().padStart(2, '0'));
                         $("[name='date_birth_days']").val(date_bd.getDate().toString().padStart(2, '0'));
 
-                        $("[name='gender']").val(data.gender == null ? '' : data.gender);
+                        // $("[name='gender']").val(data.gender == null ? '' : data.gender);
+
+                        if (data.gender == 'Female') {
+                            $('input[name="gender"][value="Female"]').prop('checked', true);
+                        } else if(data.gender == 'Male') {
+                            $('input[name="gender"][value="Male"]').prop('checked', true);
+                        }
+
                         // $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
                         if (data.civilstatus == 'Single') {
                             $('input[name="civilstatus"][value="Single"]').prop('checked', true);
@@ -504,8 +555,9 @@
 
                         $("[name='employee_no']").val(data.employee_no == null ? '' : data.employee_no);
                         $("[name='campus']").val(data.campus == null ? '' : data.campus).trigger('change');
-                        $("[name='classification']").val(data.classification == null ? '' : data
-                            .classification);
+
+                        $("[name='classification']").val(data.classification).trigger('change');
+
                         $("[name='classification_others']").val(data.classification_others == null ?
                             '' : data.classification_others);
                         $("[name='college_unit']").val(data.college_unit == null ? '' : data.college_unit).trigger('change');
@@ -514,8 +566,12 @@
                             .rank_position);
                         $("[name='department']").val(data.department == null ? '' : data.department).trigger('change');
                         dept_no = data.department == null ? '' : data.department;
-                        $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
+
+                        
+                        // $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
+
                         var date_appoint = new Date(data.date_appointment);
+
                         $("[name='date_appoint_years']").val(date_appoint.getFullYear());
                         $("[name='date_appoint_months']").val((date_appoint.getMonth() + 1).toString().padStart(2, '0'));
                         $("[name='date_appoint_days']").val(date_appoint.getDate().toString().padStart(2, '0'));
@@ -529,35 +585,10 @@
                         $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
                         $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
                         present_provcode = data.present_province_code;
-                        $('#present_province').trigger('change');
-                        $('#present_province').val(data.present_province_code);
-                        $('#present_province_name').val(data.present_province);
-                        present_muncode = data.present_municipality_code;
-                        $('#present_city').val(data.present_municipality_code).trigger('change');
-                        present_brgycode = data.present_barangay_code;
-                        $('#present_municipality_name').val(data.present_municipality);
 
-                        if (data.same_add == 1) {
-                            $('#perm_add_check').prop("checked", true);
-                            var valueAfterTargetChar = (data.bldg_street == null ? '' : data
-                                    .bldg_street) + ' ' + data.present_barangay + ' ' + data
-                                .present_municipality + ' ' + data.present_province + ', ' + (data
-                                    .present_zipcode == null ? '' : data.present_zipcode) + ' ';
-                            $('#same_add').val(valueAfterTargetChar);
-                            $('.same_div').hide();
-                        } else {
-                            $('#perm_add_check').prop("checked", false);
-                            $('#same_add').val('');
-                            $('.same_div').show();
-                            $('#province').val(data.province_code).trigger('change');
-                            $('#province_name').val(data.province);
-                            $('#city').val(data.municipality_code);
-                            perm_muncode = data.municipality_code;
-                            $('#municipality_name').val(data.municipality);
-                            perm_brgycode = data.barangay_code;
-                            $('#bldg_street').val(data.bldg_street);
-                            $('#zipcode').val(data.zipcode);
-                        }
+                        // $('#present_province').trigger('change');
+
+                        
                         if (data.contribution_set == 'Percentage of Basic Salary') {
                             $('#percentage_check').prop("checked", true);
                             $('#percentage_bsalary').val(data.percentage == null ? '' : data.percentage);
@@ -569,6 +600,8 @@
                             var total = amount * 0.01;
                             $("#min_contri").text(total.toFixed(2));
                         }
+                    } else {
+                        alert('No Record');
                     }
                 }
             });
