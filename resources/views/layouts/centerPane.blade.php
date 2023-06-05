@@ -441,7 +441,7 @@
                         reference_no = app_trailno == '' ? 'N/A' : app_trailno;
 
                         
-
+                        $("[name='classification']").val(data.classification).trigger('change');
                         // $('#app_no').val(data.app_no == null ? 'N/A' : data.app_no);
                         $('#app_no').val(app_trailno == '' ? 'N/A' : app_trailno);
                         $('#app_number').val(app_trailno == '' ? 'N/A' : app_trailno);
@@ -458,6 +458,32 @@
                         present_brgycode = data.present_barangay_code;
                         $('#present_municipality_name').val(data.present_municipality);
                         
+                        //AXA Form
+                        $('#place_birth').val(data.place_birth);
+                        $('#emp_union_assoc').val(data.emp_union_assoc);
+                        $('#occupation').val(data.occupation);
+                        $('#gsis_no').val(data.sss_gsis);
+                        $('#spouse_name').val(data.spouse_name);
+                        $('#maiden_name').val(data.maiden_name);
+                        $('#insured_type').val(data.insuted_type).trigger('change');
+                        $('#last_name').val(data.last_name);
+                        $('#first_name').val(data.first_name);
+                        $('#middle_name').val(data.middle_name);
+                        $('#relationship_tomember_axa').val(data.relationship_tomember);
+                        $('#axa_contact_no').val(data.contact_no);
+                        $('#email_add').val(data.email_add);
+                        // $('#e_sign_axa').val(data.signature);
+
+                        if(data.signature == '') {
+                            $('#e_sign_axa').attr('data-set', 'step-4-validation');
+                            $('.axa_sign').show()
+                        } else {
+                            $('#e_sign_axa').removeAttr('data-set');
+                            $('.axa_sign').hide()
+                        }
+
+                        $('#e_sig').val(data.sign);
+
                         if (data.same_add == 1) {
                             $('#perm_add_check').prop("checked", true);
                             var valueAfterTargetChar = (data.bldg_street == null ? '' : data
@@ -479,6 +505,8 @@
                             $('#bldg_street').val(data.bldg_street);
                             $('#zipcode').val(data.zipcode);
                         }
+
+                        
 
                         if (data.appointment == 1) {
                             $('input[name="appointment"][value="1"]').prop('checked', true);
@@ -556,7 +584,7 @@
                         $("[name='employee_no']").val(data.employee_no == null ? '' : data.employee_no);
                         $("[name='campus']").val(data.campus == null ? '' : data.campus).trigger('change');
 
-                        $("[name='classification']").val(data.classification).trigger('change');
+                        
 
                         $("[name='classification_others']").val(data.classification_others == null ?
                             '' : data.classification_others);
@@ -1576,7 +1604,7 @@
                             if (data.success != '') {
                                 employee_no = data.emp_no;
                                 employee_details_ID = data.success;
-                                continued_trail = 1;
+                                
                                 $("#step-2").removeClass('d-flex').addClass(
                                     "d-none");
                                 $("#step-3").removeClass('d-none').addClass(
@@ -1880,6 +1908,11 @@
         } else if (nextValue == 'step-5') {
             var tableAxa = $('.axa-table').DataTable();
             tableAxa.draw();
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
 
             var appNo = query;
             var ref = reference_no;
@@ -1926,91 +1959,133 @@
             if (empty.length != 0) {
                 empty[0].focus()
                 return
+            } else {
+
+                console.log(continued_trail);
+                if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' && continued_trail == 0) {
+                    var id = pers_id;
+
+                    var form = $('#generateNewAxa')[0];
+                    var formData = new FormData(form);
+                    var files = $('#e_sign_axa')[0].files;
+                    formData.append('app_number', $('#test_no').val());
+                    formData.append('place_birth', $('#place_birth').val());
+                    formData.append('emp_union_assoc', $('#emp_union_assoc').val());
+                    formData.append('occupation', $('#occupation').val());
+                    formData.append('sss_gsis', $('#gsis_no').val());
+                    formData.append('spouse_name', $('#spouse_name').val());
+                    formData.append('maiden_name', $('#maiden_name').val());
+                    formData.append('insuted_type', $('#insured_type').val());
+                    formData.append('last_name', $('#last_name').val());
+                    formData.append('first_name', $('#first_name').val());
+                    formData.append('middle_name', $('#middle_name').val());
+                    formData.append('relationship_tomember', $('#relationship_tomember_axa').val());
+                    formData.append('axa_contact_no', $('#axa_contact_no').val());
+                    formData.append('email_add', $('#email_add').val());
+                    formData.append('personnel_id', personnel_id);
+                    console.log(formData);
+                    $.ajax({
+                        url: "{{ route('update_cocolife') }}",
+                        method: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function() {
+                            $('#loading').show();
+                        },
+                        success: function(data) {
+                            if (data.message == 'Exist') {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'AXA form already generated.',
+                                    icon: 'error'
+                                });
+                                $("#modal_name").addClass("not-visible")
+                                $("#modal_name").removeClass("visible")
+                            } else {
+                                $("#step-4").removeClass('d-flex').addClass("d-none");
+                                $("#step-5").removeClass('d-none').addClass("d-flex");
+                                $("#back").attr('value', 'step-4')
+                                // $("#member_forms_3").removeClass('mh-reg-form');
+                                // $("#member_forms_4").addClass('mh-reg-form');
+                                // $(this).attr('value', 'step-end')
+                                $("#line").removeClass('step-4').addClass('step-5')
+                                $("#registration-title").text(stepTitle[4])
+                                $("#step-title").text(`${steps[4]}${stepTitle[4]}`)
+                                $("#stepper-5").addClass("active")
+                            }
+
+                        },
+
+                        complete: function() {
+                            $('#loading').hide();
+
+                        }
+                    });
+                } else {
+                    var id = pers_id;
+
+                    var form = $('#generateNewAxa')[0];
+                    var formData = new FormData(form);
+                    var files = $('#e_sign_axa')[0].files;
+                    formData.append('app_number', $('#test_no').val());
+                    formData.append('place_birth', $('#place_birth').val());
+                    formData.append('emp_union_assoc', $('#emp_union_assoc').val());
+                    formData.append('occupation', $('#occupation').val());
+                    formData.append('sss_gsis', $('#gsis_no').val());
+                    formData.append('spouse_name', $('#spouse_name').val());
+                    formData.append('maiden_name', $('#maiden_name').val());
+                    formData.append('insuted_type', $('#insured_type').val());
+                    formData.append('last_name', $('#last_name').val());
+                    formData.append('first_name', $('#first_name').val());
+                    formData.append('middle_name', $('#middle_name').val());
+                    formData.append('relationship_tomember', $('#relationship_tomember_axa').val());
+                    formData.append('axa_contact_no', $('#axa_contact_no').val());
+                    formData.append('email_add', $('#email_add').val());
+                    formData.append('esig_axa', files[0]);
+                    formData.append('personnel_id', personnel_id);
+                    console.log(formData);
+                    $.ajax({
+                        url: "{{ route('add_cocolife') }}",
+                        method: "POST",
+                        data: formData,
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function() {
+                            $('#loading').show();
+                        },
+                        success: function(data) {
+                            if (data.message == 'Exist') {
+                                Swal.fire({
+                                    title: 'Error!',
+                                    text: 'AXA form already generated.',
+                                    icon: 'error'
+                                });
+                                $("#modal_name").addClass("not-visible")
+                                $("#modal_name").removeClass("visible")
+                            } else {
+                                $("#step-4").removeClass('d-flex').addClass("d-none");
+                                $("#step-5").removeClass('d-none').addClass("d-flex");
+                                $("#back").attr('value', 'step-4')
+                                // $("#member_forms_3").removeClass('mh-reg-form');
+                                // $("#member_forms_4").addClass('mh-reg-form');
+                                // $(this).attr('value', 'step-end')
+                                $("#line").removeClass('step-4').addClass('step-5')
+                                $("#registration-title").text(stepTitle[4])
+                                $("#step-title").text(`${steps[4]}${stepTitle[4]}`)
+                                $("#stepper-5").addClass("active")
+                            }
+
+                        },
+
+                        complete: function() {
+                            $('#loading').hide();
+
+                        }
+                    });
+                }
+
             }
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            var id = pers_id;
-
-            // generateAxa
-            // var formDatas = $("#generateAxa2").serialize();
-            // var additionalData = {
-            //     'e_sig': $('#e_sig').val(),
-            //     'personnel_id': pers_id,
-            // };
-            // formDatas += '&' + $.param(additionalData);
-            // var formData3 = $("#generateAxa2").serialize();
-
-            // var formDataAXA = new FormData($("#generateNewAxa")[0]); 
-            // var files = $('#sign_electronic')[0].files;
-
-
-            // console.log(files)
-            // formDataAXA.append('esig', files[0]);
-            // formDataAXA.append('personnel_id', personnel_id);
-            // var formDataAXA = $("#generateNewAxa").serialize();
-            var form = $('#generateNewAxa')[0];
-            var formData = new FormData(form);
-            var files = $('#e_sign_axa')[0].files;
-            formData.append('app_number', $('#test_no').val());
-            formData.append('place_birth', $('#place_birth').val());
-            formData.append('emp_union_assoc', $('#emp_union_assoc').val());
-            formData.append('occupation', $('#occupation').val());
-            formData.append('sss_gsis', $('#gsis_no').val());
-            formData.append('spouse_name', $('#spouse_name').val());
-            formData.append('maiden_name', $('#maiden_name').val());
-            formData.append('insuted_type', $('#insured_type').val());
-            formData.append('last_name', $('#last_name').val());
-            formData.append('first_name', $('#first_name').val());
-            formData.append('middle_name', $('#middle_name').val());
-            formData.append('relationship_tomember', $('#relationship_tomember_axa').val());
-            formData.append('axa_contact_no', $('#axa_contact_no').val());
-            formData.append('email_add', $('#email_add').val());
-            formData.append('esig_axa', files[0]);
-            formData.append('personnel_id', personnel_id);
-            console.log(formData);
-            $.ajax({
-                url: "{{ route('add_cocolife') }}",
-                method: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                beforeSend: function() {
-                    $('#loading').show();
-                },
-                success: function(data) {
-                    if (data.message == 'Exist') {
-                        Swal.fire({
-                            title: 'Error!',
-                            text: 'AXA form already generated.',
-                            icon: 'error'
-                        });
-                        $("#modal_name").addClass("not-visible")
-                        $("#modal_name").removeClass("visible")
-                    } else {
-                        $("#step-4").removeClass('d-flex').addClass("d-none");
-                        $("#step-5").removeClass('d-none').addClass("d-flex");
-                        $("#back").attr('value', 'step-4')
-                        // $("#member_forms_3").removeClass('mh-reg-form');
-                        // $("#member_forms_4").addClass('mh-reg-form');
-                        // $(this).attr('value', 'step-end')
-                        $("#line").removeClass('step-4').addClass('step-5')
-                        $("#registration-title").text(stepTitle[4])
-                        $("#step-title").text(`${steps[4]}${stepTitle[4]}`)
-                        $("#stepper-5").addClass("active")
-                    }
-
-                },
-
-                complete: function() {
-                    $('#loading').hide();
-
-                }
-            });
 
         }
         scrollToTop()
@@ -2764,61 +2839,111 @@
             id = query;
         }
 
-        // var files = $('#file')[0].files;
-        var esig = $('#e_sig').val();
-
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
 
-        var fd = new FormData();
-        fd.append('esig', esig);
-        fd.append('appNo', id);
+        var esig = $('#e_sig').val();
 
-        if (esig != '') {
-            $.ajax({
-                method: 'POST',
-                url: "{{ route('add_proxyForm') }}",
-                data: fd,
-                contentType: false,
-                processData: false,
-                beforeSend: function() {
-                    $('#loading').show();
-                },
-                success: function(data) {
-                    if (data.success != '') {
-                        $("#step-1").removeClass('d-flex').addClass("d-none");
-                        $("#steps").removeClass('d-flex').addClass("d-none");
-                        $("#registration-title").removeClass('d-flex').addClass("d-none");
-                        $('#applicationNo').hide();
-                        $('#proxy').hide();
-                        $('#application_number').val(id);
-                        $('#employee_id').val(employee_no);
-                        $("#stepper-5").addClass("active")
-                        $("#step-5").addClass('d-none');
-                        $("#step-5").addClass('opacity-0');
-                        $('#back').addClass("d-none");
-                        $('#back').addClass("opacity-0");
-                        $('.applicationNo').addClass("d-none");
-                        $('.applicationNo').addClass("opacity-0");
-                        $('#back-to-home').addClass("d-none");
-                        $('#back-to-home').addClass("opacity-0");
-                        $('#message-box').show();
+        if ($('#app_trailNo').val() !== '' && $('#employee_details_ID').val() !== '' && continued_trail == 0) {
+            var fd = new FormData();
+            fd.append('esig', esig);
+            fd.append('appNo', id);
+
+            if (esig != '') {
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ route('update_proxy') }}",
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('#loading').show();
+                    },
+                    success: function(data) {
+                        if (data.success != '') {
+                            $("#step-1").removeClass('d-flex').addClass("d-none");
+                            $("#steps").removeClass('d-flex').addClass("d-none");
+                            $("#registration-title").removeClass('d-flex').addClass("d-none");
+                            $('#applicationNo').hide();
+                            $('#proxy').hide();
+                            $('#application_number').val(id);
+                            $('#employee_id').val(employee_no);
+                            $("#stepper-5").addClass("active")
+                            $("#step-5").addClass('d-none');
+                            $("#step-5").addClass('opacity-0');
+                            $('#back').addClass("d-none");
+                            $('#back').addClass("opacity-0");
+                            $('.applicationNo').addClass("d-none");
+                            $('.applicationNo').addClass("opacity-0");
+                            $('#back-to-home').addClass("d-none");
+                            $('#back-to-home').addClass("opacity-0");
+                            $('#message-box').show();
+                            continued_trail = 1;
+                        }
+                    },
+                    complete: function() {
+                        $('#loading').hide();
                     }
-                },
-                complete: function() {
-                    $('#loading').hide();
-                }
-            });
+                });
+            } else {
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Please input your name as signature.',
+                    icon: 'warning'
+                });
+            }
         } else {
-            Swal.fire({
-                title: 'Warning!',
-                text: 'Please input your name as signature.',
-                icon: 'warning'
-            });
+            var fd = new FormData();
+            fd.append('esig', esig);
+            fd.append('appNo', id);
+
+            if (esig != '') {
+                $.ajax({
+                    method: 'POST',
+                    url: "{{ route('add_proxyForm') }}",
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    beforeSend: function() {
+                        $('#loading').show();
+                    },
+                    success: function(data) {
+                        if (data.success != '') {
+                            $("#step-1").removeClass('d-flex').addClass("d-none");
+                            $("#steps").removeClass('d-flex').addClass("d-none");
+                            $("#registration-title").removeClass('d-flex').addClass("d-none");
+                            $('#applicationNo').hide();
+                            $('#proxy').hide();
+                            $('#application_number').val(id);
+                            $('#employee_id').val(employee_no);
+                            $("#stepper-5").addClass("active")
+                            $("#step-5").addClass('d-none');
+                            $("#step-5").addClass('opacity-0');
+                            $('#back').addClass("d-none");
+                            $('#back').addClass("opacity-0");
+                            $('.applicationNo').addClass("d-none");
+                            $('.applicationNo').addClass("opacity-0");
+                            $('#back-to-home').addClass("d-none");
+                            $('#back-to-home').addClass("opacity-0");
+                            $('#message-box').show();
+                        }
+                    },
+                    complete: function() {
+                        $('#loading').hide();
+                    }
+                });
+            } else {
+                Swal.fire({
+                    title: 'Warning!',
+                    text: 'Please input your name as signature.',
+                    icon: 'warning'
+                });
+            }
         }
+        // var files = $('#file')[0].files;
     });
 
     $(document).on('click', '#axa_insurance_form_download', function() {

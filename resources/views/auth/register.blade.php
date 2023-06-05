@@ -1333,8 +1333,10 @@
                     </li>
                 </ul>
                 <div class="mp-input-group">
-                    <label class="mp-input-group__label">Upload Signature</label>
-                    <input class="mp-input-group__input mp-text-field" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
+                    <div class="axa_sign">
+                        <label class="mp-input-group__label">Upload Signature</label>
+                        <input class="mp-input-group__input mp-text-field" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
+                    </div>
                     <input type="hidden" name="person_id" id="person_id">
                 </div>
                 <!-- <button class="up-button btn-md button-animate-right mp-text-center" type="button" id="modal_name_pop">Generate AXA Insurance Form</button> -->
