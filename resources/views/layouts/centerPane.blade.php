@@ -471,7 +471,14 @@
                         $("[name='date_birth_month']").val((date_bd.getMonth() + 1).toString().padStart(2, '0'));
                         $("[name='date_birth_days']").val(date_bd.getDate().toString().padStart(2, '0'));
 
-                        $("[name='gender']").val(data.gender == null ? '' : data.gender);
+                        // $("[name='gender']").val(data.gender == null ? '' : data.gender);
+
+                        if (data.gender == 'Female') {
+                            $('input[name="gender"][value="Female"]').prop('checked', true);
+                        } else if(data.gender == 'Female') {
+                            $('input[name="gender"][value="Male"]').prop('checked', true);
+                        }
+
                         // $("[name='civilstatus']").val(data.civilstatus == null ? '' : data.civilstatus);
                         if (data.civilstatus == 'Single') {
                             $('input[name="civilstatus"][value="Single"]').prop('checked', true);
@@ -504,8 +511,9 @@
 
                         $("[name='employee_no']").val(data.employee_no == null ? '' : data.employee_no);
                         $("[name='campus']").val(data.campus == null ? '' : data.campus).trigger('change');
-                        $("[name='classification']").val(data.classification == null ? '' : data
-                            .classification);
+
+                        $("[name='classification']").val(data.classification).trigger('change');
+
                         $("[name='classification_others']").val(data.classification_others == null ?
                             '' : data.classification_others);
                         $("[name='college_unit']").val(data.college_unit == null ? '' : data.college_unit).trigger('change');
@@ -514,8 +522,19 @@
                             .rank_position);
                         $("[name='department']").val(data.department == null ? '' : data.department).trigger('change');
                         dept_no = data.department == null ? '' : data.department;
-                        $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
-                        var date_appoint = new Date(data.date_appointment);
+
+                        if (data.appointment == 1) {
+                            $('input[name="appointment"][value="1"]').prop('checked', true);
+                        } else if(data.appointment == 2) {
+                            $('input[name="appointment"][value="2"]').prop('checked', true);
+                        } else if(data.appointment == 3) {
+                            $('input[name="appointment"][value="3"]').prop('checked', true);
+                        } else if(data.appointment == 'OTHER') {
+                            $('input[name="appointment"][value="OTHER"]').prop('checked', true);
+                        }
+                        // $("[name='appointment']").val(data.appointment == null ? '' : data.appointment);
+                        // var date_appoint = new Date(data.date_appointment);
+
                         $("[name='date_appoint_years']").val(date_appoint.getFullYear());
                         $("[name='date_appoint_months']").val((date_appoint.getMonth() + 1).toString().padStart(2, '0'));
                         $("[name='date_appoint_days']").val(date_appoint.getDate().toString().padStart(2, '0'));
@@ -529,8 +548,10 @@
                         $("[name='sg_category']").val(data.sg_category == null ? '' : data.sg_category);
                         $("[name='tin_no']").val(data.tin_no == null ? '' : data.tin_no);
                         present_provcode = data.present_province_code;
-                        $('#present_province').trigger('change');
-                        $('#present_province').val(data.present_province_code);
+
+                        // $('#present_province').trigger('change');
+
+                        $('#present_province').val(data.present_province_code).trigger('change');
                         $('#present_province_name').val(data.present_province);
                         present_muncode = data.present_municipality_code;
                         $('#present_city').val(data.present_municipality_code).trigger('change');

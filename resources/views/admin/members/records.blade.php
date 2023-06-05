@@ -902,11 +902,9 @@
                     <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
                         <li class="options options-active" onclick="location.href='/admin/members/records'">
                             <a href="#" class="no-padding options-a-active"> Application Records</a><br>
-
                         </li>
                         <li class="options" onclick="location.href='/admin/members/records/payroll'">
                             <a href="#" class="no-padding">Payroll Advise Reports</a><br>
-
                         </li>
                         <li class="options" onclick="location.href='/admin/members/records/movement'">
                             <a href="#" class="no-padding">Application Movement Reports</a><br>
