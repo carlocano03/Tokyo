@@ -226,6 +226,7 @@ Route::get('/member/equity', [MemberController::class, 'equity'])->name('member.
 Route::get('/member/benefits', [MemberController::class, 'benefits'])->name('member.benefits');
 Route::get('/member/benefits/apply', [MemberController::class, 'benefitsApply']);
 Route::get('/member/benefits/claim', [MemberController::class, 'benefitsClaim']);
+Route::get('/member/vote', [MemberController::class, 'votingDashboard']);
 
 //member request
 Route::post('/change-password', [MemberController::class, 'changePassword']);
