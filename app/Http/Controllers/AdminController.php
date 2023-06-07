@@ -3121,6 +3121,7 @@ class AdminController extends Controller
         ->select(
           'users.*',
           'loan_applications.*',
+          'loan_applications.id as loan_app_id',
           'member.*',
           'old_campus.*',
           'old_campus.name as campus_name',
@@ -3144,6 +3145,7 @@ class AdminController extends Controller
         ->select(
           'users.*',
           'loan_applications.*',
+          'loan_applications.id as loan_app_id',
           'member.*',
           'old_campus.*',
           'old_campus.name as campus_name',
@@ -3166,6 +3168,7 @@ class AdminController extends Controller
         ->select(
           'users.*',
           'loan_applications.*',
+          'loan_applications.id as loan_app_id',
           'member.*',
           'old_campus.*',
           'old_campus.name as campus_name',
@@ -3195,6 +3198,7 @@ class AdminController extends Controller
         ->select(
           'users.*',
           'loan_applications.*',
+          'loan_applications.id as loan_app_id',
           'member.*',
           'old_campus.*',
           'old_campus.name as campus_name',
@@ -3222,6 +3226,7 @@ class AdminController extends Controller
         ->select(
           'users.*',
           'loan_applications.*',
+          'loan_applications.id as loan_app_id',
           'member.*',
           'old_campus.*',
           'old_campus.name as campus_name',
@@ -3249,6 +3254,7 @@ class AdminController extends Controller
         ->select(
           'users.*',
           'loan_applications.*',
+          'loan_applications.id as loan_app_id',
           'member.*',
           'old_campus.*',
           'old_campus.name as campus_name',
@@ -3276,6 +3282,7 @@ class AdminController extends Controller
         ->select(
           'users.*',
           'loan_applications.*',
+          'loan_applications.id as loan_app_id',
           'member.*',
           'old_campus.*',
           'old_campus.name as campus_name',
@@ -3318,7 +3325,7 @@ class AdminController extends Controller
       $nestedData['application_type'] = $row->loan_application_type;
       $nestedData['status'] = $row->status;
       $nestedData['action'] = '
-      <a href="/admin/loan/loan-application/details/' . $row->id .  '" target="_blank" data-md-tooltip="View Loan Details" class="view_member md-tooltip--top view-member" style="cursor: pointer">
+      <a href="/admin/loan/loan-application/details/' . $row->loan_app_id .  '" target="_blank" data-md-tooltip="View Loan Details" class="view_member md-tooltip--top view-member" style="cursor: pointer">
                  <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
                </a>
           
@@ -3348,6 +3355,9 @@ class AdminController extends Controller
         'old_campus.name as campus_name',
         'loan_type.name as loan_type_name',
         'loan_applications_peb.*',
+        'loan_applications_peb.p_id as valid_id',
+        // 'loan_applications_peb.*',
+        // 'loan_applications_peb.*',
         'loan_applications_peb.type as loan_application_type',
         'users.email as user_email'
       )
@@ -3359,12 +3369,11 @@ class AdminController extends Controller
       ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
       ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
       ->first();
-
+    return view('admin.loan.loan-application-details', compact('loan_application'));
     // $campus_details = DB::table('old_campus')->get();
     if (!empty($loan_application)) {
-      return view('admin.loan.loan-application-details', compact('loan_application'));
     } else {
-      return redirect('/admin/loan/loan-application/');
+      // return redirect('/admin/loan/loan-application/');
     }
   }
 

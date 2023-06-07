@@ -28,10 +28,10 @@ use Mockery\Undefined;
 class MemberController extends Controller
 {
 
-  // public function __construct()
-  // {
-  //   $this->middleware('auth');
-  // }
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
   /**
    * Display a listing of the resource.
    *
@@ -372,7 +372,7 @@ class MemberController extends Controller
     }
   }
 
-  public function add_new_pel_loan(Request $request)
+  public function addNewPelLoan(Request $request)
   {
     $current_year = date('Y');
     $control = DB::table('loan_app_series')->where('loan_type', 1)->first();
@@ -392,30 +392,66 @@ class MemberController extends Controller
         ->where('loan_type', 1)
         ->update(['year' => $year, 'current_last' => $control_number, 'current_counter' => $current_counter]);
     }
-    $member_no = $request->input('member_no');
+
 
     $loanapp_id = DB::table('loan_applications')->insertGetId(
       [
-        'member_no' => $member_no,
+        'member_no' => $request->input('member_no'),
         'loan_type' => 1,
         'control_number' => $control_number,
+        'net_proceeds' => $request->input('net_proceeds'),
         'active_email' => $request->input('active_email'),
         'active_number' => $request->input('active_number'),
         'status' => 'PROCESSING'
       ]
     );
 
+
+    //files rename + storing code
+    $valid_id =  $request->file('valid_id');
+
+    $valid_id_file = $valid_id->getClientOriginalName();
+    $valid_id_file_name = $control_number . '_' . $valid_id_file;
+    $valid_id->storeAs('loan_applications', $valid_id_file_name, 'public');
+
+    $payslip_1 =  $request->file('payslip_1');
+    $payslip_1_file = $payslip_1->getClientOriginalName();
+    $payslip_1_file_name = $control_number . '_' . $payslip_1_file;
+    $payslip_1->storeAs('loan_applications', $payslip_1_file_name, 'public');
+
+    $payslip_2 =  $request->file('payslip_2');
+    $payslip_2_file = $payslip_2->getClientOriginalName();
+    $payslip_2_file_name = $control_number . '_' . $payslip_2_file;
+    $payslip_2->storeAs('loan_applications', $payslip_2_file_name, 'public');
+
+    $passbook =  $request->file('passbook');
+    $passbook_file = $passbook->getClientOriginalName();
+    $passbook_file_name = $control_number . '_' . $passbook_file;
+    $passbook->storeAs('loan_applications', $passbook_file_name, 'public');
+    //end file code
+
     $loandet_id = DB::table('loan_applications_peb')->insertGetId(
       [
-        // 'bank' => $request->bank,
-        'bank' => 'Union Bank',
+
+        'bank' =>  $request->input('bank'),
         'loan_app_id' => $loanapp_id,
-        'account_number' => $request->account_number,
-        'account_name' => $request->account_name,
+        'p_id' => $valid_id_file_name,
+        'payslip_1' => $payslip_1_file_name,
+        'payslip_2' => $payslip_2_file_name,
+        'atm_passbook' => $passbook_file_name,
+        'amount' => $request->input('approved_amount'),
+        'account_name' => $request->input('account_name'),
+        'account_number' => $request->input('account_number'),
         'type' => 'NEW',
-        'amount' => $request->loan_amount
+        'amount' => $request->input('loan_amount')
       ]
+
     );
+    if (!empty($loandet_id)) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
   }
 
   public function schedule()
@@ -561,12 +597,12 @@ class MemberController extends Controller
   {
     if (Auth::check()) {
       $member = User::where('users.id', Auth::user()->id)
-      ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
-      ->leftjoin('member', 'users.id', '=', 'member.user_id')
-      ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
-      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+        ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
+        ->leftjoin('member', 'users.id', '=', 'member.user_id')
+        ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+        ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
 
-      ->first();
+        ->first();
       $campuses = DB::table('campus')->get();
       $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
       $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
@@ -592,14 +628,14 @@ class MemberController extends Controller
   public function benefitsApply()
   {
     if (Auth::check()) {
-      
-      $member = User::where('users.id', Auth::user()->id)
-      ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
-      ->leftjoin('member', 'users.id', '=', 'member.user_id')
-      ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
-      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
 
-      ->first();
+      $member = User::where('users.id', Auth::user()->id)
+        ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
+        ->leftjoin('member', 'users.id', '=', 'member.user_id')
+        ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+        ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+
+        ->first();
       $campuses = DB::table('campus')->get();
       $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
       $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();

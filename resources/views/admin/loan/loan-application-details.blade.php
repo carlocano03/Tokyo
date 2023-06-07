@@ -1645,13 +1645,14 @@
                                     <div class="mp-input-group details-div" style="text-align:center;">
                                         <label style="color:black;"><b> ID</b></label>
                                         <br>
-                                        <img src="{!! asset('assets/images/bg-member.png') !!}" style=" width: 70%;" alt="UPPFI">
+
+                                        <img src="{{ storage_path('app/public/loan_applications/'.$loan_application->p_id) }}" style=" width: 70%;  " alt="UPPFI">
                                     </div>
                                     <br>
                                     <div class="mp-input-group details-div" style="text-align:center;">
                                         <label style="color:black;"><b> Payslip 1</b></label>
                                         <br>
-                                        <img src="{!! asset('assets/images/bg-member.png') !!}" style=" width: 70%;" alt="UPPFI">
+                                        <img src="{{ storage_path('app/public/loan_applications/'.$loan_application->payslip_1) }}" style=" width: 70%;  " alt="UPPFI">
                                     </div>
                                     <br>
                                     <div class="mp-input-group details-div" style="text-align:center;">
