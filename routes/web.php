@@ -79,7 +79,9 @@ Route::post('/login/update_trail_member_1', [HomeController::class, 'update_trai
 Route::post('/login/draft_step3', [HomeController::class, 'save_draft_step3'])->name('draft_step3');
 
 Route::post('/login/add_proxy', [HomeController::class, 'add_proxy'])->name('add_proxyForm');
+Route::post('/login/update_proxy', [HomeController::class, 'update_proxy'])->name('update_proxy');
 Route::post('/login/addcocolife', [HomeController::class, 'addaxa_form'])->name('add_cocolife');
+Route::post('/login/updatecocolife', [HomeController::class, 'update_cocolife'])->name('update_cocolife');
 // Route::get('/axaform', [PDFController::class, 'axaForm'])->name('pdf.axa_form');
 Route::post('/login/add_benefeciaries', [HomeController::class, 'add_benefeciaries'])->name('add_benefeciaries');
 
@@ -224,6 +226,7 @@ Route::get('/member/equity', [MemberController::class, 'equity'])->name('member.
 Route::get('/member/benefits', [MemberController::class, 'benefits'])->name('member.benefits');
 Route::get('/member/benefits/apply', [MemberController::class, 'benefitsApply']);
 Route::get('/member/benefits/claim', [MemberController::class, 'benefitsClaim']);
+Route::get('/member/vote', [MemberController::class, 'votingDashboard']);
 
 //member request
 Route::post('/change-password', [MemberController::class, 'changePassword']);
