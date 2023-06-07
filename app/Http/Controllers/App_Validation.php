@@ -20,6 +20,8 @@ use DataTables;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Mail\returnaaMail;
 use App\Mail\rejectedMail;
+use App\Mail\ForwardMail;
+use App\Mail\FMforwardMail;
 use Illuminate\Support\Facades\Storage;
 use Mail;
 class App_Validation extends Controller
@@ -336,6 +338,11 @@ class App_Validation extends Controller
       $appNos = $request->input('app_nos');
       $forwardAction = $request->input('forward_action');
       $forwarded_user = $request->input('hrdo_user');
+
+      $email = DB::table('users')
+      ->where('id', $forwarded_user)
+      ->value('email');
+
       $affectedRows = 0;
       if($forwardAction == 'FM'){
         foreach ($appNos as $appNo) {
@@ -350,7 +357,16 @@ class App_Validation extends Controller
                           'app_no'=> $appNo]);
           $affectedRows += $row;
       }
-      }else{
+      $mailData = [
+        'title' => 'FM Validation [Processing of Application]',
+        'body' => 'You have an application that requires validation.',
+      ];
+      if (!empty($email)) {
+        Mail::to($email)->send(new FMforwardMail($mailData));
+      } else {
+        echo $email;
+      }
+      } else {
         foreach ($appNos as $appNo) {
           $row = DB::table('mem_app')
               ->where('app_no', $appNo)
@@ -363,6 +379,15 @@ class App_Validation extends Controller
                           'app_no'=> $appNo]);
           $affectedRows += $row;
       }
+        $mailData = [
+          'title' => 'HRDO Validation [Processing of Application]',
+          'body' => 'You have an application that requires validation.',
+        ];
+        if (!empty($email)) {
+          Mail::to($email)->send(new ForwardMail($mailData));
+        } else {
+          echo $email;
+        }
       }
       
 
