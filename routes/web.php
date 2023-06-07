@@ -235,8 +235,7 @@ Route::post('/member/member-update', [MemberController::class, 'updateMemberDeta
 Route::get('/member/update-password', [MemberController::class, 'updatepassword'])->name('member.updatepassword');
 
 //member back end m
-Route::get('/member/add-new-pel-loans', [MemberController::class, 'add_new_pel_loan'])->name('add_loan_application');
-
+Route::post('/member/add-new-pel-loans', [MemberController::class, 'addNewPelLoan'])->name('add_loan_application');
 
 
 //PDF Generation

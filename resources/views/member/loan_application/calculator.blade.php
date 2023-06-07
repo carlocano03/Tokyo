@@ -2040,7 +2040,7 @@
                                             </div>
                                             <div class="col-lg-8">
                                                 <select id="year_terms" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
-                                                    <option value="">Select Terms</option>
+
                                                     <option value="1">1 Year</option>
                                                     <option value="2">2 Years</option>
                                                     <option value="3">3 Years</option>
@@ -2164,7 +2164,7 @@
                                 <div class="col-lg-5">
                                     <div class="info-text mp-text-right">
                                         <h3 for="" class="gray-clr  mp-pb0 mp-mb0">Loanable Amount:</h3>
-                                        <label for="" id="loanable_amount" class="font-lg font-bold magenta-clr">PHP 34,000.00</label>
+                                        <label for="" id="loanable_amount" class="font-lg font-bold magenta-clr"> </label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2">
@@ -2180,24 +2180,27 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-12 mp-pv4 mp-ph2">
-                                            <div class="info-text">
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(LPB) Land Bank of the Philippines</label>
-                                                </span>
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(PNB) Philippine National Bank</label>
-                                                </span>
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(DBP) Development Bank of the Philippines</label>
-                                                </span>
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(PVB) Philippine Veterans Bank</label>
-                                                </span>
-                                            </div>
+                                            <form action="">
+                                                <div class="info-text">
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="LPB">
+                                                        <label for="" class="font-sm">(LPB) Land Bank of the Philippines</label>
+                                                    </span>
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="PNB">
+                                                        <label for="" class="font-sm">(PNB) Philippine National Bank</label>
+                                                    </span>
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="DBP">
+                                                        <label for="" class="font-sm">(DBP) Development Bank of the Philippines</label>
+                                                    </span>
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="PVB">
+                                                        <label for="" class="font-sm">(PVB) Philippine Veterans Bank</label>
+                                                    </span>
+                                                </div>
+                                            </form>
+
                                         </div>
                                     </div>
                                     <div class="row">
@@ -2238,7 +2241,7 @@
                                     </div>
                                 </div>
                                 <meta name="csrf-token" content="{{ csrf_token() }}">
-                                <form id="loan_files" method="" enctype="multipart/form-data" style="height: calc(100% - 100px) !important;">
+                                <form id="loan_files" method="" action="" enctype="multipart/form-data" style="height: calc(100% - 100px) !important;">
                                     @csrf
                                     <div class="col-lg-12">
 
@@ -2253,7 +2256,7 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="valid_id" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                                <input type="file" id="valid_id" name="valid_id" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2269,10 +2272,10 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="payslip_1" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                                <input type="file" id="payslip_1" name="payslip_1" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="payslip_2" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                                <input type="file" id="payslip_2" name="payslip_2" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2286,7 +2289,7 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="passbook" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                                <input type="file" id="passbook" name="passbook" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2342,7 +2345,7 @@
                                             <div class="col-lg-6 d-flex justify-content-center">
                                                 <div class="row f-flex">
                                                     <span class="d-flex flex-row justify-content-center">
-                                                        <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto" id="submit_loan" name="submit_loan" type="submit">
+                                                        <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto" id="submit_loan" name="submit_loan">
                                                             SUBMIT THIS APPLICATION
                                                         </a>
                                                     </span>
@@ -2361,14 +2364,90 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        var d = new Date();
-        document.getElementById("date").innerHTML = d.toTimeString();
+    var d = new Date();
+    document.getElementById("date").innerHTML = d.toTimeString();
 
-        var years_of_service = <?php echo $years; ?>;
-        var total_equity = <?php echo $totalcontributions ?>;
+    var years_of_service = <?php echo $years; ?>;
+    var total_equity = <?php echo $totalcontributions ?>;
+    var total_loan_balance = <?php echo $totalloanbalance ?>;
+    var total_loan_amount = 0;
+
+    function getTotalLoanAmount() {
         var total_loan_balance = <?php echo $totalloanbalance ?>;
         var total_loan_amount = 0;
+        var years_of_service = <?php echo $years; ?>;
+        //loanable code compute!
+        if (years_of_service < 4) {
+            total_loan_amount = (total_equity * .75);
+        } else if (years_of_service >= 4 && years_of_service < 15) {
+            total_loan_amount = (total_equity * .85);
+        } else if (years_of_service >= 15) {
+            total_loan_amount = (total_equity * 1);
+        }
+
+        return parseFloat(total_loan_amount);
+    }
+
+
+
+    function continueLoanHide() {
+        $('.loan-submission').removeClass("d-none")
+        $('.loan-calculator').addClass("d-none")
+        $('input').first().focus()
+        $('#back').focus()
+    }
+
+    function getDesiredLoanAmount() {
+        var loan_amount = parseFloat($('#desired_amount').val());
+        return loan_amount;
+    }
+
+    function getLoanInterest() {
+        var year_terms = parseInt($('#year_terms').val());
+        if (year_terms < 4 && year_terms > 0) {
+            return 12;
+        } else if (year_terms >= 4) {
+            return 13;
+        }
+
+    }
+
+
+
+    function getPaymentTerms() {
+
+        var year_terms = parseInt($('#year_terms').val());
+        // parseInt($('#year_terms').val());
+        console.log(year_terms);
+        return year_terms * 12;
+    }
+
+    function getLoanInterestAmount() {
+        var year_terms = parseInt($('#year_terms').val());
+
+        var months_per_year = getPaymentTerms() / year_terms;
+
+        var getPerYear = getDesiredLoanAmount() / 12;
+
+
+
+
+        return getDesiredLoanAmount() * (getLoanInterest() * 0.01);
+    }
+
+    function getTotalLoanAmountMonthly() {
+
+        var desired_loan = getDesiredLoanAmount();
+        var loan_interest = getLoanInterestAmount();
+        var paymentterms = getPaymentTerms();
+
+        var totalLoan = (desired_loan + loan_interest);
+
+        return totalLoan / paymentterms;
+
+    }
+    $(document).ready(function() {
+
 
         //loanable code compute!
         if (years_of_service < 4) {
@@ -2379,81 +2458,7 @@
             total_loan_amount = (total_equity * 1);
         }
 
-        function getTotalLoanAmount() {
-            var total_loan_balance = <?php echo $totalloanbalance ?>;
-            var total_loan_amount = 0;
-            var years_of_service = <?php echo $years; ?>;
-            //loanable code compute!
-            if (years_of_service < 4) {
-                total_loan_amount = (total_equity * .75);
-            } else if (years_of_service >= 4 && years_of_service < 15) {
-                total_loan_amount = (total_equity * .85);
-            } else if (years_of_service >= 15) {
-                total_loan_amount = (total_equity * 1);
-            }
 
-            return parseFloat(total_loan_amount);
-        }
-
-
-        document.getElementById("max_loan").innerHTML = new Intl.NumberFormat().format(total_loan_amount);
-
-        function continueLoanHide() {
-            $('.loan-submission').removeClass("d-none")
-            $('.loan-calculator').addClass("d-none")
-            $('input').first().focus()
-            $('#back').focus()
-        }
-
-        function getDesiredLoanAmount() {
-            var loan_amount = parseFloat($('#desired_amount').val());
-            return loan_amount;
-        }
-
-        function getLoanInterest() {
-            var year_terms = parseInt($('#year_terms').val());
-            if (year_terms < 4 && year_terms > 0) {
-                return 12;
-            } else if (year_terms >= 4) {
-                return 13;
-            }
-
-        }
-
-
-
-        function getPaymentTerms() {
-
-            var year_terms = parseInt($('#year_terms').val());
-            // parseInt($('#year_terms').val());
-            console.log(year_terms);
-            return year_terms * 12;
-        }
-
-        function getLoanInterestAmount() {
-            var year_terms = parseInt($('#year_terms').val());
-
-            var months_per_year = getPaymentTerms() / year_terms;
-
-            var getPerYear = getDesiredLoanAmount() / 12;
-
-
-
-
-            return getDesiredLoanAmount() * (getLoanInterest() * 0.01);
-        }
-
-        function getTotalLoanAmountMonthly() {
-
-            var desired_loan = getDesiredLoanAmount();
-            var loan_interest = getLoanInterestAmount();
-            var paymentterms = getPaymentTerms();
-
-            var totalLoan = (desired_loan + loan_interest);
-
-            return totalLoan / paymentterms;
-
-        }
 
 
 
@@ -2473,8 +2478,8 @@
         $('#continue').on('click', function(e) {
             var year_terms = parseInt($('#year_terms').val());
             var desire_loan_amount = parseFloat($('#desired_amount').val());
-
-
+            var loan_amount = $('#desired_amount').val();
+            $('#loanable_amount').html("PHP " + new Intl.NumberFormat().format(loan_amount)).trigger("change");
             if (getTotalLoanAmount() >= desire_loan_amount) {
                 if (year_terms == 1 && desire_loan_amount <= 10000) {
                     continueLoanHide();
@@ -2565,65 +2570,87 @@
 
         });
 
-        $(document).on('click', '#submit_loan', function(e) { //member send form data 
+
+
+    });
+
+    $(document).on('click', '#submit_loan', function(e) { //member send form data 
 
 
 
-            //loan input details
-            var loan_amount = $('#desired_amount').val();
-            var total_release_amount = getDesiredLoanAmount() + 200;
-            var monthly_amort = getTotalLoanAmountMonthly();
-            var year_terms = $('#year_terms').val();
-            var account_name = $('#account_name').val();
-            var account_number = $('#account_number').val();
-            var active_number = $('#active_number').val();
-            var active_email = $('#active_email').val();
-            var member_no = <?php echo json_encode($member_details->member_no); ?>
+        //loan input details
+        var loan_amount = $('#desired_amount').val();
+        var total_release_amount = getDesiredLoanAmount() + 200;
+        var monthly_amort = getTotalLoanAmountMonthly();
+        var netpay = parseFloat($('#netpay').val());
 
+        var year_terms = $('#year_terms').val();
+        var account_name = $('#account_name').val();
+        var account_number = $('#account_number').val();
+        var active_number = $('#active_number').val();
+        var active_email = $('#active_email').val();
+        var member_no = <?php echo json_encode($member_details->member_no) ?>;
+        var bank = $('input[name="bank"]:checked').val();
 
-            var file_form = $('#loan_files')[0];
-            var formData = new FormData(file_form);
-
-
-
-            var valid_id = $('#valid_id')[0].files;
-            var payslip_1 = $('#payslip_1')[0].files;
-            var payslip_2 = $('#payslip_2')[0].files;
-            var passbook = $('#passbook')[0].files;
+        var file_form = $('#loan_files')[0];
+        var formData = new FormData(file_form);
 
 
 
-            console.log(member_no)
-            formData.append('loan_amount', loan_amount);
-            formData.append('member_no', member_no);
-            formData.append('year_terms', year_terms);
-            formData.append('account_name', account_name);
-            formData.append('account_number', account_number);
-            formData.append('active_number', $('#active_number').val());
-            formData.append('active_email', $('#active_email').val());
-            formData.append('valid_id', valid_id[0]);
-            formData.append('payslip_1', payslip_1[0]);
-            formData.append('payslip_2', payslip_2[0]);
-            formData.append('passbook', passbook[0]);
-
-            console.log(formData)
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
+        var valid_id = $('#valid_id')[0].files;
+        var payslip_1 = $('#payslip_1')[0].files;
+        var payslip_2 = $('#payslip_2')[0].files;
+        var passbook = $('#passbook')[0].files;
 
 
-            $.ajax({
-                url: "{{ route('add_loan_application') }}",
-                method: "POST",
-                data: formData,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function(data) {
-                    console.log(data);
 
+        console.log(member_no)
+        formData.append('loan_amount', loan_amount);
+        formData.append('member_no', member_no);
+        formData.append('year_terms', year_terms);
+        formData.append('account_name', account_name);
+        formData.append('account_number', account_number);
+        formData.append('active_number', $('#active_number').val());
+        formData.append('active_email', $('#active_email').val());
+        formData.append('bank', bank);
+        formData.append('valid_id', valid_id[0]);
+        formData.append('payslip_1', payslip_1[0]);
+        formData.append('payslip_2', payslip_2[0]);
+        formData.append('passbook', passbook[0]);
+
+        //loan details
+        formData.append('net_proceeds', netpay);
+        formData.append('monthly_amort', monthly_amort);
+        formData.append('approved_amount', total_release_amount);
+
+        console.log(formData)
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('add_loan_application') }}",
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            // type: 'POST',
+            // data: {
+            //     member_no: member_no,
+            //     active_email: active_email,
+            //     active_number: active_number,
+            //     // monthly_amort: monthly_amort,
+            //     // net_proceeds: net_proceeds,
+            //     valid_id: valid_id,
+
+            // },
+
+            data: formData,
+            success: function(data) {
+                if (data.success == true) {
                     Swal.fire({
                         text: 'Loan Application Sent',
                         icon: 'success',
@@ -2634,17 +2661,23 @@
                             location.reload();
                         }
                     });
-                },
-                error: function(data) {
-
+                } else {
+                    Swal.fire({
+                        text: 'Laon Applicationn Details Incomplete!',
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
                 }
-            });
-            console.log(formData);
-        })
-
-    });
 
 
+            },
+            error: function(data) {
+
+            }
+        });
+        console.log(formData);
+    })
     $('#compute_loan').on('click', function() {
         var netpay = parseFloat($('#netpay').val());
 
