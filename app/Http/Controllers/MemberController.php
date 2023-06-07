@@ -412,22 +412,22 @@ class MemberController extends Controller
 
     $valid_id_file = $valid_id->getClientOriginalName();
     $valid_id_file_name = $control_number . '_' . $valid_id_file;
-    $valid_id->storeAs('loan_applications', $valid_id_file_name, 'public');
+    $path_valid_id = $valid_id->storeAs('loan_applications', $valid_id_file_name, 'public');
 
     $payslip_1 =  $request->file('payslip_1');
     $payslip_1_file = $payslip_1->getClientOriginalName();
     $payslip_1_file_name = $control_number . '_' . $payslip_1_file;
-    $payslip_1->storeAs('loan_applications', $payslip_1_file_name, 'public');
+    $path_payslip_1 =  $payslip_1->storeAs('loan_applications', $payslip_1_file_name, 'public');
 
     $payslip_2 =  $request->file('payslip_2');
     $payslip_2_file = $payslip_2->getClientOriginalName();
     $payslip_2_file_name = $control_number . '_' . $payslip_2_file;
-    $payslip_2->storeAs('loan_applications', $payslip_2_file_name, 'public');
+    $path_payslip_2 = $payslip_2->storeAs('loan_applications', $payslip_2_file_name, 'public');
 
     $passbook =  $request->file('passbook');
     $passbook_file = $passbook->getClientOriginalName();
     $passbook_file_name = $control_number . '_' . $passbook_file;
-    $passbook->storeAs('loan_applications', $passbook_file_name, 'public');
+    $path_passbook =  $passbook->storeAs('loan_applications', $passbook_file_name, 'public');
     //end file code
 
     $loandet_id = DB::table('loan_applications_peb')->insertGetId(
@@ -660,14 +660,14 @@ class MemberController extends Controller
   public function votingDashboard()
   {
     if (Auth::check()) {
-      
-      $member = User::where('users.id', Auth::user()->id)
-      ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
-      ->leftjoin('member', 'users.id', '=', 'member.user_id')
-      ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
-      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
 
-      ->first();
+      $member = User::where('users.id', Auth::user()->id)
+        ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
+        ->leftjoin('member', 'users.id', '=', 'member.user_id')
+        ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+        ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+
+        ->first();
       $campuses = DB::table('campus')->get();
       $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
       $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
