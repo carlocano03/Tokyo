@@ -1645,25 +1645,34 @@
                                     <div class="mp-input-group details-div" style="text-align:center;">
                                         <label style="color:black;"><b> ID</b></label>
                                         <br>
-                                        <img src="{!! asset('assets/images/bg-member.png') !!}" style=" width: 70%;" alt="UPPFI">
+                                        <a href="{{ asset('storage/loan_applications/'.$loan_application->p_id) }}" target="p_id">
+                                            <img src="{{ asset('storage/loan_applications/'.$loan_application->p_id) }}" style=" width: 70%;  " alt="UPPFI">
+                                        </a>
                                     </div>
                                     <br>
                                     <div class="mp-input-group details-div" style="text-align:center;">
                                         <label style="color:black;"><b> Payslip 1</b></label>
                                         <br>
-                                        <img src="{!! asset('assets/images/bg-member.png') !!}" style=" width: 70%;" alt="UPPFI">
+                                        <a href="{{ asset('storage/loan_applications/'.$loan_application->payslip_1) }}" target="_blank">
+                                            <img src="{{ asset('storage/loan_applications/'.$loan_application->payslip_1) }}" style=" width: 70%;  " alt="UPPFI">
+                                        </a>
+
                                     </div>
                                     <br>
                                     <div class="mp-input-group details-div" style="text-align:center;">
                                         <label style="color:black;"><b> Payslip 2</b></label>
                                         <br>
-                                        <img src="{!! asset('assets/images/bg-member.png') !!}" style=" width: 70%;" alt="UPPFI">
+                                        <a href="{{ asset('storage/loan_applications/'.$loan_application->payslip_2) }}" target="_blank">
+                                            <img src="{{ asset('storage/loan_applications/'.$loan_application->payslip_2) }}" style=" width: 70%;  " alt="UPPFI">
+                                        </a>
                                     </div>
                                     <br>
                                     <div class="mp-input-group details-div" style="text-align:center;">
                                         <label style="color:black;"><b> Payslip 3</b></label>
                                         <br>
-                                        <img src="{!! asset('assets/images/bg-member.png') !!}" style=" width: 70%;" alt="UPPFI">
+                                        <a href="{{ asset('storage/loan_applications/'.$loan_application->atm_passbook) }}" target="_blank">
+                                            <img src="{{ asset('storage/loan_applications/'.$loan_application->atm_passbook) }}" style=" width: 70%;  " alt="UPPFI">
+                                        </a>
                                     </div>
 
 

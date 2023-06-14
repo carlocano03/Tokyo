@@ -1704,19 +1704,19 @@
                                 <tbody>
                                     <tr>
                                         <td>
-                                            <span>PHP 35,000.00</span>
+                                            <label id="table2_loan_amount"></label>
                                         </td>
                                         <td>
-                                            <span>12%</span>
+                                            <label id="table2_interest"></label>
                                         </td>
                                         <td>
-                                            <span>PHP 4,200.00</span>
+                                            <label id="table2_interest_amount"></label>
                                         </td>
                                         <td>
-                                            <span>36 Months</span>
+                                            <label id="table2_payment_terms"></label>
                                         </td>
                                         <td>
-                                            <span>PHP 3,266.67</span>
+                                            <label id="table2_monthly_amortization"></label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1730,11 +1730,34 @@
                                     </tr>
                                     <tr class="magenta-bg">
                                         <td>
-                                            <span>Actual Amount for Release</span>
+                                            <span>Actual Amount for Release Computation</span>
                                         </td>
                                         <td colspan="4">
-                                            <span class="justify-content-center font-bold">PHP 34,800.00</span>
-                                        </td>
+                                            <br>
+                                            <table>
+                                                <tr>
+
+                                                    <td><span class="justify-content-center font-bold" id="table2_actual_amount_release_existing"></span></td>
+                                                    <td> - Loan Balance</td>
+                                                </tr>
+                                                <tr>
+
+
+                                                    <td>PHP -200.00</td>
+                                                    <td> - Service Fee</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><span class="justify-content-center font-bold" id="table2_actual_amount_desired_loan"></span></td>
+                                                    <td> - Desired Loan </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td><span class="justify-content-center font-bold" id="table2_actual_amount_release"></span></td>
+                                                    <td> - Total Loanable Amount </td>
+                                                </tr>
+
+                                            </table>
+                                            <br>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1845,7 +1868,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" id="netpay" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="netpay" data-set="validate-apply-loan-compute" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
@@ -1857,22 +1880,11 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" id="bank_account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" data-set="validate-apply-loan-compute" id="bank_account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 mp-mt2">
-                                    <div class="row">
-                                        <div class="col-lg-4 d-flex flex-column justify-content-center">
-                                            <div class="info-text">
-                                                <label for="" class="black-clr">Upload Image (Screenshot of your ATM/ Bank details showing clearly the account number)</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <input type="file" id="atm_screenshot" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="col-lg-12 mp-mt2">
                                     <div class="row">
                                         <div class="col-lg-4 d-flex flex-column justify-content-center">
@@ -1881,7 +1893,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" id="years" value="{{$years}}" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="years" data-set="validate-apply-loan-compute" value="{{$years}}" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
@@ -1938,7 +1950,7 @@
                                                                         <span>75%</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>PHP {{number_format(($totalcontributions*.75)-$totalloanbalance, 2)  }}</span>
+                                                                        <span>PHP {{number_format($totalcontributions*.75, 2)  }}</span>
                                                                     </td>
                                                                     <td>
                                                                         <div>
@@ -1961,7 +1973,7 @@
                                                                         <span>85%</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>PHP {{number_format(($totalcontributions*.85) - $totalloanbalance, 2)  }} </span>
+                                                                        <span>PHP {{number_format($totalcontributions*.85, 2)  }} </span>
                                                                     </td>
                                                                     <td>
                                                                         <div>
@@ -1986,7 +1998,7 @@
                                                                         <span>100%</span>
                                                                     </td>
                                                                     <td>
-                                                                        <span>PHP {{number_format(($totalcontributions*1)-$totalloanbalance, 2)  }} </span>
+                                                                        <span>PHP {{number_format($totalcontributions*1, 2)  }} </span>
                                                                     </td>
                                                                     <td>
                                                                         <div>
@@ -2034,11 +2046,11 @@
                                         <div class="row">
                                             <div class="col-lg-4 d-flex flex-column justify-content-center">
                                                 <div class="info-text">
-                                                    <label for="" class="black-clr">Enter Desired Loanable Amount (*)</label>
+                                                    <label for="" data-set="validate-apply-loan" class="black-clr">Enter Desired Loanable Amount (*)</label>
                                                 </div>
                                             </div>
                                             <div class="col-lg-8">
-                                                <input type="text" id="desired_amount" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                <input type="text" id="desired_amount" data-set="validate-apply-loan-continue" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                             </div>
                                         </div>
                                     </div>
@@ -2050,8 +2062,8 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-8">
-                                                <select id="year_terms" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
-                                                    <option value="">Select Terms</option>
+                                                <select id="year_terms" data-set="validate-apply-loan-continue" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
+
                                                     <option value="1">1 Year</option>
                                                     <option value="2">2 Years</option>
                                                     <option value="3">3 Years</option>
@@ -2096,19 +2108,19 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td>
-                                                                        <span>PHP 35,000.00</span>
+                                                                        <label id="table1_loan_amount"></label>
                                                                     </td>
                                                                     <td>
-                                                                        <span>12%</span>
+                                                                        <label id="table1_interest"></label>
                                                                     </td>
                                                                     <td>
-                                                                        <span>PHP 4,200.00</span>
+                                                                        <label id="table1_interest_amount"></label>
                                                                     </td>
                                                                     <td>
-                                                                        <span>36 Months</span>
+                                                                        <label id="table1_payment_terms"></label>
                                                                     </td>
                                                                     <td>
-                                                                        <span>PHP 3,266.67</span>
+                                                                        <label id="table1_monthly_amortization"></label>
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -2122,10 +2134,35 @@
                                                                 </tr>
                                                                 <tr class="magenta-bg">
                                                                     <td>
-                                                                        <span>Actual Amount for Release</span>
+                                                                        <span>Actual Amount for Release Computation</span>
                                                                     </td>
                                                                     <td colspan="4">
-                                                                        <span class="justify-content-center font-bold">PHP 34,800.00</span>
+                                                                        <br>
+                                                                        <table>
+                                                                            <tr>
+
+                                                                                <td><span class="justify-content-center font-bold" id="table1_actual_amount_release_existing"></span></td>
+                                                                                <td> - Loan Balance</td>
+                                                                            </tr>
+                                                                            <tr>
+
+
+                                                                                <td>PHP -200.00</td>
+                                                                                <td> - Service Fee</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td><span class="justify-content-center font-bold" id="table1_actual_amount_desired_loan"></span></td>
+                                                                                <td> - Desired Loan </td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <td><span class="justify-content-center font-bold" id="table1_actual_amount_release"></span></td>
+                                                                                <td> - Total Loanable Amount </td>
+                                                                            </tr>
+
+                                                                        </table>
+                                                                        <br>
+
                                                                     </td>
                                                                 </tr>
                                                             </tbody>
@@ -2175,7 +2212,7 @@
                                 <div class="col-lg-5">
                                     <div class="info-text mp-text-right">
                                         <h3 for="" class="gray-clr  mp-pb0 mp-mb0">Loanable Amount:</h3>
-                                        <label for="" id="loanable_amount" class="font-lg font-bold magenta-clr">PHP 34,000.00</label>
+                                        <label for="" id="loanable_amount" class="font-lg font-bold magenta-clr"> </label>
                                     </div>
                                 </div>
                                 <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2">
@@ -2191,24 +2228,27 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-12 mp-pv4 mp-ph2">
-                                            <div class="info-text">
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(LPB) Land Bank of the Philippines</label>
-                                                </span>
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(PNB) Philippine National Bank</label>
-                                                </span>
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(DBP) Development Bank of the Philippines</label>
-                                                </span>
-                                                <span class="d-flex flex-row justify-items-center gap-10">
-                                                    <input type="radio" class="mp-pt1">
-                                                    <label for="" class="font-sm">(PVB) Philippine Veterans Bank</label>
-                                                </span>
-                                            </div>
+                                            <form action="">
+                                                <div class="info-text">
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="LPB">
+                                                        <label for="" class="font-sm">(LPB) Land Bank of the Philippines</label>
+                                                    </span>
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="PNB">
+                                                        <label for="" class="font-sm">(PNB) Philippine National Bank</label>
+                                                    </span>
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="DBP">
+                                                        <label for="" class="font-sm">(DBP) Development Bank of the Philippines</label>
+                                                    </span>
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="PVB">
+                                                        <label for="" class="font-sm">(PVB) Philippine Veterans Bank</label>
+                                                    </span>
+                                                </div>
+                                            </form>
+
                                         </div>
                                     </div>
                                     <div class="row">
@@ -2225,7 +2265,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <input type="text" id="account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                    <input type="text" id="account_number" data-set="validate-apply-loan" name="account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                 </div>
                                             </div>
                                         </div>
@@ -2237,7 +2277,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <input type="text" id="account_name" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                    <input type="text" id="account_name" data-set="validate-apply-loan" name="account_name" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                 </div>
                                             </div>
                                         </div>
@@ -2249,7 +2289,7 @@
                                     </div>
                                 </div>
                                 <meta name="csrf-token" content="{{ csrf_token() }}">
-                                <form id="loan_files" method="" enctype="multipart/form-data" style="height: calc(100% - 100px) !important;">
+                                <form id="loan_files" method="" action="" enctype="multipart/form-data" style="height: calc(100% - 100px) !important;">
                                     @csrf
                                     <div class="col-lg-12">
 
@@ -2264,7 +2304,7 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="valid_id" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                                <input type="file" id="valid_id" data-set="validate-apply-loan" name="valid_id" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2280,10 +2320,10 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="payslip_1" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                                <input type="file" id="payslip_1" data-set="validate-apply-loan" name="payslip_1" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="payslip_2" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                                <input type="file" id="payslip_2" data-set="validate-apply-loan" name="payslip_2" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2297,7 +2337,7 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="passbook" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                                <input type="file" id="passbook" data-set="validate-apply-loan" name="passbook" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2321,7 +2361,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-8">
-                                                        <input type="text" id="active_email" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                        <input type="text" id="active_email" data-set="validate-apply-loan" name="active_email" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                     </div>
                                                 </div>
                                             </div>
@@ -2333,7 +2373,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-8">
-                                                        <input type="text" id="active_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                        <input type="text" id="active_number" data-set="validate-apply-loan" name="active_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                     </div>
                                                 </div>
                                             </div>
@@ -2353,7 +2393,7 @@
                                             <div class="col-lg-6 d-flex justify-content-center">
                                                 <div class="row f-flex">
                                                     <span class="d-flex flex-row justify-content-center">
-                                                        <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto" id="submit_loan" name="submit_loan" type="submit">
+                                                        <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto" id="submit_loan" name="submit_loan">
                                                             SUBMIT THIS APPLICATION
                                                         </a>
                                                     </span>
@@ -2372,28 +2412,101 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        var d = new Date();
-        document.getElementById("date").innerHTML = d.toTimeString();
+    var d = new Date();
+    document.getElementById("date").innerHTML = d.toTimeString();
 
-        var years_of_service = <?php echo $years; ?>;
-        var total_equity = <?php echo $totalcontributions ?>;
+    var years_of_service = <?php echo $years; ?>;
+    var total_equity = <?php echo $totalcontributions ?>;
+    var total_loan_balance = <?php echo $totalloanbalance ?>;
+    var total_loan_amount = 0;
+
+    function getTotalLoanAmount() {
         var total_loan_balance = <?php echo $totalloanbalance ?>;
         var total_loan_amount = 0;
+        var years_of_service = <?php echo $years; ?>;
+        //loanable code compute!
+        if (years_of_service < 4) {
+            total_loan_amount = (total_equity * .75);
+        } else if (years_of_service >= 4 && years_of_service < 15) {
+            total_loan_amount = (total_equity * .85);
+        } else if (years_of_service >= 15) {
+            total_loan_amount = (total_equity * 1);
+        }
+
+        return parseFloat(total_loan_amount);
+    }
+
+
+
+    function continueLoanHide() {
+        $('.loan-submission').removeClass("d-none")
+        $('.loan-calculator').addClass("d-none")
+        $('input').first().focus()
+        $('#back').focus()
+    }
+
+    function getDesiredLoanAmount() {
+        var loan_amount = parseFloat($('#desired_amount').val());
+        return loan_amount;
+    }
+
+    function getLoanInterest() {
+        var year_terms = parseInt($('#year_terms').val());
+        if (year_terms < 4 && year_terms > 0) {
+            return 12;
+        } else if (year_terms >= 4) {
+            return 13;
+        }
+
+    }
+
+
+
+    function getPaymentTerms() {
+
+        var year_terms = parseInt($('#year_terms').val());
+        // parseInt($('#year_terms').val());
+        console.log(year_terms);
+        return year_terms * 12;
+    }
+
+    function getLoanInterestAmount() {
+        var year_terms = parseInt($('#year_terms').val());
+
+        var months_per_year = getPaymentTerms() / year_terms;
+
+        var getPerYear = getDesiredLoanAmount() / 12;
+
+
+
+
+        return getDesiredLoanAmount() * (getLoanInterest() * 0.01);
+    }
+
+    function getTotalLoanAmountMonthly() {
+
+        var desired_loan = getDesiredLoanAmount();
+        var loan_interest = getLoanInterestAmount();
+        var paymentterms = getPaymentTerms();
+
+        var totalLoan = (desired_loan + loan_interest);
+
+        return totalLoan / paymentterms;
+
+    }
+    $(document).ready(function() {
+
 
         //loanable code compute!
         if (years_of_service < 4) {
-            total_loan_amount = (total_equity * .75) - total_loan_balance;
+            total_loan_amount = (total_equity * .75);
         } else if (years_of_service >= 4 && years_of_service < 15) {
-            total_loan_amount = (total_equity * .85) - total_loan_balance;
+            total_loan_amount = (total_equity * .85);
         } else if (years_of_service >= 15) {
-            total_loan_amount = (total_equity * 1) - total_loan_balance;
+            total_loan_amount = (total_equity * 1);
         }
 
 
-
-        console.log("total" + total_loan_amount);
-        document.getElementById("max_loan").innerHTML = new Intl.NumberFormat().format(total_loan_amount - total_loan_balance);
 
 
 
@@ -2407,62 +2520,199 @@
             $('.loan-calculator').removeClass("d-none")
             $('input').first().focus()
         });
+
+
+
         $('#continue').on('click', function(e) {
-            $('.loan-submission').removeClass("d-none")
-            $('.loan-calculator').addClass("d-none")
-            $('input').first().focus()
-            $('#back').focus()
+
+            let hasError = false
+
+            const elements = $(document).find(`[data-set=validate-apply-loan-continue]`)
+
+            elements.map(function() {
+
+                if ($(this).attr('err-name')) {
+                    return
+                }
+
+                let status = true
+                status = validateField({
+                    element: $(this),
+                    target: 'validate-apply-loan-continue'
+                })
+
+                if (!hasError && status) {
+                    hasError = true
+                }
+            })
+
+            if (hasError) return
+
+            var year_terms = parseInt($('#year_terms').val());
+            var desire_loan_amount = parseFloat($('#desired_amount').val());
+            var loan_amount = $('#desired_amount').val();
+            $('#loanable_amount').html("PHP " + new Intl.NumberFormat().format(loan_amount)).trigger("change");
+
+
+
+
+            if (getTotalLoanAmount() >= desire_loan_amount) {
+                if (year_terms == 1 && desire_loan_amount <= 10000) {
+                    continueLoanHide();
+                } else if (year_terms == 2 && desire_loan_amount >= 10001 && desire_loan_amount <= 30000) {
+                    continueLoanHide();
+                } else if (year_terms == 3 && desire_loan_amount >= 30001 && desire_loan_amount <= 99999) {
+                    continueLoanHide();
+                } else if (year_terms == 4 && desire_loan_amount >= 100000) {
+                    continueLoanHide();
+                } else {
+                    Swal.fire({
+                        title: 'hi',
+                        html: 'First line<br>Second line'
+                    });
+                    Swal.fire("Invalid loan amount and terms!",
+                        "Notes \n\n Interest rate less than 4 years is 12%.  \n\n Interest rate more than 4 years is 13%.",
+                        "error");
+
+                }
+            } else {
+                Swal.fire("Desired loan amount higher than max loan amount!", "", "error");
+
+            }
+
+
         });
+        $("#desired_amount").change(function() {
+            var loan_amount = $('#desired_amount').val();
+            var total_loan_balance = <?php echo $totalloanbalance ?>;
+
+            var total_release_amount = (getDesiredLoanAmount() - 200) - total_loan_balance;
+            // console.log(getLoanInterest()); 
+            // console.log(parseInt($('#year_terms').val()));
+
+            console.log(getDesiredLoanAmount());
+            console.log(getLoanInterest());
+
+            console.log(getLoanInterestAmount());
+            $('#table1_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table2_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+
+            $('#table1_interest').html(getLoanInterest() + " %").trigger("change");
+            $('#table2_interest').html(getLoanInterest() + " %").trigger("change");
+
+
+            $('#table1_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table1_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table1_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
+
+            $('#table2_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table2_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table2_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
+
+
+            $('#table1_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
+            $('#table2_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
+
+
+            $('#table1_actual_amount_desired_loan').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table1_actual_amount_release_existing').html("PHP -" + new Intl.NumberFormat().format(total_loan_balance)).trigger("change");
+
+            $('#table2_actual_amount_desired_loan').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table2_actual_amount_release_existing').html("PHP -" + new Intl.NumberFormat().format(total_loan_balance)).trigger("change");
+            // $('#table_loan_amount').html("asds").trigger("change");
+
+        });
+
+        $("#year_terms").change(function() {
+            var loan_amount = $('#desired_amount').val();
+
+            var total_release_amount = (getDesiredLoanAmount() - 200) - total_loan_balance;
+
+
+            console.log(getDesiredLoanAmount());
+
+
+            console.log(getLoanInterest());
+            console.log(getLoanInterestAmount());
+            $('#table1_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table2_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+
+            $('#table1_interest').html(getLoanInterest() + " %").trigger("change");
+            $('#table2_interest').html(getLoanInterest() + " %").trigger("change");
+
+
+            $('#table1_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table1_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table1_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
+
+            $('#table2_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table2_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table2_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
+
+
+            $('#table1_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
+            $('#table2_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
+
+            $('#table2_actual_amount_desired_loan').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table2_actual_amount_release_existing').html("PHP -" + new Intl.NumberFormat().format(total_loan_balance)).trigger("change");
+
+            // $('#table_loan_amount').html("asds").trigger("change");
+
+        });
+
+
+
     });
 
-    $('#compute_loan').on('click', function() {
+    $(document).on('click', '#submit_loan', function(e) { //member send form data 
+
+        // let hasError = false
+
+        // const elements = $(document).find(`[data-set=validate-apply-loan]`)
+
+        // elements.map(function() {
+
+
+        //     let status = true
+        //     status = validateField({
+        //         element: $(this),
+        //         target: 'validate-apply-loan'
+        //     })
+
+        //     if (!hasError && status) {
+        //         hasError = true
+        //     }
+        // })
+
+        // if (hasError) return
+
+        //loan input details
+        var loan_amount = $('#desired_amount').val();
+
+        var total_release_amount = (getDesiredLoanAmount() - 200) - total_loan_balance;
+        // var total_release_amount = getDesiredLoanAmount() + 200;
+        var monthly_amort = getTotalLoanAmountMonthly();
         var netpay = parseFloat($('#netpay').val());
 
-        var years_of_service = <?php echo $years; ?>;
-        var total_equity = <?php echo $totalcontributions ?>;
-        var total_loan_balance = <?php echo $totalloanbalance ?>;
-        var total_loan_amount = 0;
-        var desire_loan_amount = $('#desired_amount').val();
-
-        //loanable code compute!
-        if (years_of_service < 4) {
-            total_loan_amount = (total_equity * .75) - total_loan_balance;
-        } else if (years_of_service >= 4 && years_of_service < 15) {
-            total_loan_amount = (total_equity * .85) - total_loan_balance;
-        } else if (years_of_service >= 15) {
-            total_loan_amount = (total_equity * 1) - total_loan_balance;
-        }
-
-
-
-        if (netpay >= 5000) {
-            $('#step-2-div').removeClass("d-none");
-            alert("Total Loan Approved Amount:" + total_loan_amount);
-        }
-    });
-
-
-    $('#desired_amount').on('change', function() {
-        var loan_amount = $('#desired_amount').val();
-        $('#loanable_amount').text("PHP " + new Intl.NumberFormat().format(loan_amount));
-    });
-    $(document).on('click', '#submit_loan', function(e) {
-        //member send form data 
-
-        var file_form = $('#loan_files')[0];
-        var formData = new FormData(file_form);
-
-        var valid_id = $('#valid_id')[0].files;
-        var payslip_1 = $('#payslip_1')[0].files;
-        var payslip_2 = $('#payslip_2')[0].files;
-        var passbook = $('#passbook')[0].files;
-        var loan_amount = $('#desired_amount').val();
         var year_terms = $('#year_terms').val();
         var account_name = $('#account_name').val();
         var account_number = $('#account_number').val();
         var active_number = $('#active_number').val();
         var active_email = $('#active_email').val();
-        var member_no = <?php echo json_encode($member_details->member_no); ?>
+        var member_no = <?php echo json_encode($member_details->member_no) ?>;
+        var bank = $('input[name="bank"]:checked').val();
+
+        var file_form = $('#loan_files')[0];
+        var formData = new FormData(file_form);
+
+
+
+        var valid_id = $('#valid_id')[0].files;
+        var payslip_1 = $('#payslip_1')[0].files;
+        var payslip_2 = $('#payslip_2')[0].files;
+        var passbook = $('#passbook')[0].files;
+
+
 
         console.log(member_no)
         formData.append('loan_amount', loan_amount);
@@ -2472,10 +2722,16 @@
         formData.append('account_number', account_number);
         formData.append('active_number', $('#active_number').val());
         formData.append('active_email', $('#active_email').val());
+        formData.append('bank', bank);
         formData.append('valid_id', valid_id[0]);
         formData.append('payslip_1', payslip_1[0]);
         formData.append('payslip_2', payslip_2[0]);
         formData.append('passbook', passbook[0]);
+
+        //loan details
+        formData.append('net_proceeds', netpay);
+        formData.append('monthly_amort', monthly_amort);
+        formData.append('approved_amount', total_release_amount);
 
         console.log(formData)
         $.ajaxSetup({
@@ -2484,7 +2740,6 @@
             }
         });
 
-
         $.ajax({
             url: "{{ route('add_loan_application') }}",
             method: "POST",
@@ -2492,19 +2747,40 @@
             contentType: false,
             processData: false,
             dataType: 'json',
-            success: function(data) {
-                console.log(data);
+            // type: 'POST',
+            // data: {
+            //     member_no: member_no,
+            //     active_email: active_email,
+            //     active_number: active_number,
+            //     // monthly_amort: monthly_amort,
+            //     // net_proceeds: net_proceeds,
+            //     valid_id: valid_id,
 
-                Swal.fire({
-                    text: 'Loan Application Sent',
-                    icon: 'success',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Ok',
-                }).then(okay => {
-                    if (okay) {
-                        location.reload();
-                    }
-                });
+            // },
+
+            data: formData,
+            success: function(data) {
+                if (data.success == true) {
+                    Swal.fire({
+                        text: 'Loan Application Sent',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    }).then(okay => {
+                        if (okay) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        text: 'Laon Applicationn Details Incomplete!',
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+                }
+
+
             },
             error: function(data) {
 
@@ -2512,5 +2788,54 @@
         });
         console.log(formData);
     })
+    $('#compute_loan').on('click', function() {
+        var netpay = parseFloat($('#netpay').val());
+
+        var years_of_service = <?php echo $years; ?>;
+        var total_equity = <?php echo $totalcontributions ?>;
+        var total_loan_balance = <?php echo $totalloanbalance ?>;
+        var total_loan_amount = 0;
+        let hasError = false
+
+        const elements = $(document).find(`[data-set=validate-apply-loan-compute]`)
+
+        elements.map(function() {
+
+            if ($(this).attr('err-name')) {
+                return
+            }
+
+            let status = true
+            status = validateField({
+                element: $(this),
+                target: 'validate-apply-loan-compute'
+            })
+
+            if (!hasError && status) {
+                hasError = true
+            }
+        })
+
+        if (hasError) return
+
+        //loanable code compute!
+        if (years_of_service < 4) {
+            total_loan_amount = (total_equity * .75);
+        } else if (years_of_service >= 4 && years_of_service < 15) {
+            total_loan_amount = (total_equity * .85);
+        } else if (years_of_service >= 15) {
+            total_loan_amount = (total_equity * 1);
+        }
+
+
+
+        if (netpay >= 5000) {
+            $('#step-2-div').removeClass("d-none");
+            var message = "Max Loan Amount = Php " + new Intl.NumberFormat().format(total_loan_amount);
+            Swal.fire("Success!", message, "success");
+        } else {
+            Swal.fire("Invalid Netpay!", "NetPay is less than Php 5,000.00", "error");
+        }
+    });
 </script>
 @endsection

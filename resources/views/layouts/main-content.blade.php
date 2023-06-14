@@ -421,8 +421,6 @@
     text-align: center;
     padding-top: 1px;
   }
-
-
 </style>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -446,7 +444,7 @@
       </div>
       <div class="profile-details">
         <div class="name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div><br>
-        <div class="role">Cluster + Campus / {{ Auth::user()->user_level }}</div>
+        <!-- <div class="role">Cluster + Campus / {{ Auth::user()->user_level }}</div> -->
         <div class="logout-button">
           <strong><a href="{{ url('/logout_admin') }}">Log out </a> </strong>
         </div>
@@ -510,7 +508,7 @@
       </div>
       <div class="profile-details">
         <div class="name">{{ Auth::user()->first_name }} {{ Auth::user()->last_name }} </div>
-        <div class="role">Up Diliman | Midlaner</div>
+        <!-- <div class="role">Cluster + Campus / {{ Auth::user()->user_level }}</div> -->
         <div class="logout-button">
           <strong><a href="{{ url('logout_member') }}">Log out</a> </strong>
         </div>
@@ -529,7 +527,10 @@
           <i class="fa fa-address-book"></i>Loan Application</a>
       </li>
       <li><a href="/member/benefits" class="{{ Request::is('member/benefits') ? 'active-nav' : '' }}">
-        <i class="fa fa-suitcase" aria-hidden="true"></i>Benefits</a>
+          <i class="fa fa-suitcase" aria-hidden="true"></i>Benefits</a>
+      </li>
+      <li><a href="/member/vote" class="{{ Request::is('member/vote') ? 'active-nav' : '' }}">
+        <i class="fa fa-suitcase" aria-hidden="true"></i>Vote</a>
       </li>
       <li><a href="/member/vote" class="{{ Request::is('member/vote') ? 'active-nav' : '' }}">
         <i class="fa fa-suitcase" aria-hidden="true"></i>Vote</a>
