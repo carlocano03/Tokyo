@@ -1619,12 +1619,20 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
 <script type="text/javascript" src="{{ asset('/dist/loading-bar/loading-bar.js') }}"></script>
 <div class="filler"></div>
+
+
 <div class="col-12 padding-content mp-text mp-text-c-accent dashboard mh-content">
     <div class="d-flex flex-wrap">
         <div class="col-lg-4 mp-pr0 mp-mt2" style="width: 100%;">
+            <div class="back-div mp-mt2" style="margin-bottom:20px;">
+                <a href="/member/loan" style="margin-left:-10px;"><span class="  back-button-default">
+                        < Back </span></a>
+            </div>
+
             <div class="mp-card mp-p4 h-auto mp-mb2">
                 <div class="container-fluid">
                     <div class="row" style="padding:20px;">
+
                         <div class="col-lg-5">
 
                             <div class="profile-img">
@@ -1838,6 +1846,9 @@
 
 
         <div class="col-lg-8 mp-pr0 mp-mt2 loan-calculator" style="width: 100%;">
+            <div class="main-text mp-text-center ">
+                <h1>NEW PEL LOAN</h1>
+            </div>
             <div class="br-top-2 row" style="color: white;
                                             padding: 5px 10px;
                                             background-color: var(--c-accent);
@@ -1868,7 +1879,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" id="netpay" data-set="validate-apply-loan-compute" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="netpay" name="numberonly" data-set="validate-apply-loan-compute" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
@@ -2373,7 +2384,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-8">
-                                                        <input type="text" id="active_number" data-set="validate-apply-loan" name="active_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                        <input type="text" id="active_number" data-set="validate-apply-loan" name="numberonly" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                     </div>
                                                 </div>
                                             </div>
@@ -2412,6 +2423,32 @@
     </div>
 </div>
 <script>
+    $(document).ready(function() {
+        //js number only
+        $('#netpay ,#bank_account_number, #years').keypress(function(e) {
+
+            var charCode = (e.which) ? e.which : event.keyCode
+
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))
+
+                return false;
+
+        });
+
+        // $("#netpay ,#bank_account_number, #years").keyup(function(event) {
+        //     // skip for arrow keys
+        //     if (event.which >= 37 && event.which <= 40) {
+        //         event.preventDefault();
+        //     }
+        //     var $this = $(this);
+        //     var num = $this.val().replace(/,/gi, "");
+        //     var num2 = num.split(/(?=(?:\d{3})+$)/).join(",");
+        //     console.log(num2);
+        //     // the following line has been simplified. Revision history contains original.
+        //     $this.text(num2);
+        // });
+
+    });
     var d = new Date();
     document.getElementById("date").innerHTML = d.toTimeString();
 

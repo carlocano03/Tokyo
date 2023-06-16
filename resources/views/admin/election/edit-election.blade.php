@@ -1368,7 +1368,7 @@
                                                 <div class="col-4">
 
                                                     <div class="profile-img">
-                                                        <img src="{{ storage_path('app\public\candidates\'.$candidate_rowSG16->candidate_photo) }}" alt="">
+                                                        <img src="{{ storage_path('app/public/candidates/'.$candidate_rowSG16->candidate_photo) }}" alt="">
 
                                                     </div>
                                                 </div>
