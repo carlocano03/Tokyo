@@ -13,6 +13,7 @@ use PDF;
 use Excel;
 use DataTables;
 use App\Models\Election;
+use App\Models\LoanApplications;
 use App\Models\Loans;
 use App\Models\OLDMembers;
 use App\Models\OLDBeneficiaries;
@@ -115,6 +116,129 @@ class MemberController extends Controller
     } else {
       return redirect('/login');
     }
+  }
+
+  //get member loans table 
+  public function getMemberLoans(Request $request)
+  {
+
+    $member = User::where('users.id', Auth::user()->id)
+      ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name', 'member.member_no as member_no')
+      ->leftjoin('member', 'users.id', '=', 'member.user_id')
+      ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+      ->first();
+
+
+    $columns = [
+      0 => 'loan_applications.id',
+      1 => 'loan_applications.date_created',
+      2 => 'loan_applications.control_number',
+      3 => 'loan_applications.loan_type',
+      4 => 'loan_applications.status',
+      5 => 'loan_applications.cancellation_reason',
+      6 => 'loan_applications.approved_amount',
+      7 => 'loan_applications.monthly_amort',
+    ];
+    $totalData = DB::table('loan_applications')->where('member_no', '=', $member->member_no)->count();
+    $limit = $request->input('length');
+    $start = $request->input('start');
+    $order = $columns[$request->input('order.0.column')];
+    $dir = $request->input('order.0.dir');
+    $searchValue =  $request->input('search.value');
+    $status_select = $request->input('status');
+    $time_open  = $request->get('time_open');
+    $time_close  = $request->get('time_close');
+
+    $election_date  = $request->get('election_date');
+    $election_year  = $request->get('election_year');
+    $cluster = $request->get('cluster');
+
+    //filter codes
+    if (!empty($searchValue)) {
+      $loans = DB::table('loan_applications')
+        ->join('loan_applications_peb', 'loan_applications_peb.loan_app_id', '=', 'loan_applications.id')
+        ->join('loan_type', 'loan_type.id', '=', 'loan_applications.loan_type')
+        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date')
+        ->where('loan_applications.member_no', '=', $member->member_no)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    } else {
+      $loans = DB::table('loan_applications')
+        ->join('loan_applications_peb', 'loan_applications_peb.loan_app_id', '=', 'loan_applications.id')
+        ->join('loan_type', 'loan_type.id', '=', 'loan_applications.loan_type')
+        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date')
+        ->where('loan_applications.member_no', '=', $member->member_no)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+
+
+    $totalFiltered = DB::table('loan_applications')->where('member_no', '=', $member->member_no)->count();
+
+    $data = [];
+    foreach ($loans as $row) {
+      $nestedData['control_number'] = $row->control_number;
+      $nestedData['loan_date'] = $row->loan_date;
+      $nestedData['loan_type_name'] = $row->loan_type_name;
+      $nestedData['status'] = $row->status;
+      $nestedData['remarks'] = $row->cancellation_reason;
+      $nestedData['approved_amount'] = "PHP " . number_format($row->approved_amount);
+      $nestedData['monthly_amort'] = "PHP " . number_format($row->monthly_amort);
+
+      $nestedData['action'] = '
+          
+                <a href="/member/loan/view' . $row->id .  '" data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="view-loan" style="cursor: pointer">
+                                                            <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+                                                        </a>
+         ';
+
+      $data[] = $nestedData;
+    }
+    $json_data = [
+      "draw" => intval($request->input('draw')),
+      "recordsTotal" => intval($totalData),
+      "recordsFiltered" => intval($totalFiltered),
+      "data" => $data,
+    ];
+
+    return response()->json($json_data);
+  }
+
+  //count member loan details 
+  public function countMemberLoan()
+  {
+
+    $member = User::where('users.id', Auth::user()->id)
+      ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name', 'member.member_no as member_no')
+      ->leftjoin('member', 'users.id', '=', 'member.user_id')
+      ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+      ->first();
+
+
+    if (request()->has('view')) {
+      $total_processing = DB::table('loan_applications')->where('status', 'PROCESSING')->where('member_no', $member->member_no)->count();
+      $total_confirmed = DB::table('loan_applications')->where('status', 'CONFIRMED')->where('member_no', $member->member_no)->count();
+      $total_for_review = DB::table('loan_applications')->where('status', 'DRAFT')->where('member_no', $member->member_no)->count();
+      $total_approved = DB::table('loan_applications')->where('status', 'APPROVED')->where('member_no', $member->member_no)->count();
+      $total_rejected = DB::table('loan_applications')->where('status', 'CANCELLED')->where('member_no', $member->member_no)->count();
+    }
+
+    $data = array(
+      'total_processing' => $total_processing,
+      'total_confirmed' => $total_confirmed,
+      'total_for_review' => $total_for_review,
+      'total_approved' => $total_approved,
+      'total_rejected' => $total_rejected,
+
+    );
+
+    echo json_encode($data);
   }
 
   public function new_loan()
