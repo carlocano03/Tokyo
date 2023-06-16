@@ -1614,6 +1614,11 @@
 
 
     }
+
+    .center-select {
+        display: flex;
+        justify-content: center;
+    }
 </style>
 <script src="{{ asset('/dist/adminDashboard.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
@@ -1621,13 +1626,41 @@
 <div class="filler"></div>
 
 
-<div class="col-12 padding-content mp-text mp-text-c-accent dashboard mh-content">
-    <div class="d-flex flex-wrap">
+
+<div class="col-12 padding-content mp-text mp-text-c-accent dashboard mh-content ">
+    <div id="loan_type_select">
+        <div class="col-lg-12 mp-mt2">
+            <div class="row center-select">
+
+                <div class="col-lg-4">
+
+                    <select class="mp-input-group__input mp-text-field" name="loan_type" style="margin-top: 5px;padding: 10px;" id="loan_type" required>
+                        <option value="NEW_PEL">NEW PEL LOAN</option>
+                        <option value="RENEW_PEL">RENEW PEL LOAN</option>
+                    </select>
+
+                    <!-- <input type="text" class=" radius-1 border-1 date-input outline mp-pb1 mp-pt1"> -->
+                </div>
+                <div class="col-lg-2">
+                    <button id="proceed_button" class="mp-button mp-button--primary" style="color:white; margin-top:10px;">
+                        Proceed
+                    </button>
+                </div>
+
+
+            </div>
+
+
+
+        </div>
+    </div>
+    <div class="d-flex flex-wrap opacity-0 d-none" id="new_pel_loan">
         <div class="col-lg-4 mp-pr0 mp-mt2" style="width: 100%;">
             <div class="back-div mp-mt2" style="margin-bottom:20px;">
                 <a href="/member/loan" style="margin-left:-10px;"><span class="  back-button-default">
                         < Back </span></a>
             </div>
+
 
             <div class="mp-card mp-p4 h-auto mp-mb2">
                 <div class="container-fluid">
@@ -2545,6 +2578,20 @@
 
 
 
+        function hideLoanSelect() {
+            $('#loan_type_select').addClass('d-none')
+            $('#loan_type_select').addClass('opacity-0')
+        }
+        $('#proceed_button').on('click', function(e) {
+            var loan_type = $('#loan_type').val();
+            if (loan_type === "NEW_PEL") {
+                hideLoanSelect();
+                $('#new_pel_loan').removeClass('d-none')
+                $('#new_pel_loan').removeClass('opacity-0')
+            } else if (loan_type === "RENEW_PEL") {
+                hideLoanSelect();
+            }
+        });
 
 
         $('#back').on('click', function(e) {

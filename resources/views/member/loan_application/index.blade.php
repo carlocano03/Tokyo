@@ -197,35 +197,37 @@
                                     <h3 class="magenta-clr">
                                         Application Summary
                                     </h3>
+
+
                                 </div>
                                 <div class="right-dashboard col grid side-dashboard gap-10 font-sm card mp-mb2" style="color: black;">
                                     <div class="text-center d-flex flex-column justify-content-center">
                                         <div>
-                                            <span class="font-bold font-lg magenta-clr" id="new_app">0</span>
+                                            <span class="font-bold font-lg magenta-clr" id="total_processing">0</span>
                                         </div>
                                         <span class="font-sm min-h-40">New Loan Application</span>
                                     </div>
                                     <div class="text-center d-flex flex-column justify-content-center">
                                         <div>
-                                            <span class="font-bold font-lg magenta-clr" id="forApproval">0</span>
+                                            <span class="font-bold font-lg magenta-clr" id="total_processing">0</span>
                                         </div>
                                         <span class="font-sm min-h-40">Processing Loan Application</span>
                                     </div>
                                     <div class="text-center d-flex flex-column justify-content-center">
                                         <div>
-                                            <span class="font-bold font-lg magenta-clr" id="draft">0</span>
+                                            <span class="font-bold font-lg magenta-clr" id="total_for_review">0</span>
                                         </div>
                                         <span class="font-sm min-h-40">For Review Loan Application</span>
                                     </div>
                                     <div class="text-center d-flex flex-column justify-content-center">
                                         <div>
-                                            <span class="font-bold font-lg magenta-clr" id="draft">0</span>
+                                            <span class="font-bold font-lg magenta-clr" id="total_confirmed">0</span>
                                         </div>
                                         <span class="font-sm min-h-40">Approved Loan Application</span>
                                     </div>
                                     <div class="text-center d-flex flex-column justify-content-center">
                                         <div>
-                                            <span class="font-bold font-lg magenta-clr" id="rejected">0</span>
+                                            <span class="font-bold font-lg magenta-clr" id="total_rejected">0</span>
                                         </div>
                                         <span class="font-sm min-h-40 ">Rejected Loan Application</span>
                                     </div>
@@ -261,7 +263,7 @@
                             <div class="col-1g-12" style="padding:15px;">
                                 <div class="d-flex flex-column">
                                     <div class="header-table">
-                                        <table class="payroll-table" style="height: auto;" width="100%">
+                                        <table class="payroll-table" id="member_loan_table" style="height: auto;" width="100%">
                                             <thead>
                                                 <tr>
                                                     <th style="width: 60px">
@@ -288,13 +290,13 @@
                                                     <th>
                                                         <span>Monthly Amortization</span>
                                                     </th>
-                                                    <th>
+                                                    <!-- <th>
                                                         <span>Interest Rate</span>
-                                                    </th>
+                                                    </th> -->
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                                <!-- <tr>
                                                     <td>
                                                         <a data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="view-loan" style="cursor: pointer">
                                                             <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
@@ -355,7 +357,7 @@
                                                     <td>
                                                         <span>PHP 123,123</span>
                                                     </td>
-                                                </tr>
+                                                </tr> -->
                                             </tbody>
                                         </table>
                                     </div>
@@ -378,16 +380,60 @@
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-        var member_loan_table = $('#member_loan_table').DataTable({
-            language: {
-                search: '',
-                searchPlaceholder: "Search Loan Application No.",
-                processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><br>Loading...',
-            },
-            "ordering": false,
-            "processing": true,
-            "serverSide": true,
+        getMemberLoanCount();
+        member_loan_table = $('#member_loan_table').DataTable({
 
+            processing: true,
+
+            serverSide: true,
+            ajax: {
+                url: "{{ route('getMemberLoans') }}",
+                "data": function(data) {
+                    data.time_open = $('#time_open_filter').val();
+                    data.time_close = $('#time_close_filter').val();
+                    data.status = $('#status_filter').val();
+                    data.election_date = $('#election_date_filter').val();
+                    data.election_year = $('#election_year_filter').val();
+                    data.cluster = $('#cluster_filter').val();
+                },
+            },
+            columns: [{
+                    data: 'action',
+                    name: 'action'
+                },
+                {
+                    data: 'loan_date',
+                    name: 'loan_date'
+                },
+                {
+                    data: 'control_number',
+                    name: 'control_number'
+                },
+                {
+                    data: 'loan_type_name',
+                    name: 'loan_type_name'
+                },
+                {
+                    data: 'status',
+                    name: 'status'
+                },
+                {
+                    data: 'remarks',
+                    name: 'remarks'
+                },
+                {
+                    data: 'approved_amount',
+                    name: 'approved_amount'
+                },
+                {
+                    data: 'monthly_amort',
+                    name: 'monthly_amort'
+                },
+
+
+
+
+            ]
         });
         $(document).on('change', '#loan_type', function(e) {
             member_loan_table.draw();
@@ -421,6 +467,34 @@
             }
         });
     });
+
+    function getMemberLoanCount(view = '') {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('count_member_loan') }}",
+            method: "POST",
+            data: {
+                view: view
+            },
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+
+                $('#total_processing').text(data.total_processing > 0 ? data.total_processing : "0");
+                $('#total_confirmed').text(data.total_confirmed > 0 ? data.total_confirmed : "0");
+                $('#total_for_review').text(data.total_for_review > 0 ? data.total_for_review : "0");
+                $('#total_approved').text(data.total_approved > 0 ? data.total_approved : "0");
+                $('#total_rejected').text(data.total_rejected > 0 ? data.total_rejected : "0");
+            }
+        });
+    }
+
+
     $(document).on('click', '#member_loandet', function(e) {
         var id = $(this).attr('data-id');
         console.log(id);
@@ -443,8 +517,7 @@
             title: 'Select Loan Type',
             input: 'select',
             inputOptions: {
-                'PEL': 'NEW PEL',
-                'RENEW PEL': 'RENEW PEL',
+                'PEL': 'PEL',
                 'CBL ': 'CBL',
                 'BL  ': 'BL',
                 'EML  ': 'EML',
