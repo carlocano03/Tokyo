@@ -1853,8 +1853,11 @@
                             </div>
                         </div>
                         <div class="col-lg-12 d-flex mp-mh4 flex-column">
+                            <a href="/member/loan/schedule" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto maroon-bg">
+                                <span class="save_up" id="generate-loan-form">VIEW AMMORTIZATION SCHEDULE</span>
+                            </a>
                             <a class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
-                                <span class="save_up">GENERATE LOAN APPLICATION FORM</span>
+                                <span class="save_up" id="generate-loan-form">GENERATE LOAN APPLICATION FORM</span>
                             </a>
                             <a class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto gray-bg">
                                 <span class="save_up">GENERATE LOAN INFORMATION SLIP</span>
@@ -2404,7 +2407,7 @@
                                             <div class="underline mp-text-right"></div>
                                         </div>
                                         <div class="info-pdf d-flex flex-row w-100">
-                                            <label class="mt-auto mp-text-right" for="" style="width: 80px; height: 1px; color: white" >Total Payments</label>
+                                            <label class="mt-auto mp-text-right" for="" style="width: 80px; height: 1px; color: white">Total Payments</label>
                                             <div class="underline mp-text-right" style="height: 2px"></div>
                                         </div>
                                     </div>
@@ -2511,19 +2514,31 @@
 </div>
 <script>
     $(document).ready(function() {
-        // var element = document.getElementById('pdf-js');
-        // var opt = {
-        //     margin:       0,
-        //     filename:     'sample.pdf',
-        //     image:        { type: 'jpeg', quality: 0.98 },
-        //     html2canvas:  { scale: 2 },
-        //     jsPDF:        { unit: 'in', format: 'A4', orientation: 'portrait' }
-        // };
-        // html2pdf().set(opt).from(element).save();
+
         $('#back').on('click', function(e) {
             $('.loan-submission').addClass("d-none")
             $('.loan-calculator').removeClass("d-none")
             $('input').first().focus()
+        });
+        $('#generate-loan-form').on('click', function(e) {
+            var element = document.getElementById('pdf-js');
+            var opt = {
+                margin: 0,
+                filename: 'sample.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 1
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'A4',
+                    orientation: 'portrait'
+                }
+            };
+            html2pdf().set(opt).from(element).save();
         });
         $('#recompute').on('click', function(e) {
             $('.loan-submission').addClass("d-none")

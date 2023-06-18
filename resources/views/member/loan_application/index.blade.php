@@ -432,7 +432,7 @@
         $(document).on('click', '#view-loan', function(e) {
             var id = $(this).attr('data-id');
             console.log(id);
-            var url = "#" + '/' + id; //YOUR CHANGES HERE...
+            var url = "" + '/member/loan/view'; //YOUR CHANGES HERE...
             // window.location.href = url;
             window.open(url, '_blank');
         });
