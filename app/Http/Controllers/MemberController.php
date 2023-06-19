@@ -70,10 +70,93 @@ class MemberController extends Controller
         ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
         ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
         ->first();
+
+
+      $recentcontributions = ContributionTransaction::select('*')
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->leftjoin('contribution_account', 'contribution_transaction.account_id', 'contribution_account.id')
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->Where('contribution_transaction.amount', '<>', 0.00)
+        ->orderBy('contribution.date', 'desc')
+        ->orderBy('contribution.reference_no', 'desc')
+
+        ->limit(3)
+        ->get();
+
+      $contributions = array();
+
+      $membercontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 2)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['membercontribution'] = $membercontribution->total;
+
+
+      $upcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 1)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['upcontribution'] = $upcontribution->total;
+
+
+      $eupcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 3)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['eupcontribution'] = $eupcontribution->total;
+
+
+      $emcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 4)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['emcontribution'] = $emcontribution->total;
+
+
+      $totalcontributions = array_sum($contributions);
+
+
+
+      $recentloans = LoanTransaction::select('loan_transaction.id as id', 'reference_no', 'date', 'loan_id', 'amortization', 'interest', 'amount', 'loan_type.name', DB::raw('(select SUM(amount) from loan_transaction as lt where lt.loan_id = loan.id and lt.date<=loan_transaction.date order by date desc) as balance'))
+        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+        ->leftjoin('member', 'loan.member_id', 'member.id')
+        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+        ->where('loan.member_id', '=', $member->member_id)
+        ->Where('loan_transaction.amount', '<>', 0.00)
+        ->groupBy('loan_id')
+        ->orderBy('date', 'desc')
+        ->limit(3)
+        ->get();
+
+
+      $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+        ->where('loan.member_id', '=', $member->member_id)
+        ->groupBy('loan_type.name')
+        ->get();
+
+      $totalloanbalance = 0;
+      foreach ($outstandingloans as $loan) {
+        $totalloanbalance += $loan->balance;
+      }
+
+
       $campuses = DB::table('campus')->get();
       $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
       $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
-      $beneficiaries = DB::table('old_beneficiaries')->where('member_no', $member->member_no)->get();;
+      $beneficiaries = DB::table('old_beneficiaries')->where('member_no', $member->member_no)->get();
+
+      $total_processing = DB::table('loan_applications')->where('status', 'PROCESSING')->where('member_no', $member->member_no)->count();
+      $total_confirmed = DB::table('loan_applications')->where('status', 'CONFIRMED')->where('member_no', $member->member_no)->count();
+      $total_for_review = DB::table('loan_applications')->where('status', 'DRAFT')->where('member_no', $member->member_no)->count();
+      $total_approved = DB::table('loan_applications')->where('status', 'APPROVED')->where('member_no', $member->member_no)->count();
+      $total_rejected = DB::table('loan_applications')->where('status', 'CANCELLED')->where('member_no', $member->member_no)->count();
+
       $data = array(
         'login' => $lastLogin,
         'member' => $member,
@@ -81,17 +164,100 @@ class MemberController extends Controller
         'department' => $department,
         'membership' => $membership,
         'beneficiaries' => $beneficiaries,
-        // 'user_privileges' => DB::table('users')
-        // ->join('user_prev', 'users.id', '=', 'user_prev.users_id')
-        // ->where('users.id', $user->id)
-        // ->get()
+        'recentcontributions' => $recentcontributions,
+        'recentloans' => $recentloans,
+        'contributions' => $contributions,
+        'totalcontributions' => $totalcontributions,
+        'outstandingloans' => $outstandingloans,
+        'totalloanbalance' => $totalloanbalance,
+
+        'total_processing' => $total_processing,
+        'total_confirmed' => $total_confirmed,
+        'total_for_review' => $total_for_review,
+        'total_approved' => $total_approved,
+        'total_rejected' => $total_rejected,
       );
+
       return view('member.dashboard')->with($data);
     } else {
       return redirect('/login');
     }
   }
 
+
+  //member generate soa 
+
+  public function generatesoa($id)
+  {
+    $member = User::where('users.id', $id)
+      ->select('*', 'member.id as member_id', 'users.id as user_id', 'campus.name as campus_name')
+      ->leftjoin('member', 'users.id', '=', 'member.user_id')
+      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+      ->first();
+
+    $contributions = array();
+
+    $membercontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 2)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['membercontribution'] = $membercontribution->total;
+
+
+    $upcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 1)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['upcontribution'] = $upcontribution->total;
+
+
+    $eupcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 3)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['eupcontribution'] = $eupcontribution->total;
+
+
+    $emcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+      ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+      ->where('contribution_transaction.account_id', '=', 4)
+      ->where('contribution.member_id', '=', $member->member_id)
+      ->first();
+    $contributions['emcontribution'] = $emcontribution->total;
+
+
+    $totalcontributions = array_sum($contributions);
+
+
+
+    $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+      ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+      ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+      ->where('loan.member_id', '=', $member->member_id)
+      ->groupBy('loan_type.name')
+      ->get();
+
+    $totalloanbalance = 0;
+    foreach ($outstandingloans as $loan) {
+      $totalloanbalance += $loan->balance;
+    }
+
+    $data['totalloanbalance'] = $totalloanbalance;
+    $data['outstandingloans'] = $outstandingloans;
+    $data['totalcontributions'] = $totalcontributions;
+    $data['emcontribution'] = $emcontribution->total;
+    $data['eupcontribution'] = $eupcontribution->total;
+    $data['upcontribution'] = $upcontribution->total;
+    $data['membercontribution'] = $membercontribution->total;
+    $data['member'] = $member;
+
+    $fullname = $member->last_name . ' , ' . $member->first_name . $member->middle_name;
+    $pdf = PDF::loadView('pdf.soa', $data);
+    return $pdf->stream('' . $fullname .  '-soa.pdf');
+  }
   public function settings()
   {
     if (Auth::check()) {
@@ -150,9 +316,12 @@ class MemberController extends Controller
     $time_open  = $request->get('time_open');
     $time_close  = $request->get('time_close');
 
-    $election_date  = $request->get('election_date');
-    $election_year  = $request->get('election_year');
-    $cluster = $request->get('cluster');
+    $loan_type_filter  = $request->get('loan_type_filter');
+    $loan_status_filter  = $request->get('loan_status_filter');
+
+    $appointment_date_to  = $request->get('appointment_date_to');
+    $appointment_date_from  = $request->get('appointment_date_from');
+
 
     //filter codes
     if (!empty($searchValue)) {
@@ -161,6 +330,7 @@ class MemberController extends Controller
         ->join('loan_type', 'loan_type.id', '=', 'loan_applications.loan_type')
         ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date')
         ->where('loan_applications.member_no', '=', $member->member_no)
+        ->where('loan_applications.control_number', 'like', "%{$searchValue}%")
         ->orderBy($order, $dir)
         ->offset($start)
         ->limit($limit)
@@ -177,6 +347,51 @@ class MemberController extends Controller
         ->get();
     }
 
+    //filter codes
+    if (!empty($loan_type_filter)) {
+
+      $loans = DB::table('loan_applications')
+        ->join('loan_applications_peb', 'loan_applications_peb.loan_app_id', '=', 'loan_applications.id')
+        ->join('loan_type', 'loan_type.id', '=', 'loan_applications.loan_type')
+        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date')
+        ->where('loan_applications.member_no', '=', $member->member_no)
+        ->where('loan_applications.loan_type', '=', $loan_type_filter)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+
+
+    if (!empty($loan_status_filter)) {
+
+      $loans = DB::table('loan_applications')
+        ->join('loan_applications_peb', 'loan_applications_peb.loan_app_id', '=', 'loan_applications.id')
+        ->join('loan_type', 'loan_type.id', '=', 'loan_applications.loan_type')
+        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date')
+        ->where('loan_applications.member_no', '=', $member->member_no)
+        ->where('loan_applications.status', '=', $loan_status_filter)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+
+
+    if (!empty($appointment_date_from) && !empty($appointment_date_to)) {
+
+      $loans = DB::table('loan_applications')
+        ->join('loan_applications_peb', 'loan_applications_peb.loan_app_id', '=', 'loan_applications.id')
+        ->join('loan_type', 'loan_type.id', '=', 'loan_applications.loan_type')
+        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date')
+        ->where('loan_applications.member_no', '=', $member->member_no)
+        ->where('loan_applications.date_created', '>=', $appointment_date_from)
+        ->where('loan_applications.date_created', '<=', $appointment_date_to)
+        ->orderBy($order, $dir)
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
 
     $totalFiltered = DB::table('loan_applications')->where('member_no', '=', $member->member_no)->count();
 
@@ -235,7 +450,6 @@ class MemberController extends Controller
       'total_for_review' => $total_for_review,
       'total_approved' => $total_approved,
       'total_rejected' => $total_rejected,
-
     );
 
     echo json_encode($data);
