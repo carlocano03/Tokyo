@@ -2427,7 +2427,7 @@
                                             <div class="col-lg-6 d-flex justify-content-center">
                                                 <div class="row f-flex">
                                                     <span class="d-flex flex-row justify-content-center">
-                                                        <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto gray-bg" id="save_users" name="save_users" type="submit">
+                                                        <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto gray-bg" id="submit_loan_draft" name="save_users" type="submit">
                                                             SAVE AS DRAFT APPLICATION
                                                         </a>
                                                     </span>
@@ -2749,25 +2749,6 @@
 
     $(document).on('click', '#submit_loan', function(e) { //member send form data 
 
-        // let hasError = false
-
-        // const elements = $(document).find(`[data-set=validate-apply-loan]`)
-
-        // elements.map(function() {
-
-
-        //     let status = true
-        //     status = validateField({
-        //         element: $(this),
-        //         target: 'validate-apply-loan'
-        //     })
-
-        //     if (!hasError && status) {
-        //         hasError = true
-        //     }
-        // })
-
-        // if (hasError) return
 
         //loan input details
         var loan_amount = $('#desired_amount').val();
@@ -2846,6 +2827,101 @@
                 if (data.success == true) {
                     Swal.fire({
                         text: 'Loan Application Sent',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    }).then(okay => {
+                        if (okay) {
+                            location.reload();
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        text: 'Laon Applicationn Details Incomplete!',
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+                }
+
+
+            },
+            error: function(data) {
+
+            }
+        });
+        console.log(formData);
+    })
+
+    $(document).on('click', '#submit_loan_draft', function(e) { //member send form data 
+
+
+        //loan input details
+        var loan_amount = $('#desired_amount').val();
+
+        var total_release_amount = (getDesiredLoanAmount() - 200) - total_loan_balance;
+        // var total_release_amount = getDesiredLoanAmount() + 200;
+        var monthly_amort = getTotalLoanAmountMonthly();
+        var netpay = parseFloat($('#netpay').val());
+
+        var year_terms = $('#year_terms').val();
+        var account_name = $('#account_name').val();
+        var account_number = $('#account_number').val();
+        var active_number = $('#active_number').val();
+        var active_email = $('#active_email').val();
+        var member_no = <?php echo json_encode($member_details->member_no) ?>;
+        var bank = $('input[name="bank"]:checked').val();
+
+        var file_form = $('#loan_files')[0];
+        var formData = new FormData(file_form);
+
+
+
+        var valid_id = $('#valid_id')[0].files;
+        var payslip_1 = $('#payslip_1')[0].files;
+        var payslip_2 = $('#payslip_2')[0].files;
+        var passbook = $('#passbook')[0].files;
+
+
+
+        console.log(member_no)
+        formData.append('loan_amount', loan_amount);
+        formData.append('member_no', member_no);
+        formData.append('year_terms', year_terms);
+        formData.append('account_name', account_name);
+        formData.append('account_number', account_number);
+        formData.append('active_number', $('#active_number').val());
+        formData.append('active_email', $('#active_email').val());
+        formData.append('bank', bank);
+        formData.append('valid_id', valid_id[0]);
+        formData.append('payslip_1', payslip_1[0]);
+        formData.append('payslip_2', payslip_2[0]);
+        formData.append('passbook', passbook[0]);
+
+        //loan details
+        formData.append('net_proceeds', netpay);
+        formData.append('monthly_amort', monthly_amort);
+        formData.append('approved_amount', total_release_amount);
+
+        console.log(formData)
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('add_loan_application_draft') }}",
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            data: formData,
+            success: function(data) {
+                if (data.success == true) {
+                    Swal.fire({
+                        text: 'Loan Application Saved As Draft',
                         icon: 'success',
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Ok',

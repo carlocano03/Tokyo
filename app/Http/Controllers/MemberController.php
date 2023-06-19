@@ -151,8 +151,9 @@ class MemberController extends Controller
       $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
       $beneficiaries = DB::table('old_beneficiaries')->where('member_no', $member->member_no)->get();
 
-      $total_processing = DB::table('loan_applications')->where('status', 'PROCESSING')->where('member_no', $member->member_no)->count();
       $total_confirmed = DB::table('loan_applications')->where('status', 'CONFIRMED')->where('member_no', $member->member_no)->count();
+      $total_processing = DB::table('loan_applications')->where('status', 'PROCESSING')->where('member_no', $member->member_no)->count();
+
       $total_for_review = DB::table('loan_applications')->where('status', 'DRAFT')->where('member_no', $member->member_no)->count();
       $total_approved = DB::table('loan_applications')->where('status', 'APPROVED')->where('member_no', $member->member_no)->count();
       $total_rejected = DB::table('loan_applications')->where('status', 'CANCELLED')->where('member_no', $member->member_no)->count();
@@ -437,11 +438,12 @@ class MemberController extends Controller
 
 
     if (request()->has('view')) {
-      $total_processing = DB::table('loan_applications')->where('status', 'PROCESSING')->where('member_no', $member->member_no)->count();
+
       $total_confirmed = DB::table('loan_applications')->where('status', 'CONFIRMED')->where('member_no', $member->member_no)->count();
       $total_for_review = DB::table('loan_applications')->where('status', 'DRAFT')->where('member_no', $member->member_no)->count();
       $total_approved = DB::table('loan_applications')->where('status', 'APPROVED')->where('member_no', $member->member_no)->count();
       $total_rejected = DB::table('loan_applications')->where('status', 'CANCELLED')->where('member_no', $member->member_no)->count();
+      $total_processing = DB::table('loan_applications')->where('status', '=', 'PROCESSING')->where('member_no', $member->member_no)->count();
     }
 
     $data = array(
@@ -782,6 +784,105 @@ class MemberController extends Controller
         'account_number' => $request->input('account_number'),
         'type' => 'NEW',
         'amount' => $request->input('loan_amount')
+      ]
+
+    );
+    if (!empty($loandet_id)) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
+  }
+
+  public function addNewPelLoanDraft(Request $request)
+  {
+    $current_year = date('Y');
+    $control = DB::table('loan_app_series')->where('loan_type', 1)->first();
+    if ($control->year == $current_year) {
+      $current_counter = $control->current_counter + 1;
+      $counter_digits = str_pad($current_counter, $control->counter_length, '0', STR_PAD_LEFT);
+      $control_number = $control->loan_type_code . '-' . $control->year . '-' . date('m') . '-' . $counter_digits;
+      DB::table('loan_app_series')
+        ->where('loan_type', 1)
+        ->update(['current_last' => $control_number, 'current_counter' => $current_counter]);
+    } else {
+      $year = $current_year;
+      $current_counter = 0 + 1;
+      $counter_digits = str_pad($current_counter, $control->counter_length, '0', STR_PAD_LEFT);
+      $control_number = $control->loan_type_code . '-' . $year . '-' . date('m') . '-' . $counter_digits;
+      DB::table('loan_app_series')
+        ->where('loan_type', 1)
+        ->update(['year' => $year, 'current_last' => $control_number, 'current_counter' => $current_counter]);
+    }
+
+
+
+    $loanapp_id = DB::table('loan_applications')->insertGetId(
+      [
+        'member_no' => $request->input('member_no'),
+        'loan_type' => 1,
+        'control_number' => $control_number,
+        'net_proceeds' => $request->input('net_proceeds') == '' ? null :  $request->input('net_proceeds'),
+        'active_email' => $request->input('active_email')  == '' ? null : $request->input('active_email'),
+        'active_number' => $request->input('active_number')  == '' ? null : $request->input('active_number'),
+        'status' => 'DRAFT'
+      ]
+    );
+
+
+    //files rename + storing code
+
+    $valid_id =  $request->file('valid_id');
+    if (!empty($valid_id)) {
+      $valid_id_file = $valid_id->getClientOriginalName();
+      $valid_id_file_name = $control_number . '_' . $valid_id_file;
+      $path_valid_id = $valid_id->storeAs('loan_applications', $valid_id_file_name, 'public');
+    } else {
+      $valid_id_file_name = null;
+    }
+
+    $payslip_1 =  $request->file('payslip_1');
+    if (!empty($payslip_1)) {
+      $payslip_1_file = $payslip_1->getClientOriginalName();
+      $payslip_1_file_name = $control_number . '_' . $payslip_1_file;
+      $path_payslip_1 =  $payslip_1->storeAs('loan_applications', $payslip_1_file_name, 'public');
+    } else {
+      $payslip_1_file_name = null;
+    }
+
+    $payslip_2 =  $request->file('payslip_2');
+    if (!empty($payslip_2)) {
+      $payslip_2_file = $payslip_2->getClientOriginalName();
+      $payslip_2_file_name = $control_number . '_' . $payslip_2_file;
+      $path_payslip_2 = $payslip_2->storeAs('loan_applications', $payslip_2_file_name, 'public');
+    } else {
+      $payslip_2_file_name = null;
+    }
+
+    $passbook =  $request->file('passbook');
+    if (!empty($passbook)) {
+      $passbook_file = $passbook->getClientOriginalName();
+      $passbook_file_name = $control_number . '_' . $passbook_file;
+      $path_passbook =  $passbook->storeAs('loan_applications', $passbook_file_name, 'public');
+    } else {
+      $passbook_file_name = null;
+    }
+
+
+    //end file code
+    $loandet_id = DB::table('loan_applications_peb')->insertGetId(
+      [
+        'bank' =>  $request->input('bank') == '' ? null : $request->input('bank'),
+        'loan_app_id' => $loanapp_id,
+        'p_id' => $valid_id_file_name,
+        'payslip_1' => $payslip_1_file_name,
+        'payslip_2' => $payslip_2_file_name,
+        'atm_passbook' => $passbook_file_name,
+        'amount' => $request->input('approved_amount') == '' ? null : $request->input('approved_amount'),
+        'account_name' => $request->input('account_name') == '' ? null : $request->input('account_name'),
+        'account_number' => $request->input('account_number') == '' ? null : $request->input('account_number'),
+        'type' => 'NEW',
+        'amount' => $request->input('loan_amount') == '' ? null : $request->input('loan_amount'),
       ]
 
     );
