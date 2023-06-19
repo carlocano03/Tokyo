@@ -228,6 +228,8 @@ Route::get('/member/benefits/apply', [MemberController::class, 'benefitsApply'])
 Route::get('/member/benefits/claim', [MemberController::class, 'benefitsClaim']);
 Route::get('/member/vote', [MemberController::class, 'votingDashboard']);
 
+Route::get('/member/generate/soa/{id}', 'MemberController@generatesoa');
+
 //member request
 Route::post('/change-password', [MemberController::class, 'changePassword']);
 Route::post('/member/add_old_member_beneficiary', [MemberController::class, 'addMemberBeneficiaries'])->name('add_member_beneficiary');

@@ -147,7 +147,7 @@
 
     </div>
     <div class="row no-gutters mp-mb4">
-        <div class="col-12 mp-ph2 mp-pv2">
+        <div class="col-12 mp-ph2 mp-pv2  ">
             <div class="card-container card p-0">
                 <div class="card-header d-flex maroon-bg">
                     <span>Filtering Section</span>
@@ -158,24 +158,25 @@
                             <div class="col-lg-4">
                                 <div class="mp-input-group">
                                     <label class="mp-input-group__label black-clr mp-mb2">Filter by Loan Type</label>
-                                    <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%; " required>
+                                    <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%; " id="loan_type_filter" required>
                                         <option value="">Select Loan Type</option>
-                                        <option value="">(PEL) Personal Equity Loan</option>
-                                        <option value="">(CBL) Co Borrower Plan</option>
-                                        <option value="">(BL) Bridge Loan</option>
-                                        <option value="">(EML) Emergency Loan</option>
-                                        <option value="">(BTL) Balance Transfer Loan</option>
+                                        <option value="1">(PEL) Personal Equity Loan</option>
+                                        <option value="2">(CBL) Co Borrower Plan</option>
+                                        <option value="3">(BL) Bridge Loan</option>
+                                        <option value="4">(EML) Emergency Loan</option>
+                                        <option value="5">(BTL) Balance Transfer Loan</option>
                                     </select>
                                 </div>
                                 <div class="mp-input-group mp-mt3">
+
                                     <label class="mp-input-group__label black-clr mp-mb2">Filter by Application Status</label>
-                                    <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%; " required>
+                                    <select class="js-example-responsive mp-input-group__input mp-text-field" style="width:100%; " id="loan_status_filter" required>
                                         <option value="">Select Loan Type</option>
-                                        <option value="">(PEL) Personal Equity Loan</option>
-                                        <option value="">(CBL) Co Borrower Plan</option>
-                                        <option value="">(BL) Bridge Loan</option>
-                                        <option value="">(EML) Emergency Loan</option>
-                                        <option value="">(BTL) Balance Transfer Loan</option>
+                                        <option value="PROCESSING">PROCESSING</option>
+                                        <option value="CONFIRMED">CONFIRMED</option>
+                                        <option value="DRAFT">DRAFT</option>
+                                        <option value="APPROVED">APPROVED</option>
+                                        <option value="CANCELLED">CANCELLED</option>
                                     </select>
                                 </div>
                                 <div class="mp-input-group mp-mt3 mp-mb2">
@@ -183,12 +184,12 @@
                                     <br>
                                     <span class="d-flex items-between flex-row">
                                         <label class="mp-input-group__label black-clr mp-ml2 align-self-center">Date From:</label>
-                                        <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px">
+                                        <input type="date" id="appointment_date_from" class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px">
                                     </span>
                                     <br>
                                     <span class="d-flex items-between flex-row">
                                         <label class="mp-input-group__label black-clr mp-ml2 align-self-center">Date To:</label>
-                                        <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px">
+                                        <input type="date" id="appointment_date_to" class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px">
                                     </span>
                                 </div>
                             </div>
@@ -263,10 +264,10 @@
                             <div class="col-1g-12" style="padding:15px;">
                                 <div class="d-flex flex-column">
                                     <div class="header-table">
-                                        <table class="payroll-table" id="member_loan_table" style="height: auto;" width="100%">
+                                        <table class="payroll-table" id="member_loan_table" style="height: auto;">
                                             <thead>
                                                 <tr>
-                                                    <th style="width: 60px">
+                                                    <th style="width: 10px">
                                                         <span>Action</span>
                                                     </th>
                                                     <th>
@@ -372,9 +373,7 @@
     </div>
 
 </div>
-</div>
-</div>
-</div>
+
 @endsection
 @section('scripts')
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -389,13 +388,13 @@
             ajax: {
                 url: "{{ route('getMemberLoans') }}",
                 "data": function(data) {
-                    data.time_open = $('#time_open_filter').val();
-                    data.time_close = $('#time_close_filter').val();
-                    data.status = $('#status_filter').val();
-                    data.election_date = $('#election_date_filter').val();
-                    data.election_year = $('#election_year_filter').val();
-                    data.cluster = $('#cluster_filter').val();
+                    data.loan_type_filter = $('#loan_type_filter').val();
+                    data.loan_status_filter = $('#loan_status_filter').val();
+                    data.appointment_date_to = $('#appointment_date_to').val();
+                    data.appointment_date_from = $('#appointment_date_from').val();
+
                 },
+
             },
             columns: [{
                     data: 'action',
@@ -435,33 +434,91 @@
 
             ]
         });
-        $(document).on('change', '#loan_type', function(e) {
+        $('#loan_type_filter').on('change', function() {
+
             member_loan_table.draw();
+
+            processing: true,
+
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('getMemberLoans') }}",
+                    "data": function(data) {
+                        data.time_open = $('#time_open_filter').val();
+                        data.time_close = $('#time_close_filter').val();
+                        data.status = $('#status_filter').val();
+                        data.election_date = $('#election_date_filter').val();
+                        data.election_year = $('#election_year_filter').val();
+                        data.cluster = $('#cluster_filter').val();
+                    },
+                },
+                columns: [{
+                        data: 'action',
+                        name: 'action'
+                    },
+                    {
+                        data: 'loan_date',
+                        name: 'loan_date'
+                    },
+                    {
+                        data: 'control_number',
+                        name: 'control_number'
+                    },
+                    {
+                        data: 'loan_type_name',
+                        name: 'loan_type_name'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'remarks',
+                        name: 'remarks'
+                    },
+                    {
+                        data: 'approved_amount',
+                        name: 'approved_amount'
+                    },
+                    {
+                        data: 'monthly_amort',
+                        name: 'monthly_amort'
+                    },
+
+
+
+
+                ]
         });
-        $(document).on('change', '#loan_status', function(e) {
+
+        $(document).on('change', '#loan_status_filter', function(e) {
+
             member_loan_table.draw();
+
         });
-        $('#from').on('change', function() {
-            if ($('#from').val() > $('#to').val() && $('#to').val() != '') {
+
+        $('#appointment_date_from').on('change', function() {
+            console.log("date changing!");
+            if ($('#appointment_date_from').val() > $('#appointment_date_to').val() && $('#appointment_date_to').val() != '') {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Invalid Date Range,Please Check the date. Thank you!',
                 });
-                $('#from').val('');
+                $('#appointment_date_to').val('');
             } else {
                 member_loan_table.draw();
             }
-
         });
-        $('#to').on('change', function() {
-            if ($('#to').val() < $('#from').val()) {
+        $('#appointment_date_to').on('change', function() {
+            console.log("date changing!");
+            if ($('#appointment_date_from').val() > $('#appointment_date_to').val() && $('#appointment_date_to').val() != '') {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Invalid Date Range,Please Check the date. Thank you!',
                 });
-                $('#to').val('');
+                $('#appointment_date_to').val('');
             } else {
                 member_loan_table.draw();
             }

@@ -3136,7 +3136,7 @@ class AdminController extends Controller
         ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
         ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
         ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
-        ->orderBy($order, $dir)
+        ->orderBy('loan_applications.date_created', 'desc')
         ->offset($start)
         ->limit($limit)
         ->get();
@@ -3158,7 +3158,7 @@ class AdminController extends Controller
         ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
         ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
         ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
-        ->orderBy($order, $dir)
+        ->orderBy('loan_applications.date_created', 'desc')
         ->offset($start)
         ->limit($limit)
         ->get();
@@ -3187,7 +3187,7 @@ class AdminController extends Controller
         ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
         ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
         ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
-        ->orderBy($order, $dir)
+        ->orderBy('loan_applications.date_created', 'desc')
         ->offset($start)
         ->limit($limit)
         ->get();
@@ -3216,7 +3216,7 @@ class AdminController extends Controller
         ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
         ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
         ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
-        ->orderBy($order, $dir)
+        ->orderBy('loan_applications.date_created', 'desc')
         ->offset($start)
         ->limit($limit)
         ->get();
@@ -3244,7 +3244,7 @@ class AdminController extends Controller
         ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
         ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
         ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
-        ->orderBy($order, $dir)
+        ->orderBy('loan_applications.date_created', 'desc')
         ->offset($start)
         ->limit($limit)
         ->get();
@@ -3272,7 +3272,7 @@ class AdminController extends Controller
         ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
         ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
         ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
-        ->orderBy($order, $dir)
+        ->orderBy('loan_applications.date_created', 'desc')
         ->offset($start)
         ->limit($limit)
         ->get();
@@ -3301,7 +3301,8 @@ class AdminController extends Controller
         ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
         ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
         ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
-        ->orderBy($order, $dir)
+        // ->orderBy($order, $dir)
+        ->orderBy('loan_applications.date_created', 'desc')
         ->offset($start)
         ->limit($limit)
         ->get();

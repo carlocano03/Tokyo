@@ -1614,6 +1614,12 @@
 
 
     }
+
+    .link-member {
+        display: flex;
+        justify-content: right;
+        padding: 0px !important;
+    }
 </style>
 <script src="{{ asset('/dist/adminDashboard.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
@@ -1719,7 +1725,10 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="info-text">
-                                <label class="link_style magenta-clr mp-text-right">Generate SOA</label>
+                                <a href="{{ url('/member/generate/soa/' . $member->user_id) }}" target="_blank" class="link-member">
+                                    <label class="link_style magenta-clr mp-text-right">Generate SOA</label>
+                                </a>
+
                             </div>
                             <div class="info-text">
                                 <h1>{{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}</h1>
@@ -1764,7 +1773,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['membercontribution'], 2) }}</label>
 
                         </div>
                     </div>
@@ -1779,7 +1788,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['emcontribution'], 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1793,7 +1802,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['upcontribution'], 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1807,7 +1816,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['eupcontribution'], 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1821,7 +1830,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title">PHP {{ number_format($totalcontributions, 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1832,32 +1841,16 @@
         <div class="col-lg-7 mp-pr0 mp-mt2 " id="statementDiv" style="width: 100%;">
             <div class="row mp-mb2">
                 <div class="col-md-12">
-                    <div class="mp-card h-auto">
-                        <div class="container-fluid mp-mt2">
-                            <div class="row">
-                                <div class="col-4 mp-pl5 font-bold">
-                                    <label for="" class="mp-dashboard__title">PEL</label>
-                                </div>
-                                <div class="col-8">
-                                    <div class="row justify-content-end">
-                                        <div class="col-12 mp-text-right">
-                                            <label for="" class="font-bold mp-mb0 magenta-clr">Loan Balance</label>
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-end">
-                                        <div class="col-12 mp-text-right">
-                                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
+
+                    @if (!empty($outstandingloans))
+
+                    @foreach ($outstandingloans as $oloans)
                     <div class="mp-card mp-mt2 h-auto">
                         <div class="container-fluid mp-mt2">
                             <div class="row">
                                 <div class="col-4 mp-pl5 font-bold">
-                                    <label for="" class="mp-dashboard__title">CBL</label>
+                                    <label for="" class="mp-dashboard__title">{{ $oloans->type }}</label>
                                 </div>
                                 <div class="col-8">
                                     <div class="row justify-content-end">
@@ -1867,28 +1860,7 @@
                                     </div>
                                     <div class="row justify-content-end">
                                         <div class="col-12 mp-text-right">
-                                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mp-card mp-mt2 h-auto">
-                        <div class="container-fluid mp-mt2">
-                            <div class="row">
-                                <div class="col-4 mp-pl5 font-bold">
-                                    <label for="" class="mp-dashboard__title">EML</label>
-                                </div>
-                                <div class="col-8">
-                                    <div class="row justify-content-end">
-                                        <div class="col-12 mp-text-right">
-                                            <label for="" class="font-bold mp-mb0 magenta-clr">Loan Balance</label>
-                                        </div>
-                                    </div>
-                                    <div class="row justify-content-end">
-                                        <div class="col-12 mp-text-right">
-                                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($oloans->balance, 2) }}</label>
                                         </div>
                                     </div>
                                 </div>
@@ -1896,6 +1868,7 @@
                         </div>
                     </div>
 
+                    @endforeach
                     <div class="mp-card mp-mt2 h-auto magenta-bg">
                         <div class="container-fluid mp-mt2">
                             <div class="row justify-content-end">
@@ -1905,35 +1878,37 @@
                             </div>
                             <div class="row justify-content-end">
                                 <div class="col-12 mp-text-right">
-                                    <label for="" class="font-bold dashboard-total-title">Php 100,100.00</label>
+                                    <label for="" class="font-bold dashboard-total-title">PHP {{ number_format($totalloanbalance, 2) }}</label>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endif
+
                 </div>
             </div>
             <div class="right-dashboard col grid side-dashboard gap-10 font-sm card mp-mb2" style="color: black;">
                 <div class="text-center d-flex flex-column justify-content-center">
                     <div>
-                        <span class="font-bold font-lg magenta-clr" id="new_app">0</span>
+                        <span class="font-bold font-lg magenta-clr" id="new_app">{{ $total_processing }}</span>
                     </div>
                     <span class="font-sm">New Loan Application</span>
                 </div>
                 <div class="text-center d-flex flex-column justify-content-center">
                     <div>
-                        <span class="font-bold font-lg magenta-clr" id="forApproval">0</span>
+                        <span class="font-bold font-lg magenta-clr" id="forApproval">{{ $total_processing }}</span>
                     </div>
                     <span class="font-sm">Processing Loan Application</span>
                 </div>
                 <div class="text-center d-flex flex-column justify-content-center">
                     <div>
-                        <span class="font-bold font-lg magenta-clr" id="draft">0</span>
+                        <span class="font-bold font-lg magenta-clr" id="draft">{{ $total_for_review }}</span>
                     </div>
                     <span class="font-sm">Approved Loan Application</span>
                 </div>
                 <div class="text-center d-flex flex-column justify-content-center">
                     <div>
-                        <span class="font-bold font-lg magenta-clr" id="rejected">0</span>
+                        <span class="font-bold font-lg magenta-clr" id="rejected">{{ $total_rejected }}</span>
                     </div>
                     <span class="font-sm ">Rejected Loan Application</span>
                 </div>
@@ -2009,7 +1984,7 @@
                                             </div>
                                         </div>
                                     </div> -->
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-12">
                         <div class="info-text">
                             <label class="black-clr font-bold">Monthly Contribution: Php 150,000.00</label>
@@ -2023,9 +1998,9 @@
                     <div class="col-12">
                         <hr>
                     </div>
-                </div>
+                </div> -->
 
-                <div class="row" style="overflow-y: auto;">
+                <div class="row">
                     <div class="col-1g-12" style="padding:15px;">
                         <div class="d-flex flex-column">
                             <div class="header-table">
@@ -2034,10 +2009,13 @@
                                     <label style="margin-top: -13px;margin-bottom: 10px;">Recent Transaction</label>
                                 </div>
                                 <div class="info-text">
-                                    <label style="margin-top: -13px;margin-bottom: 10px;">As of: May 6, 1999 - 10:00pm</label>
+                                    <label style="margin-top: -13px;margin-bottom: 10px;">As of:
+                                        {{ date('m/d/Y', strtotime($recentcontributions[0]->date)) }}
+
+                                    </label>
                                 </div>
                                 <div class="info-text">
-                                    <label class="link_style magenta-clr mp-text-right">View All</label>
+                                    <a href="/member/equity" class="link-member"><label class="link_style magenta-clr mp-text-right">View All</label></a>
                                 </div>
                                 <table class="payroll-table" style="height: auto;" width="100%">
                                     <thead>
@@ -2051,14 +2029,9 @@
                                             <th>
                                                 <span>Account</span>
                                             </th>
+
                                             <th>
-                                                <span>Debit</span>
-                                            </th>
-                                            <th>
-                                                <span>Credit</span>
-                                            </th>
-                                            <th>
-                                                <span>Balance</span>
+                                                <span>Amount</span>
                                             </th>
 
                                         </tr>
@@ -2068,27 +2041,15 @@
                             <div class="body-table">
                                 <table class="payroll-table" style="height: auto;" width="100%">
                                     <tbody>
+                                        @foreach ($recentcontributions as $contribution)
                                         <tr>
-                                            <td>
-                                                <span>May 6, 1999</span>
+                                            <td>{{ date('m/d/Y', strtotime($contribution->date)) }}</td>
+                                            <td>{{ $contribution->reference_no }}</td>
+                                            <td>{{ $contribution->name }}</td>
+                                            <td class="mp-text-right">PHP {{ number_format($contribution->amount, 2) }}
                                             </td>
-                                            <td>
-                                                <span>OR#210312</span>
-                                            </td>
-                                            <td>
-                                                <span>Member Contribution</span>
-                                            </td>
-                                            <td>
-                                                <span>PHP 655 </span>
-                                            </td>
-                                            <td>
-                                                <span>PHP 123</span>
-                                            </td>
-                                            <td>
-                                                <span>PHP 123,123 </span>
-                                            </td>
-
                                         </tr>
+                                        @endforeach
 
                                     </tbody>
                                 </table>
@@ -2098,7 +2059,7 @@
                 </div>
 
 
-                <div class="row" style="overflow-y: auto;">
+                <div class="row">
                     <div class="col-1g-12" style="padding:15px;">
                         <div class="d-flex flex-column">
                             <div class="header-table">
@@ -2106,32 +2067,27 @@
                                 <div class="info-text">
                                     <label style="margin-top: -13px;margin-bottom: 10px;">Recent Transaction</label>
                                 </div>
+
                                 <div class="info-text">
-                                    <label style="margin-top: -13px;margin-bottom: 10px;">As of: May 6, 1999 - 10:00pm</label>
+                                    <label style="margin-top: -13px;margin-bottom: 10px;">As of:
+                                        @foreach ($recentloans as $loans)
+                                        @if ($loans[0] != null)
+                                        {{ $loans[0]->date  }}
+                                        @endif
+                                        @endforeach
+                                    </label>
                                 </div>
                                 <div class="info-text">
-                                    <label class="link_style magenta-clr mp-text-right">View All</label>
+                                    <a href="/member/transaction" class="link-member"><label class="link_style magenta-clr mp-text-right">View All</label></a>
                                 </div>
                                 <table class="payroll-table" style="height: auto;" width="100%">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                <span>Date</span>
-                                            </th>
-                                            <th>
-                                                <span>Transaction</span>
-                                            </th>
-                                            <th>
-                                                <span>Account</span>
-                                            </th>
-                                            <th>
-                                                <span>Monthly Amortization</span>
-                                            </th>
-                                            <th>
-                                                <span>interest</span>
-                                            </th>
-
-
+                                            <th>Date</th>
+                                            <th>Account</th>
+                                            <th class="mp-text-center">Monthly Amort.</th>
+                                            <th class="mp-text-center">Amount</th>
+                                            <th class="mp-text-right">Principal Balance</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -2139,25 +2095,50 @@
                             <div class="body-table">
                                 <table class="payroll-table" style="height: auto;" width="100%">
                                     <tbody>
+
+                                        <?php $date = ''; ?>
+                                        @foreach ($recentloans as $loans)
+                                        <?php
+                                        $samedate = true;
+                                        if ($date == date('m/d/Y', strtotime($loans->date))) {
+                                            $samedate = false;
+                                        } else {
+                                            $samedate = true;
+                                        }
+                                        $date = date('m/d/Y', strtotime($loans->date));
+                                        ?>
                                         <tr>
-                                            <td>
-                                                <span>May 6, 1999</span>
+                                            <td>{{ date('m/d/Y', strtotime($date)) }}</td>
+                                            <td class="mp-text-center">{{ $loans->name }}</td>
+                                            <td class="mp-text-center">
+                                                {{ $loans->amortization == 0 ? '' : 'PHP ' . number_format($loans->amortization, 2) }}
                                             </td>
-                                            <td>
-                                                <span>OR#210312</span>
+                                            <td class="mp-text-center">{{ 'PHP ' . number_format($loans->amount, 2) }}
                                             </td>
-                                            <td>
-                                                <span>PEL</span>
+                                            <td class="mp-text-right">
+                                                {{ !$samedate ? '' : 'PHP ' . number_format($loans->balance, 2) }}
                                             </td>
-                                            <td>
-                                                <span>PHP -655 </span>
-                                            </td>
-                                            <td>
-                                                <span>PHP -123</span>
-                                            </td>
-
-
                                         </tr>
+                                        @endforeach
+                                        <!-- <tr>
+                                                                <td>
+                                                                    <span>May 6, 1999</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>OR#210312</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>PEL</span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>PHP -655 </span>
+                                                                </td>
+                                                                <td>
+                                                                    <span>PHP -123</span>
+                                                                </td>
+
+
+                                                            </tr> -->
 
                                     </tbody>
                                 </table>
