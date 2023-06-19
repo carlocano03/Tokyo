@@ -438,6 +438,57 @@
 
             member_loan_table.draw();
 
+            processing: true,
+
+                serverSide: true,
+                ajax: {
+                    url: "{{ route('getMemberLoans') }}",
+                    "data": function(data) {
+                        data.time_open = $('#time_open_filter').val();
+                        data.time_close = $('#time_close_filter').val();
+                        data.status = $('#status_filter').val();
+                        data.election_date = $('#election_date_filter').val();
+                        data.election_year = $('#election_year_filter').val();
+                        data.cluster = $('#cluster_filter').val();
+                    },
+                },
+                columns: [{
+                        data: 'action',
+                        name: 'action'
+                    },
+                    {
+                        data: 'loan_date',
+                        name: 'loan_date'
+                    },
+                    {
+                        data: 'control_number',
+                        name: 'control_number'
+                    },
+                    {
+                        data: 'loan_type_name',
+                        name: 'loan_type_name'
+                    },
+                    {
+                        data: 'status',
+                        name: 'status'
+                    },
+                    {
+                        data: 'remarks',
+                        name: 'remarks'
+                    },
+                    {
+                        data: 'approved_amount',
+                        name: 'approved_amount'
+                    },
+                    {
+                        data: 'monthly_amort',
+                        name: 'monthly_amort'
+                    },
+
+
+
+
+                ]
         });
 
         $(document).on('change', '#loan_status_filter', function(e) {

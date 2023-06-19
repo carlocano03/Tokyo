@@ -1853,7 +1853,10 @@
                             </div>
                         </div>
                         <div class="col-lg-12 d-flex mp-mh4 flex-column">
-                            <a class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
+                            <a href="/member/loan/application" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
+                                <span class="save_up">VIEW AMORTIZATION SCHEDULE</span>
+                            </a>
+                            <a id="generate-loan-form" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
                                 <span class="save_up">GENERATE LOAN APPLICATION FORM</span>
                             </a>
                             <a class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto gray-bg">
@@ -2520,6 +2523,26 @@
         //     jsPDF:        { unit: 'in', format: 'A4', orientation: 'portrait' }
         // };
         // html2pdf().set(opt).from(element).save();
+        $('#generate-loan-form').on('click', function(e) {
+            var element = document.getElementById('pdf-js');
+            var opt = {
+                margin: 0,
+                filename: 'sample.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 1
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'A4',
+                    orientation: 'portrait'
+                }
+            };
+            html2pdf().set(opt).from(element).save();
+        });
         $('#back').on('click', function(e) {
             $('.loan-submission').addClass("d-none")
             $('.loan-calculator').removeClass("d-none")
