@@ -9,6 +9,8 @@ use App\Models\MemApp;
 
 use Hash;
 
+use Illuminate\Support\Traits\Tappable;
+
 use PDF;
 use Excel;
 use DataTables;
@@ -313,9 +315,6 @@ class MemberController extends Controller
     $order = $columns[$request->input('order.0.column')];
     $dir = $request->input('order.0.dir');
     $searchValue =  $request->input('search.value');
-    $status_select = $request->input('status');
-    $time_open  = $request->get('time_open');
-    $time_close  = $request->get('time_close');
 
     $loan_type_filter  = $request->get('loan_type_filter');
     $loan_status_filter  = $request->get('loan_status_filter');
@@ -329,7 +328,7 @@ class MemberController extends Controller
       $loans = DB::table('loan_applications')
         ->join('loan_applications_peb', 'loan_applications_peb.loan_app_id', '=', 'loan_applications.id')
         ->join('loan_type', 'loan_type.id', '=', 'loan_applications.loan_type')
-        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date')
+        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date', 'loan_applications.id as loan_id')
         ->where('loan_applications.member_no', '=', $member->member_no)
         ->where('loan_applications.control_number', 'like', "%{$searchValue}%")
         ->orderBy($order, $dir)
@@ -340,7 +339,7 @@ class MemberController extends Controller
       $loans = DB::table('loan_applications')
         ->join('loan_applications_peb', 'loan_applications_peb.loan_app_id', '=', 'loan_applications.id')
         ->join('loan_type', 'loan_type.id', '=', 'loan_applications.loan_type')
-        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date')
+        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date', 'loan_applications.id as loan_id')
         ->where('loan_applications.member_no', '=', $member->member_no)
         ->orderBy($order, $dir)
         ->offset($start)
@@ -354,7 +353,7 @@ class MemberController extends Controller
       $loans = DB::table('loan_applications')
         ->join('loan_applications_peb', 'loan_applications_peb.loan_app_id', '=', 'loan_applications.id')
         ->join('loan_type', 'loan_type.id', '=', 'loan_applications.loan_type')
-        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date')
+        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date', 'loan_applications.id as loan_id')
         ->where('loan_applications.member_no', '=', $member->member_no)
         ->where('loan_applications.loan_type', '=', $loan_type_filter)
         ->orderBy($order, $dir)
@@ -369,7 +368,7 @@ class MemberController extends Controller
       $loans = DB::table('loan_applications')
         ->join('loan_applications_peb', 'loan_applications_peb.loan_app_id', '=', 'loan_applications.id')
         ->join('loan_type', 'loan_type.id', '=', 'loan_applications.loan_type')
-        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date')
+        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date', 'loan_applications.id as loan_id')
         ->where('loan_applications.member_no', '=', $member->member_no)
         ->where('loan_applications.status', '=', $loan_status_filter)
         ->orderBy($order, $dir)
@@ -384,7 +383,7 @@ class MemberController extends Controller
       $loans = DB::table('loan_applications')
         ->join('loan_applications_peb', 'loan_applications_peb.loan_app_id', '=', 'loan_applications.id')
         ->join('loan_type', 'loan_type.id', '=', 'loan_applications.loan_type')
-        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date')
+        ->select('loan_applications.*', 'loan_applications_peb.*', 'loan_type.name as loan_type_name', 'loan_applications.date_created as loan_date', 'loan_applications.id as loan_id')
         ->where('loan_applications.member_no', '=', $member->member_no)
         ->where('loan_applications.date_created', '>=', $appointment_date_from)
         ->where('loan_applications.date_created', '<=', $appointment_date_to)
@@ -406,12 +405,22 @@ class MemberController extends Controller
       $nestedData['approved_amount'] = "PHP " . number_format($row->approved_amount);
       $nestedData['monthly_amort'] = "PHP " . number_format($row->monthly_amort);
 
-      $nestedData['action'] = '
+      if ($row->status == 'DRAFT') {
+        $nestedData['action'] = '
           
-                <a href="/member/loan/view' . $row->id .  '" data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="view-loan" style="cursor: pointer">
+                <a href="/member/loan/pel/save-as-draft/' . $row->loan_id .  '" data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="view-loan" style="cursor: pointer">
                                                             <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
                                                         </a>
          ';
+      } else {
+        $nestedData['action'] = '
+          
+                <a href="/member/loan/view' . $row->loan_id .  '" data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="view-loan" style="cursor: pointer">
+                                                            <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+                                                        </a>
+         ';
+      }
+
 
       $data[] = $nestedData;
     }
@@ -506,96 +515,6 @@ class MemberController extends Controller
         ->select('member.*', 'users.*', 'member_detail.*', 'old_campus.name as campus_name')
         ->get()->first();
 
-      //1 PEL, 2 BL, 3 EML, 4 CBL, 5 BTL
-
-      //pel
-      // $pelBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
-      //   ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
-      //   ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
-      //   ->where('loan.member_id', '=', $member_details->member_no)
-      //   ->where('loan.type_id', '=', 1)
-      //   ->groupBy('loan_type.name')
-      //   ->get();
-
-      // $totalPelBalance = 0;
-      // foreach ($pelBalance as $loan) {
-      //   $totalPelBalance += $loan->balance;
-      // }
-
-      // //BL
-      // $blBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
-      //   ->leftjoin(
-      //     'loan',
-      //     'loan_transaction.loan_id',
-      //     'loan.id'
-      //   )
-      //   ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
-      //   ->where('loan.member_id', '=', $member_details->member_no)
-      //   ->where('loan.type_id', '=', 2)
-      //   ->groupBy('loan_type.name')
-      //   ->get();
-
-      // $totalBlBalance = 0;
-      // foreach ($blBalance as $loan) {
-      //   $totalBlBalance += $loan->balance;
-      // }
-
-
-
-      // //EML
-      // $EMLBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
-      //   ->leftjoin(
-      //     'loan',
-      //     'loan_transaction.loan_id',
-      //     'loan.id'
-      //   )
-      //   ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
-      //   ->where('loan.member_id', '=', $member_details->member_no)
-      //   ->where('loan.type_id', '=', 3)
-      //   ->groupBy('loan_type.name')
-      //   ->get();
-
-      // $totalEMLBalance = 0;
-      // foreach ($EMLBalance as $loan) {
-      //   $totalEMLBalance += $loan->balance;
-      // }
-
-      // //CBL
-      // $CBLBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
-      //   ->leftjoin(
-      //     'loan',
-      //     'loan_transaction.loan_id',
-      //     'loan.id'
-      //   )
-      //   ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
-      //   ->where('loan.member_id', '=', $member_details->member_no)
-      //   ->where('loan.type_id', '=', 4)
-      //   ->groupBy('loan_type.name')
-      //   ->get();
-
-      // $totalCBLBalance = 0;
-      // foreach ($CBLBalance as $loan) {
-      //   $totalCBLBalance += $loan->balance;
-      // }
-
-      // // BTL
-      // $BTLBalance = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
-      //   ->leftjoin(
-      //     'loan',
-      //     'loan_transaction.loan_id',
-      //     'loan.id'
-      //   )
-      //   ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
-      //   ->where('loan.member_id', '=', $member_details->member_no)
-      //   ->where('loan.type_id', '=', 5)
-      //   ->groupBy('loan_type.name')
-      //   ->get();
-
-      // $totalBTLBalance = 0;
-      // foreach ($BTLBalance as $loan) {
-      //   $totalBTLBalance += $loan->balance;
-      // }
-
       $loan_details = DB::table('candidates_tbl')
         ->where('candidates_tbl.election_id', '=',  $user_id)
         ->where('candidates_tbl.sg_category', '=',  '16-33')
@@ -687,26 +606,142 @@ class MemberController extends Controller
         array(
           'member_details' => $member_details,
           'loan_details' => $loan_details,
-
           'totalcontributions' => $totalcontributions,
           'years' => abs($years[0]->years),
           'outstandingloans' => $outstandingloans,
           'totalloanbalance' => $totalloanbalance
         )
       );
+    } else {
+      return redirect('/login');
+    }
+  }
 
-      // compact(
-      //   'member_details',
-      //   'loan_details',
-      //   'totalPelBalance',
-      //   'totalBlBalance',
-      //   'totalEMLBalance',
-      //   'totalCBLBalance',
-      //   'totalBTLBalance',
-      //   'totalcontributions',
+  //pel loan calculator edit draft application
+  public function pel_application_draft($id)
+  {
+    if (Auth::check()) {
+      //logged in
+      $user_id = Auth::user()->id;
+      $member_details = DB::table('member')
+        ->where('member.user_id', '=',  $user_id)
+        ->join('old_campus', "old_campus.id", "=", "member.campus_id")
+        ->join("users", "member.user_id", "=", "users.id")
+        ->join("member_detail", "member_detail.member_no", "=", "member.member_no")
+        ->select('member.*', 'users.*', 'member_detail.*', 'old_campus.name as campus_name')
+        ->get()->first();
+
+      $loan_details = DB::table('candidates_tbl')
+        ->where('candidates_tbl.election_id', '=',  $user_id)
+        ->where('candidates_tbl.sg_category', '=',  '16-33')
+        ->join("personal_details", "candidates_tbl.personal_id", "=", "personal_details.personal_id")
+        ->join(
+          "campus",
+          "candidates_tbl.campus_id",
+          "=",
+          "campus.id"
+        )
+        ->join("membership_id", "candidates_tbl.membership_id", "=", "membership_id.mem_id")
+        ->join("employee_details", "membership_id.employee_no", "=", "employee_details.employee_no")
+        ->select('candidates_tbl.*', 'personal_details.*', 'campus.name as campus_name', 'membership_id.*', 'employee_details.*')
+        ->get();
+      $member = User::where('users.id', $user_id)
+        ->select('*', 'member.id as member_id', 'users.id as user_id', 'campus.name as campus_name')
+        ->leftjoin(
+          'member',
+          'users.id',
+          '=',
+          'member.user_id'
+        )
+        ->leftjoin(
+          'campus',
+          'member.campus_id',
+          '=',
+          'campus.id'
+        )
+        ->first();
+
+      $recentcontributions = ContributionTransaction::select('*')
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->leftjoin('contribution_account', 'contribution_transaction.account_id', 'contribution_account.id')
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->Where('contribution_transaction.amount', '<>', 0.00)
+        ->orderBy('contribution.date', 'desc')
+        ->orderBy('contribution.reference_no', 'desc')
+        // ->limit(3)
+        ->get();
+
+      $contributions = array();
+
+      $membercontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 2)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['membercontribution'] = $membercontribution->total;
 
 
-      // ));
+      $upcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 1)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['upcontribution'] = $upcontribution->total;
+
+
+      $eupcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 3)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['eupcontribution'] = $eupcontribution->total;
+
+
+      $emcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 4)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['emcontribution'] = $emcontribution->total;
+
+
+      $totalcontributions = array_sum($contributions);
+
+
+      $years = OLDMembers::select(DB::raw("YEAR(original_appointment_date) - YEAR(CURDATE()) - (DATE_FORMAT(original_appointment_date,'%m%d') < DATE_FORMAT(CURDATE(),'%m%d')) as years"))
+        ->where('user_Id', '=', $member->user_id)->get();
+
+      $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+        ->where('loan.member_id', '=', $member->member_id)
+        ->groupBy('loan_type.name')
+        ->get();
+
+      $totalloanbalance = 0;
+      foreach ($outstandingloans as $loan) {
+        $totalloanbalance += $loan->balance;
+      }
+
+      $draft_details = DB::table('loan_applications')
+        ->select("loan_applications.*", "loan_applications_peb.*", "loan_applications.id as loan_app_id", "loan_applications_peb.id as loan_peb_id")
+        ->join("loan_applications_peb", "loan_applications_peb.loan_app_id", "=", "loan_applications.id")
+        ->where('loan_applications.id', $id)
+        ->get()
+        ->first();
+
+      return view(
+        'member.loan_application.pel_calculator_draft',
+        array(
+          'member_details' => $member_details,
+          'loan_details' => $loan_details,
+          'totalcontributions' => $totalcontributions,
+          'years' => abs($years[0]->years),
+          'outstandingloans' => $outstandingloans,
+          'totalloanbalance' => $totalloanbalance,
+          'loan_application_details' => $draft_details
+        )
+      );
     } else {
       return redirect('/login');
     }
@@ -738,6 +773,7 @@ class MemberController extends Controller
       [
         'member_no' => $request->input('member_no'),
         'loan_type' => 1,
+        'year_terms' => $request->input('year_terms'),
         'control_number' => $control_number,
         'net_proceeds' => $request->input('net_proceeds'),
         'active_email' => $request->input('active_email'),
@@ -821,6 +857,7 @@ class MemberController extends Controller
       [
         'member_no' => $request->input('member_no'),
         'loan_type' => 1,
+        'year_terms' => $request->input('year_terms'),
         'control_number' => $control_number,
         'net_proceeds' => $request->input('net_proceeds') == '' ? null :  $request->input('net_proceeds'),
         'active_email' => $request->input('active_email')  == '' ? null : $request->input('active_email'),
@@ -891,6 +928,252 @@ class MemberController extends Controller
     } else {
       return response()->json(['success' => false]);
     }
+  }
+
+
+  public function editNewPelLoanDraft(Request $request)
+  {
+    $control_number = $request->input('control_number');
+    $loan_app_id = $request->input('loan_app_id');
+
+
+    $update_loan_application = DB::table('loan_applications')
+      ->where('id', $loan_app_id)
+      ->update([
+        'member_no' => $request->input('member_no'),
+        'loan_type' => 1,
+        'year_terms' => $request->input('year_terms') == '' ? null :  $request->input('year_terms'),
+        'control_number' => $control_number,
+        'net_proceeds' => $request->input('net_proceeds') == '' ? null :  $request->input('net_proceeds'),
+        'active_email' => $request->input('active_email')  == '' ? null : $request->input('active_email'),
+        'active_number' => $request->input('active_number')  == '' ? null : $request->input('active_number'),
+        'status' => 'DRAFT'
+      ]);
+
+
+
+    //files rename + storing code
+
+    $valid_id =  $request->file('valid_id');
+    $recent_valid_id =  $request->input('recent_valid_id');
+    if (!empty($valid_id)) {
+      $valid_id_file = $valid_id->getClientOriginalName();
+      $valid_id_file_name = $control_number . '_' . $valid_id_file;
+      $path_valid_id = $valid_id->storeAs('loan_applications', $valid_id_file_name, 'public');
+    } else if (empty($valid_id) && !empty($recent_valid_id)) {
+      $valid_id_file_name = $recent_valid_id;
+    } else {
+      $valid_id_file_name = null;
+    }
+
+    $payslip_1 =  $request->file('payslip_1');
+    $recent_payslip_1 =  $request->input('recent_payslip_1');
+    if (!empty($payslip_1)) {
+      $payslip_1_file = $payslip_1->getClientOriginalName();
+      $payslip_1_file_name = $control_number . '_' . $payslip_1_file;
+      $path_payslip_1 =  $payslip_1->storeAs('loan_applications', $payslip_1_file_name, 'public');
+    } else if (empty($payslip_1) && !empty($recent_payslip_1)) {
+      $payslip_1_file_name = $recent_payslip_1;
+    } else {
+      $payslip_1_file_name = null;
+    }
+
+    $payslip_2 =  $request->file('payslip_2');
+    $recent_payslip_2 =  $request->input('recent_payslip_2');
+    if (!empty($payslip_2)) {
+      $payslip_2_file = $payslip_2->getClientOriginalName();
+      $payslip_2_file_name = $control_number . '_' . $payslip_2_file;
+      $path_payslip_2 = $payslip_2->storeAs('loan_applications', $payslip_2_file_name, 'public');
+    } else if (empty($payslip_2) && !empty($recent_payslip_2)) {
+      $payslip_2_file_name = $recent_payslip_2;
+    } else {
+      $payslip_2_file_name = null;
+    }
+
+    $passbook =  $request->file('passbook');
+    $recent_passbook =  $request->input('recent_passbook');
+    if (!empty($passbook)) {
+      $passbook_file = $passbook->getClientOriginalName();
+      $passbook_file_name = $control_number . '_' . $passbook_file;
+      $path_passbook =  $passbook->storeAs('loan_applications', $passbook_file_name, 'public');
+    } else if (empty($passbook) && !empty($recent_passbook)) {
+      $passbook_file_name = $recent_passbook;
+    } else {
+
+      $passbook_file_name = null;
+    }
+
+
+
+
+    //end file code
+    if (!empty($loan_peb_id)) {
+      $edit_loan_peb = DB::table('loan_applications_peb')->insertGetId(
+        [
+          'bank' =>  $request->input('bank') == '' ? null : $request->input('bank'),
+          'loan_app_id' => $loan_app_id,
+          'p_id' => $valid_id_file_name,
+          'payslip_1' => $payslip_1_file_name,
+          'payslip_2' => $payslip_2_file_name,
+          'atm_passbook' => $passbook_file_name,
+          'amount' => $request->input('approved_amount') == '' ? null : $request->input('approved_amount'),
+          'account_name' => $request->input('account_name') == '' ? null : $request->input('account_name'),
+          'account_number' => $request->input('account_number') == '' ? null : $request->input('account_number'),
+          'type' => 'NEW',
+          'amount' => $request->input('loan_amount') == '' ? null : $request->input('loan_amount'),
+        ]
+
+      );
+    } else {
+      $edit_loan_peb = DB::table('loan_applications_peb')
+        ->where('loan_app_id', $loan_app_id)
+        ->update([
+          'bank' =>  $request->input('bank') == '' ? null : $request->input('bank'),
+          'loan_app_id' => $loan_app_id,
+          'p_id' => $valid_id_file_name,
+          'payslip_1' => $payslip_1_file_name,
+          'payslip_2' => $payslip_2_file_name,
+          'atm_passbook' => $passbook_file_name,
+          'amount' => $request->input('approved_amount') == '' ? null : $request->input('approved_amount'),
+          'account_name' => $request->input('account_name') == '' ? null : $request->input('account_name'),
+          'account_number' => $request->input('account_number') == '' ? null : $request->input('account_number'),
+          'type' => 'NEW',
+          'amount' => $request->input('loan_amount') == '' ? null : $request->input('loan_amount'),
+        ]);
+    }
+
+
+    return response()->json(['success' => true]);
+  }
+
+  //submit from edit pel loan drafts
+  public function editNewPelLoan(Request $request)
+  {
+
+    $control_number = $request->input('control_number');
+    $loan_app_id = $request->input('loan_app_id');
+
+    try {
+      $update_loan_application = DB::table('loan_applications')
+
+        ->where('id', $loan_app_id)
+        ->update([
+          'member_no' => $request->input('member_no'),
+          'loan_type' => 1,
+          'year_terms' => $request->input('year_terms'),
+          'control_number' => $control_number,
+          'net_proceeds' => $request->input('net_proceeds'),
+          'active_email' => $request->input('active_email'),
+          'active_number' => $request->input('active_number'),
+          'status' => 'PROCESSING'
+        ]);
+    } catch (\Illuminate\Database\QueryException $e) {
+      return response()->json(['success' => false]);
+    } catch (\Exception $e) {
+      return response()->json(['success' => false]);
+    }
+
+
+
+    //files rename + storing code
+
+    $valid_id =  $request->file('valid_id');
+    $recent_valid_id =  $request->input('recent_valid_id');
+    if (!empty($valid_id)) {
+      $valid_id_file = $valid_id->getClientOriginalName();
+      $valid_id_file_name = $control_number . '_' . $valid_id_file;
+      $path_valid_id = $valid_id->storeAs('loan_applications', $valid_id_file_name, 'public');
+    } else if (empty($valid_id) && !empty($recent_valid_id)) {
+      $valid_id_file_name = $recent_valid_id;
+    } else {
+      $valid_id_file_name = null;
+    }
+
+    $payslip_1 =  $request->file('payslip_1');
+    $recent_payslip_1 =  $request->input('recent_payslip_1');
+    if (!empty($payslip_1)) {
+      $payslip_1_file = $payslip_1->getClientOriginalName();
+      $payslip_1_file_name = $control_number . '_' . $payslip_1_file;
+      $path_payslip_1 =  $payslip_1->storeAs('loan_applications', $payslip_1_file_name, 'public');
+    } else if (empty($payslip_1) && !empty($recent_payslip_1)) {
+      $payslip_1_file_name = $recent_payslip_1;
+    } else {
+      $payslip_1_file_name = null;
+    }
+
+    $payslip_2 =  $request->file('payslip_2');
+    $recent_payslip_2 =  $request->input('recent_payslip_2');
+    if (!empty($payslip_2)) {
+      $payslip_2_file = $payslip_2->getClientOriginalName();
+      $payslip_2_file_name = $control_number . '_' . $payslip_2_file;
+      $path_payslip_2 = $payslip_2->storeAs('loan_applications', $payslip_2_file_name, 'public');
+    } else if (empty($payslip_2) && !empty($recent_payslip_2)) {
+      $payslip_2_file_name = $recent_payslip_2;
+    } else {
+      $payslip_2_file_name = null;
+    }
+
+    $passbook =  $request->file('passbook');
+    $recent_passbook =  $request->input('recent_passbook');
+    if (!empty($passbook)) {
+      $passbook_file = $passbook->getClientOriginalName();
+      $passbook_file_name = $control_number . '_' . $passbook_file;
+      $path_passbook =  $passbook->storeAs('loan_applications', $passbook_file_name, 'public');
+    } else if (empty($passbook) && !empty($recent_passbook)) {
+      $passbook_file_name = $recent_passbook;
+    } else {
+
+      $passbook_file_name = null;
+    }
+
+    //end file code
+    if (!empty($loan_peb_id)) {
+      try {
+        $edit_loan_peb = DB::table('loan_applications_peb')->insertGetId(
+          [
+            'bank' =>  $request->input('bank'),
+            'loan_app_id' => $loan_app_id,
+            'p_id' => $valid_id_file_name,
+            'payslip_1' => $payslip_1_file_name,
+            'payslip_2' => $payslip_2_file_name,
+            'atm_passbook' => $passbook_file_name,
+            'amount' => $request->input('approved_amount'),
+            'account_name' => $request->input('account_name'),
+            'account_number' => $request->input('account_number'),
+            'type' => 'NEW',
+          ]
+
+        );
+      } catch (\Illuminate\Database\QueryException $e) {
+        return response()->json(['success' => false]);
+      } catch (\Exception $e) {
+        return response()->json(['success' => false]);
+      }
+    } else {
+      try {
+        $edit_loan_peb =  DB::table('loan_applications_peb')
+          ->where('loan_app_id', $loan_app_id)
+          ->update([
+            'bank' =>  $request->input('bank'),
+            'loan_app_id' => $loan_app_id,
+            'p_id' => $valid_id_file_name,
+            'payslip_1' => $payslip_1_file_name,
+            'payslip_2' => $payslip_2_file_name,
+            'atm_passbook' => $passbook_file_name,
+            'amount' => $request->input('approved_amount'),
+            'account_name' => $request->input('account_name'),
+            'account_number' => $request->input('account_number'),
+            'type' => 'NEW',
+          ]);
+      } catch (\Illuminate\Database\QueryException $e) {
+        return response()->json(['success' => false]);
+      } catch (\Exception $e) {
+        return response()->json(['success' => false]);
+      }
+    }
+
+
+    return response()->json(['success' => true]);
   }
 
   public function schedule()

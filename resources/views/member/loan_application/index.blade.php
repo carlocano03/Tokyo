@@ -501,21 +501,21 @@
     }
 
 
-    $(document).on('click', '#member_loandet', function(e) {
-        var id = $(this).attr('data-id');
-        console.log(id);
-        var url = "#" + '/' + id; //YOUR CHANGES HERE...
-        // window.location.href = url;
-        window.open(url, '_blank');
-    });
+    // $(document).on('click', '#member_loandet', function(e) {
+    //     var id = $(this).attr('data-id');
+    //     console.log(id);
+    //     var url = "#" + '/' + id; //YOUR CHANGES HERE...
+    //     // window.location.href = url;
+    //     window.open(url, '_blank');
+    // });
 
-    $(document).on('click', '#view-loan', function(e) {
-        var id = $(this).attr('data-id');
-        console.log(id);
-        var url = "#" + '/' + id; //YOUR CHANGES HERE...
-        // window.location.href = url;
-        window.open(url, '_blank');
-    });
+    // $(document).on('click', '#view-loan', function(e) {
+    //     var id = $(this).attr('data-id');
+    //     console.log(id);
+    //     var url = "#" + '/' + id; //YOUR CHANGES HERE...
+    //     // window.location.href = url;
+    //     window.open(url, '_blank');
+    // });
 
 
     $(document).on('click', '#apply_loan', function(e) {
