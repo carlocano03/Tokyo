@@ -245,6 +245,12 @@ Route::post('/member/add-new-pel-loans-draft', [MemberController::class, 'addNew
 Route::get('/member/loan-applications-list', [MemberController::class, 'getMemberLoans'])->name('getMemberLoans');
 Route::post('/member/loanCount', [MemberController::class, 'countMemberLoan'])->name('count_member_loan'); //loan member count
 
+//save as draft pel
+Route::get('/member/loan/pel/save-as-draft/{id}', [MemberController::class, 'pel_application_draft'])->name('member.application'); //member save as draft edit page
+Route::post('/member/edit-new-pel-loans-draft', [MemberController::class, 'editNewPelLoanDraft'])->name('edit_loan_application_draft'); // edit as draft from draft page
+Route::post('/member/edit-new-pel-loans', [MemberController::class, 'editNewPelLoan'])->name('edit_loan_application'); // edit as draft  page
+
+
 //PDF Generation
 Route::get('/generateCocolife/{id}', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
 Route::get('/generateProxyForm/{id}', [PDFController::class, 'generateProxyForm']);

@@ -1619,6 +1619,22 @@
         display: flex;
         justify-content: center;
     }
+
+    .color-grey {
+        color: #7c7272 !important;
+    }
+
+    .change-button {
+        background-color: var(--c-active-hover-bg);
+        color: white;
+        border-radius: 10px;
+        width: 200px;
+    }
+
+    .button-change-container {
+        display: flex;
+        justify-content: center;
+    }
 </style>
 <script src="{{ asset('/dist/adminDashboard.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
@@ -1628,37 +1644,8 @@
 
 
 <div class="col-12 padding-content mp-text mp-text-c-accent dashboard mh-content ">
-    <div id="loan_type_select">
-        <div class="col-lg-12 mp-mt2">
-            <div class="back-div mp-mt2" style="margin-bottom:20px;">
-                <a href="/member/loan" style="margin-left:-10px;"><span class="  back-button-default">
-                        < Back </span></a>
-            </div>
-            <div class="row center-select">
 
-                <div class="col-lg-4">
-
-                    <select class="mp-input-group__input mp-text-field" name="loan_type" style="margin-top: 5px;padding: 10px;" id="loan_type" required>
-                        <option value="NEW_PEL">NEW PEL LOAN</option>
-                        <option value="RENEW_PEL">RENEW PEL LOAN</option>
-                    </select>
-
-                    <!-- <input type="text" class=" radius-1 border-1 date-input outline mp-pb1 mp-pt1"> -->
-                </div>
-                <div class="col-lg-2">
-                    <button id="proceed_button" class="mp-button mp-button--primary" style="color:white; margin-top:10px;">
-                        Proceed
-                    </button>
-                </div>
-
-
-            </div>
-
-
-
-        </div>
-    </div>
-    <div class="d-flex flex-wrap opacity-0 d-none" id="new_pel_loan">
+    <div class="d-flex flex-wrap  " id="new_pel_loan">
         <div class="col-lg-4 mp-pr0 mp-mt2" style="width: 100%;">
             <div class="back-div mp-mt2" style="margin-bottom:20px;">
                 <a href="/member/loan" style="margin-left:-10px;"><span class="  back-button-default">
@@ -1832,6 +1819,7 @@
                             </div>
                         </div>
                         <div class="col-12 mp-mt2">
+                            <h3><label class="color-grey">STATUS: </label> DRAFT PEL LOAN</h3>
                             <h3 class="magenta-clr">
                                 Loan Balance:
                             </h3>
@@ -1839,6 +1827,7 @@
 
 
                         <div class="col-12 mp-mb3">
+
                             @if (!empty($outstandingloans))
                             @foreach ($outstandingloans as $oloans)
 
@@ -1883,7 +1872,7 @@
 
         <div class="col-lg-8 mp-pr0 mp-mt2 loan-calculator" style="width: 100%;">
             <div class="main-text mp-text-center ">
-                <h1>NEW PEL LOAN</h1>
+                <h1 class="opacity-0">DRAFT PEL LOAN</h1>
             </div>
             <div class="br-top-2 row" style="color: white;
                                             padding: 5px 10px;
@@ -1915,11 +1904,11 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" id="netpay" name="numberonly" data-set="validate-apply-loan-compute" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="netpay" value="{{ $loan_application_details->net_proceeds }}" name="numberonly" data-set="validate-apply-loan-compute" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-12 mp-mt2">
+                                <!-- <div class="col-lg-12 mp-mt2">
                                     <div class="row">
                                         <div class="col-lg-4 d-flex flex-column justify-content-center">
                                             <div class="info-text">
@@ -1927,10 +1916,10 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" data-set="validate-apply-loan-compute" id="bank_account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" value="{{ $loan_application_details->account_number }}" data-set="validate-apply-loan-compute" id="bank_account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="col-lg-12 mp-mt2">
                                     <div class="row">
@@ -1950,7 +1939,7 @@
                                     </a>
                                 </div>
 
-                                <div class="step-2-div d-none" id="step-2-div">
+                                <div class="step-2-div " id="step-2-div">
                                     <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2">
                                         <div class="info-text">
                                             <label for="" class="white-clr mp-ph2 font-md">Step 2. Select Loanable Amount</label>
@@ -2097,7 +2086,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-8">
-                                                <input type="text" id="desired_amount" data-set="validate-apply-loan-continue" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                <input type="text" id="desired_amount" value="{{ $loan_application_details->amount }}" data-set="validate-apply-loan-continue" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                             </div>
                                         </div>
                                     </div>
@@ -2109,7 +2098,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-8">
-                                                <select id="year_terms" data-set="validate-apply-loan-continue" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
+                                                <select id="year_terms" value="{{ $loan_application_details->year_terms }}" data-set="validate-apply-loan-continue" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
 
                                                     <option value="1">1 Year</option>
                                                     <option value="2">2 Years</option>
@@ -2252,7 +2241,7 @@
                                 <div class="col-lg-7">
                                     <div class="info-text">
                                         <label for="" class="font-md">(PEL) Personal Equity Loan.</label>
-                                        <label for="" class="font-md">Loan Application Number: <span>PEL - 2023-2231</span></label>
+
                                         <label for="" class="font-md">Loan Status: <span>New Application</span></label>
                                     </div>
                                 </div>
@@ -2277,22 +2266,56 @@
                                         <div class="col-lg-12 mp-pv4 mp-ph2">
                                             <form action="">
                                                 <div class="info-text">
+
+                                                    @if($loan_application_details->bank == "LPB")
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="LPB" checked>
+                                                        <label for="" class="font-sm">(LPB) Land Bank of the Philippines</label>
+                                                    </span>
+                                                    @else
                                                     <span class="d-flex flex-row justify-items-center gap-10">
                                                         <input type="radio" class="mp-pt1" id="bank" name="bank" value="LPB">
                                                         <label for="" class="font-sm">(LPB) Land Bank of the Philippines</label>
                                                     </span>
+                                                    @endif
+
+                                                    @if($loan_application_details->bank == "PNB")
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="PNB" checked>
+                                                        <label for="" class="font-sm">(PNB) Philippine National Bank</label>
+                                                    </span>
+                                                    @else
                                                     <span class="d-flex flex-row justify-items-center gap-10">
                                                         <input type="radio" class="mp-pt1" id="bank" name="bank" value="PNB">
                                                         <label for="" class="font-sm">(PNB) Philippine National Bank</label>
                                                     </span>
+                                                    @endif
+
+                                                    @if($loan_application_details->bank == "DBP")
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="DBP" checked>
+                                                        <label for="" class="font-sm">(DBP) Development Bank of the Philippines</label>
+                                                    </span>
+                                                    @else
                                                     <span class="d-flex flex-row justify-items-center gap-10">
                                                         <input type="radio" class="mp-pt1" id="bank" name="bank" value="DBP">
                                                         <label for="" class="font-sm">(DBP) Development Bank of the Philippines</label>
                                                     </span>
+                                                    @endif
+
+                                                    @if($loan_application_details->bank == "PVB")
+                                                    <span class="d-flex flex-row justify-items-center gap-10">
+                                                        <input type="radio" class="mp-pt1" id="bank" name="bank" value="PVB" checked>
+                                                        <label for="" class="font-sm">(PVB) Philippine Veterans Bank</label>
+                                                    </span>
+                                                    @else
                                                     <span class="d-flex flex-row justify-items-center gap-10">
                                                         <input type="radio" class="mp-pt1" id="bank" name="bank" value="PVB">
                                                         <label for="" class="font-sm">(PVB) Philippine Veterans Bank</label>
                                                     </span>
+                                                    @endif
+
+
                                                 </div>
                                             </form>
 
@@ -2312,7 +2335,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <input type="text" id="account_number" data-set="validate-apply-loan" name="account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                    <input type="text" id="account_number" value="{{ $loan_application_details->account_number }}" data-set="validate-apply-loan" name="account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                 </div>
                                             </div>
                                         </div>
@@ -2324,7 +2347,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <input type="text" id="account_name" data-set="validate-apply-loan" name="account_name" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                    <input type="text" id="account_name" value="{{ $loan_application_details->account_name }}" data-set="validate-apply-loan" name="account_name" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                 </div>
                                             </div>
                                         </div>
@@ -2351,7 +2374,21 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="valid_id" data-set="validate-apply-loan" name="valid_id" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
+                                                                @if($loan_application_details->p_id != "")
+                                                                <div class="button-change-container" id="p_id_div">
+                                                                    <a href="{{ asset('storage/loan_applications/'.$loan_application_details->p_id) }}" target="_blank">
+                                                                        <img src="{{ asset('storage/loan_applications/'.$loan_application_details->p_id) }}" width="300px" height="100%">
+                                                                    </a>
+                                                                </div>
+
+                                                                <div class="button-change-container" id="p_id_div">
+                                                                    <button type="button" id="p_id_change" class="change-button">Change</button>
+
+                                                                </div>
+                                                                @endif
+                                                                <input type="file" id="valid_id" data-set="validate-apply-loan" name="valid_id" class="{{$loan_application_details->p_id ==''? '' : 'd-none' }}  w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
+
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2367,10 +2404,35 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="payslip_1" data-set="validate-apply-loan" name="payslip_1" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
+                                                                @if($loan_application_details->payslip_1 != "")
+                                                                <div class="button-change-container" id="payslip_1_div">
+                                                                    <a href="{{ asset('storage/loan_applications/'.$loan_application_details->payslip_1) }}" target="_blank">
+                                                                        <img src="{{ asset('storage/loan_applications/'.$loan_application_details->payslip_1) }}" width="300px" height="100%">
+                                                                    </a>
+                                                                </div>
+
+                                                                <div class="button-change-container" id="payslip_1_div">
+                                                                    <button type="button" id="payslip_1_change" class="change-button">Change</button>
+
+                                                                </div>
+                                                                @endif
+
+                                                                <input type="file" id="payslip_1" id="payslip_1_change" data-set="validate-apply-loan" name="payslip_1" class="{{$loan_application_details->payslip_1 ==''? '' : 'd-none' }} w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="payslip_2" data-set="validate-apply-loan" name="payslip_2" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
+                                                                @if($loan_application_details->payslip_2 != "")
+                                                                <div class="button-change-container" id="payslip_2_div">
+                                                                    <a href="{{ asset('storage/loan_applications/'.$loan_application_details->payslip_2) }}" target="_blank">
+                                                                        <img src="{{ asset('storage/loan_applications/'.$loan_application_details->payslip_2) }}" width="300px" height="100%">
+                                                                    </a>
+                                                                </div>
+
+                                                                <div class="button-change-container" id="payslip_2_div">
+                                                                    <button type="button" id="payslip_2_change" class="change-button">Change</button>
+
+                                                                </div>
+                                                                @endif
+                                                                <input type="file" id="payslip_2" id="payslip_2_change" data-set="validate-apply-loan" name="payslip_1" class="{{$loan_application_details->payslip_2 ==''? '' : 'd-none' }} w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2384,7 +2446,19 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="passbook" data-set="validate-apply-loan" name="passbook" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
+                                                                @if($loan_application_details->atm_passbook != "")
+                                                                <div class="button-change-container" id="passbook_div">
+                                                                    <a href="{{ asset('storage/loan_applications/'.$loan_application_details->atm_passbook) }}" target="_blank">
+                                                                        <img src="{{ asset('storage/loan_applications/'.$loan_application_details->atm_passbook) }}" width="300px" height="100%">
+                                                                    </a>
+                                                                </div>
+
+                                                                <div class="button-change-container" id="passbook_div">
+                                                                    <button type="button" id="passbook_change" class="change-button">Change</button>
+
+                                                                </div>
+                                                                @endif
+                                                                <input type="file" id="passbook" data-set="validate-apply-loan" name="passbook" class="{{$loan_application_details->atm_passbook ==''? '' : 'd-none' }} w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2408,7 +2482,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-8">
-                                                        <input type="text" id="active_email" data-set="validate-apply-loan" name="active_email" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                        <input type="text" id="active_email" value="{{ $loan_application_details->active_email}}" data-set="validate-apply-loan" name="active_email" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                     </div>
                                                 </div>
                                             </div>
@@ -2420,7 +2494,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-8">
-                                                        <input type="text" id="active_number" data-set="validate-apply-loan" name="numberonly" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                        <input type="text" id="active_number" value="{{$loan_application_details->active_number}}" data-set="validate-apply-loan" name="numberonly" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                     </div>
                                                 </div>
                                             </div>
@@ -2431,7 +2505,7 @@
                                             <div class="col-lg-6 d-flex justify-content-center">
                                                 <div class="row f-flex">
                                                     <span class="d-flex flex-row justify-content-center">
-                                                        <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto gray-bg" id="submit_loan_draft" name="save_users" type="submit">
+                                                        <a class="up-button btn-md mp-text-center w-300-px mp-mt2 mp-mvauto gray-bg" id="submit_loan_from_draft" name="save_users" type="submit">
                                                             SAVE AS DRAFT APPLICATION
                                                         </a>
                                                     </span>
@@ -2460,6 +2534,12 @@
 </div>
 <script>
     $(document).ready(function() {
+        $('#year_terms').val(<?php echo $loan_application_details->year_terms ?>).trigger("change");
+        $(function() {
+            $('#year_terms option').filter(function() {
+                return this.textContent == <?php echo $loan_application_details->year_terms; ?>
+            }).prop('selected', true);
+        });
         //js number only
         $('#netpay ,#bank_account_number, #years').keypress(function(e) {
 
@@ -2471,20 +2551,38 @@
 
         });
 
-        // $("#netpay ,#bank_account_number, #years").keyup(function(event) {
-        //     // skip for arrow keys
-        //     if (event.which >= 37 && event.which <= 40) {
-        //         event.preventDefault();
-        //     }
-        //     var $this = $(this);
-        //     var num = $this.val().replace(/,/gi, "");
-        //     var num2 = num.split(/(?=(?:\d{3})+$)/).join(",");
-        //     console.log(num2);
-        //     // the following line has been simplified. Revision history contains original.
-        //     $this.text(num2);
-        // });
+
 
     });
+
+
+    //change attachment
+    $('#p_id_change').on('click', function(e) {
+        $('#p_id_div').addClass("d-none")
+        $('#p_id_change').addClass("d-none")
+        $('#valid_id').removeClass("d-none")
+    });
+
+    $('#payslip_1_change').on('click', function(e) {
+        $('#payslip_1_div').addClass("d-none")
+        $('#payslip_1_change').addClass("d-none")
+        $('#payslip_1').removeClass("d-none")
+    });
+
+    $('#payslip_2_change').on('click', function(e) {
+        $('#payslip_2_div').addClass("d-none")
+        $('#payslip_2_change').addClass("d-none")
+        $('#payslip_2').removeClass("d-none")
+    });
+
+    $('#passbook_change').on('click', function(e) {
+        $('#passbook_div').addClass("d-none")
+        $('#passbook_change').addClass("d-none")
+        $('#passbook').removeClass("d-none")
+    });
+
+
+
     var d = new Date();
     document.getElementById("date").innerHTML = d.toTimeString();
 
@@ -2581,22 +2679,40 @@
 
 
 
-        function hideLoanSelect() {
-            $('#loan_type_select').addClass('d-none')
-            $('#loan_type_select').addClass('opacity-0')
+        function calculateLoan() {
+            var loan_amount = $('#desired_amount').val();
+            var total_loan_balance = <?php echo $totalloanbalance ?>;
+
+            var total_release_amount = (getDesiredLoanAmount() - 200) - total_loan_balance;
+
+            $('#table1_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table2_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+
+            $('#table1_interest').html(getLoanInterest() + " %").trigger("change");
+            $('#table2_interest').html(getLoanInterest() + " %").trigger("change");
+
+
+            $('#table1_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table1_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table1_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
+
+            $('#table2_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table2_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table2_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
+
+
+            $('#table1_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
+            $('#table2_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
+
+
+            $('#table1_actual_amount_desired_loan').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table1_actual_amount_release_existing').html("PHP -" + new Intl.NumberFormat().format(total_loan_balance)).trigger("change");
+
+            $('#table2_actual_amount_desired_loan').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table2_actual_amount_release_existing').html("PHP -" + new Intl.NumberFormat().format(total_loan_balance)).trigger("change");
         }
-        $('#proceed_button').on('click', function(e) {
-            var loan_type = $('#loan_type').val();
-            if (loan_type === "NEW_PEL") {
-                hideLoanSelect();
-                $('#new_pel_loan').removeClass('d-none')
-                $('#new_pel_loan').removeClass('opacity-0')
-            } else if (loan_type === "RENEW_PEL") {
-                hideLoanSelect();
-            }
-        });
 
-
+        calculateLoan();
         $('#back').on('click', function(e) {
             $('.loan-submission').addClass("d-none")
             $('.loan-calculator').removeClass("d-none")
@@ -2670,81 +2786,11 @@
 
         });
         $("#desired_amount").change(function() {
-            var loan_amount = $('#desired_amount').val();
-            var total_loan_balance = <?php echo $totalloanbalance ?>;
-
-            var total_release_amount = (getDesiredLoanAmount() - 200) - total_loan_balance;
-            // console.log(getLoanInterest()); 
-            // console.log(parseInt($('#year_terms').val()));
-
-            console.log(getDesiredLoanAmount());
-            console.log(getLoanInterest());
-
-            console.log(getLoanInterestAmount());
-            $('#table1_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
-            $('#table2_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
-
-            $('#table1_interest').html(getLoanInterest() + " %").trigger("change");
-            $('#table2_interest').html(getLoanInterest() + " %").trigger("change");
-
-
-            $('#table1_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
-            $('#table1_payment_terms').html(getPaymentTerms() + " months").trigger("change");
-            $('#table1_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
-
-            $('#table2_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
-            $('#table2_payment_terms').html(getPaymentTerms() + " months").trigger("change");
-            $('#table2_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
-
-
-            $('#table1_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
-            $('#table2_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
-
-
-            $('#table1_actual_amount_desired_loan').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
-            $('#table1_actual_amount_release_existing').html("PHP -" + new Intl.NumberFormat().format(total_loan_balance)).trigger("change");
-
-            $('#table2_actual_amount_desired_loan').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
-            $('#table2_actual_amount_release_existing').html("PHP -" + new Intl.NumberFormat().format(total_loan_balance)).trigger("change");
-            // $('#table_loan_amount').html("asds").trigger("change");
-
+            calculateLoan();
         });
 
         $("#year_terms").change(function() {
-            var loan_amount = $('#desired_amount').val();
-
-            var total_release_amount = (getDesiredLoanAmount() - 200) - total_loan_balance;
-
-
-            console.log(getDesiredLoanAmount());
-
-
-            console.log(getLoanInterest());
-            console.log(getLoanInterestAmount());
-            $('#table1_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
-            $('#table2_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
-
-            $('#table1_interest').html(getLoanInterest() + " %").trigger("change");
-            $('#table2_interest').html(getLoanInterest() + " %").trigger("change");
-
-
-            $('#table1_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
-            $('#table1_payment_terms').html(getPaymentTerms() + " months").trigger("change");
-            $('#table1_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
-
-            $('#table2_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
-            $('#table2_payment_terms').html(getPaymentTerms() + " months").trigger("change");
-            $('#table2_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
-
-
-            $('#table1_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
-            $('#table2_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
-
-            $('#table2_actual_amount_desired_loan').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
-            $('#table2_actual_amount_release_existing').html("PHP -" + new Intl.NumberFormat().format(total_loan_balance)).trigger("change");
-
-            // $('#table_loan_amount').html("asds").trigger("change");
-
+            calculateLoan();
         });
 
 
@@ -2753,6 +2799,7 @@
 
     $(document).on('click', '#submit_loan', function(e) { //member send form data 
 
+        console.log("asd");
 
         //loan input details
         var loan_amount = $('#desired_amount').val();
@@ -2788,14 +2835,20 @@
         formData.append('year_terms', year_terms);
         formData.append('account_name', account_name);
         formData.append('account_number', account_number);
-        formData.append('active_number', $('#active_number').val());
-        formData.append('active_email', $('#active_email').val());
+        formData.append('active_number', active_number);
+        formData.append('active_email', active_email);
         formData.append('bank', bank);
         formData.append('valid_id', valid_id[0]);
         formData.append('payslip_1', payslip_1[0]);
         formData.append('payslip_2', payslip_2[0]);
         formData.append('passbook', passbook[0]);
 
+        formData.append('loan_peb_id', <?php echo $loan_application_details->loan_peb_id ?>);
+        formData.append('loan_app_id', <?php echo $loan_application_details->loan_app_id ?>);
+        formData.append('recent_valid_id', "<?php echo $loan_application_details->p_id ?>");
+        formData.append('recent_payslip_1', "<?php echo $loan_application_details->payslip_1 ?>");
+        formData.append('recent_payslip_2', "<?php echo $loan_application_details->payslip_2 ?>");
+        formData.append('recent_passbook', "<?php echo $loan_application_details->atm_passbook ?>");
         //loan details
         formData.append('net_proceeds', netpay);
         formData.append('monthly_amort', monthly_amort);
@@ -2809,26 +2862,18 @@
         });
 
         $.ajax({
-            url: "{{ route('add_loan_application') }}",
+            url: "{{ route('edit_loan_application') }}",
             method: "POST",
             data: formData,
             contentType: false,
             processData: false,
             dataType: 'json',
-            // type: 'POST',
-            // data: {
-            //     member_no: member_no,
-            //     active_email: active_email,
-            //     active_number: active_number,
-            //     // monthly_amort: monthly_amort,
-            //     // net_proceeds: net_proceeds,
-            //     valid_id: valid_id,
 
-            // },
 
             data: formData,
             success: function(data) {
                 if (data.success == true) {
+                    console.log(data.success);
                     Swal.fire({
                         text: 'Loan Application Sent',
                         icon: 'success',
@@ -2841,7 +2886,7 @@
                     });
                 } else {
                     Swal.fire({
-                        text: 'Laon Applicationn Details Incomplete!',
+                        text: 'Loan Applicationn Details Incomplete!',
                         icon: 'error',
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Ok',
@@ -2851,13 +2896,18 @@
 
             },
             error: function(data) {
-
+                Swal.fire({
+                    text: 'Loan Applicationn Details Incomplete!',
+                    icon: 'error',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok',
+                });
             }
         });
         console.log(formData);
     })
 
-    $(document).on('click', '#submit_loan_draft', function(e) { //member send form data 
+    $(document).on('click', '#submit_loan_from_draft', function(e) { //member send form data 
 
 
         //loan input details
@@ -2894,18 +2944,27 @@
         formData.append('year_terms', year_terms);
         formData.append('account_name', account_name);
         formData.append('account_number', account_number);
-        formData.append('active_number', $('#active_number').val());
-        formData.append('active_email', $('#active_email').val());
+        formData.append('active_number', active_number);
+        formData.append('active_email', active_email);
         formData.append('bank', bank);
         formData.append('valid_id', valid_id[0]);
         formData.append('payslip_1', payslip_1[0]);
         formData.append('payslip_2', payslip_2[0]);
         formData.append('passbook', passbook[0]);
 
+        formData.append('loan_peb_id', <?php echo $loan_application_details->loan_peb_id ?>);
+        formData.append('loan_app_id', <?php echo $loan_application_details->loan_app_id ?>);
+        formData.append('recent_valid_id', "<?php echo $loan_application_details->p_id ?>");
+        formData.append('recent_payslip_1', "<?php echo $loan_application_details->payslip_1 ?>");
+        formData.append('recent_payslip_2', "<?php echo $loan_application_details->payslip_2 ?>");
+        formData.append('recent_passbook', "<?php echo $loan_application_details->atm_passbook ?>");
+
         //loan details
         formData.append('net_proceeds', netpay);
         formData.append('monthly_amort', monthly_amort);
         formData.append('approved_amount', total_release_amount);
+        formData.append('control_number', <?php echo $loan_application_details->control_number; ?>)
+
 
         console.log(formData)
         $.ajaxSetup({
@@ -2915,7 +2974,7 @@
         });
 
         $.ajax({
-            url: "{{ route('add_loan_application_draft') }}",
+            url: "{{ route('edit_loan_application_draft') }}",
             method: "POST",
             data: formData,
             contentType: false,
@@ -2936,7 +2995,7 @@
                     });
                 } else {
                     Swal.fire({
-                        text: 'Laon Applicationn Details Incomplete!',
+                        text: 'Loan Applicationn Details Incomplete!',
                         icon: 'error',
                         confirmButtonColor: '#3085d6',
                         confirmButtonText: 'Ok',
