@@ -194,4 +194,12 @@ class PDFController extends Controller
         $pdf->setPaper('A4', 'portrait');
         return $pdf->stream();
     }
+
+    public function generateInfoSlip()
+    {
+
+        $pdf = PDF::loadView('pdf.slip');
+        $pdf->setPaper('A4', 'portrait');
+        return $pdf->stream();
+    }
 }
