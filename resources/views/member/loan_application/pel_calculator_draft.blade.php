@@ -52,11 +52,6 @@
 
     }
 
-    .table-container {
-        /* min-height: calc(60vh - 220px);
-        max-height: calc(60vh - 50px);
-        overflow: auto; */
-    }
 
     .summary-container {
         max-height: calc(60vh - 220px);
@@ -1655,11 +1650,9 @@
             <div class="mp-card mp-p4 h-auto mp-mb2">
                 <div class="container-fluid">
                     <div class="row" style="padding:20px;">
-
                         <div class="col-lg-5">
-
                             <div class="profile-img">
-                                <img style="width: 100px; height: 100px;" src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                <img style="width: 100px; height: 100px;" src="{!! asset('assets/images/user-default.png') !!}" alt="">
                             </div>
                         </div>
                         <div class="col-lg-7">
@@ -1929,7 +1922,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" id="years" data-set="validate-apply-loan-compute" value="{{$years}}" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="years" name="years" data-set="validate-apply-loan-compute" value="{{$years}}" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
@@ -2082,7 +2075,7 @@
                                         <div class="row">
                                             <div class="col-lg-4 d-flex flex-column justify-content-center">
                                                 <div class="info-text">
-                                                    <label for="" data-set="validate-apply-loan" class="black-clr">Enter Desired Loanable Amount (*)</label>
+                                                    <label for="" class="black-clr">Enter Desired Loanable Amount (*)</label>
                                                 </div>
                                             </div>
                                             <div class="col-lg-8">
@@ -2467,6 +2460,7 @@
                                         </div>
 
                                     </div>
+
                                     <div class="col-lg-12 magenta-bg br-top-2 br-bottom-2 mp-mh2 mp-mt3">
                                         <div class="info-text">
                                             <label for="" class="white-clr mp-ph2 font-md">C. Additional Information</label>
@@ -2799,8 +2793,28 @@
 
     $(document).on('click', '#submit_loan', function(e) { //member send form data 
 
-        console.log("asd");
+        let hasError = false
 
+        const elements = $(document).find(`[data-set=validate-apply-loan]`)
+
+        elements.map(function() {
+
+            if ($(this).attr('err-name')) {
+                return
+            }
+
+            let status = true
+            status = validateField({
+                element: $(this),
+                target: 'validate-apply-loan'
+            })
+
+            if (!hasError && status) {
+                hasError = true
+            }
+        })
+
+        if (hasError) return
         //loan input details
         var loan_amount = $('#desired_amount').val();
 
@@ -2853,6 +2867,7 @@
         formData.append('net_proceeds', netpay);
         formData.append('monthly_amort', monthly_amort);
         formData.append('approved_amount', total_release_amount);
+        formData.append('control_number', <?php echo json_encode($loan_application_details->control_number); ?>);
 
         console.log(formData)
         $.ajaxSetup({
@@ -2881,7 +2896,7 @@
                         confirmButtonText: 'Ok',
                     }).then(okay => {
                         if (okay) {
-                            location.reload();
+                            window.location.assign('/member/loan');
                         }
                     });
                 } else {
@@ -2963,9 +2978,9 @@
         formData.append('net_proceeds', netpay);
         formData.append('monthly_amort', monthly_amort);
         formData.append('approved_amount', total_release_amount);
-        formData.append('control_number', <?php echo $loan_application_details->control_number; ?>)
+        formData.append('control_number', <?php echo json_encode($loan_application_details->control_number); ?>)
 
-
+        console.log("asd " + <?php echo $loan_application_details->control_number; ?>)
         console.log(formData)
         $.ajaxSetup({
             headers: {
@@ -2990,7 +3005,7 @@
                         confirmButtonText: 'Ok',
                     }).then(okay => {
                         if (okay) {
-                            location.reload();
+                            window.location.assign('/member/loan');
                         }
                     });
                 } else {

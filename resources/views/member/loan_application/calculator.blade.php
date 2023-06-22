@@ -52,11 +52,7 @@
 
     }
 
-    .table-container {
-        /* min-height: calc(60vh - 220px);
-        max-height: calc(60vh - 50px);
-        overflow: auto; */
-    }
+
 
     .summary-container {
         max-height: calc(60vh - 220px);
@@ -1672,7 +1668,7 @@
                         <div class="col-lg-5">
 
                             <div class="profile-img">
-                                <img style="width: 100px; height: 100px;" src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                <img style="width: 100px; height: 100px;" src="{!! asset('assets/images/user-default.png') !!}" alt="">
                             </div>
                         </div>
                         <div class="col-lg-7">
@@ -1883,7 +1879,7 @@
 
         <div class="col-lg-8 mp-pr0 mp-mt2 loan-calculator" style="width: 100%;">
             <div class="main-text mp-text-center ">
-                <h1>NEW PEL LOAN</h1>
+                <h1 class="opacity-0">NEW PEL LOAN</h1>
             </div>
             <div class="br-top-2 row" style="color: white;
                                             padding: 5px 10px;
@@ -1909,17 +1905,19 @@
                                 </div>
                                 <div class="col-lg-12 mp-mt2">
                                     <div class="row">
+
                                         <div class="col-lg-4 d-flex flex-column justify-content-center">
                                             <div class="info-text">
-                                                <label for="" class="black-clr">Enter Net Pay (*)</label>
+                                                <label for="" class="black-clr  ">Enter Net Pay (*)</label>
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" id="netpay" name="numberonly" data-set="validate-apply-loan-compute" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="netpay" name="numberonly" data-set="validate-apply-loan-compute" class="mp-input-group__input mp-text-field w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
+
                                     </div>
                                 </div>
-                                <div class="col-lg-12 mp-mt2">
+                                <!-- <div class="col-lg-12 mp-mt2">
                                     <div class="row">
                                         <div class="col-lg-4 d-flex flex-column justify-content-center">
                                             <div class="info-text">
@@ -1927,10 +1925,10 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" data-set="validate-apply-loan-compute" id="bank_account_number" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" name="bank_account_number" data-set="validate-apply-loan-compute" id="bank_account_number" class="mp-input-group__input mp-text-field w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <div class="col-lg-12 mp-mt2">
                                     <div class="row">
@@ -1940,7 +1938,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" id="years" data-set="validate-apply-loan-compute" value="{{$years}}" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="years" name="years" data-set="validate-apply-loan-compute" value="{{$years}}" class=" mp-input-group__input mp-text-field w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
@@ -2093,11 +2091,11 @@
                                         <div class="row">
                                             <div class="col-lg-4 d-flex flex-column justify-content-center">
                                                 <div class="info-text">
-                                                    <label for="" data-set="validate-apply-loan" class="black-clr">Enter Desired Loanable Amount (*)</label>
+                                                    <label for="" class="black-clr">Enter Desired Loanable Amount (*)</label>
                                                 </div>
                                             </div>
                                             <div class="col-lg-8">
-                                                <input type="text" id="desired_amount" data-set="validate-apply-loan-continue" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                <input type="text" id="desired_amount" name="desired_amount" data-set="validate-apply-loan-continue" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                             </div>
                                         </div>
                                     </div>
@@ -2109,7 +2107,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-8">
-                                                <select id="year_terms" data-set="validate-apply-loan-continue" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
+                                                <select id="year_terms" name="year_terms" data-set="validate-apply-loan-continue" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
 
                                                     <option value="1">1 Year</option>
                                                     <option value="2">2 Years</option>
@@ -2592,6 +2590,8 @@
                 $('#new_pel_loan').removeClass('d-none')
                 $('#new_pel_loan').removeClass('opacity-0')
             } else if (loan_type === "RENEW_PEL") {
+                $('#new_pel_loan').removeClass('d-none')
+                $('#new_pel_loan').removeClass('opacity-0')
                 hideLoanSelect();
             }
         });
@@ -2753,7 +2753,28 @@
 
     $(document).on('click', '#submit_loan', function(e) { //member send form data 
 
+        let hasError = false
 
+        const elements = $(document).find(`[data-set=validate-apply-loan]`)
+
+        elements.map(function() {
+
+            if ($(this).attr('err-name')) {
+                return
+            }
+
+            let status = true
+            status = validateField({
+                element: $(this),
+                target: 'validate-apply-loan'
+            })
+
+            if (!hasError && status) {
+                hasError = true
+            }
+        })
+
+        if (hasError) return
         //loan input details
         var loan_amount = $('#desired_amount').val();
 
@@ -2796,6 +2817,14 @@
         formData.append('payslip_2', payslip_2[0]);
         formData.append('passbook', passbook[0]);
 
+        var loan_type = $('#loan_type').val();
+        if (loan_type === "NEW_PEL") {
+            formData.append('type_of_loan', 'NEW');
+        } else if (loan_type === "RENEW_PEL") {
+            formData.append('type_of_loan', 'RENEW');
+        }
+
+
         //loan details
         formData.append('net_proceeds', netpay);
         formData.append('monthly_amort', monthly_amort);
@@ -2836,7 +2865,7 @@
                         confirmButtonText: 'Ok',
                     }).then(okay => {
                         if (okay) {
-                            location.reload();
+                            window.location.assign('/member/loan');
                         }
                     });
                 } else {
@@ -2902,6 +2931,12 @@
         formData.append('payslip_2', payslip_2[0]);
         formData.append('passbook', passbook[0]);
 
+        var loan_type = $('#loan_type').val();
+        if (loan_type === "NEW_PEL") {
+            formData.append('type_of_loan', 'NEW');
+        } else if (loan_type === "RENEW_PEL") {
+            formData.append('type_of_loan', 'RENEW');
+        }
         //loan details
         formData.append('net_proceeds', netpay);
         formData.append('monthly_amort', monthly_amort);
@@ -2931,7 +2966,7 @@
                         confirmButtonText: 'Ok',
                     }).then(okay => {
                         if (okay) {
-                            location.reload();
+                            window.location.assign('/member/loan');
                         }
                     });
                 } else {
