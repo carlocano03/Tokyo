@@ -724,7 +724,7 @@ class MemberController extends Controller
       }
 
       $draft_details = DB::table('loan_applications')
-        ->select("loan_applications.*", "loan_applications_peb.*", "loan_applications.id as loan_app_id", "loan_applications_peb.id as loan_peb_id")
+        ->select("loan_applications.*", "loan_applications_peb.*", "loan_applications.id as loan_app_id", "loan_applications_peb.id as loan_peb_id", "loan_applications.control_number as control_number")
         ->join("loan_applications_peb", "loan_applications_peb.loan_app_id", "=", "loan_applications.id")
         ->where('loan_applications.id', $id)
         ->get()
@@ -818,7 +818,7 @@ class MemberController extends Controller
         'amount' => $request->input('approved_amount'),
         'account_name' => $request->input('account_name'),
         'account_number' => $request->input('account_number'),
-        'type' => 'NEW',
+        'type' => $request->input('type_of_loan'),
         'amount' => $request->input('loan_amount')
       ]
 
@@ -915,10 +915,10 @@ class MemberController extends Controller
         'payslip_1' => $payslip_1_file_name,
         'payslip_2' => $payslip_2_file_name,
         'atm_passbook' => $passbook_file_name,
-        'amount' => $request->input('approved_amount') == '' ? null : $request->input('approved_amount'),
+
         'account_name' => $request->input('account_name') == '' ? null : $request->input('account_name'),
         'account_number' => $request->input('account_number') == '' ? null : $request->input('account_number'),
-        'type' => 'NEW',
+
         'amount' => $request->input('loan_amount') == '' ? null : $request->input('loan_amount'),
       ]
 
@@ -1007,40 +1007,22 @@ class MemberController extends Controller
 
 
     //end file code
-    if (!empty($loan_peb_id)) {
-      $edit_loan_peb = DB::table('loan_applications_peb')->insertGetId(
-        [
-          'bank' =>  $request->input('bank') == '' ? null : $request->input('bank'),
-          'loan_app_id' => $loan_app_id,
-          'p_id' => $valid_id_file_name,
-          'payslip_1' => $payslip_1_file_name,
-          'payslip_2' => $payslip_2_file_name,
-          'atm_passbook' => $passbook_file_name,
-          'amount' => $request->input('approved_amount') == '' ? null : $request->input('approved_amount'),
-          'account_name' => $request->input('account_name') == '' ? null : $request->input('account_name'),
-          'account_number' => $request->input('account_number') == '' ? null : $request->input('account_number'),
-          'type' => 'NEW',
-          'amount' => $request->input('loan_amount') == '' ? null : $request->input('loan_amount'),
-        ]
 
-      );
-    } else {
-      $edit_loan_peb = DB::table('loan_applications_peb')
-        ->where('loan_app_id', $loan_app_id)
-        ->update([
-          'bank' =>  $request->input('bank') == '' ? null : $request->input('bank'),
-          'loan_app_id' => $loan_app_id,
-          'p_id' => $valid_id_file_name,
-          'payslip_1' => $payslip_1_file_name,
-          'payslip_2' => $payslip_2_file_name,
-          'atm_passbook' => $passbook_file_name,
-          'amount' => $request->input('approved_amount') == '' ? null : $request->input('approved_amount'),
-          'account_name' => $request->input('account_name') == '' ? null : $request->input('account_name'),
-          'account_number' => $request->input('account_number') == '' ? null : $request->input('account_number'),
-          'type' => 'NEW',
-          'amount' => $request->input('loan_amount') == '' ? null : $request->input('loan_amount'),
-        ]);
-    }
+    $edit_loan_peb = DB::table('loan_applications_peb')->updateOrInsert(
+      ['loan_app_id' => $loan_app_id],
+      [
+        'bank' =>  $request->input('bank') == '' || $request->input('bank') == "undefined" ? null : $request->input('bank'),
+        'loan_app_id' => $loan_app_id,
+        'p_id' => $valid_id_file_name,
+        'payslip_1' => $payslip_1_file_name,
+        'payslip_2' => $payslip_2_file_name,
+        'atm_passbook' => $passbook_file_name,
+        'account_name' => $request->input('account_name') == '' ? null : $request->input('account_name'),
+        'account_number' => $request->input('account_number') == '' ? null : $request->input('account_number'),
+
+        'amount' => $request->input('loan_amount') == '' ? null : $request->input('loan_amount'),
+      ]
+    );
 
 
     return response()->json(['success' => true]);
@@ -1127,50 +1109,30 @@ class MemberController extends Controller
     }
 
     //end file code
-    if (!empty($loan_peb_id)) {
-      try {
-        $edit_loan_peb = DB::table('loan_applications_peb')->insertGetId(
-          [
-            'bank' =>  $request->input('bank'),
-            'loan_app_id' => $loan_app_id,
-            'p_id' => $valid_id_file_name,
-            'payslip_1' => $payslip_1_file_name,
-            'payslip_2' => $payslip_2_file_name,
-            'atm_passbook' => $passbook_file_name,
-            'amount' => $request->input('approved_amount'),
-            'account_name' => $request->input('account_name'),
-            'account_number' => $request->input('account_number'),
-            'type' => 'NEW',
-          ]
 
-        );
-      } catch (\Illuminate\Database\QueryException $e) {
-        return response()->json(['success' => false]);
-      } catch (\Exception $e) {
-        return response()->json(['success' => false]);
-      }
-    } else {
-      try {
-        $edit_loan_peb =  DB::table('loan_applications_peb')
-          ->where('loan_app_id', $loan_app_id)
-          ->update([
-            'bank' =>  $request->input('bank'),
-            'loan_app_id' => $loan_app_id,
-            'p_id' => $valid_id_file_name,
-            'payslip_1' => $payslip_1_file_name,
-            'payslip_2' => $payslip_2_file_name,
-            'atm_passbook' => $passbook_file_name,
-            'amount' => $request->input('approved_amount'),
-            'account_name' => $request->input('account_name'),
-            'account_number' => $request->input('account_number'),
-            'type' => 'NEW',
-          ]);
-      } catch (\Illuminate\Database\QueryException $e) {
-        return response()->json(['success' => false]);
-      } catch (\Exception $e) {
-        return response()->json(['success' => false]);
-      }
+    try {
+
+      $edit_loan_peb = DB::table('loan_applications_peb')->updateOrInsert(
+        ['loan_app_id' => $loan_app_id],
+        [
+          'bank' =>  $request->input('bank'),
+          'loan_app_id' => $loan_app_id,
+          'p_id' => $valid_id_file_name,
+          'payslip_1' => $payslip_1_file_name,
+          'payslip_2' => $payslip_2_file_name,
+          'atm_passbook' => $passbook_file_name,
+          'amount' => $request->input('loan_amount'),
+          'account_name' => $request->input('account_name'),
+          'account_number' => $request->input('account_number'),
+
+        ]
+      );
+    } catch (\Illuminate\Database\QueryException $e) {
+      return response()->json(['success' => false]);
+    } catch (\Exception $e) {
+      return response()->json(['success' => false]);
     }
+
 
 
     return response()->json(['success' => true]);

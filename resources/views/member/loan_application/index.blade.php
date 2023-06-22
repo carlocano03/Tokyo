@@ -204,7 +204,7 @@
                                 <div class="right-dashboard col grid side-dashboard gap-10 font-sm card mp-mb2" style="color: black;">
                                     <div class="text-center d-flex flex-column justify-content-center">
                                         <div>
-                                            <span class="font-bold font-lg magenta-clr" id="total_processing">0</span>
+                                            <span class="font-bold font-lg magenta-clr" id="total_new">0</span>
                                         </div>
                                         <span class="font-sm min-h-40">New Loan Application</span>
                                     </div>
@@ -492,6 +492,7 @@
                 console.log(data);
 
                 $('#total_processing').text(data.total_processing > 0 ? data.total_processing : "0");
+                $('#total_new').text(data.total_processing > 0 ? data.total_processing : "0");
                 $('#total_confirmed').text(data.total_confirmed > 0 ? data.total_confirmed : "0");
                 $('#total_for_review').text(data.total_for_review > 0 ? data.total_for_review : "0");
                 $('#total_approved').text(data.total_approved > 0 ? data.total_approved : "0");
