@@ -262,7 +262,7 @@ Route::get('/admin/generate/soa/{id}', 'AdminController@generatesoa');
 Route::get('/admin/members_ledger/{id}', 'AdminController@member_ledger');
 
 Route::get('/admin/loan/loan-details/generate-payslip', [PDFController::class, 'generatePayslip'])->name('generate-payslip');
-
+Route::get('/member/loan/info-slip', [PDFController::class, 'generateInfoSlip'])->name('generate-info-slip');
 
 Route::get('/memberform/{id}', [PDFController::class, 'memberform'])->name('memberform');
 Route::get('/proxyForm', [PDFController::class, 'proxyForm'])->name('proxyForm');
