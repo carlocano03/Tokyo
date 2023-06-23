@@ -251,6 +251,18 @@ Route::post('/member/edit-new-pel-loans-draft', [MemberController::class, 'editN
 Route::post('/member/edit-new-pel-loans', [MemberController::class, 'editNewPelLoan'])->name('edit_loan_application'); // edit as draft  page
 
 
+//member-loan CBL
+Route::get('/member/loan/application/cbl', [MemberController::class, 'cbl_application'])->name('member.cbl_application');
+
+//member-loan BL
+Route::get('/member/loan/application/bl', [MemberController::class, 'bl_application'])->name('member.bl_application');
+
+//member-loan EML
+Route::get('/member/loan/application/eml', [MemberController::class, 'eml_application'])->name('member.eml_application');
+
+//member-loan ETL
+Route::get('/member/loan/application/btl', [MemberController::class, 'btl_application'])->name('member.btl_application');
+
 //PDF Generation
 Route::get('/generateCocolife/{id}', [PDFController::class, 'generateCocolife'])->name('generateCocolife');
 Route::get('/generateProxyForm/{id}', [PDFController::class, 'generateProxyForm']);
