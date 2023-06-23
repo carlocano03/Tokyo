@@ -545,6 +545,14 @@
         }).then(function(result) {
             if (result.value === 'PEL') {
                 window.location = '/member/loan/application';
+            } else if (result.value === 'BTL') {
+                window.location = '/member/loan/application/btl';
+            } else if (result.value === 'CBL') {
+                window.location = '/member/loan/application/cbl';
+            } else if (result.value === 'BL') {
+                window.location = '/member/loan/application/bl';
+            } else if (result.value === 'EML') {
+                window.location = '/member/loan/application/eml';
             }
             console.log(result);
             // 
