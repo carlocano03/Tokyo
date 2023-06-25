@@ -240,8 +240,8 @@ Route::post('/member/member-update', [MemberController::class, 'updateMemberDeta
 Route::get('/member/update-password', [MemberController::class, 'updatepassword'])->name('member.updatepassword');
 
 //member back end m
-Route::get('/member/add-new-pel-loans', [MemberController::class, 'addNewPelLoan'])->name('add_loan_application');
-Route::get('/member/add-new-pel-loans-draft', [MemberController::class, 'addNewPelLoanDraft'])->name('add_loan_application_draft');
+Route::post('/member/add-new-pel-loans', [MemberController::class, 'addNewPelLoan'])->name('add_loan_application');
+Route::post('/member/add-new-pel-loans-draft', [MemberController::class, 'addNewPelLoanDraft'])->name('add_loan_application_draft');
 Route::get('/member/loan-applications-list', [MemberController::class, 'getMemberLoans'])->name('getMemberLoans');
 Route::post('/member/loanCount', [MemberController::class, 'countMemberLoan'])->name('count_member_loan'); //loan member count
 
