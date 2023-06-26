@@ -1660,27 +1660,35 @@
                         <div class="col-lg-5">
 
                             <div class="profile-img">
-                                <img style="width: 100px; height: 100px;" src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                <img style="width: 100px; height: 100px;" src="{!! asset('assets/images/user-default.png') !!}" alt="">
                             </div>
                         </div>
-                        <div class="col-lg-7">
+                        <div class=" col-lg-7">
                             <div class="profile-text" style="display: inline-grid;">
                                 <span style="font-size: 15px;
-                                          color: black;
-                                          font-weight: bold;">Member Status</span>
+                                                                color: black;
+                                                                font-weight: bold;">Member Status</span>
 
+                                @if ($member->membership_status == 'ACTIVE')
                                 <span style="   margin-top: -5px;
-                                              color: var(--c-primary);
-                                              font-size: 25px;
-                                              font-weight: 500;"> Active</span>
+                                                                    color: var(--c-primary);
+                                                                    font-size: 25px;
+                                                                    font-weight: 500;"> {{ $member->membership_status }}</span>
+                                @else
+                                <span style="   margin-top: -5px;
+                                                                    color: red;
+                                                                    font-size: 25px;
+                                                                    font-weight: 500;"> {{ $member->membership_status }}</span>
+                                @endif
+
 
 
                                 <span style="color: #7c7272;"> Member ID: </span>
 
                                 <span style="font-size: 25px;
-                                          margin-top:-5px;
-                                          color: black;
-                                          font-weight: bold;">20022232</span>
+                                                                margin-top:-5px;
+                                                                color: black;
+                                                                font-weight: bold;"> {{ $member->member_no }}</span>
                             </div>
                         </div>
                     </div>
@@ -1689,14 +1697,15 @@
                         <div class="col-12">
 
                             <div class="info-text">
-                                <h1>Gomez, Mark Denneb</h1>
-                                <label>System Admin</label>
-                                <label>ADMINISTRITIVE OFFICE IV</label>
+                                <h1> {{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}</h1>
+                                <label>{{ $member->campus_name }}</label>
+                                <label>{{ $member->position_id }}</label>
                             </div>
 
                             <div class="info-text-number">
-                                <label><i class="fa fa-envelope-o" aria-hidden="true"></i> markdennebg@gmail.com</label>
-                                <label style="float:right;"><i class="fa fa-phone" aria-hidden="true"></i>+639262586168</label>
+
+                                <label><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ $member->email }}</label>
+                                <label style="float:right;"><i class="fa fa-phone" aria-hidden="true"></i>+63{{ $member->contact_no }}</label>
                             </div>
 
 
@@ -1718,7 +1727,7 @@
                             </span>
                             <span>
                                 <h3 class="black-clr">
-                                    PHP 113,220.00
+                                    PHP {{ number_format($totalloanbalance)}}
                                 </h3>
                             </span>
                         </div>
@@ -1730,13 +1739,13 @@
                                 <div class="col-lg-6">
                                     <div class="info-text">
                                         <label>Loan Application Number: </label>
-                                        <label>PEL - 123123</label>
+                                        <label>{{$loan_details->control_number}}</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="info-text">
                                         <label>Application Date: </label>
-                                        <label>May 3, 2023</label>
+                                        <label>{{$loan_details->date_created}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -1744,11 +1753,12 @@
                                 <div class="col-lg-6">
                                     <div class="info-text">
                                         <label>Terms of Payment: </label>
+
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="info-text">
-                                        <label>2 Years/ 24 Months</label>
+                                        <label>{{$loan_details->year_terms}} Years</label>
                                     </div>
                                 </div>
                             </div>
@@ -1772,7 +1782,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="info-text">
-                                        <label>5 Years</label>
+                                        <!-- <label>5 Years</label> -->
                                     </div>
                                 </div>
                             </div>
@@ -1784,7 +1794,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="info-text">
-                                        <label>213423423123</label>
+                                        <label>{{$loan_details->account_number}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -1796,7 +1806,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="info-text">
-                                        <label>Doe, John S.</label>
+                                        <label>{{$loan_details->account_name}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -1808,7 +1818,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="info-text">
-                                        <label>LandBank</label>
+                                        <label>{{$loan_details->bank}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -1820,7 +1830,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="info-text">
-                                        <label>New/ Renew Loan</label>
+                                        <label>{{$loan_details->type}}</label>
                                     </div>
                                 </div>
                             </div>
@@ -1833,13 +1843,13 @@
                                     Loan Status:
                                 </h3>
                                 <h3 class="black-clr mp-mb0">
-                                    Processing Application
+                                    {{$loan_details->status}}
                                 </h3>
                                 <label for="">As of May 4, 2023 11:06 AM</label>
                             </div>
 
                         </div>
-                        <div class="col-12 mp-mt3">
+                        <!-- <div class="col-12 mp-mt3">
                             <div class="info-text">
                                 <label for="">Computed by: JOE3 / Doe, John V. / Staff</label>
                                 <label for="">May 4, 2023 11:06 AM</label>
@@ -1851,7 +1861,7 @@
                                 <label for="">Designation: Staff</label>
                                 <label for="">May 4, 2023 11:06 AM</label>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="col-lg-12 d-flex mp-mh4 flex-column">
                             <a href="/member/loan/application" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
                                 <span class="save_up">VIEW AMORTIZATION SCHEDULE</span>
@@ -1863,7 +1873,7 @@
                                 <span class="save_up">GENERATE LOAN INFORMATION SLIP</span>
                             </a>
                         </div>
-                       
+
 
                     </div>
                 </div>
@@ -2407,7 +2417,7 @@
                                             <div class="underline mp-text-right"></div>
                                         </div>
                                         <div class="info-pdf d-flex flex-row w-100">
-                                            <label class="mt-auto mp-text-right" for="" style="width: 80px; height: 1px; color: white" >Total Payments</label>
+                                            <label class="mt-auto mp-text-right" for="" style="width: 80px; height: 1px; color: white">Total Payments</label>
                                             <div class="underline mp-text-right" style="height: 2px"></div>
                                         </div>
                                     </div>

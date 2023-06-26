@@ -159,6 +159,7 @@ class MemberController extends Controller
       $total_for_review = DB::table('loan_applications')->where('status', 'DRAFT')->where('member_no', $member->member_no)->count();
       $total_approved = DB::table('loan_applications')->where('status', 'APPROVED')->where('member_no', $member->member_no)->count();
       $total_rejected = DB::table('loan_applications')->where('status', 'CANCELLED')->where('member_no', $member->member_no)->count();
+      $total_new = DB::table('loan_applications')->where('status', '=', 'NEW APPLICATION')->where('member_no', $member->member_no)->count();
 
       $data = array(
         'login' => $lastLogin,
@@ -179,6 +180,7 @@ class MemberController extends Controller
         'total_for_review' => $total_for_review,
         'total_approved' => $total_approved,
         'total_rejected' => $total_rejected,
+        'total_new' => $total_new,
       );
 
       return view('member.dashboard')->with($data);
@@ -415,7 +417,7 @@ class MemberController extends Controller
       } else {
         $nestedData['action'] = '
           
-                <a href="/member/loan/view' . $row->loan_id .  '" data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="view-loan" style="cursor: pointer">
+                <a href="/member/loan/view/' . $row->loan_id .  '" data-md-tooltip="View Loan" class="view_member md-tooltip--right" id="view-loan" style="cursor: pointer">
                                                             <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
                                                         </a>
          ';
@@ -453,6 +455,7 @@ class MemberController extends Controller
       $total_approved = DB::table('loan_applications')->where('status', 'APPROVED')->where('member_no', $member->member_no)->count();
       $total_rejected = DB::table('loan_applications')->where('status', 'CANCELLED')->where('member_no', $member->member_no)->count();
       $total_processing = DB::table('loan_applications')->where('status', '=', 'PROCESSING')->where('member_no', $member->member_no)->count();
+      $total_new = DB::table('loan_applications')->where('status', '=', 'NEW APPLICATION')->where('member_no', $member->member_no)->count();
     }
 
     $data = array(
@@ -461,6 +464,7 @@ class MemberController extends Controller
       'total_for_review' => $total_for_review,
       'total_approved' => $total_approved,
       'total_rejected' => $total_rejected,
+      'total_new' => $total_new
     );
 
     echo json_encode($data);
@@ -633,20 +637,6 @@ class MemberController extends Controller
         ->select('member.*', 'users.*', 'member_detail.*', 'old_campus.name as campus_name')
         ->get()->first();
 
-      $loan_details = DB::table('candidates_tbl')
-        ->where('candidates_tbl.election_id', '=',  $user_id)
-        ->where('candidates_tbl.sg_category', '=',  '16-33')
-        ->join("personal_details", "candidates_tbl.personal_id", "=", "personal_details.personal_id")
-        ->join(
-          "campus",
-          "candidates_tbl.campus_id",
-          "=",
-          "campus.id"
-        )
-        ->join("membership_id", "candidates_tbl.membership_id", "=", "membership_id.mem_id")
-        ->join("employee_details", "membership_id.employee_no", "=", "employee_details.employee_no")
-        ->select('candidates_tbl.*', 'personal_details.*', 'campus.name as campus_name', 'membership_id.*', 'employee_details.*')
-        ->get();
       $member = User::where('users.id', $user_id)
         ->select('*', 'member.id as member_id', 'users.id as user_id', 'campus.name as campus_name')
         ->leftjoin(
@@ -736,7 +726,7 @@ class MemberController extends Controller
         'member.loan_application.pel_calculator_draft',
         array(
           'member_details' => $member_details,
-          'loan_details' => $loan_details,
+
           'totalcontributions' => $totalcontributions,
           'years' => abs($years[0]->years),
           'outstandingloans' => $outstandingloans,
@@ -780,7 +770,7 @@ class MemberController extends Controller
         'net_proceeds' => $request->input('net_proceeds'),
         'active_email' => $request->input('active_email'),
         'active_number' => $request->input('active_number'),
-        'status' => 'PROCESSING'
+        'status' => 'NEW APPLICATION'
       ]
     );
 
@@ -1049,7 +1039,7 @@ class MemberController extends Controller
           'net_proceeds' => $request->input('net_proceeds'),
           'active_email' => $request->input('active_email'),
           'active_number' => $request->input('active_number'),
-          'status' => 'PROCESSING'
+          'status' => 'NEW APPLICATION'
         ]);
     } catch (\Illuminate\Database\QueryException $e) {
       return response()->json(['success' => false]);
@@ -1621,10 +1611,57 @@ class MemberController extends Controller
     }
   }
 
-  public function view()
+  public function view($id)
   {
     if (Auth::check()) {
-      return view('member.loan_application.view');
+      $loan_app_id = $id;
+      $member = User::where('users.id', Auth::user()->id)
+        ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
+        ->leftjoin('member', 'users.id', '=', 'member.user_id')
+        ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+        ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+        ->first();
+
+
+      $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+        ->where('loan.member_id', '=', $member->member_id)
+        ->groupBy('loan_type.name')
+        ->get();
+
+      $totalloanbalance = 0;
+      foreach ($outstandingloans as $loan) {
+        $totalloanbalance += $loan->balance;
+      }
+
+
+      $campuses = DB::table('campus')->get();
+      $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
+      $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
+      $beneficiaries = DB::table('old_beneficiaries')->where('member_no', $member->member_no)->get();
+
+      $loan_details = DB::table('loan_applications')
+        ->select("loan_applications.*", "loan_applications_peb.*", "loan_applications.id as loan_app_id", "loan_applications_peb.id as loan_peb_id", "loan_applications.control_number as control_number")
+        ->join("loan_applications_peb", "loan_applications_peb.loan_app_id", "=", "loan_applications.id")
+        ->where('loan_applications.id', $loan_app_id)
+        ->get()
+        ->first();
+
+      $data = array(
+
+        'member' => $member,
+        'campuses' => $campuses,
+        'department' => $department,
+        'membership' => $membership,
+        'beneficiaries' => $beneficiaries,
+        'loan_details' => $loan_details,
+        'outstandingloans' => $outstandingloans,
+        'totalloanbalance' => $totalloanbalance,
+
+
+      );
+      return view('member.loan_application.view')->with($data);;
     } else {
       return redirect('/login');
     }
