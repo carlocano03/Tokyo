@@ -249,8 +249,12 @@ Route::post('/member/loanCount', [MemberController::class, 'countMemberLoan'])->
 Route::get('/member/loan/pel/save-as-draft/{id}', [MemberController::class, 'pel_application_draft'])->name('member.application'); //member save as draft edit page
 Route::post('/member/edit-new-pel-loans-draft', [MemberController::class, 'editNewPelLoanDraft'])->name('edit_loan_application_draft'); // edit as draft from draft page
 Route::post('/member/edit-new-pel-loans', [MemberController::class, 'editNewPelLoan'])->name('edit_loan_application'); // edit as draft  page
-
-
+Route::get('/member/membersEquity', [MemberController::class, 'membersEquity'])->name('equityProcessing');
+Route::get('/member/exportEquity/{id}/{dt_from}/{dt_to}', [MemberController::class, 'exportEquity']);
+Route::get('/member/exportLoanTransaction/{id}/{dt_from}/{dt_to}', [MemberController::class, 'exportLoanTransaction']);
+Route::get('/generate/loans', [MemberController::class, 'generateloans']);
+Route::get('/generate/equity', [MemberController::class, 'generateequity']);
+Route::get('/member/memberloans', [MemberController::class, 'memberloans'])->name('loanProcessing');
 //member-loan CBL
 Route::get('/member/loan/application/cbl', [MemberController::class, 'cbl_application'])->name('member.cbl_application');
 
