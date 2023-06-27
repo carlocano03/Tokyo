@@ -26,7 +26,8 @@ td
    <div class="">
       <div class="">
         <div class="">
-          <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI">
+          <!-- <img src="{!! asset('assets/images/uppfi-logo-sm.png') !!}" alt="UPPFI"> -->
+          <img src="{{ public_path().'/assets/images/uppfi-logo.png' }}" width="10%" alt="UPPFI">
           <span class="" style="vertical-align: middle; font-size: 25px; color: #414042!important;">
             University of the Philippines Provident Fund Inc.
           </span>
