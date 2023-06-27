@@ -1863,7 +1863,7 @@
                             </div>
                         </div> -->
                         <div class="col-lg-12 d-flex mp-mh4 flex-column">
-                            <a href="/member/loan/application" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
+                            <a href="#" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
                                 <span class="save_up">VIEW AMORTIZATION SCHEDULE</span>
                             </a>
                             <a id="generate-loan-form" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
@@ -1921,6 +1921,7 @@
                                         <div class="info-pdf d-flex flex-row">
                                             <label for="">NAME: </label>
                                             <div class="underline">
+                                                {{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}
                                             </div>
                                         </div>
                                     </div>
@@ -1939,6 +1940,8 @@
                                     <div class="col-3">
                                         <div class="info-pdf d-flex flex-row">
                                             <label for="">Middle Name </label>
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -1947,7 +1950,7 @@
                                 <div class="info-pdf mp-mt1 d-flex flex-row">
                                     <label for="">ACCOUNT NAME: </label>
                                     <div class="underline">
-                                        asd
+                                        {{ $loan_details->account_name }}
                                     </div>
                                 </div>
                             </div>
@@ -1957,6 +1960,7 @@
                                         <div class="info-pdf d-flex flex-row">
                                             <label for="">UNIT: </label>
                                             <div class="underline">
+                                                {{ $member->position_id }}
                                             </div>
                                         </div>
                                     </div>
@@ -1964,6 +1968,7 @@
                                         <div class="info-pdf d-flex flex-row">
                                             <label for="">CAMPUS: </label>
                                             <div class="underline">
+                                                {{ $member->campus_name }}
                                             </div>
                                         </div>
                                     </div>
@@ -1973,6 +1978,7 @@
                                 <div class="info-pdf d-flex flex-row">
                                     <label for="">MEMBER ID NUMBER: </label>
                                     <div class="underline">
+                                        {{$member->member_no}}
                                     </div>
                                 </div>
                             </div>
@@ -2016,7 +2022,7 @@
                                         <div class="info-pdf mp-mt1 d-flex flex-row w-100">
                                             <label class="mt-auto" for="" style="width: 70px">Total Equity to Date: </label>
                                             <div class="underline mp-ml0 mp-mr0 d-flex align-items-end">
-                                                asd
+                                                {{$loan_details->date_created}}
                                             </div>
                                         </div>
                                     </div>
@@ -2024,6 +2030,7 @@
                                         <div class="info-pdf mp-mt1 d-flex flex-row w-100">
                                             <label class="mt-auto" for="">Net Pay: </label>
                                             <div class="underline mp-ml0 mp-mr0 d-flex align-items-end">
+                                                {{$loan_details->net_proceeds}}
                                             </div>
                                         </div>
                                     </div>
@@ -2031,6 +2038,7 @@
                                         <div class="info-pdf mp-mt1 d-flex flex-row w-100">
                                             <label class="mt-auto" for="" style="width: 70px">U.P Service to Date (yrs): </label>
                                             <div class="underline mp-ml0 mp-mr0 d-flex align-items-end">
+                                                {{$years}} Years
                                             </div>
                                         </div>
                                     </div>
@@ -2050,6 +2058,7 @@
                                         <div class="info-pdf mp-mt1 d-flex flex-row w-100">
                                             <label class="mt-auto" for="">Term: </label>
                                             <div class="underline mp-ml0 mp-mr0 d-flex">
+                                                {{$loan_details->year_terms}} Years
                                             </div>
                                         </div>
                                     </div>
@@ -2363,7 +2372,7 @@
                                             <div class="col-6">
                                                 <div class="info-pdf d-flex flex-row w-100 h-100">
                                                     <label for="">Php</label>
-                                                    <div class="underline mt-auto mp-text-right">(200)</div>
+                                                    <div class="underline mt-auto mp-text-right"> {{$loan_details->net_proceeds}}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2508,7 +2517,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="col-5 mp-mt2 ml-auto mp-mr5">
-                                    <div class="underline"></div>
+                                    <div class="underline"> {{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}</div>
                                     <div class="row info-pdf">
                                         <label class="font-bold black-clr ml-auto mr-auto mp-mt1" style="font-size: 11px">Signature of Borrower Over Printed Name</label>
                                     </div>

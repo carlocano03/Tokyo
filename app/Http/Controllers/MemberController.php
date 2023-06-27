@@ -2187,10 +2187,10 @@ class MemberController extends Controller
     if (Auth::check()) {
       $loan_app_id = $id;
       $member = User::where('users.id', Auth::user()->id)
-        ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
+        ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'old_campus.name as campus_name')
         ->leftjoin('member', 'users.id', '=', 'member.user_id')
         ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
-        ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+        ->leftjoin('old_campus', 'member.campus_id', '=', 'old_campus.id')
         ->first();
 
 
@@ -2219,6 +2219,10 @@ class MemberController extends Controller
         ->get()
         ->first();
 
+      $years = OLDMembers::select(DB::raw("YEAR(original_appointment_date) - YEAR(CURDATE()) - (DATE_FORMAT(original_appointment_date,'%m%d') < DATE_FORMAT(CURDATE(),'%m%d')) as years"))
+        ->where('user_Id', '=', Auth::user()->id)->get();
+
+
       $data = array(
 
         'member' => $member,
@@ -2229,6 +2233,7 @@ class MemberController extends Controller
         'loan_details' => $loan_details,
         'outstandingloans' => $outstandingloans,
         'totalloanbalance' => $totalloanbalance,
+        'years' => abs($years[0]->years),
 
 
       );
