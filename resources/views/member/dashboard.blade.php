@@ -1890,7 +1890,7 @@
             <div class="right-dashboard col grid side-dashboard gap-10 font-sm card mp-mb2" style="color: black;">
                 <div class="text-center d-flex flex-column justify-content-center">
                     <div>
-                        <span class="font-bold font-lg magenta-clr">{{ $total_processing }}</span>
+                        <span class="font-bold font-lg magenta-clr">{{ $total_new }}</span>
                     </div>
                     <span class="font-sm">New Loan Application</span>
                 </div>
