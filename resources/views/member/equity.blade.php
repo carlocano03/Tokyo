@@ -17,7 +17,92 @@
     }
     
 </style>
+<script src="{{ asset('/dist/dashboard.js') }}"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+        $('#loading').show();
+        $(window).load(function() {
+            $('#loading').hide();
+        });
+        $(document).ready(function() {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var tableEquity = $('#equityTable').DataTable({
+                language: {
+                    search: '',
+                    searchPlaceholder: "Search Here...",
+                    processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><br>Loading...',
+                },
+                "ordering": false,
+                "searching": false,
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "{{ route('equityProcessing') }}",
+                    "data": function(data) {
+                        data.account = $('#filter_account').val();
+                        data.dt_from = $('#from').val();
+                        data.dt_to = $('#to').val();
+                        data.searchValue = $('#search_value').val();
+                    }
+                },
+            });
+            $('#filter_account').on('change', function() {
+                tableEquity.draw();
+            });
+            $('#search_value').on('change', function() {
+                tableEquity.draw();
+            });
+            $('#from').on('change', function() {
+                if ($('#from').val() > $('#to').val() && $('#to').val() != '') {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Invalid Date Range,Please Check the date. Thank you!',
+                    });
+                    $('#from').val('');
+                } else {
+                    tableEquity.draw();
+                }
+            });
+            $('#to').on('change', function() {
+                if ($('#to').val() < $('#from').val()) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Invalid Date Range,Please Check the date. Thank you!',
+                    });
+                    $('#to').val('');
+                } else {
+                    tableEquity.draw();
+                }
+            });
 
+
+            $(document).on('click', '#exportEquity', function(e) {
+                if ($('#filter_account').val() != "") {
+                    var id = $('#filter_account').val();
+                } else {
+                    var id = 0;
+                }
+
+                if ($('#from').val() != "" && $('#to').val() != "") {
+                    var dt_from = $('#from').val();
+                    var dt_to = $('#to').val();
+                } else {
+                    var dt_from = 0;
+                    var dt_to = 0;
+                }
+                console.log(id);
+                var url = "{{ URL::to('/member/exportEquity') }}" + '/' + id + '/' + dt_from + '/' +
+                dt_to; //YOUR CHANGES HERE...
+                window.open(url, '_blank');
+            });
+        });
+    </script>
 <div class="filler"></div>
   <div class="col-12 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-accent mp-overflow-y dashboard mh-content members-module">
         
@@ -84,8 +169,10 @@
                                                             <select name="" class="radius-1 outline select-field"
                                                                 style="width: 100%; height: 30px" id="filter_account">
                                                                 <option value="">Show all</option>
-                                                                    <option value="{{ 1 }}">value
-                                                                    </option>
+                                                                @foreach ($account as $row)
+                                                                <option value="{{ $row->id }}">{{ $row->name }}
+                                                                </option>
+                                                                @endforeach
                                                                 
                                                             </select>
                                                         </div>
@@ -136,42 +223,6 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                            </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>

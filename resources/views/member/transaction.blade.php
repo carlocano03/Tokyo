@@ -11,6 +11,87 @@
     }
     
 </style>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript">
+  $('#loading').show();
+  $(window).load(function() {
+      $('#loading').hide();
+  });
+  $(document).ready(function() {
+    var tableLoans = $('#loanTable').DataTable({
+          language: {
+              search: '',
+              searchPlaceholder: "Search Here...",
+              processing: '<i class="fa fa-spinner fa-spin fa-3x fa-fw"></i><br>Loading...',
+          },
+          "ordering": false,
+          "searching": false,
+          "processing": true,
+          "serverSide": true,
+          "ajax": {
+              "url": "{{ route('loanProcessing') }}",
+              "data": function(data) {
+                  data.loan = $('#filter_loan').val();
+                  data.dt_from = $('#from').val();
+                  data.dt_to = $('#to').val();
+                  data.searchValue = $('#search_value').val();
+              }
+          },
+      });
+      $('#filter_loan').on('change', function() {
+        tableLoans.draw();
+      });
+      $('#search_value').on('change', function() {
+        tableLoans.draw();
+      });
+      $('#from').on('change', function() {
+          if($('#from').val() > $('#to').val() &&  $('#to').val() != '')
+          {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Invalid Date Range,Please Check the date. Thank you!',  
+                  });
+              $('#from').val('');
+          }else{
+            tableLoans.draw();
+          }
+      });
+      $('#to').on('change', function() {
+          if($('#to').val() < $('#from').val())
+          {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Invalid Date Range,Please Check the date. Thank you!',                       
+                  });
+              $('#to').val('');
+          }else{
+            tableLoans.draw();
+          }
+      });
+
+
+      $(document).on('click', '#exportLoanTransactions', function(e) {
+          if ($('#filter_loan').val() != "") {
+              var id = $('#filter_loan').val();
+          } else {
+              var id = 0;
+          }
+
+          if ($('#from').val() != "" && $('#to').val() != "") {
+              var dt_from = $('#from').val();
+              var dt_to = $('#to').val();
+          } else {
+              var dt_from = 0;
+              var dt_to = 0;
+          }
+          console.log(id);
+          var url = "{{ URL::to('/member/exportLoanTransaction') }}" + '/' + id + '/' + dt_from + '/' + dt_to; //YOUR CHANGES HERE...
+          window.open(url, '_blank');
+      });
+  });
+</script>
 
 <div class="filler"></div>
   <div class="col-12 mp-ph2 mp-pv2 mp-text-fs-large mp-text-c-accent mp-overflow-y dashboard mh-content members-module">
@@ -25,10 +106,11 @@
                     </span>
                     
                     <span>
-                        <a href="#" id="exportEquity"
+                        <a href="#" id="exportLoanTransactions"
                             class="toggle text_link mp-button mp-button--primary mp-button--ghost mp-button--raised mp-button--mini mp-text-fs-small" style="background-color: var(--c-accent) !important;
                             color: white !important;
-                            ">Export  Data</a>
+                            ">Export
+                            Data</a>
                     </span>
                     {{-- <button type="button" id="printMember">Print</button> --}}
                 </div>
@@ -76,10 +158,11 @@
                                                         </div>
                                                         <div class="row field-filter">
                                                             <select name="" class="radius-1 outline select-field"
-                                                                style="width: 100%; height: 30px" id="filter_account">
+                                                                style="width: 100%; height: 30px" id="filter_loan">
                                                                 <option value="">Show all</option>
-                                                                    <option value="{{ 1 }}">value
-                                                                    </option>
+                                                                @foreach ($loan_type as $row)
+                                                                    <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                                                @endforeach
                                                                 
                                                             </select>
                                                         </div>
@@ -90,13 +173,10 @@
                                                         </div>
                                                         <div class="row date_range">
                                                             <input type="date" id="from"
-                                                                class="radius-1 border-1 date-input outline"
-                                                                style="height: 30px;">
-                                                            <span for="" class="self_center mv-1"
-                                                                style="margin:5px;">to</span>
+                                                                class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                                            <span for="" class="self_center mv-1" style="margin:5px;">to</span>
                                                             <input type="date" id="to"
-                                                                class="radius-1 border-1 date-input outline"
-                                                                style="height: 30px;">
+                                                                class="radius-1 border-1 date-input outline" style="height: 30px;">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -117,7 +197,7 @@
                                                 </div>
                                                 <div class="mp-overflow-x">
 
-                                                    <table class="mp-table mp-text-fs-small" id="equityTable"
+                                                    <table class="mp-table mp-text-fs-small" id="loanTable"
                                                         cellspacing="0" width="100%">
                                                         <thead>
                                                             <tr>
@@ -131,42 +211,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                                <td>asd</td>
-                                                            </tr>
+                                                            
                                                         </tbody>
                                                     </table>
                                                 </div>
