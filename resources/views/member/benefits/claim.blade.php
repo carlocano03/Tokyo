@@ -526,69 +526,6 @@
         opacity: 1;
     }
 
-    .modalContent {
-        position: absolute;
-        display: flex;
-        flex-direction: column;
-        min-width: 400px;
-        width: 40vw;
-        height: auto;
-        background-color: white;
-        margin-bottom: 100px;
-        padding: 0;
-        border-radius: 17px;
-        transition: all .5s;
-        padding-bottom: 30px;
-    }
-
-    .modalBody {
-        height: 90%;
-        display: flex;
-        align-items: center;
-        padding: 40px;
-    }
-
-    .modalFooter {
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        gap: 10px;
-    }
-
-    .modalFooter>button {
-        font-size: 25px;
-        padding-left: 20px;
-        padding-right: 20px;
-        background-color: #894168;
-        font-weight: 400;
-        color: white;
-        border-radius: 17px;
-    }
-
-    .modalFooter>#cancel-button {
-        font-size: 25px;
-        padding-left: 20px;
-        padding-right: 20px;
-        background-color: #f0e7ec;
-        font-weight: 400;
-        color: black;
-        border-radius: 17px;
-    }
-
-    .modalHeader {
-        background-color: #1a8981;
-        color: white;
-        border-top-left-radius: 17px;
-        border-top-right-radius: 17px;
-        padding: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-
     .table-component {
         border-collapse: collapse;
         margin: 0;
@@ -1788,27 +1725,27 @@
         </div>
 
 
-        <div class="col-lg-8 mp-pr0 mp-mt2 mp-mb4" id="beneficiariesDiv" style="width: 100%; overflow-x:auto">
+        <div class="col-lg-8 mp-pr0 mp-mt2 mp-mb4" id="beneficiariesDiv" style="width: 100%">
             <div style="color: white;
                 padding: 15px;
                 background-color: var(--c-accent);
-                margin: 0;width: 100%; min-width: 700px;
-            ">Mode of separation
-
+                margin: 0;width: 100%; ;
+            ">Apply Benefits Claim
+                <button id="openComputation" style="float: right; border-radius: 8px; font-size:small" class="font-bold font-sm color-white magenta-bg mp-ph1 mp-pv3 ">View Computation</button>
             </div>
-            <div class="mp-card mp-p4 h-auto font-xs color-black" style="padding:20px; min-width: 700px;">
+            <div class="mp-card mp-p4 h-auto font-xs color-black" style="padding:20px; ;">
                 <div class="container-fluid">
                     <div class="row mp-mb3">
-                        <div class="col-5">
+                        <div class="col-md-5 mp-mb2">
                             <div class="row">
                                 Change Mode of Separation
                             </div>
                             <div class="row mp-mt2">
                                 <div class="col-12 d-flex flex-column">
-                                    <label class="radio-inline"><input type="radio" name="bank" id="bank"  value="DBP"  > Retirement</label>
-                                    <label class="radio-inline"><input type="radio" name="bank" id="bank"  value="DBP"  > Resignation</label>
-                                    <label class="radio-inline"><input type="radio" name="bank" id="bank"  value="DBP"  > Death</label>
-                                    <label class="radio-inline"><input type="radio" name="bank" id="bank"  value="DBP"  > Others</label>
+                                    <label class="radio-inline"><input type="radio" name="bank" id="bank" value="DBP"> Retirement</label>
+                                    <label class="radio-inline"><input type="radio" name="bank" id="bank" value="DBP"> Resignation</label>
+                                    <label class="radio-inline"><input type="radio" name="bank" id="bank" value="DBP"> Death</label>
+                                    <label class="radio-inline"><input type="radio" name="bank" id="bank" value="DBP"> Others</label>
                                     <input class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px" type="text" required placeholder="Please specify" />
                                 </div>
                             </div>
@@ -1817,19 +1754,187 @@
                             <div class="row">
                                 Effectivity Date
                             </div>
-                            <div class="row">
+                            <div class="row mp-mt2">
                                 <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px">
                             </div>
-                            <div class="row">
+                            <div class="row mp-mt2">
                                 Add Remarks
                             </div>
-                            <div class="row">
+                            <div class="row mp-mt2">
                                 <textarea type="date" class="radius-1 border-1 date-input outline" style="height: 80px; width: 100%; resize: none;"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="row mp-pv2 mp-mh2">
-                        <div class="mp-card ">
+                    <div class="row">
+                        <div class="col-12 mp-card magenta-bg mp-ph2 font-md">
+                            Upload Requirements
+                        </div>
+                    </div>
+                    <div class="row mp-mt2">
+                        <div class="col-12">
+                            1. Service Record from HRDO, indicating the effective date of separation.
+                        </div>
+                        <div class="col-12 mp-mt1 mp-pv4">
+                            <input class="mp-input-group__input" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
+                        </div>
+                    </div>
+                    <div class="row mp-mt2">
+                        <div class="col-12">
+                            2. Photocopy of 2 Valid Identification Cards (ID).
+                        </div>
+                        <div class="col-12 mp-mt1 mp-pv4">
+                            <div class="row">
+                                <div class="col-6">
+                                    <input class="mp-input-group__input" type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
+                                </div>
+                                <div class="col-6">
+                                    <input class="mp-input-group__input" type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mp-mt2">
+                        <div class="col-12">
+                            3. Complete U.P Clearance Sheet.
+                        </div>
+                        <div class="col-12 mp-mt1 mp-pv4">
+                            <input class="mp-input-group__input" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
+                        </div>
+                    </div>
+                    <div class="row mp-mt2">
+                        <div class="col-12">
+                            4. Authorization letter or Special Power of Attorney (if necessary).
+                        </div>
+                        <div class="col-12 mp-mt1 mp-pv4">
+                            <input class="mp-input-group__input" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
+                        </div>
+                    </div>
+                    <div class="row mp-mt2">
+                        <div class="col-12">
+                            5. Photocopy of 2 Valid Identification Cards (ID) of the authorized person.
+                        </div>
+                        <div class="col-12 mp-mt1 mp-pv4">
+                            <div class="row">
+                                <div class="col-6">
+                                    <input class="mp-input-group__input" type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
+                                </div>
+                                <div class="col-6">
+                                    <input class="mp-input-group__input" type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mp-mt2">
+                        <div class="col-12">
+                            6. Written request if check be made payable other than the payee/claimant.
+                        </div>
+                        <div class="col-12 mp-mt1 mp-pv4">
+                            <input class="mp-input-group__input" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
+                        </div>
+                    </div>
+
+                    <div class="row mp-mt4">
+                        <div class="col-12">
+                            <div class="mp-input-group  mp-input-group__label">
+                                <input type="checkbox" id="terms" name="terms" />
+                                I agree that maintenance and dormancy fees of P500 / month will be deducted from my benefit proceeds if the complete requirements are not submitted within six (6) months from the effective date of separation.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mp-mt4">
+                        <div class="col-12">
+                            Upload my E-Signature
+                        </div>
+                        <div class="col-12 mp-mt2 mp-pv4">
+                            <input class="mp-input-group__input" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
+                        </div>
+                    </div>
+
+                    <div class="row mp-mh2 mp-mt4">
+                        <div class="col-12 mp-mt4">
+                            <div class="row justify-content-end gap-10 wrap">
+                                <button style="border-radius: 8px; width: 275px" class="font-bold font-md color-white gray-bg mp-ph1 mp-pv4 ">SAVE AS DRAFT APPLICATION</button>
+                                <button id="submit" style="border-radius: 8px; width: 275px" class="font-bold font-md color-white magenta-bg mp-ph1 mp-pv4 ">SUBMIT BENEFITS CLAIM</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    #computationModal {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, .3);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all .5s;
+        opacity: 1;
+        top: 0;
+        left: 0;
+    }
+
+    .modalContent {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        max-width: 70vw;
+        width: 70vw;
+        background-color: white;
+        margin-bottom: 100px;
+        padding: 40px;
+        border-radius: 17px;
+        transition: all .5s;
+        gap: 30px;
+    }
+
+    .modalBody {
+        height: 90%;
+        display: flex;
+        align-items: center;
+    }
+
+    .modalFooter {
+        display: flex;
+        justify-content: center;
+    }
+
+    .modalFooter>button {
+        font-size: 25px;
+        padding-left: 20px;
+        padding-right: 20px;
+        background-color: #894168;
+        font-weight: 400;
+        color: white;
+        border-radius: 17px;
+    }
+
+    @media (max-width:700px) {
+        .modalContent {
+            margin-top: 100px;
+            max-width: 95vw;
+            width: 95vw;
+            padding:  40px 10px;
+        }
+
+    }
+
+
+</style>
+
+<div id="computationModal" class="d-none opacity-0">
+    <div class="modalContent">
+        <div class="modalBody">
+            <div class="d-flex flex-column gap-10" style="overflow:auto;"> <span style="font-weight: bold; font-size: x-large">Computation</span>
+                <div style="width: 100%; min-width: 700px; max-height: 600px; font-size: small; padding: 20px">
+                    <div class="">
+                        <div class="mp-card">
                             <div class="container-fluid">
                                 <div class="row mp-pv2 mp-ph2 d-flex justify-content-center">
                                     <span>Total Equity as of</span>
@@ -2176,65 +2281,85 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                <div class="row mp-mt4">
-                                    <div class="col-4 d-flex">
-                                        <div style="width: 100px">Prepared By</div>
-                                        <div class="underline black-color">asd</div>
+                                    <div class="row mp-mt4">
+                                        <div class="col-4 d-flex">
+                                            <div style="width: 100px">Prepared By</div>
+                                            <div class="underline black-color">asd</div>
+                                        </div>
+                                        <div class="col-4 d-flex">
+                                            <div style="width: 100px">Checked By</div>
+                                            <div class="underline black-color">asd</div>
+                                        </div>
+                                        <div class="col-4 d-flex">
+                                            <div style="width: 100px">Approved By</div>
+                                            <div class="underline black-color">asd</div>
+                                        </div>
                                     </div>
-                                    <div class="col-4 d-flex">
-                                        <div style="width: 100px">Checked By</div>
-                                        <div class="underline black-color">asd</div>
+                                    <div class="row">
+                                        <div class="col-4 d-flex">
+                                            <div style="width: 100px">Designation</div>
+                                            <div class="underline black-color">asd</div>
+                                        </div>
+                                        <div class="col-4 d-flex">
+                                            <div style="width: 100px">Designation</div>
+                                            <div class="underline black-color">asd</div>
+                                        </div>
+                                        <div class="col-4 d-flex">
+                                            <div style="width: 100px">Designation</div>
+                                            <div class="underline black-color">asd</div>
+                                        </div>
                                     </div>
-                                    <div class="col-4 d-flex">
-                                        <div style="width: 100px">Approved By</div>
-                                        <div class="underline black-color">asd</div>
+                                    <div class="row">
+                                        <div class="col-4 d-flex">
+                                            <div style="width: 100px">Date</div>
+                                            <div class="underline black-color">asd</div>
+                                        </div>
+                                        <div class="col-4 d-flex">
+                                            <div style="width: 100px">Date</div>
+                                            <div class="underline black-color">asd</div>
+                                        </div>
+                                        <div class="col-4 d-flex">
+                                            <div style="width: 100px">Date</div>
+                                            <div class="underline black-color">asd</div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-4 d-flex">
-                                        <div style="width: 100px">Designation</div>
-                                        <div class="underline black-color">asd</div>
-                                    </div>
-                                    <div class="col-4 d-flex">
-                                        <div style="width: 100px">Designation</div>
-                                        <div class="underline black-color">asd</div>
-                                    </div>
-                                    <div class="col-4 d-flex">
-                                        <div style="width: 100px">Designation</div>
-                                        <div class="underline black-color">asd</div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-4 d-flex">
-                                        <div style="width: 100px">Date</div>
-                                        <div class="underline black-color">asd</div>
-                                    </div>
-                                    <div class="col-4 d-flex">
-                                        <div style="width: 100px">Date</div>
-                                        <div class="underline black-color">asd</div>
-                                    </div>
-                                    <div class="col-4 d-flex">
-                                        <div style="width: 100px">Date</div>
-                                        <div class="underline black-color">asd</div>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row mp-mh2 mp-mt4">
-                        <div class="col-12 mp-mt4">
-                            <div class="row justify-content-end">
-                                <button style="border-radius: 8px" class="font-bold font-md color-white magenta-bg mp-ph1 mp-pv4 ">Process Claim</button>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="modalFooter gap-10">
+            <button id="closeComputation">
+                Close
+            </button>
+        </div>
+
     </div>
 </div>
 <script>
-
+    $(document).ready(function() {
+        $('#submit').on('click', function() {
+            Swal.fire({
+                text: 'Your Benefits Application was successfully sent, wait for the admin to process your application and approval.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok',
+            });
+        })
+        $('#closeComputation').on('click', function(e) {
+            $("#computationModal").addClass("opacity-0")
+            setTimeout(function() {
+                $("#computationModal").addClass("d-none")
+            }, 1000)
+        })
+        $('#openComputation').on('click', function(e) {
+            $("#computationModal").removeClass("d-none")
+            setTimeout(function() {
+                $("#computationModal").removeClass("opacity-0")
+            }, 100)
+        })
+    })
 </script>
 @endsection

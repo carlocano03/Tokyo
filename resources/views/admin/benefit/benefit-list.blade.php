@@ -1502,15 +1502,44 @@
                 <div class="button-container mp-mb3">
                     <button class="f-button magenta-bg" id="showSettings">Hide Tab</button>
                 </div>
-                <div class="top-label">
-                    <label>ON DEVELOPMENT</label>
+                <div class="top-label" style="margin-bottom:-20px;">
+                    <label>BENEFIT APPLICATION</label>
 
                 </div>
-                <!-- <div class="card-container card p-0">
+
+                <div class=" w-full d-flex flex-row justify-content-center mp-mh3">
+                    <div class=" card d-flex justify-content-around w-full flex-row">
+                        <div class="text-center">
+                            <div>
+                                <span class="font-bold font-lg" id="total_confirmed">69</span>
+                            </div>
+                            <span class="font-sm">Total Confirmed Loans</span>
+                        </div>
+                        <div class="text-center">
+                            <div>
+                                <span class="font-bold font-lg" id="total_done">10</span>
+                            </div>
+                            <span class="font-sm">Total Done Loans</span>
+                        </div>
+                        <div class="text-center">
+                            <div>
+                                <span class="font-bold font-lg" id="total_processing">1</span>
+                            </div>
+                            <span class="font-sm">Total Processing Loans</span>
+                        </div>
+                        <div class="text-center">
+                            <div>
+                                <span class="font-bold font-lg" id="total_cancelled">40</span>
+                            </div>
+                            <span class="font-sm">Total Cancelled Loans</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-container card p-0">
                     <div class="card-header filtering items-between d-flex" style="background-color:#894168;">
                         <span>Filtering Section</span>
                         <span class="mp-pr2">
-                            <button class="up-button-grey f-button font-bold" id="reset">Clear</button>
+                            <button class="up-button-grey f-button font-bold" id="clear_filter">Clear</button>
                             <button class="f-button font-bold">Export</button>
                             <button class="f-button font-bold up-button-green">Print</button>
                         </span>
@@ -1519,82 +1548,107 @@
 
                     <div class="card-body filtering-section-body justify-content-center gap-10 flex-row">
 
-                        <div class="table-form w-full" style="padding:10px; grid-template-columns: repeat(8, 1fr); font-size:12px;">
+                        <div class="table-form w-full" style="padding:10px; grid-template-columns: repeat(11, 1fr); font-size:12px;">
+
                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Search</span>
-                                <input type="text" id="election_date_filter" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                <span>Loan Type</span>
+                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="loan_filter">
+                                    <option value="">Show All</option>
+                                    <option value="PEL">PEL</option>
+
+                                </select>
                             </span>
                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
-                                <span>Cluster</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
+                                <span>Application Type</span>
+                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="application_filter">
                                     <option value="">Show All</option>
-                                    <option value="1">Cluster 1 - DSB</option>
-                                    <option value="2">Cluster 2 - LBOU</option>
-                                    <option value="3">Cluster 3 - MLAPGH</option>
-                                    <option value="4">Cluster 4 - CVM</option>
+                                    <option value="RENEW">RENEW</option>
+                                    <option value="NEW">NEW</option>
+                                </select>
+                            </span>
+                            <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap">
+                                <span>Status</span>
+                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="status_filter">
+                                    <option value="">Show All</option>
+                                    <option value="CONFIRMED">CONFIRMED</option>
+                                    <option value="CANCELLED">CANCELLED</option>
+                                    <option value="PROCESSING">PROCESSING</option>
+                                    <option value="DONE">DONE</option>
                                 </select>
                             </span>
                             <span class="d-flex flex-column span-2 mp-pv2 flex-nowrap ">
                                 <span>Campus</span>
-                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="cluster_filter">
+                                <select name="" class="radius-1 outline select-field" style="width: 100%; height: 30px" id="campus_filter">
                                     <option value="">Show All</option>
+                                    
 
                                 </select>
 
                             </span>
+                            <span class="d-flex flex-column span-3 mp-pv2 flex-nowrap date-selector">
+                                <span>Date Applied</span>
+                                <div class="date_range d-flex">
+                                    <input type="date" id="date_applied_from" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                    <span for="" class="self_center mv-1" style="margin-left:5px; margin-right:5px;">to</span>
+                                    <input type="date" id="date_applied_to" class="radius-1 border-1 date-input outline" style="height: 30px;">
+                                </div>
+                            </span>
+
 
 
                         </div>
                     </div>
-                </div> -->
+                </div>
 
-                <!-- <div class="card d-flex flex-column mp-mt2">
-                    <div class="top-label">
-                        <label>NEW MEMBERS</label>
 
-                    </div>
-                    <div class=" table-container">
-                        <table class="members-table" style="height: auto;" width="100%">
+
+
+                <div class="card d-flex flex-column mp-mt2">
+
+                    <div class=" ">
+                        <table class="members-table" id="loan_table" style="height: auto;" width="100%">
                             <thead>
                                 <tr>
-                                    <th style="width:40px">
-                                        <span>NO</span>
+                                    <th style="width:60px">
+                                        <span>Action</span>
                                     </th>
                                     <th>
-                                        <span>Members ID</span>
+                                        <span>Date Applied</span>
                                     </th>
                                     <th>
-                                        <span>Employee No</span>
+                                        <span>Member No</span>
+                                    </th>
+                                    <th>
+                                        <span>Loan Application Number</span>
                                     </th>
                                     <th>
                                         <span>Full Name</span>
                                     </th>
                                     <th>
-                                        <span>Cluster</span>
+                                        <span>Campus</span>
                                     </th>
                                     <th>
-                                        <span>Campus/Unit</span>
+                                        <span>Loan Type</span>
                                     </th>
                                     <th>
-                                        <span>Membership Date</span>
+                                        <span>Application Type</span>
                                     </th>
                                     <th>
-                                        <span>Monthly Salary</span>
+                                        <span>Loan Status</span>
                                     </th>
-                                    <th>
-                                        <span>Contribution Type</span>
-                                    </th>
-                                    <th>
-                                        <span>Amount</span>
-                                    </th>
+
                                 </tr>
                             </thead>
 
-                            <tbody>
-                                <tr>
+                            <tbody style="color:black;">
+                                <!-- <tr>
                                     <td>
-                                        <span>
-                                            1
+                                        <span style="text-align:center;">
+
+                                            <a href="/admin/loan/loan-application/details" data-md-tooltip="Review Application" class="view_member md-tooltip--right view-member" style="cursor: pointer">
+                                                <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+                                            </a>
+
                                         </span>
                                     </td>
                                     <td>
@@ -1609,121 +1663,12 @@
                                     </td>
                                     <td>
                                         <span>
-                                            Sample Name
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            1
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            Campus A
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            03-13-2023
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            16,000
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            3%
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            460.00
-                                        </span>
-                                    </td>
-                                </tr>
-
-                            </tbody>
-
-
-
-                        </table>
-                        <a href="#" style="padding: 0px;font-size: 13px;" class="link_style">
-                            Process Payment Contribution
-                        </a>
-
-                    </div>
-                </div> -->
-
-
-                <!-- <div class="card d-flex flex-column mp-mt2">
-                    <div class="top-label">
-                        <label>OLD MEMBERS</label>
-
-                    </div>
-                    <div class=" table-container">
-                        <table class="members-table" style="height: auto;" width="100%">
-                            <thead>
-                                <tr>
-                                    <th style="width:40px">
-                                        <span>NO</span>
-                                    </th>
-                                    <th>
-                                        <span>Members ID</span>
-                                    </th>
-                                    <th>
-                                        <span>Employee No</span>
-                                    </th>
-                                    <th>
-                                        <span>Full Name</span>
-                                    </th>
-                                    <th>
-                                        <span>Cluster</span>
-                                    </th>
-                                    <th>
-                                        <span>Campus/Unit</span>
-                                    </th>
-                                    <th>
-                                        <span>Membership Date</span>
-                                    </th>
-                                    <th>
-                                        <span>Monthly Salary</span>
-                                    </th>
-                                    <th>
-                                        <span>Contribution Type</span>
-                                    </th>
-                                    <th>
-                                        <span>Amount</span>
-                                    </th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <span>
-                                            1
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            2023-001
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
                                             1231232
                                         </span>
                                     </td>
                                     <td>
                                         <span>
-                                            Sample Name
-                                        </span>
-                                    </td>
-                                    <td>
-                                        <span>
-                                            1
+                                            Sample Full Name
                                         </span>
                                     </td>
                                     <td>
@@ -1733,39 +1678,36 @@
                                     </td>
                                     <td>
                                         <span>
-                                            03-13-2023
+                                            PEL
                                         </span>
                                     </td>
                                     <td>
                                         <span>
-                                            16,000
+                                            NEW
                                         </span>
                                     </td>
                                     <td>
                                         <span>
-                                            3%
+                                            CANCELLED
                                         </span>
                                     </td>
-                                    <td>
-                                        <span>
-                                            460.00
-                                        </span>
-                                    </td>
-                                </tr>
+
+                                </tr> -->
 
                             </tbody>
 
 
 
                         </table>
-                        <a href="#" style="padding: 0px;font-size: 13px;" class="link_style">
+                        <!-- <a href="#" style="padding: 0px;font-size: 13px;" class="link_style">
                             Process Payment Contributions
                         </a>
                         <a href="#" style="margin-left:3px; color:#6c1242; font-size: 13px;" class="link_style">
                             Process All Contribution
-                        </a>
+                        </a> -->
                     </div>
-                </div> -->
+                </div>
+
 
 
 

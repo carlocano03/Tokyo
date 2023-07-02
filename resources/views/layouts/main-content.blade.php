@@ -421,6 +421,20 @@
     text-align: center;
     padding-top: 1px;
   }
+  .notification {
+    position: absolute;
+    top: -10px;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    color: white;
+    text-align: center;
+    border-radius: 50%;
+    font-weight: 700;
+    padding-top: 3px;
+    right: 0px;
+    cursor: pointer;
+  }
 </style>
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -451,13 +465,14 @@
       </div>
     </div>
     <ul>
-      <li>
+      <li class="relative">
         <a href="/admin/dashboard" class="{{ Request::is('admin/dashboard') ? 'active-nav' : '' }}"><i class="fa fa-dashboard"></i>My Dashboard</a>
+        <span class="notification">12</span>
       </li>
       <li><a href="/admin/members/records" class=" {{ Request::is('admin/members/records') ? 'active-nav' : '' }} "><i class="fa fa-users"></i>Online Application</a></li>
       <li><a href="/admin/members" class="{{ Request::is('admin/members')  ? 'active-nav' : '' }}"><i class="fa fa-address-book"></i>Members Module</a></li>
-      <li><a href="/admin/loan/loan-matrix"><i class="fa fa-credit-card"></i>Loan Module</a></li>
-      <li><a href="/admin/benefit/benefit-matrix"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
+      <li><a href="/admin/loan/loan-matrix" class="{{ Request::is('admin/loan/loan-matrix')  ? 'active-nav' : '' }}"><i class="fa fa-credit-card"></i>Loan Module</a></li>
+      <li><a href="/admin/benefit/benefit-matrix"  class="{{ Request::is('admin/benefit/benefit-matrix')  ? 'active-nav' : '' }}"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
       <li><a href="/admin/transaction" class="{{ Request::is('admin/transaction')  ? 'active-nav' : '' }}"><i class="fa fa-bar-chart"></i>Transaction & Equity </a></li>
       <li><a href="/admin/election-record" class="{{ Request::is('admin/election')  ? 'active-nav' : '' }}">
           <i class="fa fa-flash"></i>Election Module</a></li>
@@ -604,11 +619,14 @@
 
     const elm = document.querySelector('ul');
     elm.addEventListener('click', (el) => {
-
+      if(el.target.nodeName === 'SPAN'){
+        return
+      }
       const elActive = elm.querySelector('.active-nav');
       if (elActive) {
         elActive.removeAttribute('class');
       }
+      
       el.target.setAttribute('class', 'active-nav');
     });
 
