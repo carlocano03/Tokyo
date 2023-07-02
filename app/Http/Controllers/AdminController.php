@@ -3780,4 +3780,31 @@ class AdminController extends Controller
   {
     return view('admin.benefit.benefit-analytics');
   }
+
+  public function benefitView()
+  {
+    $member = User::where('users.id', Auth::user()->id)
+        ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
+        ->leftjoin('member', 'users.id', '=', 'member.user_id')
+        ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+        ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+
+        ->first();
+      $campuses = DB::table('campus')->get();
+      $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
+      $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
+      $beneficiaries = DB::table('old_beneficiaries')->where('member_no', $member->member_no)->get();;
+      $data = array(
+        'member' => $member,
+        'campuses' => $campuses,
+        'department' => $department,
+        'membership' => $membership,
+        'beneficiaries' => $beneficiaries,
+        // 'user_privileges' => DB::table('users')
+        // ->join('user_prev', 'users.id', '=', 'user_prev.users_id')
+        // ->where('users.id', $user->id)
+        // ->get()
+      );
+    return view('admin.benefit.benefit-view')->with($data);
+  }
 }
