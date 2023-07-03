@@ -208,6 +208,7 @@ Route::get('/admin/benefit/benefit-analytics', [AdminController::class, 'benefit
 Route::get('/admin/benefit/benefit-matrix', [AdminController::class, 'benefitMatrix'])->name('admin.benefit.benefit-matrix');
 Route::get('/admin/benefit/benefit-list', [AdminController::class, 'benefitList'])->name('admin.benefit.benefit-list');
 Route::get('/admin/benefit/benefit-analytics', [AdminController::class, 'benefitAnalytics'])->name('admin.benefit.benefit-analytics');
+Route::get('/admin/benefit/application', [AdminController::class, 'benefitView'])->name('admin.benefit.view');
 
 //admin settings validation
 Route::post('/admin/manageAccountValidation', [Settings::class, 'checkUsername'])->name('check_username');
