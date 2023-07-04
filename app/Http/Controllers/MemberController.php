@@ -188,7 +188,7 @@ class MemberController extends Controller
       return redirect('/login');
     }
   }
-  
+
   public function generateequity()
   {
     $member = User::where('users.id', Auth::user()->id)
@@ -425,7 +425,7 @@ class MemberController extends Controller
   {
     if (Auth::check()) {
       $loan_type = DB::table('loan_type')
-      ->get();
+        ->get();
       $data = array(
         'loan_type' => $loan_type,
       );
@@ -647,7 +647,7 @@ class MemberController extends Controller
   {
     if (Auth::check()) {
       $account = DB::table('contribution_account')
-      ->get();
+        ->get();
       $data = array(
         'account' => $account,
       );
@@ -1341,6 +1341,7 @@ class MemberController extends Controller
         'net_proceeds' => $request->input('net_proceeds'),
         'active_email' => $request->input('active_email'),
         'active_number' => $request->input('active_number'),
+        'loan_interest' => $request->input('interest'),
         'status' => 'NEW APPLICATION'
       ]
     );
@@ -1425,6 +1426,7 @@ class MemberController extends Controller
         'net_proceeds' => $request->input('net_proceeds') == '' ? null :  $request->input('net_proceeds'),
         'active_email' => $request->input('active_email')  == '' ? null : $request->input('active_email'),
         'active_number' => $request->input('active_number')  == '' ? null : $request->input('active_number'),
+        'loan_interest' => $request->input('interest') == '' ? null : $request->input('interest'),
         'status' => 'DRAFT'
       ]
     );
@@ -1510,6 +1512,7 @@ class MemberController extends Controller
         'net_proceeds' => $request->input('net_proceeds') == '' ? null :  $request->input('net_proceeds'),
         'active_email' => $request->input('active_email')  == '' ? null : $request->input('active_email'),
         'active_number' => $request->input('active_number')  == '' ? null : $request->input('active_number'),
+        'loan_interest' => $request->input('interest') == '' ? null : $request->input('interest'),
         'status' => 'DRAFT'
       ]);
 
@@ -1610,6 +1613,7 @@ class MemberController extends Controller
           'net_proceeds' => $request->input('net_proceeds'),
           'active_email' => $request->input('active_email'),
           'active_number' => $request->input('active_number'),
+          'loan_interest' => $request->input('interest'),
           'status' => 'NEW APPLICATION'
         ]);
     } catch (\Illuminate\Database\QueryException $e) {
@@ -2205,7 +2209,39 @@ class MemberController extends Controller
       foreach ($outstandingloans as $loan) {
         $totalloanbalance += $loan->balance;
       }
+      $membercontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 2)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['membercontribution'] = $membercontribution->total;
 
+
+      $upcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 1)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['upcontribution'] = $upcontribution->total;
+
+
+      $eupcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 3)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['eupcontribution'] = $eupcontribution->total;
+
+
+      $emcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 4)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['emcontribution'] = $emcontribution->total;
+
+
+      $totalcontributions = array_sum($contributions);
 
       $campuses = DB::table('campus')->get();
       $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
@@ -2233,6 +2269,7 @@ class MemberController extends Controller
         'loan_details' => $loan_details,
         'outstandingloans' => $outstandingloans,
         'totalloanbalance' => $totalloanbalance,
+        'totalcontributions' => $totalcontributions,
         'years' => abs($years[0]->years),
 
 

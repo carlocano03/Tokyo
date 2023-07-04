@@ -2250,7 +2250,7 @@
                                 <div class="col-lg-7">
                                     <div class="info-text">
                                         <label for="" class="font-md">(PEL) Personal Equity Loan.</label>
-                                        <label for="" class="font-md">Loan Application Number: <span>PEL - 2023-2231</span></label>
+                                        <!-- <label for="" class="font-md">Loan Application Number: <span>PEL - 2023-2231</span></label> -->
                                         <label for="" class="font-md">Loan Status: <span>New Application</span></label>
                                     </div>
                                 </div>
@@ -2829,8 +2829,8 @@
         formData.append('net_proceeds', netpay);
         formData.append('monthly_amort', monthly_amort);
         formData.append('approved_amount', total_release_amount);
+        formData.append('interest', getLoanInterest());
 
-        console.log(formData)
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -2941,7 +2941,7 @@
         formData.append('net_proceeds', netpay);
         formData.append('monthly_amort', monthly_amort);
         formData.append('approved_amount', total_release_amount);
-
+        formData.append('interest', getLoanInterest());
         console.log(formData)
         $.ajaxSetup({
             headers: {

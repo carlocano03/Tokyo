@@ -3347,6 +3347,37 @@ class AdminController extends Controller
 
   public function loanApplicationDetails($id)
   {
+    $check_loan_application = DB::table('loan_applications')
+      ->select(
+        'users.*',
+        'loan_applications.*',
+        'member.*',
+        'old_campus.*',
+        'old_campus.name as campus_name',
+        'loan_type.name as loan_type_name',
+        'loan_applications_peb.*',
+        'loan_applications_peb.p_id as valid_id',
+        // 'loan_applications_peb.*',
+        // 'loan_applications_peb.*',
+        'loan_applications_peb.type as loan_application_type',
+        'users.email as user_email'
+      )
+      ->where('loan_applications.id', '=', $id)
+
+      ->join('member', 'member.member_no', '=', 'loan_applications.member_no')
+      ->join('users', 'member.user_id', '=', 'users.id')
+      ->join('old_campus', 'member.campus_id', '=', 'old_campus.id')
+      ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
+      ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
+      ->first();
+
+    if ($check_loan_application->status == 'NEW APPLICATION') {
+      $loan_application_status = DB::table('loan_applications')
+        ->where('id', $id)
+        ->update([
+          'status' => "PROCESSING",
+        ]);
+    }
     $loan_application = DB::table('loan_applications')
       ->select(
         'users.*',
@@ -3370,11 +3401,133 @@ class AdminController extends Controller
       ->join('loan_type', 'loan_applications.loan_type', '=', 'loan_type.id')
       ->join('loan_applications_peb', 'loan_applications.id', '=', 'loan_applications_peb.loan_app_id')
       ->first();
-    return view('admin.loan.loan-application-details', compact('loan_application'));
     // $campus_details = DB::table('old_campus')->get();
     if (!empty($loan_application)) {
+      return view('admin.loan.loan-attachment', compact('loan_application'));
     } else {
-      // return redirect('/admin/loan/loan-application/');
+      return redirect('/admin/loan/loan-application/');
+    }
+  }
+
+  //admin view loan codes
+  public function admin_view_loan($id)
+  {
+    if (Auth::check()) {
+      $loan_app_id = $id;
+      $loan_details = DB::table('loan_applications')
+        ->select("loan_applications.*", "loan_applications_peb.*", "loan_applications.id as loan_app_id", "loan_applications_peb.id as loan_peb_id", "loan_applications.control_number as control_number")
+        ->join("loan_applications_peb", "loan_applications_peb.loan_app_id", "=", "loan_applications.id")
+        ->where('loan_applications.id', $loan_app_id)
+        ->get()
+        ->first();
+      $member = User::where('member.member_no', $loan_details->member_no)
+        ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'old_campus.name as campus_name')
+        ->leftjoin('member', 'users.id', '=', 'member.user_id')
+        ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+        ->leftjoin('old_campus', 'member.campus_id', '=', 'old_campus.id')
+        ->first();
+
+
+      $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+        ->where('loan.member_id', '=', $member->member_id)
+        ->groupBy('loan_type.name')
+        ->get();
+
+      $totalloanbalance = 0;
+      foreach ($outstandingloans as $loan) {
+        $totalloanbalance += $loan->balance;
+      }
+      $membercontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 2)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['membercontribution'] = $membercontribution->total;
+
+
+      $upcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 1)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['upcontribution'] = $upcontribution->total;
+
+
+      $eupcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 3)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['eupcontribution'] = $eupcontribution->total;
+
+
+      $emcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 4)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['emcontribution'] = $emcontribution->total;
+
+
+      $totalcontributions = array_sum($contributions);
+
+      $campuses = DB::table('campus')->get();
+      $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
+      $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
+      $beneficiaries = DB::table('old_beneficiaries')->where('member_no', $member->member_no)->get();
+
+
+
+      $years = OLDMembers::select(DB::raw("YEAR(original_appointment_date) - YEAR(CURDATE()) - (DATE_FORMAT(original_appointment_date,'%m%d') < DATE_FORMAT(CURDATE(),'%m%d')) as years"))
+        ->where('user_Id', '=', $member->user_id)->get();
+
+      $draft_details = DB::table('loan_applications')
+        ->select("loan_applications.*", "loan_applications_peb.*", "loan_applications.id as loan_app_id", "loan_applications_peb.id as loan_peb_id", "loan_applications.control_number as control_number")
+        ->join("loan_applications_peb", "loan_applications_peb.loan_app_id", "=", "loan_applications.id")
+        ->where('loan_applications.id', $id)
+        ->get()
+        ->first();
+
+      $data = array(
+
+        'member' => $member,
+        'campuses' => $campuses,
+        'department' => $department,
+        'membership' => $membership,
+        'beneficiaries' => $beneficiaries,
+        'loan_details' => $loan_details,
+        'outstandingloans' => $outstandingloans,
+        'totalloanbalance' => $totalloanbalance,
+        'totalcontributions' => $totalcontributions,
+        'years' => abs($years[0]->years),
+        'loan_application_details' => $draft_details
+
+
+      );
+      return view('admin.loan.loan-application-details')->with($data);;
+    } else {
+      return redirect('/login');
+    }
+  }
+
+  public function cancelLoanApplication(Request $request)
+  {
+    $loan_app_id  = $request->get('loan_app_id');
+    $cancellation_remarks  = $request->get('cancellation_remarks');
+
+    $cancel_loan = DB::table('loan_applications')
+      ->where('id', $loan_app_id)
+      ->update([
+        'cancellation_reason' => $cancellation_remarks,
+        'status' => 'CANCELLED',
+      ]);
+
+    if (!empty($cancel_loan)) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
     }
   }
 
@@ -3784,27 +3937,27 @@ class AdminController extends Controller
   public function benefitView()
   {
     $member = User::where('users.id', Auth::user()->id)
-        ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
-        ->leftjoin('member', 'users.id', '=', 'member.user_id')
-        ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
-        ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+      ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'campus.name as campus_name')
+      ->leftjoin('member', 'users.id', '=', 'member.user_id')
+      ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
 
-        ->first();
-      $campuses = DB::table('campus')->get();
-      $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
-      $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
-      $beneficiaries = DB::table('old_beneficiaries')->where('member_no', $member->member_no)->get();;
-      $data = array(
-        'member' => $member,
-        'campuses' => $campuses,
-        'department' => $department,
-        'membership' => $membership,
-        'beneficiaries' => $beneficiaries,
-        // 'user_privileges' => DB::table('users')
-        // ->join('user_prev', 'users.id', '=', 'user_prev.users_id')
-        // ->where('users.id', $user->id)
-        // ->get()
-      );
+      ->first();
+    $campuses = DB::table('campus')->get();
+    $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
+    $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
+    $beneficiaries = DB::table('old_beneficiaries')->where('member_no', $member->member_no)->get();;
+    $data = array(
+      'member' => $member,
+      'campuses' => $campuses,
+      'department' => $department,
+      'membership' => $membership,
+      'beneficiaries' => $beneficiaries,
+      // 'user_privileges' => DB::table('users')
+      // ->join('user_prev', 'users.id', '=', 'user_prev.users_id')
+      // ->where('users.id', $user->id)
+      // ->get()
+    );
     return view('admin.benefit.benefit-view')->with($data);
   }
 }

@@ -1,162 +1,265 @@
+<div id="modalBackDrop" class="d-none opacity-0">
+    <div class="modalContent" style="overflow:auto;">
+
+        <div class="d-none opacity-0" id="editLoanModal">
+            <div class="modalBody" style="overflow-y: auto; height: 600px;  margin-top: 70px;">
+
+                <div class="d-flex flex-column gap-10" style="width: 700px;"> <span style="font-weight: bold; font-size: x-large"></span>
+                    <label class="close-button" id="closeModal">
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </label>
+                    <div class="">
+                        <label class="modal_title">Edit Loan Details</label>
+                        <br>
+
+                        <br><br>
+                        <form id=" " class=" form-border-bottom" style="height: calc(100% - 100px) !important;   ">
+                            {{ csrf_field() }}
+                            <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 mp-mt5 member-form mp-pv2 shadow-inset-1" style=" margin-top: 150px !important;">
+
+                                <div class="col-lg-12 mp-mt2">
+                                    <div class="row">
+                                        <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                            <div class="info-text">
+                                                <label for="" class="black-clr">Edit Net Pay (*)</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input type="text" id="netpay" value="{{ $loan_application_details->net_proceeds }}" name="numberonly" data-set="validate-apply-loan-compute" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12 mp-mt2">
+                                    <div class="row">
+                                        <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                            <div class="info-text">
+                                                <label for="" class="black-clr">Edit years of service </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <input type="text" id="years" name="years" data-set="validate-apply-loan-compute" value="{{$years}}" class=" mp-input-group__input mp-text-field w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="step-2-div " id="step-2-div">
+
+
+                                    <!-- 
+                                    <div class="col-lg-6 mp-mh2">
+                                        <div class="info-text">
+                                            <label for="" class="font-bold magenta-clr">Max Loanable Amount: PHP <label id="max_loan"> </label> </label>
+                                        </div>
+                                    </div> -->
+
+                                    <div class="col-lg-12 mp-mt2">
+                                        <div class="row">
+                                            <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                                <div class="info-text">
+                                                    <label for="" class="black-clr">Enter Desired Loanable Amount (*)</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <input type="text" id="desired_amount" value="{{ $loan_application_details->amount }}" data-set="validate-apply-loan-continue" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 mp-mt2">
+                                        <div class="row">
+                                            <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                                <div class="info-text">
+                                                    <label for="" class="black-clr">Select Terms of Payment</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <select id="year_terms" value="{{ $loan_application_details->year_terms }}" data-set="validate-apply-loan-continue" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
+
+                                                    <option value="1">1 Year</option>
+                                                    <option value="2">2 Years</option>
+                                                    <option value="3">3 Years</option>
+                                                    <option value="4">4 Years</option>
+                                                </select>
+                                                <!-- <input type="text" class=" radius-1 border-1 date-input outline mp-pb1 mp-pt1"> -->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 mp-mt2">
+                                        <div class="row" style="overflow-y: auto;">
+                                            <div class="col-lg-12">
+                                                <div class="d-flex flex-column">
+                                                    <div class="header-table">
+                                                        <table class="payroll-table" style="height: auto;" width="100%">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>
+                                                                        <span>Principal Amount (Loanable)</span>
+                                                                    </th>
+                                                                    <th>
+                                                                        <span>Interest %</span>
+                                                                    </th>
+                                                                    <th>
+                                                                        <span>Interest Amount</span>
+                                                                    </th>
+                                                                    <th>
+                                                                        <span>Payment Terms</span>
+                                                                    </th>
+                                                                    <th>
+                                                                        <span>Monthly Amortization</span>
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <label id="table1_loan_amount"></label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <label id="table1_interest"></label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <label id="table1_interest_amount"></label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <label id="table1_payment_terms"></label>
+                                                                    </td>
+                                                                    <td>
+                                                                        <label id="table1_monthly_amortization"></label>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <span>Service Fee</span>
+                                                                    </td>
+                                                                    <td colspan="4">
+                                                                        <span class="justify-content-center black-clr font-bold">PHP 200.00</span>
+                                                                    </td>
+
+                                                                </tr>
+                                                                <tr class="magenta-bg">
+                                                                    <td>
+                                                                        <span>Actual Amount for Release Computation</span>
+                                                                    </td>
+                                                                    <td colspan="4">
+                                                                        <br>
+                                                                        <table class="color-white ">
+                                                                            <tr>
+
+                                                                                <td class="color-white "><span class="justify-content-center font-bold" id="table1_actual_amount_release_existing"></span></td>
+                                                                                <td class="color-white "><span> - Loan Balance</span></td>
+                                                                            </tr>
+                                                                            <tr>
+
+
+                                                                                <td>PHP -200.00</td>
+                                                                                <td> - Service Fee</td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td><span class="justify-content-center font-bold" id="table1_actual_amount_desired_loan"></span></td>
+                                                                                <td> - Desired Loan </td>
+                                                                            </tr>
+
+                                                                            <tr>
+                                                                                <td><span class="justify-content-center font-bold" id="table1_actual_amount_release"></span></td>
+                                                                                <td> - Total Loanable Amount </td>
+                                                                            </tr>
+
+                                                                        </table>
+                                                                        <br>
+
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-lg-12 mp-mt2">
+                                    <div class="row">
+                                        <div class="col-lg-12 mp-mt2">
+                                            <div class="row">
+                                                <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                                    <div class="info-text">
+                                                        <label for="" class="black-clr">Active Email: (*) </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <input type="text" id="active_email" value="{{ $loan_application_details->active_email}}" data-set="validate-apply-loan" name="active_email" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 mp-mt2">
+                                            <div class="row">
+                                                <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                                    <div class="info-text">
+                                                        <label for="" class="black-clr">Active Mobile Number: (*) </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <input type="text" id="active_number" value="{{$loan_application_details->active_number}}" data-set="validate-apply-loan" name="numberonly" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="up-button-green btn-md button-animate-right mp-text-center mp-mt5" id="save_election" type="submit">
+                                    <span>SAVE LOAN & APPROVED</span>
+                                </a>
+
+                                <a class="up-button btn-md button-animate-right mp-text-center" id="save_draft_election">
+                                    <span>SAVE LOAN</span>
+                                </a>
+                                <a class="up-button-grey btn-md button-animate-right mp-text-center" id="cancel_loan">
+                                    <span>CANCEL LOAN</span>
+                                </a>
+
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
 @extends('layouts/main')
 @section('content_body')
-
 <style>
-    .switch {
-        position: relative;
-        display: inline-block;
-        width: 60px;
-        height: 34px;
-    }
-
-    .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-    }
-
-    .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-        transform: scale(0.6);
-    }
-
-    .slider:before {
-        position: absolute;
-        content: "";
-        height: 26px;
-        width: 26px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-    }
-
-    input:checked+.slider {
-        background-color: var(--c-accent);
-    }
-
-    input:focus+.slider {
-        box-shadow: 0 0 1px #2196F3;
-    }
-
-    input:checked+.slider:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-    }
-
-    /* Rounded sliders */
-    .slider.round {
-        border-radius: 34px;
-    }
-
-    .slider.round:before {
-        border-radius: 50%;
-    }
-
-    .button-active {
-        background-color: var(--c-accent);
-        color: white;
-
-    }
-
-    .button-menu {
-        font-weight: 600;
-        border-radius: 5px;
-    }
-
-    .candidates {
-        text-align: center;
-        border: solid 1px #c6c6c6;
-        margin: 20px;
-    }
-
-    .candidates label {
-        font-size: 25px;
-        width: 100%;
-        color: white;
-        background-color: var(--c-accent);
-        border: solid 1px black;
-    }
-
-    .candidate-button-container {
-        display: flex;
-        flex-wrap: nowrap;
-        margin: 5px;
-    }
-
-    .candidate-button-container>div {
-        /* background-color: #f1f1f1; */
-        width: 100%;
-        margin: 1px;
-        text-align: center;
-
-
+    .color-white {
+        color: white !important;
         font-size: 12px;
     }
 
-    .search-container {
-        background-color: white;
-        padding-top: 5px;
-        padding-bottom: 10px;
-    }
-
-    .middle-content.full {
+    .modal_title {
+        position: absolute;
+        top: 0px;
+        margin-top: 15px;
+        left: 0px;
+        background-color: var(--c-accent);
+        color: white;
+        padding: 20px;
+        margin: 0px;
         width: 100%;
-        transition: all .5s;
-    }
-
-    .right-content {
-        width: 20%;
-        opacity: 1;
-        transition: all .2s;
-    }
-
-    .right-content.full {
-        width: -1%;
-        opacity: 0;
-    }
-
-    .d-none {
-        transition: all .5s;
-        display: none !important;
-
-    }
-
-    .w-full {
-        width: 100%;
-    }
-
-    .transition {
-        transition: 1s;
-        -webkit-transition: 1s;
-    }
-
-    .db-text {
-        font-size: 50px;
-        margin-top: 20px;
-        margin-bottom: 10px;
-    }
-
-    .backup-container {
-        display: flex;
-        justify-content: center;
-        border: 1px solid #e3d1d1;
-        padding: 10px;
-    }
-
-    .title-text {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
         font-size: 20px;
-        font-weight: bold;
+    }
+
+    .close-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        margin: 10px;
+        font-size: 25px;
     }
 
     .card-container {
@@ -211,9 +314,9 @@
     }
 
     .table-container {
-        min-height: calc(60vh - 220px);
-        max-height: calc(60vh - 220px);
-        overflow: auto;
+        /* min-height: calc(60vh - 220px);
+        max-height: calc(60vh - 50px);
+        overflow: auto; */
     }
 
     .summary-container {
@@ -448,14 +551,6 @@
         background-color: #de2e4f;
     }
 
-    .link-style {
-        color: #1a8981;
-    }
-
-    .link-style:hover {
-        text-decoration: underline;
-        color: #1a8981;
-    }
 
     .font-sm {
         font-size: 13px;
@@ -802,17 +897,68 @@
         padding-right: 5px;
     }
 
-    .create-button {
-        text-align: center;
+    #summaryModal {
+        display: none;
     }
 
-    .create-button button {
-        padding: 11px;
+    .search-container {
+        background-color: white;
+        padding-top: 5px;
+        padding-bottom: 10px;
     }
 
-    .voters-text label {
-        font-size: 12px;
-        margin-bottom: -8px !important;
+    .middle-content.full {
+        width: 100%;
+        transition: all .5s;
+    }
+
+    .right-content {
+        width: 20%;
+        opacity: 1;
+        transition: all .2s;
+    }
+
+    .right-content.full {
+        width: -1%;
+        opacity: 0;
+    }
+
+    .d-none {
+        transition: all .5s;
+        display: none !important;
+
+    }
+
+    .w-full {
+        width: 100%;
+    }
+
+    .transition {
+        transition: 1s;
+        -webkit-transition: 1s;
+    }
+
+    .db-text {
+        font-size: 50px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .backup-container {
+        display: flex;
+        justify-content: center;
+        border: 1px solid #e3d1d1;
+        padding: 10px;
+    }
+
+    .title-text {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .card-container {
+        display: flex;
+        flex-direction: column;
     }
 
     .card-header {
@@ -823,498 +969,220 @@
         color: white;
     }
 
-    .dashboard {
-        height: calc(100% - 131px);
-        overflow-x: hidden;
-    }
-
-    /* .calendar>.wrapper {
-                width: 100%;
-                background: #fff;
-                border-radius: 10px;
-                box-shadow: 0 0px 5px rgba(0, 0, 0, 0.12);
-                display: flex;
-                flex-direction: column;
-              }
-
-              .calendar>.wrapper header {
-                display: flex;
-                align-items: center;
-                padding: 25px 30px 10px;
-                justify-content: space-between;
-              } */
-
-    header .icons {
+    .card-body {
         display: flex;
+        flex-direction: row;
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+        padding: 5px 10px;
+        background-color: white;
     }
 
-    header .icons span {
-        height: 38px;
-        width: 38px;
-        margin: 0 1px;
-        cursor: pointer;
-        color: #878787;
-        text-align: center;
-        line-height: 38px;
-        font-size: 1.9rem;
-        user-select: none;
-        border-radius: 50%;
+    .card-body>span {
+        font-size: 20px;
     }
+
+    .card-body>h1 {
+        width: 60px;
+    }
+
+    .font-15 {
+        font-size: 18px;
+    }
+
+    .font-13 {
+        font-size: 13px;
+    }
+
+    .history-item {
+        padding: 3px;
+        padding: 10px 10px;
+    }
+
+    .history-container {
+        min-height: calc(57vh - 10px);
+        max-height: calc(57vh - 10px);
+        overflow: auto;
+        padding: 0;
+
+    }
+
+    .table-container {
+        min-height: calc(60vh - 220px);
+        max-height: calc(60vh - 220px);
+        overflow: auto;
+    }
+
+    .summary-container {
+        max-height: calc(60vh - 220px);
+        overflow: auto;
+    }
+
+    .record-container {
+        min-height: 65vh;
+        max-height: 65vh;
+    }
+
 
     .p-0 {
         padding: 0;
     }
 
-    .font-bold {
-        font-weight: 500;
-    }
-
-    .font-lg {
-        font-size: 30px;
+    .record-container {
+        min-height: 65vh;
+        max-height: 65vh;
     }
 
 
-    .icons span:last-child {
-        margin-right: -10px;
-    }
-
-    header .icons span:hover {
-        background: #f2f2f2;
-    }
-
-    header .current-date {
-        font-size: 1.45rem;
-        font-weight: 500;
-    }
-
-    /*
-              .calendar ul {
-                display: flex;
-                flex-wrap: wrap;
-                list-style: none;
-                text-align: center;
-              }
-
-              .calendar .days {
-                margin-bottom: 20px;
-              }
-
-              .calendar li {
-                color: #333;
-                width: calc(100% / 7);
-                font-size: 1.07rem;
-              }
-
-              .calendar .weeks li {
-                font-weight: 500;
-                cursor: default;
-              }
-
-              .calendar .days li {
-                z-index: 1;
-                cursor: pointer;
-                position: relative;
-                margin-top: 30px;
-              }
-
-              .calendar>.days li.default {
-                color: #aaa;
-              }
-
-              .calendar>.days li.selected {
-                color: #fff;
-              }
-
-              .calendar>.days li::before {
-                position: absolute;
-                content: "";
-                left: 50%;
-                top: 50%;
-                height: 40px;
-                width: 40px;
-                z-index: -1;
-                border-radius: 50%;
-                transform: translate(-50%, -50%);
-              }
-
-              .calendar>.days li.selected::before {
-                background: #6c1242;
-              }
-
-              .calendar>.days li:not(.selected):hover::before {
-                background: #f2f2f2;
-              } */
-
-    .side-dashboard {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .right-dashboard {
-        padding-left: 0;
-    }
-
-    .user-details {
-        grid-template-columns: 2fr 1fr;
-    }
-
-
-
-    .highcharts-figure,
-    .highcharts-data-table table {
-        min-width: 310px;
-        max-width: 800px;
-        margin: 1em auto;
-    }
-
-    #container {
-        height: 400px;
-    }
-
-    .highcharts-data-table table {
-        font-family: Verdana, sans-serif;
-        border-collapse: collapse;
-        border: 1px solid #ebebeb;
-        margin: 10px auto;
-        text-align: center;
-        width: 100%;
-        max-width: 500px;
-    }
-
-    .highcharts-data-table caption {
-        padding: 1em 0;
-        font-size: 1.2em;
-        color: #555;
-    }
-
-    .highcharts-data-table th {
-        font-weight: 600;
-        padding: 0.5em;
-    }
-
-    .highcharts-data-table td,
-    .highcharts-data-table th,
-    .highcharts-data-table caption {
-        padding: 0.5em;
-    }
-
-    .highcharts-data-table thead tr,
-    .highcharts-data-table tr:nth-child(even) {
-        background: #f8f8f8;
-    }
-
-    .highcharts-data-table tr:hover {
-        background: #f1f7ff;
-    }
-
-    #container {
-        width: 100%;
-    }
-
-    text.highcharts-credits {
-        display: none;
-    }
-
-    .main-dashboard {
-        grid-template-columns: repeat(12, 1fr);
+    .f-button {
+        background-color: #6c1242;
+        color: white;
         padding-left: 15px;
         padding-right: 15px;
+        border-radius: 20px;
+        font-size: 14px;
     }
 
-    .campus-content {
-        grid-template-columns: repeat(12, 1fr);
+    .history-logs {
+        background-color: #1a8981;
     }
 
-    .col-campus:nth-child(1) {
-        grid-column: span 4;
+    .filtering {
+        background-color: #894168;
     }
 
-    .col-campus:nth-child(2) {
-        grid-column: span 4;
+    .members-table {
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+        border: 1px solid #ececec;
     }
 
-    .col-campus:nth-child(3) {
-        grid-column: span 4;
+    .members-table>thead>tr>th {
+        font-size: 13px;
+        padding-left: 5px;
+        padding-right: 5px;
+        background-color: #1a8981;
+        color: white !important;
+        border-left: 1px solid white;
+        font-weight: 500;
+        border-top: 2px solid #1a8981;
+        border-bottom: 2px solid #1a8981;
+        height: auto;
     }
 
-
-    .col {
-        padding: 0
+    .members-table>thead>tr>th:first-child {
+        border-left: 1px solid #1a8981;
     }
 
-    .col:nth-child(1) {
-        grid-column: span 9;
+    .members-table>thead>tr>th:last-child {
+        border-right: 1px solid #1a8981;
     }
 
-    .col:nth-child(2) {
-        grid-column: span 3;
-    }
-
-    .col:nth-child(3) {
-        grid-column: span 6;
-    }
-
-    .col:nth-child(4) {
-        grid-column: span 6;
-    }
-
-    .content-right {
+    .members-table>thead>tr>th>span {
         display: flex;
-        flex-direction: column;
         height: 100%;
     }
 
-    .ml-auto {
-        margin-left: auto;
+    .members-table>tbody>tr>td>span {
+        display: flex;
+        padding: 5px 2px;
+
     }
 
-    .total-loans {
+    .members-table>tbody>tr>td {
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+
+    .view {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        text-align: center;
+        justify-self: center;
+        align-self: center;
+    }
+
+    .member-name {
+        font-weight: 700;
+    }
+
+    .filtering-section-body {
+        padding: 10px;
         display: flex;
     }
 
-    .total-loans-child:nth-child(1) {
-        grid-column: span 2;
+    .percent {
+        width: 150px;
+        height: 150px;
+        position: relative;
     }
 
-    .total-loans-child:nth-child(2) {
-        grid-column: span 5;
+    .percent svg {
+        width: 150px;
+        height: 150px;
+        position: relative;
     }
 
-    .total-loans-child:nth-child(3) {
-        grid-column: span 12;
+    .percent svg circle {
+        width: 150px;
+        height: 150px;
+        fill: none;
+        stroke-width: 10;
+        stroke: #000;
+        transform: translate(5px, 5px);
+        stroke-dasharray: 440;
+        stroke-dashoffset: 440;
+        stroke-linecap: round;
     }
 
-    @media (max-width:1300px) {
-        .col:nth-child(2) {
-            grid-column: span 12;
-        }
-
-        .col:nth-child(1) {
-            grid-column: span 12;
-        }
-
-        .right-dashboard {
-            padding-top: 10px;
-            padding-bottom: 10px;
-        }
-
-        .total-loans {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .title-total {
-            text-align: center;
-        }
-
-        .total-loans>.ml-auto {
-            margin-left: 0;
-            margin-bottom: 10px;
-        }
-
-
-        .col-campus:nth-child(1) {
-            grid-column: span 12;
-        }
-
-        .col-campus:nth-child(2) {
-            grid-column: span 6;
-        }
-
-        .col-campus:nth-child(3) {
-            grid-column: span 6;
-        }
-
-        #campusSelector {
-            display: flex;
-            justify-content: center;
-        }
-
-        .side-dashboard {
-            grid-template-columns: 1fr 1fr 1fr 1fr;
-        }
-
-        .side-dashboard>.card>.content-right {
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: row;
-        }
-
-        .side-dashboard>.card>.content-right>label {
-            margin-bottom: 0px;
-            margin-top: 0px !important;
-        }
+    .percent svg circle:nth-child(1) {
+        stroke-dashoffset: 0;
+        stroke: #f3f3f3;
     }
 
 
-    @media (max-width:984px) {
 
-
-        .right-dashboard {
-            padding-top: 10px;
-            padding-bottom: 10px;
-            padding-left: 15px;
-            margin-top: 10px;
-            margin-bottom: 25px;
-        }
-
-        .col:nth-child(2) {
-            grid-column: span 12;
-        }
-
-        .col:nth-child(1) {
-            grid-column: span 12;
-        }
-
-
-    }
-
-
-    @media (max-width:700px) {
-
-        .col:nth-child(1) {
-            grid-column: span 12;
-        }
-
-        .col:nth-child(2) {
-            grid-column: span 12;
-        }
-
-        .col:nth-child(3) {
-            grid-column: span 12;
-        }
-
-        .col:nth-child(4) {
-            grid-column: span 12;
-        }
-    }
-
-
-    @media (max-width:500px) {
-        .user-details {
-            grid-template-columns: 1fr;
-        }
-
-        .details {
-            grid-template-columns: 1fr;
-            grid-row: 2;
-
-        }
-
-        .image-profile {
-            display: none;
-        }
-
-        .side-dashboard>.card>.content-right {
-            margin-top: 0px;
-            padding-left: 10px;
-            padding-right: 10px;
-
-            display: flex;
-            justify-content: space-between;
-            flex-direction: row;
-        }
-
-        .side-dashboard>.card>.content-right>label {
-            margin-bottom: 0px;
-            margin-top: 0px !important;
-        }
-
-
-    }
-
-    .right-dashboard {
-        padding-left: 0;
-    }
-
-    .user-details {
-        grid-template-columns: 2fr 1fr;
-    }
-
-
-    @media (max-width:500px) {
-        .user-details {
-            grid-template-columns: 1fr;
-        }
-
-        .details {
-            grid-template-columns: 1fr;
-            grid-row: 2;
-
-        }
-
-        .image-profile {
-            grid-row: 1;
-        }
-
-    }
-
-    .highcharts-figure,
-    .highcharts-data-table table {
-        min-width: 310px;
-        max-width: 800px;
-        margin: 1em auto;
-    }
-
-    #container {
-        height: 400px;
-    }
-
-    .highcharts-data-table table {
-        font-family: Verdana, sans-serif;
-        border-collapse: collapse;
-        border: 1px solid #ebebeb;
-        margin: 10px auto;
-        text-align: center;
+    .percent .num {
+        top: 0;
+        left: 0;
         width: 100%;
-        max-width: 500px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        color: #111;
     }
 
-    .highcharts-data-table caption {
-        padding: 1em 0;
-        font-size: 1.2em;
-        color: #555;
+    .percent .num h2 {
+        font-size: 48px;
     }
 
-    .highcharts-data-table th {
-        font-weight: 600;
-        padding: 0.5em;
+    .percent .num h2 span {
+        font-size: 24px;
     }
 
-    .highcharts-data-table td,
-    .highcharts-data-table th,
-    .highcharts-data-table caption {
-        padding: 0.5em;
+    .text {
+        padding: 10px 0 0;
+        color: #999;
+        font-weight: 700;
+        letter-spacing: 1px;
     }
 
-    .highcharts-data-table thead tr,
-    .highcharts-data-table tr:nth-child(even) {
-        background: #f8f8f8;
+    .blue-bg {
+        background-color: #3fa9c9;
+        color: white;
     }
 
-    .highcharts-data-table tr:hover {
-        background: #f1f7ff;
-    }
-
-    #container {
-        width: 100%;
-    }
-
-    text.highcharts-credits {
-        display: none;
-    }
-
-    .w-full {
-        width: 100%;
-    }
-
-    .pb-1px {
-        padding-bottom: 1px;
-    }
-
-    .h-42px {
-        height: 42px;
+    .green-bg {
+        background-color: #39b74d;
+        color: white;
     }
 
     .green.ldBar path.mainline {
@@ -1327,6 +1195,18 @@
         stroke-width: 10;
         stroke: #1a8981;
         stroke-linecap: round;
+    }
+
+    .magenta-clr {
+        color: #1a8981;
+    }
+
+    .green-clr {
+        color: #39b74d;
+    }
+
+    .orage-clr {
+        color: rgb(247, 163, 92);
     }
 
     .maroon.ldBar path.mainline {
@@ -1365,25 +1245,520 @@
         background-color: #de2e4f;
     }
 
-    .green-bg {
-        background-color: #39b74d;
+    .back-link-style {
+        color: black;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    .back-link-style:hover {
+        color: #484747;
+
+    }
+
+    .back-link-style span:hover {
+        color: #484747;
+    }
+
+    .font-sm {
+        font-size: 13px;
+    }
+
+    .font-md {
+        font-size: 15px;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .ml-auto {
+        margin-left: auto;
+    }
+
+    .middle-content {
+        width: calc(80% - 10px);
+        transition: all .5s;
+    }
+
+    .middle-content.full {
+        width: 100%;
+        transition: all .5s;
+    }
+
+    .right-content {
+        width: 20%;
+        opacity: 1;
+        transition: all .2s;
+    }
+
+    .right-content.full {
+        width: -1%;
+        opacity: 0;
+    }
+
+    .d-none {
+        display: none !important;
+    }
+
+    .w-full {
+        width: 100%;
+    }
+
+    .cursor-pointer {
+        cursor: pointer;
+    }
+
+    .w-auto {
+        width: 100%;
+    }
+
+    .w-80 {
+        width: calc(88% - 10px);
+    }
+
+    .table-form {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    .span-1 {
+        grid-column: span 1;
+    }
+
+    .span-2 {
+        grid-column: span 2;
+    }
+
+    .span-3 {
+        grid-column: span 3;
+    }
+
+    .span-4 {
+        grid-column: span 4;
+    }
+
+    .span-5 {
+        grid-column: span 5;
+    }
+
+    .span-6 {
+        grid-column: span 6;
+    }
+
+    .span-7 {
+        grid-column: span 7;
+    }
+
+    .span-8 {
+        grid-column: span 8;
+    }
+
+    .span-9 {
+        grid-column: span 9;
+    }
+
+    .span-10 {
+        grid-column: span 10;
+    }
+
+    .span-11 {
+        grid-column: span 11;
+    }
+
+    .span-12 {
+        grid-column: span 12;
+    }
+
+    .color-white {
         color: white;
     }
 
-    .red-clr {
-        color: #de2e4f;
+    .orage-bg {
+        background-color: rgb(247, 163, 92);
     }
 
-    .green-clr {
-        color: #39b74d;
+    .w-input {
+        width: 95%;
+        border-radius: 5px;
+        border: 1px solid gray;
     }
 
-    .maroon-clr {
-        color: #894168;
+    .min-h-50vh {
+        min-height: 50vh;
+        max-height: 50vh;
+        overflow-y: auto;
     }
 
-    .magenta-clr {
-        color: #1a8981;
+    .border-content>div {
+        border-top: 1px solid gray;
+        border-right: 1px solid gray;
+    }
+
+    .border-content>div:last-child {
+        border-bottom: 1px solid gray;
+    }
+
+    .border-content>div>div {
+        border-left: 1px solid gray;
+    }
+
+    .border-content>div>div:first-child {
+        border-left: 0px
+    }
+
+    .circle {
+        height: 15px;
+        width: 15px;
+        border-radius: 50%;
+        background-color: #6c1242;
+        align-self: center;
+
+    }
+
+    .top-circle {
+        top: -6px;
+    }
+
+    .line-trail {
+        margin-bottom: 20px;
+        height: 2px;
+        background-color: red;
+    }
+
+    .line-child {
+        background-color: #6c1242;
+        height: 100%;
+    }
+
+    .white {
+        background-color: white;
+    }
+
+    .trail {
+        overflow: hidden;
+        transition: all .5s;
+    }
+
+    .trail.close-trail {
+        height: 50px;
+    }
+
+    .trail-details.hidden-details {
+        opacity: 0;
+    }
+
+    .font-bold {
+        font-weight: 500;
+    }
+
+    .status-title {
+        font-size: 12pt;
+        padding: 3px 10px;
+        border-radius: 12px;
+        color: white;
+    }
+
+
+    .gray-bg {
+        background-color: #ececec;
+    }
+
+    .w-trail {
+        width: 98%;
+    }
+
+    .justify-items-center {
+        justify-items: center;
+    }
+
+
+    .font-lg {
+        font-size: 30px;
+    }
+
+
+    .opacity-0 {
+        opacity: 0 !important;
+    }
+
+
+
+    .table-component {
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+        border: 1px solid #ececec;
+    }
+
+    .table-component>thead>tr>th {
+        font-size: 13px;
+        padding-left: 5px;
+        padding-right: 5px;
+        background-color: #1a8981;
+        color: white !important;
+        border-left: 1px solid white;
+        font-weight: 500;
+        border-top: 2px solid #1a8981;
+        border-bottom: 2px solid #1a8981;
+        height: auto;
+    }
+
+    .table-component>thead>tr>th:first-child {
+        border-left: 1px solid #1a8981;
+    }
+
+    .table-component>thead>tr>th:last-child {
+        border-right: 1px solid #1a8981;
+    }
+
+    .table-component>thead>tr>th>span {
+        display: flex;
+        height: 100%;
+    }
+
+    .table-component>tbody>tr>td>span {
+        display: flex;
+        padding: 5px 2px;
+
+    }
+
+    .table-component>tbody>tr>td {
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .create-button {
+        text-align: center;
+    }
+
+    .create-button button {
+        padding: 11px;
+    }
+
+    .members-module {
+        height: 100%;
+        width: 100%;
+        min-height: 95vh;
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+        position: relative;
+        gap: 5px;
+    }
+
+    @media (max-width:652px) {
+        .members-module {
+            margin-top: 53px;
+        }
+
+        .siderbar {
+            position: absolute;
+            height: 100%;
+            min-height: 95vh;
+            z-index: 100;
+        }
+    }
+
+    .col-lg-6:nth-child(1) {
+        padding-right: 0px;
+    }
+
+    .col-lg-6:nth-child(2) {
+        padding-left: 0px;
+    }
+
+    .padding-content {
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+    }
+
+    @media (max-width:990px) {
+        .col-lg-6:nth-child(1) {
+            padding-right: 15px;
+        }
+
+        .col-lg-6:nth-child(2) {
+            padding-left: 15px;
+        }
+
+        .padding-content {
+            padding-bottom: 5rem;
+            padding-top: 5rem;
+        }
+
+
+
+    }
+
+    .siderbar {
+        max-width: 15px;
+        min-width: 15px;
+        height: auto;
+        background-color: white;
+    }
+
+    .siderbar.showed {
+        max-width: 250px;
+        min-width: 250px;
+        height: auto;
+        background-color: white;
+    }
+
+    .siderbar.showed div {
+        display: flex;
+    }
+
+    .siderbar>div {
+        border: 1px solid #e9dfdf;
+        display: none;
+    }
+
+    .siderbar>.item {
+        cursor: pointer;
+    }
+
+    .siderbar>.item:hover {
+        background-color: #f6f6f6;
+    }
+
+    .members-content {
+        width: 100%;
+        height: auto;
+    }
+
+    .item.active {
+        background-color: #6c1242;
+        color: white;
+    }
+
+    .item.active:hover {
+        background-color: #6c1242;
+        color: white;
+    }
+
+    .toggle-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        position: absolute;
+        right: -7px;
+        top: 20px;
+    }
+
+
+    .info-pdf {
+        display: grid;
+        /* font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .info-pdf label {
+        padding: 0;
+        margin-bottom: 0px;
+        color: #7c7272;
+        font-size: 10px;
+    }
+
+    .info-text {
+        display: grid;
+    }
+
+    .info-text label {
+        margin-bottom: 0px;
+        color: #7c7272;
+        font-size: 13px;
+    }
+
+    .info-text h1 {
+        margin-bottom: 0px;
+    }
+
+    .info-text-number {
+        margin-top: 10px;
+        display: inline-grid;
+        margin-bottom: 10px;
+        color: var(--c-primary);
+    }
+
+    .info-text-number label {
+
+        margin: 0px;
+    }
+
+    .profile-buttons button {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+
+    .color-black {
+        color: black;
+    }
+
+    .member-detail-title {
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+    }
+
+    .member-detail-title.open-details {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .member-detail-body {
+        display: none !important;
+    }
+
+    .member-detail-body.open-details {
+        display: flex !important;
+    }
+
+    .membership-title {
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+    }
+
+    .membership-title.open-details {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .membership-body {
+        display: none !important;
+    }
+
+    .membership-body.open-details {
+        display: flex !important;
+    }
+
+
+    .forms_attachment-title {
+        border-bottom-left-radius: 7px;
+        border-bottom-right-radius: 7px;
+    }
+
+    .forms_attachment-title.open-details {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .forms_attachment-body {
+        display: none !important;
+    }
+
+    .forms_attachment-body.open-details {
+        display: flex !important;
+    }
+
+    .employee-detail {
+        display: none;
+    }
+
+    .employee-detail.open-detail {
+        display: grid;
     }
 
     .bayabas-bg {
@@ -1391,510 +1766,1315 @@
         color: white;
     }
 
-    .font-sm {
+    .details-div {
+        display: inline-grid;
+    }
+
+    .details-div .value {
+        font-weight: bold;
+        ;
+    }
+
+    .personal-details-title {
+        font-size: 16px;
+        background-color: var(--c-accent);
+        color: white;
+        padding: 10px;
+        margin-left: -10px;
+        margin-right: -10px;
+    }
+
+    .payroll-table {
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        table-layout: fixed;
+        border: 1px solid #ececec;
+    }
+
+    .payroll-table>thead>tr>th {
         font-size: 13px;
+        padding-left: 5px;
+        padding-right: 5px;
+        background-color: #1a8981;
+        color: white !important;
+        border-left: 1px solid white;
+        font-weight: 500;
+        border-top: 2px solid #1a8981;
+        border-bottom: 2px solid #1a8981;
+        height: auto;
+        text-transform: uppercase;
     }
 
-    .card-body {
+    .payroll-table>thead>tr>th:first-child {
+        border-left: 1px solid #1a8981;
+    }
+
+    .payroll-table>thead>tr>th:last-child {
+        border-right: 1px solid #1a8981;
+    }
+
+    .payroll-table>thead>tr>th>span {
         display: flex;
-        flex-direction: row;
-        border-bottom-left-radius: 7px;
-        border-bottom-right-radius: 7px;
-        padding: 5px 10px;
-        background-color: white;
         height: 100%;
-        align-items: center;
     }
 
-    .card-body>span {
+    .payroll-table>tbody>tr>td>span {
+        display: flex;
+        padding: 5px 2px;
+
+    }
+
+    .payroll-table>tbody>tr>td {
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .tab button {
+        margin-right: -5px;
+        font-size: 15px;
+        padding: 5px 15px 5px 15px;
+
+
+    }
+
+    .tab button i {
         font-size: 20px;
     }
 
-    .card-body>h1 {
-        width: 60px;
+    .active-tab {
+        color: white;
+        background-color: var(--c-primary);
     }
 
-
-    .ldBar-label {
-        font-size: 17px;
-    }
-
-    .text-center {
+    .status-container {
         text-align: center;
-    }
-
-    .winner-info {
-        text-align: center;
-    }
-
-    .name label {
-        font-size: 40px;
-        color: var(--c-accent);
-    }
-
-    .campus-role label {
-        font-size: 15px;
-    }
-
-    .cluster-tab-button {
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-        border: 1px solid #cec7c7;
-        margin-right: -5px !important;
-    }
-
-    .cluster-button-active {
-        background-color: var(--c-accent) !important;
-        color: white !important;
-    }
-
-    .top-text-details {
-        display: inline-grid;
-        /* margin: 0px; */
-        color: black;
-        font-size: 17px;
-
-    }
-
-    .details-div {
-        margin: 0px !important;
-    }
-
-    .details-container {
         padding: 20px;
+
     }
 
-    .generate-button {
-        float: right;
-        border-radius: 15px;
-        padding: 3px 15px 3px 15px;
-        font-size: 14px;
+    .payroll-table>thead>tr>th {
+        min-width: 100px;
+    }
+
+    .payroll-table>tbody>tr>td {
+        min-width: 100px;
+    }
+
+    .side-dashboard {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .side-dashboard>.card>.content-right {
+        margin-top: 10px;
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+
+    .side-dashboard>.card>.content-right>label {
+        margin-bottom: 0px;
+        margin-top: 0px !important;
+    }
+
+    .underline {
+        margin-top: auto;
+        height: 17.5px;
+        width: auto;
+        margin-left: 10px;
+        border-bottom: 1px solid black;
+        flex: 1;
+        font-size: 11px;
+        color: black;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+
+    .font-p>label {
+        font-size: 9px !important;
+    }
+
+
+    @media (max-width:990px) {
+        .payroll-table {
+            width: auto;
+            min-width: 100%;
+        }
+
+
+
+    }
+
+    .cancelled-text {
+        position: absolute;
+        font-size: 90px;
+        transform: rotate(26deg);
+        top: 20%;
+        left: 12%;
+
     }
 </style>
-
-
-
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
-<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 <script src="{{ asset('/dist/adminDashboard.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}" />
 <script type="text/javascript" src="{{ asset('/dist/loading-bar/loading-bar.js') }}"></script>
-<link rel="stylesheet" type="text/css" href="{{ asset('/dist/loading-bar/loading-bar.css') }}">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+
 <div class="filler"></div>
 
-<div class="col-12  mp-text-fs-large mp-text-c-accent  dashboard mh-content" style="padding:0px !important;">
 
 
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-2" id="settingsTab" style="padding:0px !important; height: 100%; overflow-y:auto; ">
-                <div class="mp-card admin-settingtab" style="padding-bottom:150px;">
-                    <div class="settings-tab">
-                        <div class="top-label">
-                            <label>Loan Module</label>
 
+<div class="col-12 padding-content mp-text mp-text-c-accent dashboard mh-content">
+    <a href="/admin/loan/loan-application/" style="margin-left:-10px; margin-top:-10px;"><span class=" back-button-default">
+            < Back </span></a>
+    <div class="d-flex flex-wrap">
+        <div class="col-lg-4 mp-pr0 mp-mt2" style="width: 100%;">
+            <div class="mp-card mp-p4 h-auto mp-mb2">
+                <div class="container-fluid">
+                    <div class="row" style="padding:20px;">
+                        <div class="col-lg-5">
+
+                            <div class="profile-img">
+                                <img style="width: 100px; height: 100px;" src="{!! asset('assets/images/user-default.png') !!}" alt="">
+                            </div>
                         </div>
+                        <div class=" col-lg-7">
+                            <div class="profile-text" style="display: inline-grid;">
+                                <span style="font-size: 15px;
+                                                                color: black;
+                                                                font-weight: bold;">Member Status</span>
 
-                        <div class="settings-buttons">
-                            <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
-
-                                <li class="options " onclick="location.href='/admin/loan/loan-matrix'">
-                                    <a href="#" class="no-padding ">Loan Matrix Details</a><br>
-
-                                </li>
-                                <li class="options options-active" onclick="location.href='/admin/loan/loan-application'">
-                                    <a href="#" class="no-padding options-a-active">Loans Application</a><br>
-
-                                </li>
-                                <li class="options " onclick="location.href='/admin/loan/loan-analytics'">
-                                    <a href="#" class="no-padding ">Analytics</a><br>
-
-                                </li>
+                                @if ($member->membership_status == 'ACTIVE')
+                                <span style="   margin-top: -5px;
+                                                                    color: var(--c-primary);
+                                                                    font-size: 25px;
+                                                                    font-weight: 500;"> {{ $member->membership_status }}</span>
+                                @else
+                                <span style="   margin-top: -5px;
+                                                                    color: red;
+                                                                    font-size: 25px;
+                                                                    font-weight: 500;"> {{ $member->membership_status }}</span>
+                                @endif
 
 
-                            </ul>
+
+                                <span style="color: #7c7272;"> Member ID: </span>
+
+                                <span style="font-size: 25px;
+                                                                margin-top:-5px;
+                                                                color: black;
+                                                                font-weight: bold;"> {{ $member->member_no }}</span>
+                            </div>
                         </div>
                     </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-12">
 
+                            <div class="info-text">
+                                <h1> {{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}</h1>
+                                <label>{{ $member->campus_name }}</label>
+                                <label>{{ $member->position_id }}</label>
+                            </div>
+
+                            <div class="info-text-number">
+
+                                <label><i class="fa fa-envelope-o" aria-hidden="true"></i> {{ $member->email }}</label>
+                                <label style="float:right;"><i class="fa fa-phone" aria-hidden="true"></i>+63{{ $member->contact_no }}</label>
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="mp-card h-auto" class="">
+                <div class="container-fluid mp-mt2 gap-10">
+                    <div class="row">
+                        <div class="col-12 mp-mt2 d-flex flex-row justify-content-between">
+                            <span>
+                                <h3 class="magenta-clr">
+                                    Loan Balance:
+                                </h3>
+                            </span>
+                            <span>
+                                <h3 class="black-clr">
+                                    PHP {{ number_format($totalloanbalance)}}
+                                </h3>
+                            </span>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-12">
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>Loan Application Number: </label>
+                                        <label>{{$loan_details->control_number}}</label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>Application Date: </label>
+                                        <label>{{$loan_details->date_created}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mp-mt2">
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>Terms of Payment: </label>
+
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>{{$loan_details->year_terms}} Years</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>Interest Rate: </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>{{$loan_details->loan_interest}}%</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>UP service to date: </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <!-- <label>5 Years</label> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mp-mt2">
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>Account Number: </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>{{$loan_details->account_number}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>Account Name: </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>{{$loan_details->account_name}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>Bank: </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>{{$loan_details->bank}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mp-mt2">
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>Type of Application: </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="info-text">
+                                        <label>{{$loan_details->type}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mp-mt2">
+                        <div class="col-12 mp-mt2">
+                            <a class="link-style" style="float:right;" href="/admin/loan/loan-application/attachment/{{$loan_details->loan_app_id}}" target="_blank">View Attachments</a>
+                            <div class="info-text">
+                                <h3 class="magenta-clr mp-mb0">
+                                    Loan Status:
+                                </h3>
+                                @if ($loan_details->status == 'CANCELLED')
+                                <h3 class="black-clr mp-mb0" style="color:red !important;">
+                                    {{$loan_details->status}}
+                                </h3>
+                                <label for="">
+                                    {{$loan_details->cancellation_reason}}
+                                </label>
+                                @else
+                                <h3 class="black-clr mp-mb0">
+                                    {{$loan_details->status}}
+                                </h3>
+                                @endif
+
+                                <label for="">As Of: {{date("Y-m-d H:i:s") }}</label>
+                            </div>
+
+                        </div>
+                        <!-- <div class="col-12 mp-mt3">
+                            <div class="info-text">
+                                <label for="">Computed by: JOE3 / Doe, John V. / Staff</label>
+                                <label for="">May 4, 2023 11:06 AM</label>
+                            </div>
+                        </div>
+                        <div class="col-12 mp-mt2">
+                            <div class="info-text">
+                                <label for="">Checked and Approved by: Joe, John D.</label>
+                                <label for="">Designation: Staff</label>
+                                <label for="">May 4, 2023 11:06 AM</label>
+                            </div>
+                        </div> -->
+                        <div class="col-lg-12 d-flex mp-mh4 flex-column">
+                            <a href="#" id="edit-loan-details" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto ">
+                                <span>MANAGE LOAN DETAILS</span>
+                            </a>
+                            <a href="#" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
+                                <span class="save_up">VIEW AMORTIZATION SCHEDULE</span>
+                            </a>
+                            <a id="generate-loan-form" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
+                                <span class="save_up">GENERATE LOAN APPLICATION FORM</span>
+                            </a>
+                            <a href="/member/loan/info-slip" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto gray-bg">
+                                <span class="save_up">GENERATE LOAN INFORMATION SLIP</span>
+                            </a>
+                        </div>
+
+
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-10 mp-mt3 " id="settingsContent">
-                <div class="button-container mp-mb3">
-                    <button class="f-button magenta-bg" id="showSettings">Hide Tab</button>
-                </div>
 
-                <div class="col-12 mp-pv0 mp-pr0 d-flex mp-mh3">
-                    <a href="/admin/loan/loan-application/" style="margin-left:-10px; margin-top:-10px;"><span class=" back-button-default">
-                            < Back </span></a>
-
-                </div>
-
-                <div class="" style="margin-top:-20px;">
+        </div>
 
 
-                    <div class="mp-card ">
+        <div class="col-lg-8 d-flex justify-content-center">
+            <div style="max-width: 21cm; overflow-y:auto; box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);" class="mp-mh2">
+                <page size="A4" class="mp-pv3 mp-ph3 relative" id="pdf-js">
+                    <h1 class="cancelled-text">CANCELLED</h1>
+                    <div class="container-fluid">
+                        <div class="row mp-mt3">
+                            <div class="col-12">
+                                <img src="{!! asset('assets/images/loan_info_logo.png') !!}" style=" width: 250px;" alt="UPPFI">
+                                <span class="" style="position: absolute; right:20px; top: 0px">
+                                    <div class="info-pdf">
+                                        <label for="">UPPFI FORM NO .02</label>
+                                        <label for="">January 2018</label>
+                                    </div>
+                                </span>
+                            </div>
+                            <div class="col-12 mp-mt1">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <label class=" font-bold black-clr mp-ml5" style="font-size: 18px; margin-bottom: 0">
+                                            PERSONAL EQUITY APPLICATION FORM
+                                        </label>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="info-pdf">
+                                            <label for="">Part I. (To be filled up by the borrower)</label>
+                                        </div>
+                                        <div class="info-pdf mp-mt1 d-flex flex-row">
+                                            <label for="">DATE: </label>
+                                            <div class="underline">
+                                                {{ date('Y-m-d H:i:s') }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="info-pdf d-flex flex-row">
+                                            <label for="">NAME: </label>
+                                            <div class="underline">
+                                                {{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="info-pdf d-flex flex-row">
+                                            <label for="" class="mp-ml5">Last Name </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="info-pdf d-flex flex-row">
+                                            <label for="">First Name </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="info-pdf d-flex flex-row">
+                                            <label for="">Middle Name </label>
 
-                        <div style=" color: white; padding: 15px; background-color: var(--c-active-hover-bg); margin: 0;width: 100%;">
-                            LOAN DETAILS
-                            <a href="/admin/loan/loan-details/generate-payslip" class="up-button generate-button">GENERATE LOAN INFO SLIP</a>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="info-pdf mp-mt1 d-flex flex-row">
+                                    <label for="">ACCOUNT NAME: </label>
+                                    <div class="underline">
+                                        {{ $loan_details->account_name }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-8">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="info-pdf d-flex flex-row">
+                                            <label for="">UNIT: </label>
+                                            <div class="underline">
+                                                {{ $member->position_id }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="info-pdf d-flex flex-row">
+                                            <label for="">CAMPUS: </label>
+                                            <div class="underline">
+                                                {{ $member->campus_name }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="info-pdf d-flex flex-row">
+                                    <label for="">MEMBER ID NUMBER: </label>
+                                    <div class="underline">
+                                        {{$member->member_no}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mp-mt1">
+                                <div class="info-pdf d-flex flex-row">
+                                    <label for="">I hearby apply for a loan of PESOS: </label>
+                                    <div class="underline">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 mp-mt1">
+                                <div class="info-pdf d-flex flex-row mp-pv5 flex-wrap">
+                                    <label for="">(Php</label>
+                                    <span style="width: 110px; border-bottom: 1px solid black; margin-left: 10px; margin-right: 10px">{{ $loan_details->amount }}</span>
+                                    <label for="">). Payable in </label>
+                                    <span style="width: 60px; border-bottom: 1px solid black; margin-left: 10px; margin-right: 10px"> {{ $loan_details->year_terms }}</span>
+                                    <label for=""> year(s) subject to the terms and conditions required by the UPPFI.</label>
+                                    <!-- <div class="underline">
+                                </div> -->
+                                </div>
+                            </div>
+                            <div class="col-5 mp-mt2 ml-auto mp-mr5">
+                                <div class="underline">
+                                    {{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}
+                                </div>
+                                <div class="row info-pdf">
+                                    <label class="font-bold black-clr ml-auto mr-auto mp-mt1" style="font-size: 11px">Signature of Borrower Over Printed Name</label>
+                                </div>
+                            </div>
                         </div>
-
-
+                        <hr class="mp-mt2 black-bg">
+                        <div class="row mp-mt1">
+                            <div class="col-4 ml-auto">
+                                <div class="info-pdf">
+                                    <label for="">Part I. (To be filled up by the borrower)</label>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
-                            <div class="col-lg-5" style="padding-right:0px; ">
-                                <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="gap: 0;">
-                                    <div class="details-container">
-
-                                        <div class="top-text-details">
-                                            <label style="margin-top:-30px ;"><b> LOAN APPLICATION NO :</b> {{$loan_application->control_number}}</label>
-                                            <label><b> APPLICATION TYPE:</b> {{$loan_application->type}} </label>
-                                            <label><b> MEMBER:</b> {{$loan_application->last_name}} , {{$loan_application->first_name}} {{$loan_application->middle_name}} </label>
+                            <div class="col-8">
+                                <div class="row">
+                                    <div class="col-4 d-flex">
+                                        <div class="info-pdf mp-mt1 d-flex flex-row w-100">
+                                            <label class="mt-auto" for="" style="width: 70px">Total Equity to Date: </label>
+                                            <div class="underline mp-ml0 mp-mr0 d-flex align-items-end">
+                                                {{$loan_details->date_created}}
+                                            </div>
                                         </div>
-
-
-                                        <div class="mp-input-group details-div">
-                                            <label class="mp-input-group__label">Current Status:</label>
-                                            <label class="mp-input-group__label value" style="{{$loan_application->status == 'CANCELLED'? 'color:red' : 'color:blue;'}}">{{$loan_application->status}}</label>
+                                    </div>
+                                    <div class="col-4 d-flex">
+                                        <div class="info-pdf mp-mt1 d-flex flex-row w-100">
+                                            <label class="mt-auto" for="">Net Pay: </label>
+                                            <div class="underline mp-ml0 mp-mr0 d-flex align-items-end">
+                                                {{$loan_details->net_proceeds}}
+                                            </div>
                                         </div>
-                                        <div class="mp-input-group details-div">
-                                            <label class="mp-input-group__label">Loan Type:</label>
-                                            <label class="mp-input-group__label value">{{$loan_application->loan_type_name}}</label>
+                                    </div>
+                                    <div class="col-4 d-flex">
+                                        <div class="info-pdf mp-mt1 d-flex flex-row w-100">
+                                            <label class="mt-auto" for="" style="width: 70px">U.P Service to Date (yrs): </label>
+                                            <div class="underline mp-ml0 mp-mr0 d-flex align-items-end">
+                                                {{$years}} Years
+                                            </div>
                                         </div>
-                                        <div class="mp-input-group details-div">
-                                            <label class="mp-input-group__label">Active Email:</label>
-                                            <label class="mp-input-group__label value">{{$loan_application->user_email}}</label>
-                                        </div>
-                                        <div class="mp-input-group details-div">
-                                            <label class="mp-input-group__label">Member No.:</label>
-                                            <label class="mp-input-group__label value">{{$loan_application->member_no}}</label>
-                                        </div>
-
-                                        <div class="mp-input-group details-div">
-                                            <label class="mp-input-group__label">Date Submitted:</label>
-                                            <label class="mp-input-group__label value">{{$loan_application->date_created}}</label>
-                                        </div>
-                                        <br>
-                                        <label style="color:black;"><b> BANK DETAILS</b></label>
-                                        <div class="mp-input-group details-div">
-                                            <label class="mp-input-group__label">Bank:</label>
-                                            <label class="mp-input-group__label value">
-                                                {{$loan_application->bank}} -
-                                                @if($loan_application->bank=='LB')
-                                                LANDBANK
-                                                @endif
-                                                @if($loan_application->bank=='PNB')
-                                                PHILIPPINE NATIONAL BANK
-                                                @endif
-                                                @if($loan_application->bank=='DBP')
-                                                DEVELOPMENT BANK OF THE PHILIPPINES
-                                                @endif
-                                                @if($loan_application->bank=='Veterans')
-                                                PHILIPPINE VETERANS BANK
-                                                @endif
-
-
-                                            </label>
-                                        </div>
-
-                                        <div class="mp-input-group details-div">
-                                            <label class="mp-input-group__label">
-                                                Account Name:
-                                            </label>
-                                            <label class="mp-input-group__label value">
-                                                {{$loan_application->account_name}}
-                                            </label>
-                                        </div>
-                                        <div class="mp-input-group details-div">
-                                            <label class="mp-input-group__label">
-                                                Account Number:
-                                            </label>
-                                            <label class="mp-input-group__label value">
-                                                {{$loan_application->account_number}}
-                                            </label>
-                                        </div>
-                                        <div class="mp-input-group details-div">
-                                            <label class="mp-input-group__label">
-                                                Renewal Type:
-                                            </label>
-                                            <label class="mp-input-group__label value">
-                                                {{$loan_application->renewal_type}}
-                                            </label>
-                                        </div>
-                                        <br>
-                                        @if($loan_application->status=='CANCELLED')
-                                        <label style="color:black;"><b> REASON FOR CANCELLATION</b></label>
-                                        <div class="mp-input-group details-div">
-                                            <label class="mp-input-group__label">Remarks:</label>
-                                            <label class="mp-input-group__label value" style="color:red;">{{$loan_application->cancellation_reason}}</label>
-                                        </div>
-                                        @endif
-
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-7" style="padding-left:0px;">
-                                <div class="mp-pt3 d-flex gap-10 flex-column mp-pb3 member-form mp-pv2 shadow-inset-1" style="height: 100%; gap:0;">
+                            <div class="col-4 d-flex">
+                                <div class="row w-100">
+                                    <div class="col-6 d-flex ">
+                                        <div class="info-pdf mp-mt1 d-flex flex-row w-100">
+                                            <label class="mt-auto" for="" style="width: 40px">Interest Rate: </label>
+                                            <div class="underline mp-ml0 mp-mr0 d-flex">
+                                                {{$loan_details->loan_interest}}%
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6 d-flex">
+                                        <div class="info-pdf mp-mt1 d-flex flex-row w-100">
+                                            <label class="mt-auto" for="">Term: </label>
+                                            <div class="underline mp-ml0 mp-mr0 d-flex">
+                                                {{$loan_details->year_terms}} Years
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label class="font-md font-bold black-clr mp-mt1 mp-mb0">A.) LOANABLE AMOUNT: </label>
+                                <div class="row">
+                                    <div class="col-6 mp-ml5">
+                                        <div class="info-pdf d-flex flex-row w-100">
+                                            <label class="mt-auto">75% Equity (if less than 4 years of service) </label>
+                                        </div>
+                                        <div class="info-pdf d-flex flex-row w-100">
+                                            <label class="mt-auto">85% Equity (if with less than 4 but less than 15 years of service) </label>
+                                        </div>
+                                        <div class="info-pdf d-flex flex-row w-100">
+                                            <label class="mt-auto">100% x Equity (if with at least 15 years of service) </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-3">
+                                        <div class="info-pdf d-flex flex-row w-100">
+                                            <label class="mt-auto">Php </label>
+                                            <div class="underline mp-ml2 mp-mr0 d-flex">
+                                                <span>PHP {{number_format($totalcontributions*.75, 2)  }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="info-pdf d-flex flex-row w-100">
+                                            <label class="mt-auto">Php </label>
+                                            <div class="underline mp-ml2 mp-mr0 d-flex">
+                                                <span>PHP {{number_format($totalcontributions*.85, 2)  }}</span>
+                                            </div>
+                                        </div>
+                                        <div class="info-pdf d-flex flex-row w-100">
+                                            <label class="mt-auto">Php </label>
+                                            <div class="underline mp-ml2 mp-mr0 d-flex">
+                                                <span>PHP {{number_format($totalcontributions*1, 2)  }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-9">
+                                                <label class="font-md font-bold black-clr mp-mt1 mp-mb0">B.) AMOUNT GRANTED: </label>
+                                            </div>
+                                            <div class="col-3">
+                                                <div class="info-pdf mp-mt1 d-flex flex-row w-100">
+                                                    <label class="mt-auto fs-italic" for="">As of(mm-yr) </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-6">
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-pdf mp-mt1 d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Php </label>
+                                                    <div class="underline"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-7 ml-auto">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Less Service Fee </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <!-- <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7 ml-auto">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Outstanding Loan - Principal (PEL) </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto">asd</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7 ml-auto">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Outstanding Loan - Principal (BL) </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7 ml-auto">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Outstanding Loan - Principal (EML) </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7 ml-auto">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Outstanding Loan - Principal (CBL) </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7 ml-auto">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Interest - PEL </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7 ml-auto">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Interest - BL </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7 ml-auto">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Interest - EML </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7 ml-auto">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Interest - CBL </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-7 ml-auto">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Surcharge </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mp-mt1">
+                                            <div class="col-7 ml-auto">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto font-bold black-clr" for="">Net Proceeds </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
 
-                                    <div class="details-container">
-                                        <label style="color:black;"><b>ATTACHMENTS</b></label>
+                                            </div>
+                                        </div>
 
                                     </div>
-                                    <div class="mp-input-group details-div" style="text-align:center;">
-                                        <label style="color:black;"><b> ID</b></label>
-                                        <br>
-                                        <a href="{{ asset('storage/loan_applications/'.$loan_application->p_id) }}" target="p_id">
-                                            <img src="{{ asset('storage/loan_applications/'.$loan_application->p_id) }}" style=" width: 70%;  " alt="UPPFI">
-                                        </a>
-                                    </div>
-                                    <br>
-                                    <div class="mp-input-group details-div" style="text-align:center;">
-                                        <label style="color:black;"><b> Payslip 1</b></label>
-                                        <br>
-                                        <a href="{{ asset('storage/loan_applications/'.$loan_application->payslip_1) }}" target="_blank">
-                                            <img src="{{ asset('storage/loan_applications/'.$loan_application->payslip_1) }}" style=" width: 70%;  " alt="UPPFI">
-                                        </a>
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <label class="mt-auto" for="">Php </label>
+                                                    <div class="underline mt-auto mp-text-right">200</div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <!-- <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div> -->
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
 
-                                    </div>
-                                    <br>
-                                    <div class="mp-input-group details-div" style="text-align:center;">
-                                        <label style="color:black;"><b> Payslip 2</b></label>
-                                        <br>
-                                        <a href="{{ asset('storage/loan_applications/'.$loan_application->payslip_2) }}" target="_blank">
-                                            <img src="{{ asset('storage/loan_applications/'.$loan_application->payslip_2) }}" style=" width: 70%;  " alt="UPPFI">
-                                        </a>
-                                    </div>
-                                    <br>
-                                    <div class="mp-input-group details-div" style="text-align:center;">
-                                        <label style="color:black;"><b> Payslip 3</b></label>
-                                        <br>
-                                        <a href="{{ asset('storage/loan_applications/'.$loan_application->atm_passbook) }}" target="_blank">
-                                            <img src="{{ asset('storage/loan_applications/'.$loan_application->atm_passbook) }}" style=" width: 70%;  " alt="UPPFI">
-                                        </a>
-                                    </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
 
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100">
+                                                    <div class="underline mt-auto"></div>
+                                                </div>
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <div class="underline mt-auto mp-text-right">200</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mp-mt1">
+                                            <div class="col-6">
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <label for="">Php</label>
+                                                    <div class="underline mt-auto mp-text-right"> {{$loan_details->net_proceeds}}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6">
+                                            </div>
+                                            <div class="col-6">
+                                                <div class="info-pdf d-flex flex-row w-100 h-100">
+                                                    <label for="" style="color: white; height: 1px">Php</label>
+                                                    <div class="underline mt-auto mp-text-right" style="height: 2px"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-4 mp-ml3">
+                                        <div class="info-pdf d-flex flex-row w-100 h-100">
+                                            <label for="">Monthly Amortization</label>
+                                            <div class="underline mt-auto"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="info-pdf d-flex flex-row w-100 h-100">
+                                            <label for="">Collection Period</label>
+                                            <div class="underline mt-auto"></div>
+                                            <label for="">to</label>
+                                            <div class="underline mt-auto"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="info-pdf d-flex flex-row w-100">
+                                            <label class="mt-auto font-bold black-clr" for="">Per Amortization Schedule:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 mp-ml3">
+                                        <div class="info-pdf d-flex flex-row w-100">
+                                            <label class="mt-auto mp-text-right" for="" style="width: 80px">Principal</label>
+                                            <div class="underline mp-text-right"></div>
+                                        </div>
+                                        <div class="info-pdf d-flex flex-row w-100">
+                                            <label class="mt-auto mp-text-right" for="" style="width: 80px">Total Interest</label>
+                                            <div class="underline mp-text-right"></div>
+                                        </div>
+                                        <div class="info-pdf d-flex flex-row w-100">
+                                            <label class="mt-auto mp-text-right" for="" style="width: 80px">Total Payments</label>
+                                            <div class="underline mp-text-right"></div>
+                                        </div>
+                                        <div class="info-pdf d-flex flex-row w-100">
+                                            <label class="mt-auto mp-text-right" for="" style="width: 80px; height: 1px; color: white">Total Payments</label>
+                                            <div class="underline mp-text-right" style="height: 2px"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 d-flex">
+                                        <div class="info-pdf d-flex flex-row w-100 mp-mhauto">
+                                            <label class="mt-auto" for="" style="width: 80px">Date Release</label>
+                                            <div class="underline mp-text-right"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="info-pdf mp-mt2 d-flex flex-row">
+                                            <label for="" style="width: 100px">Computed by: </label>
+                                            <div class="underline">
+                                            </div>
+                                        </div>
+                                        <div class="info-pdf mp-mt1 d-flex flex-row">
+                                            <label for="" style="width: 100px">Signature: </label>
+                                            <div class="underline">
+                                            </div>
+                                        </div>
+                                        <div class="info-pdf mp-mt1 d-flex flex-row">
+                                            <label for="" style="width: 100px">Designation: </label>
+                                            <div class="underline">
+                                            </div>
+                                        </div>
+                                        <div class="info-pdf mp-mt1 d-flex flex-row">
+                                            <label for="" style="width: 100px">Date: </label>
+                                            <div class="underline">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-5">
+                                        <div class="info-pdf mp-mt3 d-flex flex-row">
+                                            <label for="" style="width: 150px">Checked and Approved by: </label>
+                                            <div class="underline">
+                                            </div>
+                                        </div>
+                                        <div class="info-pdf mp-mt1 d-flex flex-row">
+                                            <label for="" style="width: 150px">Signature: </label>
+                                            <div class="underline">
+                                            </div>
+                                        </div>
+                                        <div class="info-pdf mp-mt1 d-flex flex-row">
+                                            <label for="" style="width: 150px">Designation: </label>
+                                            <div class="underline">
+                                            </div>
+                                        </div>
+                                        <div class="info-pdf mp-mt1 d-flex flex-row">
+                                            <label for="" style="width: 150px">Date: </label>
+                                            <div class="underline">
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <hr class="mp-mt3 black-bg">
+                        <div class="row ">
+                            <div class="col-12">
+                                <div class="info-pdf font-p">
+                                    <label for="" class="fs-italic mp-mt2">
+                                        I acknowledge receipt of a copy of this Personal Equity Loan computation prior to the consumation of the loan/credit transaction and that I fully understand and agree to the terms and
+                                        conditions thereof
+                                    </label>
+                                    <label for="" class="fs-italic mp-mt2">
+                                        Furthermore, I authorize the UP Provident Fund, Inc. (UPPFI) to obtain access of my payroll information from the UP Accounting Office to verify my creditworthiness upon application and to
+                                        review my paying capacity in case of default or failure to pay the amortizations of this loan.
 
-
-
-
+                                    </label>
+                                    <label for="" class="fs-italic mp-mt2">
+                                        I also authorize UPPFI to credit the savings account number I have written above for the net proceeds of this loan. And, I fully understand that I am holding UPPFI free from any liability
+                                        and/or damages that may happen arising from this authorization.
+                                    </label>
+                                    <label for="" class="fs-italic mp-mt2">
+                                        I authorize the UP Payroll Section to deduct from my salaries, emoluments and other benefits, dues and loan amortizations owing to the UPPFI before any and all deductions owing to third
+                                        parties, except those deductions owing to government agencies and/or other deductions mandated by existing laws
+                                    </label>
+                                    <label for="" class="fs-italic mp-mt2">
+                                        Failure to pay the required monthly amorization after 3 months is considered delinquent and is subject to surcharge of 1/2 of 1% per month, compounded monthly. Further, I hereby
+                                        authorize UPPFI to offset my equity (earnings and member's contributions, in this order of application) against the outanding loan balance (principal plus interest and surcharge, one (1)
+                                        year from the date of default.
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="col-5 mp-mt2 ml-auto mp-mr5">
+                                    <div class="underline"> {{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}</div>
+                                    <div class="row info-pdf">
+                                        <label class="font-bold black-clr ml-auto mr-auto mp-mt1" style="font-size: 11px">Signature of Borrower Over Printed Name</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-
-
-
-
-
-
-
-
+                </page>
             </div>
 
         </div>
     </div>
 </div>
-
-
 <script>
-    $(document).on('click', '#showSettings', function(e) {
-        if ($("#settingsTab").hasClass("col-lg-2")) {
-            $("#settingsTab").addClass("d-none");
-            $("#settingsTab").removeClass("col-lg-2");
-            $("#settingsContent").removeClass("col-lg-10");
-            $("#settingsContent").addClass("col-lg-12");
+    $(document).ready(function() {
+        // var element = document.getElementById('pdf-js');
+        // var opt = {
+        //     margin:       0,
+        //     filename:     'sample.pdf',
+        //     image:        { type: 'jpeg', quality: 0.98 },
+        //     html2canvas:  { scale: 2 },
+        //     jsPDF:        { unit: 'in', format: 'A4', orientation: 'portrait' }
+        // };
+        // html2pdf().set(opt).from(element).save();
 
-            $("#showSettings").text("Show Tab")
 
-        } else {
-            $("#settingsTab").removeClass("d-none");
-            $("#settingsTab").addClass("col-lg-2");
-            $("#settingsContent").removeClass("col-lg-12");
-            $("#settingsContent").addClass("col-lg-10");
+        $('#year_terms').val(<?php echo $loan_application_details->year_terms ?>).trigger("change");
+        $(function() {
+            $('#year_terms option').filter(function() {
+                return this.textContent == <?php echo $loan_application_details->year_terms; ?>
+            }).prop('selected', true);
+        });
+        //js number only
+        $('#netpay ,#bank_account_number, #years').keypress(function(e) {
 
-            $("#showSettings").text("Hide Tab")
+            var charCode = (e.which) ? e.which : event.keyCode
+
+            if (String.fromCharCode(charCode).match(/[^0-9]/g))
+
+                return false;
+
+        });
+
+        function getDesiredLoanAmount() {
+            var loan_amount = parseFloat($('#desired_amount').val());
+            return loan_amount;
         }
 
-    })
-    Highcharts.chart('chart-application', {
-        chart: {
-            plotBackgroundColor: null,
-            plotBorderWidth: null,
-            plotShadow: false,
-            type: 'pie'
-        },
-        title: {
-            text: '',
-            align: 'left'
-        },
-        tooltip: {
-            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-        },
-        accessibility: {
-            point: {
-                valueSuffix: '%'
+        function getLoanInterest() {
+            var year_terms = parseInt($('#year_terms').val());
+            if (year_terms < 4 && year_terms > 0) {
+                return 12;
+            } else if (year_terms >= 4) {
+                return 13;
             }
-        },
-        plotOptions: {
-            pie: {
-                allowPointSelect: true,
-                cursor: 'pointer',
-                dataLabels: {
-                    enabled: false
-                },
-                showInLegend: true
-            }
-        },
-        series: [{
-            name: 'Brands',
-            colorByPoint: true,
-            data: [{
-                name: 'New',
-                y: 74.77,
-                // sliced: true,
-                // selected: true
-            }, {
-                name: 'Processing',
-                y: 12.82
-            }, {
-                name: 'Approved',
-                y: 4.63
-            }, {
-                name: 'Draft',
-                y: 2.44
-            }, {
-                name: 'Returned',
-                y: 2.02
-            }, {
-                name: 'Rejected',
-                y: 3.28
-            }]
-        }]
-    });
-    Highcharts.chart('chart-members', {
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Members Per Campus',
-            align: 'left'
-        },
-        // subtitle: {
-        //   text: 'Source: <a ' +
-        //     'href="https://en.wikipedia.org/wiki/List_of_continents_and_continental_subregions_by_population"' +
-        //     'target="_blank">Wikipedia.org</a>',
-        //   align: 'left'
-        // },
-        xAxis: {
-            categories: [
 
-                'UP Diliman',
-                'UP Los Baños',
-                'PGH',
-                'UP Manila',
-                'UP Visayas',
-                'System Admin',
-                'UP Baguio',
-                'UP Cebu',
-                'UP Mindanao',
-                'UP Open University',
-            ],
-            title: {
-                text: null
-            }
-        },
-        // yAxis: {
-        //   min: 0,
-        //   title: {
-        //     text: 'Population (members)',
-        //     align: 'high'
-        //   },
-        //   labels: {
-        //     overflow: 'justify'
-        //   }
-        // },
-        tooltip: {
-            valueSuffix: ' members'
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'top',
-            x: -40,
-            y: 80,
-            floating: true,
-            borderWidth: 1,
-            backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-            shadow: true
-        },
-        credits: {
-            enabled: false
-        },
-        series: [{
-            name: 'Members',
-            color: 'rgb(124, 181, 236)',
-            data: [{
-                    y: 631,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 1300,
-                    color: '#1a8981'
-                },
-                {
-                    y: 3202,
-                    color: 'rgb(124, 181, 236)'
-                },
-                {
-                    y: 721,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 300,
-                    color: 'rgb(144, 237, 125)'
-                },
-                {
-                    y: 631,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 727,
-                    color: 'rgb(247, 163, 92)'
-                },
-                {
-                    y: 3202,
-                    color: 'rgb(124, 181, 236)'
-                },
-                {
-                    y: 2000,
-                    color: '#1a8981'
-                },
-                {
-                    y: 50,
-                    color: 'rgb(144, 237, 125)'
-                }
+        }
 
-            ]
-        }, ]
+        function getPaymentTerms() {
+
+            var year_terms = parseInt($('#year_terms').val());
+            // parseInt($('#year_terms').val());
+            console.log(year_terms);
+            return year_terms * 12;
+        }
+
+        function getLoanInterestAmount() {
+            var year_terms = parseInt($('#year_terms').val());
+
+            var months_per_year = getPaymentTerms() / year_terms;
+
+            var getPerYear = getDesiredLoanAmount() / 12;
+
+
+
+
+            return getDesiredLoanAmount() * (getLoanInterest() * 0.01);
+        }
+
+        function getTotalLoanAmountMonthly() {
+
+            var desired_loan = getDesiredLoanAmount();
+            var loan_interest = getLoanInterestAmount();
+            var paymentterms = getPaymentTerms();
+
+            var totalLoan = (desired_loan + loan_interest);
+
+            return totalLoan / paymentterms;
+
+        }
+
+
+
+        function calculateLoan() {
+            var loan_amount = $('#desired_amount').val();
+            var total_loan_balance = <?php echo $totalloanbalance ?>;
+
+            var total_release_amount = (getDesiredLoanAmount() - 200) - total_loan_balance;
+
+            $('#table1_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table2_loan_amount').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+
+            $('#table1_interest').html(getLoanInterest() + " %").trigger("change");
+            $('#table2_interest').html(getLoanInterest() + " %").trigger("change");
+
+
+            $('#table1_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table1_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table1_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
+
+            $('#table2_interest_amount').html("PHP " + new Intl.NumberFormat().format(getLoanInterestAmount())).trigger("change");
+            $('#table2_payment_terms').html(getPaymentTerms() + " months").trigger("change");
+            $('#table2_monthly_amortization').html("PHP " + new Intl.NumberFormat().format(getTotalLoanAmountMonthly())).trigger("change");
+
+
+            $('#table1_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
+            $('#table2_actual_amount_release').html("PHP " + new Intl.NumberFormat().format(total_release_amount)).trigger("change");
+
+
+            $('#table1_actual_amount_desired_loan').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table1_actual_amount_release_existing').html("PHP -" + new Intl.NumberFormat().format(total_loan_balance)).trigger("change");
+
+            $('#table2_actual_amount_desired_loan').html("PHP " + new Intl.NumberFormat().format(getDesiredLoanAmount())).trigger("change");
+            $('#table2_actual_amount_release_existing').html("PHP -" + new Intl.NumberFormat().format(total_loan_balance)).trigger("change");
+        }
+
+        calculateLoan();
+        $("#desired_amount").change(function() {
+            calculateLoan();
+        });
+
+        $("#year_terms").change(function() {
+            calculateLoan();
+        });
+
+
+        $('#generate-loan-form').on('click', function(e) {
+            var element = document.getElementById('pdf-js');
+            var opt = {
+                margin: 0,
+                filename: 'sample.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 1
+                },
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'A4',
+                    orientation: 'portrait'
+                }
+            };
+            html2pdf().set(opt).from(element).save();
+        });
+
+
+        function showEditLoanModal() {
+
+            $('#modalBackDrop').removeClass("d-none")
+            $('#modalBackDrop').removeClass("opacity-0")
+            $('#editLoanModal').removeClass("d-none")
+            $('#editLoanModal').removeClass("opacity-0")
+        }
+
+        function hideEditLoanModal() {
+
+            $('#modalBackDrop').addClass("d-none")
+            $('#modalBackDrop').addClass("opacity-0")
+            $('#editLoanModal').addClass("d-none")
+            $('#editLoanModal').addClass("opacity-0")
+        }
+
+        $('#edit-loan-details').on('click', function(e) {
+            showEditLoanModal()
+        });
+        $('#closeModal').on('click', function(e) {
+            hideEditLoanModal()
+        });
+
+        $('#cancel_loan').on('click', function(e) {
+            hideEditLoanModal();
+            var loan_app_id = <?php echo $loan_details->loan_app_id ?>;
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            Swal.fire({
+
+                title: "Cancel Loan Application?",
+                input: "text",
+                text: "Enter cancellation remarks!",
+                icon: "warning",
+                confirmButtonColor: '#1a8981',
+                confirmButtonText: 'Confirm',
+                cancelButtonText: "Cancel",
+                showCancelButton: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+                inputAttributes: {
+                    id: 'cancel-remarks'
+                }
+            }).then((okay) => {
+                if (okay.isConfirmed) {
+                    var cancel_reason = $('#cancel-remarks').val()
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('cancel_loan_application') }}",
+                        data: {
+                            loan_app_id: loan_app_id,
+                            cancellation_remarks: cancel_reason
+                        },
+                        success: function(data) {
+                            if (data.success == true) {
+                                // $('#loading').show();
+                                Swal.fire("Loan Cancelled!", cancel_reason, "success");
+                                location.reload();
+                            } else {
+                                Swal.fire({
+                                    title: "Cancelation Failed!!",
+                                    type: "error",
+                                    confirmButtonColor: '#1a8981',
+                                })
+                            }
+                        }
+                    });
+
+
+                } else if (okay.isDenied) {
+                    Swal.close();
+                }
+            });
+
+
+
+        });
+
+
+        $('#back').on('click', function(e) {
+            $('.loan-submission').addClass("d-none")
+            $('.loan-calculator').removeClass("d-none")
+            $('input').first().focus()
+        });
+        $('#recompute').on('click', function(e) {
+            $('.loan-submission').addClass("d-none")
+            $('.loan-calculator').removeClass("d-none")
+            $('input').first().focus()
+        });
+        $('#continue').on('click', function(e) {
+            $('.loan-submission').removeClass("d-none")
+            $('.loan-calculator').addClass("d-none")
+            $('input').first().focus()
+            $('#back').focus()
+        });
     });
-    document.querySelector("input[type=number]")
-        .oninput = e => console.log(new Date(e.target.valueAsNumber, 0, 1));
 </script>
-
-
-
-
-
-
 @endsection
