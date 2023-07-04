@@ -1770,7 +1770,7 @@
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="info-text">
-                                        <label>12%</label>
+                                        <label>{{$loan_details->loan_interest}}%</label>
                                     </div>
                                 </div>
                             </div>
@@ -1910,6 +1910,7 @@
                                         <div class="info-pdf mp-mt1 d-flex flex-row">
                                             <label for="">DATE: </label>
                                             <div class="underline">
+                                                {{ date('Y-m-d H:i:s') }}
                                             </div>
                                         </div>
                                     </div>
@@ -1992,16 +1993,18 @@
                             <div class="col-12 mp-mt1">
                                 <div class="info-pdf d-flex flex-row mp-pv5 flex-wrap">
                                     <label for="">(Php</label>
-                                    <span style="width: 110px; border-bottom: 1px solid black; margin-left: 10px; margin-right: 10px"></span>
+                                    <span style="width: 110px; border-bottom: 1px solid black; margin-left: 10px; margin-right: 10px">{{ $loan_details->amount }}</span>
                                     <label for="">). Payable in </label>
-                                    <span style="width: 60px; border-bottom: 1px solid black; margin-left: 10px; margin-right: 10px"></span>
+                                    <span style="width: 60px; border-bottom: 1px solid black; margin-left: 10px; margin-right: 10px"> {{ $loan_details->year_terms }}</span>
                                     <label for=""> year(s) subject to the terms and conditions required by the UPPFI.</label>
                                     <!-- <div class="underline">
                                 </div> -->
                                 </div>
                             </div>
                             <div class="col-5 mp-mt2 ml-auto mp-mr5">
-                                <div class="underline"></div>
+                                <div class="underline">
+                                    {{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}
+                                </div>
                                 <div class="row info-pdf">
                                     <label class="font-bold black-clr ml-auto mr-auto mp-mt1" style="font-size: 11px">Signature of Borrower Over Printed Name</label>
                                 </div>
@@ -2050,7 +2053,7 @@
                                         <div class="info-pdf mp-mt1 d-flex flex-row w-100">
                                             <label class="mt-auto" for="" style="width: 40px">Interest Rate: </label>
                                             <div class="underline mp-ml0 mp-mr0 d-flex">
-
+                                                {{$loan_details->loan_interest}}%
                                             </div>
                                         </div>
                                     </div>
@@ -2082,16 +2085,19 @@
                                         <div class="info-pdf d-flex flex-row w-100">
                                             <label class="mt-auto">Php </label>
                                             <div class="underline mp-ml2 mp-mr0 d-flex">
+                                                <span>PHP {{number_format($totalcontributions*.75, 2)  }}</span>
                                             </div>
                                         </div>
                                         <div class="info-pdf d-flex flex-row w-100">
                                             <label class="mt-auto">Php </label>
                                             <div class="underline mp-ml2 mp-mr0 d-flex">
+                                                <span>PHP {{number_format($totalcontributions*.85, 2)  }}</span>
                                             </div>
                                         </div>
                                         <div class="info-pdf d-flex flex-row w-100">
                                             <label class="mt-auto">Php </label>
                                             <div class="underline mp-ml2 mp-mr0 d-flex">
+                                                <span>PHP {{number_format($totalcontributions*1, 2)  }}</span>
                                             </div>
                                         </div>
                                     </div>

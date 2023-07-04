@@ -193,7 +193,10 @@ Route::get('/admin/loan/loan-payments-list', [AdminController::class, 'getLoanTr
 Route::get('/admin/loan/loan-matrix', [AdminController::class, 'loanMatrix'])->name('admin.loan.loan-matrix');
 Route::get('/admin/loan/loan-application', [AdminController::class, 'loanApplication'])->name('admin.loan.loan-application');
 Route::get('/admin/loan/loan-analytics', [AdminController::class, 'loanAnalytics'])->name('admin.loan.loan-analytics');
-Route::get('/admin/loan/loan-application/details/{id}', [AdminController::class, 'loanApplicationDetails'])->name('admin.loan.loan-application-details');
+Route::get('/admin/loan/loan-application/details/{id}', [AdminController::class, 'admin_view_loan'])->name('admin.loan.loan-application-details');
+Route::get('/admin/loan/loan-application/attachment/{id}', [AdminController::class, 'loanApplicationDetails'])->name('admin.loan.loan-application-details');
+
+Route::post('/admin/loan/cancel-loan', [AdminController::class, 'cancelLoanApplication'])->name('cancel_loan_application');
 
 //loan data retrieve
 Route::get('/admin/loan/loan-details', [AdminController::class, 'getLoanApplications'])->name('getLoanApplications');

@@ -2868,7 +2868,7 @@
         formData.append('monthly_amort', monthly_amort);
         formData.append('approved_amount', total_release_amount);
         formData.append('control_number', <?php echo json_encode($loan_application_details->control_number); ?>);
-
+        formData.append('interest', getLoanInterest());
         console.log(formData)
         $.ajaxSetup({
             headers: {
@@ -2979,9 +2979,9 @@
         formData.append('monthly_amort', monthly_amort);
         formData.append('approved_amount', total_release_amount);
         formData.append('control_number', <?php echo json_encode($loan_application_details->control_number); ?>)
+        formData.append('interest', getLoanInterest());
 
-        console.log("asd " + <?php echo $loan_application_details->control_number; ?>)
-        console.log(formData)
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
