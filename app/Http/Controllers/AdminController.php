@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\processMail;
 use GrahamCampbell\ResultType\Success;
 use Mockery\Undefined;
+use Carbon\Carbon;
 
 // use Illuminate\Support\Facades\Log;
 class AdminController extends Controller
@@ -3414,12 +3415,29 @@ class AdminController extends Controller
   {
     if (Auth::check()) {
       $loan_app_id = $id;
+      $check_loan_details = DB::table('loan_applications')
+        ->select("loan_applications.*", "loan_applications_peb.*", "loan_applications.id as loan_app_id", "loan_applications_peb.id as loan_peb_id", "loan_applications.control_number as control_number")
+        ->join("loan_applications_peb", "loan_applications_peb.loan_app_id", "=", "loan_applications.id")
+        ->where('loan_applications.id', $loan_app_id)
+        ->get()
+        ->first();
+
+      if ($check_loan_details->status == 'NEW APPLICATION') {
+        $loan_application_status = DB::table('loan_applications')
+          ->where('id', $id)
+          ->update([
+            'status' => "PROCESSING",
+          ]);
+      }
+
       $loan_details = DB::table('loan_applications')
         ->select("loan_applications.*", "loan_applications_peb.*", "loan_applications.id as loan_app_id", "loan_applications_peb.id as loan_peb_id", "loan_applications.control_number as control_number")
         ->join("loan_applications_peb", "loan_applications_peb.loan_app_id", "=", "loan_applications.id")
         ->where('loan_applications.id', $loan_app_id)
         ->get()
         ->first();
+
+
       $member = User::where('member.member_no', $loan_details->member_no)
         ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'old_campus.name as campus_name')
         ->leftjoin('member', 'users.id', '=', 'member.user_id')
@@ -3479,7 +3497,6 @@ class AdminController extends Controller
       $beneficiaries = DB::table('old_beneficiaries')->where('member_no', $member->member_no)->get();
 
 
-
       $years = OLDMembers::select(DB::raw("YEAR(original_appointment_date) - YEAR(CURDATE()) - (DATE_FORMAT(original_appointment_date,'%m%d') < DATE_FORMAT(CURDATE(),'%m%d')) as years"))
         ->where('user_Id', '=', $member->user_id)->get();
 
@@ -3525,6 +3542,47 @@ class AdminController extends Controller
       ]);
 
     if (!empty($cancel_loan)) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
+  }
+
+
+  public function saveLoanApplication(Request $request)
+  {
+    $loan_app_id  = $request->get('loan_app_id');
+    $net_proceeds = $request->get('net_proceeds');
+    $approved_amount = $request->get('approved_amount');
+    $monthly_amort = $request->get('monthly_amort');
+    $year_terms = $request->get('year_terms');
+    $active_email = $request->get('active_email');
+    $active_number = $request->get('active_number');
+    $collect_from = $request->get('collect_from');
+    $status = $request->get('status');
+
+
+    //add year based on collect from
+    $calculate_date = Carbon::parse('2020-10-17 03:05:03');
+    $collect_to = $calculate_date->addYear(intval($year_terms));
+
+    $save_loan = DB::table('loan_applications')
+      ->where('id', $loan_app_id)
+      ->update([
+        'net_proceeds' => $net_proceeds,
+        'approved_amount' => $approved_amount,
+        'monthly_amort' => $monthly_amort,
+        'year_terms' => $year_terms,
+        'active_email' => $active_email,
+        'active_number' => $active_number,
+        'approved_amount' => $approved_amount,
+        'collect_from' => $collect_from,
+        'collect_to' => $collect_to,
+        'status' => $status,
+
+      ]);
+
+    if (!empty($save_loan)) {
       return response()->json(['success' => true]);
     } else {
       return response()->json(['success' => false]);

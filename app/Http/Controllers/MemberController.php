@@ -2433,6 +2433,76 @@ class MemberController extends Controller
         ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
 
         ->first();
+
+
+
+      $contributions = array();
+
+      $membercontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 2)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['membercontribution'] = $membercontribution->total;
+
+
+      $upcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 1)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['upcontribution'] = $upcontribution->total;
+
+
+      $eupcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 3)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['eupcontribution'] = $eupcontribution->total;
+
+
+      $emcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 4)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['emcontribution'] = $emcontribution->total;
+
+
+      $totalcontributions = array_sum($contributions);
+
+
+
+
+
+      $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+        ->where('loan.member_id', '=', $member->member_id)
+        ->groupBy('loan_type.name')
+        ->get();
+
+      $totalloanbalance = 0;
+      foreach ($outstandingloans as $loan) {
+        $totalloanbalance += $loan->balance;
+      }
+
+
+      $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+        ->where('loan.member_id', '=', $member->member_id)
+        ->groupBy('loan_type.name')
+        ->get();
+
+      $totalloanbalance = 0;
+      foreach ($outstandingloans as $loan) {
+        $totalloanbalance += $loan->balance;
+      }
+      $years = OLDMembers::select(DB::raw("YEAR(original_appointment_date) - YEAR(CURDATE()) - (DATE_FORMAT(original_appointment_date,'%m%d') < DATE_FORMAT(CURDATE(),'%m%d')) as years"))
+        ->where('user_Id', '=', Auth::user()->id)->get();
+
       $campuses = DB::table('campus')->get();
       $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
       $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
@@ -2443,10 +2513,13 @@ class MemberController extends Controller
         'department' => $department,
         'membership' => $membership,
         'beneficiaries' => $beneficiaries,
-        // 'user_privileges' => DB::table('users')
-        // ->join('user_prev', 'users.id', '=', 'user_prev.users_id')
-        // ->where('users.id', $user->id)
-        // ->get()
+
+        'contributions' => $contributions,
+        'totalcontributions' => $totalcontributions,
+        'outstandingloans' => $outstandingloans,
+        'totalloanbalance' => $totalloanbalance,
+        'years' => abs($years[0]->years),
+
       );
       return view('member.benefits.apply')->with($data);
     } else {
