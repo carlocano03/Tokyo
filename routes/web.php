@@ -122,6 +122,8 @@ Route::get('/admin/get_members', [AdminController::class, 'get_members'])->name(
 Route::get('/admin/election', [AdminController::class, 'election'])->name('admin.election.election');
 Route::get('/admin/create-election', [AdminController::class, 'createElection'])->name('admin.election.create-election');
 
+//bubble count codes
+Route::post('/admin/count-loan-bubble', [HomeController::class, 'countLoanBubble'])->name('count_loan_bubble');
 
 
 //member details master list
@@ -197,6 +199,7 @@ Route::get('/admin/loan/loan-application/details/{id}', [AdminController::class,
 Route::get('/admin/loan/loan-application/attachment/{id}', [AdminController::class, 'loanApplicationDetails'])->name('admin.loan.loan-application-details');
 
 Route::post('/admin/loan/cancel-loan', [AdminController::class, 'cancelLoanApplication'])->name('cancel_loan_application');
+Route::post('/admin/loan/approved-loan', [AdminController::class, 'saveLoanApplication'])->name('save_loan_application');
 
 //loan data retrieve
 Route::get('/admin/loan/loan-details', [AdminController::class, 'getLoanApplications'])->name('getLoanApplications');

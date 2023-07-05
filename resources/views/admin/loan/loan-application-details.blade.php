@@ -186,7 +186,7 @@
                                             <div class="row">
                                                 <div class="col-lg-4 d-flex flex-column justify-content-center">
                                                     <div class="info-text">
-                                                        <label for="" class="black-clr">Active Email: (*) </label>
+                                                        <label for="" class="black-clr">Edit Active Email: (*) </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8">
@@ -198,7 +198,7 @@
                                             <div class="row">
                                                 <div class="col-lg-4 d-flex flex-column justify-content-center">
                                                     <div class="info-text">
-                                                        <label for="" class="black-clr">Active Mobile Number: (*) </label>
+                                                        <label for="" class="black-clr">Edit Active Mobile Number: (*) </label>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8">
@@ -206,13 +206,26 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-lg-12 mp-mt2">
+                                            <div class="row">
+                                                <div class="col-lg-4 d-flex flex-column justify-content-center">
+                                                    <div class="info-text">
+                                                        <label for="" class="black-clr">Select First Payment Date: </label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <input type="datetime-local" value="{{$loan_details->collect_from}}" id="collect_from" data-set="validate-apply-loan" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <a class="up-button-green btn-md button-animate-right mp-text-center mp-mt5" id="save_election" type="submit">
+                                <a class="up-button-green btn-md button-animate-right mp-text-center mp-mt5" id="save_loan_approved" type="submit">
                                     <span>SAVE LOAN & APPROVED</span>
                                 </a>
 
-                                <a class="up-button btn-md button-animate-right mp-text-center" id="save_draft_election">
+                                <a class="up-button btn-md button-animate-right mp-text-center" id="save_loan">
                                     <span>SAVE LOAN</span>
                                 </a>
                                 <a class="up-button-grey btn-md button-animate-right mp-text-center" id="cancel_loan">
@@ -2152,12 +2165,16 @@
                             </div>
                         </div> -->
                         <div class="col-lg-12 d-flex mp-mh4 flex-column">
+                            @if($loan_details->status == 'NEW APPLICATION' || $loan_details->status == 'PROCESSING')
                             <a href="#" id="edit-loan-details" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto ">
-                                <span>MANAGE LOAN DETAILS</span>
+                                <span>APPROVE OR CANCEL LOAN</span>
                             </a>
+                            @endif
+                            @if($loan_details->status != 'CANCELLED' )
                             <a href="#" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
                                 <span class="save_up">VIEW AMORTIZATION SCHEDULE</span>
                             </a>
+                            @endif
                             <a id="generate-loan-form" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
                                 <span class="save_up">GENERATE LOAN APPLICATION FORM</span>
                             </a>
@@ -2177,7 +2194,7 @@
         <div class="col-lg-8 d-flex justify-content-center">
             <div style="max-width: 21cm; overflow-y:auto; box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);" class="mp-mh2">
                 <page size="A4" class="mp-pv3 mp-ph3 relative" id="pdf-js">
-                    <h1 class="cancelled-text">CANCELLED</h1>
+                    @if($loan_details->status =='CANCELLED')<h1 class="cancelled-text">CANCELLED</h1>@endif
                     <div class="container-fluid">
                         <div class="row mp-mt3">
                             <div class="col-12">
@@ -3041,6 +3058,134 @@
                             } else {
                                 Swal.fire({
                                     title: "Cancelation Failed!!",
+                                    type: "error",
+                                    confirmButtonColor: '#1a8981',
+                                })
+                            }
+                        }
+                    });
+
+
+                } else if (okay.isDenied) {
+                    Swal.close();
+                }
+            });
+
+
+
+        });
+
+        $('#save_loan_approved').on('click', function(e) {
+            hideEditLoanModal();
+            var loan_app_id = <?php echo $loan_details->loan_app_id ?>;
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            Swal.fire({
+
+                title: "Save and Approve Loan Application?",
+
+                icon: "question",
+                confirmButtonColor: '#1a8981',
+                confirmButtonText: 'Confirm',
+                cancelButtonText: "Cancel",
+                showCancelButton: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+
+            }).then((okay) => {
+                if (okay.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('save_loan_application') }}",
+                        data: {
+                            loan_app_id: loan_app_id,
+                            net_proceeds: $('#netpay').val(),
+                            approved_amount: getDesiredLoanAmount(),
+                            monthly_amort: getTotalLoanAmountMonthly(),
+                            year_terms: $('#year_terms').val(),
+                            active_email: $('#active_email').val(),
+                            active_number: $('#active_number').val(),
+                            collect_from: $('#collect_from').val(),
+                            status: 'CONFIRMED'
+
+                        },
+                        success: function(data) {
+                            if (data.success == true) {
+                                // $('#loading').show();
+                                Swal.fire("Loan Approved!", "", "success");
+                                location.reload();
+                            } else {
+                                Swal.fire({
+                                    title: "No changes Made!",
+                                    type: "error",
+                                    confirmButtonColor: '#1a8981',
+                                })
+                            }
+                        }
+                    });
+
+
+                } else if (okay.isDenied) {
+                    Swal.close();
+                }
+            });
+
+
+
+        });
+
+        $('#save_loan').on('click', function(e) {
+            hideEditLoanModal();
+            var loan_app_id = <?php echo $loan_details->loan_app_id ?>;
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            Swal.fire({
+
+                title: "Save Loan Application?",
+
+                icon: "question",
+                confirmButtonColor: '#1a8981',
+                confirmButtonText: 'Confirm',
+                cancelButtonText: "Cancel",
+                showCancelButton: true,
+                allowOutsideClick: false,
+                allowEscapeKey: false,
+
+            }).then((okay) => {
+                if (okay.isConfirmed) {
+                    $.ajax({
+                        type: 'POST',
+                        url: "{{ route('save_loan_application') }}",
+                        data: {
+                            loan_app_id: loan_app_id,
+                            net_proceeds: $('#netpay').val(),
+                            approved_amount: getDesiredLoanAmount(),
+                            monthly_amort: getTotalLoanAmountMonthly(),
+                            year_terms: $('#year_terms').val(),
+                            active_email: $('#active_email').val(),
+                            active_number: $('#active_number').val(),
+                            collect_from: $('#collect_from').val(),
+                            status: '<?php echo $loan_details->status ?>'
+
+                        },
+                        success: function(data) {
+                            if (data.success == true) {
+                                // $('#loading').show();
+                                Swal.fire("Loan Saved!", "", "success");
+                                location.reload();
+                            } else {
+                                Swal.fire({
+                                    title: "No changes Made!",
                                     type: "error",
                                     confirmButtonColor: '#1a8981',
                                 })

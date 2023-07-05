@@ -42,6 +42,22 @@ class HomeController extends Controller
   {
     return view('auth.returnedapp');
   }
+
+  public function countLoanBubble()
+  {
+    if (request()->has('view')) {
+      $loan_bubble = DB::table('loan_applications')->where('status', 'NEW APPLICATION')->count();
+    }
+
+    $data = array(
+      'loan_bubble' => $loan_bubble,
+
+    );
+
+    echo json_encode($data);
+  }
+
+
   public function add_benefeciaries(Request $request)
   {
     $datadb = DB::transaction(function () use ($request) {
@@ -328,7 +344,7 @@ class HomeController extends Controller
       );
       DB::table('mem_app')->where('personal_id', $request->input('personnel_id'))
         ->update($mem_appinst);
-      
+
       return [
         'last_id' => $request->input('personnel_id'),
         'mem_id' => $request->input('mem_id'),
@@ -560,13 +576,13 @@ class HomeController extends Controller
       ->join('axa_form', 'axa_form.app_no', '=', 'mem_app.app_no')
       ->join('member_signature', 'member_signature.app_no', '=', 'mem_app.app_no')
       ->select(
-          'mem_app.*',
-          'mem_app.personal_id AS person_ID',
-          'personal_details.*',
-          'employee_details.*',
-          'membership_details.*',
-          'axa_form.*',
-          'member_signature.*'
+        'mem_app.*',
+        'mem_app.personal_id AS person_ID',
+        'personal_details.*',
+        'employee_details.*',
+        'membership_details.*',
+        'axa_form.*',
+        'member_signature.*'
       )
       ->where('mem_app.app_no', '=', $query)
       ->first();
@@ -688,7 +704,7 @@ class HomeController extends Controller
       'signature' => $newName
     ];
     DB::table('axa_form')->insert($insertCoco);
-    
+
     return response()->json(['message' => 'Success']);
   }
 
@@ -715,8 +731,8 @@ class HomeController extends Controller
     ];
 
     DB::table('axa_form')->where('app_no', $appNumber)
-        ->update($insertCoco);
-    
+      ->update($insertCoco);
+
     return response()->json(['message' => 'Success']);
   }
 

@@ -1692,20 +1692,7 @@
                                 <label style="float:right;"><i class="fa fa-phone" aria-hidden="true"></i> {{ $member->contact_no }}</label>
                             </div>
 
-                            <div class="profile-buttons  col-12 mp-mt2">
-                                <button class="up-button btn-md button-animate-right mp-text-center" id="view_profile" type="button">
-                                    <span>View Profile</span>
-                                </button>
-                                <button class="up-button-green btn-md button-animate-right mp-text-center" id="view_beneficiaries" type="button">
-                                    <span>View Beneficiaries</span>
-                                </button>
-                                <!-- <button class="up-button btn-md button-animate-right mp-text-center" id="modify_contributions" type="button">
-                                                        <span>Modify Contributions</span>
-                                                    </button> -->
-                                <button class="up-button-grey btn-md button-animate-right mp-text-center" id="view_password">
-                                    <span>Change Password</span>
-                                </button>
-                            </div>
+
                             <br>
 
 
@@ -1723,7 +1710,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['membercontribution'], 2) }}</label>
 
                         </div>
                     </div>
@@ -1738,7 +1725,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['emcontribution'], 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1752,7 +1739,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['upcontribution'], 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1766,7 +1753,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['eupcontribution'], 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1780,7 +1767,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title">PHP {{ number_format($totalcontributions, 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1821,10 +1808,10 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12 d-flex flex-row justify-content-center gap-10">
-                                        <div style="width: 15%"><input class="mp-input-group__input mp-text-field mp-text-right" type="text" required /></div> +
-                                        <div style="width: 15%"><input class="mp-input-group__input mp-text-field mp-text-right" type="text" required /></div> +
-                                        <div style="width: 15%"><input class="mp-input-group__input mp-text-field mp-text-right" type="text" required /></div> +
-                                        <div style="width: 15%"><input class="mp-input-group__input mp-text-field mp-text-right" type="text" required /></div> +
+                                        <div style="width: 15%"><input value="{{$contributions['upcontribution'] }}" class="mp-input-group__input mp-text-field mp-text-right" type="text" required /></div> +
+                                        <div style="width: 15%"><input value="{{$contributions['membercontribution'] }}" class="mp-input-group__input mp-text-field mp-text-right" type="text" required /></div> +
+                                        <div style="width: 15%"><input value="{{$contributions['eupcontribution']}}" class="mp-input-group__input mp-text-field mp-text-right" type="text" required /></div> +
+                                        <div style="width: 15%"><input value="{{$contributions['emcontribution']}}" class="mp-input-group__input mp-text-field mp-text-right" type="text" required /></div> +
                                         <div style="width: 15%"><input class="mp-input-group__input mp-text-field mp-text-right" type="text" required /></div> =
                                         <div style="width: 15%"><input class="mp-input-group__input mp-text-field mp-text-right" type="text" required /></div>
                                     </div>

@@ -421,6 +421,7 @@
     text-align: center;
     padding-top: 1px;
   }
+
   .notification {
     position: absolute;
     top: -10px;
@@ -467,16 +468,30 @@
     <ul>
       <li class="relative">
         <a href="/admin/dashboard" class="{{ Request::is('admin/dashboard') ? 'active-nav' : '' }}"><i class="fa fa-dashboard"></i>My Dashboard</a>
-        <span class="notification">12</span>
+        <!-- <span class="notification">12</span> -->
       </li>
-      <li><a href="/admin/members/records" class=" {{ Request::is('admin/members/records') ? 'active-nav' : '' }} "><i class="fa fa-users"></i>Online Application</a></li>
-      <li><a href="/admin/members" class="{{ Request::is('admin/members')  ? 'active-nav' : '' }}"><i class="fa fa-address-book"></i>Members Module</a></li>
-      <li><a href="/admin/loan/loan-matrix" class="{{ Request::is('admin/loan/loan-matrix')  ? 'active-nav' : '' }}"><i class="fa fa-credit-card"></i>Loan Module</a></li>
-      <li><a href="/admin/benefit/benefit-matrix"  class="{{ Request::is('admin/benefit/benefit-matrix')  ? 'active-nav' : '' }}"><i class="fa fa-briefcase"></i>Benefit Module </a></li>
-      <li><a href="/admin/transaction" class="{{ Request::is('admin/transaction')  ? 'active-nav' : '' }}"><i class="fa fa-bar-chart"></i>Transaction & Equity </a></li>
-      <li><a href="/admin/election-record" class="{{ Request::is('admin/election')  ? 'active-nav' : '' }}">
-          <i class="fa fa-flash"></i>Election Module</a></li>
-      <li><a href="/admin/settings/manage-account" class="{{ Request::is('admin/settings/manage-account')  ? 'active-nav' : '' }}">
+      <li class="relative">
+        <a href="/admin/members/records" class=" {{ Request::is('admin/members/records') ? 'active-nav' : '' }} "><i class="fa fa-users"></i>Online Application</a>
+      </li>
+      <li class="relative">
+        <a href="/admin/members" class="{{ Request::is('admin/members')  ? 'active-nav' : '' }}"><i class="fa fa-address-book"></i>Members Module</a>
+      </li>
+      <li class="relative" id="loan_bubble_container">
+        <a href="/admin/loan/loan-matrix" class="{{ Request::is('admin/loan/loan-matrix')  ? 'active-nav' : '' }}"><i class="fa fa-credit-card"></i>Loan Module</a>
+        <span class="notification" id="loan_bubble"></span>
+      </li>
+      <li class="relative">
+        <a href="/admin/benefit/benefit-matrix" class="{{ Request::is('admin/benefit/benefit-matrix')  ? 'active-nav' : '' }}"><i class="fa fa-briefcase"></i>Benefit Module </a>
+      </li>
+      <li class="relative">
+        <a href="/admin/transaction" class="{{ Request::is('admin/transaction')  ? 'active-nav' : '' }}"><i class="fa fa-bar-chart"></i>Transaction & Equity </a>
+      </li>
+      <li class="relative">
+        <a href="/admin/election-record" class="{{ Request::is('admin/election')  ? 'active-nav' : '' }}">
+          <i class="fa fa-flash"></i>Election Module</a>
+      </li>
+      <li class="relative">
+        <a href="/admin/settings/manage-account" class="{{ Request::is('admin/settings/manage-account')  ? 'active-nav' : '' }}">
           <i class="fa fa-cogs"></i>Settings & Configuration</a>
       </li>
 
@@ -619,14 +634,14 @@
 
     const elm = document.querySelector('ul');
     elm.addEventListener('click', (el) => {
-      if(el.target.nodeName === 'SPAN'){
+      if (el.target.nodeName === 'SPAN') {
         return
       }
       const elActive = elm.querySelector('.active-nav');
       if (elActive) {
         elActive.removeAttribute('class');
       }
-      
+
       el.target.setAttribute('class', 'active-nav');
     });
 
@@ -720,6 +735,37 @@
         $("#menu-toggle").removeClass("menu-toggle-active move-toggle");
         $("#toggle-container").removeClass("width-100");
       }
+    }
+    getLoanBubble();
+
+    function getLoanBubble(view = '') {
+      $.ajaxSetup({
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+      });
+
+      $.ajax({
+        url: "{{ route('count_loan_bubble') }}",
+        method: "POST",
+        data: {
+          view: view
+        },
+        dataType: "json",
+        success: function(data) {
+          console.log(data);
+          if (data.loan_bubble > 0) {
+            $('#loan_bubble').text(data.loan_bubble > 0 && data.loan_bubble <= 99 ? data.loan_bubble : "99+");
+          } else {
+
+            $('#loan_bubble').addClass("d-none");
+          }
+
+          // $('#close_election').text(data.total_close > 0 ? data.total_close : "0");
+          // $('#total_sg15').text(data.total_SG15 > 0 ? data.total_SG15 : "0");
+          // $('#total_sg16').text(data.total_SG16 > 0 ? data.total_SG16 : "0");
+        }
+      });
     }
 
     var x = window.matchMedia("(max-width: 656px)")
