@@ -284,6 +284,8 @@ Route::get('/downloadProxy', [PDFController::class, 'downloadProxy'])->name('dow
 Route::get('/admin/generate/soa/{id}', 'AdminController@generatesoa');
 Route::get('/admin/members_ledger/{id}', 'AdminController@member_ledger');
 
+Route::get('/admin/monthly_payment/{id}', 'AdminController@monthly_payment_schedule');
+
 Route::get('/admin/loan/loan-details/generate-payslip', [PDFController::class, 'generatePayslip'])->name('generate-payslip');
 Route::get('/member/loan/info-slip', [PDFController::class, 'generateInfoSlip'])->name('generate-info-slip');
 

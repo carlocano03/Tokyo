@@ -22,6 +22,7 @@ use App\Mail\processMail;
 use GrahamCampbell\ResultType\Success;
 use Mockery\Undefined;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 // use Illuminate\Support\Facades\Log;
 class AdminController extends Controller
@@ -3563,8 +3564,13 @@ class AdminController extends Controller
 
 
     //add year based on collect from
-    $calculate_date = Carbon::parse('2020-10-17 03:05:03');
-    $collect_to = $calculate_date->addYear(intval($year_terms));
+    if (!empty($collect_from)) {
+      $calculate_date = Carbon::parse($collect_from);
+      $collect_to = $calculate_date->addYear(intval($year_terms));
+    } else {
+      $collect_to = null;
+    }
+
 
     $save_loan = DB::table('loan_applications')
       ->where('id', $loan_app_id)
@@ -3577,7 +3583,7 @@ class AdminController extends Controller
         'active_number' => $active_number,
         'approved_amount' => $approved_amount,
         'collect_from' => $collect_from,
-        'collect_to' => $collect_to,
+        'collect_to' =>   $collect_to,
         'status' => $status,
 
       ]);
@@ -3969,6 +3975,61 @@ class AdminController extends Controller
 
     $pdf = PDF::loadView('pdf.ledger', $data);
     return $pdf->stream('' . $fullname .  '-ledger.pdf');
+  }
+
+
+  public function monthly_payment_schedule($id)
+  {
+    $loan_details = DB::table('loan_applications')
+      ->select(
+        "loan_applications.*",
+        "loan_applications_peb.*",
+        "loan_applications.id as loan_app_id",
+        "loan_applications_peb.id as loan_peb_id",
+        "loan_applications.control_number as control_number",
+        "loan_type.name as loan_type_name"
+      )
+      ->join("loan_applications_peb", "loan_applications_peb.loan_app_id", "=", "loan_applications.id")
+      ->join("loan_type", "loan_type.id", "=", "loan_applications.loan_type")
+      ->where('loan_applications.id', $id)
+      ->get()
+      ->first();
+    $member = User::where('member.member_no', $loan_details->member_no)
+      ->select('*', 'member.id as member_id', 'users.id as user_id', 'campus.name as campus_name')
+      ->leftjoin('member', 'users.id', '=', 'member.user_id')
+      ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
+      ->first();
+
+    //  ($loan_details->collect_from, $loan_details->collect_to);
+
+    $from = $loan_details->collect_from;
+    $to = $loan_details->collect_to;
+    $betweenDate = CarbonPeriod::create($from, '1 month', $to);
+
+    $dates = [];
+    foreach ($betweenDate as $date) {
+      $dates[] = $date->addMonth();
+    }
+
+
+    // $start = Carbon::createFromDate($loan_details->collect_from);
+    // $end =  Carbon::createFromDate($loan_details->collect_to);
+
+    // while ($start < $end) {
+    //   echo $start->format("M");
+
+
+    //   $dates[] = $start->addMonth();
+    // }
+    $data['member'] = $member;
+    $data['loan_details'] = $loan_details;
+    $data['dates'] =  $dates;
+
+    $fullname = $member->last_name . ' , ' . $member->first_name . $member->middle_name;
+
+
+    $pdf = PDF::loadView('pdf.monthly_loan_payment', $data);
+    return $pdf->stream('' . $fullname .  '-payment_schedule.pdf');
   }
 
   public function loanAnalytics()
