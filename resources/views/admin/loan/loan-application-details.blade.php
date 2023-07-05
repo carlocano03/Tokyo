@@ -25,7 +25,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" id="netpay" value="{{ $loan_application_details->net_proceeds }}" name="numberonly" data-set="validate-apply-loan-compute" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="netpay" value="{{ $loan_application_details->net_proceeds }}" name="numberonly" data-set="validate-loan" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
@@ -37,7 +37,7 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <input type="text" id="years" name="years" data-set="validate-apply-loan-compute" value="{{$years}}" class=" mp-input-group__input mp-text-field w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                            <input type="text" id="years" name="years" data-set="validate-loan" value="{{$years}}" class=" mp-input-group__input mp-text-field w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                         </div>
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-8">
-                                                <input type="text" id="desired_amount" value="{{ $loan_application_details->amount }}" data-set="validate-apply-loan-continue" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                <input type="text" id="desired_amount" value="{{ $loan_application_details->amount }}" data-set="validate-loan" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +72,7 @@
                                                 </div>
                                             </div>
                                             <div class="col-lg-8">
-                                                <select id="year_terms" value="{{ $loan_application_details->year_terms }}" data-set="validate-apply-loan-continue" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
+                                                <select id="year_terms" value="{{ $loan_application_details->year_terms }}" data-set="validate-loan" class="js-example-responsive mp-input-group__input mp-text-field w-auto" required>
 
                                                     <option value="1">1 Year</option>
                                                     <option value="2">2 Years</option>
@@ -190,7 +190,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <input type="text" id="active_email" value="{{ $loan_application_details->active_email}}" data-set="validate-apply-loan" name="active_email" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                    <input type="text" id="active_email" value="{{ $loan_application_details->active_email}}" data-set="validate-loan" name="active_email" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                 </div>
                                             </div>
                                         </div>
@@ -202,7 +202,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <input type="text" id="active_number" value="{{$loan_application_details->active_number}}" data-set="validate-apply-loan" name="numberonly" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                    <input type="text" id="active_number" value="{{$loan_application_details->active_number}}" data-set="validate-loan" name="numberonly" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                 </div>
                                             </div>
                                         </div>
@@ -215,7 +215,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-8">
-                                                    <input type="datetime-local" value="{{$loan_details->collect_from}}" id="collect_from" data-set="validate-apply-loan" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
+                                                    <input type="datetime-local" value="{{$loan_details->collect_from}}" id="collect_from" data-set="validate-loan" class="w-auto radius-1 border-1 date-input outline mp-pb1 mp-pt1">
                                                 </div>
                                             </div>
                                         </div>
@@ -2170,8 +2170,9 @@
                                 <span>APPROVE OR CANCEL LOAN</span>
                             </a>
                             @endif
-                            @if($loan_details->status != 'CANCELLED' )
-                            <a href="#" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
+                            @if($loan_details->status == 'CANCELLED' || $loan_details->status == 'PROCESSING'|| $loan_details->status == 'NEW APPLICATION' )
+                            @else
+                            <a href="/admin/monthly_payment/{{$loan_details->loan_app_id}}" target="_blank" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
                                 <span class="save_up">VIEW AMORTIZATION SCHEDULE</span>
                             </a>
                             @endif
@@ -3076,8 +3077,28 @@
         });
 
         $('#save_loan_approved').on('click', function(e) {
-            hideEditLoanModal();
+
             var loan_app_id = <?php echo $loan_details->loan_app_id ?>;
+
+            //validation
+            let hasError = false
+            const elements = $(document).find(`[data-set=validate-loan]`)
+            elements.map(function() {
+                if ($(this).attr('err-name')) {
+                    return
+                }
+                let status = true
+                status = validateField({
+                    element: $(this),
+                    target: 'validate-loan'
+                })
+                if (!hasError && status) {
+                    hasError = true
+                }
+            })
+            if (hasError) return
+
+
 
 
             $.ajaxSetup({
@@ -3099,6 +3120,7 @@
 
             }).then((okay) => {
                 if (okay.isConfirmed) {
+                    hideEditLoanModal();
                     $.ajax({
                         type: 'POST',
                         url: "{{ route('save_loan_application') }}",

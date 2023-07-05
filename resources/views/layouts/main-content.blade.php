@@ -478,7 +478,7 @@
       </li>
       <li class="relative" id="loan_bubble_container">
         <a href="/admin/loan/loan-matrix" class="{{ Request::is('admin/loan/loan-matrix')  ? 'active-nav' : '' }}"><i class="fa fa-credit-card"></i>Loan Module</a>
-        <span class="notification" id="loan_bubble"></span>
+        <span class="notification d-none" id="loan_bubble"></span>
       </li>
       <li class="relative">
         <a href="/admin/benefit/benefit-matrix" class="{{ Request::is('admin/benefit/benefit-matrix')  ? 'active-nav' : '' }}"><i class="fa fa-briefcase"></i>Benefit Module </a>
@@ -755,6 +755,7 @@
         success: function(data) {
           console.log(data);
           if (data.loan_bubble > 0) {
+            $('#loan_bubble').removeClass("d-none");
             $('#loan_bubble').text(data.loan_bubble > 0 && data.loan_bubble <= 99 ? data.loan_bubble : "99+");
           } else {
 
