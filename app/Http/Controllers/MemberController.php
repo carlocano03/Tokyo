@@ -17,6 +17,7 @@ use DataTables;
 use App\Models\Election;
 use App\Models\LoanApplications;
 use App\Models\Loans;
+use App\Models\BenefitApplications;
 use App\Models\OLDMembers;
 use App\Models\OLDBeneficiaries;
 
@@ -2337,6 +2338,227 @@ class MemberController extends Controller
   }
 
 
+
+  public function addBenefitApplication(Request $request)
+  {
+
+    $member_no =  $request->input('member_no');
+    $mode_of_seperation =  $request->input('mode_of_seperation');
+    $mode_of_seperation_others =  $request->input('mode_of_seperation_others');
+    $effectivity_date =  $request->input('effectivity_date');
+    $remarks =  $request->input('remarks');
+
+    $hrdo_file = $request->file('hrdo_file');
+    $valid_id_1 = $request->file('valid_id_1');
+    $valid_id_2 = $request->file('valid_id_2');
+    $up_clearance = $request->file('up_clearance');
+    $atty_file = $request->file('atty_file');
+    $authorize_valid_id_1 = $request->file('authorize_valid_id_1');
+    $authorize_valid_id_2 = $request->file('authorize_valid_id_2');
+    $written_request   = $request->file('written_request');
+    $e_signature = $request->file('e_signature');
+
+
+    //files rename + storing code
+    $hrdo_file_file = $hrdo_file->getClientOriginalName();
+    $hrdo_file_name = $member_no . '_' . $hrdo_file_file;
+    $path_hrdo_file = $hrdo_file->storeAs('benefit_applications', $hrdo_file_name, 'public');
+
+    $valid_id_1_file = $valid_id_1->getClientOriginalName();
+    $valid_id_1_name = $member_no . '_' . $valid_id_1_file;
+    $path_valid_id_1 = $valid_id_1->storeAs('benefit_applications', $valid_id_1_name, 'public');
+
+    $valid_id_2_file = $valid_id_2->getClientOriginalName();
+    $valid_id_2_name = $member_no . '_' . $valid_id_2_file;
+    $path_valid_id_2 = $valid_id_2->storeAs('benefit_applications', $valid_id_2_name, 'public');
+
+    $up_clearance_file = $up_clearance->getClientOriginalName();
+    $up_clearance_name = $member_no . '_' . $up_clearance_file;
+    $path_up_clearance = $up_clearance->storeAs('benefit_applications', $up_clearance_name, 'public');
+
+    $atty_file_file = $atty_file->getClientOriginalName();
+    $atty_file_name = $member_no . '_' . $atty_file_file;
+    $path_atty_file = $atty_file->storeAs('benefit_applications', $atty_file_name, 'public');
+
+    $authorize_valid_id_1_file = $authorize_valid_id_1->getClientOriginalName();
+    $authorize_valid_id_1_name = $member_no . '_' . $authorize_valid_id_1_file;
+    $path_authorize_valid_id_1 = $authorize_valid_id_1->storeAs('benefit_applications', $authorize_valid_id_1_name, 'public');
+
+    $authorize_valid_id_2_file = $authorize_valid_id_2->getClientOriginalName();
+    $authorize_valid_id_2_name = $member_no . '_' . $authorize_valid_id_2_file;
+    $path_authorize_valid_id_2 = $authorize_valid_id_2->storeAs('benefit_applications', $authorize_valid_id_2_name, 'public');
+
+    $written_request_file = $written_request->getClientOriginalName();
+    $written_request_name = $member_no . '_' . $written_request_file;
+    $path_written_request = $written_request->storeAs('benefit_applications', $written_request_name, 'public');
+
+    $e_signature_file = $e_signature->getClientOriginalName();
+    $e_signature_name = $member_no . '_' . $e_signature_file;
+    $path_e_signature = $e_signature->storeAs('benefit_applications', $e_signature_name, 'public');
+
+
+
+    $benefit_insert_id = DB::table('benefit_applications')->insertGetId(
+      [
+        'member_no' => $member_no,
+        'status' => 'NEW APPLICATION',
+        'mode_of_seperation' => $mode_of_seperation,
+        'mode_of_seperation_others' => $mode_of_seperation_others,
+        'effectivity_date' => $effectivity_date,
+        'remarks' => $remarks,
+        'hrdo_file' => $hrdo_file_name,
+        'valid_id_1' => $valid_id_1_name,
+        'valid_id_2' => $valid_id_2_name,
+        'up_clearance' => $up_clearance_name,
+        'atty_file' => $atty_file_name,
+        'authorize_valid_id_1' => $authorize_valid_id_1_name,
+        'authorize_valid_id_2' => $authorize_valid_id_2_name,
+        'written_request' => $written_request_name,
+        'e_signature' => $e_signature_name,
+      ]
+
+    );
+    if (!empty($benefit_insert_id)) {
+      return response()->json(['success' => true]);
+    } else {
+      return response()->json(['success' => false]);
+    }
+  }
+
+  public function getBenefitApplications(Request $request)
+  {
+    $columns = [
+      0 => 'benefit_applications.id',
+      1 => 'benefit_applications.mode_of_seperation',
+      2 => 'benefit_applications.effectivity_date',
+      3 => 'benefit_applications.remarks',
+      4 => 'benefit_applications.date_created',
+      5 => 'benefit_applications.status',
+    ];
+
+    $member = User::where('users.id', Auth::user()->id)
+      ->select('*', 'member.id as member_id', 'member_detail.*', 'users.id as user_id', 'old_campus.name as campus_name')
+      ->leftjoin('member', 'users.id', '=', 'member.user_id')
+      ->leftjoin('member_detail', 'member_detail.member_no', '=', 'member.member_no')
+      ->leftjoin('old_campus', 'member.campus_id', '=', 'old_campus.id')
+      ->first();
+    $totalData = BenefitApplications::where('member_no', $member->member_no)->count();
+    $limit = $request->input('length');
+    $start = $request->input('start');
+    $order = $columns[$request->input('order.0.column')];
+    $dir = $request->input('order.0.dir');
+    $searchValue =  $request->input('search.value');
+
+    $mode_of_seperation_select = $request->input('mode_of_seperation_select');
+    $status_select = $request->input('status_select');
+    $membership_date_from_select = $request->input('membership_date_from_select');
+    $membership_date_to_select = $request->input('membership_date_to_select');
+
+
+    //filter codes
+    if (!empty($searchValue)) {
+
+      $benefit_applications = DB::table('benefit_applications')
+        ->select(
+          'benefit_applications.*',
+        )
+        ->where('benefit_applications.member_no', '=', $member->member_no)
+        ->where('benefit_applications.status', 'like', "%{$searchValue}%")
+        ->orWhere('benefit_applications.mode_of_seperation', 'like', "%{$searchValue}%")
+        ->orderBy('benefit_applications.date_created', 'desc')
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    } else {
+      $benefit_applications = DB::table('benefit_applications')
+        ->select(
+          'benefit_applications.*',
+        )
+        ->where('benefit_applications.member_no', '=', $member->member_no)
+        ->orderBy('benefit_applications.date_created', 'desc')
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+
+    if (!empty($membership_date_to_select) && !empty($membership_date_from_select)) {
+      $benefit_applications = DB::table('benefit_applications')
+        ->select(
+          'benefit_applications.*',
+        )
+        ->where('benefit_applications.member_no', '=', $member->member_no)
+        ->where('benefit_applications.member_no', '=', $member->member_no)
+        ->where('benefit_applications.date_created', '>=',  $membership_date_from_select)
+        ->where('benefit_applications.date_created', '<=',  $membership_date_to_select)
+        ->orderBy('benefit_applications.date_created', 'desc')
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+
+
+    if (!empty($status_select)) {
+      $benefit_applications = DB::table('benefit_applications')
+        ->select(
+          'benefit_applications.*',
+        )
+        ->where('benefit_applications.member_no', '=', $member->member_no)
+        ->where('benefit_applications.member_no', '=', $member->member_no)
+        ->where('benefit_applications.status', '=',  $status_select)
+        ->orderBy('benefit_applications.date_created', 'desc')
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+    if (!empty($mode_of_seperation_select)) {
+      $benefit_applications = DB::table('benefit_applications')
+        ->select(
+          'benefit_applications.*',
+        )
+        ->where('benefit_applications.member_no', '=', $member->member_no)
+        ->where('benefit_applications.member_no', '=', $member->member_no)
+        ->where('benefit_applications.mode_of_seperation', '=',  $mode_of_seperation_select)
+        ->orderBy('benefit_applications.date_created', 'desc')
+        ->offset($start)
+        ->limit($limit)
+        ->get();
+    }
+
+
+    $totalFiltered = BenefitApplications::when($searchValue, function ($query) use ($searchValue) {
+      $query->where('id', 'like', "%{$searchValue}%")->orWhere('status', 'like', "%{$searchValue}%");
+    })->count();
+
+    $data = [];
+    foreach ($benefit_applications as $row) {
+      $nestedData['date_created'] = $row->date_created;
+      $nestedData['member_no'] = $row->member_no;
+      $nestedData['remarks'] = $row->remarks;
+      $nestedData['effectivity'] = $row->effectivity_date;
+      $nestedData['status'] = $row->status;
+      $nestedData['mode_of_seperation'] = $row->mode_of_seperation;
+      $nestedData['mode_of_seperation_others'] = $row->mode_of_seperation_others;
+
+      $nestedData['action'] = '
+      <a href="/admin/loan/loan-application/details/' . $row->id .  '"
+          target="_blank" data-md-tooltip="View Loan Details"
+          class="view_member md-tooltip--top view-member" 
+          style="cursor: pointer">
+          <i class="mp-icon md-tooltip--right icon-book-open mp-text-c-primary mp-text-fs-large"></i>
+      </a>';
+
+      $data[] = $nestedData;
+    }
+    $json_data = [
+      "draw" => intval($request->input('draw')),
+      "recordsTotal" => intval($totalData),
+      "recordsFiltered" => intval($totalFiltered),
+      "data" => $data,
+    ];
+
+    return response()->json($json_data);
+  }
+
   //update member details
   public function updateMemberDetails(Request $request)
   {
@@ -2400,6 +2622,76 @@ class MemberController extends Controller
         ->leftjoin('campus', 'member.campus_id', '=', 'campus.id')
 
         ->first();
+
+
+
+      $contributions = array();
+
+      $membercontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 2)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['membercontribution'] = $membercontribution->total;
+
+
+      $upcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 1)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['upcontribution'] = $upcontribution->total;
+
+
+      $eupcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 3)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['eupcontribution'] = $eupcontribution->total;
+
+
+      $emcontribution = ContributionTransaction::select(DB::raw('SUM(contribution_transaction.amount) as total'))
+        ->leftjoin('contribution', 'contribution_transaction.contribution_id', 'contribution.id')
+        ->where('contribution_transaction.account_id', '=', 4)
+        ->where('contribution.member_id', '=', $member->member_id)
+        ->first();
+      $contributions['emcontribution'] = $emcontribution->total;
+
+
+      $totalcontributions = array_sum($contributions);
+
+
+
+
+
+      $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+        ->where('loan.member_id', '=', $member->member_id)
+        ->groupBy('loan_type.name')
+        ->get();
+
+      $totalloanbalance = 0;
+      foreach ($outstandingloans as $loan) {
+        $totalloanbalance += $loan->balance;
+      }
+
+
+      $outstandingloans = LoanTransaction::select('loan_type.name as type', DB::raw('SUM(amount) as balance'))
+        ->leftjoin('loan', 'loan_transaction.loan_id', 'loan.id')
+        ->leftjoin('loan_type', 'loan.type_id', 'loan_type.id')
+        ->where('loan.member_id', '=', $member->member_id)
+        ->groupBy('loan_type.name')
+        ->get();
+
+      $totalloanbalance = 0;
+      foreach ($outstandingloans as $loan) {
+        $totalloanbalance += $loan->balance;
+      }
+      $years = OLDMembers::select(DB::raw("YEAR(original_appointment_date) - YEAR(CURDATE()) - (DATE_FORMAT(original_appointment_date,'%m%d') < DATE_FORMAT(CURDATE(),'%m%d')) as years"))
+        ->where('user_Id', '=', Auth::user()->id)->get();
+
       $campuses = DB::table('campus')->get();
       $department = DB::table('department')->where('campus_id', $member->campus_id)->get();
       $membership = DB::table('mem_app')->where('employee_no', $member->employee_no)->get();
@@ -2410,10 +2702,13 @@ class MemberController extends Controller
         'department' => $department,
         'membership' => $membership,
         'beneficiaries' => $beneficiaries,
-        // 'user_privileges' => DB::table('users')
-        // ->join('user_prev', 'users.id', '=', 'user_prev.users_id')
-        // ->where('users.id', $user->id)
-        // ->get()
+
+        'contributions' => $contributions,
+        'totalcontributions' => $totalcontributions,
+        'outstandingloans' => $outstandingloans,
+        'totalloanbalance' => $totalloanbalance,
+        'years' => abs($years[0]->years),
+
       );
       return view('member.benefits.claim')->with($data);
     } else {

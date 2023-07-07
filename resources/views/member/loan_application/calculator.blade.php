@@ -2349,7 +2349,7 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="valid_id" data-set="validate-apply-loan" name="valid_id" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
+                                                                <input type="file" id="valid_id" data-set="validate-apply-loan" name="valid_id" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg, application/pdf">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2365,10 +2365,10 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="payslip_1" data-set="validate-apply-loan" name="payslip_1" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
+                                                                <input type="file" id="payslip_1" data-set="validate-apply-loan" name="payslip_1" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg, application/pdf">
                                                             </div>
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="payslip_2" data-set="validate-apply-loan" name="payslip_2" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
+                                                                <input type="file" id="payslip_2" data-set="validate-apply-loan" name="payslip_2" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg, application/pdf">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -2382,7 +2382,7 @@
                                                     <div class="col-lg-12">
                                                         <div class="row mp-mt2">
                                                             <div class="col-lg-6">
-                                                                <input type="file" id="passbook" data-set="validate-apply-loan" name="passbook" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg">
+                                                                <input type="file" id="passbook" data-set="validate-apply-loan" name="passbook" class="w-80 radius-1 border-1 date-input outline mp-pb1 mp-pt1" accept=" image/png, image/gif, image/jpeg, image/jpg, application/pdf">
                                                             </div>
                                                         </div>
                                                     </div>

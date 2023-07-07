@@ -1573,6 +1573,10 @@
 </script>
 <div class="filler"></div>
 <div class="col-12 padding-content mp-text mp-text-c-accent dashboard mh-content">
+    <div class="back-div mp-mt2" style="margin-bottom:20px;">
+        <a href="/member/benefits/" style="margin-left:-10px;"><span class="  back-button-default">
+                < Back </span></a>
+    </div>
     <div class="d-flex flex-wrap">
         <div class="col-lg-4 mp-pr0 mp-mt2" style="width: 100%;">
             <div class="mp-card mp-p4 h-auto mp-mb2">
@@ -1581,7 +1585,7 @@
                         <div class="col-lg-5">
 
                             <div class="profile-img">
-                                <img style="width: 100px; height: 100px;" src="https://scontent.fmnl4-2.fna.fbcdn.net/v/t39.30808-6/333703943_879550633256042_5999893648977274305_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=09cbfe&_nc_eui2=AeEvDY9Oe-XZrHs-GDUojjSZgyayc5ndww6DJrJzmd3DDv3w58dPBBxi9TKP4f0RndihehBgfuodgKGh3phfTpJz&_nc_ohc=Rala1y4s5KoAX_E8fm3&_nc_ht=scontent.fmnl4-2.fna&oh=00_AfA9i2OQ2TviYLFewh1RsM4Hl-kAgHga0VpODOgsRh1NtQ&oe=640B1A9D" alt="">
+                                <img style="width: 100px; height: 100px;" src="{!! asset('assets/images/user-default.png') !!}" alt="">
                             </div>
                         </div>
                         <div class="col-lg-7">
@@ -1615,7 +1619,9 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="info-text">
-                                <label class="link_style magenta-clr mp-text-right">Generate SOA</label>
+
+                                <label class="link_style magenta-clr mp-mt2 mp-text-right"> <a style="color:var(--c-primary);" href="{{ url('/member/generate/soa/' . $member->user_id) }}" target="_blank">Generate SOA </a></label>
+
                             </div>
                             <div class="info-text">
                                 <h1>{{ $member->last_name }}, {{ $member->first_name }} {{ $member->middle_name}}</h1>
@@ -1629,20 +1635,7 @@
                                 <label style="float:right;"><i class="fa fa-phone" aria-hidden="true"></i> {{ $member->contact_no }}</label>
                             </div>
 
-                            <div class="profile-buttons  col-12 mp-mt2">
-                                <button class="up-button btn-md button-animate-right mp-text-center" id="view_profile" type="button">
-                                    <span>View Profile</span>
-                                </button>
-                                <button class="up-button-green btn-md button-animate-right mp-text-center" id="view_beneficiaries" type="button">
-                                    <span>View Beneficiaries</span>
-                                </button>
-                                <!-- <button class="up-button btn-md button-animate-right mp-text-center" id="modify_contributions" type="button">
-                                                        <span>Modify Contributions</span>
-                                                    </button> -->
-                                <button class="up-button-grey btn-md button-animate-right mp-text-center" id="view_password">
-                                    <span>Change Password</span>
-                                </button>
-                            </div>
+
                             <br>
 
 
@@ -1660,7 +1653,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['membercontribution'], 2) }}</label>
 
                         </div>
                     </div>
@@ -1675,7 +1668,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['emcontribution'], 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1689,7 +1682,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['upcontribution'], 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1703,7 +1696,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title black-clr">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title black-clr">PHP {{ number_format($contributions['eupcontribution'], 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1717,7 +1710,7 @@
                     </div>
                     <div class="row justify-content-end">
                         <div class="col-12 mp-text-right">
-                            <label for="" class="font-bold dashboard-total-title">Php 100,100.00</label>
+                            <label for="" class="font-bold dashboard-total-title">PHP {{ number_format($totalcontributions, 2) }}</label>
                         </div>
                     </div>
                 </div>
@@ -1742,11 +1735,11 @@
                             </div>
                             <div class="row mp-mt2">
                                 <div class="col-12 d-flex flex-column">
-                                    <label class="radio-inline"><input type="radio" name="bank" id="bank" value="DBP"> Retirement</label>
-                                    <label class="radio-inline"><input type="radio" name="bank" id="bank" value="DBP"> Resignation</label>
-                                    <label class="radio-inline"><input type="radio" name="bank" id="bank" value="DBP"> Death</label>
-                                    <label class="radio-inline"><input type="radio" name="bank" id="bank" value="DBP"> Others</label>
-                                    <input class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px" type="text" required placeholder="Please specify" />
+                                    <label class="radio-inline"><input type="radio" name="mode_of_seperation" id="mode_of_seperation" checked value="RETIREMENT"> Retirement</label>
+                                    <label class="radio-inline"><input type="radio" name="mode_of_seperation" id="mode_of_seperation" value="RESIGNATION"> Resignation</label>
+                                    <label class="radio-inline"><input type="radio" name="mode_of_seperation" id="mode_of_seperation" value="DEATH"> Death</label>
+                                    <label class="radio-inline"><input type="radio" name="mode_of_seperation" id="mode_of_seperation" value="OTHERS"> Others</label>
+                                    <input class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px" type="text" id="mode_of_seperation_others" name="mode_of_seperation_others" required placeholder="Please specify" />
                                 </div>
                             </div>
                         </div>
@@ -1755,110 +1748,114 @@
                                 Effectivity Date
                             </div>
                             <div class="row mp-mt2">
-                                <input type="date" id="from" class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px">
+                                <input type="datetime-local" id="effectivity_date" data-set="validate-claim-benefit" name="effectivity_date" class="radius-1 border-1 date-input outline" style="height: 30px; width: 250px">
                             </div>
                             <div class="row mp-mt2">
                                 Add Remarks
                             </div>
                             <div class="row mp-mt2">
-                                <textarea type="date" class="radius-1 border-1 date-input outline" style="height: 80px; width: 100%; resize: none;"></textarea>
+                                <textarea id="remarks" name="remarks" data-set="validate-claim-benefit" class="radius-1 border-1 date-input outline" style="height: 80px; width: 100%; resize: none;"></textarea>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-12 mp-card magenta-bg mp-ph2 font-md">
-                            Upload Requirements
+                    <meta name="csrf-token" content="{{ csrf_token() }}">
+                    <form id="benefit_application_files" method="" action="" enctype="multipart/form-data" style="height: calc(100% - 100px) !important;">
+                        @csrf
+                        <div class="row">
+                            <div class="col-12 mp-card magenta-bg mp-ph2 font-md">
+                                Upload Requirements
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mp-mt2">
-                        <div class="col-12">
-                            1. Service Record from HRDO, indicating the effective date of separation.
+                        <div class="row mp-mt2">
+                            <div class="col-12">
+                                1. Service Record from HRDO, indicating the effective date of separation.
+                            </div>
+                            <div class="col-12 mp-mt1 mp-pv4">
+                                <input class="mp-input-group__input" type="file" data-set="validate-claim-benefit" name="hrdo_file" id="hrdo_file" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
+                            </div>
                         </div>
-                        <div class="col-12 mp-mt1 mp-pv4">
-                            <input class="mp-input-group__input" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
-                        </div>
-                    </div>
-                    <div class="row mp-mt2">
-                        <div class="col-12">
-                            2. Photocopy of 2 Valid Identification Cards (ID).
-                        </div>
-                        <div class="col-12 mp-mt1 mp-pv4">
-                            <div class="row">
-                                <div class="col-6">
-                                    <input class="mp-input-group__input" type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
-                                </div>
-                                <div class="col-6">
-                                    <input class="mp-input-group__input" type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
+                        <div class="row mp-mt2">
+                            <div class="col-12">
+                                2. Photocopy of 2 Valid Identification Cards (ID).
+                            </div>
+                            <div class="col-12 mp-mt1 mp-pv4">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input class="mp-input-group__input" data-set="validate-claim-benefit" type="file" id="valid_id_1" name="valid_id_1" accept="image/png, image/gif, image/jpeg, image/jpg" />
+                                    </div>
+                                    <div class="col-6">
+                                        <input class="mp-input-group__input" data-set="validate-claim-benefit" type="file" id="valid_id_2" name="valid_id_2" accept=" image/png, image/gif, image/jpeg, image/jpg" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mp-mt2">
-                        <div class="col-12">
-                            3. Complete U.P Clearance Sheet.
+                        <div class="row mp-mt2">
+                            <div class="col-12">
+                                3. Complete U.P Clearance Sheet.
+                            </div>
+                            <div class="col-12 mp-mt1 mp-pv4">
+                                <input class="mp-input-group__input" data-set="validate-claim-benefit" type="file" name="up_clearance" id="up_clearance" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
+                            </div>
                         </div>
-                        <div class="col-12 mp-mt1 mp-pv4">
-                            <input class="mp-input-group__input" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
+                        <div class="row mp-mt2">
+                            <div class="col-12">
+                                4. Authorization letter or Special Power of Attorney (if necessary).
+                            </div>
+                            <div class="col-12 mp-mt1 mp-pv4">
+                                <input class="mp-input-group__input" type="file" name="atty_file" id="atty_file" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mp-mt2">
-                        <div class="col-12">
-                            4. Authorization letter or Special Power of Attorney (if necessary).
-                        </div>
-                        <div class="col-12 mp-mt1 mp-pv4">
-                            <input class="mp-input-group__input" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
-                        </div>
-                    </div>
-                    <div class="row mp-mt2">
-                        <div class="col-12">
-                            5. Photocopy of 2 Valid Identification Cards (ID) of the authorized person.
-                        </div>
-                        <div class="col-12 mp-mt1 mp-pv4">
-                            <div class="row">
-                                <div class="col-6">
-                                    <input class="mp-input-group__input" type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
-                                </div>
-                                <div class="col-6">
-                                    <input class="mp-input-group__input" type="file" accept="image/png, image/gif, image/jpeg, image/jpg" />
+                        <div class="row mp-mt2">
+                            <div class="col-12">
+                                5. Photocopy of 2 Valid Identification Cards (ID) of the authorized person.
+                            </div>
+                            <div class="col-12 mp-mt1 mp-pv4">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <input class="mp-input-group__input" data-set="validate-claim-benefit" id="authorize_valid_id_1" name="authorize_valid_id_1" type="file" accept="image/png, image/gif, image/jpeg, image/jpg, application/pdf" />
+                                    </div>
+                                    <div class="col-6">
+                                        <input class="mp-input-group__input" data-set="validate-claim-benefit" id="authorize_valid_id_2" name="authorize_valid_id_2" type="file" accept="image/png, image/gif, image/jpeg, application/pdf" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row mp-mt2">
-                        <div class="col-12">
-                            6. Written request if check be made payable other than the payee/claimant.
+                        <div class="row mp-mt2">
+                            <div class="col-12">
+                                6. Written request if check be made payable other than the payee/claimant.
+                            </div>
+                            <div class="col-12 mp-mt1 mp-pv4">
+                                <input class="mp-input-group__input" type="file" data-set="validate-claim-benefit" name="written_request" id="written_request" accept="image/png, image/gif, image/jpeg, image/jpg,application/pdf" data-set="step-4-validation" />
+                            </div>
                         </div>
-                        <div class="col-12 mp-mt1 mp-pv4">
-                            <input class="mp-input-group__input" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
-                        </div>
-                    </div>
 
-                    <div class="row mp-mt4">
-                        <div class="col-12">
-                            <div class="mp-input-group  mp-input-group__label">
-                                <input type="checkbox" id="terms" name="terms" />
-                                I agree that maintenance and dormancy fees of P500 / month will be deducted from my benefit proceeds if the complete requirements are not submitted within six (6) months from the effective date of separation.
+                        <div class="row mp-mt4">
+                            <div class="col-12">
+                                <div class="mp-input-group  mp-input-group__label">
+                                    <input type="checkbox" id="terms" name="terms" />
+                                    I agree that maintenance and dormancy fees of P500 / month will be deducted from my benefit proceeds if the complete requirements are not submitted within six (6) months from the effective date of separation.
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row mp-mt4">
-                        <div class="col-12">
-                            Upload my E-Signature
-                        </div>
-                        <div class="col-12 mp-mt2 mp-pv4">
-                            <input class="mp-input-group__input" type="file" name="e_sign_axa" id="e_sign_axa" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
-                        </div>
-                    </div>
-
-                    <div class="row mp-mh2 mp-mt4">
-                        <div class="col-12 mp-mt4">
-                            <div class="row justify-content-end gap-10 wrap">
-                                <button style="border-radius: 8px; width: 275px" class="font-bold font-md color-white gray-bg mp-ph1 mp-pv4 ">SAVE AS DRAFT APPLICATION</button>
-                                <button id="submit" style="border-radius: 8px; width: 275px" class="font-bold font-md color-white magenta-bg mp-ph1 mp-pv4 ">SUBMIT BENEFITS CLAIM</button>
+                        <div class="row mp-mt4">
+                            <div class="col-12">
+                                Upload my E-Signature
+                            </div>
+                            <div class="col-12 mp-mt2 mp-pv4">
+                                <input class="mp-input-group__input" type="file" data-set="validate-claim-benefit" name="e-signature" id="e-signature" accept="image/png, image/gif, image/jpeg, image/jpg" data-set="step-4-validation" />
                             </div>
                         </div>
-                    </div>
+
+                        <div class="row mp-mh2 mp-mt4">
+                            <div class="col-12 mp-mt4">
+                                <div class="row justify-content-end gap-10 wrap">
+                                    <button style="border-radius: 8px; width: 275px" type="button" id="save_as_draft" class="font-bold font-md color-white gray-bg mp-ph1 mp-pv4 ">SAVE AS DRAFT APPLICATION</button>
+                                    <button style="border-radius: 8px; width: 275px" type="button" id="submit_benefits" class="font-bold font-md color-white magenta-bg mp-ph1 mp-pv4 ">SUBMIT BENEFITS CLAIM</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -1920,12 +1917,10 @@
             margin-top: 100px;
             max-width: 95vw;
             width: 95vw;
-            padding:  40px 10px;
+            padding: 40px 10px;
         }
 
     }
-
-
 </style>
 
 <div id="computationModal" class="d-none opacity-0">
@@ -2339,15 +2334,116 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
-        $('#submit').on('click', function() {
-            Swal.fire({
-                text: 'Your Benefits Application was successfully sent, wait for the admin to process your application and approval.',
-                icon: 'success',
-                confirmButtonColor: '#3085d6',
-                confirmButtonText: 'Ok',
-            });
+    $('#submit_benefits').on('click', function(e) {
+
+        var mode_of_seperation = $('input[name="mode_of_seperation"]:checked').val();
+        var mode_of_seperation_others = $('#mode_of_seperation_others').val();
+        var effectivity_date = $('#effectivity_date').val();
+        var remarks = $('#remarks').val();
+
+        var terms = $('input[name="terms"]:checked').val();
+
+        var file_form = $('#benefit_application_files')[0];
+        var formData = new FormData(file_form);
+
+        var hrdo_file = $('#hrdo_file')[0].files;
+        var valid_id_1 = $('#valid_id_1')[0].files;
+        var valid_id_2 = $('#valid_id_2')[0].files;
+        var up_clearance = $('#up_clearance')[0].files;
+        var atty_file = $('#atty_file')[0].files;
+        var authorize_valid_id_1 = $('#authorize_valid_id_1')[0].files;
+        var authorize_valid_id_2 = $('#authorize_valid_id_2')[0].files;
+        var e_signature = $('#e-signature')[0].files;
+        var written_request = $('#written_request')[0].files;
+
+        let hasError = false
+
+        const elements = $(document).find(`[data-set=validate-claim-benefit]`)
+
+        elements.map(function() {
+
+            if ($(this).attr('err-name')) {
+                return
+            }
+
+            let status = true
+            status = validateField({
+                element: $(this),
+                target: 'validate-claim-benefit'
+            })
+
+            if (!hasError && status) {
+                hasError = true
+            }
         })
+
+        if (hasError) return
+        formData.append('member_no', '<?php echo $member->member_no; ?>');
+        formData.append('mode_of_seperation', mode_of_seperation);
+        formData.append('mode_of_seperation_others', mode_of_seperation_others);
+        formData.append('effectivity_date', effectivity_date);
+        formData.append('remarks', remarks);
+        formData.append('hrdo_file', hrdo_file[0]);
+        formData.append('valid_id_1', valid_id_1[0]);
+        formData.append('valid_id_2', valid_id_2[0]);
+        formData.append('up_clearance', up_clearance[0]);
+        formData.append('atty_file', atty_file[0]);
+        formData.append('authorize_valid_id_1', authorize_valid_id_1[0]);
+        formData.append('authorize_valid_id_2', authorize_valid_id_2[0]);
+        formData.append('written_request', written_request[0]);
+        formData.append('e_signature', e_signature[0]);
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            url: "{{ route('add_benefit_application') }}",
+            method: "POST",
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: 'json',
+            data: formData,
+            success: function(data) {
+                if (data.success == true) {
+                    Swal.fire({
+                        text: 'Benefit Claim Application Sent',
+                        icon: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    }).then(okay => {
+                        if (okay) {
+                            window.location.assign('/member/benefits');
+                        }
+                    });
+                } else {
+                    Swal.fire({
+                        text: 'Benefit Claim Details Incomplete!',
+                        icon: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok',
+                    });
+                }
+
+
+            },
+            error: function(data) {
+
+            }
+        });
+
+    });
+    $(document).ready(function() {
+        // $('#submit').on('click', function() {
+        //     Swal.fire({
+        //         text: 'Your Benefits Application was successfully sent, wait for the admin to process your application and approval.',
+        //         icon: 'success',
+        //         confirmButtonColor: '#3085d6',
+        //         confirmButtonText: 'Ok',
+        //     });
+        // })
         $('#closeComputation').on('click', function(e) {
             $("#computationModal").addClass("opacity-0")
             setTimeout(function() {
@@ -2360,6 +2456,9 @@
                 $("#computationModal").removeClass("opacity-0")
             }, 100)
         })
+
+
+
     })
 </script>
 @endsection

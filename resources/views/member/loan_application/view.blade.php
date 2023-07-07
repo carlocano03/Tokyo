@@ -1863,7 +1863,7 @@
                             </div>
                         </div> -->
                         <div class="col-lg-12 d-flex mp-mh4 flex-column">
-                            <a href="#" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
+                            <a href="/admin/monthly_payment/{{$loan_details->loan_app_id}}" target="_blank" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
                                 <span class="save_up">VIEW AMORTIZATION SCHEDULE</span>
                             </a>
                             <a id="generate-loan-form" class="up-button btn-md mp-text-center w-100 mp-mt2 mp-mvauto magenta-bg">
