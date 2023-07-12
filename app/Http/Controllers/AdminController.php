@@ -4008,7 +4008,7 @@ class AdminController extends Controller
 
     $dates = [];
     foreach ($betweenDate as $date) {
-      $dates[] = $date->addMonth();
+      $dates[] = $date;
     }
 
 

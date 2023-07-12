@@ -252,6 +252,11 @@ Route::post('/member/add-new-pel-loans-draft', [MemberController::class, 'addNew
 Route::get('/member/loan-applications-list', [MemberController::class, 'getMemberLoans'])->name('getMemberLoans');
 Route::post('/member/loanCount', [MemberController::class, 'countMemberLoan'])->name('count_member_loan'); //loan member count
 
+
+//member back end benefits
+Route::post('/member/add-benefit-application', [MemberController::class, 'addBenefitApplication'])->name('add_benefit_application');
+Route::get('/member/benefit/benefit-applications', [MemberController::class, 'getBenefitApplications'])->name('getBenefitApplications');
+
 //save as draft pel
 Route::get('/member/loan/pel/save-as-draft/{id}', [MemberController::class, 'pel_application_draft'])->name('member.application'); //member save as draft edit page
 Route::post('/member/edit-new-pel-loans-draft', [MemberController::class, 'editNewPelLoanDraft'])->name('edit_loan_application_draft'); // edit as draft from draft page
